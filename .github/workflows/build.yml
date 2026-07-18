@@ -143,11 +143,17 @@ jobs:
               gh release create "$tag" --title "$tag" --prerelease --generate-notes $files
             fi
           else
-            # Rolling pre-release tracking the tip of main. Deleted and
-            # recreated so the snapshot tag moves to the new commit and stale
-            # assets never linger.
-            gh release delete snapshot --yes --cleanup-tag || true
-            gh release create snapshot --target "$GITHUB_SHA" --prerelease \
+            # Rolling pre-release tracking the tip of main. Immutable
+            # releases reserve a published tag name forever, so each snapshot
+            # gets a fresh per-commit tag and older snapshots (including any
+            # orphaned drafts) are pruned after the new one is live.
+            tag="snapshot-${GITHUB_SHA:0:8}"
+            gh release create "$tag" --target "$GITHUB_SHA" --prerelease \
               --title "snapshot (${GITHUB_SHA:0:8})" \
               --notes "Rolling build of the main branch at ${GITHUB_SHA}." $files
+            gh release list --limit 100 --json tagName --jq '.[].tagName' \
+              | grep '^snapshot' | grep -vx "$tag" \
+              | while read -r old; do
+                  gh release delete "$old" --yes --cleanup-tag || true
+                done
           fi

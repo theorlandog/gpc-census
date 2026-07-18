@@ -68,10 +68,13 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 - Releases: a clean `vX.Y.Z` tag publishes a GitHub release marked latest; a
   suffixed tag (e.g. `vX.Y.Zrc1`) starts as a pre-release for manual
   promotion, and its suffix must be valid PEP 440 (rc1, b1, a1, .post1, .dev1)
-  or the version stamp fails the build. A push to main refreshes a rolling
-  `snapshot` pre-release (never name it after a branch: a release tag named
-  `main` makes the refname ambiguous with the branch). The release job
-  rebuilds the
+  or the version stamp fails the build. A push to main publishes a rolling
+  `snapshot-<short-sha>` pre-release and prunes older snapshots. The tag must
+  be unique per snapshot: immutable releases reserve a published tag name
+  forever, even after deletion, so a fixed rolling tag can never be reused
+  (the bare name `snapshot` is already burned this way). Never name a release
+  tag after a branch either: a release tag named `main` makes the refname
+  ambiguous with the branch. The release job rebuilds the
   wheel, sdist, and RPMs fresh in a Fedora container (it does not reuse CI
   artifacts) and publishes with the `gh` CLI. It also attaches
   `data-output.zip`: the paper PDF plus `results/data/`, with a signed
