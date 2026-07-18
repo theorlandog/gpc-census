@@ -227,12 +227,38 @@ def attain_diag(n: int, d: int, spectrum, dets_sub, outer=2000, tries=8, tol=1e-
     return p, best[1]
 
 
-def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40):
+def admissible_support(n: int, d: int, spectrum):
+    """Selection rule at a vertex: pinning to each active facet (a, lam) = b
+    forces support on determinants with sum(a_i, i in t) = b. Intersect over
+    all active constraints. Exact rational arithmetic, no solver."""
+    from fractions import Fraction as F
+
+    from .constraints import constraints
+
+    spectrum = [F(x) for x in spectrum]
+    sys_ = constraints(n, d)
+    dets = list(combinations(range(d), n))
+    keep = list(range(len(dets)))
+    for iq in sys_["inequalities"] + sys_["equalities"]:
+        a, b = iq["coeffs"], iq["rhs"]
+        if sum(F(c) * x for c, x in zip(a, spectrum)) != b:
+            continue  # facet not active at this vertex
+        keep = [j for j in keep if sum(a[i] for i in dets[j]) == b]
+    return [dets[j] for j in keep]
+
+
+def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40,
+                             support_filter=None):
     """Integer solutions of the degree system with exactly `cardinality` support
     determinants, one-hop pairs allowed (phases will handle cancellation)."""
     import math
 
-    from ortools.sat.python import cp_model
+    try:
+        from ortools.sat.python import cp_model
+    except ImportError as e:
+        raise RuntimeError(
+            "weights-first solve requires the cpsat extra: uv sync --extra cpsat"
+        ) from e
 
     from fractions import Fraction as F
     spectrum = [F(x) for x in spectrum]
@@ -244,6 +270,11 @@ def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: 
     rows = [[j for j, t in enumerate(dets) if m in t] for m in range(d)]
     m = cp_model.CpModel()
     k = [m.NewIntVar(0, den, f"k{t}") for t in range(len(dets))]
+    if support_filter is not None:
+        allowed = set(support_filter)
+        for j, t in enumerate(dets):
+            if t not in allowed:
+                m.Add(k[j] == 0)
     y = [m.NewBoolVar(f"y{t}") for t in range(len(dets))]
     for t in range(len(dets)):
         m.Add(k[t] <= den * y[t])
@@ -317,8 +348,10 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
 
     built = _built if _built is not None else _build(d, n)
     dets_all = built[0]
-    for card in range(2, max_card + 1):
-        dets, den, sols = enumerate_weight_vectors(n, d, spectrum, card)
+    adm = admissible_support(n, d, spectrum)
+    for card in range(2, min(max_card, len(adm)) + 1):
+        dets, den, sols = enumerate_weight_vectors(n, d, spectrum, card,
+                                                   support_filter=adm)
         for w in sols:
             psi, res = phase_solve(n, d, spectrum, dets, den, w, _built=built)
             if res < 1e-15:
