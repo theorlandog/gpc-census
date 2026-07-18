@@ -60,6 +60,12 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   `<base>+main.<short-sha>`; other refs give `<base>+git.<short-sha>`.
 - `make rpm` regenerates `build/gpc-census.spec` with the pyproject version;
   the committed spec's `Version:` line is not authoritative.
+- Releases: a tag push publishes a GitHub release marked latest; a push to
+  main refreshes a rolling `snapshot` pre-release (never name it after a
+  branch: a release tag named `main` makes the refname ambiguous with the
+  branch). The release job rebuilds the
+  wheel, sdist, and RPMs fresh in a Fedora container (it does not reuse CI
+  artifacts) and publishes with the `gh` CLI.
 
 ## Gotchas
 

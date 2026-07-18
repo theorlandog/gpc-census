@@ -64,7 +64,10 @@ CI stamps each build before packaging (`uv version <computed>`):
 | other refs / PRs | `<base>+git.<short-sha>`  |
 
 The GitHub Actions workflow (`.github/workflows/build.yml`) runs tests, then
-builds and uploads the wheel/sdist and the RPMs as artifacts.
+builds and uploads the wheel/sdist and the RPMs as artifacts. Tag pushes
+(`vX.Y.Z`) also publish a GitHub release marked latest with those packages
+attached; each push to main refreshes a rolling `snapshot` pre-release holding
+the packages built from the branch tip.
 
 ## Building packages
 

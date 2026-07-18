@@ -82,3 +82,44 @@ jobs:
           path: |
             build/rpm/RPMS/**/*.rpm
             build/rpm/SRPMS/*.rpm
+
+  release:
+    if: >-
+      github.event_name == 'push' &&
+      (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
+    needs: [test, version]
+    runs-on: ubuntu-latest
+    container: fedora:43
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ github.ref }}
+    steps:
+      - name: Install build and release dependencies
+        run: >-
+          dnf install -y git make rpm-build python3-devel
+          pyproject-rpm-macros python3-hatchling python3-pytest uv gh
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Stamp version
+        run: uv version "${{ needs.version.outputs.version }}"
+      - name: Build packages
+        run: make build rpm
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          files="$(find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \); \
+                   find build/rpm/RPMS build/rpm/SRPMS -type f -name '*.rpm')"
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            tag="${GITHUB_REF#refs/tags/}"
+            gh release create "$tag" --title "$tag" --latest --generate-notes $files
+          else
+            # Rolling pre-release tracking the tip of main. Deleted and
+            # recreated so the snapshot tag moves to the new commit and stale
+            # assets never linger.
+            gh release delete snapshot --yes --cleanup-tag || true
+            gh release create snapshot --target "$GITHUB_SHA" --prerelease \
+              --title "snapshot (${GITHUB_SHA:0:8})" \
+              --notes "Rolling build of the main branch at ${GITHUB_SHA}." $files
+          fi
