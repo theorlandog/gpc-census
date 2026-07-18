@@ -41,7 +41,7 @@ lives in `results/report/main.md`; computed data results live under
   in pandoc-crossref syntax; `make report` renders `main.pdf` with pandoc in
   the pinned `pandoc/extra` container image, which bundles pandoc, a matched
   pandoc-crossref, and a TeX engine (podman by default; `CONTAINER=docker`
-  to override, which the CI release job uses via the mounted Docker socket).
+  to override).
   Section, equation, and table refs are live crossref citations
   (`[-@sec:x]`); theorem-family numbering is literal text since crossref has
   no theorem type, so renumber by hand when inserting theorems. Citations
@@ -86,9 +86,11 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   forever, even after deletion, so a fixed rolling tag can never be reused
   (the bare name `snapshot` is already burned this way). Never name a release
   tag after a branch either: a release tag named `main` makes the refname
-  ambiguous with the branch. The release job rebuilds the
-  wheel, sdist, and RPMs fresh in a Fedora container (it does not reuse CI
-  artifacts) and publishes with the `gh` CLI. It also attaches
+  ambiguous with the branch. The release job runs directly on the runner
+  (no job container) and rebuilds everything fresh (it does not reuse CI
+  artifacts): wheel and sdist with uv, RPMs inside a Fedora container and
+  the paper inside the pandoc container, both driven by the runner's
+  podman, then publishes with the `gh` CLI. It also attaches
   `data-output.zip`: the paper PDF plus `results/data/`, with a signed
   provenance attestation (`actions/attest-build-provenance`) and SHA256SUMS
   of those files inside the zip.

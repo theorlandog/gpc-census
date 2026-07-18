@@ -88,13 +88,11 @@ jobs:
       github.event_name == 'push' &&
       (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
     needs: [test, version]
+    # No job container: the runner's podman drives both containers (the
+    # Fedora RPM build and the pinned pandoc image for the report), so
+    # nothing nests and nothing needs privileges. gh, zip, and podman
+    # are preinstalled on the runner.
     runs-on: ubuntu-latest
-    container:
-      image: fedora:43
-      # Privileged so podman can nest the pinned pandoc container for
-      # make report; fuse-overlayfs backs its storage on the job
-      # container's overlayfs.
-      options: --privileged
     permissions:
       contents: write
       id-token: write
@@ -102,16 +100,21 @@ jobs:
     concurrency:
       group: release-${{ github.ref }}
     steps:
-      - name: Install build and release dependencies
-        run: >-
-          dnf install -y git make zip rpm-build python3-devel
-          pyproject-rpm-macros python3-hatchling python3-pytest uv gh
-          podman fuse-overlayfs
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Install uv
+        run: |
+          curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Stamp version
         run: uv version "${{ needs.version.outputs.version }}"
-      - name: Build packages
-        run: make build rpm
+      - name: Build wheel and sdist
+        run: uv build
+      - name: Build RPMs in a Fedora container
+        run: |
+          podman run --rm -v "$PWD":/work -w /work docker.io/library/fedora:43 bash -c '
+            dnf install -y git make rpm-build python3-devel \
+              pyproject-rpm-macros python3-hatchling python3-pytest uv \
+            && make rpm'
       - name: Build report and assemble data output
         run: |
           make report
