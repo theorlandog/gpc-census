@@ -20,6 +20,8 @@ extremal states for fermionic natural-occupation-number (moment)
 polytopes. It can be used as a Python library (import gpc_census) or
 through the gpc-census command-line tool.}
 
+Recommends: python3dist(ortools)
+
 %description %_description
 
 %prep

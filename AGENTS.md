@@ -25,9 +25,10 @@ lives in `report/main.tex`.
 - Usable both as a library (`import gpc_census`) and as a CLI (`gpc-census`).
 - Ships as a pip package (wheel + sdist via `uv build`) and as an RPM
   (`gpc-census.spec`, Fedora `pyproject-rpm-macros`).
-- Runtime dependencies: numpy, scipy, pulp, ortools (pinned). ortools has no
-  Fedora python3dist package; the RPM build must exclude or vendor it until
-  that changes. Add further dependencies consciously.
+- Runtime dependencies: numpy, scipy, pulp, ortools (pinned). classify.py
+  detects ortools at import and falls back to CBC when absent or unpinned,
+  so the RPM can omit the ortools dependency; verdicts carry a solver field
+  and gpc_census.certify upgrades them to exact certificates.
 
 ## Layout
 

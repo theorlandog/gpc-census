@@ -80,3 +80,67 @@ def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _
         if spec_res < best[1]:
             best = (psi, spec_res)
     return best[0], best[1], dets
+
+
+def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=None):
+    """Greedily remove determinants while the spectrum stays attainable."""
+    import numpy as np
+
+    built = _built if _built is not None else _build(d, n)
+    dim = len(psi)
+    mask = (np.abs(psi) > 1e-10).astype(float)
+    improved = True
+    while improved:
+        improved = False
+        for i in sorted(np.where(mask > 0)[0], key=lambda i: abs(psi[i])):
+            m2 = mask.copy()
+            m2[i] = 0
+            if m2.sum() < 1:
+                continue
+            p2, res, _ = attain(n, d, spectrum, mask=m2, outer=120, tries=3, _built=built)
+            if res < res_tol:
+                psi, mask = p2, m2
+                improved = True
+                break
+    return psi, mask
+
+
+def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=None):
+    """Greedily remove determinants while the spectrum stays attainable."""
+    import numpy as np
+
+    built = _built if _built is not None else _build(d, n)
+    mask = (np.abs(psi) > 1e-10).astype(float)
+    improved = True
+    while improved:
+        improved = False
+        order = sorted(np.where(mask > 0)[0], key=lambda i: abs(psi[i]))
+        for i in order:
+            m2 = mask.copy()
+            m2[i] = 0
+            if m2.sum() < 1:
+                continue
+            cand, res, _ = attain(n, d, spectrum, mask=m2, outer=120, tries=3, _built=built)
+            if res < res_tol:
+                psi, mask = cand, m2
+                improved = True
+                break
+    sup = [i for i in range(len(psi)) if mask[i] and abs(psi[i]) > 1e-9]
+    j0 = max(sup, key=lambda i: abs(psi[i]))
+    psi = psi * np.exp(-1j * np.angle(psi[j0]))
+    return psi, sup
+
+
+def solve_vertex(n: int, d: int, spectrum, _built=None):
+    """Attain a vertex spectrum and return the minimal-support state record."""
+    import numpy as np
+
+    built = _built if _built is not None else _build(d, n)
+    dets = built[0]
+    psi, res, _ = attain(n, d, spectrum, _built=built)
+    if res > 1e-12:
+        return {"status": "FAIL", "residual": res}
+    psi, sup = minimize_support(n, d, spectrum, psi, dets, _built=built)
+    return {"status": "OK", "residual": res, "support_size": len(sup),
+            "support": [[list(dets[i]), float(abs(psi[i])), float(np.angle(psi[i]))]
+                        for i in sup]}

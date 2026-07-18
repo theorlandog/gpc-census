@@ -63,3 +63,42 @@ def test_attain_borland_dennis():
     spec = [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)]
     _, res, _ = attain(3, 6, spec)
     assert res < 1e-12
+
+
+def test_classify_and_certify_design():
+    from gpc_census.certify import verify_design
+    from gpc_census.classify import classify
+    spec = [Fraction(1), Fraction(1), Fraction(1), Fraction(0), Fraction(0), Fraction(0)]
+    r = classify(3, 6, spec)
+    assert r["verdict"] == "DESIGN-INT" and r["solver"] in ("cpsat", "cbc")
+    assert verify_design(3, 6, spec, r["witness"])
+
+
+def test_classify_cbc_fallback(monkeypatch):
+    import gpc_census.classify as cl
+    monkeypatch.setattr(cl, "_HAVE_ORTOOLS", False)
+    spec = [Fraction(1), Fraction(1), Fraction(1), Fraction(0), Fraction(0), Fraction(0)]
+    r = cl.classify(3, 6, spec)
+    assert r["verdict"] == "DESIGN-INT" and r["solver"] == "cbc"
+
+
+def test_farkas_certifies_vB():
+    from gpc_census.certify import farkas_interference
+    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    y = farkas_interference(4, 9, spec)
+    assert y is not None
+
+
+def test_classify_backend_reported():
+    from gpc_census.classify import classify_full
+    rec = classify_full(3, 6, [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)])
+    assert rec["verdict"] == "DESIGN-INT"
+    assert rec["backend"] in ("cpsat", "cbc")
+    assert "witness" in rec
+
+
+def test_classify_cbc_arm(monkeypatch):
+    import gpc_census.classify as cl
+    monkeypatch.setattr(cl, "BACKEND", "cbc")
+    rec = cl.classify_full(3, 6, [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)])
+    assert rec["verdict"] == "DESIGN-INT" and rec["backend"] == "cbc"

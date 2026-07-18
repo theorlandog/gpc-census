@@ -70,7 +70,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         from gpc_census.classify import classify
         from gpc_census.polytope import vertices as pverts
         for i, v in enumerate(pverts(args.fermions, args.orbitals)):
-            print(i, [str(x) for x in v], classify(args.fermions, args.orbitals, v))
+            r = classify(args.fermions, args.orbitals, v)
+            print(i, [str(x) for x in v], r["verdict"], r["solver"])
     if args.command == "solve":
         from fractions import Fraction
         from gpc_census.states import attain
