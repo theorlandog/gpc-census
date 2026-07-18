@@ -56,10 +56,10 @@ def farkas_interference(n: int, d: int, spectrum, max_den: int = 10**6):
                   bounds=[(-1, 1)] * rows, method="highs")
     if not res.success or -res.fun <= 1e-9:
         return None
-    y = [Fraction(v).limit_denominator(max_den) for v in res.x]
-    if sum(yy * bb for yy, bb in zip(y, b)) <= 0:
-        return None
-    for j in range(len(dets)):
-        if sum(y[i] * a[i][j] for i in range(rows)) > 0:
-            return None
-    return y
+    for grid in (6, 12, 24, 60, 120, 720, 10**3, 10**4, 10**5, max_den):
+        y = [Fraction(round(v * grid), grid) for v in res.x]
+        if sum(yy * bb for yy, bb in zip(y, b)) <= 0:
+            continue
+        if all(sum(y[i] * a[i][j] for i in range(rows)) <= 0 for j in range(len(dets))):
+            return y
+    return None
