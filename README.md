@@ -1,41 +1,78 @@
 # gpc-census
 
-gpc-census implements an algorithmic pipeline that constructs exact extremal states for fermionic natural-occupation-number (moment) polytopes.
+Which one-body occupation spectra can an N-fermion pure state have? The
+answer is a convex polytope in the ordered simplex, cut out by the
+generalized Pauli constraints (GPCs): finitely many linear inequalities
+beyond 0 <= lambda <= 1 that Klyachko's solution of the pure-state
+N-representability problem attaches to each pair (N, d) of particle and
+orbital numbers. Altunbulak and Klyachko computed these systems through
+rank d = 10 (Commun. Math. Phys. 282, 287 (2008)) and left two vertices
+of the wedge^4 H_9 polytope resolved only numerically. This project
+closed both, then classified every vertex of every known system, and
+packages the machinery so the results are reproducible with one command.
 
-It is usable both as a Python library (`import gpc_census`) and as a command-line tool (`gpc-census`).
+## The classification
 
-## Installation
+Each polytope vertex is an extremal spectrum, and the census asks how it
+can be attained. Exactly one of three things is true:
 
-From a source checkout:
+- DESIGN-INT: a superposition of Slater determinants with nonnegative
+  integer weights at the spectrum's natural denominator attains it, with
+  a one-hop-free support (no two determinants share N-1 orbitals), so no
+  phase cancellation is needed. A combinatorial design, hence the name.
+- DESIGN-REAL: real nonnegative weights suffice but integers do not.
+- INTERFERENCE: no nonnegative weighting exists at all; complex relative
+  phases are forced. The canonical example is the vertex
+  v_B = (20:14:14:14:14:4:4:4:4)/23 of wedge^4 H_9, whose extremal state
+  requires cos(gamma) = 3/(4*sqrt(14)).
+
+Verdicts are solver certificates (integer stage plus real stage, each a
+feasibility proof), and the repository ships the complete census: every
+vertex of every determinate system, ranks 6 through 10, with duality
+transporting the classification to the complement systems. Highlights:
+interference is absent in the N=4 series at rank 8 and first appears at
+rank 9; interference fractions stabilize across ranks within each
+particle-number series; padding and frozen-core lifts generate most of
+each rank's interference vertices from lower-rank originals.
+
+## The pipeline
+
+Four stages, mirroring the mathematics:
+
+1. Constraints: the rank 6-10 systems as validated lookup data
+   (`gpc_census.constraints`), including the repaired (3,9) table (one
+   inequality of the published version was lost at a page break; see
+   `results/data/PROVENANCE.md`). Constraint generation for d >= 11 via
+   Klyachko's extremal-edge algorithm is scoped in
+   `docs/stage1_klyachko_spec.md` and is the project's research frontier.
+2. Vertices: exact enumeration by lrslib in rational arithmetic
+   (`gpc_census.polytope`).
+3. Classification: the two-stage certificate solver
+   (`gpc_census.classify`), CP-SAT reference backend with CBC fallback,
+   every verdict labeled with its provenance.
+4. States: attain a vertex spectrum with a complex pure state by
+   alternating spectral projection, sparsify to minimal support, and
+   exactify the numerics into certified closed forms (moduli snap to the
+   natural denominator, phases to the p*sqrt(q)/r lattice, verification
+   by exact characteristic polynomial identity in sympy)
+   (`gpc_census.states`, `gpc_census.exactify`).
+
+Every output passes structural validation (`gpc_census.validate`):
+embedding coherence between ranks, frozen-core lifts, particle-hole
+self-duality, physicality. These invariants caught every real error made
+while building the census; nothing ships without them. The research
+narrative and continuity notes live in `docs/RESEARCH.md`; the paper in
+`results/report/`; the certified dataset with provenance and checksums
+in `results/data/`.
+
+## Quick start
 
 ```sh
-pip install .
-```
-
-Or with [uv](https://docs.astral.sh/uv/):
-
-```sh
-uv pip install .
-```
-
-## Usage
-
-### As a library
-
-```python
-from gpc_census import slater_vertices
-
-# Vertices of the Pauli polytope Delta(d=6, n=3): occupation-number
-# vectors of Slater determinants for 3 fermions in 6 orbitals.
-for vec in slater_vertices(6, 3):
-    print(vec)
-```
-
-### As a CLI
-
-```sh
-gpc-census --version
-gpc-census vertices -d 6 -n 3
+uv sync --extra cpsat                       # reference solver backend
+gpc-census constraints -n 3 -d 9            # the 52-inequality system
+gpc-census polytope   -n 3 -d 9             # its 58 vertices, exactly
+gpc-census classify   -n 4 -d 9             # verdicts incl. v_A and v_B
+uv run python scripts/solve_all.py --preflight   # v_B end to end, gate for campaigns
 ```
 
 ## Development
