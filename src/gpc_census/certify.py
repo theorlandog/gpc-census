@@ -2,9 +2,11 @@
 for the Farkas search; every verification is exact rational arithmetic.
 
 Design verdicts are certified by their witness (exact sum checks).
-Interference verdicts are certified by a rational Farkas vector y with
-y . b > 0 and y^T A <= 0 componentwise, proving no nonnegative real
-weighting exists (which also rules out integer weightings).
+Interference is a disjunctive system (one-hop support exclusions), so a
+single Farkas vector cannot certify it globally; farkas_interference
+certifies infeasibility of the nonnegative weighting problem restricted
+to a FIXED support set. A global interference certificate enumerates
+maximal one-hop-free supports and certifies each; future work.
 """
 from __future__ import annotations
 
@@ -39,7 +41,7 @@ def verify_design(n: int, d: int, spectrum, witness) -> bool:
     return True
 
 
-def farkas_interference(n: int, d: int, spectrum, max_den: int = 10**6):
+def farkas_interference(n: int, d: int, spectrum, support=None, max_den: int = 10**6):
     """Search (float) and verify (exact) a Farkas certificate of infeasibility.
 
     Returns the rational certificate vector on success, None on failure.
@@ -48,6 +50,10 @@ def farkas_interference(n: int, d: int, spectrum, max_den: int = 10**6):
     from scipy.optimize import linprog
 
     dets, a, b = _system(n, d, spectrum)
+    if support is not None:
+        keep = [j for j, t in enumerate(dets) if t in set(map(tuple, support))]
+        a = [[row[j] for j in keep] for row in a]
+        dets = [dets[j] for j in keep]
     rows = len(a)
     af = np.array([[float(x) for x in row] for row in a])
     bf = np.array([float(x) for x in b])

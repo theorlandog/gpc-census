@@ -1,12 +1,13 @@
 """Design/interference classification of vertex spectra.
 
-Backend selection happens once at import: the pinned reference solver
-(ortools CP-SAT 9.15.6755) is used when importable at exactly that
-version; otherwise the integer stage falls back to CBC through pulp.
-Every verdict reports which backend produced it. Feasible verdicts are
-verified against an exact rational witness check, so they are
-certificates regardless of backend; infeasible verdicts from the CBC
-path carry floating-point tolerances (see certify module docstring).
+Faithful port of scripts/census_engine.py: a weighted design is a
+nonnegative weighting of determinants with prescribed mode sums whose
+support is one-hop free (no two determinants sharing N-1 modes), the
+condition that lets a phase-free superposition cancel all off-diagonal
+one-body terms. Backend: pinned CP-SAT when importable at 9.15.6755,
+otherwise CBC for both stages. Verdicts report their backend; feasible
+verdicts are verified against an exact witness check including the
+one-hop condition.
 """
 from __future__ import annotations
 
@@ -22,14 +23,9 @@ def _detect() -> str:
     if importlib.util.find_spec("ortools") is None:
         return "cbc"
     try:
-        import ortools
+        from importlib.metadata import version
 
-        ver = getattr(ortools, "__version__", None)
-        if ver is None:
-            from importlib.metadata import version
-
-            ver = version("ortools")
-        return "cpsat" if ver == _PINNED else "cbc"
+        return "cpsat" if version("ortools") == _PINNED else "cbc"
     except Exception:
         return "cbc"
 
@@ -37,10 +33,83 @@ def _detect() -> str:
 BACKEND = _detect()
 
 
-def _verify_witness(weights: list[int], nv: list[int], den: int, rows) -> bool:
-    if sum(weights) != den or any(w < 0 for w in weights):
+def _geometry(n: int, d: int):
+    dets = list(combinations(range(d), n))
+    rows = [[j for j, t in enumerate(dets) if m in t] for m in range(d)]
+    conflicts = []
+    for a in range(len(dets)):
+        ta = set(dets[a])
+        for b in range(a + 1, len(dets)):
+            if len(ta & set(dets[b])) == n - 1:
+                conflicts.append((a, b))
+    return dets, rows, conflicts
+
+
+def _verify_witness(weights, nv, den, rows, conflicts) -> bool:
+    if any(w < 0 for w in weights) or sum(weights) != den:
         return False
-    return all(sum(weights[j] for j in rows[m]) == nv[m] for m in range(len(nv)))
+    if any(sum(weights[j] for j in rows[m]) != nv[m] for m in range(len(nv))):
+        return False
+    return all(not (weights[a] and weights[b]) for a, b in conflicts)
+
+
+def _int_stage(nv, den, dets, rows, conflicts):
+    if BACKEND == "cpsat":
+        from ortools.sat.python import cp_model
+
+        m = cp_model.CpModel()
+        k = [m.NewIntVar(0, den, f"k{t}") for t in range(len(dets))]
+        y = [m.NewBoolVar(f"y{t}") for t in range(len(dets))]
+        for t in range(len(dets)):
+            m.Add(k[t] <= den * y[t])
+            m.Add(k[t] >= y[t])
+        for mo, nm in enumerate(nv):
+            m.Add(sum(k[j] for j in rows[mo]) == nm)
+        for a, b in conflicts:
+            m.AddBoolOr([y[a].Not(), y[b].Not()])
+        s = cp_model.CpSolver()
+        s.parameters.max_time_in_seconds = 120
+        s.parameters.num_workers = 2
+        st = s.Solve(m)
+        if st in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            return "FEASIBLE", [int(s.Value(x)) for x in k]
+        return ("INFEASIBLE", None) if st == cp_model.INFEASIBLE else ("UNKNOWN", None)
+    import pulp
+
+    prob = pulp.LpProblem("int", pulp.LpMinimize)
+    k = [pulp.LpVariable(f"k{t}", 0, den, cat="Integer") for t in range(len(dets))]
+    y = [pulp.LpVariable(f"y{t}", cat="Binary") for t in range(len(dets))]
+    prob += 0
+    for t in range(len(dets)):
+        prob += k[t] <= den * y[t]
+        prob += k[t] >= y[t]
+    for mo, nm in enumerate(nv):
+        prob += pulp.lpSum(k[j] for j in rows[mo]) == nm
+    for a, b in conflicts:
+        prob += y[a] + y[b] <= 1
+    prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=300))
+    status = pulp.LpStatus[prob.status]
+    if status == "Optimal":
+        return "FEASIBLE", [int(round(v.value())) for v in k]
+    return ("INFEASIBLE", None) if status == "Infeasible" else (status, None)
+
+
+def _real_stage(nv, dets, rows, conflicts, n):
+    import pulp
+
+    cap = float(sum(nv)) / n
+    prob = pulp.LpProblem("real", pulp.LpMinimize)
+    k = [pulp.LpVariable(f"k{t}", 0, cap) for t in range(len(dets))]
+    y = [pulp.LpVariable(f"y{t}", cat="Binary") for t in range(len(dets))]
+    prob += 0
+    for t in range(len(dets)):
+        prob += k[t] <= cap * y[t]
+    for mo, nm in enumerate(nv):
+        prob += pulp.lpSum(k[j] for j in rows[mo]) == nm
+    for a, b in conflicts:
+        prob += y[a] + y[b] <= 1
+    prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=300))
+    return pulp.LpStatus[prob.status]
 
 
 def classify(n: int, d: int, spectrum) -> str:
@@ -48,67 +117,21 @@ def classify(n: int, d: int, spectrum) -> str:
 
 
 def classify_full(n: int, d: int, spectrum) -> dict:
-    import pulp
-
     spectrum = [Fraction(x) for x in spectrum]
     den = 1
     for x in spectrum:
         den = den * x.denominator // math.gcd(den, x.denominator)
     nv = [int(x * den) for x in spectrum]
-    dets = list(combinations(range(d), n))
-    rows = [[j for j, t in enumerate(dets) if m in t] for m in range(d)]
+    dets, rows, conflicts = _geometry(n, d)
 
-    int_feasible = None
-    witness = None
-    if BACKEND == "cpsat":
-        from ortools.sat.python import cp_model
-
-        m = cp_model.CpModel()
-        k = [m.NewIntVar(0, den, f"k{j}") for j in range(len(dets))]
-        m.Add(sum(k) == den)
-        for mo in range(d):
-            m.Add(sum(k[j] for j in rows[mo]) == nv[mo])
-        solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 120
-        st = solver.Solve(m)
-        if st in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-            int_feasible = True
-            witness = [int(solver.Value(x)) for x in k]
-        elif st == cp_model.INFEASIBLE:
-            int_feasible = False
-    if int_feasible is None:
-        prob = pulp.LpProblem("int", pulp.LpMinimize)
-        w = [pulp.LpVariable(f"k{j}", lowBound=0, upBound=den, cat="Integer")
-             for j in range(len(dets))]
-        prob += 0
-        prob += pulp.lpSum(w) == den
-        for mo in range(d):
-            prob += pulp.lpSum(w[j] for j in rows[mo]) == nv[mo]
-        prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=300))
-        status = pulp.LpStatus[prob.status]
-        if status == "Optimal":
-            int_feasible = True
-            witness = [int(round(v.value())) for v in w]
-        elif status == "Infeasible":
-            int_feasible = False
-        else:
-            return {"verdict": f"UNRESOLVED(int,{status})", "backend": BACKEND}
-
-    if int_feasible:
-        if witness is None or not _verify_witness(witness, nv, den, rows):
+    di, witness = _int_stage(nv, den, dets, rows, conflicts)
+    if di == "FEASIBLE":
+        if not _verify_witness(witness, nv, den, rows, conflicts):
             return {"verdict": "UNRESOLVED(witness-failed)", "backend": BACKEND}
         return {"verdict": "DESIGN-INT", "backend": BACKEND, "witness": witness}
-
-    prob = pulp.LpProblem("real", pulp.LpMinimize)
-    w = [pulp.LpVariable(f"w{j}", lowBound=0) for j in range(len(dets))]
-    prob += 0
-    prob += pulp.lpSum(w) == 1
-    for mo in range(d):
-        prob += pulp.lpSum(w[j] for j in rows[mo]) == float(spectrum[mo])
-    prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=300))
-    status = pulp.LpStatus[prob.status]
-    if status == "Optimal":
+    dr = _real_stage(nv, dets, rows, conflicts, n)
+    if dr == "Optimal":
         return {"verdict": "DESIGN-REAL", "backend": BACKEND}
-    if status == "Infeasible":
+    if dr == "Infeasible" and di == "INFEASIBLE":
         return {"verdict": "INTERFERENCE", "backend": BACKEND}
-    return {"verdict": f"UNRESOLVED(real,{status})", "backend": BACKEND}
+    return {"verdict": f"UNRESOLVED({di},{dr})", "backend": BACKEND}

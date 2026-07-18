@@ -63,11 +63,12 @@ def test_attain_borland_dennis():
     spec = [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)]
     _, res, _ = attain(3, 6, spec)
     assert res < 1e-12
-def test_farkas_certifies_vB():
-    from gpc_census.certify import farkas_interference
-    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
-    y = farkas_interference(4, 9, spec)
-    assert y is not None
+def test_classify_reproduces_vA_vB():
+    from gpc_census.classify import classify_full
+    va = classify_full(4, 9, [Fraction(x, 21) for x in (16, 16, 16, 6, 6, 6, 6, 6, 6)])
+    vb = classify_full(4, 9, [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)])
+    assert va["verdict"] == "DESIGN-INT"
+    assert vb["verdict"] == "INTERFERENCE"
 
 
 def test_classify_backend_reported():
