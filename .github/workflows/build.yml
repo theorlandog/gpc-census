@@ -49,49 +49,9 @@ jobs:
           esac
           echo "version=${version}" | tee -a "$GITHUB_OUTPUT"
 
-  pypi-package:
-    needs: [test, version]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Install uv
-        run: |
-          curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | sh
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - name: Stamp version
-        run: uv version "${{ needs.version.outputs.version }}"
-      - name: Build wheel and sdist
-        run: uv build
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: python-dist
-          path: dist/
-
-  rpm-package:
-    needs: [test, version]
-    runs-on: ubuntu-latest
-    container: fedora:43
-    steps:
-      - name: Install build dependencies
-        run: >-
-          dnf install -y git make rpm-build python3-devel
-          pyproject-rpm-macros python3-hatchling python3-pytest uv
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Stamp version
-        run: uv version "${{ needs.version.outputs.version }}"
-      - name: Build RPMs
-        run: make rpm
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: rpms
-          path: |
-            build/rpm/RPMS/**/*.rpm
-            build/rpm/SRPMS/*.rpm
-
   release:
     if: >-
-      github.event_name == 'push' &&
-      (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
+      github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: [test, version]
     # No job container: the runner's podman drives both containers (the
     # Fedora RPM build and the pinned pandoc image for the report), so
@@ -144,27 +104,11 @@ jobs:
           files="$(find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \); \
                    find build/rpm/RPMS build/rpm/SRPMS -type f -name '*.rpm'; \
                    echo data-output.zip)"
-          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
-            tag="${GITHUB_REF#refs/tags/}"
-            if [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              gh release create "$tag" --title "$tag" --latest --generate-notes $files
-            else
-              # Suffixed tag (e.g. v1.0.2rc1): starts as a pre-release and is
-              # promoted to a release manually.
-              gh release create "$tag" --title "$tag" --prerelease --generate-notes $files
-            fi
+          tag="${GITHUB_REF#refs/tags/}"
+          if [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            gh release create "$tag" --title "$tag" --latest --generate-notes $files
           else
-            # Rolling pre-release tracking the tip of main. Immutable
-            # releases reserve a published tag name forever, so each snapshot
-            # gets a fresh per-commit tag and older snapshots (including any
-            # orphaned drafts) are pruned after the new one is live.
-            tag="snapshot-${GITHUB_SHA:0:8}"
-            gh release create "$tag" --target "$GITHUB_SHA" --prerelease \
-              --title "snapshot (${GITHUB_SHA:0:8})" \
-              --notes "Rolling build of the main branch at ${GITHUB_SHA}." $files
-            gh release list --limit 100 --json tagName --jq '.[].tagName' \
-              | grep '^snapshot' | grep -vx "$tag" \
-              | while read -r old; do
-                  gh release delete "$old" --yes --cleanup-tag || true
-                done
+            # Suffixed tag (e.g. v1.0.2rc1): starts as a pre-release and is
+            # promoted to a release manually.
+            gh release create "$tag" --title "$tag" --prerelease --generate-notes $files
           fi

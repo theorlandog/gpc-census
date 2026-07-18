@@ -77,16 +77,16 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   `<base>+main.<short-sha>`; other refs give `<base>+git.<short-sha>`.
 - `make rpm` regenerates `build/gpc-census.spec` with the pyproject version;
   the committed spec's `Version:` line is not authoritative.
-- Releases: a clean `vX.Y.Z` tag publishes a GitHub release marked latest; a
-  suffixed tag (e.g. `vX.Y.Zrc1`) starts as a pre-release for manual
-  promotion, and its suffix must be valid PEP 440 (rc1, b1, a1, .post1, .dev1)
-  or the version stamp fails the build. A push to main publishes a rolling
-  `snapshot-<short-sha>` pre-release and prunes older snapshots. The tag must
-  be unique per snapshot: immutable releases reserve a published tag name
-  forever, even after deletion, so a fixed rolling tag can never be reused
-  (the bare name `snapshot` is already burned this way). Never name a release
-  tag after a branch either: a release tag named `main` makes the refname
-  ambiguous with the branch. The release job runs directly on the runner
+- Releases are published only from `vX.Y.Z*` tags; pushes to main run tests
+  but publish nothing. A clean `vX.Y.Z` tag publishes a GitHub release
+  marked latest; a suffixed tag (e.g. `vX.Y.Zrc1`) starts as a pre-release
+  for manual promotion, and its suffix must be valid PEP 440 (rc1, b1, a1,
+  .post1, .dev1) or the version stamp fails the build. Tag names are single
+  use: immutable releases reserve a published tag name forever, even after
+  deletion (the name `snapshot` is already burned this way), so never
+  delete-and-recreate a release tag. Never name a release tag after a
+  branch either: a release tag named `main` makes the refname ambiguous
+  with the branch. The release job runs directly on the runner
   (no job container) and rebuilds everything fresh (it does not reuse CI
   artifacts): wheel and sdist with uv, RPMs inside a Fedora container and
   the paper inside the pandoc container, both driven by the runner's
