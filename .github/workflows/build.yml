@@ -92,25 +92,47 @@ jobs:
     container: fedora:43
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     concurrency:
       group: release-${{ github.ref }}
     steps:
       - name: Install build and release dependencies
         run: >-
-          dnf install -y git make rpm-build python3-devel
+          dnf install -y git make zip rpm-build python3-devel
           pyproject-rpm-macros python3-hatchling python3-pytest uv gh
+          latexmk texlive-cm-super 'tex(geometry.sty)' 'tex(mathtools.sty)'
+          'tex(booktabs.sty)' 'tex(microtype.sty)' 'tex(hyperref.sty)'
+          'tex(amssymb.sty)' 'tex(amsthm.sty)'
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Stamp version
         run: uv version "${{ needs.version.outputs.version }}"
       - name: Build packages
         run: make build rpm
+      - name: Build report and assemble data output
+        run: |
+          make report
+          mkdir -p data-output
+          cp results/report/main.pdf data-output/
+          cp -r results/data data-output/data
+      - name: Attest data output files
+        id: attest
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: data-output/**
+      - name: Zip data output with its attestation
+        run: |
+          cp "${{ steps.attest.outputs.bundle-path }}" data-output/attestation.sigstore.json
+          (cd data-output && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+          zip -r data-output.zip data-output
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           files="$(find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \); \
-                   find build/rpm/RPMS build/rpm/SRPMS -type f -name '*.rpm')"
+                   find build/rpm/RPMS build/rpm/SRPMS -type f -name '*.rpm'; \
+                   echo data-output.zip)"
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             tag="${GITHUB_REF#refs/tags/}"
             if [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
