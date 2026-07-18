@@ -1,0 +1,11 @@
+   0 [5, 5, 3, 3, 3, 1, 1]                    DESIGN-INT
+   1 [3, 3, 3, 3, 1, 1, 1]                    DESIGN-INT
+   2 [3, 3, 2, 2, 1, 1, 0]                    DESIGN-INT
+   3 [3, 1, 1, 1, 1, 1, 1]                    DESIGN-INT
+   4 [2, 2, 2, 2, 2, 1, 1]                    DESIGN-INT
+   5 [2, 2, 1, 1, 1, 1, 1]                    DESIGN-INT
+   6 [2, 1, 1, 1, 1, 0, 0]                    DESIGN-INT
+   7 [3, 3, 3, 3, 3, 3, 3]                    DESIGN-INT
+   8 [1, 1, 1, 1, 1, 1, 0]                    DESIGN-INT
+   9 [1, 1, 1, 0, 0, 0, 0]                    DESIGN-INT
+CENSUS: {'DESIGN-INT': 10}
