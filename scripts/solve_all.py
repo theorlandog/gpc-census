@@ -1,10 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.10"
-# dependencies = ["numpy", "scipy", "sympy"]
-# ///
-# Run inside the project env so gpc_census resolves from source:
-#     uv run --project . scripts/solve_all.py --preflight
 """Tier A + Tier B campaign over every interference vertex in the census.
 
 Run from the repository root:

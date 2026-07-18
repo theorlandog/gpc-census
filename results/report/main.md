@@ -38,7 +38,9 @@ $$v_A = \tfrac{1}{21}(16,16,16,6,6,6,6,6,6), \qquad v_B = \tfrac{1}{23}(20,14,14
 We write $|i_1 i_2 i_3 i_4\rangle$, $i_1<i_2<i_3<i_4$, for Slater determinants in $\wedge^{4}\mathcal{H}_{9}$ over an orthonormal basis of $\mathcal{H}_9$, and call two determinants _one-hop connected_ if they share exactly three orbitals.
 
 ::: {#thm:psiA .theorem}
-**Theorem 1**. \*The normalized state\* $$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle - \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$ \* {#eq:psiA} has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.\*
+**Theorem 1**. *The normalized state*
+$$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle - \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$ {#eq:psiA}
+*has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.*
 :::
 
 ::: proof
@@ -46,7 +48,8 @@ _Proof._ No two of the seven determinants in [@eq:psiA] are one-hop connected (e
 :::
 
 ::: remark
-**Remark 1**. \* Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form \* $$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle - \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle - 2|2348\rangle + |2357\rangle)$$.
+**Remark 1**. *Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form*
+$$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle - \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle - 2|2348\rangle + |2357\rangle)$$
 :::
 
 ::: remark
@@ -75,14 +78,22 @@ Design-attainability is thus a feasibility question for a system of integer inci
 _Proof (computer-assisted)._ A state with one-hop-independent support has exactly diagonal 1-RDM, so its squared amplitudes would give nonnegative real weights solving the incidence system on an independent support. The corresponding feasibility problem---$126$ continuous weight variables, $126$ binary support variables, $9$ incidence equalities, and $1260$ pairwise independence inequalities---is infeasible. The certificate was produced by the HiGHS solver, independently reproduced with the COIN-OR CBC solver, and is archived with the code; the same certificates were obtained for the integer-restricted problem at denominators $23$, $46$, and $69$. $\square$
 :::
 
+::: remark
+**Remark 4** (Relation to the superselection rule of Ref. [@Liebert2025]). *Liebert *et al._ prove that saturation of a (spin-adapted) GPC restricts which configurations may contribute to the wave function. A vertex saturates many GPCs at once; the dichotomy sharpens the picture at this extreme point: for design vertices the intersected selection rules admit a diagonal, effectively classical weighted configuration mixture, while for interference vertices they force coherent superpositions of connected configurations. The historically difficult vertices of Ref. [@AK2008] are exactly the interference ones, which we propose as the structural reason they evaded sparse representation-theoretic constructions._
+:::
+
+# An explicit extremal state for $v_B$ {#sec:theoremB}
+
 ::: {#thm:psiB .theorem}
-**Theorem 3** (Explicit extremal state for $v_B$). \*Let $\gamma = \arccos\bigl(3/(4\sqrt{14})\bigr)$. The normalized state $$
+**Theorem 3** (Explicit extremal state for $v_B$). *Let $\gamma = \arccos\bigl(3/(4\sqrt{14})\bigr)$. The normalized state*
+$$
 \psi_B = \tfrac{1}{\sqrt{23}}\Bigl(
 2|1236\rangle + \sqrt2\,|1248\rangle + \sqrt7\,e^{i\gamma}|1249\rangle
-
 - \sqrt3\,|1345\rangle + \sqrt2\,|1378\rangle + \sqrt2\,|1379\rangle
-- |2358\rangle + \sqrt2\,|3489\rangle\Bigr)$$ {#eq:psiB} has natural occupation numbers exactly $v_B = \tfrac1{23}(20,14,14,14,14,4,4,4,4)$. Hence both numerically-verified vertices of Ref. [@AK2008] are attained exactly, completing the verification of the $\wedge^4\mathcal{H}_9$ moment polytope.\*
-  :::
+- |2358\rangle + \sqrt2\,|3489\rangle\Bigr)
+$$ {#eq:psiB}
+*has natural occupation numbers exactly $v_B = \tfrac1{23}(20,14,14,14,14,4,4,4,4)$. Hence both numerically-verified vertices of Ref. [@AK2008] are attained exactly, completing the verification of the $\wedge^4\mathcal{H}_9$ moment polytope.*
+:::
 
 ::: proof
 _Proof._ The eight determinants pairwise share at most two orbitals except the two pairs $\{1248,1249\}$ and $\{1378,1379\}$, each differing by the exchange $8 \leftrightarrow 9$; hence every off-diagonal 1-RDM element vanishes identically except $\rho_{89}$. The diagonal entries are integer incidence sums of the squared weights $(4,2,7,3,2,2,1,2)$: orbitals $1$--$7$ receive $20,14,14,14,4,4,4$ respectively, and orbitals $8,9$ receive $7$ and $11$ (all divided by $23$). The exchange pairs contribute $\rho_{89} = \bigl(\sqrt{14}\,e^{i\gamma} + 2\bigr)/23
@@ -96,10 +107,6 @@ _Proof._ The eight determinants pairwise share at most two orbitals except the t
 
 ::: {#rem:orbit .remark}
 **Remark 3** (Non-realifiability under orbital rotations (numerical)). _Coefficient complexity is basis-dependent, so a sharper question is whether any orbital rotation makes the state of Theorem [3](#thm:psiB) real. A state $\psi$ admits a real form iff there exists $V \in U(9)$ with $\Lambda^4 V\,\bar\psi = e^{i\alpha}\psi$; such $V$ must map the eigenspaces of $\bar\rho$ to those of $\rho$, reducing the search to $U(1)\times U(4)\times U(4)$ aligned with the natural eigenspaces. Diagonal (phase-only) rotations are excluded analytically: the two exchange pairs force contradictory phase differences $2\gamma$ and $0$ on the same mode pair. Numerically, maximizing $|\langle\psi,\Lambda^4 V\bar\psi\rangle|$ over the full reduced group converges from independent random starts to the same value $\approx 0.933184 < 1$, indicating that $\psi_B$ admits no real form under any orbital rotation, with the deficit an apparent invariant of its orbit. This is a statement about the constructed state, not the vertex: whether $v_B$ admits some other, real extremal state remains open (exhaustive enumeration excludes integer-weight real single-exchange-block states; the continuous-weight real case on larger supports, and deeper block structures, remain open)._
-:::
-
-::: remark
-**Remark 4** (Relation to the superselection rule of Ref. [@Liebert2025]). *Liebert *et al._ prove that saturation of a (spin-adapted) GPC restricts which configurations may contribute to the wave function. A vertex saturates many GPCs at once; the dichotomy sharpens the picture at this extreme point: for design vertices the intersected selection rules admit a diagonal, effectively classical weighted configuration mixture, while for interference vertices they force coherent superpositions of connected configurations. The historically difficult vertices of Ref. [@AK2008] are exactly the interference ones, which we propose as the structural reason they evaded sparse representation-theoretic constructions._
 :::
 
 # GPC polytopes as positive geometries {#sec:posgeo}
