@@ -18,7 +18,6 @@ dependencies = [
     "pulp",
     "scipy",
     "sympy",
-    "ortools==9.15.6755",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -27,6 +26,9 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
+
+[project.optional-dependencies]
+cpsat = ["ortools==9.15.6755"]
 
 [project.urls]
 Homepage = "https://github.com/theorlandog/gpc-census"
