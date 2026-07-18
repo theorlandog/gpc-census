@@ -27,6 +27,9 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 
+[project.optional-dependencies]
+cpsat = ["ortools==9.15.6755"]
+
 [project.urls]
 Homepage = "https://github.com/theorlandog/gpc-census"
 
