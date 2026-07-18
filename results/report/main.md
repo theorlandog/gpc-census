@@ -46,7 +46,7 @@ _Proof._ No two of the seven determinants in [@eq:psiA] are one-hop connected (e
 :::
 
 ::: remark
-**Remark 1**. \* Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form $$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle - \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle - 2|2348\rangle + |2357\rangle)$$. \*
+**Remark 1**. \* Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form \* $$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle - \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle - 2|2348\rangle + |2357\rangle)$$.
 :::
 
 ::: remark
