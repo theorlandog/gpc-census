@@ -55,5 +55,6 @@ include = [
 packages = ["src/gpc_census"]
 
 [tool.ruff]
+extend-exclude = ["scripts"]
 line-length = 100
 src = ["src", "tests"]

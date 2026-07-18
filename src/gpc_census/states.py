@@ -87,29 +87,6 @@ def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=
     import numpy as np
 
     built = _built if _built is not None else _build(d, n)
-    dim = len(psi)
-    mask = (np.abs(psi) > 1e-10).astype(float)
-    improved = True
-    while improved:
-        improved = False
-        for i in sorted(np.where(mask > 0)[0], key=lambda i: abs(psi[i])):
-            m2 = mask.copy()
-            m2[i] = 0
-            if m2.sum() < 1:
-                continue
-            p2, res, _ = attain(n, d, spectrum, mask=m2, outer=120, tries=3, _built=built)
-            if res < res_tol:
-                psi, mask = p2, m2
-                improved = True
-                break
-    return psi, mask
-
-
-def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=None):
-    """Greedily remove determinants while the spectrum stays attainable."""
-    import numpy as np
-
-    built = _built if _built is not None else _build(d, n)
     mask = (np.abs(psi) > 1e-10).astype(float)
     improved = True
     while improved:
