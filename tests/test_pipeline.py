@@ -56,16 +56,6 @@ def test_vertices_match_historical_files():
         assert set(vertices(n, d)) == hset
 
 
-def _has_states():
-    try:
-        import numpy  # noqa: F401
-        import scipy  # noqa: F401
-        return True
-    except ImportError:
-        return False
-
-
-@pytest.mark.skipif(not _has_states(), reason="states extra not installed")
 def test_attain_borland_dennis():
     import numpy as np
     from gpc_census.states import attain

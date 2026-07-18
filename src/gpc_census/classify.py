@@ -1,6 +1,5 @@
 """Design/interference classification of vertex spectra.
 
-Requires the classify extra: pip install gpc-census[classify]
 Verdicts are solver certificates: DESIGN-INT means an integer weighted
 design exists at the natural denominator, DESIGN-REAL means a real
 nonnegative design exists but no integer one, INTERFERENCE means neither
@@ -13,11 +12,9 @@ from itertools import combinations
 
 
 def classify(n: int, d: int, spectrum: tuple[Fraction, ...]) -> str:
-    try:
-        import pulp
-        from ortools.sat.python import cp_model
-    except ImportError as e:
-        raise RuntimeError("pip install gpc-census[classify] for solver support") from e
+    import pulp
+    from ortools.sat.python import cp_model
+
     den = 1
     for x in spectrum:
         den = den * x.denominator // __import__("math").gcd(den, x.denominator)

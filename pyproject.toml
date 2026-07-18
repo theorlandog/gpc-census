@@ -13,7 +13,12 @@ authors = [
     { name = "Jamie Orlando", email = "jamie@orlandonh.com" },
 ]
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "numpy",
+    "scipy",
+    "pulp",
+    "ortools==9.15.6755",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
@@ -21,11 +26,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
-
-[project.optional-dependencies]
-classify = ["ortools==9.15.6755", "pulp"]
-states = ["numpy", "scipy"]
-all = ["gpc-census[classify,states]"]
 
 [project.urls]
 Homepage = "https://github.com/theorlandog/gpc-census"

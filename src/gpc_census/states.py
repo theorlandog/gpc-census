@@ -1,6 +1,5 @@
 """Extremal state construction by alternating spectral projection.
 
-Requires the states extra: pip install gpc-census[states]
 Attains a target vertex spectrum with a complex pure state, then greedily
 minimizes determinant support. Validated by reconstruction of the
 (4,9) interference vertex v_B from a random start.
@@ -32,11 +31,9 @@ def _build(d: int, n: int):
 
 def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _built=None):
     """Find a complex pure state whose 1-RDM spectrum equals the target."""
-    try:
-        import numpy as np
-        from scipy.optimize import minimize
-    except ImportError as e:
-        raise RuntimeError("pip install gpc-census[states] for numpy/scipy") from e
+    import numpy as np
+    from scipy.optimize import minimize
+
     dets, a = _built if _built is not None else _build(d, n)
     dim = a.shape[2]
     lam = np.sort(np.array([float(x) for x in spectrum]))[::-1]
