@@ -11,7 +11,6 @@ fall through labeled for hand analysis.
 from __future__ import annotations
 
 from fractions import Fraction
-from itertools import combinations
 
 
 def snap_moduli(psi_abs, den: int):

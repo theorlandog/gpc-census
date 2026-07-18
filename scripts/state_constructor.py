@@ -1,4 +1,7 @@
-import sys, json, itertools, numpy as np
+import sys
+import json
+import itertools
+import numpy as np
 from scipy.optimize import minimize
 
 def build(r,N):

@@ -7,7 +7,8 @@ Usage:
   python census_engine.py file vertices.json   # [[r,N,denom,[n...]], ...]
   python census_engine.py one r N denom n1,n2,...
 """
-import sys, json
+import sys
+import json
 from itertools import combinations
 from ortools.sat.python import cp_model
 import pulp

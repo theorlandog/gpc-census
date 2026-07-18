@@ -7,7 +7,8 @@ Usage:
   python interference8s.py <idx> [size]          # one ansatz, no shard
   python interference8s.py --worker W K [S]      # stride workers over (idx,shard)
 """
-import sys, os
+import sys
+import os
 from itertools import combinations
 from ortools.sat.python import cp_model
 
