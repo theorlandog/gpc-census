@@ -84,3 +84,12 @@ def test_classify_cbc_arm(monkeypatch):
     monkeypatch.setattr(cl, "BACKEND", "cbc")
     rec = cl.classify_full(3, 6, [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)])
     assert rec["verdict"] == "DESIGN-INT" and rec["backend"] == "cbc"
+
+
+def test_exactify_recognition_layer():
+    import math
+
+    from gpc_census.exactify import recognize_cos, snap_moduli
+    r = recognize_cos(3 / (4 * math.sqrt(14)))
+    assert r is not None and str(r) in ("3*sqrt(14)/56", "sqrt(14)*3/56")
+    assert snap_moduli([math.sqrt(4 / 23), math.sqrt(7 / 23)], 23) == [4, 7]
