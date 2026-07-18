@@ -39,9 +39,7 @@ v_B = \tfrac{1}{23}(20,14,14,14,14,4,4,4,4),$$ {#eq:AB} which were, in their wor
 We write $|i_1 i_2 i_3 i_4\rangle$, $i_1<i_2<i_3<i_4$, for Slater determinants in $\wedge^{4}\mathcal{H}_{9}$ over an orthonormal basis of $\mathcal{H}_9$, and call two determinants _one-hop connected_ if they share exactly three orbitals.
 
 ::: {#thm:psiA .theorem}
-**Theorem 1**. \*The normalized state $$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle - \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$
-
-{#eq:psiA} has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.\*
+**Theorem 1**. \*The normalized state $$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle - \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$ {#eq:psiA} has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.\*
 :::
 
 ::: proof
