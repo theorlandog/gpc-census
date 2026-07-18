@@ -39,13 +39,10 @@ v_B = \tfrac{1}{23}(20,14,14,14,14,4,4,4,4),$$ {#eq:AB} which were, in their wor
 We write $|i_1 i_2 i_3 i_4\rangle$, $i_1<i_2<i_3<i_4$, for Slater determinants in $\wedge^{4}\mathcal{H}_{9}$ over an orthonormal basis of $\mathcal{H}_9$, and call two determinants _one-hop connected_ if they share exactly three orbitals.
 
 ::: {#thm:psiA .theorem}
-**Theorem 1**. \*The normalized state $$
-\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(
-\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle
+**Theorem 1**. \*The normalized state $$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle - \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$
 
-- \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle
-  \Bigr)$$ {#eq:psiA} has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.\*
-  :::
+{#eq:psiA} has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.\*
+:::
 
 ::: proof
 _Proof._ No two of the seven determinants in [@eq:psiA] are one-hop connected (each pair shares at most two orbitals), so every off-diagonal matrix element $\langle a_i^\dagger a_j\rangle_{\psi_A}$, $i\neq j$, vanishes identically: the 1-RDM is diagonal in the given basis, and the amplitudes' phases are pure gauge. The diagonal entries are the incidence sums $\lambda_m = \sum_{T \ni m} k_T/21$ with squared weights $k = (2,3,2,3,6,4,1)$ on the respective determinants. Orbital $1$ lies in the determinants of weight $2,3,2,3,6$, giving $16/21$; likewise orbitals $7$ and $9$; each remaining orbital collects weight $6$. Since $\sum_T k_T = 21$, the state is normalized, and its ordered spectrum is exactly $v_A$. $\square$
@@ -73,7 +70,7 @@ _Terminology and prior art._ The notion below is not new. A support in which no 
 Design-attainability is thus a feasibility question for a system of integer incidence equations under an independence (anti-adjacency) condition---no quantum mechanics remains. We decided it exactly for every vertex of the rigorously solved small systems, by depth-first search with exact-cover pivoting and, where search was inconclusive, by mixed-integer linear programming with binary support variables and pairwise independence constraints (HiGHS; certificates of infeasibility retained).
 
 ::: {#prop:census .proposition}
-**Proposition 1** (Census). _All $4$ vertices of $\Pi_{3,6}$ and all $10$ vertices of $\Pi_{3,7}$ admit integer weighted designs (reproducing, in the latter case, the extremal states of Ref. [@AK2008]). Of the $38$ vertices of $\Pi_{3,8}$, exactly $27$ admit weighted designs ($22$ of them integer at the natural denominator); the remaining $11$---the exotic vertex $(5,5,5,5,2,2,2,2)/28$ and its relatives---admit no weighted design with any positive real weights (mixed-integer certificates with continuous weight variables and binary support, each independently reproduced with a second solver of a different lineage, alongside feasibility controls on design-class vertices). The vertex $v_A$ of $\Pi_{4,9}$ admits the integer design of Theorem [1](#thm:psiA)._
+**Proposition 1** (Census). _All $4$ vertices of $\Pi_{3,6}$ and all $10$ vertices of $\Pi_{3,7}$ admit integer weighted designs (reproducing, in the latter case, the extremal states of Ref. [@AK2008]). Of the $38$ vertices of $\Pi_{3,8}$, exactly $27$ admit weighted designs ($22$ of them integer at the natural denominator); the remaining $11$---the exotic vertex $(5,5,5,5,2,2,2,2)/28$ and its relatives---admit no weighted design with any positive real weights (mixed-integer certificates with continuous weight variables and binary support, each independently reproduced with a second solver of a different lineage, alongside feasibility controls on design-class vertices). The vertex $v_A$ of $\Pi_{4,9}$ admits the integer design of Theorem [1](#thm:psiA).\_
 :::
 
 ::: {#thm:B .theorem}
