@@ -33,7 +33,7 @@ def test_vertex_counts():
 def test_census_tallies():
     for name, (total, intf, real) in EXPECTED_CENSUS.items():
         text = (ROOT / "census" / name).read_text()
-        rows = [l for l in text.splitlines() if l[:4].strip().isdigit()]
+        rows = [ln for ln in text.splitlines() if ln[:4].strip().isdigit()]
         assert len(rows) == total, name
         assert sum("INTERFERENCE" in r for r in rows) == intf, name
         assert sum("DESIGN-REAL" in r for r in rows) == real, name
