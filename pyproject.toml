@@ -18,7 +18,6 @@ dependencies = [
     "pulp",
     "scipy",
     "sympy",
-    "ortools==9.15.6755",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
