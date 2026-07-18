@@ -38,6 +38,12 @@ lives in `results/report/main.tex`; computed data results live under
 - `tests/`: pytest suite.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
 - `results/report/main.tex`: LaTeX paper, built with `make report` (latexmk).
+  `make report-md` generates a pandoc-crossref markdown mirror
+  (`results/report/main.md`, gitignored) via `scripts/tex2md.py`: section,
+  equation, and table refs are live crossref citations; theorem-family refs
+  keep pandoc's baked numbers (crossref has no theorem type). The pinned
+  pandoc-crossref binary is version-locked to the host pandoc (see Makefile);
+  the target fails if any reference does not resolve in a render check.
 - `results/data/`: computed data results, shipped in the release
   `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow
@@ -53,6 +59,7 @@ make lint     # uv run ruff check
 make build    # uv build -> dist/ (wheel + sdist)
 make rpm      # sdist + rpmbuild into build/rpm/ (needs rpm-build etc.)
 make report   # build results/report/main.pdf with latexmk
+make report-md # pandoc-crossref markdown mirror of the paper
 make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 ```
 

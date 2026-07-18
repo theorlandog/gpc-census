@@ -229,6 +229,7 @@ results/report/*.out
 results/report/*.synctex.gz
 results/report/*.toc
 results/report/main.pdf
+results/report/main.md
 
 # Release data bundle
 data-output/
