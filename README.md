@@ -108,3 +108,18 @@ Binary RPMs land in `build/rpm/RPMS/noarch/` and the source RPM in
 ## License
 
 GPL-3.0-or-later. See [LICENSE](LICENSE).
+
+### Moment polytope pipeline
+
+```sh
+gpc-census constraints -n 3 -d 9      # tabulated constraint system (ranks 6-10)
+gpc-census polytope   -n 3 -d 9      # exact vertex enumeration (requires lrslib)
+gpc-census classify   -n 4 -d 9      # design/interference verdicts
+gpc-census solve -n 4 -d 9 --den 23 --spectrum 20,14,14,14,14,4,4,4,4
+
+```
+
+Constraint generation beyond rank 10 is future work; version 1 ships the
+known systems as a validated lookup table with particle-hole duality
+transport. The test suite reproduces the historical census in
+`results/data` end to end.
