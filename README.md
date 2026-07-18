@@ -66,8 +66,12 @@ CI stamps each build before packaging (`uv version <computed>`):
 The GitHub Actions workflow (`.github/workflows/build.yml`) runs tests, then
 builds and uploads the wheel/sdist and the RPMs as artifacts. Tag pushes
 (`vX.Y.Z`) also publish a GitHub release marked latest with those packages
-attached; each push to main refreshes a rolling `snapshot` pre-release holding
-the packages built from the branch tip.
+attached; suffixed tags (e.g. `vX.Y.Zrc1`, `vX.Y.Z-beta`) start as pre-releases and are
+promoted manually. Each push to main refreshes a rolling `snapshot`
+pre-release holding the packages built from the branch tip. Every release
+also carries `data-output.zip`: the compiled paper (`results/report/main.pdf`)
+and the data results (`results/data/`), together with a signed provenance
+attestation and SHA256SUMS of those files.
 
 ## Building packages
 

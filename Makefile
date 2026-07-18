@@ -4,7 +4,7 @@ SDIST := dist/gpc_census-$(VERSION).tar.gz
 SPEC := gpc-census.spec
 GEN_SPEC := build/gpc-census.spec
 RPM_TOPDIR := $(CURDIR)/build/rpm
-REPORT_TEX := report/main.tex
+REPORT_TEX := results/report/main.tex
 REPORT_PDF := $(REPORT_TEX:.tex=.pdf)
 
 .PHONY: sync test lint build sdist wheel srpm rpm report upgrade clean
@@ -50,5 +50,5 @@ $(REPORT_PDF): $(REPORT_TEX)
 	latexmk -pdf -interaction=nonstopmode -cd $(REPORT_TEX)
 
 clean:
-	rm -rf dist build
+	rm -rf dist build data-output data-output.zip
 	-latexmk -C -cd $(REPORT_TEX) 2>/dev/null

@@ -2,7 +2,8 @@
 
 gpc-census is an algorithmic pipeline that constructs exact extremal states for
 fermionic natural-occupation-number (moment) polytopes. The accompanying paper
-lives in `report/main.tex`.
+lives in `results/report/main.tex`; computed data results live under
+`results/data/`.
 
 ## House rules
 
@@ -34,7 +35,9 @@ lives in `report/main.tex`.
   entry point `gpc-census = gpc_census.cli:main`).
 - `tests/`: pytest suite.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
-- `report/main.tex`: LaTeX paper, built with `make report` (latexmk).
+- `results/report/main.tex`: LaTeX paper, built with `make report` (latexmk).
+- `results/data/`: computed data results, shipped in the release
+  `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow
   fills its Metadata section (branch, head SHA, CI build version, diff stats)
   when a PR is opened; keep the `pr-metadata:start/end` markers intact.
@@ -47,7 +50,7 @@ make test     # uv run pytest
 make lint     # uv run ruff check
 make build    # uv build -> dist/ (wheel + sdist)
 make rpm      # sdist + rpmbuild into build/rpm/ (needs rpm-build etc.)
-make report   # build report/main.pdf with latexmk
+make report   # build results/report/main.pdf with latexmk
 make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 ```
 
@@ -60,12 +63,18 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   `<base>+main.<short-sha>`; other refs give `<base>+git.<short-sha>`.
 - `make rpm` regenerates `build/gpc-census.spec` with the pyproject version;
   the committed spec's `Version:` line is not authoritative.
-- Releases: a tag push publishes a GitHub release marked latest; a push to
-  main refreshes a rolling `snapshot` pre-release (never name it after a
-  branch: a release tag named `main` makes the refname ambiguous with the
-  branch). The release job rebuilds the
+- Releases: a clean `vX.Y.Z` tag publishes a GitHub release marked latest; a
+  suffixed tag (e.g. `vX.Y.Zrc1`) starts as a pre-release for manual
+  promotion, and its suffix must be valid PEP 440 (rc1, b1, a1, .post1, .dev1)
+  or the version stamp fails the build. A push to main refreshes a rolling
+  `snapshot` pre-release (never name it after a branch: a release tag named
+  `main` makes the refname ambiguous with the branch). The release job
+  rebuilds the
   wheel, sdist, and RPMs fresh in a Fedora container (it does not reuse CI
-  artifacts) and publishes with the `gh` CLI.
+  artifacts) and publishes with the `gh` CLI. It also attaches
+  `data-output.zip`: the paper PDF plus `results/data/`, with a signed
+  provenance attestation (`actions/attest-build-provenance`) and SHA256SUMS
+  of those files inside the zip.
 
 ## Gotchas
 

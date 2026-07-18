@@ -230,5 +230,9 @@ results/report/*.synctex.gz
 results/report/*.toc
 results/report/main.pdf
 
+# Release data bundle
+data-output/
+data-output.zip
+
 # Claude
 .claude/
