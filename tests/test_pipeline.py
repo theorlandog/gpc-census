@@ -9,7 +9,7 @@ import pytest
 from gpc_census.constraints import constraints
 from gpc_census.validate import check_embedding, check_physical, check_selfdual
 
-DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
+DATA = pathlib.Path(__file__).resolve().parent / "data"
 HAS_LRS = shutil.which("lrs") is not None
 
 EXPECTED_COUNTS = {(3, 6): 4, (3, 7): 10, (3, 8): 38, (4, 8): 22,

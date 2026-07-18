@@ -50,7 +50,6 @@ exclude = ["results/report"]
 include = [
     "src",
     "tests",
-    "results/data",
     "gpc-census.spec",
     "Makefile",
     "README.md",

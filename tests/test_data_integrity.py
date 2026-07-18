@@ -2,7 +2,9 @@
 import json
 import pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
+import pytest
+
+ROOT = pathlib.Path(__file__).resolve().parent / "data"
 
 EXPECTED_VERTICES = {
     "vertices_3_9.json": 58,
@@ -44,3 +46,14 @@ def test_constraint_counts():
     expected = {"(3,9)": 52, "(4,9)": 60, "(3,10)": 93, "(4,10)": 125, "(5,10)": 161}
     for system, count in expected.items():
         assert len(data[system]) == count, system
+
+
+def test_fixture_matches_published_dataset():
+    published = ROOT.parents[1] / "results" / "data"
+    if not published.exists():
+        pytest.skip("published dataset not present (sdist build)")
+    fixture = {p.relative_to(ROOT): p.read_bytes() for p in ROOT.rglob("*") if p.is_file()}
+    dataset = {
+        p.relative_to(published): p.read_bytes() for p in published.rglob("*") if p.is_file()
+    }
+    assert fixture == dataset
