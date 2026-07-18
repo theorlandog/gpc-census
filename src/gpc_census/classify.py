@@ -135,3 +135,50 @@ def classify_full(n: int, d: int, spectrum) -> dict:
     if dr == "Infeasible" and di == "INFEASIBLE":
         return {"verdict": "INTERFERENCE", "backend": BACKEND}
     return {"verdict": f"UNRESOLVED({di},{dr})", "backend": BACKEND}
+
+
+def enumerate_designs(n: int, d: int, spectrum, limit: int = 10**6):
+    """Enumerate ALL integer weighted designs at the natural denominator.
+
+    The exhaustive counterpart of classify's feasibility check, in the
+    spirit of the historical v8 stratum sweep: complete enumeration with
+    a certificate of exhaustion. Requires the pinned CP-SAT backend.
+    Returns (designs, exhausted): each design is a weight list; exhausted
+    is True when the solver proved the list complete within the limit.
+    """
+    if BACKEND != "cpsat":
+        raise RuntimeError("enumerate_designs requires the pinned ortools backend")
+    import math
+
+    from ortools.sat.python import cp_model
+
+    spectrum = [Fraction(x) for x in spectrum]
+    den = 1
+    for x in spectrum:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    nv = [int(x * den) for x in spectrum]
+    dets, rows, conflicts = _geometry(n, d)
+    m = cp_model.CpModel()
+    k = [m.NewIntVar(0, den, f"k{t}") for t in range(len(dets))]
+    y = [m.NewBoolVar(f"y{t}") for t in range(len(dets))]
+    for t in range(len(dets)):
+        m.Add(k[t] <= den * y[t])
+        m.Add(k[t] >= y[t])
+    for mo, nm in enumerate(nv):
+        m.Add(sum(k[j] for j in rows[mo]) == nm)
+    for a, b in conflicts:
+        m.AddBoolOr([y[a].Not(), y[b].Not()])
+
+    found: list[list[int]] = []
+
+    class _Collect(cp_model.CpSolverSolutionCallback):
+        def on_solution_callback(self):
+            found.append([self.Value(x) for x in k])
+            if len(found) >= limit:
+                self.StopSearch()
+
+    s = cp_model.CpSolver()
+    s.parameters.enumerate_all_solutions = True
+    s.parameters.num_workers = 1
+    st = s.Solve(m, _Collect())
+    return found, (st == cp_model.OPTIMAL and len(found) < limit)

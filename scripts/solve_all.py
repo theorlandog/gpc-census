@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import multiprocessing as mp
+import os
 import pathlib
 import sys
 from fractions import Fraction
@@ -57,6 +59,8 @@ def main() -> int:
     ap.add_argument("--preflight", action="store_true",
                     help="run v_B through both tiers and exit")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--workers", type=int, default=1,
+                    help="parallel worker processes; 1 core per solve, BLAS pinned")
     args = ap.parse_args()
     np.random.seed(args.seed)
 
@@ -84,26 +88,59 @@ def main() -> int:
             except json.JSONDecodeError:
                 pass
 
-    cache = {}
+    todo = [(n, d, i, v) for n, d, i, v in tasks(args.systems.split(","))
+            if (f"({n},{d})", i) not in done]
     with OUT.open("a") as out:
-        for n, d, i, v in tasks(args.systems.split(",")):
-            key = (f"({n},{d})", i)
-            if key in done:
-                continue
-            spec = [Fraction(s) for s in v["spectrum"]]
-            if (n, d) not in cache:
-                cache[(n, d)] = _build(d, n)
-            rec = solve_vertex(n, d, spec, _built=cache[(n, d)])
-            rec["system"], rec["index"] = key
-            rec["integer_form"], rec["denominator"] = v["integer_form"], v["denominator"]
-            if rec["status"] == "OK":
-                rec["exact"] = exactify(n, d, spec, rec)
-            out.write(json.dumps(rec) + "\n")
-            out.flush()
-            tier_b = rec.get("exact", {}).get("status", "-")
-            print(key[0], i, rec["status"], "support", rec.get("support_size"),
-                  "tierB", tier_b, flush=True)
+        if args.workers <= 1:
+            cache = {}
+            for t in todo:
+                n, d = t[0], t[1]
+                if (n, d) not in cache:
+                    cache[(n, d)] = _build(d, n)
+                _emit(out, _work(t, cache[(n, d)], args.seed))
+        else:
+            os.environ.setdefault("OMP_NUM_THREADS", "1")
+            os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+            with mp.Pool(args.workers, initializer=_init_seed, initargs=(args.seed,)) as pool:
+                for rec in pool.imap_unordered(_work_solo, todo):
+                    _emit(out, rec)
     return 0
+
+
+def _init_seed(seed: int) -> None:
+    os.environ["OMP_NUM_THREADS"] = "1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+    np.random.seed(seed + os.getpid() % 10000)
+
+
+def _work(t, built, seed):
+    n, d, i, v = t
+    np.random.seed(seed + 1000 * n + 10 * d + i)
+    spec = [Fraction(s) for s in v["spectrum"]]
+    rec = solve_vertex(n, d, spec, _built=built)
+    rec["system"], rec["index"] = f"({n},{d})", i
+    rec["integer_form"], rec["denominator"] = v["integer_form"], v["denominator"]
+    if rec["status"] == "OK":
+        rec["exact"] = exactify(n, d, spec, rec)
+    return rec
+
+
+_BUILT_CACHE: dict = {}
+
+
+def _work_solo(t):
+    n, d = t[0], t[1]
+    if (n, d) not in _BUILT_CACHE:
+        _BUILT_CACHE[(n, d)] = _build(d, n)
+    return _work(t, _BUILT_CACHE[(n, d)], 0)
+
+
+def _emit(out, rec):
+    out.write(json.dumps(rec) + "\n")
+    out.flush()
+    tier_b = rec.get("exact", {}).get("status", "-")
+    print(rec["system"], rec["index"], rec["status"], "support",
+          rec.get("support_size"), "tierB", tier_b, flush=True)
 
 
 if __name__ == "__main__":
