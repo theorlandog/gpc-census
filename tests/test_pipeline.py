@@ -1,0 +1,75 @@
+"""The engine must reproduce the historical results in results/data."""
+import json
+import pathlib
+import shutil
+from fractions import Fraction
+
+import pytest
+
+from gpc_census.constraints import constraints
+from gpc_census.validate import check_embedding, check_physical, check_selfdual
+
+DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
+HAS_LRS = shutil.which("lrs") is not None
+
+EXPECTED_COUNTS = {(3, 6): 4, (3, 7): 10, (3, 8): 38, (4, 8): 22,
+                   (3, 9): 58, (4, 9): 103, (3, 10): 113, (4, 10): 159, (5, 10): 292}
+
+
+def test_constraint_table_counts():
+    expected = {(3, 9): 52, (4, 9): 60, (3, 10): 93, (4, 10): 125, (5, 10): 161,
+                (3, 7): 4, (3, 8): 31, (4, 8): 15, (3, 6): 1}
+    for (n, d), count in expected.items():
+        assert len(constraints(n, d)["inequalities"]) == count
+
+
+def test_duality_transport():
+    dual = constraints(5, 8)
+    assert len(dual["inequalities"]) == 31
+    assert "dual" in dual["source"]
+    with pytest.raises(KeyError):
+        constraints(3, 11)
+
+
+@pytest.mark.skipif(not HAS_LRS, reason="lrslib not installed")
+@pytest.mark.parametrize("n,d", sorted(EXPECTED_COUNTS))
+def test_vertex_enumeration_reproduces_census(n, d):
+    from gpc_census.polytope import vertices
+    verts = vertices(n, d)
+    assert len(verts) == EXPECTED_COUNTS[(n, d)]
+    assert check_physical(verts, n) == []
+    assert check_selfdual(verts, n, d) == []
+
+
+@pytest.mark.skipif(not HAS_LRS, reason="lrslib not installed")
+def test_embedding_invariant():
+    from gpc_census.polytope import vertices
+    assert check_embedding(vertices(3, 9), vertices(3, 10)) == []
+
+
+@pytest.mark.skipif(not HAS_LRS, reason="lrslib not installed")
+def test_vertices_match_historical_files():
+    from gpc_census.polytope import vertices
+    for (n, d) in [(3, 9), (5, 10)]:
+        hist = json.loads((DATA / "vertices" / f"vertices_{n}_{d}.json").read_text())
+        hset = {tuple(Fraction(s) for s in o["spectrum"]) for o in hist}
+        assert set(vertices(n, d)) == hset
+
+
+def _has_states():
+    try:
+        import numpy  # noqa: F401
+        import scipy  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+@pytest.mark.skipif(not _has_states(), reason="states extra not installed")
+def test_attain_borland_dennis():
+    import numpy as np
+    from gpc_census.states import attain
+    np.random.seed(0)
+    spec = [Fraction(x, 4) for x in (3, 3, 2, 2, 1, 1)]
+    _, res, _ = attain(3, 6, spec)
+    assert res < 1e-12

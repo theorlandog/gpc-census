@@ -22,6 +22,11 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 
+[project.optional-dependencies]
+classify = ["ortools==9.15.6755", "pulp"]
+states = ["numpy", "scipy"]
+all = ["gpc-census[classify,states]"]
+
 [project.urls]
 Homepage = "https://github.com/theorlandog/gpc-census"
 
