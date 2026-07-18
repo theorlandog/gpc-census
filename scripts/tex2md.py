@@ -89,6 +89,38 @@ def rewrite_refs(md: str) -> str:
     )
 
 
+def replace_bibliography(md: str) -> str:
+    """Swap the flattened thebibliography div for a citeproc refs anchor.
+
+    citeproc regenerates the reference list from references.bib, ordered
+    and numbered by the CSL style, inside the div with id "refs".
+    """
+    md, n = re.subn(
+        r"(?m)^::: thebibliography\n.*?\n:::\n",
+        "# References {.unnumbered}\n\n::: {#refs}\n:::\n",
+        md,
+        flags=re.S,
+    )
+    if n != 1:
+        raise SystemExit("tex2md: expected exactly one thebibliography div")
+    return md
+
+
+def add_citeproc_metadata(md: str) -> str:
+    """Point citeproc at the bibliography and style, relative to repo root."""
+    meta = (
+        "bibliography: results/report/references.bib\n"
+        "csl: results/report/american-physics-society.csl\n"
+        "link-citations: true\n"
+        # thebibliography prints every entry whether cited or not; nocite
+        # makes citeproc do the same.
+        'nocite: "@*"\n'
+    )
+    if not md.startswith("---\n"):
+        raise SystemExit("tex2md: expected a YAML metadata block")
+    return md.replace("---\n", "---\n" + meta, 1)
+
+
 def convert(tex: pathlib.Path) -> str:
     md = subprocess.run(
         [*PANDOC, str(tex), "-f", "latex", "-t", "markdown", "-s", "--wrap=none"],
@@ -101,6 +133,8 @@ def convert(tex: pathlib.Path) -> str:
     md = tag_equation_labels(md)
     md = table_div_to_caption_attr(md)
     md = rewrite_refs(md)
+    md = replace_bibliography(md)
+    md = add_citeproc_metadata(md)
 
     for leftover in ("reference-type=", "\\label{", "{#tab:", ' label="'):
         if leftover in md:

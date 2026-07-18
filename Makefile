@@ -62,13 +62,17 @@ $(REPORT_PDF): $(REPORT_TEX)
 
 report-md: $(REPORT_MD)
 
-# The render check proves every crossref reference resolves; unresolved
-# ones survive as literal [-@sec:x] citations or crossref's ?? marker.
-$(REPORT_MD): $(REPORT_TEX) scripts/tex2md.py
+# The render check proves every reference and citation resolves.
+# pandoc-crossref must run before citeproc so it consumes the [-@sec:x]
+# style citations that are cross-references, not bibliography keys.
+$(REPORT_MD): $(REPORT_TEX) scripts/tex2md.py results/report/references.bib results/report/american-physics-society.csl
 	mkdir -p build
 	PANDOC="$(PANDOC_RUN)" python3 scripts/tex2md.py $(REPORT_TEX) $(REPORT_MD)
-	$(PANDOC_RUN) $(REPORT_MD) -F pandoc-crossref --number-sections -s --mathjax -o $(MD_CHECK)
-	@if grep -qE 'reference-type|@(sec|eq|tbl):|⁇' $(MD_CHECK); then \
+	$(PANDOC_RUN) $(REPORT_MD) -F pandoc-crossref --citeproc --number-sections -s --mathjax \
+	  -o $(MD_CHECK) 2> build/report-md-check.log
+	@if grep -iE 'not found|reference' build/report-md-check.log; then \
+	  echo "report-md: unresolved citations, see build/report-md-check.log"; exit 1; fi
+	@if grep -qE 'reference-type|@(sec|eq|tbl):|\[@|⁇' $(MD_CHECK); then \
 	  echo "report-md: unresolved references, inspect $(MD_CHECK)"; exit 1; fi
 	@echo "==> $(REPORT_MD) (render check: $(MD_CHECK))"
 
