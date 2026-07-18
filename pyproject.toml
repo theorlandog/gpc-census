@@ -42,6 +42,7 @@ gpc-census = "gpc_census.cli:main"
 [dependency-groups]
 dev = [
     { include-group = "test" },
+    "boto3",
     "ruff",
 ]
 test = ["pytest"]
