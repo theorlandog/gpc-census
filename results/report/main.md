@@ -19,10 +19,9 @@ title: |
 
 The Pauli exclusion principle bounds fermionic natural occupation numbers (NONs) by $0 \le \lambda_i \le 1$. Klyachko's solution of the one-body pure $N$-representability problem [@Klyachko2006; @AK2008] showed that the antisymmetry of $N$-fermion wave functions imposes far stronger conditions: the achievable ordered spectra $\lambda_1 \ge \cdots \ge \lambda_d$ of the one-body reduced density matrix (1-RDM) of a pure state in $\wedge^{N}\mathcal{H}_{d}$ form a convex polytope $\Pi_{N,d}$, cut out by finitely many _generalized Pauli constraints_ (GPCs). These constraints have measurable consequences: (quasi-)pinning of occupation spectra to facets of $\Pi_{N,d}$ constrains the structure of the wave function itself [@SGC2013; @Liebert2025], and the polytopes govern applications from reduced-density-matrix functional theory to quantum information [@Castillo2021; @Liebert2025].
 
-Altunbulak and Klyachko computed $\Pi_{N,d}$ completely for all systems with $d \le 8$ (and for $\wedge^3\mathcal{H}_9$, $\wedge^3\mathcal{H}_{10}$, $\wedge^4\mathcal{H}_9$, $\wedge^4\mathcal{H}_{10}$, $\wedge^5\mathcal{H}_{10}$), supplying for each vertex of the small systems an explicit extremal state "for those who don't trust computer assisted proofs" [@AK2008]. For $\wedge^4\mathcal{H}_9$, however, two vertices resisted their representation-theoretic constructions: $$
-v_A = \tfrac{1}{21}(16,16,16,6,6,6,6,6,6),
-\qquad
-v_B = \tfrac{1}{23}(20,14,14,14,14,4,4,4,4),$$ {#eq:AB} which were, in their words, "checked only numerically"---and on which the completeness of the published $\wedge^4\mathcal{H}_{10}$ constraint list depends [@AK2008]. To our knowledge these verifications have remained numerical for the intervening eighteen years.
+Altunbulak and Klyachko computed $\Pi_{N,d}$ completely for all systems with $d \le 8$ (and for $\wedge^3\mathcal{H}_9$, $\wedge^3\mathcal{H}_{10}$, $\wedge^4\mathcal{H}_9$, $\wedge^4\mathcal{H}_{10}$, $\wedge^5\mathcal{H}_{10}$), supplying for each vertex of the small systems an explicit extremal state "for those who don't trust computer assisted proofs" [@AK2008]. For $\wedge^4\mathcal{H}_9$, however, two vertices resisted their representation-theoretic constructions:
+$$v_A = \tfrac{1}{21}(16,16,16,6,6,6,6,6,6), \qquad v_B = \tfrac{1}{23}(20,14,14,14,14,4,4,4,4),$$
+{#eq:AB} which were, in their words, "checked only numerically"---and on which the completeness of the published $\wedge^4\mathcal{H}_{10}$ constraint list depends [@AK2008]. To our knowledge these verifications have remained numerical for the intervening eighteen years.
 
 #### Contributions.
 
@@ -47,11 +46,8 @@ _Proof._ No two of the seven determinants in [@eq:psiA] are one-hop connected (e
 :::
 
 ::: remark
-**Remark 1**. \*Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form $\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle
-
-- \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle
-- 2|2348\rangle + |2357\rangle)$.\*
-  :::
+**Remark 1**. \*Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form $$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle - \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle - 2|2348\rangle + |2357\rangle)$$.\*
+:::
 
 ::: remark
 **Remark 2**. _The proof is checkable by hand in minutes; the discovery was not. The state was found by the numerical pipeline of Section [-@sec:methods] and only then recognized to have exact structure. We regard the division of labor--- stochastic geometric search for discovery, elementary combinatorics for proof---as a portable pattern for moment-polytope problems._
