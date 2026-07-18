@@ -13,6 +13,8 @@ from itertools import combinations
 from ortools.sat.python import cp_model
 import pulp
 
+from checkpoint import Checkpointer, extract_opts
+
 def design_int(n, r, N, denom):
     dets=list(combinations(range(r),N)); nd=len(dets)
     m=cp_model.CpModel()
@@ -56,7 +58,9 @@ def classify(r,N,denom,n):
     if dr=="Infeasible" and di=="INFEASIBLE": return "INTERFERENCE"
     return f"UNRESOLVED({di},{dr})"
 
-if sys.argv[1]=="test":
+_opts, argv = extract_opts(sys.argv)
+
+if argv[1]=="test":
     print("=== validation vs proven classifications ===")
     cases=[
         (9,4,21,[16,16,16,6,6,6,6,6,6],"DESIGN-INT"),      # v_A
@@ -82,15 +86,35 @@ if sys.argv[1]=="test":
         allok &= ok
         print(f"  {str(n):34s} -> {got:14s} expect {expect:14s} {'OK' if ok else '*** FAIL ***'}")
     print("ALL VALIDATIONS PASS:" , allok)
-elif sys.argv[1]=="file":
-    rows=json.load(open(sys.argv[2]))
-    tally={}
+elif argv[1]=="file":
+    rows=json.load(open(argv[2]))
+    # With --out the verdicts are persisted one JSON record per line and the run
+    # is resumable: already-recorded indices are skipped and the file is
+    # checkpointed (fsync + optional S3 mirror) so a spot kill loses little work.
+    ckpt=Checkpointer.from_opts(None,_opts)
+    if ckpt: ckpt.restore()
+    out_path=_opts.get("out")
+    done=set(); tally={}
+    if out_path:
+        try:
+            for line in open(out_path):
+                rec=json.loads(line); done.add(rec["index"]); tally[rec["verdict"]]=tally.get(rec["verdict"],0)+1
+        except (FileNotFoundError,json.JSONDecodeError): pass
+    out=open(out_path,"a") if out_path else None
+    if ckpt and out:
+        ckpt.attach(out); ckpt.install_signal_handlers()
     for i,(r,N,dn,n) in enumerate(rows):
+        if i in done: continue
         v=classify(r,N,dn,n)
         tally[v]=tally.get(v,0)+1
         print(f"{i:4d} {str(n):40s} {v}",flush=True)
+        if out:
+            out.write(json.dumps({"index":i,"n":n,"verdict":v})+"\n"); out.flush()
+            ckpt.checkpoint()
+    if ckpt and out: ckpt.checkpoint(force=True)
+    if out: out.close()
     print("CENSUS:",tally)
-elif sys.argv[1]=="one":
-    r=int(sys.argv[2]); N=int(sys.argv[3]); dn=int(sys.argv[4])
-    n=[int(x) for x in sys.argv[5].split(",")]
+elif argv[1]=="one":
+    r=int(argv[2]); N=int(argv[3]); dn=int(argv[4])
+    n=[int(x) for x in argv[5].split(",")]
     print(classify(r,N,dn,n))

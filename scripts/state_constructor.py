@@ -4,6 +4,8 @@ import itertools
 import numpy as np
 from scipy.optimize import minimize
 
+from checkpoint import Checkpointer, extract_opts
+
 def build(r,N):
     dets=list(itertools.combinations(range(r),N)); idx={t:i for i,t in enumerate(dets)}
     D=len(dets); A=np.zeros((r,r,D,D),complex)
@@ -69,20 +71,41 @@ def run_one(r,N,den,n,A=None,dets=None):
     if A is None: dets,A=build(r,N)
     psi,res=solve(r,N,lam,A,dets)
     if res>1e-12:
-        print(json.dumps({"r":r,"N":N,"den":den,"n":n,"status":"FAIL","residual":res})); return
+        rec={"r":r,"N":N,"den":den,"n":n,"status":"FAIL","residual":res}
+        print(json.dumps(rec)); return rec
     psi,mask=minimize_support(r,N,lam,psi,dets,A)
     sup=[i for i in range(len(psi)) if mask[i] and abs(psi[i])>1e-9]
     j0=max(sup,key=lambda i:abs(psi[i])); psi=psi*np.exp(-1j*np.angle(psi[j0]))
-    print(json.dumps({"r":r,"N":N,"den":den,"n":n,"status":"OK","residual":res,
+    rec={"r":r,"N":N,"den":den,"n":n,"status":"OK","residual":res,
         "support_size":len(sup),
-        "support":[[list(dets[i]),round(float(abs(psi[i])),12),round(float(np.angle(psi[i])),12)] for i in sup]}))
+        "support":[[list(dets[i]),round(float(abs(psi[i])),12),round(float(np.angle(psi[i])),12)] for i in sup]}
+    print(json.dumps(rec)); return rec
 
 if __name__=="__main__":
-    if sys.argv[1]=="one":
-        run_one(int(sys.argv[2]),int(sys.argv[3]),int(sys.argv[4]),[int(x) for x in sys.argv[5].split(",")])
+    _opts,argv=extract_opts(sys.argv)
+    if argv[1]=="one":
+        run_one(int(argv[2]),int(argv[3]),int(argv[4]),[int(x) for x in argv[5].split(",")])
     else:
-        tasks=json.load(open(sys.argv[2])); cache={}
-        for r,N,den,n in tasks:
+        tasks=json.load(open(argv[2])); cache={}
+        # With --out each state is persisted (one JSON record per line) and the
+        # run resumes: already-recorded task indices are skipped and the file is
+        # checkpointed (fsync + optional S3 mirror) to survive spot interruptions.
+        ckpt=Checkpointer.from_opts(None,_opts)
+        if ckpt: ckpt.restore()
+        out_path=_opts.get("out"); done=set()
+        if out_path:
+            try:
+                for line in open(out_path): done.add(json.loads(line)["index"])
+            except (FileNotFoundError,json.JSONDecodeError): pass
+        out=open(out_path,"a") if out_path else None
+        if ckpt and out: ckpt.attach(out); ckpt.install_signal_handlers()
+        for i,(r,N,den,n) in enumerate(tasks):
+            if i in done: continue
             if (r,N) not in cache: cache[(r,N)]=build(r,N)
             dets,A=cache[(r,N)]
-            run_one(r,N,den,n,A,dets)
+            rec=run_one(r,N,den,n,A,dets)
+            if out:
+                rec=dict(rec); rec["index"]=i
+                out.write(json.dumps(rec)+"\n"); out.flush(); ckpt.checkpoint()
+        if ckpt and out: ckpt.checkpoint(force=True)
+        if out: out.close()

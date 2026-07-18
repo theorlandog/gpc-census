@@ -29,6 +29,9 @@ classifiers = [
 
 [project.optional-dependencies]
 cpsat = ["ortools==9.15.6755"]
+# S3 checkpoint mirror for the long-running scripts/ campaigns (spot-resilient
+# runs). Imported lazily, so disk-only checkpointing needs nothing extra.
+s3 = ["boto3"]
 
 [project.urls]
 Homepage = "https://github.com/theorlandog/gpc-census"

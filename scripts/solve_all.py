@@ -23,6 +23,7 @@ from fractions import Fraction
 
 import numpy as np
 
+from checkpoint import Checkpointer, add_arguments
 from gpc_census.exactify import exactify
 from gpc_census.states import _build, solve_vertex
 
@@ -54,6 +55,7 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--workers", type=int, default=1,
                     help="parallel worker processes; 1 core per solve, BLAS pinned")
+    add_arguments(ap, default_out=OUT)
     args = ap.parse_args()
     np.random.seed(args.seed)
 
@@ -72,9 +74,14 @@ def main() -> int:
                 print("  ", p)
         return 0 if ex["status"] == "EXACT" else 1
 
+    out_path = pathlib.Path(args.out)
+    ckpt = Checkpointer(out_path, interval=args.checkpoint_interval,
+                        bucket=args.s3_bucket, key=args.s3_key, profile=args.s3_profile)
+    ckpt.restore()  # a fresh spot instance resumes from the last S3 checkpoint
+
     done = set()
-    if OUT.exists():
-        for line in OUT.read_text().splitlines():
+    if out_path.exists():
+        for line in out_path.read_text().splitlines():
             try:
                 r = json.loads(line)
                 done.add((r["system"], r["index"]))
@@ -83,7 +90,9 @@ def main() -> int:
 
     todo = [(n, d, i, v) for n, d, i, v in tasks(args.systems.split(","))
             if (f"({n},{d})", i) not in done]
-    with OUT.open("a") as out:
+    with out_path.open("a") as out:
+        ckpt.attach(out)
+        ckpt.install_signal_handlers()
         if args.workers <= 1:
             cache = {}
             for t in todo:
@@ -91,12 +100,15 @@ def main() -> int:
                 if (n, d) not in cache:
                     cache[(n, d)] = _build(d, n)
                 _emit(out, _work(t, cache[(n, d)], args.seed))
+                ckpt.checkpoint()
         else:
             os.environ.setdefault("OMP_NUM_THREADS", "1")
             os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
             with mp.Pool(args.workers, initializer=_init_seed, initargs=(args.seed,)) as pool:
                 for rec in pool.imap_unordered(_work_solo, todo):
                     _emit(out, rec)
+                    ckpt.checkpoint()
+        ckpt.checkpoint(force=True)  # final flush + upload
     return 0
 
 
