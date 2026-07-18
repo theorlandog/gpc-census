@@ -97,10 +97,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Install build dependencies
-        run: >-
-          dnf install -y git make rpm-build python3-devel
-          pyproject-rpm-macros python3-hatchling python3-pytest uv
+      - name: Install uv
+        run: |
+          curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Stamp version
         run: uv version "${{ needs.version.outputs.version }}"
