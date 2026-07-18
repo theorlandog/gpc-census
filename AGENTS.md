@@ -100,3 +100,11 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 - Sdist contents are pinned explicitly in `[tool.hatch.build.targets.sdist]`.
   Files that must ship in the sdist (e.g. for the RPM build) go in that list.
 - `CLAUDE.md` is a symlink to this file. Edit `AGENTS.md` only.
+
+## Research context
+
+Read docs/RESEARCH.md before working on the science. It encodes the
+classification trichotomy, the validation law, campaign state, and the
+location of every source document. The short version: never ship a result
+that has not passed the structural invariants in gpc_census.validate, and
+never change state-solving code without the v_B preflight.
