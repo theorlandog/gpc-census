@@ -2,7 +2,7 @@
 
 gpc-census is an algorithmic pipeline that constructs exact extremal states for
 fermionic natural-occupation-number (moment) polytopes. The accompanying paper
-lives in `results/report/main.tex`; computed data results live under
+lives in `results/report/main.md`; computed data results live under
 `results/data/`.
 
 ## House rules
@@ -37,18 +37,19 @@ lives in `results/report/main.tex`; computed data results live under
   entry point `gpc-census = gpc_census.cli:main`).
 - `tests/`: pytest suite.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
-- `results/report/main.tex`: LaTeX paper, built with `make report` (latexmk).
-  `make report-md` generates a pandoc-crossref markdown mirror
-  (`results/report/main.md`, gitignored) via `scripts/tex2md.py`: section,
-  equation, and table refs are live crossref citations; theorem-family refs
-  keep pandoc's baked numbers (crossref has no theorem type). Citations
+- `results/report/main.md`: the paper. The markdown is the master document,
+  in pandoc-crossref syntax; `make report` renders `main.pdf` with pandoc in
+  the pinned `pandoc/extra` container image, which bundles pandoc, a matched
+  pandoc-crossref, and a TeX engine (podman by default; `CONTAINER=docker`
+  to override, which the CI release job uses via the mounted Docker socket).
+  Section, equation, and table refs are live crossref citations
+  (`[-@sec:x]`); theorem-family numbering is literal text since crossref has
+  no theorem type, so renumber by hand when inserting theorems. Citations
   resolve via citeproc against `results/report/references.bib` (APS numeric
-  style, vendored CSL); the bib is transcribed from the thebibliography in
-  main.tex, so keep the two in sync when editing references. Conversion and
-  render check run in the pinned `pandoc/extra` container image (podman;
-  `CONTAINER=docker` to override), which bundles pandoc with a matched
-  pandoc-crossref; the target fails if any reference or citation does not
-  resolve.
+  style, vendored CSL); `nocite: "@*"` prints uncited entries. The build
+  fails if any reference or citation does not resolve. `results/report` is
+  excluded from the sdist and RPM; the PDF ships in the release
+  `data-output.zip`.
 - `results/data/`: computed data results, shipped in the release
   `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow
@@ -63,8 +64,7 @@ make test     # uv run pytest
 make lint     # uv run ruff check
 make build    # uv build -> dist/ (wheel + sdist)
 make rpm      # sdist + rpmbuild into build/rpm/ (needs rpm-build etc.)
-make report   # build results/report/main.pdf with latexmk
-make report-md # pandoc-crossref markdown mirror of the paper
+make report   # render results/report/main.pdf with pandoc (containerized)
 make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 ```
 

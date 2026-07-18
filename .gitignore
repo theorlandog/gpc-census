@@ -219,17 +219,8 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# LaTeX build artifacts
-results/report/*.aux
-results/report/*.bbl
-results/report/*.blg
-results/report/*.fdb_latexmk
-results/report/*.fls
-results/report/*.out
-results/report/*.synctex.gz
-results/report/*.toc
+# Report build artifact (rendered from the markdown master)
 results/report/main.pdf
-results/report/main.md
 
 # Release data bundle
 data-output/

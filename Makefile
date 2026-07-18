@@ -4,18 +4,20 @@ SDIST := dist/gpc_census-$(VERSION).tar.gz
 SPEC := gpc-census.spec
 GEN_SPEC := build/gpc-census.spec
 RPM_TOPDIR := $(CURDIR)/build/rpm
-REPORT_TEX := results/report/main.tex
-REPORT_PDF := $(REPORT_TEX:.tex=.pdf)
-REPORT_MD := $(REPORT_TEX:.tex=.md)
+REPORT_MD := results/report/main.md
+REPORT_PDF := results/report/main.pdf
+REPORT_BIB := results/report/references.bib
+REPORT_CSL := results/report/american-physics-society.csl
 
-# pandoc/extra bundles pandoc with a matched pandoc-crossref, so one
-# pinned image replaces pairing binary versions by hand.
+# pandoc/extra bundles pandoc, a matched pandoc-crossref, and a TeX
+# engine, so one pinned image covers the whole markdown-to-PDF build.
+# CI runs the same recipe inside the image with PANDOC_RUN=pandoc.
 CONTAINER ?= podman
 PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546f57a80464a4a3991c15cd1a373133b97e7a7
-PANDOC_RUN := $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
-MD_CHECK := build/report-md-check.html
+PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
+PANDOC_FLAGS := -F pandoc-crossref --citeproc --number-sections
 
-.PHONY: sync test lint build sdist wheel srpm rpm report report-md upgrade clean
+.PHONY: sync test lint build sdist wheel srpm rpm report upgrade clean
 
 sync:
 	$(UV) sync
@@ -57,26 +59,18 @@ rpm: sdist $(GEN_SPEC)
 
 report: $(REPORT_PDF)
 
-$(REPORT_PDF): $(REPORT_TEX)
-	latexmk -pdf -interaction=nonstopmode -cd $(REPORT_TEX)
-
-report-md: $(REPORT_MD)
-
-# The render check proves every reference and citation resolves.
-# pandoc-crossref must run before citeproc so it consumes the [-@sec:x]
-# style citations that are cross-references, not bibliography keys.
-$(REPORT_MD): $(REPORT_TEX) scripts/tex2md.py results/report/references.bib results/report/american-physics-society.csl
+# pandoc-crossref runs before citeproc so it consumes the [-@sec:x]
+# style citations that are cross-references, not bibliography keys;
+# anything either filter leaves unresolved surfaces as a citeproc
+# "not found" warning, which fails the build.
+$(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	mkdir -p build
-	PANDOC="$(PANDOC_RUN)" python3 scripts/tex2md.py $(REPORT_TEX) $(REPORT_MD)
-	$(PANDOC_RUN) $(REPORT_MD) -F pandoc-crossref --citeproc --number-sections -s --mathjax \
-	  -o $(MD_CHECK) 2> build/report-md-check.log
-	@if grep -iE 'not found|reference' build/report-md-check.log; then \
-	  echo "report-md: unresolved citations, see build/report-md-check.log"; exit 1; fi
-	@if grep -qE 'reference-type|@(sec|eq|tbl):|\[@|⁇' $(MD_CHECK); then \
-	  echo "report-md: unresolved references, inspect $(MD_CHECK)"; exit 1; fi
-	@echo "==> $(REPORT_MD) (render check: $(MD_CHECK))"
+	$(PANDOC_RUN) $(REPORT_MD) $(PANDOC_FLAGS) -o $(REPORT_PDF) 2> build/report.log \
+	  || { cat build/report.log; exit 1; }
+	@if grep -i 'not found' build/report.log; then \
+	  echo "report: unresolved references or citations, see build/report.log"; exit 1; fi
+	@echo "==> $(REPORT_PDF)"
 
 clean:
 	rm -rf dist build data-output data-output.zip
-	rm -f $(REPORT_MD)
-	-latexmk -C -cd $(REPORT_TEX) 2>/dev/null
+	rm -f $(REPORT_PDF)

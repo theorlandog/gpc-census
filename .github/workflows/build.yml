@@ -89,7 +89,12 @@ jobs:
       (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
     needs: [test, version]
     runs-on: ubuntu-latest
-    container: fedora:43
+    container:
+      image: fedora:43
+      # Privileged so podman can nest the pinned pandoc container for
+      # make report; fuse-overlayfs backs its storage on the job
+      # container's overlayfs.
+      options: --privileged
     permissions:
       contents: write
       id-token: write
@@ -101,9 +106,7 @@ jobs:
         run: >-
           dnf install -y git make zip rpm-build python3-devel
           pyproject-rpm-macros python3-hatchling python3-pytest uv gh
-          latexmk texlive-cm-super 'tex(geometry.sty)' 'tex(mathtools.sty)'
-          'tex(booktabs.sty)' 'tex(microtype.sty)' 'tex(hyperref.sty)'
-          'tex(amssymb.sty)' 'tex(amsthm.sty)'
+          podman fuse-overlayfs
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Stamp version
         run: uv version "${{ needs.version.outputs.version }}"

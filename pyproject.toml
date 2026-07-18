@@ -44,6 +44,9 @@ dev = [
 test = ["pytest"]
 
 [tool.hatch.build.targets.sdist]
+# The paper under results/report ships in the release data-output.zip,
+# never in the sdist or RPM.
+exclude = ["results/report"]
 include = [
     "src",
     "tests",
