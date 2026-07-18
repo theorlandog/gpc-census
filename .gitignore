@@ -31,6 +31,8 @@ MANIFEST
 #   before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+# ...but keep the RPM spec file
+!gpc-census.spec
 
 # Installer logs
 pip-log.txt
@@ -216,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# LaTeX build artifacts
+results/report/*.aux
+results/report/*.bbl
+results/report/*.blg
+results/report/*.fdb_latexmk
+results/report/*.fls
+results/report/*.out
+results/report/*.synctex.gz
+results/report/*.toc
+results/report/main.pdf
+
+# Claude
+.claude/
