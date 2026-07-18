@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gpc-census"
-version = "0.0.0"
+version = "0.1.0"
 description = "Algorithmic pipeline that constructs exact extremal states for fermionic natural-occupation-number (moment) polytopes"
 readme = "README.md"
 license = "GPL-3.0-or-later"
