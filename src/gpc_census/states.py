@@ -29,7 +29,7 @@ def _build(d: int, n: int):
     return dets, a
 
 
-def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _built=None):
+def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _built=None, psi0=None):
     """Find a complex pure state whose 1-RDM spectrum equals the target."""
     import numpy as np
     from scipy.optimize import minimize
@@ -38,8 +38,11 @@ def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _
     dim = a.shape[2]
     lam = np.sort(np.array([float(x) for x in spectrum]))[::-1]
     best = (None, 1e9)
-    for _ in range(tries):
-        psi = np.random.randn(dim) + 1j * np.random.randn(dim)
+    for trial in range(tries):
+        if psi0 is not None and trial == 0:
+            psi = psi0.copy()
+        else:
+            psi = np.random.randn(dim) + 1j * np.random.randn(dim)
         if mask is not None:
             psi *= mask
         psi /= np.linalg.norm(psi)
@@ -83,11 +86,22 @@ def attain(n: int, d: int, spectrum, mask=None, outer=250, tries=5, tol=1e-16, _
 
 
 def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=None):
-    """Greedily remove determinants while the spectrum stays attainable."""
+    """Sparsify by iterative hard thresholding, then greedy single removals."""
     import numpy as np
 
     built = _built if _built is not None else _build(d, n)
     mask = (np.abs(psi) > 1e-10).astype(float)
+    # phase 1: threshold ladder with warm starts
+    for frac in (0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5):
+        thr = frac * np.max(np.abs(psi))
+        m2 = ((np.abs(psi) > thr) & (mask > 0)).astype(float)
+        if m2.sum() < 1 or m2.sum() == mask.sum():
+            continue
+        cand, res, _ = attain(n, d, spectrum, mask=m2, outer=150, tries=2,
+                              _built=built, psi0=psi * m2)
+        if res < res_tol:
+            psi, mask = cand, m2
+    # phase 2: greedy single removals (warm started)
     improved = True
     while improved:
         improved = False
@@ -97,7 +111,8 @@ def minimize_support(n: int, d: int, spectrum, psi, dets, res_tol=1e-12, _built=
             m2[i] = 0
             if m2.sum() < 1:
                 continue
-            cand, res, _ = attain(n, d, spectrum, mask=m2, outer=120, tries=3, _built=built)
+            cand, res, _ = attain(n, d, spectrum, mask=m2, outer=150, tries=2,
+                                  _built=built, psi0=psi * m2)
             if res < res_tol:
                 psi, mask = cand, m2
                 improved = True
