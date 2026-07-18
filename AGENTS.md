@@ -35,6 +35,9 @@ lives in `report/main.tex`.
 - `tests/`: pytest suite.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
 - `report/main.tex`: LaTeX paper, built with `make report` (latexmk).
+- `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow
+  fills its Metadata section (branch, head SHA, CI build version, diff stats)
+  when a PR is opened; keep the `pr-metadata:start/end` markers intact.
 
 ## Commands
 

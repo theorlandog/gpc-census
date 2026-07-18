@@ -1,0 +1,57 @@
+name: pr-metadata
+
+# Runs on the base branch and never executes PR head code, which makes
+# pull_request_target safe here and lets the token edit fork PRs too.
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  populate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Fill in the Metadata section
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          COMMITS: ${{ github.event.pull_request.commits }}
+          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
+          ADDITIONS: ${{ github.event.pull_request.additions }}
+          DELETIONS: ${{ github.event.pull_request.deletions }}
+        run: |
+          short="${HEAD_SHA:0:8}"
+          base_version="$(sed -n 's/^version = "\([^"]*\)"$/\1/p' pyproject.toml)"
+          export META="$(printf '%s\n' \
+            '| Field | Value |' \
+            '| ----- | ----- |' \
+            "| Branch | \`${HEAD_REF}\` into \`${BASE_REF}\` |" \
+            "| Head commit | \`${short}\` |" \
+            "| CI build version | \`${base_version}+git.${short}\` |" \
+            "| Commits | ${COMMITS} |" \
+            "| Diff size | ${CHANGED_FILES} files (+${ADDITIONS} / -${DELETIONS}) |")"
+          gh pr view "$PR" --json body --jq .body > body.md
+          python3 - <<'PYEOF'
+          import os
+
+          START = "<!-- pr-metadata:start -->"
+          END = "<!-- pr-metadata:end -->"
+          meta = os.environ["META"]
+          with open("body.md") as f:
+              body = f.read()
+          if START in body and END in body:
+              head, _, rest = body.partition(START)
+              _, _, tail = rest.partition(END)
+              body = f"{head}{START}\n{meta}\n{END}{tail}"
+          else:
+              body += f"\n\n## Metadata\n\n{START}\n{meta}\n{END}\n"
+          with open("body.md", "w") as f:
+              f.write(body)
+          PYEOF
+          gh pr edit "$PR" --body-file body.md
