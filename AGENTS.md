@@ -41,9 +41,10 @@ lives in `results/report/main.tex`; computed data results live under
   `make report-md` generates a pandoc-crossref markdown mirror
   (`results/report/main.md`, gitignored) via `scripts/tex2md.py`: section,
   equation, and table refs are live crossref citations; theorem-family refs
-  keep pandoc's baked numbers (crossref has no theorem type). The pinned
-  pandoc-crossref binary is version-locked to the host pandoc (see Makefile);
-  the target fails if any reference does not resolve in a render check.
+  keep pandoc's baked numbers (crossref has no theorem type). Conversion and
+  render check run in the pinned `pandoc/extra` container image (podman;
+  `CONTAINER=docker` to override), which bundles pandoc with a matched
+  pandoc-crossref; the target fails if any reference does not resolve.
 - `results/data/`: computed data results, shipped in the release
   `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow

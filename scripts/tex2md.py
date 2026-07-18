@@ -9,10 +9,15 @@ pandoc-crossref citations ({#eq:x} attributes, [-@sec:x] refs) that
 renumber whenever the markdown is rendered with the filter.
 """
 
+import os
 import pathlib
 import re
+import shlex
 import subprocess
 import sys
+
+# The Makefile points this at the pinned pandoc container image.
+PANDOC = shlex.split(os.environ.get("PANDOC", "pandoc"))
 
 
 def attach_stray_section_labels(md: str) -> str:
@@ -86,7 +91,7 @@ def rewrite_refs(md: str) -> str:
 
 def convert(tex: pathlib.Path) -> str:
     md = subprocess.run(
-        ["pandoc", str(tex), "-f", "latex", "-t", "markdown", "-s", "--wrap=none"],
+        [*PANDOC, str(tex), "-f", "latex", "-t", "markdown", "-s", "--wrap=none"],
         check=True,
         capture_output=True,
         text=True,
