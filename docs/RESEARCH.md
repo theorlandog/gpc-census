@@ -74,6 +74,44 @@ differences). Consequences:
    (exhaustive two-block real stratum sweep). enumerate_designs in
    classify.py is the generalizable exhaustive layer.
 
+## The selection rule is basis-relative (degeneracy lemma)
+
+At a vertex, every active facet forces the extremal state onto
+determinants achieving its bound (the superselection rule; cf. Liebert
+et al., PRR 7, 023247). Crucial subtlety discovered empirically on v_B:
+the rule holds in the state's OWN natural orbital basis, and a sparse
+extremal state generally does not have its natural orbitals aligned with
+the canonical modes. Diagnostic history: the strict canonical filter
+leaves 9 of 126 determinants for v_B, the resulting skeletons plateau at
+residual 1e-4, and none carries the historical weight multiset
+[7,4,3,2,2,2,2,1]. A first attempted fix (closure of the admissible set
+under degenerate-block signatures) was insufficient, and the failure is
+provable: the degree system pins diag(rho) to the spectrum, and if the
+eigenvalues also match, Ky Fan equality forces rho = diag(lambda)
+exactly, so every canonical-degree skeleton must cancel all off-diagonal
+1-RDM entries. Exhaustive CP-SAT enumeration shows no cardinality-8
+canonical-degree skeleton with the historical multiset passes even the
+polygon necessary condition. The sparse v_B state has DIFFERENT mode
+sums: its 1-RDM is block diagonal with 2x2 blocks mixing a 14-mode and a
+4-mode, exactly the structure of the historical interference8_1.py
+ansatz.
+
+The corrected lemma and its implementation (states.block_ansatze,
+states.solve_vertex_exact_first): sweep a discrete family of exact
+1-RDM targets. Each target is the canonical diagonal or a block diagonal
+with 2x2 blocks mixing two spectrum values e1 > e2 via an integer split
+(a, b): a + b = e1 + e2, off-diagonal sqrt(a*b - e1*e2)/den, which has
+exact eigenvalues e1/den, e2/den by construction. For each target the
+degree system uses the split mode sums, the strict selection rule is
+closed over the merged value classes (a 2x2 rotation preserves det
+occupancy counts within the merged group), skeleton enumeration is
+deduplicated to one representative per orbit of the degree-preserving
+mode permutations, a polygon inequality per mode pair prunes skeletons
+that cannot cancel, and the phase problem is solved as the smooth
+quartic |rho - T|_F^2 with analytic phase gradients (no
+eigendecomposition, hence no degeneracy flatness). This is a lemma about
+the method and belongs in the states paper.
+
 ## Source documents in docs/
 
 - stage1_klyachko_spec.md: the constraint-generation algorithm, verbatim
