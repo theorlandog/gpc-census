@@ -83,18 +83,38 @@ face identity P(N,d) cap {lambda_d = 0} = P(N,d-1)), a wrong classify port
 At a vertex, every active facet forces the extremal state onto
 determinants achieving its bound (the superselection rule; cf. Liebert
 et al., PRR 7, 023247). Crucial subtlety discovered empirically on v_B:
-the rule holds in the state's OWN natural orbital basis. Vertex spectra
-are maximally degenerate, and within a degenerate lambda-block the
-natural orbitals rotate freely, so the canonical-basis admissible set is
-too strict. Diagnostic that proved it: the strict filter leaves 9 of 126
-determinants for v_B, the resulting skeletons plateau at residual 1e-4,
-and none carries the historical weight multiset [7,4,3,2,2,2,2,1].
+the rule holds in the state's OWN natural orbital basis, and a sparse
+extremal state generally does not have its natural orbitals aligned with
+the canonical modes. Diagnostic history: the strict canonical filter
+leaves 9 of 126 determinants for v_B, the resulting skeletons plateau at
+residual 1e-4, and none carries the historical weight multiset
+[7,4,3,2,2,2,2,1]. A first attempted fix (closure of the admissible set
+under degenerate-block signatures) was insufficient, and the failure is
+provable: the degree system pins diag(rho) to the spectrum, and if the
+eigenvalues also match, Ky Fan equality forces rho = diag(lambda)
+exactly, so every canonical-degree skeleton must cancel all off-diagonal
+1-RDM entries. Exhaustive CP-SAT enumeration shows no cardinality-8
+canonical-degree skeleton with the historical multiset passes even the
+polygon necessary condition. The sparse v_B state has DIFFERENT mode
+sums: its 1-RDM is block diagonal with 2x2 blocks mixing a 14-mode and a
+4-mode, exactly the structure of the historical interference8_1.py
+ansatz.
 
-Fix (implemented in states.admissible_support): block-signature closure.
-Group orbitals by degenerate blocks of the spectrum; a determinant is
-admissible iff for every active facet the bound is achievable by some
-choice of that many coefficients within each block (exact subset-sum per
-block). This is a lemma about the method and belongs in the states paper.
+The corrected lemma and its implementation (states.block_ansatze,
+states.solve_vertex_exact_first): sweep a discrete family of exact
+1-RDM targets. Each target is the canonical diagonal or a block diagonal
+with 2x2 blocks mixing two spectrum values e1 > e2 via an integer split
+(a, b): a + b = e1 + e2, off-diagonal sqrt(a*b - e1*e2)/den, which has
+exact eigenvalues e1/den, e2/den by construction. For each target the
+degree system uses the split mode sums, the strict selection rule is
+closed over the merged value classes (a 2x2 rotation preserves det
+occupancy counts within the merged group), skeleton enumeration is
+deduplicated to one representative per orbit of the degree-preserving
+mode permutations, a polygon inequality per mode pair prunes skeletons
+that cannot cancel, and the phase problem is solved as the smooth
+quartic |rho - T|_F^2 with analytic phase gradients (no
+eigendecomposition, hence no degeneracy flatness). This is a lemma about
+the method and belongs in the states paper.
 
 ## Source documents in docs/
 
