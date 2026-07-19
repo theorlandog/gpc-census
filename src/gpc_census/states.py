@@ -1299,3 +1299,31 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
             if first_ok is None:
                 first_ok = rec
     return first_ok
+
+
+def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
+                  max_card: int = 16, max_blocks: int = 2, max_clique: int = 3,
+                  max_cliques: int = 1):
+    """Engine entry point: construct and certify the extremal state of one
+    vertex, routed by its classification. A DESIGN-INT vertex is built directly
+    from its design witness (exact by construction); DESIGN-REAL and
+    INTERFERENCE go through the weights-first + clique solver, then exactify.
+    Pass a known `verdict` to skip re-classifying; otherwise it is computed.
+    The compute knobs (max_card, max_blocks, max_clique, max_cliques) bound the
+    ansatz search: raising them lets the engine reach vertices the defaults do
+    not, at more compute. Returns a record whose `exact` field, when present and
+    EXACT, is a certified closed form (verified by the exact 1-RDM identity)."""
+    if verdict is None:
+        from .classify import classify
+        verdict = classify(n, d, spectrum).get("verdict")
+    rec = None
+    if verdict == "DESIGN-INT":
+        rec = solve_design_vertex(n, d, spectrum)
+    if rec is None:
+        rec = solve_vertex_exact_first(n, d, spectrum, max_card=max_card,
+                                       max_blocks=max_blocks, max_clique=max_clique,
+                                       max_cliques=max_cliques, certify_tier_b=True)
+    if rec is not None and rec.get("status") == "OK" and "exact" not in rec:
+        from .exactify import exactify
+        rec["exact"] = exactify(n, d, spectrum, rec)
+    return rec

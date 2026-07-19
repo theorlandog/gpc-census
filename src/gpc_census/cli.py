@@ -1,12 +1,46 @@
-"""Command-line interface for gpc-census."""
+"""Command-line interface for gpc-census.
+
+Two modes, mirroring the project's dual nature as a dataset and an engine:
+
+- Serve precomputed results (fast, no solve): ``export`` and ``states`` read the
+  shipped census (constraints, vertices, classifications, closed-form states) in
+  machine-readable JSON, so the results are usable as a library / data source.
+- Recompute or extend with the engine: ``constraints``, ``polytope``,
+  ``classify``, ``solve``, and ``states --recompute`` run the algorithms
+  directly. The compute knobs (--max-card, --max-blocks, --max-clique,
+  --max-cliques) bound the ansatz search, so more compute reaches further.
+"""
 
 from __future__ import annotations
 
 import argparse
+import json
 from collections.abc import Sequence
 
 from gpc_census import __version__
 from gpc_census.core import slater_vertices
+
+
+def _add_nd(sp: argparse.ArgumentParser) -> None:
+    sp.add_argument("-d", "--orbitals", type=int, required=True,
+                    help="number of orbitals d")
+    sp.add_argument("-n", "--fermions", type=int, required=True,
+                    help="number of fermions n")
+
+
+def _add_json(sp: argparse.ArgumentParser) -> None:
+    sp.add_argument("--json", action="store_true", help="machine-readable JSON output")
+
+
+def _add_knobs(sp: argparse.ArgumentParser) -> None:
+    sp.add_argument("--max-card", type=int, default=16,
+                    help="max support cardinality the weights-first solver enumerates")
+    sp.add_argument("--max-blocks", type=int, default=2,
+                    help="max 2x2 natural-orbital blocks in an ansatz")
+    sp.add_argument("--max-clique", type=int, default=3,
+                    help="max clique (block) size k; >=3 enables the k>=3 solver")
+    sp.add_argument("--max-cliques", type=int, default=1,
+                    help="max number of disjoint cliques; 0 uses per-vertex capacity")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -17,35 +51,107 @@ def build_parser() -> argparse.ArgumentParser:
             "natural-occupation-number (moment) polytopes."
         ),
     )
-    parser.add_argument(
-        "--version", action="version", version=f"%(prog)s {__version__}"
-    )
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    parser.add_argument("--version", action="version",
+                        version=f"%(prog)s {__version__}")
+    sub = parser.add_subparsers(dest="command", required=True)
 
-    vertices = subparsers.add_parser(
+    v = sub.add_parser(
         "vertices",
-        help="list Slater-determinant vertices of the Pauli polytope Delta(d, n)",
-    )
-    vertices.add_argument(
-        "-d", "--orbitals", type=int, required=True, help="number of orbitals d"
-    )
-    vertices.add_argument(
-        "-n", "--fermions", type=int, required=True, help="number of fermions n"
-    )
-    for name, helptext in [
-        ("constraints", "print the constraint system for the (n, d) moment polytope"),
-        ("polytope", "enumerate all vertices of the (n, d) moment polytope exactly (lrs)"),
-        ("classify", "classify every vertex of (n, d) as design or interference"),
-        ("solve", "construct a state attaining a vertex spectrum: --spectrum a,b,c,... over --den"),
-    ]:
-        sp = subparsers.add_parser(name, help=helptext)
-        sp.add_argument("-d", "--orbitals", type=int, required=True)
-        sp.add_argument("-n", "--fermions", type=int, required=True)
-        if name == "solve":
-            sp.add_argument("--spectrum", type=str, required=True,
-                            help="integer occupations at the natural denominator, comma separated")
-            sp.add_argument("--den", type=int, required=True, help="natural denominator")
+        help="list Slater-determinant vertices of the Pauli polytope Delta(d, n)")
+    _add_nd(v)
+
+    con = sub.add_parser(
+        "constraints", help="print the (n, d) moment-polytope constraint system")
+    _add_nd(con)
+
+    poly = sub.add_parser(
+        "polytope", help="enumerate all vertices of the (n, d) moment polytope (lrs)")
+    _add_nd(poly)
+    _add_json(poly)
+
+    cls = sub.add_parser(
+        "classify", help="classify every vertex of (n, d) as design or interference")
+    _add_nd(cls)
+    _add_json(cls)
+
+    sol = sub.add_parser(
+        "solve", help="construct + certify a closed-form state for a spectrum")
+    _add_nd(sol)
+    sol.add_argument("--spectrum", type=str, required=True,
+                     help="integer occupations at the natural denominator, comma separated")
+    sol.add_argument("--den", type=int, required=True, help="natural denominator")
+    _add_knobs(sol)
+    _add_json(sol)
+
+    exp = sub.add_parser(
+        "export",
+        help="dump precomputed results for (n, d) as JSON (constraints, "
+             "vertices, classification, states)")
+    _add_nd(exp)
+    exp.add_argument("--kind", choices=("all", "constraints", "vertices",
+                                        "classification", "states"),
+                     default="all", help="which precomputed artifact to emit")
+
+    st = sub.add_parser(
+        "states",
+        help="precomputed closed-form states for (n, d); --recompute to run the engine")
+    _add_nd(st)
+    st.add_argument("--index", type=int, default=None,
+                    help="restrict to a single vertex index")
+    st.add_argument("--recompute", action="store_true",
+                    help="run the engine instead of reading the shipped dataset")
+    _add_knobs(st)
+    _add_json(st)
     return parser
+
+
+def _cmd_solve(args, parser) -> int:
+    from fractions import Fraction
+    from gpc_census.states import certify_state
+    spec = [Fraction(int(x), args.den) for x in args.spectrum.split(",")]
+    rec = certify_state(args.fermions, args.orbitals, spec,
+                        max_card=args.max_card, max_blocks=args.max_blocks,
+                        max_clique=args.max_clique, max_cliques=args.max_cliques)
+    if args.json:
+        print(json.dumps(rec, default=str, indent=1))
+        return 0
+    if rec is None or rec.get("status") != "OK":
+        print("no state found", rec.get("reason", "") if rec else "")
+        return 1
+    ex = rec.get("exact") or {}
+    if ex.get("status") == "EXACT":
+        print(f"closed form (den {ex['den']}), weights {ex['weights']}")
+        for det, amp in zip(ex.get("support_dets", [s[0] for s in rec["support"]]),
+                            ex["pretty"]):
+            print("  ", det, amp)
+    else:
+        print(f"numeric state, residual {rec.get('residual')}, "
+              f"no closed form ({ex.get('status', 'n/a')})")
+        for det, mod, ph in rec["support"]:
+            print("  ", det, f"{mod:.9f}", f"{ph:+.9f}")
+    return 0
+
+
+def _cmd_states(args, parser) -> int:
+    if args.recompute:
+        from fractions import Fraction
+        from gpc_census.dataset import vertices as pv
+        from gpc_census.states import certify_state
+        out = []
+        for rec in pv(args.fermions, args.orbitals):
+            if args.index is not None and rec["index"] != args.index:
+                continue
+            spec = [Fraction(s) for s in rec["spectrum"]]
+            r = certify_state(args.fermions, args.orbitals, spec,
+                              max_card=args.max_card, max_blocks=args.max_blocks,
+                              max_clique=args.max_clique, max_cliques=args.max_cliques)
+            out.append({"index": rec["index"], "record": r})
+        print(json.dumps(out, default=str, indent=1))
+        return 0
+    from gpc_census.dataset import states
+    recs = states(args.fermions, args.orbitals, index=args.index)
+    print(json.dumps(recs, default=str, indent=1))
+    return 0
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -58,29 +164,57 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(" ".join(map(str, vec)))
         except ValueError as exc:
             parser.error(str(exc))
+        return 0
     if args.command == "constraints":
-        import json as _json
         from gpc_census.constraints import constraints
-        print(_json.dumps(constraints(args.fermions, args.orbitals), indent=1))
+        print(json.dumps(constraints(args.fermions, args.orbitals), indent=1))
+        return 0
     if args.command == "polytope":
         from gpc_census.polytope import vertices as pverts
-        for v in pverts(args.fermions, args.orbitals):
-            print(" ".join(str(x) for x in v))
+        vs = [[str(x) for x in v] for v in pverts(args.fermions, args.orbitals)]
+        if args.json:
+            print(json.dumps(vs, indent=1))
+        else:
+            for v in vs:
+                print(" ".join(v))
+        return 0
     if args.command == "classify":
         from gpc_census.classify import classify
         from gpc_census.polytope import vertices as pverts
+        rows = []
         for i, v in enumerate(pverts(args.fermions, args.orbitals)):
             r = classify(args.fermions, args.orbitals, v)
-            print(i, [str(x) for x in v], r["verdict"], r["solver"])
+            rows.append({"index": i, "spectrum": [str(x) for x in v],
+                         "verdict": r["verdict"], "solver": r["solver"]})
+        if args.json:
+            print(json.dumps(rows, indent=1))
+        else:
+            for row in rows:
+                print(row["index"], row["spectrum"], row["verdict"], row["solver"])
+        return 0
     if args.command == "solve":
-        from fractions import Fraction
-        from gpc_census.states import attain
-        spec = [Fraction(int(x), args.den) for x in args.spectrum.split(",")]
-        psi, res, dets = attain(args.fermions, args.orbitals, spec)
-        print(f"residual {res}")
-        for i, amp in enumerate(psi):
-            if abs(amp) > 1e-9:
-                print(dets[i], f"{abs(amp):.9f}", f"{__import__('numpy').angle(amp):+.9f}")
+        return _cmd_solve(args, parser)
+    if args.command == "export":
+        from gpc_census import dataset
+        n, d = args.fermions, args.orbitals
+        try:
+            if args.kind == "all":
+                payload = dataset.export(n, d)
+            elif args.kind == "constraints":
+                from gpc_census.constraints import constraints
+                payload = constraints(n, d)
+            elif args.kind == "vertices":
+                payload = dataset.vertices(n, d)
+            elif args.kind == "classification":
+                payload = dataset.classification(n, d)
+            else:
+                payload = dataset.states(n, d)
+        except KeyError as exc:
+            parser.error(str(exc))
+        print(json.dumps(payload, default=str, indent=1))
+        return 0
+    if args.command == "states":
+        return _cmd_states(args, parser)
     return 0
 
 

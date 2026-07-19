@@ -69,6 +69,12 @@ include = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/gpc_census"]
 
+# Embed the precomputed dataset (single source of truth: results/data) into the
+# wheel as package data, so gpc_census.dataset can serve it from an installed
+# package without a source checkout.
+[tool.hatch.build.targets.wheel.force-include]
+"results/data" = "gpc_census/_data"
+
 [tool.ruff]
 extend-exclude = ["scripts"]
 line-length = 100

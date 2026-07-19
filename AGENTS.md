@@ -35,7 +35,12 @@ lives in `results/report/main.md`; computed data results live under
 ## Layout
 
 - `src/gpc_census/`: library code (`core.py`) and CLI (`cli.py`, argparse,
-  entry point `gpc-census = gpc_census.cli:main`).
+  entry point `gpc-census = gpc_census.cli:main`). `dataset.py` serves the
+  precomputed census (vertices, verdicts, closed-form states) as a library;
+  it reads the wheel-embedded copy (`gpc_census/_data`, force-included from
+  `results/data` at build time) and falls back to `results/data` in a source
+  checkout. `states.certify_state` is the single engine entry point that routes
+  a vertex to its solver and returns the certified closed form.
 - `tests/`: pytest suite. `tests/data/` is a symlink to `results/data/` (the
   single source of truth), so the fixture cannot drift from the published
   dataset. The sdist ships `results/data/` (the symlink target); the symlink

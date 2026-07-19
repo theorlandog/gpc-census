@@ -112,20 +112,41 @@ in `results/data/`.
 
 ## Quick start
 
+The CLI has two modes: serve the precomputed results (fast, no solve) and run
+the engine to recompute or extend them.
+
 ```sh
 uv sync                                     # install deps (CP-SAT backend included)
+
+# precomputed results, machine-readable (usable as a data source / library)
+gpc-census export   -n 4 -d 9               # constraints + vertices + verdicts + states, JSON
+gpc-census export   -n 4 -d 9 --kind states # just the certified closed-form states
+gpc-census states   -n 4 -d 9 --index 65    # the closed form for one vertex (v_B)
+
+# run the engine
 gpc-census constraints -n 3 -d 9            # the 52-inequality system
-gpc-census polytope   -n 3 -d 9             # its 58 vertices, exactly
-gpc-census classify   -n 4 -d 9             # verdicts incl. v_A and v_B
-uv run python scripts/solve_all.py --preflight   # reconstruct + certify v_B, gate for campaigns
-uv run python scripts/solve_all.py --all         # full state census, routed by verdict
+gpc-census polytope    -n 3 -d 9            # its 58 vertices, exactly
+gpc-census classify    -n 4 -d 9            # verdicts incl. v_A and v_B
+gpc-census solve       -n 4 -d 9 --den 23 --spectrum 20,14,14,14,14,4,4,4,4  # certify a state
+gpc-census states      -n 4 -d 9 --recompute --max-cliques 0                 # recompute, push bounds
 ```
 
-The state campaign routes each vertex by verdict (design vertices built
-from their witness, interference vertices through the block solver, with
-a cascade to `attain` on the frontier), is restartable and checkpointed,
-and writes `results/data/states.jsonl`. `--solver`, `--max-blocks`, and
-`--workers` tune coverage and parallelism.
+As a library, the precomputed dataset is available without recomputing:
+
+```python
+from gpc_census import dataset
+dataset.vertices(4, 9)        # extremal spectra (exact)
+dataset.classification(4, 9)  # design/interference verdict per vertex
+dataset.states(4, 9)          # certified closed-form states
+dataset.export(4, 9)          # all of the above, one object
+```
+
+To recompute or push further, the engine is a single call
+(`gpc_census.states.certify_state(n, d, spectrum, max_clique=..., max_cliques=...)`),
+and the full campaign (`scripts/solve_all.py --all`) routes each vertex by
+verdict, is restartable and checkpointed, and writes `results/data/states.jsonl`.
+The compute knobs (`--max-card`, `--max-blocks`, `--max-clique`, `--max-cliques`)
+bound the ansatz search, so more compute reaches further vertices.
 
 ## Development
 
