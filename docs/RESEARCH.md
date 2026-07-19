@@ -99,6 +99,35 @@ cheap, certain work is never redone by an expensive stage.
    attain solver is retained only as a Tier-A cascade fallback for frontier
    vertices.
 
+2b. Block-size generalization (k x k), clique_ansatze / phase_solve_clique,
+   enabled by max_clique. Some vertices need a natural-orbital rotation that
+   mixes k >= 3 distinct eigenvalue classes at once, not just 2x2 blocks; the
+   2x2 sweep flags them min_blocks = None. The general block is a k-mode clique
+   whose canonical diagonal (integer occupations) is any vector majorized by the
+   block's k eigenvalues. The Schur-Horn theorem (I. Schur, Sitzungsber. Berl.
+   Math. Ges. 22, 9 (1923): the diagonal of a Hermitian matrix is majorized by
+   its eigenvalues; A. Horn, Amer. J. Math. 76, 620 (1954): the converse, every
+   majorized vector is a diagonal) characterizes exactly the realizable
+   diagonals, and _schur_horn_diagonals enumerates them (the 2x2 split is the
+   k=2 case; permutation diagonals are kept, since for k >= 3 they admit
+   non-diagonal realizations). A clique mixes distinct eigenvalues, so its block
+   is non-degenerate and phase_solve_clique matches it by its
+   characteristic-polynomial (elementary-symmetric) coefficients via power sums
+   and Newton's identities, with analytic gradients (L-BFGS), again without
+   eigendecomposition. A clique-size preflight (min_clique_count, pure
+   feasibility from k = 3 up) sets the starting size and fails fast off the
+   single-clique family. Validated end to end and UNAIDED: idx 24 of (4,9),
+   (9:6:5:5:5:2:2:1:1)/9, which no 2x2 configuration reaches, reconstructs from
+   the spectrum alone (residual 1e-31, ~160 s) with a single 3x3 clique. The
+   pipeline finds its own realization (clique on modes {1,4,8}, eigenvalues
+   (6,5,1)), not the one an exploratory prototype had been handed (modes {0,1,4},
+   (9,6,5)), which is the evidence that the search is unbiased. Open: Tier B for
+   k >= 3 (the block off-diagonals are higher-degree algebraic numbers, not
+   generally p*sqrt(q)/r, so the phase recognizer must be extended or these fall
+   to TIER-C); multi-clique ansatze; and a clique placement beyond one
+   representative orbital per class (WLOG for a single clique by degenerate-class
+   symmetry, but not for several cliques sharing a class).
+
 3. Exactify (Tier B, gpc_census.exactify). Squared amplitudes snap to k/den.
    The state is defined only up to the single-particle U(1)^d phase gauge
    (c_t -> c_t prod_{m in t} exp(i phi_m), a diagonal-unitary conjugation of the

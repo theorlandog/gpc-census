@@ -272,3 +272,85 @@ def test_min_block_count_predicts_budget():
     # (9:6:5:5:5:2:2:1:1) is a 4_9 interference vertex off the family <= 2 blocks
     frontier = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
     assert min_block_count(4, 9, frontier, max_blocks=2) is None
+
+
+def test_schur_horn_generalizes_splits():
+    # the k=2 Schur-Horn diagonals must contain every _splits pair (both orders)
+    from gpc_census.states import _schur_horn_diagonals, _splits
+    sh = set(_schur_horn_diagonals([14, 4], 23))
+    sp = {(a, b) for a, b, _ in _splits(14, 4, 23)}
+    sp |= {(b, a) for a, b, _ in _splits(14, 4, 23)}
+    assert sp <= sh
+
+
+def test_esym_and_grad_matches_charpoly():
+    # elementary symmetric polys equal the eigenvalue symmetric functions, and
+    # the end-to-end use is gradient-checked in test_clique_phase_gradient
+    import numpy as np
+
+    from gpc_census.states import _esym_and_grad
+    np.random.seed(1)
+    m = np.random.randn(3, 3)
+    b = (m + m.T) / 2
+    ev, _ = _esym_and_grad(b)
+    eig = np.linalg.eigvalsh(b)
+    e1 = eig.sum()
+    e2 = eig[0] * eig[1] + eig[0] * eig[2] + eig[1] * eig[2]
+    e3 = float(np.prod(eig))
+    assert np.allclose(ev, [e1, e2, e3])
+
+
+def test_clique_phase_gradient_matches_finite_differences():
+    # the analytic gradient L-BFGS uses in phase_solve_clique (off-clique
+    # cancellation plus char-poly block matching) must match finite differences
+    import numpy as np
+
+    from gpc_census.states import _build, _esym_and_grad
+    np.random.seed(2)
+    dets, a = _build(9, 4)
+    idx = {t: i for i, t in enumerate(dets)}
+    supd = [(0, 1, 4, 6), (0, 2, 3, 4), (0, 4, 5, 7), (1, 2, 3, 4), (1, 4, 5, 8)]
+    sup = [idx[t] for t in supd]
+    mod = np.array([(w / 9) ** 0.5 for w in (2, 2, 1, 3, 1)])
+    asub = a[:, :, sup][:, :, :, sup]
+    clique = (0, 1, 4)
+    tgt = _esym_and_grad(np.diag([e / 9 for e in (9, 6, 5)]))[0]
+    offc = [(p, q) for p in range(9) for q in range(p + 1, 9)
+            if not {p, q} <= set(clique)]
+
+    def fg(th):
+        c = mod * np.exp(1j * np.concatenate(([0.0], th)))
+        rho = np.einsum("p,mnpq,q->mn", c.conj(), asub, c)
+        en = 0.0
+        g = np.zeros((9, 9), complex)
+        for (p, q) in offc:
+            en += 2 * abs(rho[p, q]) ** 2
+            g[p, q] += 2 * rho[p, q]
+            g[q, p] += 2 * rho[q, p]
+        b = rho[np.ix_(clique, clique)].real
+        ev, dev = _esym_and_grad(b)
+        r = ev - tgt
+        en += 10 * float(r @ r)
+        dedb = 10 * sum(2 * r[j] * dev[j] for j in range(3))
+        for ia, ma in enumerate(clique):
+            for ib, mb in enumerate(clique):
+                g[ma, mb] += dedb[ia, ib]
+        g1 = np.einsum("mn,mnpq,q->p", g, asub, c)
+        return en, 2 * np.imag(c.conj() * g1)[1:]
+
+    th = np.random.uniform(0, 2 * np.pi, len(sup) - 1)
+    _, grad = fg(th)
+    h = 1e-6
+    for j in range(len(th)):
+        tp, tm = th.copy(), th.copy()
+        tp[j] += h
+        tm[j] -= h
+        assert abs((fg(tp)[0] - fg(tm)[0]) / (2 * h) - grad[j]) < 1e-6
+    assert max(abs(grad)) > 1e-3
+
+
+def test_min_clique_count_flags_k3_vertex():
+    # (9:6:5:5:5:2:2:1:1)/9 needs a 3-clique (no 2x2 configuration reaches it)
+    from gpc_census.states import min_clique_count
+    spec = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    assert min_clique_count(4, 9, spec) == 3

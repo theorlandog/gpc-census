@@ -70,7 +70,22 @@ Four stages, mirroring the mathematics:
       phases as a smooth quartic with analytic gradients (no
       eigendecomposition, immune to the second-order degeneracy flatness
       that stalls gradient and moment-matching methods).
-   4. Exactify. Moduli snap to the natural denominator; after gauge-fixing
+   4. Block-size generalization (k x k). A 2x2 block mixes two degenerate
+      classes; some vertices need a natural-orbital rotation mixing k >= 3
+      classes at once. The general block is a k-mode clique whose canonical
+      diagonal (integer occupations) is any vector majorized by the block's
+      k eigenvalues: the Schur-Horn theorem (I. Schur, Sitzungsber. Berl.
+      Math. Ges. 22, 9 (1923); A. Horn, Amer. J. Math. 76, 620 (1954))
+      characterizes exactly these, and `_schur_horn_diagonals` enumerates
+      them (the 2x2 split is the k=2 case). Because a clique mixes distinct
+      eigenvalues the block is non-degenerate, so `phase_solve_clique`
+      matches it by its characteristic-polynomial coefficients (power sums
+      and Newton's identities, analytic gradients, no eigendecomposition),
+      and `min_clique_count` is the block-size preflight. This is what the
+      (4,9) vertices outside the 2x2 family need: idx 24,
+      (9:6:5:5:5:2:2:1:1)/9, reconstructs from the spectrum alone with one
+      3x3 clique. `max_clique` enables it.
+   5. Exactify. Moduli snap to the natural denominator; after gauge-fixing
       the single-particle U(1)^d phase freedom, the residual interference
       phases are recognized (rational multiples of pi, or cosines on the
       p*sqrt(q)/r lattice) and the symbolic state is verified by exact

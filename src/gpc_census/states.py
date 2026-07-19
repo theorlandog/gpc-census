@@ -480,6 +480,67 @@ def block_ansatze(n: int, d: int, spectrum, max_blocks: int = 2):
                 yield nv, blocks
 
 
+def _schur_horn_diagonals(evals, den: int):
+    """Integer diagonals (occupation numerators) a Hermitian block with the
+    given integer eigenvalues can carry: exactly those majorized by the
+    eigenvalues (Schur-Horn), same total, each in [0, den]. The 2x2 case is
+    _splits; this is the k-mode generalization that block size beyond 2 needs.
+    The identity diagonal (eigenvalues in mode order, forced diagonal, no
+    mixing) is dropped; permutation diagonals are kept, since for k >= 3 they
+    admit genuinely non-diagonal realizations (the idx-24 3x3 block is one)."""
+    k, s = len(evals), sum(evals)
+    es = sorted(evals, reverse=True)
+    out = []
+
+    def rec(i, rem, cur):
+        if i == k - 1:
+            if 0 <= rem <= den:
+                dd = sorted(cur + [rem], reverse=True)
+                if all(sum(dd[:j + 1]) <= sum(es[:j + 1]) for j in range(k)):
+                    out.append(tuple(cur + [rem]))
+            return
+        for val in range(min(den, rem) + 1):
+            rec(i + 1, rem - val, cur + [val])
+
+    rec(0, s, [])
+    return [d for d in out if tuple(d) != tuple(es)]
+
+
+def clique_ansatze(n: int, d: int, spectrum, sizes=(3,)):
+    """Single-clique ansatze beyond 2x2: a size-k clique mixes k orbitals from
+    k DISTINCT eigenvalue classes (mixing equal eigenvalues is a trivial
+    rotation), one orbital per class, with a Schur-Horn integer diagonal. Yields
+    (nv, (modes, evals)): the split degree vector and the clique. The natural
+    generalization of block_ansatze; the 1-RDM off-diagonal is confined to the
+    intra-clique pairs, which the support model keeps one-hop free elsewhere."""
+    import math
+    from fractions import Fraction as F
+    from itertools import combinations
+
+    spec = [F(x) for x in spectrum]
+    den = 1
+    for x in spec:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    nv0 = [int(x * den) for x in spec]
+    classes: dict = {}
+    for m_, v in enumerate(nv0):
+        classes.setdefault(v, []).append(m_)
+    vals = sorted(classes, reverse=True)
+    for k in sizes:
+        for chosen in combinations(vals, k):
+            modes = tuple(classes[v][-1] for v in chosen)  # tail orbital per class
+            diags = _schur_horn_diagonals(list(chosen), den)
+            # permutation diagonals (a pure natural-basis rotation of the block)
+            # are the likeliest realizations, so try them first
+            evset = sorted(chosen, reverse=True)
+            diags.sort(key=lambda dd: (sorted(dd, reverse=True) != evset, dd))
+            for diag in diags:
+                nv = list(nv0)
+                for mo, val in zip(modes, diag):
+                    nv[mo] = val
+                yield nv, (modes, tuple(chosen))
+
+
 def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
                     require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False):
     """CP-SAT model of the degree system: weights k on allowed determinants
@@ -624,6 +685,49 @@ def min_block_count(n: int, d: int, spectrum, max_blocks: int = 4, time_cap: int
     return best
 
 
+def min_clique_count(n: int, d: int, spectrum, max_clique: int = 4, time_cap: int = 5):
+    """Smallest clique SIZE k in [3, max_clique] for which some single k-clique
+    ansatz has a degree-feasible support that is one-hop free off the clique
+    (pure feasibility, no phase solve). None when none is feasible: the vertex is
+    outside the single-clique family. The block-size analog of min_block_count.
+    Starts at k = 3: k = 2 is the block path (min_block_count), and at k = 2 a
+    permutation diagonal forces the block diagonal (no mixing), so it would be
+    spuriously feasible here."""
+    import math
+    from fractions import Fraction as F
+    from itertools import combinations
+
+    from ortools.sat.python import cp_model
+
+    den = 1
+    for x in [F(s) for s in spectrum]:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    dets = list(combinations(range(d), n))
+    asets = [set(t) for t in dets]
+    hop = [(p, q) for p in range(len(dets)) for q in range(p + 1, len(dets))
+           if len(asets[p] ^ asets[q]) == 2]
+    rows = [[j for j, t in enumerate(dets) if mo in t] for mo in range(d)]
+    for k in range(3, max_clique + 1):
+        for nv, (modes, _evals) in clique_ansatze(n, d, spectrum, sizes=[k]):
+            cset = set(modes)
+            m = cp_model.CpModel()
+            kk = [m.NewIntVar(0, den, f"k{j}") for j in range(len(dets))]
+            y = [m.NewBoolVar(f"y{j}") for j in range(len(dets))]
+            for j in range(len(dets)):
+                m.Add(kk[j] <= den * y[j])
+                m.Add(kk[j] >= y[j])
+            for mo in range(d):
+                m.Add(sum(kk[j] for j in rows[mo]) == nv[mo])
+            for p, q in hop:
+                if not (asets[p] ^ asets[q]) <= cset:
+                    m.AddBoolOr([y[p].Not(), y[q].Not()])
+            s = cp_model.CpSolver()
+            s.parameters.max_time_in_seconds = time_cap
+            if s.Solve(m) in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+                return k
+    return None
+
+
 def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40,
                              support_filter=None, prefilter=None, nv=None,
                              dedup_maps="auto", require_hop_pairs=None,
@@ -747,6 +851,100 @@ def phase_solve(n: int, d: int, spectrum, dets, den, weights, tries=6, _built=No
     return psi, float(np.sum((e - lam) ** 2))
 
 
+def _esym_and_grad(B):
+    """Elementary symmetric polynomials e_1..e_k of the eigenvalues of a real
+    symmetric k x k matrix B (its characteristic-polynomial coefficients) and
+    their gradients de_j/dB, without eigendecomposition: power sums
+    p_i = tr(B^i) (dp_i/dB = i B^(i-1)) fed through Newton's identities."""
+    import numpy as np
+
+    k = B.shape[0]
+    powB = [np.eye(k)]
+    for _ in range(k):
+        powB.append(powB[-1] @ B)
+    p = [float(np.trace(powB[i])) for i in range(1, k + 1)]
+    dp = [i * powB[i - 1] for i in range(1, k + 1)]
+    e = [1.0] + [0.0] * k
+    de = [np.zeros((k, k))] + [np.zeros((k, k)) for _ in range(k)]
+    for j in range(1, k + 1):
+        acc, dacc = 0.0, np.zeros((k, k))
+        for i in range(1, j + 1):
+            sgn = (-1) ** (i - 1)
+            acc += sgn * e[j - i] * p[i - 1]
+            dacc = dacc + sgn * (de[j - i] * p[i - 1] + e[j - i] * dp[i - 1])
+        e[j], de[j] = acc / j, dacc / j
+    return np.array(e[1:]), de[1:]
+
+
+def phase_solve_clique(n: int, d: int, spectrum, dets, den, weights, cliques,
+                       tries=8, weight=10.0, _built=None):
+    """Phase solve for a clique (k-mode block) target with analytic gradients.
+    Fixes moduli sqrt(k/den); the degree system pins the canonical diagonal, so
+    the objective is (i) zero every off-clique off-diagonal 1-RDM entry and
+    (ii) give each clique block the prescribed eigenvalues. The block target is
+    not a fixed matrix (for k >= 3 it lives on a Schur-Horn fiber), so the block
+    is matched by its characteristic-polynomial (elementary-symmetric)
+    coefficients, non-degenerate because a clique mixes distinct eigenvalue
+    classes. Smooth in the phases, no eigendecomposition; L-BFGS with exact
+    gradients. Returns (psi, spectral residual)."""
+    import numpy as np
+    from scipy.optimize import minimize
+
+    built = _built if _built is not None else _build(d, n)
+    _, a = built
+    dim = a.shape[2]
+    sup = [i for i, k in enumerate(weights) if k > 0]
+    mod = np.array([(weights[i] / den) ** 0.5 for i in sup])
+    asub = a[:, :, sup][:, :, :, sup]
+    lam = np.sort(np.array([float(x) for x in spectrum]))[::-1]
+    clsets = [set(modes) for modes, _ in cliques]
+    offclique = [(p, q) for p in range(d) for q in range(p + 1, d)
+                 if not any({p, q} <= cs for cs in clsets)]
+    targets = [(list(modes),
+                _esym_and_grad(np.diag([e / den for e in sorted(evals, reverse=True)]))[0])
+               for modes, evals in cliques]
+
+    def fg(th):
+        c = mod * np.exp(1j * np.concatenate(([0.0], th)))
+        rho = np.einsum("p,mnpq,q->mn", c.conj(), asub, c)
+        en = 0.0
+        G = np.zeros((d, d), complex)  # dE / d conj(rho), Hermitian accumulator
+        for (p, q) in offclique:
+            en += 2.0 * abs(rho[p, q]) ** 2
+            G[p, q] += 2.0 * rho[p, q]
+            G[q, p] += 2.0 * rho[q, p]
+        for modes, tgt in targets:
+            B = rho[np.ix_(modes, modes)].real
+            ev, dev = _esym_and_grad(B)
+            r = ev - tgt
+            en += weight * float(r @ r)
+            dEdB = weight * sum(2.0 * r[j] * dev[j] for j in range(len(r)))
+            for ia, ma in enumerate(modes):
+                for ib, mb in enumerate(modes):
+                    G[ma, mb] += dEdB[ia, ib]
+        g1 = np.einsum("mn,mnpq,q->p", G, asub, c)
+        grad = 2.0 * np.imag(c.conj() * g1)
+        return en, grad[1:]
+
+    best = (None, 1e9)
+    for _ in range(tries):
+        th0 = np.random.uniform(0, 2 * np.pi, len(sup) - 1)
+        r = minimize(fg, th0, jac=True, method="L-BFGS-B",
+                     options={"maxiter": 2000, "ftol": 1e-24, "gtol": 1e-16})
+        if r.fun < best[1]:
+            best = (r.x, r.fun)
+        if best[1] < 1e-22:
+            break
+    if best[0] is None:
+        return None, 1e9
+    c = mod * np.exp(1j * np.concatenate(([0.0], best[0])))
+    rho = np.einsum("p,mnpq,q->mn", c.conj(), asub, c)
+    e = np.linalg.eigvalsh(rho)[::-1].real
+    psi = np.zeros(dim, complex)
+    psi[sup] = c
+    return psi, float(np.sum((e - lam) ** 2))
+
+
 def solve_design_vertex(n: int, d: int, spectrum):
     """Construct the extremal state of a DESIGN-INT vertex directly from its
     weighted design, no iterative solve. A design's support is one-hop free,
@@ -776,7 +974,7 @@ def solve_design_vertex(n: int, d: int, spectrum):
 
 def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                              max_blocks: int = 2, certify_tier_b: bool = False,
-                             _built=None):
+                             max_clique: int = 2, _built=None):
     """Weights-first solve: enumerate integer weight skeletons by ascending
     support size and phase-solve each; moduli are on the natural grid by
     construction, so Tier B needs only phase recognition. Sweeps the block
@@ -811,13 +1009,14 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     # max_blocks is even feasible, so fail fast (the extended-ansatz frontier)
     # instead of sweeping and phase-solving to no avail.
     needed = min_block_count(n, d, spectrum, max_blocks=max_blocks)
-    if needed is None:
+    if needed is None and max_clique < 3:
         return {"status": "FAIL", "min_blocks": None,
                 "reason": f"no block ansatz feasible through {max_blocks} blocks "
                           "(extended-ansatz frontier)"}
 
     ansatze = []
-    for nv, blocks in block_ansatze(n, d, spectrum, max_blocks=max_blocks):
+    for nv, blocks in ([] if needed is None else
+                       block_ansatze(n, d, spectrum, max_blocks=max_blocks)):
         if len(blocks) < needed:
             continue  # fewer blocks than the budget preflight proved necessary
         if not blocks:
@@ -899,8 +1098,107 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                 return rec
             if first_ok is None:
                 first_ok = rec
+
+    # k >= 3 extension: when the 2x2 block family does not resolve the vertex,
+    # sweep single k-mode clique ansatze (Schur-Horn diagonals, char-poly phase
+    # solve). This is the block-size generalization; a clique mixes k distinct
+    # eigenvalue classes and its off-diagonal is confined to the clique. A
+    # clique-size preflight (min_clique_count, pure feasibility) sets the
+    # starting size and fails fast when no single clique is feasible.
+    if max_clique >= 3:
+        ksize = min_clique_count(n, d, spectrum, max_clique=max_clique)
+        if ksize is not None and ksize >= 3:
+            ck = _solve_via_cliques(n, d, spectrum, dets_all, den, built,
+                                    range(ksize, max_clique + 1), max_card,
+                                    certify_tier_b)
+            if ck is not None and (ck["status"] == "OK"):
+                if not certify_tier_b or "exact" in ck:
+                    return ck
+                if first_ok is None:
+                    first_ok = ck
+
     if first_ok is not None:
         return first_ok
     return {"status": "FAIL", "min_blocks": needed,
-            "reason": f"block budget {needed} feasible but no realization "
-                      f"phase-solved through cardinality {max_card}"}
+            "reason": f"no realization phase-solved through cardinality "
+                      f"{max_card}, cliques up to {max_clique}"}
+
+
+def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
+                       certify_tier_b):
+    """Sweep single-clique ansatze of the given sizes: enumerate a one-hop-free
+    (off-clique) support, phase-solve the clique block by its eigenvalues, and
+    exactify. Returns an OK record (certified when certify_tier_b and possible),
+    the first numeric hit, or None."""
+    import numpy as np
+    from ortools.sat.python import cp_model
+
+    dets = list(dets_all)
+    asets = [set(t) for t in dets]
+    # off-clique one-hop pairs are precomputed once; only the clique mask varies
+    hop_pairs = [(p, q) for p in range(len(dets)) for q in range(p + 1, len(dets))
+                 if len(asets[p] ^ asets[q]) == 2]
+    first_ok = None
+    for nv, (modes, evals) in clique_ansatze(n, d, spectrum, sizes=list(sizes)):
+        cset = set(modes)
+        # one-hop free off the clique (the real prune); enumerate over all
+        # determinants since the degenerate-signature closure is unsound here
+        m = cp_model.CpModel()
+        k = [m.NewIntVar(0, den, f"k{j}") for j in range(len(dets))]
+        y = [m.NewBoolVar(f"y{j}") for j in range(len(dets))]
+        rows = [[] for _ in range(d)]
+        for j, t in enumerate(dets):
+            m.Add(k[j] <= den * y[j])
+            m.Add(k[j] >= y[j])
+            for mo in t:
+                rows[mo].append(j)
+        for mo in range(d):
+            m.Add(sum(k[j] for j in rows[mo]) == nv[mo])
+        for p, q in hop_pairs:
+            if not (asets[p] ^ asets[q]) <= cset:
+                m.AddBoolOr([y[p].Not(), y[q].Not()])
+        m.Add(sum(y) <= max_card)
+        # feasibility gate first: skip ansatze whose degree system is unsatisfiable
+        gate = cp_model.CpSolver()
+        gate.parameters.max_time_in_seconds = 3
+        if gate.Solve(m) not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            continue
+        out = []
+
+        class _C(cp_model.CpSolverSolutionCallback):
+            def on_solution_callback(self):
+                out.append([self.Value(x) for x in k])
+                if len(out) >= 20:
+                    self.StopSearch()
+
+        s = cp_model.CpSolver()
+        s.parameters.enumerate_all_solutions = True
+        s.parameters.max_time_in_seconds = 10
+        s.Solve(m, _C())
+        for wa in sorted(out, key=lambda wa: sum(1 for x in wa if x)):
+            w = [0] * len(dets_all)
+            for j in range(len(dets)):
+                if wa[j]:
+                    w[j] = wa[j]
+            psi, res = phase_solve_clique(n, d, spectrum, dets_all, den, w,
+                                          [(modes, evals)], tries=6, _built=built)
+            if psi is None or res >= 1e-12:
+                continue
+            sup = [i for i, kk in enumerate(w) if kk > 0]
+            j0 = max(sup, key=lambda i: abs(psi[i]))
+            psi = psi * np.exp(-1j * np.angle(psi[j0]))
+            rec = {"status": "OK", "residual": res, "support_size": len(sup),
+                   "weights": [w[i] for i in sup], "den": den,
+                   "ansatz": {"nv": nv, "cliques": [[list(modes), list(evals)]]},
+                   "support": [[list(dets_all[i]), float(abs(psi[i])),
+                                float(np.angle(psi[i]))] for i in sup]}
+            if not certify_tier_b:
+                return rec
+            from .exactify import exactify
+            ex = exactify(n, d, spectrum, rec)
+            if ex["status"] == "EXACT":
+                rec["exact"] = ex
+                return rec
+            if first_ok is None:
+                first_ok = rec
+    return first_ok
