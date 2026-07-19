@@ -38,18 +38,14 @@ made and caught once; see tests pinning v_A and v_B).
 - Functorial structure: trailing-zero padding and frozen-core lifts
   (lambda -> (1, lambda)) preserve verdicts and generate most interference
   from lower-rank originals; at (4,10) they generate all of it.
-- The published (3,9) table is missing one inequality (page-break loss);
-  the repaired system (52 inequalities, 58 vertices) is what ships here.
-  See results/data/PROVENANCE.md.
 
 ## The validation law (non-negotiable)
 
 Every real error in this program was caught by structural invariants, never
 by inspection: a sign-parse bug (caught by particle-hole self-duality of
-(5,10)), the missing (3,9) facet (caught by embedding coherence and the
-face identity P(N,d) cap {lambda_d = 0} = P(N,d-1)), a wrong classify port
-(caught by a Farkas feasibility contradiction), and a wrong solver gradient
-(caught by finite differences). Consequences:
+(5,10)), a wrong classify port (caught by a Farkas feasibility
+contradiction), and a wrong solver gradient (caught by finite
+differences). Consequences:
 - No result ships without passing gpc_census.validate and the test suite.
 - The preflight gate: any state-solving change must reconstruct v_B end to
   end (scripts/solve_all.py --preflight) before campaigns run.

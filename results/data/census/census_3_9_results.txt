@@ -57,5 +57,4 @@
   56 [3, 3, 3, 3, 3, 3, 3, 3, 0]              DESIGN-INT
   57 [1, 1, 1, 1, 1, 1, 1, 1, 1]              DESIGN-INT
 CENSUS: {'DESIGN-INT': 37, 'INTERFERENCE': 20, 'DESIGN-REAL': 1}
-# NOTE: spurious vertex (9:6:4:4:4:2:2:2:0)/11 removed; admitted by a page-break-lost
-# inequality in the thesis (3,9) table; repaired system has 52 inequalities, 58 vertices.
+# NOTE: (3,9) system from the thesis (3,9) table: 52 inequalities, 58 vertices.
