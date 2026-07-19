@@ -584,6 +584,46 @@ def min_support_cardinality(n: int, d: int, spectrum, nv=None, support_filter=No
     return max(2, int(math.ceil(s.BestObjectiveBound() - 1e-9)))
 
 
+def min_block_count(n: int, d: int, spectrum, max_blocks: int = 4, time_cap: int = 10):
+    """Smallest number of 2x2 blocks for which some block ansatz admits a
+    degree-feasible support that is one-hop free off the blocks, i.e. whose
+    1-RDM off-diagonal is confined to the blocks. This is the combinatorial
+    half of solve_vertex_exact_first run as pure feasibility, with no phase
+    solve, over the split diagonals block_ansatze generates.
+
+    Returns 0 for a design (a fully one-hop-free support exists at the sorted
+    diagonal), k >= 1 for interference (the block budget its sparse
+    realization needs), or None when no ansatz through max_blocks is feasible:
+    the vertex is outside the current ansatz family, the extended-ansatz
+    frontier. A degree-feasible support need not phase-solve, so this is a
+    lower bound on the blocks a certifiable realization needs, computed cheaply
+    up front so the sweep can start at the right budget and flag the frontier
+    before paying for L-BFGS."""
+    from ortools.sat.python import cp_model
+
+    strict = admissible_support(n, d, spectrum, groups=None)
+    closure = admissible_support(n, d, spectrum, groups="degenerate")
+    best = None
+    for nv, blocks in block_ansatze(n, d, spectrum, max_blocks=max_blocks):
+        kb = len(blocks)
+        if best is not None and kb >= best:
+            continue  # a smaller feasible budget is already known
+        adm = closure if blocks else strict
+        hop_pairs = [(u, v_) for u, v_, a_, b_, x2 in blocks]
+        built = _skeleton_model(n, d, spectrum, nv=nv, support_filter=adm,
+                                require_hop_pairs=hop_pairs, forbid_offtarget=True)
+        if built is None:
+            continue
+        m, k, y, dets, den, allowed = built
+        s = cp_model.CpSolver()
+        s.parameters.max_time_in_seconds = time_cap
+        if s.Solve(m) in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            best = kb
+            if best == 0:
+                break
+    return best
+
+
 def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40,
                              support_filter=None, prefilter=None, nv=None,
                              dedup_maps="auto", require_hop_pairs=None,
@@ -766,8 +806,20 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     for m_, v in enumerate(nv0):
         classes.setdefault(v, []).append(m_)
 
+    # block-budget preflight: the smallest block count with a degree-feasible
+    # off-block-free support, no phase solve. None means no ansatz through
+    # max_blocks is even feasible, so fail fast (the extended-ansatz frontier)
+    # instead of sweeping and phase-solving to no avail.
+    needed = min_block_count(n, d, spectrum, max_blocks=max_blocks)
+    if needed is None:
+        return {"status": "FAIL", "min_blocks": None,
+                "reason": f"no block ansatz feasible through {max_blocks} blocks "
+                          "(extended-ansatz frontier)"}
+
     ansatze = []
     for nv, blocks in block_ansatze(n, d, spectrum, max_blocks=max_blocks):
+        if len(blocks) < needed:
+            continue  # fewer blocks than the budget preflight proved necessary
         if not blocks:
             adm = admissible_support(n, d, spectrum, groups=None)
             target = None
@@ -833,7 +885,7 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             j0 = max(sup, key=lambda i: abs(psi[i]))
             psi = psi * np.exp(-1j * np.angle(psi[j0]))
             rec = {"status": "OK", "residual": res,
-                   "support_size": len(sup),
+                   "support_size": len(sup), "min_blocks": needed,
                    "weights": [w[i] for i in sup], "den": den,
                    "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
                    "support": [[list(dets_all[i]), float(abs(psi[i])),
@@ -849,4 +901,6 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                 first_ok = rec
     if first_ok is not None:
         return first_ok
-    return {"status": "FAIL", "reason": f"no skeleton through cardinality {max_card}"}
+    return {"status": "FAIL", "min_blocks": needed,
+            "reason": f"block budget {needed} feasible but no realization "
+                      f"phase-solved through cardinality {max_card}"}
