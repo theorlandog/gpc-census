@@ -166,3 +166,80 @@ def test_phase_gradient_matches_finite_differences():
         tm[j] -= h
         assert abs((fg(tp)[0] - fg(tm)[0]) / (2 * h) - g[j]) < 1e-6
     assert max(abs(g)) > 1e-3  # the check is nontrivial
+
+
+# The exact v_B interference state, reconstructed by the weights-first block
+# sweep: a single 2x2 block mixing a 14-mode and a 4-mode. Support, weights,
+# and block are ground truth (phase residual 1e-32); the block split (6,12)
+# has off-diagonal sqrt(16)/23 = 4/23 and eigenvalues 14/23, 4/23.
+_VB_BLOCK = (4, 8, 6, 12, 16)
+_VB_NV = [20, 14, 14, 14, 6, 4, 4, 4, 12]
+_VB_SUPPORT = [(0, 1, 2, 5), (0, 1, 3, 4), (0, 1, 3, 8), (0, 2, 3, 7),
+               (0, 2, 4, 6), (0, 2, 6, 8), (1, 2, 7, 8), (2, 3, 4, 8)]
+_VB_WEIGHTS = (4, 1, 8, 3, 3, 1, 1, 2)
+
+
+def test_exactify_gauge_fixes_and_certifies_vB():
+    # a v_B interference realization has a pi/8 phase lattice; exactify must
+    # gauge-fix the single-particle U(1)^d freedom (here scrambled by a random
+    # orbital phase rotation) and still certify the exact closed form.
+    import math
+
+    import numpy as np
+
+    from gpc_census.exactify import exactify
+    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    supp = [(0, 1, 2, 7), (0, 1, 3, 5), (0, 1, 4, 6), (0, 1, 6, 8),
+            (0, 2, 3, 4), (0, 2, 3, 8), (1, 2, 4, 8), (1, 3, 7, 8)]
+    ks = [3, 4, 2, 2, 4, 5, 2, 1]
+    eighths = [0, 0, 1, -1, -1, 1, 0, 0]  # interference phase in units of pi/8
+    np.random.seed(1)
+    phi = np.random.uniform(0, 2 * math.pi, 9)  # arbitrary orbital phase gauge
+    record = {"support": [[list(t), (k / 23) ** 0.5,
+                           float(m * math.pi / 8 + sum(phi[x] for x in t))]
+                          for t, k, m in zip(supp, ks, eighths)]}
+    ex = exactify(4, 9, spec, record)
+    assert ex["status"] == "EXACT"
+    assert ex["weights"] == ks and ex["den"] == 23
+
+
+def test_degenerate_closure_is_sound_superset_for_vB():
+    # the block-target support filter must never drop true support (validation
+    # law): the degenerate-signature closure is a sound superset.
+    from gpc_census.states import admissible_support
+    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    # ground-truth support for one valid v_B block ansatz (a different split
+    # from _VB_BLOCK, exercising the same closure)
+    supp = [(0, 1, 2, 5), (0, 1, 3, 4), (0, 1, 3, 8), (0, 2, 3, 7),
+            (0, 2, 4, 6), (0, 2, 6, 8), (1, 2, 7, 8), (2, 3, 4, 8)]
+    adm = set(admissible_support(4, 9, spec, groups="degenerate"))
+    assert all(t in adm for t in supp)
+
+
+def test_operator_selection_rule_is_unsound_at_degeneracy():
+    # guards the documented reason the operator eigenprojection is not used:
+    # the exact v_B state is NOT in the b-eigenspace of dGamma(U diag(a) U^T).
+    import numpy as np
+    from gpc_census.states import (_active_facets, _build, _natural_rotation,
+                                    phase_solve)
+    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    built = _build(9, 4)
+    dets, a_tensor = built
+    didx = {t: i for i, t in enumerate(dets)}
+    w = [0] * len(dets)
+    for t, k in zip(_VB_SUPPORT, _VB_WEIGHTS):
+        w[didx[t]] = k
+    target = np.diag([v / 23 for v in _VB_NV]).astype(complex)
+    u, v_, a_, b_, x2 = _VB_BLOCK
+    target[u, v_] = target[v_, u] = (x2 ** 0.5) / 23
+    np.random.seed(0)
+    psi, res = phase_solve(4, 9, spec, dets, 23, w, _built=built, target=target,
+                           tries=8)
+    assert res < 1e-12  # the analytic phase solver hits the block target exactly
+    U = _natural_rotation(9, [_VB_BLOCK])
+    worst = 0.0
+    for a, b in _active_facets(4, 9, spec):
+        anat = U @ np.diag([float(c) for c in a]) @ U.T
+        dgamma = np.einsum("mn,mnij->ij", anat, a_tensor).real
+        worst = max(worst, float(np.linalg.norm(dgamma @ psi - b * psi)))
+    assert worst > 0.1  # eigenprojection would require this to be ~0

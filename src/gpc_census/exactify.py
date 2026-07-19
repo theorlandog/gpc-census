@@ -78,6 +78,32 @@ def verify_exact(n: int, d: int, spectrum, support, amps):
     return sp.simplify(p1 - p2) == 0
 
 
+def gauge_fix_phases(support, phases, d: int):
+    """Remove the single-particle U(1)^d phase freedom before recognition.
+
+    The state is defined only up to c_t -> c_t * prod_{m in t} exp(i phi_m)
+    (an orbital phase rotation a_m -> exp(i phi_m) a_m), which conjugates the
+    1-RDM by a diagonal unitary and so preserves its spectrum: verify_exact is
+    invariant under it. A generic numerical solve lands on an arbitrary point
+    of this orbit with scrambled phases; projecting them orthogonal to the
+    gauge orbit (least squares with 2pi wrapping) leaves the gauge-invariant
+    interference phases, which are the ones a closed form must express."""
+    import math
+
+    import numpy as np
+
+    theta = np.array([float(p) for p in phases])
+    a = np.array([[1.0 if m in t else 0.0 for m in range(d)] for t in support])
+    phi = np.zeros(d)
+    for _ in range(300):
+        r = (theta + a @ phi + math.pi) % (2 * math.pi) - math.pi
+        dphi, *_ = np.linalg.lstsq(a, -r, rcond=None)
+        phi += dphi
+        if np.linalg.norm(dphi) < 1e-15:
+            break
+    return list((theta + a @ phi + math.pi) % (2 * math.pi) - math.pi)
+
+
 def exactify(n: int, d: int, spectrum, record):
     """Tier B: numerical solve_vertex record -> exact certified state or labeled failure."""
     import math
@@ -93,6 +119,9 @@ def exactify(n: int, d: int, spectrum, record):
     ks = snap_moduli(mods, den)
     if ks is None:
         return {"status": "TIER-C", "reason": "moduli off natural grid"}
+    # canonicalise the gauge before recognising phases; verify_exact below is
+    # gauge-invariant, so the certificate stands in this frame
+    phases = gauge_fix_phases(support, phases, d)
     exact_amps = []
     for k, th in zip(ks, phases):
         ph = recognize_phase(th)
