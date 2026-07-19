@@ -65,15 +65,72 @@ face identity P(N,d) cap {lambda_d = 0} = P(N,d-1)), a wrong classify port
 - Pin solvers. Census verdicts were produced under ortools 9.15.6755
   (the cpsat extra); the CBC fallback labels its backend in every verdict.
 
+## The state-construction algorithm (stitched pipeline)
+
+State construction is a routed pipeline, not a single solver. scripts/solve_all.py
+drives it; each stage below is a named function, and the stages compose so that
+cheap, certain work is never redone by an expensive stage.
+
+0. Route by verdict (already computed in the census). A DESIGN-INT vertex is
+   built directly from its classification witness: solve_design_vertex takes the
+   integer design weights k and returns psi = sum sqrt(k_t/den) |t>. The design's
+   support is one-hop free, so the 1-RDM is diagonal and equals the sorted
+   spectrum by inspection, exact on the natural grid, no iterative solve. Only
+   DESIGN-REAL and INTERFERENCE reach the solver.
+
+1. Block-budget preflight (min_block_count). The combinatorial half of the
+   solver run as pure feasibility, no phase solve: the smallest number of 2x2
+   natural-orbital blocks for which some block ansatz has a degree-feasible
+   support that is one-hop free off the blocks. 0 = design, k >= 1 = the block
+   budget interference needs, None = outside the block-ansatz family (the
+   extended-ansatz frontier). Validated: v_A -> 0, v_B -> 1, and the 4_9
+   interference vertices the solver cannot yet reach -> None. On None the solver
+   fails fast (seconds) with an explicit frontier reason instead of sweeping.
+
+2. Weights-first solve (solve_vertex_exact_first). Sweeps the block ansatz
+   family at the predicted budget: block_ansatze enumerates 2x2 blocks that mix
+   two spectrum values e1 > e2 by an integer split (a, b) with a + b = e1 + e2
+   and off-diagonal sqrt(a*b - e1*e2)/den, so the block eigenvalues are exact by
+   construction. Support is confined to the degenerate-signature closure (a
+   sound superset of the true support) with off-block hops forbidden. Moduli are
+   fixed at sqrt(k/den); only the phases are optimized, as the smooth quartic
+   |rho - T|_F^2 with analytic gradients (no eigendecomposition, immune to the
+   degeneracy flatness). Verdicts of the census are the input; the census-time
+   attain solver is retained only as a Tier-A cascade fallback for frontier
+   vertices.
+
+3. Exactify (Tier B, gpc_census.exactify). Squared amplitudes snap to k/den.
+   The state is defined only up to the single-particle U(1)^d phase gauge
+   (c_t -> c_t prod_{m in t} exp(i phi_m), a diagonal-unitary conjugation of the
+   1-RDM), so exactify gauge-fixes first (projects the phases orthogonal to the
+   gauge orbit) and then recognizes the residual interference phases (rational
+   multiples of pi, or cosines on the p*sqrt(q)/r lattice). verify_exact is
+   gauge-invariant (a characteristic-polynomial identity), so the certificate
+   stands in the fixed frame. Failures fall through labeled TIER-C for hand
+   analysis. v_B certifies as a single 14/4 block with a pi/8 interference
+   phase; solve_vertex_exact_first(certify_tier_b=True) searches realizations
+   until one exactifies, since a vertex has many realizations differing only in
+   interference phase and some carry a clean lattice.
+
+Historical note: Altunbulak and Klyachko (2008) resolved the (4,9) vertices and,
+per Sec 6.2.2, determined extremal states for all but v_A and v_B, which were
+left numerical-only. Those rank-9 state data are not in the paper text (dead zip
+/ paywalled ESM), so this pipeline reconstructs them independently, and the
+design/interference trichotomy is this program's framing, not theirs: a vertex
+can be interference (phase cancellation forced, as in the surd-coefficient
+rank-7 states they did publish) yet still have a known closed form. v_A and v_B
+were the two they could not close at all.
+
 ## Current campaigns and open items
 
-1. State construction (Tier A) and exactification (Tier B) of all
-   interference vertices: scripts/solve_all.py, output
-   results/data/states_interference.jsonl. Tier B snaps squared amplitudes
-   to k/den, recognizes phases on the p*sqrt(q)/r lattice, and verifies the
-   symbolic state by exact characteristic polynomial identity; failures
-   fall through labeled TIER-C for hand analysis (likely the interesting
-   ones). Recognition layer is unit tested on the v_B cosine.
+1. State construction (Tier A) and exactification (Tier B) of all vertices:
+   scripts/solve_all.py (--all writes the full census to
+   results/data/states.jsonl; the interference-only default writes
+   states_interference.jsonl). Design vertices certify from their witness; a
+   fifth to a half of interference vertices certify via the block solver today,
+   the rest are TIER-C or flagged min_blocks = None for the extended-ansatz
+   frontier. Recognition layer is unit tested on the v_B cosine and the pi/8
+   realization.
 2. Stage 1, the constraint generator for d >= 11: docs/stage1_klyachko_spec.md
    holds the extracted algorithm (Theorem 3.2.1, cubicle extremal edges,
    Schubert coefficient test via lrcalc). Test-first: it must reproduce the
