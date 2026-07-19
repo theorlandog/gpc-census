@@ -228,9 +228,11 @@ def attain_diag(n: int, d: int, spectrum, dets_sub, outer=2000, tries=8, tol=1e-
 
 
 def admissible_support(n: int, d: int, spectrum):
-    """Selection rule at a vertex: pinning to each active facet (a, lam) = b
-    forces support on determinants with sum(a_i, i in t) = b. Intersect over
-    all active constraints. Exact rational arithmetic, no solver."""
+    """Basis-robust selection rule at a vertex: strict canonical-basis
+    filter (every active facet's bound achieved by the determinant's
+    subset sum), then closure under degenerate-block signatures, since
+    the natural basis rotates freely within degenerate lambda-blocks.
+    See docs/RESEARCH.md, degeneracy lemma."""
     from fractions import Fraction as F
 
     from .constraints import constraints
@@ -238,13 +240,25 @@ def admissible_support(n: int, d: int, spectrum):
     spectrum = [F(x) for x in spectrum]
     sys_ = constraints(n, d)
     dets = list(combinations(range(d), n))
-    keep = list(range(len(dets)))
+    active = []
     for iq in sys_["inequalities"] + sys_["equalities"]:
         a, b = iq["coeffs"], iq["rhs"]
-        if sum(F(c) * x for c, x in zip(a, spectrum)) != b:
-            continue  # facet not active at this vertex
-        keep = [j for j in keep if sum(a[i] for i in dets[j]) == b]
-    return [dets[j] for j in keep]
+        if sum(F(c) * x for c, x in zip(a, spectrum)) == b:
+            active.append((a, b))
+    strict = [t for t in dets
+              if all(sum(a[i] for i in t) == b for a, b in active)]
+    blocks = []
+    start = 0
+    for i in range(1, d + 1):
+        if i == d or spectrum[i] != spectrum[start]:
+            blocks.append(set(range(start, i)))
+            start = i
+
+    def sig(t):
+        return tuple(sum(1 for m in t if m in blk) for blk in blocks)
+
+    good = {sig(t) for t in strict}
+    return [t for t in dets if sig(t) in good]
 
 
 def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40,
@@ -354,7 +368,13 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                                                    support_filter=adm)
         for w in sols:
             psi, res = phase_solve(n, d, spectrum, dets, den, w, _built=built)
-            if res < 1e-15:
+            if res < 1e-9:
+                mask = __import__("numpy").array([1.0 if k > 0 else 0.0 for k in w])
+                psi2, res2, _ = attain(n, d, spectrum, mask=mask, outer=80, tries=1,
+                                       _built=built, psi0=psi)
+                if res2 < res:
+                    psi, res = psi2, res2
+            if res < 1e-12:
                 sup = [i for i, k in enumerate(w) if k > 0]
                 j0 = max(sup, key=lambda i: abs(psi[i]))
                 psi = psi * np.exp(-1j * np.angle(psi[j0]))

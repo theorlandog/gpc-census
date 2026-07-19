@@ -78,6 +78,24 @@ face identity P(N,d) cap {lambda_d = 0} = P(N,d-1)), a wrong classify port
    (exhaustive two-block real stratum sweep). enumerate_designs in
    classify.py is the generalizable exhaustive layer.
 
+## The selection rule is basis-relative (degeneracy lemma)
+
+At a vertex, every active facet forces the extremal state onto
+determinants achieving its bound (the superselection rule; cf. Liebert
+et al., PRR 7, 023247). Crucial subtlety discovered empirically on v_B:
+the rule holds in the state's OWN natural orbital basis. Vertex spectra
+are maximally degenerate, and within a degenerate lambda-block the
+natural orbitals rotate freely, so the canonical-basis admissible set is
+too strict. Diagnostic that proved it: the strict filter leaves 9 of 126
+determinants for v_B, the resulting skeletons plateau at residual 1e-4,
+and none carries the historical weight multiset [7,4,3,2,2,2,2,1].
+
+Fix (implemented in states.admissible_support): block-signature closure.
+Group orbitals by degenerate blocks of the spectrum; a determinant is
+admissible iff for every active facet the bound is achievable by some
+choice of that many coefficients within each block (exact subset-sum per
+block). This is a lemma about the method and belongs in the states paper.
+
 ## Source documents in docs/
 
 - stage1_klyachko_spec.md: the constraint-generation algorithm, verbatim
