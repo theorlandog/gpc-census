@@ -179,6 +179,30 @@ _VB_SUPPORT = [(0, 1, 2, 5), (0, 1, 3, 4), (0, 1, 3, 8), (0, 2, 3, 7),
 _VB_WEIGHTS = (4, 1, 8, 3, 3, 1, 1, 2)
 
 
+def test_exactify_gauge_fixes_and_certifies_vB():
+    # a v_B interference realization has a pi/8 phase lattice; exactify must
+    # gauge-fix the single-particle U(1)^d freedom (here scrambled by a random
+    # orbital phase rotation) and still certify the exact closed form.
+    import math
+
+    import numpy as np
+
+    from gpc_census.exactify import exactify
+    spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    supp = [(0, 1, 2, 7), (0, 1, 3, 5), (0, 1, 4, 6), (0, 1, 6, 8),
+            (0, 2, 3, 4), (0, 2, 3, 8), (1, 2, 4, 8), (1, 3, 7, 8)]
+    ks = [3, 4, 2, 2, 4, 5, 2, 1]
+    eighths = [0, 0, 1, -1, -1, 1, 0, 0]  # interference phase in units of pi/8
+    np.random.seed(1)
+    phi = np.random.uniform(0, 2 * math.pi, 9)  # arbitrary orbital phase gauge
+    record = {"support": [[list(t), (k / 23) ** 0.5,
+                           float(m * math.pi / 8 + sum(phi[x] for x in t))]
+                          for t, k, m in zip(supp, ks, eighths)]}
+    ex = exactify(4, 9, spec, record)
+    assert ex["status"] == "EXACT"
+    assert ex["weights"] == ks and ex["den"] == 23
+
+
 def test_degenerate_closure_is_sound_superset_for_vB():
     # the block-target support filter must never drop true support (validation
     # law): the degenerate-signature closure is a sound superset.

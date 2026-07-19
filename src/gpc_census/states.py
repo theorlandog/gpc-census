@@ -708,7 +708,8 @@ def phase_solve(n: int, d: int, spectrum, dets, den, weights, tries=6, _built=No
 
 
 def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
-                             max_blocks: int = 2, _built=None):
+                             max_blocks: int = 2, certify_tier_b: bool = False,
+                             _built=None):
     """Weights-first solve: enumerate integer weight skeletons by ascending
     support size and phase-solve each; moduli are on the natural grid by
     construction, so Tier B needs only phase recognition. Sweeps the block
@@ -719,7 +720,9 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     the diagonal target, the sound degenerate-signature closure for block
     targets (with off-block hops forbidden so the 1-RDM off-diagonal stays on
     the blocks). Returned support is in the ansatz mode labeling, which matches
-    the canonical one up to a spectrum-preserving permutation."""
+    the canonical one up to a spectrum-preserving permutation. With
+    certify_tier_b, search continues until a realization exactifies to a
+    certified closed form (record["exact"]), else the first numeric hit."""
     import math
     from fractions import Fraction as F
 
@@ -772,6 +775,12 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     # max_card, phase-checking sparsest skeletons first. Diagonal and
     # single-block targets are visited before double-block ones (block_ansatze
     # yields them in that order), so v_B's single-block form is reached early.
+    # Many realizations of the same vertex differ only by their interference
+    # phases; when certify_tier_b is set we keep going past a numerically exact
+    # realization until one exactifies to a certified closed form (some carry a
+    # clean phase lattice, e.g. v_B has realizations with a pi/8 interference
+    # phase), falling back to the first numeric hit if none certifies.
+    first_ok = None
     for nv, blocks, adm, target, maps, pref, hop_pairs, mincard in ansatze:
         cap = min(max_card, len(adm))
         if cap < mincard:
@@ -791,14 +800,26 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                                        tries=1, _built=built, psi0=psi)
                 if res2 < res:
                     psi, res = psi2, res2
-            if res < 1e-12:
-                sup = [i for i, k in enumerate(w) if k > 0]
-                j0 = max(sup, key=lambda i: abs(psi[i]))
-                psi = psi * np.exp(-1j * np.angle(psi[j0]))
-                return {"status": "OK", "residual": res,
-                        "support_size": len(sup),
-                        "weights": [w[i] for i in sup], "den": den,
-                        "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
-                        "support": [[list(dets_all[i]), float(abs(psi[i])),
-                                     float(np.angle(psi[i]))] for i in sup]}
+            if res >= 1e-12:
+                continue
+            sup = [i for i, k in enumerate(w) if k > 0]
+            j0 = max(sup, key=lambda i: abs(psi[i]))
+            psi = psi * np.exp(-1j * np.angle(psi[j0]))
+            rec = {"status": "OK", "residual": res,
+                   "support_size": len(sup),
+                   "weights": [w[i] for i in sup], "den": den,
+                   "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
+                   "support": [[list(dets_all[i]), float(abs(psi[i])),
+                                float(np.angle(psi[i]))] for i in sup]}
+            if not certify_tier_b:
+                return rec
+            from .exactify import exactify
+            ex = exactify(n, d, spectrum, rec)
+            if ex["status"] == "EXACT":
+                rec["exact"] = ex
+                return rec
+            if first_ok is None:
+                first_ok = rec
+    if first_ok is not None:
+        return first_ok
     return {"status": "FAIL", "reason": f"no skeleton through cardinality {max_card}"}
