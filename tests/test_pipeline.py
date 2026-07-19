@@ -207,6 +207,48 @@ def test_exactify_gauge_fixes_and_certifies_vB():
     assert ex["weights"] == ks and ex["den"] == 23
 
 
+def test_constructive_interference_exactify_closes_coupled_polygon():
+    # (3,9) idx 34: an interference corner whose phases per-phase recognition
+    # cannot see (they are coupled polygon path-sums). The off-diagonal-target
+    # solver forces |rho[5,8]| = 1/9 by Schur-Horn and reads off the exact 2pi/3
+    # phase. The input phases are deliberately wrong (all zero) so exactify must
+    # fall through the recognition layer into the constructive solver.
+    import sympy as sp
+
+    from gpc_census.exactify import exactify
+    spec = [Fraction(x, 9) for x in (6, 6, 3, 3, 3, 3, 1, 1, 1)]
+    supp = [(0, 1, 2), (0, 3, 6), (0, 4, 5), (0, 4, 8),
+            (1, 3, 5), (1, 3, 8), (1, 4, 7)]
+    ks = [3, 1, 1, 1, 1, 1, 1]
+    record = {"support": [[list(t), (k / 9) ** 0.5, 0.0]
+                          for t, k in zip(supp, ks)]}
+    ex = exactify(3, 9, spec, record)
+    assert ex["status"] == "EXACT"
+    assert ex["weights"] == ks and ex["den"] == 9
+    # genuinely complex: no real (0/pi) state attains this vertex
+    assert any(sp.im(sp.sympify(a)) != 0 for a in ex["pretty"])
+
+
+def test_verify_exact_accepts_complex_exponential_and_rejects_wrong():
+    # verify_exact must reduce true zeros containing exp(i*pi*rational) (a fix:
+    # sp.simplify alone left 1 + exp(2 i pi/3) unreduced and rejected valid
+    # states) while still rejecting a state with the wrong phase.
+    import sympy as sp
+
+    from gpc_census.exactify import verify_exact
+    spec = [Fraction(x, 9) for x in (6, 6, 3, 3, 3, 3, 1, 1, 1)]
+    supp = [(0, 1, 2), (0, 3, 6), (0, 4, 5), (0, 4, 8),
+            (1, 3, 5), (1, 3, 8), (1, 4, 7)]
+    ks = [3, 1, 1, 1, 1, 1, 1]
+
+    def amps(phase5):
+        ph = [0, 0, 0, 0, 0, phase5, 0]
+        return [sp.sqrt(sp.Rational(k, 9)) * sp.exp(sp.I * p) for k, p in zip(ks, ph)]
+
+    assert verify_exact(3, 9, spec, supp, amps(2 * sp.pi / 3)) is True
+    assert verify_exact(3, 9, spec, supp, amps(sp.pi / 3)) is False
+
+
 def test_degenerate_closure_is_sound_superset_for_vB():
     # the block-target support filter must never drop true support (validation
     # law): the degenerate-signature closure is a sound superset.
