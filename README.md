@@ -84,14 +84,22 @@ Four stages, mirroring the mathematics:
       and `min_clique_count` is the block-size preflight. This is what the
       (4,9) vertices outside the 2x2 family need: idx 24,
       (9:6:5:5:5:2:2:1:1)/9, reconstructs from the spectrum alone with one
-      3x3 clique. `max_clique` enables it.
+      3x3 clique. `max_clique` enables it. On the (4,9) interference
+      vertices, k=3 cliques raise certified closed forms from 4 to 10 of 16.
    5. Exactify. Moduli snap to the natural denominator; after gauge-fixing
       the single-particle U(1)^d phase freedom, the residual interference
       phases are recognized (rational multiples of pi, or cosines on the
       p*sqrt(q)/r lattice) and the symbolic state is verified by exact
       characteristic polynomial identity in sympy
       (`gpc_census.exactify`). v_B certifies as a single 14/4 block with a
-      pi/8 interference phase.
+      pi/8 interference phase. Larger blocks are often easier here: a
+      k-clique has a (k-1)(k-2)/2-dimensional Schur-Horn fiber, so for
+      k >= 3 a real realization (phases 0/pi) is frequently available and
+      certifies with no algebraic recognition at all. idx 24's closed form
+      is real, (|0125>+|0134>+|0237>+|0245>)/3 + sqrt(2)/3 |0268> +
+      sqrt(3)/3 |0348>. The tight k=2 fiber is the hard case (v_B genuinely
+      needs pi/8); the residual across all systems is the small tail whose
+      phases are higher-degree algebraic (no real, no p*sqrt(q)/r).
    The historical alternating-projection solver (`attain`) remains as a
    general Tier-A fallback: `scripts/solve_all.py` cascades to it when the
    block solver fails, so every vertex records at least a numeric state.
