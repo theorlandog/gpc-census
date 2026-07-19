@@ -372,3 +372,33 @@ def test_exactify_certifies_real_k3_state():
     ex = exactify(4, 9, spec, record)
     assert ex["status"] == "EXACT"
     assert ex["weights"] == ks and ex["den"] == 9
+
+
+def test_recognize_algebraic_beyond_psqrtq():
+    # PSLQ recognizes a degree-2 algebraic NOT of p*sqrt(q)/r form
+    import math
+
+    from gpc_census.exactify import recognize_algebraic
+    x = (math.sqrt(5) - 1) / 4  # = cos(2pi/5), root of 4y^2 + 2y - 1
+    r = recognize_algebraic(x)
+    assert r is not None and abs(float(r) - x) < 1e-10
+    y = (1 + math.sqrt(13)) / 6  # root of 3y^2 - y - 1
+    r2 = recognize_algebraic(y)
+    assert r2 is not None and abs(float(r2) - y) < 1e-10
+
+
+def test_multi_clique_ansatze_disjoint():
+    # two-clique ansatze must have disjoint modes and the right eigenvalue mixes
+    from gpc_census.states import multi_clique_ansatze
+    spec = [Fraction(x, 10) for x in (10, 7, 5, 5, 5, 2, 2, 2, 2)]
+    seen = 0
+    for nv, cliques in multi_clique_ansatze(4, 9, spec, sizes=(3,), n_cliques=2):
+        assert len(cliques) == 2
+        m0, m1 = set(cliques[0][0]), set(cliques[1][0])
+        assert not (m0 & m1)  # disjoint modes
+        for modes, evals in cliques:
+            assert len(set(evals)) == len(evals)  # distinct eigenvalue classes
+        seen += 1
+        if seen >= 50:
+            break
+    assert seen > 0

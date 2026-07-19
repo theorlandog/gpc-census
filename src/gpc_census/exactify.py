@@ -36,18 +36,59 @@ def recognize_cos(x: float, max_r: int = 60, max_q: int = 60):
     return None
 
 
+def recognize_algebraic(x: float, maxdeg: int = 4, maxcoeff: int = 10 ** 5,
+                        dps: int = 30):
+    """Recognize a real number as a low-degree algebraic number via PSLQ on its
+    powers: an integer relation among 1, x, ..., x^deg is a minimal polynomial,
+    whose real root matching x is the exact value (a sympy radical or CRootOf).
+    Loose by construction (float precision limits the reliable degree), so it is
+    only ever a proposal; verify_exact is the gate that accepts or rejects it.
+    Extends recognize_cos (p*sqrt(q)/r, the b = 0 degree-2 case) to general
+    low-degree algebraics."""
+    import mpmath as mp
+    import sympy as sp
+
+    mp.mp.dps = dps
+    xm = mp.mpf(repr(x))
+    for deg in range(2, maxdeg + 1):
+        rel = mp.pslq([xm ** i for i in range(deg + 1)], maxcoeff=maxcoeff,
+                      maxsteps=10 ** 5)
+        if not rel or rel[-1] == 0:
+            continue
+        X = sp.Symbol("X")
+        poly = sp.Poly([int(c) for c in reversed(rel)], X)
+        try:
+            roots = poly.all_roots()
+        except (sp.PolynomialError, NotImplementedError):
+            continue
+        for r in roots:
+            if r.is_real and abs(float(r.evalf(20)) - x) < 1e-8:
+                return sp.nsimplify(r) if r.is_number else r
+    return None
+
+
 def recognize_phase(theta: float):
-    """Recognize a phase angle: rational multiple of pi, else via its cosine."""
+    """Recognize a phase angle: rational multiple of pi, then via its cosine on
+    the p*sqrt(q)/r lattice, then via low-degree-algebraic cosine and sine
+    (PSLQ). The algebraic branch is a proposal only; the caller's verify_exact
+    accepts or rejects it, so a spurious PSLQ hit cannot certify a wrong state."""
+    import math
+
     import sympy as sp
 
     fr = Fraction(theta / 3.141592653589793).limit_denominator(24)
     if abs(float(fr) * 3.141592653589793 - theta) < 1e-9:
         return sp.pi * sp.Rational(fr.numerator, fr.denominator)
-    c = recognize_cos(float(__import__("math").cos(theta)))
+    c = recognize_cos(float(math.cos(theta)))
     if c is not None:
-        s = recognize_cos(float(__import__("math").sin(theta)))
-        if s is not None and sp.simplify(c**2 + s**2 - 1) == 0:
+        s = recognize_cos(float(math.sin(theta)))
+        if s is not None and sp.simplify(c ** 2 + s ** 2 - 1) == 0:
             return sp.atan2(s, c)
+    ca = recognize_algebraic(float(math.cos(theta)))
+    if ca is not None:
+        sa = recognize_algebraic(float(math.sin(theta)))
+        if sa is not None and sp.simplify(ca ** 2 + sa ** 2 - 1) == 0:
+            return sp.atan2(sa, ca)
     return None
 
 

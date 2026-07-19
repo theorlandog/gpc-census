@@ -133,19 +133,31 @@ cheap, certain work is never redone by an expensive stage.
    tight 2x2 fiber leaves no real solution). Consequences: Tier B already reaches
    most k >= 3 vertices for free through real-realization detection; the
    genuinely hard cases needing higher-degree algebraic phases (no real, no
-   p*sqrt(q)/r) are a smaller residual, addressable by PSLQ / symbolic block
-   solving. Open: multi-clique ansatze; clique placement beyond one representative
-   orbital per class (WLOG for a single clique by degenerate-class symmetry, but
-   not for several cliques sharing a class); and that residual higher-degree
-   Tier B tail.
+   p*sqrt(q)/r) are a smaller residual, now also handled by PSLQ (see stage 3).
+   Multi-clique ansatze (multi_clique_ansatze, several disjoint cliques on
+   disjoint orbitals, one-hop free off the union) are implemented behind
+   max_cliques, with a per-clique diagonal cap and the escalation 1 -> 2 -> ...
+   cliques. Status: the machinery runs, but does not yet crack the (4,9) FAILs
+   (idx 15, 40, 42). The obstruction is that degree feasibility of a multi-clique
+   structure does NOT imply phase solvability: for idx 15 a probe found a
+   degree-feasible two-3-clique structure, yet 425 diagonal combinations x
+   several skeletons each all failed to phase solve. So finding the RIGHT
+   multi-clique structure (which classes, which placement) is a search problem
+   for which feasibility is too weak a guide; that search, and clique placement
+   beyond one representative orbital per class (WLOG for a single clique by
+   degenerate-class symmetry, not for several sharing a class), are open.
 
 3. Exactify (Tier B, gpc_census.exactify). Squared amplitudes snap to k/den.
    The state is defined only up to the single-particle U(1)^d phase gauge
    (c_t -> c_t prod_{m in t} exp(i phi_m), a diagonal-unitary conjugation of the
    1-RDM), so exactify gauge-fixes first (projects the phases orthogonal to the
    gauge orbit) and then recognizes the residual interference phases (rational
-   multiples of pi, or cosines on the p*sqrt(q)/r lattice). verify_exact is
-   gauge-invariant (a characteristic-polynomial identity), so the certificate
+   multiples of pi, cosines on the p*sqrt(q)/r lattice, then general low-degree
+   algebraic cosine and sine via PSLQ integer-relation detection on their powers,
+   recognize_algebraic). The PSLQ branch is a proposal only, gated by
+   verify_exact, so a spurious hit from float precision cannot certify a wrong
+   state. verify_exact is gauge-invariant (a characteristic-polynomial identity),
+   so the certificate
    stands in the fixed frame. Failures fall through labeled TIER-C for hand
    analysis. v_B certifies as a single 14/4 block with a pi/8 interference
    phase; solve_vertex_exact_first(certify_tier_b=True) searches realizations

@@ -541,6 +541,74 @@ def clique_ansatze(n: int, d: int, spectrum, sizes=(3,)):
                 yield nv, (modes, tuple(chosen))
 
 
+def multi_clique_ansatze(n: int, d: int, spectrum, sizes=(3,), n_cliques: int = 2,
+                         diag_cap: int = 8):
+    """Ansatze with exactly n_cliques DISJOINT cliques, each a size-k mix of k
+    distinct eigenvalue classes on its own orbitals (one per class, taken in
+    order, WLOG by degenerate-class symmetry), each with a Schur-Horn diagonal.
+    Cliques are emitted in a canonical (non-decreasing class-tuple) order to
+    avoid permuted duplicates. Yields (nv, cliques) with cliques a list of
+    (modes, evals); the 1-RDM off-diagonal is confined to the union of the
+    cliques, one-hop free elsewhere. Generalizes clique_ansatze (n_cliques=1).
+    diag_cap bounds the diagonals tried per clique (permutation diagonals first,
+    the natural-rotation realizations), keeping the multi-clique product finite."""
+    import math
+    from fractions import Fraction as F
+    from itertools import combinations, product
+
+    spec = [F(x) for x in spectrum]
+    den = 1
+    for x in spec:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    nv0 = [int(x * den) for x in spec]
+    classes: dict = {}
+    for m_, v in enumerate(nv0):
+        classes.setdefault(v, []).append(m_)
+    vals = sorted(classes, reverse=True)
+
+    def structures(avail, prev, remaining):
+        if remaining == 0:
+            yield []
+            return
+        for k in sizes:
+            for chosen in combinations(vals, k):
+                if chosen < prev:  # canonical order across cliques
+                    continue
+                need: dict = {}
+                for v in chosen:
+                    need[v] = need.get(v, 0) + 1
+                if any(need[v] > avail.get(v, 0) for v in need):
+                    continue
+                nxt = dict(avail)
+                for v in chosen:
+                    nxt[v] -= 1
+                for rest in structures(nxt, chosen, remaining - 1):
+                    yield [chosen] + rest
+
+    avail0 = {v: len(classes[v]) for v in vals}
+    for struct in structures(avail0, (), n_cliques):
+        cursor = {v: 0 for v in vals}
+        cliques = []
+        for chosen in struct:
+            modes = []
+            for v in chosen:
+                modes.append(classes[v][cursor[v]])
+                cursor[v] += 1
+            cliques.append((tuple(modes), tuple(chosen)))
+        diaglists = []
+        for _modes, evals in cliques:
+            dd = _schur_horn_diagonals(list(evals), den)
+            evset = sorted(evals, reverse=True)
+            dd.sort(key=lambda x: (sorted(x, reverse=True) != evset, x))
+            diaglists.append(dd[:diag_cap])  # permutation diagonals first
+        for combo in product(*diaglists):
+            nv = list(nv0)
+            for (modes, _evals), diag in zip(cliques, combo):
+                for mo, val in zip(modes, diag):
+                    nv[mo] = val
+            yield nv, list(cliques)
+
+
 def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
                     require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False):
     """CP-SAT model of the degree system: weights k on allowed determinants
@@ -974,7 +1042,8 @@ def solve_design_vertex(n: int, d: int, spectrum):
 
 def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                              max_blocks: int = 2, certify_tier_b: bool = False,
-                             max_clique: int = 2, _built=None):
+                             max_clique: int = 2, max_cliques: int = 1,
+                             _built=None):
     """Weights-first solve: enumerate integer weight skeletons by ascending
     support size and phase-solve each; moduli are on the natural grid by
     construction, so Tier B needs only phase recognition. Sweeps the block
@@ -1107,11 +1176,14 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     # starting size and fails fast when no single clique is feasible.
     if max_clique >= 3:
         ksize = min_clique_count(n, d, spectrum, max_clique=max_clique)
-        if ksize is not None and ksize >= 3:
+        start = ksize if (ksize is not None and ksize >= 3) else 3
+        # escalate the number of disjoint cliques: a single clique first, then
+        # two, etc. (the FAILs of the single-clique sweep need several blocks).
+        for nc in range(1, max_cliques + 1):
             ck = _solve_via_cliques(n, d, spectrum, dets_all, den, built,
-                                    range(ksize, max_clique + 1), max_card,
-                                    certify_tier_b)
-            if ck is not None and (ck["status"] == "OK"):
+                                    range(start, max_clique + 1), max_card,
+                                    certify_tier_b, n_cliques=nc)
+            if ck is not None and ck["status"] == "OK":
                 if not certify_tier_b or "exact" in ck:
                     return ck
                 if first_ok is None:
@@ -1121,46 +1193,44 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
         return first_ok
     return {"status": "FAIL", "min_blocks": needed,
             "reason": f"no realization phase-solved through cardinality "
-                      f"{max_card}, cliques up to {max_clique}"}
+                      f"{max_card}, cliques up to {max_clique}x{max_cliques}"}
 
 
 def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
-                       certify_tier_b):
-    """Sweep single-clique ansatze of the given sizes: enumerate a one-hop-free
-    (off-clique) support, phase-solve the clique block by its eigenvalues, and
-    exactify. Returns an OK record (certified when certify_tier_b and possible),
-    the first numeric hit, or None."""
+                       certify_tier_b, n_cliques=1):
+    """Sweep n_cliques-clique ansatze of the given sizes: enumerate a support
+    that is one-hop free off the union of the cliques, phase-solve the clique
+    blocks by their eigenvalues, and exactify. Returns an OK record (certified
+    when certify_tier_b and possible), the first numeric hit, or None."""
     import numpy as np
     from ortools.sat.python import cp_model
 
     dets = list(dets_all)
     asets = [set(t) for t in dets]
-    # off-clique one-hop pairs are precomputed once; only the clique mask varies
     hop_pairs = [(p, q) for p in range(len(dets)) for q in range(p + 1, len(dets))
                  if len(asets[p] ^ asets[q]) == 2]
+    rows = [[j for j, t in enumerate(dets) if mo in t] for mo in range(d)]
     first_ok = None
-    for nv, (modes, evals) in clique_ansatze(n, d, spectrum, sizes=list(sizes)):
-        cset = set(modes)
-        # one-hop free off the clique (the real prune); enumerate over all
+    for nv, cliques in multi_clique_ansatze(n, d, spectrum, sizes=list(sizes),
+                                            n_cliques=n_cliques):
+        clsets = [set(modes) for modes, _ in cliques]
+        # one-hop free off the union of the cliques; enumerate over all
         # determinants since the degenerate-signature closure is unsound here
         m = cp_model.CpModel()
         k = [m.NewIntVar(0, den, f"k{j}") for j in range(len(dets))]
         y = [m.NewBoolVar(f"y{j}") for j in range(len(dets))]
-        rows = [[] for _ in range(d)]
-        for j, t in enumerate(dets):
+        for j in range(len(dets)):
             m.Add(k[j] <= den * y[j])
             m.Add(k[j] >= y[j])
-            for mo in t:
-                rows[mo].append(j)
         for mo in range(d):
             m.Add(sum(k[j] for j in rows[mo]) == nv[mo])
         for p, q in hop_pairs:
-            if not (asets[p] ^ asets[q]) <= cset:
+            diff = asets[p] ^ asets[q]
+            if not any(diff <= cs for cs in clsets):
                 m.AddBoolOr([y[p].Not(), y[q].Not()])
         m.Add(sum(y) <= max_card)
-        # feasibility gate first: skip ansatze whose degree system is unsatisfiable
         gate = cp_model.CpSolver()
-        gate.parameters.max_time_in_seconds = 3
+        gate.parameters.max_time_in_seconds = 1.5
         if gate.Solve(m) not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             continue
         out = []
@@ -1181,7 +1251,7 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
                 if wa[j]:
                     w[j] = wa[j]
             psi, res = phase_solve_clique(n, d, spectrum, dets_all, den, w,
-                                          [(modes, evals)], tries=6, _built=built)
+                                          cliques, tries=6, _built=built)
             if psi is None or res >= 1e-12:
                 continue
             sup = [i for i, kk in enumerate(w) if kk > 0]
@@ -1189,7 +1259,8 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
             psi = psi * np.exp(-1j * np.angle(psi[j0]))
             rec = {"status": "OK", "residual": res, "support_size": len(sup),
                    "weights": [w[i] for i in sup], "den": den,
-                   "ansatz": {"nv": nv, "cliques": [[list(modes), list(evals)]]},
+                   "ansatz": {"nv": nv,
+                              "cliques": [[list(mo), list(ev)] for mo, ev in cliques]},
                    "support": [[list(dets_all[i]), float(abs(psi[i])),
                                 float(np.angle(psi[i]))] for i in sup]}
             if not certify_tier_b:
