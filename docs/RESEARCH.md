@@ -100,21 +100,35 @@ sums: its 1-RDM is block diagonal with 2x2 blocks mixing a 14-mode and a
 4-mode, exactly the structure of the historical interference8_1.py
 ansatz.
 
-The corrected lemma and its implementation (states.block_ansatze,
-states.solve_vertex_exact_first): sweep a discrete family of exact
-1-RDM targets. Each target is the canonical diagonal or a block diagonal
-with 2x2 blocks mixing two spectrum values e1 > e2 via an integer split
-(a, b): a + b = e1 + e2, off-diagonal sqrt(a*b - e1*e2)/den, which has
-exact eigenvalues e1/den, e2/den by construction. For each target the
-degree system uses the split mode sums, the strict selection rule is
-closed over the merged value classes (a 2x2 rotation preserves det
-occupancy counts within the merged group), skeleton enumeration is
-deduplicated to one representative per orbit of the degree-preserving
-mode permutations, a polygon inequality per mode pair prunes skeletons
-that cannot cancel, and the phase problem is solved as the smooth
-quartic |rho - T|_F^2 with analytic phase gradients (no
-eigendecomposition, hence no degeneracy flatness). This is a lemma about
-the method and belongs in the states paper.
+The implementation (states.block_ansatze, states.solve_vertex_exact_first):
+sweep a discrete family of exact 1-RDM targets. Each target is the
+canonical diagonal or a block diagonal with 2x2 blocks mixing two
+spectrum values e1 > e2 via an integer split (a, b): a + b = e1 + e2,
+off-diagonal sqrt(a*b - e1*e2)/den, which has exact eigenvalues e1/den,
+e2/den by construction. For each target the degree system uses the split
+mode sums; support is confined to the degenerate-signature closure (a
+sound superset of the true support) with off-block one-hop pairs
+forbidden so the 1-RDM off-diagonal stays on the blocks (the historical
+interference8 ansatz); skeleton enumeration is deduplicated to one
+representative per orbit of the degree-preserving mode permutations, a
+polygon inequality per mode pair prunes skeletons that cannot cancel, and
+the phase problem is solved as the smooth quartic |rho - T|_F^2 with
+analytic phase gradients (no eigendecomposition, hence no degeneracy
+flatness). This reconstructs v_B end to end: a SINGLE 2x2 block mixing a
+14-mode and a 4-mode (split (6,12), off-diagonal 4/23), support size 8,
+weights [8,4,3,3,2,1,1,1]/23, phase residual 1e-32.
+
+Ruled out: the continuous OPERATOR form of the selection rule (put the
+state in the b-eigenspace of dGamma(U diag(a) U^T), U the target's
+natural orbitals, and take the joint kernel's support). It is ill posed
+at degenerate vertices, because the facet coefficients differ across a
+degenerate lambda-block while the natural orbitals inside the block are
+free, so U diag(a) U^T is not determined by <a, lambda>; checked
+directly, the exact v_B state fails dGamma(A_nat) psi = b psi by O(1) on
+both active facets. A correct continuous form would project each facet
+coefficient vector into the blocks and characterise the invariant
+subspaces; that is open. This is a lemma about the method and belongs in
+the states paper.
 
 ## Source documents in docs/
 

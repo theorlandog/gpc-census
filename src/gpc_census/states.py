@@ -263,6 +263,55 @@ def admissible_support(n: int, d: int, spectrum, groups="degenerate"):
     return [t for t in dets if sig(t) in good]
 
 
+def _active_facets(n: int, d: int, spectrum):
+    """Active facets (coeff vector, rhs) at a vertex, in exact arithmetic."""
+    from fractions import Fraction as F
+
+    from .constraints import constraints
+
+    spec = [F(x) for x in spectrum]
+    sys_ = constraints(n, d)
+    out = []
+    for iq in sys_["inequalities"] + sys_["equalities"]:
+        a, b = iq["coeffs"], iq["rhs"]
+        if sum(F(c) * x for c, x in zip(a, spec)) == b:
+            out.append((a, b))
+    return out
+
+
+# NOTE ON THE CONTINUOUS (OPERATOR) SELECTION RULE.
+# A tempting stronger prune for a block target: a saturated facet <a, lambda>
+# = b should put the state in the b-eigenspace of dGamma(U diag(a) U^T), U the
+# target's natural orbitals, so the joint kernel's determinant support is the
+# admissible set. This is FALSE at degenerate vertices and is not used. The
+# facet coefficients differ across a degenerate lambda-block (e.g. a v_B facet
+# has (0,0,1,2) on the four 14-positions), while the natural orbitals inside
+# that block are only defined up to an arbitrary rotation; <a, lambda> is still
+# well defined but U diag(a) U^T is not, so the eigenprojection is ill posed.
+# Checked directly (test_operator_selection_rule_is_unsound_at_degeneracy):
+# the exact v_B state fails dGamma(A_nat) psi = b psi by O(1) for both active
+# facets. The correct continuous form projects a into each block and
+# characterises the invariant subspaces; until that is derived we use the
+# sound degenerate-signature closure (a superset of the true support) plus
+# structural hop cuts. _natural_rotation below is retained only for that guard.
+
+
+def _natural_rotation(d: int, blocks):
+    """Orthogonal U (d x d) whose columns are the natural orbitals of a block
+    target: within each 2x2 block (u, v) the eigenvectors of
+    [[a, sqrt(x2)], [sqrt(x2), b]], identity elsewhere. Retained only for the
+    guard test that the operator selection rule is unsound at degeneracy."""
+    import numpy as np
+
+    U = np.eye(d)
+    for u, v, a_, b_, x2 in blocks:
+        blk = np.array([[a_, x2 ** 0.5], [x2 ** 0.5, b_]], float)
+        _, V = np.linalg.eigh(blk)  # ascending
+        hi, lo = V[:, 1], V[:, 0]
+        U[[u, u, v, v], [u, v, u, v]] = [hi[0], lo[0], hi[1], lo[1]]
+    return U
+
+
 def _degenerate_blocks(spectrum, d: int):
     """Contiguous runs of equal spectrum values (vertex spectra are sorted)."""
     from fractions import Fraction as F
@@ -432,12 +481,18 @@ def block_ansatze(n: int, d: int, spectrum, max_blocks: int = 2):
 
 
 def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
-                    require_hop_pairs=None):
+                    require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False):
     """CP-SAT model of the degree system: weights k on allowed determinants
-    with prescribed mode sums, indicators y, and (for block ansatze) at least
-    one support hop across each required mode pair. Returns
-    (model, k, y, dets, den, allowed) or None when a required hop pair has no
-    candidate hops inside the allowed support."""
+    with prescribed mode sums and indicators y. Hop structure is encoded per
+    mode pair: target pairs (block ansatze) need at least one support hop.
+    Off-target pairs are handled by `forbid_offtarget`: when True the support
+    is one-hop free off the target pairs (the historical interference8 ansatz,
+    which confines the 1-RDM off-diagonal to the blocks structurally); when
+    False they need zero or at least two hops, since a lone hop term can never
+    cancel regardless of weights (weight-level polygon pruning stays in the
+    enumeration callback). Returns (model, k, y, dets, den, allowed) or None
+    when a required hop pair has no candidate hops inside the allowed
+    support."""
     import math
 
     try:
@@ -465,35 +520,56 @@ def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
         m.Add(k[j] >= y[j])
     for mo, nm in enumerate(nv):
         m.Add(sum(k[j] for j in rows[mo]) == nm)
-    for u, v in (require_hop_pairs or []):
-        pair = {u, v}
-        hops = []
-        for p in range(len(allowed)):
-            sp_ = set(allowed[p])
-            for q in range(p + 1, len(allowed)):
-                if sp_ ^ set(allowed[q]) == pair:
-                    z = m.NewBoolVar(f"z{u}_{v}_{p}_{q}")
-                    # z == y[p] AND y[q]: fully determined, so solution
-                    # enumeration does not multiply over free z assignments
-                    m.Add(z <= y[p])
-                    m.Add(z <= y[q])
-                    m.Add(z >= y[p] + y[q] - 1)
-                    hops.append(z)
-        if not hops:
-            return None
-        m.Add(sum(hops) >= 1)
+    pair_hops: dict = {}
+    sets = [set(t) for t in allowed]
+    for p in range(len(allowed)):
+        for q in range(p + 1, len(allowed)):
+            diff = sets[p] ^ sets[q]
+            if len(diff) == 2:
+                pair_hops.setdefault(tuple(sorted(diff)), []).append((p, q))
+    required = {tuple(sorted(pr)) for pr in (require_hop_pairs or [])}
+    if any(pr not in pair_hops for pr in required):
+        return None
+    if not hop_cuts:
+        return m, k, y, dets, den, allowed
+    for pr, hops in pair_hops.items():
+        if pr not in required and forbid_offtarget:
+            # one-hop free off the blocks: no two support dets differ by pr
+            for p, q in hops:
+                m.AddBoolOr([y[p].Not(), y[q].Not()])
+            continue
+        zs = []
+        for p, q in hops:
+            z = m.NewBoolVar(f"z{pr}_{p}_{q}")
+            # z == y[p] AND y[q]: fully determined, so solution enumeration
+            # does not multiply over free z assignments
+            m.Add(z <= y[p])
+            m.Add(z <= y[q])
+            m.Add(z >= y[p] + y[q] - 1)
+            zs.append(z)
+        if pr in required:
+            m.Add(sum(zs) >= 1)
+        else:
+            lone = m.NewBoolVar(f"lone{pr}")
+            m.Add(sum(zs) == 0).OnlyEnforceIf(lone)
+            m.Add(sum(zs) >= 2).OnlyEnforceIf(lone.Not())
     return m, k, y, dets, den, allowed
 
 
 def min_support_cardinality(n: int, d: int, spectrum, nv=None, support_filter=None,
-                            require_hop_pairs=None, time_cap=30):
-    """Exact minimum support size of the degree system, or None when the
-    system is infeasible (the ansatz admits no skeleton at all). One solve
-    replaces a ladder of per-cardinality infeasibility proofs."""
+                            require_hop_pairs=None, time_cap=10, hop_cuts=False):
+    """Minimum support size of the degree system, or None when the system
+    is infeasible (the ansatz admits no skeleton at all). One solve replaces
+    a ladder of per-cardinality infeasibility proofs. When the cap is hit,
+    the solver's proven objective bound is still a sound lower bound. The
+    default probes the light relaxation (no hop cuts), whose minimum lower
+    bounds the cut model's."""
+    import math
+
     from ortools.sat.python import cp_model
 
     built = _skeleton_model(n, d, spectrum, nv=nv, support_filter=support_filter,
-                            require_hop_pairs=require_hop_pairs)
+                            require_hop_pairs=require_hop_pairs, hop_cuts=hop_cuts)
     if built is None:
         return None
     m, k, y, dets, den, allowed = built
@@ -505,21 +581,24 @@ def min_support_cardinality(n: int, d: int, spectrum, nv=None, support_filter=No
         return int(sum(s.Value(x) for x in y))
     if st == cp_model.INFEASIBLE:
         return None
-    return 2  # unknown within the cap: stay conservative
+    return max(2, int(math.ceil(s.BestObjectiveBound() - 1e-9)))
 
 
 def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: int = 40,
                              support_filter=None, prefilter=None, nv=None,
-                             dedup_maps="auto", require_hop_pairs=None):
-    """Integer solutions of the degree system with exactly `cardinality` support
-    determinants, one-hop pairs allowed (phases will handle cancellation).
-    Solutions are deduplicated to one representative per orbit of the mode
-    permutations preserving the degree system (which preserve phase
-    solvability), so `limit` counts genuinely distinct skeletons. An optional
-    `prefilter(items)` drops skeletons before they count, where items is the
-    sorted tuple of (det, weight) pairs. `nv` overrides the degree vector
-    (block ansatze), `dedup_maps` the permutation group; `require_hop_pairs`
-    forces at least one support hop across each given mode pair."""
+                             dedup_maps="auto", require_hop_pairs=None,
+                             forbid_offtarget=False, max_cardinality=None):
+    """Integer solutions of the degree system with support size `cardinality`,
+    or any size in [cardinality, max_cardinality] when max_cardinality is set,
+    one-hop pairs allowed (phases will handle cancellation). Solutions are
+    deduplicated to one representative per orbit of the mode permutations
+    preserving the degree system (which preserve phase solvability), so `limit`
+    counts genuinely distinct skeletons. An optional `prefilter(items)` drops
+    skeletons before they count, where items is the sorted tuple of (det,
+    weight) pairs. `nv` overrides the degree vector (block ansatze),
+    `dedup_maps` the permutation group; `require_hop_pairs` forces at least one
+    support hop across each given mode pair, and `forbid_offtarget` makes the
+    support one-hop free off those pairs."""
     from ortools.sat.python import cp_model
 
     import math
@@ -529,7 +608,8 @@ def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: 
     for x in [F(x) for x in spectrum]:
         den = den * x.denominator // math.gcd(den, x.denominator)
     built = _skeleton_model(n, d, spectrum, nv=nv, support_filter=support_filter,
-                            require_hop_pairs=require_hop_pairs)
+                            require_hop_pairs=require_hop_pairs,
+                            forbid_offtarget=forbid_offtarget)
     if built is None:
         return list(combinations(range(d), n)), den, []
     m, k, y, dets, den, allowed = built
@@ -539,7 +619,11 @@ def enumerate_weight_vectors(n: int, d: int, spectrum, cardinality: int, limit: 
         maps = _ansatz_maps(nv_eff, [], d)
     else:
         maps = dedup_maps
-    m.Add(sum(y) == cardinality)
+    if max_cardinality is None:
+        m.Add(sum(y) == cardinality)
+    else:
+        m.Add(sum(y) >= cardinality)
+        m.Add(sum(y) <= max_cardinality)
     out = []
     seen: set = set()
 
@@ -632,9 +716,10 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
     that rotate the natural basis, the degeneracy lemma) with cardinality
     as the outer loop, so cheap sparse skeletons across all targets are
     tried before deep ones. Support filters: the strict selection rule for
-    the diagonal target, signature closure over merged value classes for
-    block targets. Returned support is in the ansatz mode labeling, which
-    matches the canonical one up to a spectrum-preserving permutation."""
+    the diagonal target, the sound degenerate-signature closure for block
+    targets (with off-block hops forbidden so the 1-RDM off-diagonal stays on
+    the blocks). Returned support is in the ansatz mode labeling, which matches
+    the canonical one up to a spectrum-preserving permutation."""
     import math
     from fractions import Fraction as F
 
@@ -658,14 +743,11 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             target = None
             xt = None
         else:
-            merged = {v: frozenset([v]) for v in classes}
-            for u, v_, a_, b_, x2 in blocks:
-                key = merged[nv0[u]] | merged[nv0[v_]]
-                for v in key:
-                    merged[v] = key
-            groups = [[m_ for m_ in range(d) if nv0[m_] in g]
-                      for g in set(merged.values())]
-            adm = admissible_support(n, d, spectrum, groups=groups)
+            # sound prune: the degenerate-signature closure is a superset of
+            # the true support (a 2x2 rotation mixes across degenerate classes
+            # but preserves per-class occupancy counts), unlike the operator
+            # eigenprojection which is ill posed at degenerate vertices
+            adm = admissible_support(n, d, spectrum, groups="degenerate")
             target = np.diag([v / den for v in nv]).astype(complex)
             for u, v_, a_, b_, x2 in blocks:
                 target[u, v_] = target[v_, u] = (x2 ** 0.5) / den
@@ -676,39 +758,47 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
         def pref(items, _xt=xt):
             return _cancellation_feasible(items, _xt)
 
+        # probe the light relaxation (no hop cuts): faster proof, and its
+        # minimum is still a sound lower bound for the cut model. A short cap
+        # keeps the 86-ansatz sweep's probe overhead bounded; on timeout the
+        # solver's objective bound is still a sound lower bound.
         mincard = min_support_cardinality(n, d, spectrum, nv=nv,
-                                          support_filter=adm,
-                                          require_hop_pairs=hop_pairs)
+                                          support_filter=adm, time_cap=2)
         if mincard is None:
             continue  # ansatz admits no skeleton at all
         ansatze.append((nv, blocks, adm, target, maps, pref, hop_pairs, mincard))
 
-    for card in range(2, max_card + 1):
-        for nv, blocks, adm, target, maps, pref, hop_pairs, mincard in ansatze:
-            if card > len(adm) or card < mincard:
+    # ansatz-outer: one enumeration per ansatz over all support sizes up to
+    # max_card, phase-checking sparsest skeletons first. Diagonal and
+    # single-block targets are visited before double-block ones (block_ansatze
+    # yields them in that order), so v_B's single-block form is reached early.
+    for nv, blocks, adm, target, maps, pref, hop_pairs, mincard in ansatze:
+        cap = min(max_card, len(adm))
+        if cap < mincard:
+            continue
+        _, _den, sols = enumerate_weight_vectors(
+            n, d, spectrum, mincard, support_filter=adm, prefilter=pref,
+            nv=nv, dedup_maps=maps, require_hop_pairs=hop_pairs,
+            forbid_offtarget=bool(blocks), max_cardinality=cap, limit=400)
+        for w in sorted(sols, key=lambda w: sum(1 for k in w if k)):
+            psi, res = phase_solve(n, d, spectrum, dets_all, den, w,
+                                   _built=built, target=target)
+            if psi is None:
                 continue
-            dets, _den, sols = enumerate_weight_vectors(
-                n, d, spectrum, card, support_filter=adm, prefilter=pref,
-                nv=nv, dedup_maps=maps, require_hop_pairs=hop_pairs)
-            for w in sols:
-                psi, res = phase_solve(n, d, spectrum, dets, den, w,
-                                       _built=built, target=target)
-                if psi is None:
-                    continue
-                if 1e-12 <= res < 1e-9:
-                    mask = np.array([1.0 if k > 0 else 0.0 for k in w])
-                    psi2, res2, _ = attain(n, d, spectrum, mask=mask, outer=80,
-                                           tries=1, _built=built, psi0=psi)
-                    if res2 < res:
-                        psi, res = psi2, res2
-                if res < 1e-12:
-                    sup = [i for i, k in enumerate(w) if k > 0]
-                    j0 = max(sup, key=lambda i: abs(psi[i]))
-                    psi = psi * np.exp(-1j * np.angle(psi[j0]))
-                    return {"status": "OK", "residual": res,
-                            "support_size": len(sup),
-                            "weights": [w[i] for i in sup], "den": den,
-                            "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
-                            "support": [[list(dets_all[i]), float(abs(psi[i])),
-                                         float(np.angle(psi[i]))] for i in sup]}
+            if 1e-12 <= res < 1e-9:
+                mask = np.array([1.0 if k > 0 else 0.0 for k in w])
+                psi2, res2, _ = attain(n, d, spectrum, mask=mask, outer=80,
+                                       tries=1, _built=built, psi0=psi)
+                if res2 < res:
+                    psi, res = psi2, res2
+            if res < 1e-12:
+                sup = [i for i, k in enumerate(w) if k > 0]
+                j0 = max(sup, key=lambda i: abs(psi[i]))
+                psi = psi * np.exp(-1j * np.angle(psi[j0]))
+                return {"status": "OK", "residual": res,
+                        "support_size": len(sup),
+                        "weights": [w[i] for i in sup], "den": den,
+                        "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
+                        "support": [[list(dets_all[i]), float(abs(psi[i])),
+                                     float(np.angle(psi[i]))] for i in sup]}
     return {"status": "FAIL", "reason": f"no skeleton through cardinality {max_card}"}
