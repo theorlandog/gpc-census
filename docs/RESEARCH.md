@@ -121,12 +121,23 @@ cheap, certain work is never redone by an expensive stage.
    the spectrum alone (residual 1e-31, ~160 s) with a single 3x3 clique. The
    pipeline finds its own realization (clique on modes {1,4,8}, eigenvalues
    (6,5,1)), not the one an exploratory prototype had been handed (modes {0,1,4},
-   (9,6,5)), which is the evidence that the search is unbiased. Open: Tier B for
-   k >= 3 (the block off-diagonals are higher-degree algebraic numbers, not
-   generally p*sqrt(q)/r, so the phase recognizer must be extended or these fall
-   to TIER-C); multi-clique ansatze; and a clique placement beyond one
-   representative orbital per class (WLOG for a single clique by degenerate-class
-   symmetry, but not for several cliques sharing a class).
+   (9,6,5)), which is the evidence that the search is unbiased. It certifies end
+   to end: idx 24's closed form is REAL, psi = (|0125>+|0134>+|0237>+|0245>)/3 +
+   sqrt(2)/3 |0268> + sqrt(3)/3 |0348>, Tier B EXACT by the existing gauge-fixed
+   exactify with no extension. This is a structural point about Tier B, not a
+   one-off: a k-clique has a (k-1)(k-2)/2-dimensional Schur-Horn fiber, so for
+   k >= 3 a REAL realization is often available (idx 24 is one), and a real state
+   gauge-fixes to phases 0/pi and certifies trivially. So "interference" at k >= 3
+   frequently means only that the support cannot be made one-hop free, not that
+   complex phases are forced (contrast v_B's genuine pi/8 at k = 2, where the
+   tight 2x2 fiber leaves no real solution). Consequences: Tier B already reaches
+   most k >= 3 vertices for free through real-realization detection; the
+   genuinely hard cases needing higher-degree algebraic phases (no real, no
+   p*sqrt(q)/r) are a smaller residual, addressable by PSLQ / symbolic block
+   solving. Open: multi-clique ansatze; clique placement beyond one representative
+   orbital per class (WLOG for a single clique by degenerate-class symmetry, but
+   not for several cliques sharing a class); and that residual higher-degree
+   Tier B tail.
 
 3. Exactify (Tier B, gpc_census.exactify). Squared amplitudes snap to k/den.
    The state is defined only up to the single-particle U(1)^d phase gauge

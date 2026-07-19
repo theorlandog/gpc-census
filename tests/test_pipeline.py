@@ -354,3 +354,21 @@ def test_min_clique_count_flags_k3_vertex():
     from gpc_census.states import min_clique_count
     spec = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
     assert min_clique_count(4, 9, spec) == 3
+
+
+def test_exactify_certifies_real_k3_state():
+    # a k=3 clique interference vertex can have a REAL closed form (large
+    # Schur-Horn fiber), which the gauge-fixed exactify certifies with no
+    # extension. idx 24 of (4,9), (9:6:5:5:5:2:2:1:1)/9, is one such vertex.
+    import math
+
+    from gpc_census.exactify import exactify
+    spec = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    support = [(0, 1, 2, 5), (0, 1, 3, 4), (0, 2, 3, 7), (0, 2, 4, 5),
+               (0, 2, 6, 8), (0, 3, 4, 8)]
+    ks = [1, 1, 1, 1, 2, 3]  # |c|^2 * 9
+    record = {"support": [[list(t), math.sqrt(k / 9), 0.0]
+                          for t, k in zip(support, ks)]}
+    ex = exactify(4, 9, spec, record)
+    assert ex["status"] == "EXACT"
+    assert ex["weights"] == ks and ex["den"] == 9
