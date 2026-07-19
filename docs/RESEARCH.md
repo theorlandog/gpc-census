@@ -51,8 +51,17 @@ face identity P(N,d) cap {lambda_d = 0} = P(N,d-1)), a wrong classify port
 (caught by a Farkas feasibility contradiction), and a wrong solver gradient
 (caught by finite differences). Consequences:
 - No result ships without passing gpc_census.validate and the test suite.
-- The preflight gate: any state-solving change must reconstruct v_B end to
-  end (scripts/solve_all.py --preflight) before campaigns run.
+- The preflight gate: any state-solving change must reconstruct v_B and
+  certify its closed form end to end (scripts/solve_all.py --preflight)
+  before campaigns run. The gate uses the weights-first solver
+  (solve_vertex_exact_first with certify_tier_b): Tier A must attain the v_B
+  spectrum exactly and Tier B must exactify to a certified closed form (v_B
+  has realizations with a pi/8 interference phase). It completes in minutes.
+  The historical attain-based path (--legacy-preflight) is a Tier-A-only
+  regression check: it reaches the spectrum numerically but lands on an
+  arbitrary orbital gauge, so exactify certifies design vertices (trivial
+  phases) but not interference vertices, and it is minutes-to-hours slow;
+  it is not the gate.
 - Pin solvers. Census verdicts were produced under ortools 9.15.6755
   (the cpsat extra); the CBC fallback labels its backend in every verdict.
 

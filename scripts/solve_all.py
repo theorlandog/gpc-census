@@ -25,7 +25,7 @@ import numpy as np
 
 from checkpoint import Checkpointer, add_arguments
 from gpc_census.exactify import exactify
-from gpc_census.states import _build, solve_vertex
+from gpc_census.states import _build, solve_vertex, solve_vertex_exact_first
 
 DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 OUT = DATA / "states_interference.jsonl"
@@ -51,7 +51,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--systems", default=",".join(ORDER))
     ap.add_argument("--preflight", action="store_true",
-                    help="run v_B through both tiers and exit")
+                    help="reconstruct and certify v_B end to end, then exit")
+    ap.add_argument("--legacy-preflight", action="store_true",
+                    help="Tier-A-only gate via the historical attain solver; "
+                         "slow and does not certify interference vertices")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--workers", type=int, default=1,
                     help="parallel worker processes; 1 core per solve, BLAS pinned")
@@ -59,20 +62,43 @@ def main() -> int:
     args = ap.parse_args()
     np.random.seed(args.seed)
 
-    if args.preflight:
+    if args.legacy_preflight:
+        # historical calibration path: attain reaches the spectrum numerically
+        # but lands on an arbitrary gauge, so exactify only certifies design
+        # vertices (trivial phases), not interference vertices like v_B. Kept
+        # for regression-checking attain itself; it is minutes-to-hours slow.
         spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
         rec = solve_vertex(4, 9, spec)
         print("TierA", rec["status"], "support", rec.get("support_size"),
               "residual", rec.get("residual"))
-        if rec["status"] != "OK":
+        if rec["status"] != "OK" or rec.get("residual", 1) > 1e-9:
             return 1
         ex = exactify(4, 9, spec, rec)
         print("TierB", ex["status"], ex.get("reason", ""))
-        if ex["status"] == "EXACT":
-            print("weights", ex["weights"], "/", ex["den"])
-            for p in ex["pretty"]:
-                print("  ", p)
-        return 0 if ex["status"] == "EXACT" else 1
+        return 0
+
+    if args.preflight:
+        # the real gate: the weights-first solver must reconstruct v_B (Tier A,
+        # exact) AND exactify to a certified closed form (Tier B). This is the
+        # fast, reliable path and the one campaigns depend on; it completes in
+        # minutes, unlike the legacy attain solver.
+        spec = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+        rec = solve_vertex_exact_first(4, 9, spec, max_card=10,
+                                       certify_tier_b=True)
+        print("TierA", rec["status"], "support", rec.get("support_size"),
+              "residual", rec.get("residual"))
+        if rec["status"] != "OK" or rec.get("residual", 1) > 1e-12:
+            print("preflight FAILED: v_B not reconstructed")
+            return 1
+        ex = rec.get("exact")
+        print("TierB", ex["status"] if ex else "MISSING")
+        if not ex or ex["status"] != "EXACT":
+            print("preflight FAILED: v_B closed form not certified")
+            return 1
+        print("weights", ex["weights"], "/", ex["den"])
+        for p in ex["pretty"]:
+            print("  ", p)
+        return 0
 
     out_path = pathlib.Path(args.out)
     ckpt = Checkpointer(out_path, interval=args.checkpoint_interval,
