@@ -86,6 +86,11 @@ def main() -> int:
                     help="max support size the weights-first solver enumerates")
     ap.add_argument("--max-blocks", type=int, default=2,
                     help="max 2x2 natural-basis blocks in a weights-first ansatz")
+    ap.add_argument("--max-clique", type=int, default=3,
+                    help="max clique (block) SIZE k; 3 enables the k>=3 solver")
+    ap.add_argument("--max-cliques", type=int, default=1,
+                    help="max NUMBER of disjoint cliques; 0 uses the per-vertex "
+                         "structural capacity (matching bound)")
     ap.add_argument("--all", action="store_true",
                     help="process every vertex routed by verdict (DESIGN-INT "
                          "built directly from its witness), not just "
@@ -95,8 +100,9 @@ def main() -> int:
     np.random.seed(args.seed)
     if args.all and args.out == str(OUT):
         args.out = str(OUT_ALL)  # full census goes to its own file by default
-    global _SOLVER, _MAX_CARD, _MAX_BLOCKS
+    global _SOLVER, _MAX_CARD, _MAX_BLOCKS, _MAX_CLIQUE, _MAX_CLIQUES
     _SOLVER, _MAX_CARD, _MAX_BLOCKS = args.solver, args.max_card, args.max_blocks
+    _MAX_CLIQUE, _MAX_CLIQUES = args.max_clique, args.max_cliques
 
     if args.legacy_preflight:
         # historical calibration path: attain reaches the spectrum numerically
@@ -168,7 +174,8 @@ def main() -> int:
             os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
             with mp.Pool(args.workers, initializer=_init_seed,
                          initargs=(args.seed, args.solver, args.max_card,
-                                   args.max_blocks)) as pool:
+                                   args.max_blocks, args.max_clique,
+                                   args.max_cliques)) as pool:
                 for rec in pool.imap_unordered(_work_solo, todo):
                     _emit(out, rec)
                     ckpt.checkpoint()
@@ -181,19 +188,24 @@ def main() -> int:
 _SOLVER = "cascade"
 _MAX_CARD = 14
 _MAX_BLOCKS = 2
+_MAX_CLIQUE = 3
+_MAX_CLIQUES = 1
 
 
-def _init_seed(seed: int, solver="cascade", max_card=14, max_blocks=2) -> None:
+def _init_seed(seed: int, solver="cascade", max_card=14, max_blocks=2,
+               max_clique=3, max_cliques=1) -> None:
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
     np.random.seed(seed + os.getpid() % 10000)
-    global _SOLVER, _MAX_CARD, _MAX_BLOCKS
+    global _SOLVER, _MAX_CARD, _MAX_BLOCKS, _MAX_CLIQUE, _MAX_CLIQUES
     _SOLVER, _MAX_CARD, _MAX_BLOCKS = solver, max_card, max_blocks
+    _MAX_CLIQUE, _MAX_CLIQUES = max_clique, max_cliques
 
 
 def _weights_first(n, d, spec, built):
     return solve_vertex_exact_first(n, d, spec, max_card=_MAX_CARD,
-                                    max_blocks=_MAX_BLOCKS,
+                                    max_blocks=_MAX_BLOCKS, max_clique=_MAX_CLIQUE,
+                                    max_cliques=_MAX_CLIQUES,
                                     certify_tier_b=True, _built=built)
 
 

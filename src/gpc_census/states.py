@@ -753,6 +753,28 @@ def min_block_count(n: int, d: int, spectrum, max_blocks: int = 4, time_cap: int
     return best
 
 
+def clique_capacity(n: int, d: int, spectrum):
+    """Per-vertex upper bound on the number of disjoint cliques (each mixes >= 2
+    distinct eigenvalue classes, one orbital per class). A clique is an edge or
+    hyperedge across distinct classes, so a set of disjoint cliques is a matching
+    in the complete multipartite orbital graph, whose maximum size is
+    min(floor(d/2), d - max_class_size). This is the structural ceiling the
+    clique escalation should climb to (bounded in practice by compute), rather
+    than a fixed global cap."""
+    import math
+    from fractions import Fraction as F
+
+    spec = [F(x) for x in spectrum]
+    den = 1
+    for x in spec:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    nv0 = [int(x * den) for x in spec]
+    sizes: dict = {}
+    for v in nv0:
+        sizes[v] = sizes.get(v, 0) + 1
+    return min(d // 2, d - max(sizes.values()))
+
+
 def min_clique_count(n: int, d: int, spectrum, max_clique: int = 4, time_cap: int = 5):
     """Smallest clique SIZE k in [3, max_clique] for which some single k-clique
     ansatz has a degree-feasible support that is one-hop free off the clique
@@ -1179,7 +1201,11 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
         start = ksize if (ksize is not None and ksize >= 3) else 3
         # escalate the number of disjoint cliques: a single clique first, then
         # two, etc. (the FAILs of the single-clique sweep need several blocks).
-        for nc in range(1, max_cliques + 1):
+        # max_cliques <= 0 means "use the per-vertex structural capacity"; the
+        # ceiling is the matching bound, not a fixed global cap.
+        ceiling = (clique_capacity(n, d, spectrum) if max_cliques <= 0
+                   else max_cliques)
+        for nc in range(1, ceiling + 1):
             ck = _solve_via_cliques(n, d, spectrum, dets_all, den, built,
                                     range(start, max_clique + 1), max_card,
                                     certify_tier_b, n_cliques=nc)
