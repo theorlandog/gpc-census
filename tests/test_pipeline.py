@@ -243,3 +243,18 @@ def test_operator_selection_rule_is_unsound_at_degeneracy():
         dgamma = np.einsum("mn,mnij->ij", anat, a_tensor).real
         worst = max(worst, float(np.linalg.norm(dgamma @ psi - b * psi)))
     assert worst > 0.1  # eigenprojection would require this to be ~0
+
+
+def test_design_vertex_built_from_witness():
+    # a DESIGN-INT vertex needs no iterative solve: its design witness gives a
+    # real, phase-free state that is exact by construction. v_A is DESIGN-INT.
+    from gpc_census.exactify import exactify
+    from gpc_census.states import solve_design_vertex
+    vA = [Fraction(x, 21) for x in (16, 16, 16, 6, 6, 6, 6, 6, 6)]
+    rec = solve_design_vertex(4, 9, vA)
+    assert rec is not None and rec["status"] == "OK"
+    assert all(ph == 0.0 for _, _, ph in rec["support"])  # phase-free
+    assert exactify(4, 9, vA, rec)["status"] == "EXACT"
+    # an interference vertex is not DESIGN-INT, so the builder declines it
+    vB = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    assert solve_design_vertex(4, 9, vB) is None

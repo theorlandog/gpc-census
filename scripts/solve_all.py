@@ -1,15 +1,21 @@
-"""Tier A + Tier B campaign over every interference vertex in the census.
+"""Tier A + Tier B state-construction campaign over the classified census.
 
 Run from the repository root:
 
-    uv run scripts/solve_all.py             # all systems, small first
+    uv run scripts/solve_all.py             # interference vertices, small first
+    uv run scripts/solve_all.py --all       # every vertex, routed by verdict
     uv run scripts/solve_all.py --preflight # v_B end to end, then stop
     uv run scripts/solve_all.py --systems 3_8,3_9
 
-Appends one JSON record per vertex to results/data/states_interference.jsonl
-with the numerical state (Tier A) and, when recognition and exact
-verification succeed, the certified closed form (Tier B). Restartable:
-already-recorded (system, index) pairs are skipped.
+Each vertex is routed by the classification we already computed: DESIGN-INT
+vertices are constructed directly from their design witness (no iterative
+solve, exact by construction), while DESIGN-REAL and INTERFERENCE vertices go
+through the state solver (cascade by default). Appends one JSON record per
+vertex with the numerical state (Tier A) and, when recognition and exact
+verification succeed, the certified closed form (Tier B). Default output is
+results/data/states_interference.jsonl (interference only); --all writes the
+full census to results/data/states.jsonl. Restartable: already-recorded
+(system, index) pairs are skipped.
 """
 from __future__ import annotations
 
@@ -25,16 +31,25 @@ import numpy as np
 
 from checkpoint import Checkpointer, add_arguments
 from gpc_census.exactify import exactify
-from gpc_census.states import _build, solve_vertex, solve_vertex_exact_first
+from gpc_census.states import (_build, solve_design_vertex, solve_vertex,
+                               solve_vertex_exact_first)
 
 DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 OUT = DATA / "states_interference.jsonl"
+OUT_ALL = DATA / "states.jsonl"
 
 # cheapest dimension first; (5,10) is the heavy tail
 ORDER = ["3_8", "3_9", "4_8", "4_9", "3_10", "4_10", "5_10"]
 
 
-def tasks(systems: list[str]):
+def _verdict(line: str) -> str:
+    for v in ("DESIGN-INT", "DESIGN-REAL", "INTERFERENCE"):
+        if v in line:
+            return v
+    return "UNKNOWN"
+
+
+def tasks(systems: list[str], all_vertices: bool = False):
     for tag in systems:
         f = DATA / "census" / f"census_{tag}_results.txt"
         if not f.exists():
@@ -43,8 +58,9 @@ def tasks(systems: list[str]):
         verts = json.loads((DATA / "vertices" / f"vertices_{n}_{d}.json").read_text())
         rows = [ln for ln in f.read_text().splitlines() if ln[:4].strip().isdigit()]
         for i, line in enumerate(rows):
-            if "INTERFERENCE" in line:
-                yield n, d, i, verts[i]
+            verdict = _verdict(line)
+            if all_vertices or verdict == "INTERFERENCE":
+                yield n, d, i, verts[i], verdict
 
 
 def main() -> int:
@@ -70,9 +86,15 @@ def main() -> int:
                     help="max support size the weights-first solver enumerates")
     ap.add_argument("--max-blocks", type=int, default=2,
                     help="max 2x2 natural-basis blocks in a weights-first ansatz")
+    ap.add_argument("--all", action="store_true",
+                    help="process every vertex routed by verdict (DESIGN-INT "
+                         "built directly from its witness), not just "
+                         "interference; writes the full census to states.jsonl")
     add_arguments(ap, default_out=OUT)
     args = ap.parse_args()
     np.random.seed(args.seed)
+    if args.all and args.out == str(OUT):
+        args.out = str(OUT_ALL)  # full census goes to its own file by default
     global _SOLVER, _MAX_CARD, _MAX_BLOCKS
     _SOLVER, _MAX_CARD, _MAX_BLOCKS = args.solver, args.max_card, args.max_blocks
 
@@ -128,8 +150,8 @@ def main() -> int:
             except json.JSONDecodeError:
                 pass
 
-    todo = [(n, d, i, v) for n, d, i, v in tasks(args.systems.split(","))
-            if (f"({n},{d})", i) not in done]
+    todo = [t for t in tasks(args.systems.split(","), all_vertices=args.all)
+            if (f"({t[0]},{t[1]})", t[2]) not in done]
     with out_path.open("a") as out:
         ckpt.attach(out)
         ckpt.install_signal_handlers()
@@ -176,29 +198,33 @@ def _weights_first(n, d, spec, built):
 
 
 def _work(t, built, seed):
-    n, d, i, v = t
+    n, d, i, v, verdict = t
     np.random.seed(seed + 1000 * n + 10 * d + i)
     spec = [Fraction(s) for s in v["spectrum"]]
-    # cascade (default): try the fast block-ansatz solver, which returns a
-    # certified closed form when the vertex is block-structured; on FAIL fall
-    # back to attain so we still record a Tier-A numeric state rather than
-    # nothing. Neither solver alone covers every interference vertex: the
-    # block ansatz family is incomplete, and attain rarely certifies
-    # interference vertices (it cannot choose a clean-gauge realization), so
-    # uncovered vertices land in Tier-A / TIER-C for the extended-ansatz or
-    # hand-analysis frontier.
-    if _SOLVER == "attain":
-        rec = solve_vertex(n, d, spec, _built=built)
-    elif _SOLVER == "weights-first":
-        rec = _weights_first(n, d, spec, built)
-    else:  # cascade
-        rec = _weights_first(n, d, spec, built)
-        if rec.get("status") != "OK":
+    # route by the verdict we already computed: a DESIGN-INT vertex is built
+    # directly from its design witness (one-hop-free support gives a diagonal
+    # 1-RDM, exact by construction), no iterative solve. Everything else goes
+    # to the state solver. cascade (default): try the fast block-ansatz solver,
+    # which returns a certified closed form when the vertex is block-structured,
+    # and fall back to attain on FAIL so we still record a Tier-A numeric state.
+    # Neither solver covers every interference vertex; uncovered ones land in
+    # Tier-A / TIER-C for the extended-ansatz or hand-analysis frontier.
+    rec = None
+    if verdict == "DESIGN-INT":
+        rec = solve_design_vertex(n, d, spec)
+    if rec is None:
+        if _SOLVER == "attain":
             rec = solve_vertex(n, d, spec, _built=built)
-    rec["system"], rec["index"] = f"({n},{d})", i
+        elif _SOLVER == "weights-first":
+            rec = _weights_first(n, d, spec, built)
+        else:  # cascade
+            rec = _weights_first(n, d, spec, built)
+            if rec.get("status") != "OK":
+                rec = solve_vertex(n, d, spec, _built=built)
+    rec["system"], rec["index"], rec["classified"] = f"({n},{d})", i, verdict
     rec["integer_form"], rec["denominator"] = v["integer_form"], v["denominator"]
     # ensure a Tier-B record even when the solver did not already certify one
-    # (weights-first attaches rec["exact"] only when it certifies)
+    # (weights-first and the design builder attach rec["exact"] only lazily)
     if rec.get("status") == "OK" and "exact" not in rec:
         rec["exact"] = exactify(n, d, spec, rec)
     return rec

@@ -707,6 +707,33 @@ def phase_solve(n: int, d: int, spectrum, dets, den, weights, tries=6, _built=No
     return psi, float(np.sum((e - lam) ** 2))
 
 
+def solve_design_vertex(n: int, d: int, spectrum):
+    """Construct the extremal state of a DESIGN-INT vertex directly from its
+    weighted design, no iterative solve. A design's support is one-hop free,
+    so the phase-free superposition psi = sum sqrt(k_t/den) |t> has a diagonal
+    1-RDM equal to the (sorted) spectrum by inspection, and the amplitudes are
+    on the natural grid, so the state is exact by construction. Returns an OK
+    record with certified real amplitudes, or None when the vertex is not
+    DESIGN-INT (DESIGN-REAL and INTERFERENCE go through the iterative flow)."""
+    import math
+    from fractions import Fraction as F
+
+    from .classify import classify_full
+
+    r = classify_full(n, d, spectrum)
+    if r.get("verdict") != "DESIGN-INT" or "witness" not in r:
+        return None
+    den = 1
+    for x in [F(s) for s in spectrum]:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    dets = list(combinations(range(d), n))
+    k = r["witness"]
+    sup = [j for j in range(len(dets)) if k[j]]
+    return {"status": "OK", "residual": 0.0, "support_size": len(sup),
+            "weights": [k[j] for j in sup], "den": den, "verdict": "DESIGN-INT",
+            "support": [[list(dets[j]), (k[j] / den) ** 0.5, 0.0] for j in sup]}
+
+
 def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                              max_blocks: int = 2, certify_tier_b: bool = False,
                              _built=None):
