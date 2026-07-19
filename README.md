@@ -138,11 +138,12 @@ As a library, the precomputed dataset is available without recomputing:
 from gpc_census import dataset
 dataset.vertices(4, 9)        # extremal spectra (exact)
 dataset.classification(4, 9)  # design/interference verdict per vertex
-dataset.states(4, 9)          # certified closed-form states (source="precomputed")
+dataset.states(4, 9)          # certified closed-form states from the lookup
 dataset.export(4, 9)          # all of the above, one object
 
-# provenance is explicit: every record carries source="precomputed" or "solved"
-dataset.resolve_states(4, 9, mode="hybrid")   # lookup where available, solve the rest
+# the mode is the provenance: precompute serves the lookup, solve recomputes
+# independently (ignoring the lookup), hybrid serves the lookup and solves gaps
+dataset.resolve_states(4, 9, mode="hybrid")
 ```
 
 To recompute or push further, the engine is a single call

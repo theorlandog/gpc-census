@@ -24,20 +24,16 @@ def test_export_vertices_kind(capsys):
 def test_export_all_has_sections(capsys):
     assert main(["export", "-n", "4", "-d", "9", "--kind", "all"]) == 0
     obj = json.loads(capsys.readouterr().out)
-    assert set(obj) == {"system", "source", "constraints", "vertices",
+    assert set(obj) == {"system", "constraints", "vertices",
                         "classification", "states"}
     assert obj["system"] == {"n": 4, "d": 9}
-    assert obj["source"] == "precomputed"
 
 
-def test_states_precompute_envelope_reports_source(capsys):
+def test_states_precompute_envelope_reports_mode(capsys):
     assert main(["states", "-n", "3", "-d", "9"]) == 0
     env = json.loads(capsys.readouterr().out)
-    assert env["source_mode"] == "precompute"
+    assert env["mode"] == "precompute"
     assert isinstance(env["states"], list)
-    # every record is tagged with its provenance
-    assert all(r.get("source") == "precomputed" for r in env["states"])
-    assert set(env["counts"]) <= {"precomputed"}
 
 
 def test_states_hybrid_uses_lookup_when_available(capsys):
@@ -45,9 +41,10 @@ def test_states_hybrid_uses_lookup_when_available(capsys):
     assert main(["states", "-n", "3", "-d", "9", "--index", "0",
                  "--source", "hybrid"]) == 0
     env = json.loads(capsys.readouterr().out)
-    assert env["source_mode"] == "hybrid"
+    assert env["mode"] == "hybrid"
     assert len(env["states"]) == 1
-    assert env["states"][0]["source"] == "precomputed"
+    # served from the lookup: it has the stored closed form, not a fresh solve
+    assert "tierB" in env["states"][0]
 
 
 def test_vertices_output(capsys):

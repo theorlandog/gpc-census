@@ -142,10 +142,9 @@ def _cmd_states(args, parser) -> int:
                           mode=args.source, max_card=args.max_card,
                           max_blocks=args.max_blocks, max_clique=args.max_clique,
                           max_cliques=args.max_cliques)
-    counts = {}
-    for r in recs:
-        counts[r.get("source", "unknown")] = counts.get(r.get("source", "unknown"), 0) + 1
-    envelope = {"source_mode": args.source, "counts": counts, "states": recs}
+    # provenance is the mode, not the record: precompute serves the lookup,
+    # solve recomputes independently, hybrid serves the lookup and solves the rest
+    envelope = {"mode": args.source, "states": recs}
     print(json.dumps(envelope, default=str, indent=1))
     return 0
 
