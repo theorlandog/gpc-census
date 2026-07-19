@@ -59,7 +59,8 @@ differences). Consequences:
   phases) but not interference vertices, and it is minutes-to-hours slow;
   it is not the gate.
 - Pin solvers. Census verdicts were produced under ortools 9.15.6755
-  (the cpsat extra); the CBC fallback labels its backend in every verdict.
+  (a required runtime dependency); the CBC fallback labels its backend in
+  every verdict.
 
 ## The state-construction algorithm (stitched pipeline)
 

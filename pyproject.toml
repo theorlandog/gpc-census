@@ -15,6 +15,7 @@ authors = [
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
+    "ortools==9.15.6755",
     "pulp",
     "scipy",
     "sympy",
@@ -28,7 +29,8 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-cpsat = ["ortools==9.15.6755"]
+# ortools (CP-SAT) is a required runtime dependency; classify.py still falls
+# back to CBC (pulp) when it is absent or unpinned, so verdicts stay reproducible.
 # S3 checkpoint mirror for the long-running scripts/ campaigns (spot-resilient
 # runs). Imported lazily, so disk-only checkpointing needs nothing extra.
 s3 = ["boto3"]

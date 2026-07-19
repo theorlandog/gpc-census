@@ -80,6 +80,7 @@ dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
     { name = "numpy", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "ortools" },
     { name = "pulp" },
     { name = "scipy", version = "1.15.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
@@ -88,9 +89,6 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
-cpsat = [
-    { name = "ortools" },
-]
 s3 = [
     { name = "boto3" },
 ]
@@ -109,12 +107,12 @@ test = [
 requires-dist = [
     { name = "boto3", marker = "extra == 's3'" },
     { name = "numpy" },
-    { name = "ortools", marker = "extra == 'cpsat'", specifier = "==9.15.6755" },
+    { name = "ortools", specifier = "==9.15.6755" },
     { name = "pulp" },
     { name = "scipy" },
     { name = "sympy" },
 ]
-provides-extras = ["cpsat", "s3"]
+provides-extras = ["s3"]
 
 [package.metadata.requires-dev]
 dev = [

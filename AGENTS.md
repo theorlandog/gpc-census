@@ -24,12 +24,13 @@ lives in `results/report/main.md`; computed data results live under
 
 - Python package managed with `pyproject.toml` and uv (hatchling build backend).
 - Usable both as a library (`import gpc_census`) and as a CLI (`gpc-census`).
-- Ships as a pip package (wheel + sdist via `uv build`) and as an RPM
-  (`gpc-census.spec`, Fedora `pyproject-rpm-macros`).
-- Runtime dependencies: numpy, scipy, pulp, ortools (pinned). classify.py
-  detects ortools at import and falls back to CBC when absent or unpinned,
-  so the RPM can omit the ortools dependency; verdicts carry a solver field
-  and gpc_census.certify upgrades them to exact certificates.
+- Ships as a pip package (wheel + sdist via `uv build`). RPM packaging
+  (`gpc-census.spec`, Fedora `pyproject-rpm-macros`) is currently disabled
+  and not built in CI; the spec is retained, dormant, for future revival.
+- Runtime dependencies: numpy, scipy, pulp, ortools (required, pinned).
+  classify.py still detects ortools at import and falls back to CBC when it
+  is absent or unpinned, so verdicts stay reproducible; verdicts carry a
+  solver field and gpc_census.certify upgrades them to exact certificates.
 
 ## Layout
 
@@ -90,9 +91,9 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   release tag after a branch either: a release tag named `main` makes the
   refname ambiguous with the branch. The release job runs directly on the runner
   (no job container) and rebuilds everything fresh (it does not reuse CI
-  artifacts): wheel and sdist with uv, RPMs inside a Fedora container and
-  the paper inside the pandoc container, both driven by the runner's
-  podman, then publishes with the `gh` CLI. It also attaches
+  artifacts): wheel and sdist with uv, and the paper inside the pandoc
+  container driven by the runner's podman, then publishes with the `gh`
+  CLI. It also attaches
   `data-output.zip`: the paper PDF plus `results/data/`, with a signed
   provenance attestation (`actions/attest-build-provenance`) and SHA256SUMS
   of those files inside the zip.

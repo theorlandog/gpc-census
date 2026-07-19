@@ -113,7 +113,7 @@ in `results/data/`.
 ## Quick start
 
 ```sh
-uv sync --extra cpsat                       # reference solver backend
+uv sync                                     # install deps (CP-SAT backend included)
 gpc-census constraints -n 3 -d 9            # the 52-inequality system
 gpc-census polytope   -n 3 -d 9             # its 58 vertices, exactly
 gpc-census classify   -n 4 -d 9             # verdicts incl. v_A and v_B
@@ -153,7 +153,7 @@ CI stamps each build before packaging (`uv version <computed>`):
 | other refs / PRs | `<base>+git.<short-sha>`  |
 
 The GitHub Actions workflow (`.github/workflows/build.yml`) runs tests, then
-builds and uploads the wheel/sdist and the RPMs as artifacts. Tag pushes
+builds the wheel and sdist. Tag pushes
 (`vX.Y.Z`) also publish a GitHub release marked latest with those packages
 attached; suffixed tags (e.g. `vX.Y.Zrc1`, `vX.Y.Z-beta`) start as pre-releases and are
 promoted manually. Each push to main refreshes a rolling `snapshot`
@@ -172,27 +172,9 @@ make build          # uv build -> dist/*.whl and dist/*.tar.gz
 
 The resulting wheel installs with `pip install dist/gpc_census-<version>-py3-none-any.whl`.
 
-### RPM
-
-The spec file is `gpc-census.spec` and builds from the sdist using Fedora's
-`pyproject-rpm-macros`. Build dependencies (Fedora/RHEL):
-
-```sh
-sudo dnf install rpm-build python3-devel pyproject-rpm-macros \
-    python3-hatchling python3-pytest
-```
-
-Then:
-
-```sh
-make rpm            # builds sdist, then rpmbuild into build/rpm/
-```
-
-`make rpm` regenerates `build/gpc-census.spec` with the version from
-`pyproject.toml`, so CI-stamped versions flow into the RPM automatically.
-
-Binary RPMs land in `build/rpm/RPMS/noarch/` and the source RPM in
-`build/rpm/SRPMS/`. `make srpm` builds only the source RPM.
+RPM packaging (`gpc-census.spec`, `make rpm`) is currently disabled and not
+built in CI: ortools is now a required runtime dependency and is not packaged
+for Fedora. The spec is retained, dormant, for future revival.
 
 ## License
 
