@@ -967,7 +967,8 @@ def _esym_and_grad(B):
 
 
 def phase_solve_clique(n: int, d: int, spectrum, dets, den, weights, cliques,
-                       tries=8, weight=10.0, _built=None):
+                       tries=8, weight=10.0, maxiter=2000, deadline=None,
+                       _built=None):
     """Phase solve for a clique (k-mode block) target with analytic gradients.
     Fixes moduli sqrt(k/den); the degree system pins the canonical diagonal, so
     the objective is (i) zero every off-clique off-diagonal 1-RDM entry and
@@ -1016,11 +1017,14 @@ def phase_solve_clique(n: int, d: int, spectrum, dets, den, weights, cliques,
         grad = 2.0 * np.imag(c.conj() * g1)
         return en, grad[1:]
 
+    import time as _time
     best = (None, 1e9)
     for _ in range(tries):
+        if deadline is not None and _time.monotonic() > deadline:
+            break  # respect the sweep's wall-clock budget
         th0 = np.random.uniform(0, 2 * np.pi, len(sup) - 1)
         r = minimize(fg, th0, jac=True, method="L-BFGS-B",
-                     options={"maxiter": 2000, "ftol": 1e-24, "gtol": 1e-16})
+                     options={"maxiter": maxiter, "ftol": 1e-24, "gtol": 1e-16})
         if r.fun < best[1]:
             best = (r.x, r.fun)
         if best[1] < 1e-22:
@@ -1065,7 +1069,7 @@ def solve_design_vertex(n: int, d: int, spectrum):
 def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
                              max_blocks: int = 2, certify_tier_b: bool = False,
                              max_clique: int = 2, max_cliques: int = 1,
-                             _built=None):
+                             clique_time_budget: float = 60.0, _built=None):
     """Weights-first solve: enumerate integer weight skeletons by ascending
     support size and phase-solve each; moduli are on the natural grid by
     construction, so Tier B needs only phase recognition. Sweeps the block
@@ -1208,7 +1212,8 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
         for nc in range(1, ceiling + 1):
             ck = _solve_via_cliques(n, d, spectrum, dets_all, den, built,
                                     range(start, max_clique + 1), max_card,
-                                    certify_tier_b, n_cliques=nc)
+                                    certify_tier_b, n_cliques=nc,
+                                    time_budget=clique_time_budget)
             if ck is not None and ck["status"] == "OK":
                 if not certify_tier_b or "exact" in ck:
                     return ck
@@ -1223,14 +1228,19 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
 
 
 def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
-                       certify_tier_b, n_cliques=1):
+                       certify_tier_b, n_cliques=1, time_budget=60.0):
     """Sweep n_cliques-clique ansatze of the given sizes: enumerate a support
     that is one-hop free off the union of the cliques, phase-solve the clique
     blocks by their eigenvalues, and exactify. Returns an OK record (certified
-    when certify_tier_b and possible), the first numeric hit, or None."""
+    when certify_tier_b and possible), the first numeric hit, or None. Bounded by
+    a wall-clock budget: the phase solve is non-convex and a vertex outside the
+    ansatz family can otherwise burn unbounded time, so the sweep stops and
+    returns its best-so-far once the budget is spent."""
+    import time
     import numpy as np
     from ortools.sat.python import cp_model
 
+    deadline = time.monotonic() + time_budget
     dets = list(dets_all)
     asets = [set(t) for t in dets]
     hop_pairs = [(p, q) for p in range(len(dets)) for q in range(p + 1, len(dets))
@@ -1239,6 +1249,8 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
     first_ok = None
     for nv, cliques in multi_clique_ansatze(n, d, spectrum, sizes=list(sizes),
                                             n_cliques=n_cliques):
+        if time.monotonic() > deadline:
+            break  # budget spent; return best-so-far
         clsets = [set(modes) for modes, _ in cliques]
         # one-hop free off the union of the cliques; enumerate over all
         # determinants since the degenerate-signature closure is unsound here
@@ -1272,12 +1284,15 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
         s.parameters.max_time_in_seconds = 10
         s.Solve(m, _C())
         for wa in sorted(out, key=lambda wa: sum(1 for x in wa if x)):
+            if time.monotonic() > deadline:
+                break
             w = [0] * len(dets_all)
             for j in range(len(dets)):
                 if wa[j]:
                     w[j] = wa[j]
             psi, res = phase_solve_clique(n, d, spectrum, dets_all, den, w,
-                                          cliques, tries=6, _built=built)
+                                          cliques, tries=6, deadline=deadline,
+                                          _built=built)
             if psi is None or res >= 1e-12:
                 continue
             sup = [i for i, kk in enumerate(w) if kk > 0]
@@ -1303,7 +1318,7 @@ def _solve_via_cliques(n, d, spectrum, dets_all, den, built, sizes, max_card,
 
 def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
                   max_card: int = 16, max_blocks: int = 2, max_clique: int = 3,
-                  max_cliques: int = 1):
+                  max_cliques: int = 1, clique_time_budget: float = 60.0):
     """Engine entry point: construct and certify the extremal state of one
     vertex, routed by its classification. A DESIGN-INT vertex is built directly
     from its design witness (exact by construction); DESIGN-REAL and
@@ -1315,7 +1330,7 @@ def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
     EXACT, is a certified closed form (verified by the exact 1-RDM identity)."""
     if verdict is None:
         from .classify import classify
-        verdict = classify(n, d, spectrum).get("verdict")
+        verdict = classify(n, d, spectrum)  # returns the verdict string
     rec = None
     if verdict == "DESIGN-INT":
         rec = solve_design_vertex(n, d, spectrum)
@@ -1329,7 +1344,9 @@ def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
     if rec is None:
         rec = solve_vertex_exact_first(n, d, spectrum, max_card=max_card,
                                        max_blocks=max_blocks, max_clique=max_clique,
-                                       max_cliques=max_cliques, certify_tier_b=True)
+                                       max_cliques=max_cliques,
+                                       clique_time_budget=clique_time_budget,
+                                       certify_tier_b=True)
     if rec is not None and rec.get("status") == "OK" and "exact" not in rec:
         from .exactify import exactify
         rec["exact"] = exactify(n, d, spectrum, rec)
