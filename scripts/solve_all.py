@@ -58,9 +58,23 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--workers", type=int, default=1,
                     help="parallel worker processes; 1 core per solve, BLAS pinned")
+    ap.add_argument("--solver", choices=("cascade", "weights-first", "attain"),
+                    default="cascade",
+                    help="cascade (default): weights-first, then attain on its "
+                         "failures, for the strongest available result per "
+                         "vertex; weights-first: fast block-ansatz solve that "
+                         "certifies closed forms but fails off its ansatz "
+                         "family; attain: historical Tier-A alternating "
+                         "projection (rarely certifies interference vertices)")
+    ap.add_argument("--max-card", type=int, default=14,
+                    help="max support size the weights-first solver enumerates")
+    ap.add_argument("--max-blocks", type=int, default=2,
+                    help="max 2x2 natural-basis blocks in a weights-first ansatz")
     add_arguments(ap, default_out=OUT)
     args = ap.parse_args()
     np.random.seed(args.seed)
+    global _SOLVER, _MAX_CARD, _MAX_BLOCKS
+    _SOLVER, _MAX_CARD, _MAX_BLOCKS = args.solver, args.max_card, args.max_blocks
 
     if args.legacy_preflight:
         # historical calibration path: attain reaches the spectrum numerically
@@ -130,7 +144,9 @@ def main() -> int:
         else:
             os.environ.setdefault("OMP_NUM_THREADS", "1")
             os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
-            with mp.Pool(args.workers, initializer=_init_seed, initargs=(args.seed,)) as pool:
+            with mp.Pool(args.workers, initializer=_init_seed,
+                         initargs=(args.seed, args.solver, args.max_card,
+                                   args.max_blocks)) as pool:
                 for rec in pool.imap_unordered(_work_solo, todo):
                     _emit(out, rec)
                     ckpt.checkpoint()
@@ -138,20 +154,52 @@ def main() -> int:
     return 0
 
 
-def _init_seed(seed: int) -> None:
+# solver selection, set in main() and inherited by workers (fork) or re-set in
+# the pool initializer (spawn); defaults keep a bare import importable
+_SOLVER = "cascade"
+_MAX_CARD = 14
+_MAX_BLOCKS = 2
+
+
+def _init_seed(seed: int, solver="cascade", max_card=14, max_blocks=2) -> None:
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
     np.random.seed(seed + os.getpid() % 10000)
+    global _SOLVER, _MAX_CARD, _MAX_BLOCKS
+    _SOLVER, _MAX_CARD, _MAX_BLOCKS = solver, max_card, max_blocks
+
+
+def _weights_first(n, d, spec, built):
+    return solve_vertex_exact_first(n, d, spec, max_card=_MAX_CARD,
+                                    max_blocks=_MAX_BLOCKS,
+                                    certify_tier_b=True, _built=built)
 
 
 def _work(t, built, seed):
     n, d, i, v = t
     np.random.seed(seed + 1000 * n + 10 * d + i)
     spec = [Fraction(s) for s in v["spectrum"]]
-    rec = solve_vertex(n, d, spec, _built=built)
+    # cascade (default): try the fast block-ansatz solver, which returns a
+    # certified closed form when the vertex is block-structured; on FAIL fall
+    # back to attain so we still record a Tier-A numeric state rather than
+    # nothing. Neither solver alone covers every interference vertex: the
+    # block ansatz family is incomplete, and attain rarely certifies
+    # interference vertices (it cannot choose a clean-gauge realization), so
+    # uncovered vertices land in Tier-A / TIER-C for the extended-ansatz or
+    # hand-analysis frontier.
+    if _SOLVER == "attain":
+        rec = solve_vertex(n, d, spec, _built=built)
+    elif _SOLVER == "weights-first":
+        rec = _weights_first(n, d, spec, built)
+    else:  # cascade
+        rec = _weights_first(n, d, spec, built)
+        if rec.get("status") != "OK":
+            rec = solve_vertex(n, d, spec, _built=built)
     rec["system"], rec["index"] = f"({n},{d})", i
     rec["integer_form"], rec["denominator"] = v["integer_form"], v["denominator"]
-    if rec["status"] == "OK":
+    # ensure a Tier-B record even when the solver did not already certify one
+    # (weights-first attaches rec["exact"] only when it certifies)
+    if rec.get("status") == "OK" and "exact" not in rec:
         rec["exact"] = exactify(n, d, spec, rec)
     return rec
 
