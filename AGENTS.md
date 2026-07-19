@@ -36,9 +36,11 @@ lives in `results/report/main.md`; computed data results live under
 
 - `src/gpc_census/`: library code (`core.py`) and CLI (`cli.py`, argparse,
   entry point `gpc-census = gpc_census.cli:main`).
-- `tests/`: pytest suite. `tests/data/` is the fixture copy of the dataset
-  that the tests (and the RPM %check) read; a test asserts it stays
-  byte-identical to `results/data/` whenever the latter is present.
+- `tests/`: pytest suite. `tests/data/` is a symlink to `results/data/` (the
+  single source of truth), so the fixture cannot drift from the published
+  dataset. The sdist ships `results/data/` (the symlink target); the symlink
+  itself is not shipped, so the data-reading tests fall back to `results/data/`
+  when `tests/data/` is absent.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
 - `results/report/main.md`: the paper. The markdown is the master document,
   in pandoc-crossref syntax; `make report` renders `main.pdf` with pandoc in

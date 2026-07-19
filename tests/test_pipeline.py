@@ -9,7 +9,11 @@ import pytest
 from gpc_census.constraints import constraints
 from gpc_census.validate import check_embedding, check_physical, check_selfdual
 
+# tests/data symlinks to ../results/data; fall back to it when the symlink is
+# not shipped (built sdist).
 DATA = pathlib.Path(__file__).resolve().parent / "data"
+if not DATA.exists():
+    DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 HAS_LRS = shutil.which("lrs") is not None
 
 EXPECTED_COUNTS = {(3, 6): 4, (3, 7): 10, (3, 8): 38, (4, 8): 22,

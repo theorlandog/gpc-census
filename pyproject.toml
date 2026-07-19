@@ -50,12 +50,15 @@ dev = [
 test = ["pytest"]
 
 [tool.hatch.build.targets.sdist]
-# The paper under results/report ships in the release data-output.zip,
-# never in the sdist or RPM.
+# results/data is the single source of truth for the dataset; tests/data is a
+# symlink to it, so the sdist ships results/data (the symlink target) to stay
+# self-contained. The paper under results/report ships in the release
+# data-output.zip, never in the sdist.
 exclude = ["results/report"]
 include = [
     "src",
     "tests",
+    "results/data",
     "gpc-census.spec",
     "Makefile",
     "README.md",
