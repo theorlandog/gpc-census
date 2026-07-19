@@ -40,9 +40,7 @@ each rank's interference vertices from lower-rank originals.
 Four stages, mirroring the mathematics:
 
 1. Constraints: the rank 6-10 systems as validated lookup data
-   (`gpc_census.constraints`), including the repaired (3,9) table (one
-   inequality of the published version was lost at a page break; see
-   `results/data/PROVENANCE.md`). Constraint generation for d >= 11 via
+   (`gpc_census.constraints`). Constraint generation for d >= 11 via
    Klyachko's extremal-edge algorithm is scoped in
    `docs/stage1_klyachko_spec.md` and is the project's research frontier.
 2. Vertices: exact enumeration by lrslib in rational arithmetic

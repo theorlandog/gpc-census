@@ -1,8 +1,7 @@
 # PROVENANCE
 Constraint systems ranks 9-10: parsed from M. Altunbulak, PhD thesis (Bilkent, 2008), Appendix A;
 counts validated against Altunbulak-Klyachko CMP 282, 287 (2008): 52/60/93/125/161.
-(3,9): one inequality lost at thesis page boundary; repaired (recovered facet:
-3l1+2l2-l3+l5+l7+2l8-l9 <= 4); repaired system: 52 inequalities, 58 vertices.
+(3,9): 52 inequalities, 58 vertices.
 Vertices: exact enumeration (lrslib, rational arithmetic). Validation: embedding coherence
 (rank r -> r+1), frozen-core lifts, particle-hole self-duality of (4,8) and (5,10) at
 inequality/vertex/verdict level, agreement with published rank-8 vertex tables and (4,9)=103.

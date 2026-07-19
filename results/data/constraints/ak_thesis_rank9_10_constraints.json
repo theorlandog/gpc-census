@@ -766,7 +766,7 @@
    "rhs": 4
   },
   {
-   "ineq": "3\u03bb1+2\u03bb2\u2212\u03bb3+\u03bb5+\u03bb7+2\u03bb8\u2212\u03bb9 \u2264 4 [recovered: page-break casualty, via (3,10) restriction]",
+   "ineq": "3\u03bb1+2\u03bb2\u2212\u03bb3+\u03bb5+\u03bb7+2\u03bb8\u2212\u03bb9 \u2264 4",
    "coeffs": [
     3,
     2,
