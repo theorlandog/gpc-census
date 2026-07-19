@@ -140,6 +140,74 @@ def resolve_states(n: int, d: int, index: int | None = None,
     return out
 
 
+def _design_ok(d, integer_form, cf):
+    from itertools import combinations
+    support = [tuple(s) for s in cf["support_dets"]]
+    for a, b in combinations((set(s) for s in support), 2):
+        if len(a ^ b) == 2:                       # one-hop connected: not a design
+            return False, "support not one-hop free"
+    inc = [0] * d
+    for w, s in zip(cf["weights"], support):
+        for m in s:
+            inc[m] += w
+    if sorted(inc, reverse=True) != sorted(integer_form, reverse=True):
+        return False, "incidence sums != spectrum"
+    return True, ""
+
+
+def _exact_ok(d, spectrum, cf):
+    import numpy as np
+    import sympy as sp
+    support = [tuple(s) for s in cf["support_dets"]]
+    amps = [complex(sp.sympify(p).evalf(30)) for p in cf["pretty"]]
+    amap = dict(zip(support, amps))
+    rho = np.zeros((d, d), complex)
+    for t, ct in amap.items():
+        for mp in t:
+            s1 = (-1) ** t.index(mp)
+            t2 = tuple(x for x in t if x != mp)
+            for m in range(d):
+                if m in t2:
+                    continue
+                tp = tuple(sorted(t2 + (m,)))
+                if tp not in amap:
+                    continue
+                rho[m, mp] += s1 * (-1) ** tp.index(m) * np.conjugate(amap[tp]) * ct
+    eigs = sorted(np.linalg.eigvalsh(rho).real, reverse=True)
+    want = sorted((float(x) for x in spectrum), reverse=True)
+    err = max(abs(a - b) for a, b in zip(eigs, want))
+    return (err < 1e-9), f"spectrum residual {err:.2e}"
+
+
+def validate_states(records) -> list[tuple]:
+    """Re-check every certified record's closed form, independently of the solver
+    that produced it. Returns a list of ``(system, index, tierB, reason)`` for the
+    records that fail; an empty list means the atlas is self-consistent.
+
+    EXACT-CONSTR (integer designs) are proved combinatorially (one-hop-free
+    support and matching incidence sums); EXACT (interference / real designs) are
+    re-checked numerically (evaluate the closed form, rebuild the 1-RDM, require
+    its eigenvalues to match the spectrum to 1e-9). The exact symbolic proof
+    already ran at construction; this catches corruption before shipping.
+    """
+    from fractions import Fraction
+    fails = []
+    for r in records:
+        tb = r.get("tierB")
+        cf = r.get("closed_form")
+        if tb not in ("EXACT", "EXACT-CONSTR") or not cf:
+            continue
+        n, d = (int(x) for x in r["system"].strip("()").split(","))
+        if tb == "EXACT-CONSTR":
+            ok, why = _design_ok(d, r["integer_form"], cf)
+        else:
+            spectrum = [Fraction(x, r["denominator"]) for x in r["integer_form"]]
+            ok, why = _exact_ok(d, spectrum, cf)
+        if not ok:
+            fails.append((r["system"], r["index"], tb, why))
+    return fails
+
+
 def export(n: int, d: int) -> dict:
     """Everything precomputed for one system, as one machine-readable object:
     constraints, vertices, classification, and closed-form states."""

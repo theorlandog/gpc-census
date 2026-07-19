@@ -61,3 +61,17 @@ def test_fixture_matches_published_dataset():
         p.relative_to(published): p.read_bytes() for p in published.rglob("*") if p.is_file()
     }
     assert fixture == dataset
+
+
+def test_shipped_states_are_certified():
+    # nothing ships unvalidated: every certified closed form in the atlas must
+    # re-pass its check, independently of the solver that produced it
+    import json
+
+    from gpc_census.dataset import validate_states
+    states = ROOT / "states.jsonl"
+    if not states.exists():
+        pytest.skip("no states atlas present")
+    records = [json.loads(ln) for ln in states.read_text().splitlines() if ln.strip()]
+    fails = validate_states(records)
+    assert fails == [], f"invalid certified states: {fails}"

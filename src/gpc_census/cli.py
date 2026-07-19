@@ -41,6 +41,9 @@ def _add_knobs(sp: argparse.ArgumentParser) -> None:
                     help="max clique (block) size k; >=3 enables the k>=3 solver")
     sp.add_argument("--max-cliques", type=int, default=1,
                     help="max number of disjoint cliques; 0 uses per-vertex capacity")
+    sp.add_argument("--clique-timeout", type=float, default=60.0,
+                    help="wall-clock budget in seconds for the k>=3 clique sweep "
+                         "per vertex (raise it to let slow-but-solvable vertices finish)")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -115,7 +118,8 @@ def _cmd_solve(args, parser) -> int:
     spec = [Fraction(int(x), args.den) for x in args.spectrum.split(",")]
     rec = certify_state(args.fermions, args.orbitals, spec,
                         max_card=args.max_card, max_blocks=args.max_blocks,
-                        max_clique=args.max_clique, max_cliques=args.max_cliques)
+                        max_clique=args.max_clique, max_cliques=args.max_cliques,
+                        clique_time_budget=args.clique_timeout)
     if args.json:
         print(json.dumps(rec, default=str, indent=1))
         return 0
@@ -141,7 +145,8 @@ def _cmd_states(args, parser) -> int:
     recs = resolve_states(args.fermions, args.orbitals, index=args.index,
                           mode=args.source, max_card=args.max_card,
                           max_blocks=args.max_blocks, max_clique=args.max_clique,
-                          max_cliques=args.max_cliques)
+                          max_cliques=args.max_cliques,
+                          clique_time_budget=args.clique_timeout)
     # provenance is the mode, not the record: precompute serves the lookup,
     # solve recomputes independently, hybrid serves the lookup and solves the rest
     envelope = {"mode": args.source, "states": recs}
@@ -174,18 +179,18 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(" ".join(v))
         return 0
     if args.command == "classify":
-        from gpc_census.classify import classify
+        from gpc_census.classify import classify_full
         from gpc_census.polytope import vertices as pverts
         rows = []
         for i, v in enumerate(pverts(args.fermions, args.orbitals)):
-            r = classify(args.fermions, args.orbitals, v)
+            r = classify_full(args.fermions, args.orbitals, v)
             rows.append({"index": i, "spectrum": [str(x) for x in v],
-                         "verdict": r["verdict"], "solver": r["solver"]})
+                         "verdict": r["verdict"], "backend": r.get("backend")})
         if args.json:
             print(json.dumps(rows, indent=1))
         else:
             for row in rows:
-                print(row["index"], row["spectrum"], row["verdict"], row["solver"])
+                print(row["index"], row["spectrum"], row["verdict"], row["backend"])
         return 0
     if args.command == "solve":
         return _cmd_solve(args, parser)
