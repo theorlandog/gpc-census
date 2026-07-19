@@ -42,7 +42,8 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q):
     import os
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
-    from gpc_census.states import solve_design_vertex, solve_vertex_exact_first
+    from gpc_census.states import (solve_design_real_vertex, solve_design_vertex,
+                                   solve_vertex_exact_first)
     spec = [Fraction(s) for s in spec_str]
     if verdict == "DESIGN-INT":
         rec = solve_design_vertex(n, d, spec)
@@ -56,6 +57,14 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q):
         q.put(json.dumps({"status": "OK", "tierB": "EXACT-CONSTR",
                           "support": sup, "closed_form": cf}))
         return
+    if verdict == "DESIGN-REAL":
+        rec = solve_design_real_vertex(n, d, spec)
+        if rec and rec.get("status") == "OK":
+            q.put(json.dumps({"status": "OK", "tierB": "EXACT",
+                              "support": rec["support"],
+                              "closed_form": rec["closed_form"]}))
+            return
+        # fall through to the general solver if no real design is found
     rec = solve_vertex_exact_first(n, d, spec, max_card=16, max_clique=3,
                                    max_cliques=max_cliques,
                                    clique_time_budget=clique_budget,

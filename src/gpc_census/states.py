@@ -1039,6 +1039,71 @@ def phase_solve_clique(n: int, d: int, spectrum, dets, den, weights, cliques,
     return psi, float(np.sum((e - lam) ** 2))
 
 
+def solve_design_real_vertex(n: int, d: int, spectrum):
+    """Construct the extremal state of a DESIGN-REAL vertex: a real (rational)
+    weighted design. A one-hop-free support with nonnegative real weights
+    realizing the spectrum exists by definition, but the weights do not sit on
+    the natural-denominator integer grid (that is what distinguishes DESIGN-REAL
+    from DESIGN-INT). Find such a support by mixed-integer feasibility
+    (continuous weights, binary support selection, pairwise one-hop-free), then
+    solve the incidence system exactly in rational arithmetic. The state
+    psi = sum sqrt(w_T) |T> is real with a diagonal 1-RDM equal to the spectrum,
+    exact by construction, no phase solve. Returns an OK record with the closed
+    form (natural-denominator-free rational weights), or None if no real design
+    is found within the enumerated support."""
+    import math
+    from fractions import Fraction as F
+    from itertools import combinations
+
+    import pulp
+    import sympy as sp
+
+    spec = [F(x) for x in spectrum]
+    dets = list(combinations(range(d), n))
+    asets = [set(t) for t in dets]
+    hop = [(p, q) for p in range(len(dets)) for q in range(p + 1, len(dets))
+           if len(asets[p] ^ asets[q]) == 2]
+    rows = [[j for j, t in enumerate(dets) if m in t] for m in range(d)]
+    prob = pulp.LpProblem("design_real", pulp.LpMinimize)
+    w = [pulp.LpVariable(f"w{j}", 0) for j in range(len(dets))]
+    y = [pulp.LpVariable(f"y{j}", cat="Binary") for j in range(len(dets))]
+    for j in range(len(dets)):
+        prob += w[j] <= y[j]
+    for m in range(d):
+        prob += pulp.lpSum(w[j] for j in rows[m]) == float(spec[m])
+    for p, q in hop:
+        prob += y[p] + y[q] <= 1        # one-hop free: diagonal 1-RDM
+    prob += pulp.lpSum(y)               # sparsest support
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    if pulp.LpStatus[prob.status] != "Optimal":
+        return None
+    sup = [j for j in range(len(dets)) if (y[j].value() or 0) > 0.5]
+    # exact weights: solve the (rational) incidence system on the found support
+    A = sp.Matrix([[1 if m in dets[j] else 0 for j in sup] for m in range(d)])
+    b = sp.Matrix([sp.Rational(x.numerator, x.denominator) for x in spec])
+    solset = list(sp.linsolve((A, b)))
+    if not solset:
+        return None
+    wex = list(solset[0])
+    if any(getattr(x, "free_symbols", set()) for x in wex):
+        wex = [sp.nsimplify(F(w[j].value()).limit_denominator(10 ** 6)) for j in sup]
+    if any(x < 0 for x in wex):
+        return None
+    wfr = [F(int(sp.numer(x)), int(sp.denom(x))) for x in wex]
+    den = 1
+    for x in wfr:
+        den = den * x.denominator // math.gcd(den, x.denominator)
+    weights = [int(x * den) for x in wfr]
+    pretty = [str(sp.nsimplify(sp.sqrt(sp.Rational(k, den)))) for k in weights]
+    support = [[list(dets[sup[i]]), float(wfr[i]) ** 0.5, 0.0]
+               for i in range(len(sup))]
+    return {"status": "OK", "residual": 0.0, "support_size": len(sup),
+            "weights": weights, "den": den, "verdict": "DESIGN-REAL",
+            "support": support,
+            "closed_form": {"den": den, "weights": weights, "pretty": pretty,
+                            "support_dets": [list(dets[j]) for j in sup]}}
+
+
 def solve_design_vertex(n: int, d: int, spectrum):
     """Construct the extremal state of a DESIGN-INT vertex directly from its
     weighted design, no iterative solve. A design's support is one-hop free,
@@ -1321,8 +1386,9 @@ def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
                   max_cliques: int = 1, clique_time_budget: float = 60.0):
     """Engine entry point: construct and certify the extremal state of one
     vertex, routed by its classification. A DESIGN-INT vertex is built directly
-    from its design witness (exact by construction); DESIGN-REAL and
-    INTERFERENCE go through the weights-first + clique solver, then exactify.
+    from its integer witness and a DESIGN-REAL vertex from a real (rational)
+    weighted design, both exact by construction; INTERFERENCE goes through the
+    weights-first + clique solver, then exactify.
     Pass a known `verdict` to skip re-classifying; otherwise it is computed.
     The compute knobs (max_card, max_blocks, max_clique, max_cliques) bound the
     ansatz search: raising them lets the engine reach vertices the defaults do
@@ -1341,6 +1407,12 @@ def certify_state(n: int, d: int, spectrum, verdict: str | None = None,
             rec["exact"] = {"status": "EXACT-CONSTR", "den": rec["den"],
                             "weights": rec["weights"],
                             "pretty": [f"sqrt({w}/{rec['den']})" for w in rec["weights"]]}
+    elif verdict == "DESIGN-REAL":
+        rec = solve_design_real_vertex(n, d, spectrum)
+        if rec is not None and rec.get("status") == "OK":
+            cf = rec["closed_form"]
+            rec["exact"] = {"status": "EXACT", "den": cf["den"],
+                            "weights": cf["weights"], "pretty": cf["pretty"]}
     if rec is None:
         rec = solve_vertex_exact_first(n, d, spectrum, max_card=max_card,
                                        max_blocks=max_blocks, max_clique=max_clique,
