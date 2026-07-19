@@ -9,7 +9,11 @@ import pytest
 from gpc_census.constraints import constraints
 from gpc_census.validate import check_embedding, check_physical, check_selfdual
 
+# tests/data symlinks to ../results/data; fall back to it when the symlink is
+# not shipped (built sdist).
 DATA = pathlib.Path(__file__).resolve().parent / "data"
+if not DATA.exists():
+    DATA = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 HAS_LRS = shutil.which("lrs") is not None
 
 EXPECTED_COUNTS = {(3, 6): 4, (3, 7): 10, (3, 8): 38, (4, 8): 22,
@@ -243,3 +247,162 @@ def test_operator_selection_rule_is_unsound_at_degeneracy():
         dgamma = np.einsum("mn,mnij->ij", anat, a_tensor).real
         worst = max(worst, float(np.linalg.norm(dgamma @ psi - b * psi)))
     assert worst > 0.1  # eigenprojection would require this to be ~0
+
+
+def test_design_vertex_built_from_witness():
+    # a DESIGN-INT vertex needs no iterative solve: its design witness gives a
+    # real, phase-free state that is exact by construction. v_A is DESIGN-INT.
+    from gpc_census.exactify import exactify
+    from gpc_census.states import solve_design_vertex
+    vA = [Fraction(x, 21) for x in (16, 16, 16, 6, 6, 6, 6, 6, 6)]
+    rec = solve_design_vertex(4, 9, vA)
+    assert rec is not None and rec["status"] == "OK"
+    assert all(ph == 0.0 for _, _, ph in rec["support"])  # phase-free
+    assert exactify(4, 9, vA, rec)["status"] == "EXACT"
+    # an interference vertex is not DESIGN-INT, so the builder declines it
+    vB = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    assert solve_design_vertex(4, 9, vB) is None
+
+
+def test_min_block_count_predicts_budget():
+    # the block-budget preflight: 0 for a design, the exact budget for a
+    # single-block interference vertex, and None for a vertex outside the
+    # block-ansatz family (fail-fast frontier flag).
+    from gpc_census.states import min_block_count
+    vA = [Fraction(x, 21) for x in (16, 16, 16, 6, 6, 6, 6, 6, 6)]
+    vB = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    assert min_block_count(4, 9, vA) == 0          # design: one-hop-free support
+    assert min_block_count(4, 9, vB, max_blocks=2) == 1   # v_B is single-block
+    # (9:6:5:5:5:2:2:1:1) is a 4_9 interference vertex off the family <= 2 blocks
+    frontier = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    assert min_block_count(4, 9, frontier, max_blocks=2) is None
+
+
+def test_schur_horn_generalizes_splits():
+    # the k=2 Schur-Horn diagonals must contain every _splits pair (both orders)
+    from gpc_census.states import _schur_horn_diagonals, _splits
+    sh = set(_schur_horn_diagonals([14, 4], 23))
+    sp = {(a, b) for a, b, _ in _splits(14, 4, 23)}
+    sp |= {(b, a) for a, b, _ in _splits(14, 4, 23)}
+    assert sp <= sh
+
+
+def test_esym_and_grad_matches_charpoly():
+    # elementary symmetric polys equal the eigenvalue symmetric functions, and
+    # the end-to-end use is gradient-checked in test_clique_phase_gradient
+    import numpy as np
+
+    from gpc_census.states import _esym_and_grad
+    np.random.seed(1)
+    m = np.random.randn(3, 3)
+    b = (m + m.T) / 2
+    ev, _ = _esym_and_grad(b)
+    eig = np.linalg.eigvalsh(b)
+    e1 = eig.sum()
+    e2 = eig[0] * eig[1] + eig[0] * eig[2] + eig[1] * eig[2]
+    e3 = float(np.prod(eig))
+    assert np.allclose(ev, [e1, e2, e3])
+
+
+def test_clique_phase_gradient_matches_finite_differences():
+    # the analytic gradient L-BFGS uses in phase_solve_clique (off-clique
+    # cancellation plus char-poly block matching) must match finite differences
+    import numpy as np
+
+    from gpc_census.states import _build, _esym_and_grad
+    np.random.seed(2)
+    dets, a = _build(9, 4)
+    idx = {t: i for i, t in enumerate(dets)}
+    supd = [(0, 1, 4, 6), (0, 2, 3, 4), (0, 4, 5, 7), (1, 2, 3, 4), (1, 4, 5, 8)]
+    sup = [idx[t] for t in supd]
+    mod = np.array([(w / 9) ** 0.5 for w in (2, 2, 1, 3, 1)])
+    asub = a[:, :, sup][:, :, :, sup]
+    clique = (0, 1, 4)
+    tgt = _esym_and_grad(np.diag([e / 9 for e in (9, 6, 5)]))[0]
+    offc = [(p, q) for p in range(9) for q in range(p + 1, 9)
+            if not {p, q} <= set(clique)]
+
+    def fg(th):
+        c = mod * np.exp(1j * np.concatenate(([0.0], th)))
+        rho = np.einsum("p,mnpq,q->mn", c.conj(), asub, c)
+        en = 0.0
+        g = np.zeros((9, 9), complex)
+        for (p, q) in offc:
+            en += 2 * abs(rho[p, q]) ** 2
+            g[p, q] += 2 * rho[p, q]
+            g[q, p] += 2 * rho[q, p]
+        b = rho[np.ix_(clique, clique)].real
+        ev, dev = _esym_and_grad(b)
+        r = ev - tgt
+        en += 10 * float(r @ r)
+        dedb = 10 * sum(2 * r[j] * dev[j] for j in range(3))
+        for ia, ma in enumerate(clique):
+            for ib, mb in enumerate(clique):
+                g[ma, mb] += dedb[ia, ib]
+        g1 = np.einsum("mn,mnpq,q->p", g, asub, c)
+        return en, 2 * np.imag(c.conj() * g1)[1:]
+
+    th = np.random.uniform(0, 2 * np.pi, len(sup) - 1)
+    _, grad = fg(th)
+    h = 1e-6
+    for j in range(len(th)):
+        tp, tm = th.copy(), th.copy()
+        tp[j] += h
+        tm[j] -= h
+        assert abs((fg(tp)[0] - fg(tm)[0]) / (2 * h) - grad[j]) < 1e-6
+    assert max(abs(grad)) > 1e-3
+
+
+def test_min_clique_count_flags_k3_vertex():
+    # (9:6:5:5:5:2:2:1:1)/9 needs a 3-clique (no 2x2 configuration reaches it)
+    from gpc_census.states import min_clique_count
+    spec = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    assert min_clique_count(4, 9, spec) == 3
+
+
+def test_exactify_certifies_real_k3_state():
+    # a k=3 clique interference vertex can have a REAL closed form (large
+    # Schur-Horn fiber), which the gauge-fixed exactify certifies with no
+    # extension. idx 24 of (4,9), (9:6:5:5:5:2:2:1:1)/9, is one such vertex.
+    import math
+
+    from gpc_census.exactify import exactify
+    spec = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    support = [(0, 1, 2, 5), (0, 1, 3, 4), (0, 2, 3, 7), (0, 2, 4, 5),
+               (0, 2, 6, 8), (0, 3, 4, 8)]
+    ks = [1, 1, 1, 1, 2, 3]  # |c|^2 * 9
+    record = {"support": [[list(t), math.sqrt(k / 9), 0.0]
+                          for t, k in zip(support, ks)]}
+    ex = exactify(4, 9, spec, record)
+    assert ex["status"] == "EXACT"
+    assert ex["weights"] == ks and ex["den"] == 9
+
+
+def test_recognize_algebraic_beyond_psqrtq():
+    # PSLQ recognizes a degree-2 algebraic NOT of p*sqrt(q)/r form
+    import math
+
+    from gpc_census.exactify import recognize_algebraic
+    x = (math.sqrt(5) - 1) / 4  # = cos(2pi/5), root of 4y^2 + 2y - 1
+    r = recognize_algebraic(x)
+    assert r is not None and abs(float(r) - x) < 1e-10
+    y = (1 + math.sqrt(13)) / 6  # root of 3y^2 - y - 1
+    r2 = recognize_algebraic(y)
+    assert r2 is not None and abs(float(r2) - y) < 1e-10
+
+
+def test_multi_clique_ansatze_disjoint():
+    # two-clique ansatze must have disjoint modes and the right eigenvalue mixes
+    from gpc_census.states import multi_clique_ansatze
+    spec = [Fraction(x, 10) for x in (10, 7, 5, 5, 5, 2, 2, 2, 2)]
+    seen = 0
+    for nv, cliques in multi_clique_ansatze(4, 9, spec, sizes=(3,), n_cliques=2):
+        assert len(cliques) == 2
+        m0, m1 = set(cliques[0][0]), set(cliques[1][0])
+        assert not (m0 & m1)  # disjoint modes
+        for modes, evals in cliques:
+            assert len(set(evals)) == len(evals)  # distinct eigenvalue classes
+        seen += 1
+        if seen >= 50:
+            break
+    assert seen > 0

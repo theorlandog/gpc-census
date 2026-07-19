@@ -48,12 +48,59 @@ Four stages, mirroring the mathematics:
 3. Classification: the two-stage certificate solver
    (`gpc_census.classify`), CP-SAT reference backend with CBC fallback,
    every verdict labeled with its provenance.
-4. States: attain a vertex spectrum with a complex pure state by
-   alternating spectral projection, sparsify to minimal support, and
-   exactify the numerics into certified closed forms (moduli snap to the
-   natural denominator, phases to the p*sqrt(q)/r lattice, verification
-   by exact characteristic polynomial identity in sympy)
-   (`gpc_census.states`, `gpc_census.exactify`).
+4. States: construct and certify the extremal state of each vertex,
+   routed by the verdict from stage 3 so no work is wasted. The state
+   algorithm is a pipeline of its own:
+   1. Route. A design vertex is built directly from its classification
+      witness: the design's support is one-hop free, so
+      psi = sum sqrt(k_t/den) |t> has a diagonal 1-RDM equal to the
+      spectrum, exact by construction, no iterative solve
+      (`solve_design_vertex`). Interference (and DESIGN-REAL) vertices go
+      to the state solver.
+   2. Block-budget preflight. `min_block_count` computes, as pure
+      feasibility with no phase solve, how many 2x2 natural-orbital blocks
+      the sparse realization needs: 0 for a design, k >= 1 for
+      interference, or None when the vertex lies outside the current
+      ansatz family (the extended-ansatz frontier), which fails fast
+      instead of sweeping.
+   3. Weights-first solve. `solve_vertex_exact_first` sweeps block ansatze
+      at that budget, fixing exact moduli sqrt(k/den) and solving only the
+      phases as a smooth quartic with analytic gradients (no
+      eigendecomposition, immune to the second-order degeneracy flatness
+      that stalls gradient and moment-matching methods).
+   4. Block-size generalization (k x k). A 2x2 block mixes two degenerate
+      classes; some vertices need a natural-orbital rotation mixing k >= 3
+      classes at once. The general block is a k-mode clique whose canonical
+      diagonal (integer occupations) is any vector majorized by the block's
+      k eigenvalues: the Schur-Horn theorem (I. Schur, Sitzungsber. Berl.
+      Math. Ges. 22, 9 (1923); A. Horn, Amer. J. Math. 76, 620 (1954))
+      characterizes exactly these, and `_schur_horn_diagonals` enumerates
+      them (the 2x2 split is the k=2 case). Because a clique mixes distinct
+      eigenvalues the block is non-degenerate, so `phase_solve_clique`
+      matches it by its characteristic-polynomial coefficients (power sums
+      and Newton's identities, analytic gradients, no eigendecomposition),
+      and `min_clique_count` is the block-size preflight. This is what the
+      (4,9) vertices outside the 2x2 family need: idx 24,
+      (9:6:5:5:5:2:2:1:1)/9, reconstructs from the spectrum alone with one
+      3x3 clique. `max_clique` enables it. On the (4,9) interference
+      vertices, k=3 cliques raise certified closed forms from 4 to 10 of 16.
+   5. Exactify. Moduli snap to the natural denominator; after gauge-fixing
+      the single-particle U(1)^d phase freedom, the residual interference
+      phases are recognized (rational multiples of pi, or cosines on the
+      p*sqrt(q)/r lattice) and the symbolic state is verified by exact
+      characteristic polynomial identity in sympy
+      (`gpc_census.exactify`). v_B certifies as a single 14/4 block with a
+      pi/8 interference phase. Larger blocks are often easier here: a
+      k-clique has a (k-1)(k-2)/2-dimensional Schur-Horn fiber, so for
+      k >= 3 a real realization (phases 0/pi) is frequently available and
+      certifies with no algebraic recognition at all. idx 24's closed form
+      is real, (|0125>+|0134>+|0237>+|0245>)/3 + sqrt(2)/3 |0268> +
+      sqrt(3)/3 |0348>. The tight k=2 fiber is the hard case (v_B genuinely
+      needs pi/8); the residual across all systems is the small tail whose
+      phases are higher-degree algebraic (no real, no p*sqrt(q)/r).
+   The historical alternating-projection solver (`attain`) remains as a
+   general Tier-A fallback: `scripts/solve_all.py` cascades to it when the
+   block solver fails, so every vertex records at least a numeric state.
 
 Every output passes structural validation (`gpc_census.validate`):
 embedding coherence between ranks, frozen-core lifts, particle-hole
@@ -65,13 +112,46 @@ in `results/data/`.
 
 ## Quick start
 
+The CLI has two modes: serve the precomputed results (fast, no solve) and run
+the engine to recompute or extend them.
+
 ```sh
-uv sync --extra cpsat                       # reference solver backend
+uv sync                                     # install deps (CP-SAT backend included)
+
+# precomputed results, machine-readable (usable as a data source / library)
+gpc-census export   -n 4 -d 9               # constraints + vertices + verdicts + states, JSON
+gpc-census export   -n 4 -d 9 --kind states # just the certified closed-form states
+gpc-census states   -n 4 -d 9 --index 65    # the closed form for one vertex (v_B)
+
+# run the engine
 gpc-census constraints -n 3 -d 9            # the 52-inequality system
-gpc-census polytope   -n 3 -d 9             # its 58 vertices, exactly
-gpc-census classify   -n 4 -d 9             # verdicts incl. v_A and v_B
-uv run python scripts/solve_all.py --preflight   # v_B end to end, gate for campaigns
+gpc-census polytope    -n 3 -d 9            # its 58 vertices, exactly
+gpc-census classify    -n 4 -d 9            # verdicts incl. v_A and v_B
+gpc-census solve       -n 4 -d 9 --den 23 --spectrum 20,14,14,14,14,4,4,4,4  # certify a state
+gpc-census states      -n 4 -d 9 --source hybrid   # lookup where available, solve the rest
+gpc-census states      -n 4 -d 9 --source solve --max-cliques 0   # solve everything, push bounds
 ```
+
+As a library, the precomputed dataset is available without recomputing:
+
+```python
+from gpc_census import dataset
+dataset.vertices(4, 9)        # extremal spectra (exact)
+dataset.classification(4, 9)  # design/interference verdict per vertex
+dataset.states(4, 9)          # certified closed-form states from the lookup
+dataset.export(4, 9)          # all of the above, one object
+
+# the mode is the provenance: precompute serves the lookup, solve recomputes
+# independently (ignoring the lookup), hybrid serves the lookup and solves gaps
+dataset.resolve_states(4, 9, mode="hybrid")
+```
+
+To recompute or push further, the engine is a single call
+(`gpc_census.states.certify_state(n, d, spectrum, max_clique=..., max_cliques=...)`),
+and the full campaign (`scripts/solve_all.py --all`) routes each vertex by
+verdict, is restartable and checkpointed, and writes `results/data/states.jsonl`.
+The compute knobs (`--max-card`, `--max-blocks`, `--max-clique`, `--max-cliques`)
+bound the ansatz search, so more compute reaches further vertices.
 
 ## Development
 
@@ -99,7 +179,7 @@ CI stamps each build before packaging (`uv version <computed>`):
 | other refs / PRs | `<base>+git.<short-sha>`  |
 
 The GitHub Actions workflow (`.github/workflows/build.yml`) runs tests, then
-builds and uploads the wheel/sdist and the RPMs as artifacts. Tag pushes
+builds the wheel and sdist. Tag pushes
 (`vX.Y.Z`) also publish a GitHub release marked latest with those packages
 attached; suffixed tags (e.g. `vX.Y.Zrc1`, `vX.Y.Z-beta`) start as pre-releases and are
 promoted manually. Each push to main refreshes a rolling `snapshot`
@@ -118,27 +198,9 @@ make build          # uv build -> dist/*.whl and dist/*.tar.gz
 
 The resulting wheel installs with `pip install dist/gpc_census-<version>-py3-none-any.whl`.
 
-### RPM
-
-The spec file is `gpc-census.spec` and builds from the sdist using Fedora's
-`pyproject-rpm-macros`. Build dependencies (Fedora/RHEL):
-
-```sh
-sudo dnf install rpm-build python3-devel pyproject-rpm-macros \
-    python3-hatchling python3-pytest
-```
-
-Then:
-
-```sh
-make rpm            # builds sdist, then rpmbuild into build/rpm/
-```
-
-`make rpm` regenerates `build/gpc-census.spec` with the version from
-`pyproject.toml`, so CI-stamped versions flow into the RPM automatically.
-
-Binary RPMs land in `build/rpm/RPMS/noarch/` and the source RPM in
-`build/rpm/SRPMS/`. `make srpm` builds only the source RPM.
+RPM packaging (`gpc-census.spec`, `make rpm`) is currently disabled and not
+built in CI: ortools is now a required runtime dependency and is not packaged
+for Fedora. The spec is retained, dormant, for future revival.
 
 ## License
 

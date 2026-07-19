@@ -4,7 +4,11 @@ import pathlib
 
 import pytest
 
+# tests/data is a symlink to ../results/data (the single source of truth). In a
+# built sdist the symlink is not shipped but results/data is, so fall back to it.
 ROOT = pathlib.Path(__file__).resolve().parent / "data"
+if not ROOT.exists():
+    ROOT = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 
 EXPECTED_VERTICES = {
     "vertices_3_9.json": 58,

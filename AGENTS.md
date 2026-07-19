@@ -24,20 +24,28 @@ lives in `results/report/main.md`; computed data results live under
 
 - Python package managed with `pyproject.toml` and uv (hatchling build backend).
 - Usable both as a library (`import gpc_census`) and as a CLI (`gpc-census`).
-- Ships as a pip package (wheel + sdist via `uv build`) and as an RPM
-  (`gpc-census.spec`, Fedora `pyproject-rpm-macros`).
-- Runtime dependencies: numpy, scipy, pulp, ortools (pinned). classify.py
-  detects ortools at import and falls back to CBC when absent or unpinned,
-  so the RPM can omit the ortools dependency; verdicts carry a solver field
-  and gpc_census.certify upgrades them to exact certificates.
+- Ships as a pip package (wheel + sdist via `uv build`). RPM packaging
+  (`gpc-census.spec`, Fedora `pyproject-rpm-macros`) is currently disabled
+  and not built in CI; the spec is retained, dormant, for future revival.
+- Runtime dependencies: numpy, scipy, pulp, ortools (required, pinned).
+  classify.py still detects ortools at import and falls back to CBC when it
+  is absent or unpinned, so verdicts stay reproducible; verdicts carry a
+  solver field and gpc_census.certify upgrades them to exact certificates.
 
 ## Layout
 
 - `src/gpc_census/`: library code (`core.py`) and CLI (`cli.py`, argparse,
-  entry point `gpc-census = gpc_census.cli:main`).
-- `tests/`: pytest suite. `tests/data/` is the fixture copy of the dataset
-  that the tests (and the RPM %check) read; a test asserts it stays
-  byte-identical to `results/data/` whenever the latter is present.
+  entry point `gpc-census = gpc_census.cli:main`). `dataset.py` serves the
+  precomputed census (vertices, verdicts, closed-form states) as a library;
+  it reads the wheel-embedded copy (`gpc_census/_data`, force-included from
+  `results/data` at build time) and falls back to `results/data` in a source
+  checkout. `states.certify_state` is the single engine entry point that routes
+  a vertex to its solver and returns the certified closed form.
+- `tests/`: pytest suite. `tests/data/` is a symlink to `results/data/` (the
+  single source of truth), so the fixture cannot drift from the published
+  dataset. The sdist ships `results/data/` (the symlink target); the symlink
+  itself is not shipped, so the data-reading tests fall back to `results/data/`
+  when `tests/data/` is absent.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
 - `results/report/main.md`: the paper. The markdown is the master document,
   in pandoc-crossref syntax; `make report` renders `main.pdf` with pandoc in
@@ -90,9 +98,9 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   release tag after a branch either: a release tag named `main` makes the
   refname ambiguous with the branch. The release job runs directly on the runner
   (no job container) and rebuilds everything fresh (it does not reuse CI
-  artifacts): wheel and sdist with uv, RPMs inside a Fedora container and
-  the paper inside the pandoc container, both driven by the runner's
-  podman, then publishes with the `gh` CLI. It also attaches
+  artifacts): wheel and sdist with uv, and the paper inside the pandoc
+  container driven by the runner's podman, then publishes with the `gh`
+  CLI. It also attaches
   `data-output.zip`: the paper PDF plus `results/data/`, with a signed
   provenance attestation (`actions/attest-build-provenance`) and SHA256SUMS
   of those files inside the zip.
