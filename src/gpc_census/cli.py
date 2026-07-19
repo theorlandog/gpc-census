@@ -94,12 +94,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     st = sub.add_parser(
         "states",
-        help="precomputed closed-form states for (n, d); --recompute to run the engine")
+        help="closed-form states for (n, d), with explicit provenance per record")
     _add_nd(st)
     st.add_argument("--index", type=int, default=None,
                     help="restrict to a single vertex index")
-    st.add_argument("--recompute", action="store_true",
-                    help="run the engine instead of reading the shipped dataset")
+    st.add_argument("--source", choices=("precompute", "solve", "hybrid"),
+                    default="precompute",
+                    help="precompute: shipped lookup only (default); solve: run "
+                         "the engine for every vertex; hybrid: lookup where "
+                         "available, solve otherwise. Every record is tagged "
+                         "with its source (precomputed / solved).")
     _add_knobs(st)
     _add_json(st)
     return parser
@@ -133,24 +137,16 @@ def _cmd_solve(args, parser) -> int:
 
 
 def _cmd_states(args, parser) -> int:
-    if args.recompute:
-        from fractions import Fraction
-        from gpc_census.dataset import vertices as pv
-        from gpc_census.states import certify_state
-        out = []
-        for rec in pv(args.fermions, args.orbitals):
-            if args.index is not None and rec["index"] != args.index:
-                continue
-            spec = [Fraction(s) for s in rec["spectrum"]]
-            r = certify_state(args.fermions, args.orbitals, spec,
-                              max_card=args.max_card, max_blocks=args.max_blocks,
-                              max_clique=args.max_clique, max_cliques=args.max_cliques)
-            out.append({"index": rec["index"], "record": r})
-        print(json.dumps(out, default=str, indent=1))
-        return 0
-    from gpc_census.dataset import states
-    recs = states(args.fermions, args.orbitals, index=args.index)
-    print(json.dumps(recs, default=str, indent=1))
+    from gpc_census.dataset import resolve_states
+    recs = resolve_states(args.fermions, args.orbitals, index=args.index,
+                          mode=args.source, max_card=args.max_card,
+                          max_blocks=args.max_blocks, max_clique=args.max_clique,
+                          max_cliques=args.max_cliques)
+    counts = {}
+    for r in recs:
+        counts[r.get("source", "unknown")] = counts.get(r.get("source", "unknown"), 0) + 1
+    envelope = {"source_mode": args.source, "counts": counts, "states": recs}
+    print(json.dumps(envelope, default=str, indent=1))
     return 0
 
 

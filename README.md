@@ -128,7 +128,8 @@ gpc-census constraints -n 3 -d 9            # the 52-inequality system
 gpc-census polytope    -n 3 -d 9            # its 58 vertices, exactly
 gpc-census classify    -n 4 -d 9            # verdicts incl. v_A and v_B
 gpc-census solve       -n 4 -d 9 --den 23 --spectrum 20,14,14,14,14,4,4,4,4  # certify a state
-gpc-census states      -n 4 -d 9 --recompute --max-cliques 0                 # recompute, push bounds
+gpc-census states      -n 4 -d 9 --source hybrid   # lookup where available, solve the rest
+gpc-census states      -n 4 -d 9 --source solve --max-cliques 0   # solve everything, push bounds
 ```
 
 As a library, the precomputed dataset is available without recomputing:
@@ -137,8 +138,11 @@ As a library, the precomputed dataset is available without recomputing:
 from gpc_census import dataset
 dataset.vertices(4, 9)        # extremal spectra (exact)
 dataset.classification(4, 9)  # design/interference verdict per vertex
-dataset.states(4, 9)          # certified closed-form states
+dataset.states(4, 9)          # certified closed-form states (source="precomputed")
 dataset.export(4, 9)          # all of the above, one object
+
+# provenance is explicit: every record carries source="precomputed" or "solved"
+dataset.resolve_states(4, 9, mode="hybrid")   # lookup where available, solve the rest
 ```
 
 To recompute or push further, the engine is a single call

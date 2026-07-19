@@ -96,6 +96,47 @@ def states(n: int | None = None, d: int | None = None,
             continue
         if index is not None and rec.get("index") != index:
             continue
+        rec.setdefault("source", "precomputed")  # provenance: read from the lookup
+        out.append(rec)
+    return out
+
+
+def resolve_states(n: int, d: int, index: int | None = None,
+                   mode: str = "hybrid", **knobs) -> list[dict]:
+    """Resolve closed-form states with explicit provenance. Every returned
+    record carries a ``source`` field so the caller always knows what they got:
+
+    - ``mode="precompute"``: only the shipped lookup; vertices absent from it
+      come back as ``{"source": "precomputed", "available": False}``.
+    - ``mode="solve"``: run the engine for every vertex (``source="solved"``).
+    - ``mode="hybrid"`` (default): use the lookup where present, solve the rest
+      with the engine, tagging each accordingly.
+
+    ``knobs`` (max_card, max_blocks, max_clique, max_cliques) are passed to the
+    engine for the solved vertices. solve and hybrid can be slow: they solve.
+    """
+    from fractions import Fraction
+    if mode not in ("precompute", "solve", "hybrid"):
+        raise ValueError(f"unknown mode {mode!r}")
+    pre = {r["index"]: r for r in states(n, d)}
+    verd = {r["index"]: r["verdict"] for r in classification(n, d)}
+    out = []
+    for i, v in enumerate(vertices(n, d)):
+        if index is not None and i != index:
+            continue
+        if mode != "solve" and i in pre:
+            out.append(pre[i])
+            continue
+        if mode == "precompute":
+            out.append({"system": f"({n},{d})", "index": i,
+                        "source": "precomputed", "available": False})
+            continue
+        from gpc_census.states import certify_state
+        spec = [Fraction(s) for s in v["spectrum"]]
+        rec = certify_state(n, d, spec, verdict=verd.get(i), **knobs) or {}
+        rec.update({"system": f"({n},{d})", "index": i,
+                    "integer_form": v["integer_form"], "denominator": v["denominator"]})
+        rec.setdefault("source", "solved")
         out.append(rec)
     return out
 
@@ -110,6 +151,7 @@ def export(n: int, d: int) -> dict:
         con = None
     return {
         "system": {"n": n, "d": d},
+        "source": "precomputed",
         "constraints": con,
         "vertices": vertices(n, d),
         "classification": classification(n, d),
