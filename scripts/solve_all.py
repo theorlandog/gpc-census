@@ -91,10 +91,11 @@ def main() -> int:
     ap.add_argument("--max-cliques", type=int, default=1,
                     help="max NUMBER of disjoint cliques; 0 uses the per-vertex "
                          "structural capacity (matching bound)")
-    ap.add_argument("--clique-timeout", type=float, default=60.0,
+    ap.add_argument("--clique-timeout", type=float, default=300.0,
                     help="wall-clock budget in seconds for the k>=3 clique sweep "
-                         "per clique-count level; raise it (with more compute) to "
-                         "let slow-but-solvable interference vertices certify")
+                         "per clique-count level (default 300); the 2x2 block "
+                         "sweep is not capped, so v_B-length solves (several "
+                         "minutes) complete. Lower it for a fast, shallow pass")
     ap.add_argument("--all", action="store_true",
                     help="process every vertex routed by verdict (DESIGN-INT "
                          "built directly from its witness), not just "
