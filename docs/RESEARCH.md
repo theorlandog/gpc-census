@@ -30,8 +30,16 @@ made and caught once; see tests pinning v_A and v_B).
 
 - Census complete for every determinate system, ranks 6 through 10
   (799 vertices; duals covered by particle-hole verdict transport).
+- Certified closed-form extremal states for 725 of the 799 vertices: every
+  design vertex (integer and real) plus every interference vertex that has been
+  reduced to a closed form, including all corners solved by the constructive
+  off-diagonal-target exactifier (stage 3b). The 74 uncertified vertices are
+  all TIMEOUT / SOLVE-FAIL at Tier A (state-finding), a compute frontier, not
+  an exactify or open-math frontier.
 - v_A (16,16,16,6,6,6,6,6,6)/21 is DESIGN-INT; v_B (20,14,14,14,14,4,4,4,4)/23
-  is INTERFERENCE with cos(gamma) = 3/(4*sqrt(14)).
+  is INTERFERENCE with cos(gamma) = 3/(4*sqrt(14)). The v_B phase is not
+  special: it is the k=2 instance of the off-diagonal-target mechanism that
+  fixes every interference phase (stage 3b).
 - Interference onset: absent at rank 8 in the N=4 series, first appears at
   rank 9. Fractions stabilize across ranks 9 to 10 within each series
   (34-37 percent at N=3, 16 at N=4, 14 at N=5).
@@ -161,6 +169,46 @@ cheap, certain work is never redone by an expensive stage.
    until one exactifies, since a vertex has many realizations differing only in
    interference phase and some carry a clean lattice.
 
+3b. Constructive interference exactify (exactify_interference). Per-phase
+   recognition (stage 3) fails on a residual of interference corners whose
+   phases are coupled polygon angles: after gauge-fixing, each determinant's
+   absolute phase is a path sum of several relative phases and so of high
+   algebraic degree, while a generic numeric solve lands on an arbitrary point
+   of the gauge orbit, so recognize_phase and PSLQ see only noise. The fix is to
+   stop treating the phases as the unknowns. The moduli are already exactly
+   rational (|c_t|^2 = k_t/den), so the diagonal occupations of the 1-RDM are
+   known; wherever two orbitals p, q carry an equal occupation that the spectrum
+   must split, the 2x2 block [[occ_p, x],[conj(x), occ_q]] is forced to
+   eigenvalues lo, hi with lo + hi = occ_p + occ_q, which pins the off-diagonal
+   magnitude |x| = sqrt(occ_p occ_q - lo hi) to an exact algebraic number
+   (rational or a low-degree surd). This is the interference analogue of a
+   design's diagonal 1-RDM (_active_offdiagonals computes these targets). Each
+   active off-diagonal is then a closed polygon whose sides are the fixed term
+   moduli, so its relative phase is an exact arccos of that target; phases
+   propagate across edges by constraint propagation (an edge with one unassigned
+   determinant fixes it as arg(P) + arccos(rhs/|P|) of its already-fixed partial
+   sum P), and edges that share every determinant are closed by a small bounded
+   joint search over the same algebraic angles. Every candidate is gated by
+   verify_exact, so the construction cannot certify a wrong state. This is the
+   same mechanism as v_B's cos(gamma) = 3/(4 sqrt(14)); v_B was the first visible
+   instance, not a special case. It closed the entire NO-EXACT residual: all 17
+   interference corners that had a numeric state but no recognized closed form
+   (single 2x2 edge with phases 2pi/3, arccos(+-3/4), arccos(-7/8),
+   arccos(sqrt(6)/6), arccos(7 sqrt(30)/60), and coupled two-edge corners
+   combining an arccos with a pi/3 triangle closure) now certify in about two
+   seconds total. The remaining uncertified vertices are all TIMEOUT / SOLVE-FAIL
+   at the state-finding stage (Tier A), not exactify: they are compute-bound
+   (bigger clique-timeout, wider block search on stronger hardware), not open
+   research.
+
+   verify_exact robustness (needed for any genuinely complex closed form): the
+   char poly is taken as the Berkowitz determinant of (x I - rho), because
+   sympy's charpoly() block-factorization tries to order complex exp() factors
+   and raises; and rho is expanded to rectangular a + b i form first, and each
+   coefficient of the difference reduced with expand_complex before the zero
+   test, because sp.simplify alone leaves true zeros like 1 + exp(2 i pi/3)
+   unreduced and had been silently rejecting valid interference closed forms.
+
 Historical note: Altunbulak and Klyachko (2008) resolved the (4,9) vertices and,
 per Sec 6.2.2, determined extremal states for all but v_A and v_B, which were
 left numerical-only. Those rank-9 state data are not in the paper text (dead zip
@@ -175,11 +223,16 @@ were the two they could not close at all.
 1. State construction (Tier A) and exactification (Tier B) of all vertices:
    scripts/solve_all.py (--all writes the full census to
    results/data/states.jsonl; the interference-only default writes
-   states_interference.jsonl). Design vertices certify from their witness; a
-   fifth to a half of interference vertices certify via the block solver today,
-   the rest are TIER-C or flagged min_blocks = None for the extended-ansatz
-   frontier. Recognition layer is unit tested on the v_B cosine and the pi/8
-   realization.
+   states_interference.jsonl); scripts/build_states.py is the checkpointed,
+   resumable campaign driver. Design vertices certify from their witness. Tier B
+   now certifies every interference vertex whose support Tier A finds: the
+   per-phase recognition layer plus the constructive off-diagonal-target solver
+   (stage 3b) leave no NO-EXACT residual. What remains uncertified (74 of 799)
+   is Tier A: TIMEOUT and SOLVE-FAIL vertices whose sparse support the block /
+   clique search has not yet found, cleared by a longer clique-timeout and wider
+   block search (--max-cliques 0) on stronger hardware, not by new mathematics.
+   Recognition layer is unit tested on the v_B cosine and the pi/8 realization;
+   the constructive solver is exercised by the shipped closed forms it certifies.
 2. Stage 1, the constraint generator for d >= 11: docs/stage1_klyachko_spec.md
    holds the extracted algorithm (Theorem 3.2.1, cubicle extremal edges,
    Schubert coefficient test via lrcalc). Test-first: it must reproduce the

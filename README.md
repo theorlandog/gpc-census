@@ -96,8 +96,20 @@ Four stages, mirroring the mathematics:
       certifies with no algebraic recognition at all. idx 24's closed form
       is real, (|0125>+|0134>+|0237>+|0245>)/3 + sqrt(2)/3 |0268> +
       sqrt(3)/3 |0348>. The tight k=2 fiber is the hard case (v_B genuinely
-      needs pi/8); the residual across all systems is the small tail whose
-      phases are higher-degree algebraic (no real, no p*sqrt(q)/r).
+      needs pi/8); the small tail whose phases are higher-degree algebraic
+      (no real, no p*sqrt(q)/r) is closed by a constructive solver that stops
+      guessing phases and solves the pinned variables instead. The moduli are
+      exactly rational, so wherever two orbitals share an occupation the
+      spectrum must split, the off-diagonal 1-RDM magnitude is forced by
+      Schur-Horn to an exact algebraic number; each off-diagonal is a closed
+      polygon whose relative phase is then an exact arccos, propagated across
+      edges and gated by the same characteristic-polynomial certificate. This
+      is v_B's cos(gamma) = 3/(4 sqrt(14)) as a general rule, and it certifies
+      every interference corner whose support the solver finds
+      (`exactify_interference`). Of the 799 census vertices, 725 now carry a
+      certified closed form; what is left uncertified is a compute frontier at
+      the state-finding stage (a longer clique-timeout and wider block search
+      reach it), not an open-form one.
    The historical alternating-projection solver (`attain`) remains as a
    general Tier-A fallback: `scripts/solve_all.py` cascades to it when the
    block solver fails, so every vertex records at least a numeric state.

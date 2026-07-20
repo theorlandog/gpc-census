@@ -92,11 +92,10 @@ def recognize_phase(theta: float):
     return None
 
 
-def verify_exact(n: int, d: int, spectrum, support, amps):
-    """Exact 1-RDM identity check for a symbolic state. True is a proof."""
+def build_rho_symbolic(d: int, support, amps):
+    """Exact symbolic 1-RDM of sum_t amps_t |t>, in rectangular (a + b i) form."""
     import sympy as sp
 
-    spectrum = [sp.Rational(Fraction(x).numerator, Fraction(x).denominator) for x in spectrum]
     dets = [tuple(s) for s, _ in zip((tuple(x) for x in support), amps)]
     amap = dict(zip(dets, amps))
     rho = sp.zeros(d, d)
@@ -112,11 +111,31 @@ def verify_exact(n: int, d: int, spectrum, support, amps):
                     continue
                 s2 = (-1) ** tp.index(m)
                 rho[m, mp] += s1 * s2 * sp.conjugate(amap[tp]) * ct
-    # spectrum check: char poly of rho equals prod (x - lambda_i)
+    # rectangular form up front: interference phases enter as exp(i*theta), and
+    # sympy's charpoly block-factorization cannot order complex exp() factors
+    # (raises on the symbolic <), so expand to a + b i before any determinant.
+    return rho.applyfunc(lambda e: sp.expand_complex(sp.expand(e)))
+
+
+def verify_exact(n: int, d: int, spectrum, support, amps):
+    """Exact 1-RDM identity check for a symbolic state. True is a proof.
+
+    Gauge-invariant: compares the characteristic polynomial of the 1-RDM to
+    prod(x - lambda_i). Two robustness points matter for interference states
+    whose amplitudes carry genuine phases exp(i*theta): the char poly is taken
+    as the Berkowitz determinant of (x I - rho) (charpoly()'s block
+    factorization tries to sort complex factors and raises), and each
+    coefficient of the difference is reduced with expand_complex before the
+    zero test (sp.simplify alone leaves true zeros like 1 + exp(2 i pi/3)
+    unreduced, which silently rejected valid closed forms)."""
+    import sympy as sp
+
+    spectrum = [sp.Rational(Fraction(x).numerator, Fraction(x).denominator) for x in spectrum]
+    rho = build_rho_symbolic(d, support, amps)
     x = sp.symbols("x")
-    p1 = sp.expand(rho.charpoly(x).as_expr())
-    p2 = sp.expand(sp.prod([x - lv for lv in spectrum]))
-    return sp.simplify(p1 - p2) == 0
+    cp = (x * sp.eye(d) - rho).det(method="berkowitz")
+    diff = sp.Poly(sp.expand(cp - sp.prod([x - lv for lv in spectrum])), x)
+    return all(sp.simplify(sp.expand_complex(c)) == 0 for c in diff.all_coeffs())
 
 
 def gauge_fix_phases(support, phases, d: int):
@@ -145,6 +164,191 @@ def gauge_fix_phases(support, phases, d: int):
     return list((theta + a @ phi + math.pi) % (2 * math.pi) - math.pi)
 
 
+def _active_offdiagonals(d: int, dets, ks, den, spectrum):
+    """Off-diagonal 1-RDM entries forced nonzero by the support, with their exact
+    Schur-Horn target magnitudes.
+
+    Each modulus is fixed (|c_t|^2 = ks_t/den), so the diagonal occupations are
+    known rationals. Wherever two orbitals p, q carry an equal occupation but the
+    spectrum needs them split, the 2x2 block [[occ_p, x],[conj(x), occ_q]] must
+    have two required eigenvalues lo, hi with lo + hi = occ_p + occ_q (trace) and
+    lo*hi = occ_p*occ_q - |x|^2 (determinant), which forces
+    |x| = sqrt(occ_p occ_q - lo*hi) exactly (an algebraic number, rational or a
+    low-degree surd). This is the interference analogue of a design's diagonal
+    1-RDM: the phases are no longer gauge, they must realize these off-diagonal
+    magnitudes. Returns (occ, edges) with edges a list of (p, q, target_sq, terms)
+    where terms are (i, j, sign): the determinant pair (i has q, j has p)
+    contributing sign * sqrt(ks_i ks_j)/den * exp(i*(theta_i - theta_j))."""
+    import sympy as sp
+
+    dets = [tuple(t) for t in dets]
+    index = {t: i for i, t in enumerate(dets)}
+    occ = [sum(sp.Rational(ks[i], den) for i, t in enumerate(dets) if m in t)
+           for m in range(d)]
+    spec = sorted({sp.Rational(Fraction(v).numerator, Fraction(v).denominator)
+                   for v in spectrum})
+    edges = []
+    for p in range(d):
+        for q in range(p + 1, d):
+            terms = []
+            for j, t in enumerate(dets):
+                if p in t and q not in t:
+                    s1 = (-1) ** t.index(p)
+                    tp = tuple(sorted(tuple(x for x in t if x != p) + (q,)))
+                    if tp in index:
+                        i = index[tp]
+                        s2 = (-1) ** tp.index(q)
+                        terms.append((i, j, s1 * s2))
+            if not terms:
+                continue
+            tot = occ[p] + occ[q]
+            # the block splits its (degenerate) diagonal into two spectrum values
+            target_sq = None
+            for lo in spec:
+                hi = tot - lo
+                if lo < hi and hi in spec:
+                    cand = occ[p] * occ[q] - lo * hi
+                    if cand > 0:
+                        target_sq = cand
+                        break
+            edges.append((p, q, target_sq, terms))
+    return occ, edges
+
+
+def exactify_interference(n: int, d: int, spectrum, record):
+    """Constructive Tier-B exactifier for interference vertices.
+
+    The general exactify() recognizes each determinant's absolute (gauge-fixed)
+    phase. That fails on interference corners whose phases are coupled polygon
+    angles: the absolute phases are path sums of high algebraic degree, and a
+    generic numeric solve lands on an arbitrary gauge, so per-phase recognition
+    (and PSLQ) see only noise. This solver works in the pinned variables instead.
+    The off-diagonal 1-RDM magnitudes are forced exactly by Schur-Horn on the
+    degenerate occupation blocks (_active_offdiagonals); each active edge is a
+    closed polygon whose sides are the fixed term moduli, so the relative phase
+    is an exact arccos of a rational or a surd. Phases are propagated across edges
+    (constraint propagation: an edge with a single unassigned determinant fixes
+    it), and the closed form is accepted only if verify_exact certifies it, so a
+    wrong branch cannot slip through. This is the same mechanism as v_B's
+    cos(gamma) = 3/(4 sqrt(14)); v_B was the first visible instance, not a special
+    case. Returns an EXACT record or None (caller falls through to TIER-C)."""
+    import math
+
+    import sympy as sp
+
+    den = 1
+    for xx in spectrum:
+        den = den * Fraction(xx).denominator // math.gcd(den, Fraction(xx).denominator)
+    dets = [tuple(s) for s, _, _ in record["support"]]
+    mods = [a for _, a, _ in record["support"]]
+    ks = snap_moduli(mods, den)
+    if ks is None:
+        return None
+    occ, edges = _active_offdiagonals(d, dets, ks, den, spectrum)
+    active = [e for e in edges if e[3]]
+    if not active or any(e[2] is None for e in active):
+        return None
+    S = len(dets)
+
+    def gmod(i, j):
+        return sp.sqrt(sp.Rational(ks[i], den) * sp.Rational(ks[j], den))
+
+    # Gauge: every determinant is real (phase 0) except one "solve" determinant
+    # per active edge. Each edge is one magnitude equation |off-diagonal| = X, so
+    # it pins exactly one phase; the U(1)^d orbital gauge lets the rest be zero.
+    # Assign each edge a distinct solve determinant (one of its own determinants,
+    # preferring one not shared with a still-unsolved edge), then propagate: an
+    # edge is solvable once all but its solve determinant are fixed.
+    theta = [sp.Integer(0)] * S
+    solve_det = {}
+    used = set()
+    # how many active edges each determinant touches; a determinant private to one
+    # edge can absorb that edge's constraint without perturbing any other, so the
+    # data-flow order below always resolves. Prefer private determinants; edges
+    # with none take a shared one and rely on iteration order.
+    from collections import Counter
+    edge_dets = [set(sum([[i, j] for i, j, _ in e[3]], [])) for e in active]
+    glob = Counter(dd for es in edge_dets for dd in es)
+    order = sorted(range(len(active)),
+                   key=lambda e: min((glob[dd] for dd in edge_dets[e]), default=99))
+    for e in order:
+        (p, q, tsq, terms) = active[e]
+        cand = [dd for (i, j, _) in terms for dd in (i, j)]
+        pick = next((dd for dd in sorted(cand, key=lambda dd: glob[dd])
+                     if dd not in used
+                     and sum(dd in (i, j) for (i, j, _) in terms) == 1), None)
+        if pick is None:
+            return None
+        solve_det[(p, q)] = pick
+        used.add(pick)
+        theta[pick] = None
+
+    for _ in range(len(active) + 2):
+        progressed = False
+        for (p, q, tsq, terms) in active:
+            free_det = solve_det[(p, q)]
+            if theta[free_det] is not None:
+                continue
+            # terms not touching free_det must be fully fixed to propagate
+            if any(theta[i] is None or theta[j] is None
+                   for (i, j, s) in terms if free_det not in (i, j)):
+                continue
+            X = sp.sqrt(tsq)
+            P = sum(s * gmod(i, j) * sp.exp(sp.I * (theta[i] - theta[j]))
+                    for (i, j, s) in terms if free_det not in (i, j))
+            P = sp.expand_complex(P)
+            i, j, s = next((i, j, s) for (i, j, s) in terms if free_det in (i, j))
+            g = gmod(i, j)
+            Pabs2 = sp.expand_complex(sp.Abs(P) ** 2)
+            rhs = sp.simplify((X ** 2 - Pabs2 - g ** 2) / (2 * s * g))
+            if P == 0:
+                phi = sp.Integer(0)  # single term: |x| forced, phase pure gauge
+            else:
+                phi = sp.arg(P) + sp.acos(sp.simplify(rhs / sp.Abs(P)))
+            other = j if free_det == i else i
+            theta[free_det] = sp.simplify((theta[other] + phi) if free_det == i
+                                          else (theta[other] - phi))
+            progressed = True
+        if all(t is not None for t in theta) or not progressed:
+            break
+    theta = [sp.Integer(0) if t is None else t for t in theta]
+    amps = [sp.sqrt(sp.Rational(ks[i], den)) * sp.exp(sp.I * theta[i]) for i in range(S)]
+    if verify_exact(n, d, spectrum, dets, amps):
+        return {"status": "EXACT", "weights": ks, "den": den,
+                "amplitudes": [sp.srepr(a) for a in amps],
+                "pretty": [str(sp.simplify(a)) for a in amps]}
+    # Propagation cannot decouple edges that share every determinant (no edge has
+    # a private phase to absorb its constraint). Those form a small coupled
+    # system; solve it by a bounded joint search over the algebraic angles the
+    # edge targets admit, on the union of the per-edge solve determinants. Each
+    # candidate is still gated by verify_exact, so nothing uncertified is returned.
+    import itertools
+
+    seeds = sorted(set(solve_det.values()))
+    if not seeds or len(seeds) > 3:
+        return None
+    cand = [sp.Integer(0), sp.pi, sp.pi / 3, -sp.pi / 3, 2 * sp.pi / 3, -2 * sp.pi / 3]
+    for (p, q, tsq, terms) in active:
+        gs = {sp.simplify(gmod(i, j)) for (i, j, s) in terms}
+        X = sp.sqrt(tsq)
+        for g in gs:
+            for h in gs:
+                r = sp.simplify((X ** 2 - g ** 2 - h ** 2) / (2 * g * h))
+                if abs(sp.N(r)) <= 1:
+                    cand += [sp.acos(r), -sp.acos(r)]
+    cand = list(dict.fromkeys(cand))
+    for combo in itertools.product(cand, repeat=len(seeds)):
+        th = [sp.Integer(0)] * S
+        for dd, val in zip(seeds, combo):
+            th[dd] = val
+        amps = [sp.sqrt(sp.Rational(ks[i], den)) * sp.exp(sp.I * th[i]) for i in range(S)]
+        if verify_exact(n, d, spectrum, dets, amps):
+            return {"status": "EXACT", "weights": ks, "den": den,
+                    "amplitudes": [sp.srepr(a) for a in amps],
+                    "pretty": [str(sp.simplify(a)) for a in amps]}
+    return None
+
+
 def exactify(n: int, d: int, spectrum, record):
     """Tier B: numerical solve_vertex record -> exact certified state or labeled failure."""
     import math
@@ -162,15 +366,23 @@ def exactify(n: int, d: int, spectrum, record):
         return {"status": "TIER-C", "reason": "moduli off natural grid"}
     # canonicalise the gauge before recognising phases; verify_exact below is
     # gauge-invariant, so the certificate stands in this frame
-    phases = gauge_fix_phases(support, phases, d)
+    gphases = gauge_fix_phases(support, phases, d)
     exact_amps = []
-    for k, th in zip(ks, phases):
+    recognized = True
+    for k, th in zip(ks, gphases):
         ph = recognize_phase(th)
         if ph is None:
-            return {"status": "TIER-C", "reason": f"unrecognized phase {th}"}
+            recognized = False
+            break
         exact_amps.append(sp.sqrt(sp.Rational(k, den)) * sp.exp(sp.I * ph))
-    if not verify_exact(n, d, spectrum, support, exact_amps):
-        return {"status": "TIER-C", "reason": "exact verification failed"}
-    return {"status": "EXACT", "weights": ks, "den": den,
-            "amplitudes": [sp.srepr(a) for a in exact_amps],
-            "pretty": [str(sp.simplify(a)) for a in exact_amps]}
+    if recognized and verify_exact(n, d, spectrum, support, exact_amps):
+        return {"status": "EXACT", "weights": ks, "den": den,
+                "amplitudes": [sp.srepr(a) for a in exact_amps],
+                "pretty": [str(sp.simplify(a)) for a in exact_amps]}
+    # Per-phase recognition failed or did not certify. The absolute phases of an
+    # interference corner are coupled polygon path-sums (high degree) even after
+    # gauge fixing; solve instead in the pinned off-diagonal magnitudes.
+    constructive = exactify_interference(n, d, spectrum, record)
+    if constructive is not None:
+        return constructive
+    return {"status": "TIER-C", "reason": "interference phases not resolved"}
