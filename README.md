@@ -106,7 +106,8 @@ Four stages, mirroring the mathematics:
       edges and gated by the same characteristic-polynomial certificate. This
       is v_B's cos(gamma) = 3/(4 sqrt(14)) as a general rule, and it certifies
       every interference corner whose support the solver finds
-      (`exactify_interference`). Of the 799 census vertices, 725 now carry a
+      (`exactify_interference`, which certifies v_B itself). Of the 799 census
+      vertices, 726 now carry a
       certified closed form; what is left uncertified is a compute frontier at
       the state-finding stage (a longer clique-timeout and wider block search
       reach it), not an open-form one.
@@ -157,6 +158,33 @@ dataset.export(4, 9)          # all of the above, one object
 # independently (ignoring the lookup), hybrid serves the lookup and solves gaps
 dataset.resolve_states(4, 9, mode="hybrid")
 ```
+
+### What's precomputed
+
+`results/data/states.jsonl` ships a certified closed-form state for every
+vertex the campaign has closed so far, so `gpc-census states --source
+precompute` (the default) is a lookup, not a solve. Current coverage:
+
+| System (N, d) | Corners | Design | Interference | Certified closed forms |
+| --- | ---: | ---: | ---: | ---: |
+| (3, 6) | 4 | 4 | 0 | 4 |
+| (3, 7) | 10 | 10 | 0 | 10 |
+| (3, 8) | 38 | 27 | 11 | 36 |
+| (4, 8) | 22 | 22 | 0 | 22 |
+| (3, 9) | 58 | 38 | 20 | 54 |
+| (4, 9) | 103 | 87 | 16 | 98 |
+| (3, 10) | 113 | 71 | 42 | 95 |
+| (4, 10) | 159 | 134 | 25 | 146 |
+| (5, 10) | 292 | 250 | 42 | 261 |
+| **Total** | **799** | **643** | **156** | **726** |
+
+Every design corner (integer and real) is certified by construction. Of the
+156 interference corners, every one whose extremal state the engine has found
+now also certifies (`exactify_interference`, the off-diagonal-target
+constructive solver): the remaining gap is entirely vertices where Tier A
+(state-finding) has not yet found a support, not an exactification frontier.
+`scripts/build_states.py --retry-uncertified` closes that gap with more
+compute; the engine call is below.
 
 To recompute or push further, the engine is a single call
 (`gpc_census.states.certify_state(n, d, spectrum, max_clique=..., max_cliques=...)`),
