@@ -246,6 +246,139 @@ were the two they could not close at all.
    historical scripts/interference8_1.py is the v_B-specific instance
    (exhaustive two-block real stratum sweep). enumerate_designs in
    classify.py is the generalizable exhaustive layer.
+5. Vertex-cone arithmetic (positive-geometry lead): the exact lattice
+   invariants of simple vertex cones are computed for all systems; see the
+   section below. Open: prove den(v) = normal-cone index for simple
+   interference vertices; extend edge-cone SNF to non-simple vertices via
+   pulling triangulation; compute the full canonical form (adjoint) of
+   Pi_{3,7} as the smallest non-simplex.
+6. Holonomy Galois structure: every certified interference holonomy in the
+   analysis snapshot is 2-elementary abelian; see the section below. Open:
+   prove the norm-square law from the stage-3b polygon-closure mechanism;
+   certify the remaining Tier-A stragglers (28 after the k=4 sweep, down
+   from 73 at analysis time) and re-test (the only place a non-abelian D4
+   holonomy could hide); Groebner elimination for the exact antiunitary
+   overlap of psi_B.
+
+## Vertex-cone arithmetic and holonomy Galois structure (July 2026 leads)
+
+Two exact-computation campaigns, run against the shipped census data
+(reproduction: leads_analysis.py; all statements exact rational/symbolic
+unless marked numerical). These are LEADS, not shipped results: the
+arithmetic layer (norm identities, minimal polynomials, prime
+factorizations) is hand-verified in this repo, but the group-theory and
+lattice conclusions (Galois groups via PARI polgalois, Smith normal forms)
+are as computed by the analysis script and are not independently re-run
+here. Snapshot note: Lead B's per-vertex counts are as of a 770-certified
+snapshot (127 certified interference vertices); the certified set has since
+grown (128 interference, 28 total residual and shrinking under the k=4
+sweep). Lead A's counts are classification/geometry, independent of how
+many states are certified, so they are stable. Any use of these in the
+paper (results/report/main.md) is DEFERRED and must first refresh the
+certification-dependent counts.
+
+### Lead A: positive-geometry / lattice structure of vertex cones
+
+Full H-representation = published GPC inequalities + ordering walls
+(lambda_i >= lambda_{i+1}) + lambda_d >= 0 in the slice sum = N. Exact
+vertex-facet incidence and edge graphs for all nine systems give:
+
+- Simpliciality census: 179 full-dimensional simple vertices across the
+  systems (e.g. 25 of 103 at (4,9)). v_A and v_B are both simple.
+  Simpliciality does NOT correlate with the trichotomy, so local
+  canonical-form degeneracy (adjoint at a non-simple vertex) is not an
+  interference detector.
+- v_B tangent cone: edge-ray lattice index 23^7, Smith normal form
+  diag(1, 23 x7), i.e. the affine toric variety is the quotient
+  singularity C^8/(Z/23)^7. Dual (normal) cone: index exactly 23 = the
+  natural denominator, SNF (1,...,1,23), cyclic. Every nonzero
+  facet-ray pairing <W_j, r_k> equals exactly 23 ("isotypic purity").
+  The local canonical form in lattice-normalized facet coordinates is
+  Omega = 23 d^8y / prod_j <W_j, y> (numerator 23^7 in the dual
+  vertex-expansion frame); no adjoint numerator, all structure is
+  arithmetic at the prime 23.
+- LAW (exact, all 179 simple vertices checked): den(v) = normal-cone
+  index holds for EVERY simple INTERFERENCE vertex (54/54) and fails
+  only at design vertices (68 of 125 simple design vertices violate it,
+  typically nidx = 2 den or 3 den). Theorem candidate; no proof yet.
+- Isotypic-pure vertices (all pairings = den, edge quotient
+  (Z/den)^{dim-1}): 23 across all systems; every one has PRIME
+  denominator (7, 11, 13, 17, 23, 37). All pure interference vertices
+  have prime den >= 11; all pure design vertices have den = 7 (the
+  (3,3,3,3,3,3,3)/7 vertex and its pads/lifts). Converse fails:
+  prime den does not imply purity ((4,9) v91, den 13, is not pure).
+- rad(den) divides the edge-cone index at every simple vertex checked.
+- Pi_{3,6} is a 3-simplex (adjoint degree 0), consistent with the
+  paper's positive-geometry table; Pi_{3,7} (dim 6, 10 vertices,
+  10 facets, adjoint degree 3) is the smallest target for a full exact
+  canonical form with nontrivial adjoint.
+
+### Lead B: Galois structure of interference holonomies
+
+Amplitude phases are diagonal-gauge dependent; the invariant is the loop
+holonomy: left-kernel vectors of the support incidence matrix (dets x
+orbitals) applied to the phase vector, in the natural-orbital basis the
+census fixes.
+
+- v_B: kernel dim 1, kernel vector (1,-1,0,0,-1,1,0,0) on the 8 certified
+  support dets; holonomy = atan(sqrt(119)/3), cos = 3 sqrt(2)/16 (so the
+  certified-form phase acos(-3 sqrt(2)/16)+pi is exactly the invariant
+  content). Minimal polynomial of e^{i hol}: 32x^4+55x^2+32 (hand-verified);
+  splitting field Q(sqrt(2), sqrt(-119)); Galois group V4 (Klein four);
+  119 = 7*17. The block angle cos(gamma) = 3/(4 sqrt(14)) is a different
+  parametrization (field Q(sqrt(14), sqrt(-215)), also V4; 215 = 5*43).
+  Note the primes decouple from the geometric prime 23 of Lead A.
+- Census-wide (127 certified interference vertices in the snapshot): 80
+  supports are loop-free (kernel dim 0; signs suffice), 47 carry 59
+  nontrivial holonomies with 24 distinct minimal polynomials. Every
+  holonomy field is 2-elementary abelian: Z/2 (degrees 1-2), V4 (all 11
+  quartics), and (Z/2)^3 for ALL FIVE degree-8 polynomials (PARI polgalois,
+  package pari-galdata). Degree-4 => V4 is forced by unit-circle
+  reciprocity (splitting field Q(sqrt(a(2a-b)), sqrt(-a(2a+b))) for
+  ax^4+bx^2+a); the degree-8 result is NOT forced and is the contentful
+  finding: no Z/4, no D4, no Q8 anywhere in the certified census snapshot.
+- Norm-square law (exact, all three occurrences, hand-verified): every
+  nested radical sqrt(a + b sqrt(d)) in a holonomy cosine satisfies
+  a^2 - b^2 d in (Q^x)^2: 11^2-21 = 10^2; 817^2-1633 = 816^2;
+  2651^2-48^2*2769 = 805^2. This is exactly the criterion separating
+  abelian V4 quartic subfields from generic D4. Conjecture: forced by
+  stage 3b (the conjugate radical is itself a physical off-diagonal
+  magnitude; the product is a rational norm of the exact moduli). If
+  proved: certified interference holonomies are always abelian of exponent
+  2. A D4 counterexample can only hide in the still-uncertified Tier-A
+  vertices (28 now, 73 at analysis time), which is a shrinking target.
+
+### Correction found: the antiunitary overlap of psi_B (numerical)
+
+The paper's Remark on non-realifiability reports max overlap ~ 0.933184
+over the reduced group U(1) x U(4) x U(4). Re-running the optimization
+(compound-matrix objective |<psi, Lambda^4 V conj(psi)>|, multi-start
+L-BFGS, independent parametrizations):
+- Within the SAME reduced group: 0.936497506 from 6+ independent seeds
+  (also under the symmetric/involutive restriction). The published
+  0.933184 appears to be a premature convergence.
+- Over full U(9): 0.991732701478395695713606553348762758... (43 digits,
+  50-dps Newton on the exact symbolic reduced objective). The maximizer
+  is a single symmetric 2x2 block MIXING modes {4,8} across the two
+  degenerate eigenspaces, plus diagonal phases.
+- REVIEW NOTE (rigor): the non-realifiability CONCLUSION rests on the
+  REDUCED-group max being < 1, because any real form would give overlap
+  exactly 1 and its V must map eigenspaces to eigenspaces (hence lie in
+  the reduced group). So 0.936498 < 1 is the sufficient, complete, and
+  safer evidence. The full-U(9) value 0.991733 is the true orbit invariant
+  ("closest any rotation gets") but is (a) not what the conclusion depends
+  on and (b) uncomfortably close to 1; and the value has crept upward under
+  successive search (0.9332 -> 0.9365 -> 0.9917), the signature of a hard
+  optimization whose supremum could be higher still. The paper should lead
+  with the reduced-group 0.936498 as load-bearing and present 0.991733 as a
+  secondary, explicitly numerical remark. Both are < 1, so the paper's
+  CONCLUSION (no real form under any orbital rotation) is unaffected; only
+  the number and its labeling need updating. Paper edit DEFERRED to end of
+  session.
+- The value is algebraic in principle (critical value of a polynomial
+  system) but resists PSLQ at degree <= 8 / height <= 1e10 with 43
+  digits; exact identification needs Groebner elimination on the
+  stationarity system (open).
 
 ## The selection rule is basis-relative (degeneracy lemma)
 
