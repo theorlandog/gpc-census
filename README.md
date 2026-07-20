@@ -107,7 +107,7 @@ Four stages, mirroring the mathematics:
       is v_B's cos(gamma) = 3/(4 sqrt(14)) as a general rule, and it certifies
       every interference corner whose support the solver finds
       (`exactify_interference`, which certifies v_B itself). Of the 799 census
-      vertices, 726 now carry a
+      vertices, 771 now carry a
       certified closed form; what is left uncertified is a compute frontier at
       the state-finding stage (a longer clique-timeout and wider block search
       reach it), not an open-form one.
@@ -171,12 +171,12 @@ precompute` (the default) is a lookup, not a solve. Current coverage:
 | (3, 7) | 10 | 10 | 0 | 10 |
 | (3, 8) | 38 | 27 | 11 | 36 |
 | (4, 8) | 22 | 22 | 0 | 22 |
-| (3, 9) | 58 | 38 | 20 | 54 |
+| (3, 9) | 58 | 38 | 20 | 57 |
 | (4, 9) | 103 | 87 | 16 | 98 |
-| (3, 10) | 113 | 71 | 42 | 95 |
-| (4, 10) | 159 | 134 | 25 | 146 |
-| (5, 10) | 292 | 250 | 42 | 261 |
-| **Total** | **799** | **643** | **156** | **726** |
+| (3, 10) | 113 | 71 | 42 | 105 |
+| (4, 10) | 159 | 134 | 25 | 156 |
+| (5, 10) | 292 | 250 | 42 | 283 |
+| **Total** | **799** | **643** | **156** | **771** |
 
 Every design corner (integer and real) is certified by construction. Of the
 156 interference corners, every one whose extremal state the engine has found

@@ -30,12 +30,13 @@ made and caught once; see tests pinning v_A and v_B).
 
 - Census complete for every determinate system, ranks 6 through 10
   (799 vertices; duals covered by particle-hole verdict transport).
-- Certified closed-form extremal states for 726 of the 799 vertices: every
+- Certified closed-form extremal states for 771 of the 799 vertices: every
   design vertex (integer and real) plus every interference vertex that has been
   reduced to a closed form, including all corners solved by the constructive
-  off-diagonal-target exactifier (stage 3b) and v_B itself. The 73 uncertified
+  off-diagonal-target exactifier (stage 3b) and v_B itself. The 28 uncertified
   vertices are all TIMEOUT / SOLVE-FAIL at Tier A (state-finding), a compute
-  frontier, not an exactify or open-math frontier.
+  frontier, not an exactify or open-math frontier. A wider clique sweep
+  (max_clique=4) closed many that the k=3 run left as SOLVE-FAIL.
 - v_A (16,16,16,6,6,6,6,6,6)/21 is DESIGN-INT; v_B (20,14,14,14,14,4,4,4,4)/23
   is INTERFERENCE with cos(gamma) = 3/(4*sqrt(14)). The v_B phase is not
   special: it is the k=2 instance of the off-diagonal-target mechanism that
@@ -227,7 +228,7 @@ were the two they could not close at all.
    resumable campaign driver. Design vertices certify from their witness. Tier B
    now certifies every interference vertex whose support Tier A finds: the
    per-phase recognition layer plus the constructive off-diagonal-target solver
-   (stage 3b) leave no NO-EXACT residual. What remains uncertified (73 of 799)
+   (stage 3b) leave no NO-EXACT residual. What remains uncertified (28 of 799)
    is Tier A: TIMEOUT and SOLVE-FAIL vertices whose sparse support the block /
    clique search has not yet found, cleared by a longer clique-timeout and wider
    block search (--max-cliques 0) on stronger hardware, not by new mathematics.

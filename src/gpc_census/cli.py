@@ -49,9 +49,21 @@ def _add_knobs(sp: argparse.ArgumentParser) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="gpc-census",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
         description=(
             "Construct exact extremal states for fermionic "
             "natural-occupation-number (moment) polytopes."
+        ),
+        epilog=(
+            "exporting states (the precomputed closed forms):\n"
+            "  gpc-census states -n 4 -d 9                 # every certified state, JSON\n"
+            "  gpc-census states -n 4 -d 9 --index 65      # one vertex (v_B)\n"
+            "  gpc-census export -n 4 -d 9 --kind states   # states only, export format\n"
+            "  gpc-census export -n 4 -d 9                 # everything for (n, d)\n"
+            "\n"
+            "  add --source solve to recompute with the engine instead of the\n"
+            "  shipped lookup, or --source hybrid to lookup-then-solve. -h on any\n"
+            "  subcommand for its own options."
         ),
     )
     parser.add_argument("--version", action="version",
