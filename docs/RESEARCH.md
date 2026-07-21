@@ -666,6 +666,35 @@ Acceptance gates: reproduce 1/4/31/52/93 (the (3,d) counts) at ranks 6-10 first;
 the RHS law is a free invariant (any generated facet violating b = a_T is a
 bug), and the Edge law becomes one once reproduced.
 
+## Core/hole isomorphisms and decomposability of the 14 (2026-07)
+
+Fresh sweep of functorial reductions over the residual, two results:
+
+- DUAL PAIR (VERIFIED IN-REPO): (5,10) v113 (17,17,16,8,8,8,4,4,4,4)/18 and
+  (5,10) v261 (14,14,14,14,10,10,10,2,1,1)/18 are HODGE DUALS of each other
+  (lambda -> 1 - lambda at half filling), previously carried as separate roots.
+  Checked against states.jsonl: v261's complement (18 - lambda, sorted) is
+  exactly v113. They are ONE problem -- an exact state for either yields the
+  other by the Hodge star immediately, so the residual is 11 independent
+  problems, not 12: the 14 SOLVE-FAIL vertices minus the two (4,10) entries
+  (v60, v62), which strip their trailing zero to become (4,9) v40, v42 exactly
+  (same denominator 15, verified), minus the merged dual pair. (5,10) is the
+  only self-dual system in the census (d - N = N), so this is the only
+  within-census dual: the (3,10), (4,9), (4,10) roots dualize to (7,10),
+  (5,9), (6,10), none of which is a solved system.
+- NO DECOMPOSITIONS (HANDOFF sweep, not re-run in-repo): the campaign reports
+  that none of the 14 splits as an exact wedge product of lower states on
+  disjoint mode sets, checked over all particle/mode splits with the full
+  reduction toolkit (frozen-core peeling, trailing-zero stripping,
+  particle-hole reduction, N=2 pairing, certified-library lookup) on each
+  part -- zero valid splits. Independently confirmed here only the necessary
+  conditions this rests on: no root (the 12, excluding the two (4,10) pads
+  where the trailing zeros live) has lambda_1 = 1 or a trailing zero at the
+  root level. The exhaustive negative itself is the handoff engine's, pending
+  an in-repo reproduction. If it holds, every residual vertex is "connected":
+  its extremal state entangles across the full mode set, so no product
+  construction cracks any of them.
+
 ## v96 campaign: the signed-design family (NO-basis formulation, 2026-07)
 
 New ansatz family for the residual, formulated in the state's OWN natural-orbital
