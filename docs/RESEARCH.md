@@ -837,10 +837,16 @@ zero pads of the (4,9) roots and the v113/v261 Hodge-dual merge):
 - GENUINE FRONTIER CANDIDATE (1): (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26. It
   returns an EXHAUSTIVE FAIL (867 s, full max_card, filter-free), not a timeout,
   and it has only TWO eigenvalue classes {15,6}, so the block family (<= 2 blocks,
-  no 3-clique possible) is COMPLETE for it. Caveat before calling it genuine: the
-  census phase solve is numeric (L-BFGS) and can miss a solution the exact
-  polygon-target solver would find, so v89 must be run through the exact solver
-  before it counts as a true residual.
+  no 3-clique possible) is COMPLETE for it. Status: UNRESOLVED, not confirmed
+  genuine. The census phase solve is numeric (L-BFGS) and can miss a solution the
+  exact solver would find; an exact-solver check (hybrid_search, 1119 s) was
+  INCONCLUSIVE -- 0 solve calls, because its skeleton enumeration never surfaced a
+  block-hop-bearing support in the den-26 space (the pre-filter rejected all
+  106,400 skeletons it reached). So neither run settles v89: the census searched
+  supports and found no numeric phase solution, but the exact solver has not yet
+  been run on those same feasible supports. The decisive test is to extract the
+  census's block-feasible-but-unsolved supports and exact-phase-solve each; until
+  then v89 is the single open vertex, genuine-vs-numeric-miss undetermined.
 
 RETRACTION: the "(4,9) v42 needs a MIXED clique+block ansatz -- a genuine family
 gap" conclusion (the v42-audit and no-clique-precedent sections below) is WRONG.
