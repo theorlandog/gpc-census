@@ -585,6 +585,15 @@ the states paper.
   refuted, 4 open) by state transport + frozen-core/N=2 pairing +
   zero-restriction; see campaign item 3. Reproducible via
   scripts/settle_bracket_3_11.py; all 46 witnesses verified in this repo.
+- partial_families_3_11_3_12.json: the published stable Grassmann families for
+  N=3 at ranks 11 and 12 (the only rank-11/12 constraint data in print), tagged
+  PROVED (CMP 2008 Thms 4.2.1/4.3.1), WEAK (thesis odd-rank head), and CLAIMED
+  (the level-5 series, proof deferred / letter only). NECESSARY conditions, an
+  outer bound only. Regenerated and validated by scripts/partial_families.py:
+  all certified (3,11) and (3,12) true vertices satisfy every family, the proved
+  families restrict validly to {lambda_11=0} on all 113 (3,10) vertices, and the
+  four OPEN candidates each violate a CLAIMED (never a PROVED) inequality. Use as
+  a Farkas-style acceptance oracle for any future Stage-1 (3,11)/(3,12) output.
 - bracket_3_12_true_vertices.json: 19 CERTIFIED true vertices of (3,12),
   each a face embedding of a settled (3,11) true vertex (the {lambda_12=0}
   face of Delta(3,12) is Delta(3,11); a vertex of a face is a vertex of the

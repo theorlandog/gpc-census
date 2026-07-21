@@ -1,0 +1,287 @@
+{
+ "note": "Stable Grassmann partial families for N=3; NECESSARY conditions (outer bound), not the complete system. Tiers: PROVED (CMP 2008 Thms 4.2.1/4.3.1), WEAK (thesis, unprinted proof), CLAIMED (CMP Remark 4.2.1 / Klyachko 0904.2009, not proved, NOT a certificate).",
+ "sources": [
+  "Altunbulak-Klyachko, Comm. Math. Phys. 282, 287 (2008)",
+  "Klyachko, arXiv:0904.2009 (2009)"
+ ],
+ "systems": {
+  "(3,11)": [
+   {
+    "tag": "WEAK",
+    "name": "1st-head l1+l11<=1+2/(r-1)",
+    "indices": [
+     1,
+     11
+    ],
+    "rhs": "6/5"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l2+l10<=1",
+    "indices": [
+     2,
+     10
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l3+l9<=1",
+    "indices": [
+     3,
+     9
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l4+l8<=1",
+    "indices": [
+     4,
+     8
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l5+l7<=1",
+    "indices": [
+     5,
+     7
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 2345<=2",
+    "indices": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1346<=2",
+    "indices": [
+     1,
+     3,
+     4,
+     6
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1256<=2",
+    "indices": [
+     1,
+     2,
+     5,
+     6
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1247<=2",
+    "indices": [
+     1,
+     2,
+     4,
+     7
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "AK-RMK-4.2.1 [1, 2, 4, 7]+[11]<=2",
+    "indices": [
+     1,
+     2,
+     4,
+     7,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-1 [2, 3, 4, 5]+[11]<=2",
+    "indices": [
+     2,
+     3,
+     4,
+     5,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-2 [1, 3, 4, 6]+[11]<=2",
+    "indices": [
+     1,
+     3,
+     4,
+     6,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-3 [1, 2, 5, 6]+[11]<=2",
+    "indices": [
+     1,
+     2,
+     5,
+     6,
+     11
+    ],
+    "rhs": "2"
+   }
+  ],
+  "(3,12)": [
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l1+l12<=1",
+    "indices": [
+     1,
+     12
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l2+l11<=1",
+    "indices": [
+     2,
+     11
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l3+l10<=1",
+    "indices": [
+     3,
+     10
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l4+l9<=1",
+    "indices": [
+     4,
+     9
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "1st-pair l5+l8<=1",
+    "indices": [
+     5,
+     8
+    ],
+    "rhs": "1"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 2345<=2",
+    "indices": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1346<=2",
+    "indices": [
+     1,
+     3,
+     4,
+     6
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1256<=2",
+    "indices": [
+     1,
+     2,
+     5,
+     6
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "PROVED",
+    "name": "2nd-quad 1247<=2",
+    "indices": [
+     1,
+     2,
+     4,
+     7
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "AK-RMK-4.2.1 [1, 2, 4, 7]+[11]<=2",
+    "indices": [
+     1,
+     2,
+     4,
+     7,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-1 [2, 3, 4, 5]+[11]<=2",
+    "indices": [
+     2,
+     3,
+     4,
+     5,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-2 [1, 3, 4, 6]+[11]<=2",
+    "indices": [
+     1,
+     3,
+     4,
+     6,
+     11
+    ],
+    "rhs": "2"
+   },
+   {
+    "tag": "CLAIMED",
+    "name": "KLY09-EXT-3 [1, 2, 5, 6]+[11]<=2",
+    "indices": [
+     1,
+     2,
+     5,
+     6,
+     11
+    ],
+    "rhs": "2"
+   }
+  ]
+ }
+}
