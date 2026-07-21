@@ -815,6 +815,54 @@ certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
 
+## v57 dive: why den 28 resists, and the core+completion algorithm (handoff)
+
+v57 = (19,19,10,10,6,6,6,6,1,1)/28 is the first residual vertex where
+filter-free enumeration genuinely saturates: the production sweep hit its 300 s
+cap (inconclusive, verified here), and a dedicated 20-minute filter-free run was
+also launched. The handoff reports two bespoke DFS implementations (det-ordered
+with in-search off-block pruning, and mode-first branching over an off-block
+conflict graph) both exhausting 9 s/ansatz budgets across all one-block ansatze;
+the obstruction is the weight budget (Sigma k = 28), not the ansatz count.
+Structure map, reproduced in-repo: 27 one-block ansatze (VERIFIED), and exactly
+two incidence-1 modes 8, 9 (VERIFIED, the two 1/28 modes) that survive in every
+ansatz not blocking the 1-class, forcing one weight-1 det each (exploitable as in
+the tail-cover enumerations).
+
+CORE+COMPLETION (handoff algorithm proposal, not yet implemented): factor the
+search into (i) an EXCHANGE CORE -- the block-pair hop dets and their weights,
+constrained by number theory (the signed surd sum over cores must equal
+sqrt(x2) exactly, so core products live in the squarefree class of x2; cores are
+tiny), then (ii) a DESIGN COMPLETION -- the residual degree vector met by a
+one-hop-free support avoiding off-block hops with the core, which is the design
+MIP the census already solves fast, plus adjacency exclusions. Enumerate the
+(number-theoretically bounded) cores, MIP-complete each: (small) x (fast) in
+place of one intractable joint search. In parallel: 2-block ansatze and cliques
+under real walltime, and hybrid_search (which handled a 540 s pass at v96). (The
+handoff's v57_solver.py prototype is not in this repo; core+completion is a
+design spec here, not shipped code.)
+
+## v60 exact state shipped (all-positive form); conjecture updates from the cracks
+
+docs/hybrid_cracks/v60.jsonl: the (3,10) v60 = (8,8,5,5,5,1,1,1,1,1)/12 state
+from the fixed production sweep, gauge-reduced to its minimal form and
+independently certified (both the from-scratch 1-RDM and the exact char-poly
+identity pass, scripts/verify_hybrid_state.py). The support is LOOP-FREE, so all
+sweep phases were pure gauge: the state is ALL-POSITIVE, psi = (sqrt2 |012> +
+sqrt3 |029> + |035> + |048> + |067> + 2 |349>)/sqrt(12), with a single exchange
+channel (1,9) realizing the (8,1)-block off-diagonal sqrt(6)/12.
+
+Conjecture ledger as the residual collapses (update per new crack):
+- Conjecture 2 (exponent-2 holonomies): v96's single loop carries cos = -1/4,
+  minimal polynomial 2z^2 + z + 2, discriminant -15, splitting field
+  Q(sqrt(-15)), abelian Z/2 -- PASS (verified in-repo). v60 contributes no
+  holonomy (loop-free) -- vacuous PASS. Each further crack: compute the loop
+  kernel and minimal polynomial before the record lands.
+- Conjecture 3 (<= 2 channels): v96 one channel, v60 one channel -- both PASS,
+  strengthening the bound precisely where its falsification was predicted.
+- The "survivors need >= 3 channels" prediction is now FALSIFIED (it was
+  downstream of the filter bug); strike it wherever quoted.
+
 ## v96 SOLVED: a census false negative (2026-07)
 
 (3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9, recorded SOLVE-FAIL, IS SOLVABLE. Exact
