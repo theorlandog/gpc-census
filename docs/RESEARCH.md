@@ -793,17 +793,23 @@ RESULT (this SUPERSEDES the earlier "gate fix does not change the census output"
 note): the census's OWN production pipeline now cracks the false negatives, no
 external tooling. Each solve returns an exact certificate that is ALSO checked by
 an independent from-scratch 1-RDM (scripts/verify_hybrid_state.py):
- - v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
- - v60 (den 12): SOLVED 3 s, indep-verified.
- - v49 (den 13): SOLVED 42 s, indep-verified.
- - v40 (den 18): SOLVED 159 s, indep-verified.
+ - (3,10) v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
+ - (3,10) v60 (den 12): SOLVED 3 s, indep-verified.
+ - (3,10) v49 (den 13): SOLVED 42 s, indep-verified.
+ - (3,10) v73 (den 14): SOLVED 103 s, indep-verified.
+ - (3,10) v40 (den 18): SOLVED 159 s, indep-verified.
+ - (3,10) v57 (den 28): SOLVED 1042 s, indep-verified -- a DEDICATED run past the
+   300 s sweep cap; proves the high-denominator "timeouts" are compute limits, not
+   FAILs, and that even den 28 is a false negative.
  - the test's own "off-family frontier" (9,6,5,5,5,2,2,1,1)/9: SOLVED 185 s (a
    false negative too; the min_block_count budget test was corrected accordingly).
-A full filter-free sweep of all 14 is in progress (per-vertex 300 s cap; every OK
-independently verified). Even (4,9) v42 -- the supposed mixed-ansatz frontier --
-flips to min_block_count 1 filter-free, so the "v42 needs a mixed clique+block
-ansatz" conclusion is under review: it may be another filter false negative, not
-a genuine family gap (pending its solve verdict in the sweep).
+Full filter-free sweep of all 14 (per-vertex 300 s cap; every OK independently
+verified): SIX of the (3,10) roots SOLVED (v40 v49 v57 v60 v73 v96); v89 (den 26)
+and v103 (den 34) hit the 300 s cap but v57 shows those are compute-bound, not
+FAIL; the (4,10)/(4,9)/(5,10) roots were still running. Even (4,9) v42 -- the
+supposed mixed-ansatz frontier -- flips to min_block_count 1 filter-free, so the
+"v42 needs a mixed clique+block ansatz" conclusion is retracted pending its solve
+verdict: likely another filter false negative, not a genuine family gap.
 
 CAVEATS kept honest: (a) filter-free costs CP-SAT model size, not correctness --
 verify_exact still gates every certificate, so no false positive is possible, but
@@ -814,6 +820,88 @@ reduced. (c) the 785 previously-SOLVED states are unaffected (independently
 certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
+
+## RESIDUAL SWEEP RESULT: 8 of 11 roots solved; v42 retraction; v89 the frontier
+
+Dedicated filter-free runs (per root: full max_card = total weight, max_blocks 2,
+20 min budget, every SOLVE independently re-verified by the from-scratch 1-RDM).
+The 11 independent roots (14 SOLVE-FAIL vertices minus the two (4,10) trailing-
+zero pads of the (4,9) roots and the v113/v261 Hodge-dual merge):
+- SOLVED and VERIFIED (8): (3,10) v40 v49 v57 v60 v73 v96; (4,9) v40 v42. State
+  artifacts in docs/hybrid_cracks/ for v96, v60, 4_9_v40, 4_9_v42 (each passes
+  both the independent 1-RDM check and shipped verify_exact). The (4,10) v60/v62
+  pads and v261 dual follow from these for free.
+- COMPUTE-BOUND, NOT FAIL (2): (5,10) v113 (den 18, N=5, 252-det model exceeds
+  20 min) and (3,10) v103 (den 34, largest support space). v57 (den 28, solved at
+  1042 s) is the precedent that these need only more walltime.
+- GENUINE FRONTIER CANDIDATE (1): (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26. It
+  returns an EXHAUSTIVE FAIL (867 s, full max_card, filter-free), not a timeout,
+  and it has only TWO eigenvalue classes {15,6}, so the block family (<= 2 blocks,
+  no 3-clique possible) is COMPLETE for it. Caveat before calling it genuine: the
+  census phase solve is numeric (L-BFGS) and can miss a solution the exact
+  polygon-target solver would find, so v89 must be run through the exact solver
+  before it counts as a true residual.
+
+RETRACTION: the "(4,9) v42 needs a MIXED clique+block ansatz -- a genuine family
+gap" conclusion (the v42-audit and no-clique-precedent sections below) is WRONG.
+v42 solves via the plain filter-free block path as an ordinary interference state
+(phase exp(i(acos(-sqrt(10)/20)+pi))). The mixed-ansatz-gap narrative was entirely
+downstream of the support-filter bug; strike it. The clique machinery was never
+needed for any residual vertex reached so far.
+
+NET FOR THE PAPER: the residual of 14 (11 independent) is NOT a genuine residual.
+At least 8 of 11 roots are false negatives (verified), 2 more are compute-bound
+(expected to fall with walltime), and only v89 is a live candidate for a true
+residual pending its exact-solver verdict. Do not report 14/11; report the
+verified solved set and v89 as the single open frontier.
+
+## v57 dive: why den 28 resists, and the core+completion algorithm (handoff)
+
+v57 = (19,19,10,10,6,6,6,6,1,1)/28 is the first residual vertex where
+filter-free enumeration genuinely saturates: the production sweep hit its 300 s
+cap (inconclusive, verified here), and a dedicated 20-minute filter-free run was
+also launched. The handoff reports two bespoke DFS implementations (det-ordered
+with in-search off-block pruning, and mode-first branching over an off-block
+conflict graph) both exhausting 9 s/ansatz budgets across all one-block ansatze;
+the obstruction is the weight budget (Sigma k = 28), not the ansatz count.
+Structure map, reproduced in-repo: 27 one-block ansatze (VERIFIED), and exactly
+two incidence-1 modes 8, 9 (VERIFIED, the two 1/28 modes) that survive in every
+ansatz not blocking the 1-class, forcing one weight-1 det each (exploitable as in
+the tail-cover enumerations).
+
+CORE+COMPLETION (handoff algorithm proposal, not yet implemented): factor the
+search into (i) an EXCHANGE CORE -- the block-pair hop dets and their weights,
+constrained by number theory (the signed surd sum over cores must equal
+sqrt(x2) exactly, so core products live in the squarefree class of x2; cores are
+tiny), then (ii) a DESIGN COMPLETION -- the residual degree vector met by a
+one-hop-free support avoiding off-block hops with the core, which is the design
+MIP the census already solves fast, plus adjacency exclusions. Enumerate the
+(number-theoretically bounded) cores, MIP-complete each: (small) x (fast) in
+place of one intractable joint search. In parallel: 2-block ansatze and cliques
+under real walltime, and hybrid_search (which handled a 540 s pass at v96). (The
+handoff's v57_solver.py prototype is not in this repo; core+completion is a
+design spec here, not shipped code.)
+
+## v60 exact state shipped (all-positive form); conjecture updates from the cracks
+
+docs/hybrid_cracks/v60.jsonl: the (3,10) v60 = (8,8,5,5,5,1,1,1,1,1)/12 state
+from the fixed production sweep, gauge-reduced to its minimal form and
+independently certified (both the from-scratch 1-RDM and the exact char-poly
+identity pass, scripts/verify_hybrid_state.py). The support is LOOP-FREE, so all
+sweep phases were pure gauge: the state is ALL-POSITIVE, psi = (sqrt2 |012> +
+sqrt3 |029> + |035> + |048> + |067> + 2 |349>)/sqrt(12), with a single exchange
+channel (1,9) realizing the (8,1)-block off-diagonal sqrt(6)/12.
+
+Conjecture ledger as the residual collapses (update per new crack):
+- Conjecture 2 (exponent-2 holonomies): v96's single loop carries cos = -1/4,
+  minimal polynomial 2z^2 + z + 2, discriminant -15, splitting field
+  Q(sqrt(-15)), abelian Z/2 -- PASS (verified in-repo). v60 contributes no
+  holonomy (loop-free) -- vacuous PASS. Each further crack: compute the loop
+  kernel and minimal polynomial before the record lands.
+- Conjecture 3 (<= 2 channels): v96 one channel, v60 one channel -- both PASS,
+  strengthening the bound precisely where its falsification was predicted.
+- The "survivors need >= 3 channels" prediction is now FALSIFIED (it was
+  downstream of the filter bug); strike it wherever quoted.
 
 ## v96 SOLVED: a census false negative (2026-07)
 
