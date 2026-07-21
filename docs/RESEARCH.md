@@ -730,13 +730,25 @@ on this machine: 116,916 tail covers, 350,980 weight skeletons, ZERO hits, 44 s
 Every searched family is now empty for v96 at m=1: 2x2 blocks (preflight None),
 k-cliques with the one-hop cut (solver exhaust), single 3-clique + signed
 off-clique cancellation (prototype slice), and the full signed/phased-design
-family (this run). Remaining rungs: (a) the HYBRID family (clique block, algebraic
-weights, plus signed off-clique cancellation), the capped prototype completed by
-the same tail-cover technique; (b) m=2 rational (mode sums doubled; no
-interference precedent -- all 142 certified interference states have state-den =
-spectrum-den, VERIFIED in-repo, the 9 den-doubling states being DESIGN-REAL); (c)
-exactify rung 2-3. The same pipeline applies to the other five signature-novel
-roots.
+family (this run). Remaining rungs: (a) the HYBRID family -- rational weights in a
+block basis where designated block mode-pairs carry NONZERO off-diagonal targets
+(Schur-Horn magnitudes) and all off-block classes cancel, the capped prototype
+completed by the same tail-cover technique. The lone-pair funnel gives this
+search a new exact skeleton gate: a lone one-hop class cannot cancel (this is
+exactly the P1 prune in scripts/signed_design_fast.py), so in the hybrid it must
+sit on a block pair, its value becoming that block's off-diagonal; hence BLOCKS
+MUST COVER THE LONE-PAIR SET, and a skeleton whose lone pairs cannot be covered by
+admissible block pairs (distinct-eigenvalue mixing, few blocks) dies before any
+solve. The solver core is a POLYGON-TARGET SOLVER (design spec, not yet built):
+the coupled one-hop classes with mixed targets (prescribed magnitudes in-block,
+zero off-block), solved by triangle propagation (3-term classes pin relative
+phases by the law of cosines, up to reflection branches), 2-term propagation, and
+exact closure of the few remaining parameters by resultants; the stage-3b
+off-diagonal exactifier is its single-class special case. (b) m=2 rational (mode
+sums doubled; no interference precedent -- all 142 certified interference states
+have state-den = spectrum-den, VERIFIED in-repo, the 9 den-doubling states being
+DESIGN-REAL); (c) exactify rung 2-3. The same pipeline applies to the other five
+signature-novel roots.
 
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
