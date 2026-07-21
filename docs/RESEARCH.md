@@ -739,16 +739,40 @@ exactly the P1 prune in scripts/signed_design_fast.py), so in the hybrid it must
 sit on a block pair, its value becoming that block's off-diagonal; hence BLOCKS
 MUST COVER THE LONE-PAIR SET, and a skeleton whose lone pairs cannot be covered by
 admissible block pairs (distinct-eigenvalue mixing, few blocks) dies before any
-solve. The solver core is a POLYGON-TARGET SOLVER (design spec, not yet built):
+solve. The solver core is a POLYGON-TARGET SOLVER (BUILT: scripts/polygon_target.py):
 the coupled one-hop classes with mixed targets (prescribed magnitudes in-block,
 zero off-block), solved by triangle propagation (3-term classes pin relative
 phases by the law of cosines, up to reflection branches), 2-term propagation, and
-exact closure of the few remaining parameters by resultants; the stage-3b
+a bounded exact branch search over the remaining coupling; the stage-3b
 off-diagonal exactifier is its single-class special case. (b) m=2 rational (mode
 sums doubled; no interference precedent -- all 142 certified interference states
 have state-den = spectrum-den, VERIFIED in-repo, the 9 den-doubling states being
 DESIGN-REAL); (c) exactify rung 2-3. The same pipeline applies to the other five
 signature-novel roots.
+
+Polygon-target solver, verification (scripts/polygon_target.py, 2026-07). The
+solver only PROPOSES exact symbolic phases; a state is returned only if
+gpc_census.exactify.verify_exact certifies it (gauge-invariant char-poly
+identity), so an incomplete propagation can only miss a solution, never certify a
+wrong one -- soundness is architectural, the tests measure completeness. Two
+constraint geometries, handled distinctly: a MAGNITUDE target |P|=X is one real
+equation (the off-diagonal's own phase is free inside the block), reduced to a
+single-unknown law-of-cosines step (the stage-3b exactifier generalized); a
+CANCELLATION target P=0 is two real equations, so a 1-term class is infeasible
+(the lone-pair funnel, identical to signed_design_fast.py's P1 prune), a 2-term
+class pins its phase difference exactly, and a 3-term class is a rigid triangle
+(law of cosines, two reflection branches). Empirically the census never needs
+cancellation: across all 142 certified interference states every one-hop class
+with terms carries a NONZERO Schur-Horn target (active-class arity 1/2/3 =
+122/50/13, zero off-block classes), so the corpus tests the magnitude path only.
+VERIFIED IN-REPO: `python scripts/polygon_target.py --recertify-all` re-solves all
+142 from weights + spectrum alone (phases discarded), 142/142. The cancellation
+path is tested on a constructed positive (the 4-cycle signed design
+(|01>+|02>+|13>-|23>)/2, spectrum (1/2)^4, two 2-term classes cancelling) and the
+funnel negative (tests/test_polygon_target.py). Arity <= 3 (all that occurs in
+the census) is complete; arity >= 4 polygons carry internal freedom and fall to
+the bounded branch search, not proven complete. Next: feed hybrid block/target
+specifications for the v96 siblings (Task 1) into solve(..., targets=...).
 
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
