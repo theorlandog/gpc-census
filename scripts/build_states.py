@@ -38,7 +38,8 @@ SYSTEMS = ["3_9", "4_9", "3_10", "4_10", "5_10"]
 CERTIFIED = {"EXACT", "EXACT-CONSTR"}
 
 
-def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q, max_clique=3):
+def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q, max_clique=3,
+            max_card=16):
     import os
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -65,7 +66,8 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q, max_clique=3
                               "closed_form": rec["closed_form"]}))
             return
         # fall through to the general solver if no real design is found
-    rec = solve_vertex_exact_first(n, d, spec, max_card=16, max_clique=max_clique,
+    rec = solve_vertex_exact_first(n, d, spec, max_card=max_card,
+                                   max_clique=max_clique,
                                    max_cliques=max_cliques,
                                    clique_time_budget=clique_budget,
                                    certify_tier_b=True)
@@ -82,12 +84,12 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q, max_clique=3
     q.put(json.dumps({"status": "OK", "tierB": tb, "support": sup, "closed_form": cf}))
 
 
-def solve_one(task, max_cliques, clique_budget, cap, max_clique=3):
+def solve_one(task, max_cliques, clique_budget, cap, max_clique=3, max_card=16):
     n, d, i, verdict, spec_str = task
     q = mp.Queue()
     p = mp.Process(target=_worker,
                    args=(n, d, spec_str, verdict, max_cliques, clique_budget, q,
-                         max_clique))
+                         max_clique, max_card))
     t0 = time.time()
     p.start()
     p.join(cap)
@@ -125,6 +127,10 @@ def main() -> int:
                          "in one block); 4 closes many k=3 SOLVE-FAILs, slower")
     ap.add_argument("--clique-timeout", type=float, default=300.0,
                     help="per clique-count-level budget; raise to certify slow vertices")
+    ap.add_argument("--max-card", type=int, default=16,
+                    help="max support cardinality (determinants); raise above the "
+                         "vertex denominator to reach high-denominator supports "
+                         "(e.g. (3,10) v89 den 26, v103 den 34)")
     ap.add_argument("--cap", type=float, default=0.0,
                     help="hard per-vertex kill seconds (default: 4x clique-timeout)")
     ap.add_argument("--retry-uncertified", action="store_true",
@@ -172,7 +178,7 @@ def main() -> int:
     last = time.time()
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
         futs = [ex.submit(solve_one, t, args.max_cliques, args.clique_timeout, cap,
-                          args.max_clique)
+                          args.max_clique, args.max_card)
                 for t in todo]
         for fut in futs:
             n, d, i, verdict, spec_str, res, secs = fut.result()
