@@ -774,6 +774,47 @@ the census) is complete; arity >= 4 polygons carry internal freedom and fall to
 the bounded branch search, not proven complete. Next: feed hybrid block/target
 specifications for the v96 siblings (Task 1) into solve(..., targets=...).
 
+## THE FILTER WAS UNSOUND: block path now filter-free, residual collapsing (2026-07)
+
+The real root cause, three bugs deep. The block-ansatz selection-rule support
+filter (admissible_support signature closure) is UNSOUND for a block target: it
+is valid only when the 1-RDM is diagonal in the canonical basis (the 0-block
+design probe), but a block target's 1-RDM is non-diagonal, and the closure
+provably DROPS true-solution determinants. Verified directly: the census's own
+exact v96 solution has 2 of its 7 support determinants OUTSIDE even the
+class-merged closure. Merging classes across block pairs (the earlier fix) was
+necessary but insufficient; the only sound choice is to enumerate ALL
+determinants for block ansatze. FIX applied to both min_block_count and the
+solve_vertex_exact_first block stage (adm = None / all determinants; the strict
+filter remains only for the 0-block design probe, where it is valid). The clique
+path already ran filter-free for exactly this reason.
+
+RESULT (this SUPERSEDES the earlier "gate fix does not change the census output"
+note): the census's OWN production pipeline now cracks the false negatives, no
+external tooling. Each solve returns an exact certificate that is ALSO checked by
+an independent from-scratch 1-RDM (scripts/verify_hybrid_state.py):
+ - v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
+ - v60 (den 12): SOLVED 3 s, indep-verified.
+ - v49 (den 13): SOLVED 42 s, indep-verified.
+ - v40 (den 18): SOLVED 159 s, indep-verified.
+ - the test's own "off-family frontier" (9,6,5,5,5,2,2,1,1)/9: SOLVED 185 s (a
+   false negative too; the min_block_count budget test was corrected accordingly).
+A full filter-free sweep of all 14 is in progress (per-vertex 300 s cap; every OK
+independently verified). Even (4,9) v42 -- the supposed mixed-ansatz frontier --
+flips to min_block_count 1 filter-free, so the "v42 needs a mixed clique+block
+ansatz" conclusion is under review: it may be another filter false negative, not
+a genuine family gap (pending its solve verdict in the sweep).
+
+CAVEATS kept honest: (a) filter-free costs CP-SAT model size, not correctness --
+verify_exact still gates every certificate, so no false positive is possible, but
+high-denominator vertices are much slower and may hit the cap (inconclusive, not
+FAIL). (b) min_block_count is now SOUND but a weaker gate: it rarely returns None
+(all determinants make degree-feasibility easy), so its fail-fast value is
+reduced. (c) the 785 previously-SOLVED states are unaffected (independently
+certified); this only turns former FAILs into SOLVEs. The paper's residual count
+must be revised DOWN to whatever survives the full sweep -- provisionally most of
+the 14 are false negatives, not a genuine residual.
+
 ## v96 SOLVED: a census false negative (2026-07)
 
 (3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9, recorded SOLVE-FAIL, IS SOLVABLE. Exact
@@ -793,21 +834,90 @@ gpc_census.states.block_ansatze already generates (ptype (5,1), split (3,3),
 x2 = 3*3 - 5*1 = 4, target |off-diagonal|^2 = 4/81, exactly the value the census
 (3,10) interference blocks carry).
 
-ROOT CAUSE of the false negative: solve_vertex_exact_first bails in 0 s because
-min_block_count(3,10,v96,max_blocks=2) returns None -- the preflight declares NO
-off-block-free block-ansatz support feasible, when one demonstrably exists (the
-24 states, mode sums (3,5,5,5,2,3,1,1,1,1), only the (0,5) pair carrying a hop).
-The preflight is a soundness bug: it rejects a feasible ansatz, so the block
-sweep never runs. The polygon-target solver, enumerating skeletons directly
-(scripts/hybrid_search.py, bypassing the preflight), phase-solves them exactly.
+ROOT CAUSE, traced and FIXED at source (2026-07; this supersedes two earlier
+readings in this file's history -- the "min_block_count preflight" note and the
+"selection-rule collapse, grouping irrelevant" note, both wrong). The admission
+gate min_block_count took the selection-rule signature closure over the
+lambda-DEGENERATE (equal-value) classes only. A block that mixes two DISTINCT
+classes (the (5,1) block: a 5-mode with a 1-mode) rotates the natural basis
+across the class boundary, so the rotated support carries occupancy signatures
+the within-class closure drops; the gate found the CP-SAT model infeasible and
+returned None, and solve_vertex_exact_first bailed. FIX (src/gpc_census/states.py,
+_block_merge_groups, wired into both min_block_count and solve_vertex_exact_first):
+close over groups that MERGE the classes each block's mode pair joins. v96 is
+highly saturated (11 of 93 facets active, strict set size 1 vs 16 for a solved
+vertex like v17), and the earlier note wrongly concluded the size-1 strict set
+was a hard wall -- but the signature closure over the MERGED groups expands from
+it to a feasible admissible set (size 84 for the (5,1) ansatz). VERIFIED: the
+shipped test suite passes (64) and the fixed gate re-audit flips 12 of 14 to
+feasible (below).
 
-IMPLICATION: the residual of 14 (11 independent) is CONTAMINATED by preflight
-false negatives and is an upper bound, not the true count. A bounded max_blocks=1
-sweep of all 14 is underway (200 s/vertex). Early: v40 and v49 do NOT crack at
-max_blocks=1 (full walltime, no hit) and are being retried at max_blocks=2; v96
-cracks in ~5 s. This does not touch the 785 SOLVED states (each independently
-verify_exact-certified) -- only the FAIL labels are suspect. The paper's residual
-claim must be revised to whatever survives the sweep; do not cite 14/11 as final.
+IMPORTANT SCOPE: the gate fix is necessary but NOT sufficient. Gate feasibility
+is a lower bound; the census's own SOLVE path (per-ansatz min_support_cardinality
+plus the numeric L-BFGS phase solve and exactify) still returns FAIL on v96 even
+with the gate open -- a further CP-SAT inconsistency at the single-block ansatz
+plus the numeric solver's limits. So fixing the gate does NOT by itself change
+the census SOLVED/FAIL output. The actual exact states come from the
+direct-enumeration polygon-target solver (scripts/hybrid_search.py), which uses
+no selection-rule prune and phase-solves exactly; that is what cracked v96.
+
+FIXED-GATE RE-AUDIT of all 14 (max_blocks=2, time_cap 8 s; every number below
+reproduced in-repo against the patched gate): TWELVE now report a feasible block
+ansatz -- (3,10) v40:1 v49:2 v57:1 v60:1 v73:1 v89:1 v96:2 v103:1; (4,10) v60:1;
+(4,9) v40:1; (5,10) v113:2 v261:2. Only (4,9) v42 and its (4,10) v62 pad remain
+None. So the gate was a real false-negative FILTER on most of the residual.
+
+IMPLICATION, stated carefully: the residual of 14 (11 independent) is an UPPER
+BOUND and v96 is a confirmed crack, but the residual does NOT collapse to 2, and
+gate feasibility must not be read as solvability. A direct-enumeration sweep
+(hybrid_search, the real solve) finds v40 and v49 RESIST even a deep max_blocks=2
+slice (669k and 2.1M skeletons, no hit) despite both being gate-feasible -- so
+"gate artifact" explains the mislabeling but not the hardness; some residual
+vertices look genuinely hard. High-denominator vertices (v57/28, v89/26, v103/34,
+v113/v261/18) are not meaningfully searched yet (weight = den pushes supports to
+26-34 determinants). v42/v62 is the surviving gate-frontier candidate for a true
+family gap. This does not touch the 785 SOLVED states (each independently
+verify_exact-certified) -- only the FAIL labels are suspect. Do NOT cite 14/11 as
+final: v96 is SOLVED; the rest stay open pending a proper direct-enumeration
+sweep plus phase solves, not the gate re-audit alone.
+
+v42 audit (the surviving frontier vertex; handoff analysis, key claims
+reproduced in-repo). Unlike v96, (4,9) v42's persistence is NOT a gate artifact:
+its block path is exactly infeasible through 2 blocks (min_block_count = None
+with BOTH fixes in, a 3 s verdict not a timeout), while its clique path is
+gate-feasible (min_clique_count = 3: a single 3-clique ansatz is degree
+feasible). So v42 passes the clique gate and fails only in the phase solve --
+structural or compute bound, not gating. STRUCTURAL GAP located and verified: the
+solver enumerates block-only ansatze (block_ansatze, 2x2 blocks) OR clique-only
+ansatze (_solve_via_cliques over multi_clique_ansatze, disjoint cliques of size
+>= 3), and NEVER a MIXED configuration (a 2x2 block together with a 3-clique).
+v42 may need exactly such a mixed ansatz -- a genuine family gap, not a bug. The
+polygon-target solver can test mixed block+clique targets directly once
+hybrid_search is extended to emit them; that is the recommended next attack on
+v42. (The handoff's specific "35 feasible / 5 infeasible" single-clique tally was
+NOT reproduced here: clique_ansatze(sizes=(3,)) yields 374 ansatze, so that count
+is from _solve_via_cliques's internal filtered enumeration, not independently
+confirmed; the gate-clean conclusion stands on min_clique_count = 3.)
+
+NO GENUINE CLIQUE PRECEDENT (verified 2026-07, and it gates the whole clique
+attack). Across all 785 solved states the MAXIMUM number of active off-diagonal
+edges is 2, and ZERO states have three mutually-active edges (a genuine
+triangle / 3-clique): every solved interference state is 0, 1, or 2 disjoint 2x2
+pairs. So the census's clique machinery, though present in code, has never
+produced a solved state, and there is NO positive control for a genuine k>=3
+clique solver. Consequence for v42: a clique/mixed solver can be built (the k x k
+realization primitive, a Chan-Li Givens sweep giving one symmetric matrix with
+the target diagonal and eigenvalues, was validated on 2836 random majorized
+cases), but without a genuine-clique control a NULL result on v42 is
+uninterpretable (no-solution vs incomplete solver vs too-slow), while a HIT stays
+independently verifiable via the from-scratch 1-RDM check. A first-pass clique
+driver was prototyped and deliberately NOT committed: it fails its own self-test
+(the chosen control (3,8) v20 turned out to be a single (3,7) pair, not a
+3-clique, and surd-magnitude recognition is incomplete), and high-denominator
+vertices like v42 hit the same enumeration-scaling wall as v57/v89/v103. v42 is
+genuinely novel territory: a real clique+mixed exact solver (surd-exact magnitude
+targets, realization-family search, scalable enumeration) is a substantial
+dedicated build, not a quick extension.
 
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants

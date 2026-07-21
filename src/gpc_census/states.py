@@ -731,13 +731,20 @@ def min_block_count(n: int, d: int, spectrum, max_blocks: int = 4, time_cap: int
     from ortools.sat.python import cp_model
 
     strict = admissible_support(n, d, spectrum, groups=None)
-    closure = admissible_support(n, d, spectrum, groups="degenerate")
     best = None
     for nv, blocks in block_ansatze(n, d, spectrum, max_blocks=max_blocks):
         kb = len(blocks)
         if best is not None and kb >= best:
             continue  # a smaller feasible budget is already known
-        adm = closure if blocks else strict
+        if blocks:
+            # SOUNDNESS: no support filter for block ansatze. The signature
+            # closure is valid only for a diagonal 1-RDM (the 0-block design
+            # probe); for a block target the 1-RDM is non-diagonal in the
+            # canonical basis and even the class-merged closure provably drops
+            # true-solution determinants (v96), so enumerate all determinants.
+            adm = None
+        else:
+            adm = strict
         hop_pairs = [(u, v_) for u, v_, a_, b_, x2 in blocks]
         built = _skeleton_model(n, d, spectrum, nv=nv, support_filter=adm,
                                 require_hop_pairs=hop_pairs, forbid_offtarget=True)
@@ -1184,11 +1191,13 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             target = None
             xt = None
         else:
-            # sound prune: the degenerate-signature closure is a superset of
-            # the true support (a 2x2 rotation mixes across degenerate classes
-            # but preserves per-class occupancy counts), unlike the operator
-            # eigenprojection which is ill posed at degenerate vertices
-            adm = admissible_support(n, d, spectrum, groups="degenerate")
+            # SOUNDNESS: no support filter for block ansatze. The signature
+            # closure is valid only for a diagonal 1-RDM (the 0-block design
+            # probe); for a block target the 1-RDM is non-diagonal in the
+            # canonical basis and the closure provably drops true-solution
+            # determinants (v96), so enumerate all determinants. Filter-free
+            # costs CP-SAT model size, not correctness (verify_exact gates).
+            adm = list(dets_all)
             target = np.diag([v / den for v in nv]).astype(complex)
             for u, v_, a_, b_, x2 in blocks:
                 target[u, v_] = target[v_, u] = (x2 ** 0.5) / den
