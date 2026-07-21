@@ -38,7 +38,7 @@ SYSTEMS = ["3_9", "4_9", "3_10", "4_10", "5_10"]
 CERTIFIED = {"EXACT", "EXACT-CONSTR"}
 
 
-def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q):
+def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q, max_clique=3):
     import os
     os.environ["OMP_NUM_THREADS"] = "1"
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -65,7 +65,7 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q):
                               "closed_form": rec["closed_form"]}))
             return
         # fall through to the general solver if no real design is found
-    rec = solve_vertex_exact_first(n, d, spec, max_card=16, max_clique=3,
+    rec = solve_vertex_exact_first(n, d, spec, max_card=16, max_clique=max_clique,
                                    max_cliques=max_cliques,
                                    clique_time_budget=clique_budget,
                                    certify_tier_b=True)
@@ -82,11 +82,12 @@ def _worker(n, d, spec_str, verdict, max_cliques, clique_budget, q):
     q.put(json.dumps({"status": "OK", "tierB": tb, "support": sup, "closed_form": cf}))
 
 
-def solve_one(task, max_cliques, clique_budget, cap):
+def solve_one(task, max_cliques, clique_budget, cap, max_clique=3):
     n, d, i, verdict, spec_str = task
     q = mp.Queue()
     p = mp.Process(target=_worker,
-                   args=(n, d, spec_str, verdict, max_cliques, clique_budget, q))
+                   args=(n, d, spec_str, verdict, max_cliques, clique_budget, q,
+                         max_clique))
     t0 = time.time()
     p.start()
     p.join(cap)
@@ -119,6 +120,9 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--max-cliques", type=int, default=1,
                     help="0 uses per-vertex capacity (full block search, slower)")
+    ap.add_argument("--max-clique", type=int, default=3,
+                    help="largest clique size (distinct eigenvalue classes mixed "
+                         "in one block); 4 closes many k=3 SOLVE-FAILs, slower")
     ap.add_argument("--clique-timeout", type=float, default=300.0,
                     help="per clique-count-level budget; raise to certify slow vertices")
     ap.add_argument("--cap", type=float, default=0.0,
@@ -167,7 +171,8 @@ def main() -> int:
     n_new = 0
     last = time.time()
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
-        futs = [ex.submit(solve_one, t, args.max_cliques, args.clique_timeout, cap)
+        futs = [ex.submit(solve_one, t, args.max_cliques, args.clique_timeout, cap,
+                          args.max_clique)
                 for t in todo]
         for fut in futs:
             n, d, i, verdict, spec_str, res, secs = fut.result()
