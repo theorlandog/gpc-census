@@ -30,13 +30,14 @@ made and caught once; see tests pinning v_A and v_B).
 
 - Census complete for every determinate system, ranks 6 through 10
   (799 vertices; duals covered by particle-hole verdict transport).
-- Certified closed-form extremal states for 781 of the 799 vertices: every
+- Certified closed-form extremal states for 785 of the 799 vertices: every
   design vertex (integer and real) plus every interference vertex that has been
   reduced to a closed form, including all corners solved by the constructive
-  off-diagonal-target exactifier (stage 3b), v_B itself, and 10 closed by state
-  transport (scripts/transport_states.py; see the leads section). The 18
-  uncertified vertices are all TIMEOUT / SOLVE-FAIL at Tier A (state-finding), a
-  compute frontier, not an exactify or open-math frontier. A wider clique sweep
+  off-diagonal-target exactifier (stage 3b), v_B itself, and 14 closed by state
+  transport (scripts/transport_states.py: 10 by padding/frozen-core lift, 4 by
+  particle-hole duality; see the leads section). The 14 uncertified vertices are
+  all TIMEOUT / SOLVE-FAIL at Tier A (state-finding), a compute frontier, not an
+  exactify or open-math frontier. A wider clique sweep
   (max_clique=4) closed many that the k=3 run left as SOLVE-FAIL.
 - v_A (16,16,16,6,6,6,6,6,6)/21 is DESIGN-INT; v_B (20,14,14,14,14,4,4,4,4)/23
   is INTERFERENCE with cos(gamma) = 3/(4*sqrt(14)). The v_B phase is not
@@ -229,7 +230,7 @@ were the two they could not close at all.
    resumable campaign driver. Design vertices certify from their witness. Tier B
    now certifies every interference vertex whose support Tier A finds: the
    per-phase recognition layer plus the constructive off-diagonal-target solver
-   (stage 3b) leave no NO-EXACT residual. What remains uncertified (18 of 799)
+   (stage 3b) leave no NO-EXACT residual. What remains uncertified (14 of 799)
    is Tier A: TIMEOUT and SOLVE-FAIL vertices whose sparse support the block /
    clique search has not yet found, cleared by a longer clique-timeout and wider
    block search (--max-cliques 0) on stronger hardware, or by transporting a
@@ -258,13 +259,13 @@ were the two they could not close at all.
 6. Holonomy Galois structure: every certified interference holonomy in the
    analysis snapshot is 2-elementary abelian; see the section below. Open:
    prove the norm-square law from the stage-3b polygon-closure mechanism;
-   certify the remaining Tier-A stragglers (18 after the k=4 sweep and state
+   certify the remaining Tier-A stragglers (14 after the k=4 sweep and state
    transport, down from 73 at analysis time) and re-test (the only place a
    non-abelian D4 holonomy could hide); Groebner elimination for the exact
    antiunitary overlap of psi_B.
 7. State transport (VERIFIED and APPLIED, scripts/transport_states.py):
    padding and frozen-core lift transport states, not just verdicts; this
-   closed 10 Tier-A stragglers for free. See the dedicated section below.
+   closed 14 Tier-A stragglers for free. See the dedicated section below.
 
 ## Vertex-cone arithmetic and holonomy Galois structure (July 2026 leads)
 
@@ -277,7 +278,7 @@ lattice conclusions (Galois groups via PARI polgalois, Smith normal forms)
 are as computed by the analysis script and are not independently re-run
 here. Snapshot note: Lead B's per-vertex counts are as of a 770-certified
 snapshot (127 certified interference vertices); the certified set has since
-grown (128 interference, 18 total residual and shrinking under the k=4
+grown (128 interference, 14 total residual and shrinking under the k=4
 sweep). Lead A's counts are classification/geometry, independent of how
 many states are certified, so they are stable. Any use of these in the
 paper (results/report/main.md) is DEFERRED and must first refresh the
@@ -352,7 +353,7 @@ census fixes.
   magnitude; the product is a rational norm of the exact moduli). If
   proved: certified interference holonomies are always abelian of exponent
   2. A D4 counterexample can only hide in the still-uncertified Tier-A
-  vertices (18 now, 73 at analysis time), which is a shrinking target.
+  vertices (14 now, 73 at analysis time), which is a shrinking target.
 
 ### Correction found: the antiunitary overlap of psi_B (numerical)
 
@@ -386,7 +387,7 @@ L-BFGS, independent parametrizations):
   digits; exact identification needs Groebner elimination on the
   stationarity system (open).
 
-### State transport (VERIFIED and APPLIED): clears 10 Tier-A stragglers
+### State transport (VERIFIED and APPLIED): clears 14 Tier-A stragglers
 
 Unlike the two leads above, this is verified in this repo and applied to the
 shipped data. The verdict-transport maps also transport STATES, not just
@@ -399,7 +400,7 @@ frozen and empty orbitals) and re-add the target's frozen/empty orbitals.
 
 Verification is the same exact characteristic-polynomial identity Tier B uses
 (verify_exact against the target spectrum), so a transport is accepted only if
-it certifies exactly. Applied over the residual, this cleared 10 vertices,
+it certifies exactly. Applied over the residual, this cleared 14 vertices (10 by padding/frozen-core lift, 4 by particle-hole duality in the self-dual (5,10) system),
 several from a HIGHER-rank donor than the failing root (e.g. the k=4 sweep
 certified (3,10) v47, whose core state transports down to certify (3,8) v15,
 which had SOLVE-FAILed at rank 8): the rank-10 run succeeded where the rank-8
@@ -410,15 +411,15 @@ EXACT, provenance in a `transport` field), donor -> target:
   (3,10)v30 -> (3,9)v11, (4,10)v11
   (4,10)v58 -> (4,9)v38, (5,10)v38
 (3,9) v22 was already certified directly by the k=4 sweep. After transport the
-residual is 18, and (3,8) and (3,9) are fully certified. Implementation:
+residual is 14, and (3,8) and (3,9) are fully certified. Implementation:
 scripts/transport_states.py (dry run by default, --apply to merge). Future:
 fold this in as a stage of solve_all.py that runs before Tier A on any failing
 vertex (both directions), and add a nonzero-eigenvalue count check to validate
 alongside the power sums.
 
-### Geometry of the remaining 18 (lead)
+### Geometry of the remaining 14 (lead)
 
-The 18 survivors skew strongly non-simple (tangent-cone complexity is a genuine
+The 14 survivors skew strongly non-simple (tangent-cone complexity is a genuine
 difficulty predictor: the uncertified set is far more non-simple than the
 certified interference set). The simple survivors carry full lattice data and a
 speculative sweep prior from Lead A: their non-den facet-ray pairings (a prime

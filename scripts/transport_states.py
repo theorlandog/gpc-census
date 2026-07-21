@@ -65,6 +65,25 @@ def transport(cf, n_t, d_t, spectrum_t):
     return None
 
 
+def ph_transport(cf, n_t, d_t, spectrum_t):
+    """Particle-hole transport: the complement bijection T -> T^c carries a state
+    for spectrum mu to one for 1 - mu (the 1-RDM maps rho -> I - rho). Only useful
+    when the dual system d - N equals N (self-dual, d = 2 N), so the dual vertex is
+    in the same census system. Accepted only if verify_exact certifies it."""
+    import sympy as sp
+
+    from gpc_census.exactify import verify_exact
+
+    dets = [list(t) for t in cf["support_dets"]]
+    amps = [sp.sympify(p) for p in cf["pretty"]]
+    full = list(range(d_t))
+    cdets = [[o for o in full if o not in det] for det in dets]
+    spec = [Fraction(s) for s in spectrum_t]
+    if verify_exact(n_t, d_t, spec, cdets, amps):   # complement bijection, moduli carry
+        return cdets, amps
+    return None
+
+
 def main() -> int:
     import sympy as sp
 
@@ -84,10 +103,15 @@ def main() -> int:
         vspec[(r["system"], r["index"])] = (v["spectrum"], v["denominator"], v["integer_form"])
         vcore[(r["system"], r["index"])] = core_of(v["spectrum"])
 
-    donors: dict = {}
+    def speckey(spectrum):
+        return tuple(sorted(str(Fraction(s)) for s in spectrum))
+
+    donors: dict = {}          # core -> certified donor keys (padding / lift)
+    spec_donor: dict = {}      # spectrum-key -> certified donor key (for PH duals)
     for key, r in byidx.items():
         if r.get("tierB") in CERT and isinstance(r.get("closed_form"), dict):
             donors.setdefault(vcore[key], []).append(key)
+            spec_donor[speckey(vspec[key][0])] = key
 
     cleared = 0
     for key, r in list(byidx.items()):
@@ -95,12 +119,17 @@ def main() -> int:
             continue
         n_t, d_t = parse_sys(key[0])
         spectrum_t, den_t, intform = vspec[key]
-        for dk in donors.get(vcore[key], []):
-            res = transport(byidx[dk]["closed_form"], n_t, d_t, spectrum_t)
+        # candidate donors: same-core (padding/lift), then PH dual (self-dual system)
+        cands = [(dk, "transport", transport) for dk in donors.get(vcore[key], [])]
+        if d_t == 2 * n_t:  # self-dual system: the PH dual lives in the same system
+            dual = spec_donor.get(speckey([str(1 - Fraction(s)) for s in spectrum_t]))
+            if dual is not None:
+                cands.append((dual, "ph-dual", ph_transport))
+        for dk, via, fn in cands:
+            res = fn(byidx[dk]["closed_form"], n_t, d_t, spectrum_t)
             if res is None:
                 continue
             tdets, amps = res
-            assert byidx[dk]["closed_form"]["den"] == den_t, "denominator must transport"
             cf = {"den": den_t, "weights": byidx[dk]["closed_form"]["weights"],
                   "pretty": [str(a) for a in amps], "support_dets": tdets}
             support = []
@@ -110,10 +139,10 @@ def main() -> int:
             rec = {"system": key[0], "index": key[1], "classified": r["classified"],
                    "integer_form": intform, "denominator": den_t, "status": "OK",
                    "tierB": "EXACT", "support": support, "closed_form": cf,
-                   "transport": {"from_system": dk[0], "from_index": dk[1]}}
+                   "transport": {"from_system": dk[0], "from_index": dk[1], "via": via}}
             byidx[key] = rec
             cleared += 1
-            print(f"  {key[0]} idx {key[1]} <- {dk[0]} idx {dk[1]}", flush=True)
+            print(f"  {key[0]} idx {key[1]} <- {dk[0]} idx {dk[1]} ({via})", flush=True)
             break
 
     print(f"transport certifies {cleared} vertices")

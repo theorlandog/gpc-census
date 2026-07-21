@@ -107,7 +107,7 @@ Four stages, mirroring the mathematics:
       is v_B's cos(gamma) = 3/(4 sqrt(14)) as a general rule, and it certifies
       every interference corner whose support the solver finds
       (`exactify_interference`, which certifies v_B itself). Of the 799 census
-      vertices, 781 now carry a
+      vertices, 785 now carry a
       certified closed form; what is left uncertified is a compute frontier at
       the state-finding stage (a longer clique-timeout and wider block search
       reach it), not an open-form one.
@@ -175,8 +175,8 @@ precompute` (the default) is a lookup, not a solve. Current coverage:
 | (4, 9) | 103 | 87 | 16 | 101 |
 | (3, 10) | 113 | 71 | 42 | 105 |
 | (4, 10) | 159 | 134 | 25 | 157 |
-| (5, 10) | 292 | 250 | 42 | 286 |
-| **Total** | **799** | **643** | **156** | **781** |
+| (5, 10) | 292 | 250 | 42 | 290 |
+| **Total** | **799** | **643** | **156** | **785** |
 
 Every design corner (integer and real) is certified by construction. Of the
 156 interference corners, every one whose extremal state the engine has found
@@ -185,8 +185,8 @@ constructive solver): the remaining gap is entirely vertices where Tier A
 (state-finding) has not yet found a support, not an exactification frontier.
 `scripts/build_states.py --retry-uncertified` closes that gap with more
 compute, and `scripts/transport_states.py` closes more of it for free by
-transporting a certified sibling's state along the padding and frozen-core
-lift maps (10 vertices so far); the engine call is below.
+transporting a certified sibling's state along the padding, frozen-core lift,
+and particle-hole maps (14 vertices so far); the engine call is below.
 
 To recompute or push further, the engine is a single call
 (`gpc_census.states.certify_state(n, d, spectrum, max_clique=..., max_cliques=...)`),
