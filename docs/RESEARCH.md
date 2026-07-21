@@ -598,14 +598,22 @@ the states paper.
   each a face embedding of a settled (3,11) true vertex (the {lambda_12=0}
   face of Delta(3,12) is Delta(3,11); a vertex of a face is a vertex of the
   polytope). Rigorous and reproducible from the (3,11) settlement; the
-  first vertices of a rank-12 system. LEAD (not shipped, not re-derived
-  here): a separate exact-plethysm approach (multiplicity of s_lambda in
-  h_m[e_3] via Murnaghan-Nakayama) generates a (3,12) Stage-0 INNER cloud
-  of attainable spectra without Stage 1; its extreme points are vertex
-  CANDIDATES only (cloud-extremality does not certify true vertexhood, cf.
-  (3,7) needing M >= 7), so that cloud needs an in-repo generator and the
-  usual acceptance-oracle checks before it ships. The plethysm generator
-  complements Stage 1 (inner side), it does not replace it.
+  first vertices of a rank-12 system.
+- bracket_3_12_stage0_inner.json + scripts/plethysm_inner_hull.py: the (3,12)
+  Stage-0 INNER cloud, generated WITHOUT Stage 1 by exact plethysm (multiplicity
+  of s_lambda in h_m[e_3] via Murnaghan-Nakayama, exact Fractions; every emitted
+  point is a certified attainable spectrum). VERIFIED (2026-07): the generator's
+  own --validate gate reproduces the (3,6) vertex set exactly at M<=6 and finds
+  all ten (3,7) vertices by M<=10 (tests/test_plethysm.py guards the fast (3,6)
+  case); an independent cross-check confirms all 88 M<=6 points satisfy the
+  proved partial Grassmann families (partial_families oracle, zero violations)
+  and that the 9 face-embedded (3,12) vertices reachable at M<=6 all appear (the
+  other 10 have denominator >= 7 and need larger M, the documented convergence
+  behavior). CAVEAT: cloud-extremality (35 exact-certificate extreme points, 2
+  numerically-unverified candidates at M<=6) is NOT true-polytope vertexhood
+  until the cloud converges (M >= max vertex denominator); the rigorous vertices
+  are the face-embedded ones above. The plethysm generator complements Stage 1
+  (inner side), it does not replace it.
 
 ## Adjacent literature to respect
 
