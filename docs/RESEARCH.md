@@ -260,6 +260,29 @@ were the two they could not close at all.
    bracket) is still required. The refuted and certified points are a mandatory
    acceptance oracle for any (3,11) constraint generator: it must exclude every
    refuted point and retain every certified one.
+   PARTIAL-FAMILY CROSS-CHECK and a lead on the 4 OPENs (verified here in exact
+   arithmetic, 2026-07). The only rank-11/12 constraint data in print are the
+   stable Grassmann families of Altunbulak-Klyachko (CMP 2008, Thms 4.2.1 and
+   4.3.1) and Klyachko (arXiv:0904.2009): the first-kind pairs
+   lambda_{k+1}+lambda_{r-k} <= 1, the four second-kind quadruples (2345, 1346,
+   1256, 1247 <= 2), and a level-5 series extending each quadruple by lambda_11
+   (indices 1,2,4,7,11 etc.). Consistency checks all PASS: all 19 certified true
+   (3,11) vertices satisfy every family; the proved families restrict validly to
+   the {lambda_11=0} face (all 113 certified (3,10) vertices satisfy them). LEAD:
+   all four OPEN candidates violate a published level-5 series inequality (idx 23
+   and 26 and 34 violate AK-RMK-4.2.1 (1,2,4,7,11 <= 2); idx 44 violates only the
+   extended quadruple (2,3,4,5,11 <= 2)); none violate any PROVED family. If the
+   series inequalities hold, (3,11) settles completely, 19 TRUE + 31 REFUTED.
+   CAVEAT (validation law): the level-5 series is CLAIMED not proved: AK-RMK-4.2.1
+   is a remark whose proof CMP 2008 explicitly defers, and the lambda_11-extended
+   quadruples are an unrefereed letter claim. Neither is a certificate here, so
+   the four stay OPEN. Two ways to close them with proof: (a) prove the level-5
+   second-kind inequality inside Stage 1 (a finite Schubert/Grassmann coefficient
+   computation of the kind docs/stage1_klyachko_spec.md targets; a positive c_gamma
+   for the (1,2,4,7,11) diagram and its three variants converts all four to
+   REFUTED); or (b) attain idx 44 (it rests on the weakest, letter-only claim) --
+   an exact attainment would FALSIFY a published Klyachko inequality, itself a
+   citable result. Either branch is a win.
 4. Real-attainability certification per vertex is open research; the
    historical scripts/interference8_1.py is the v_B-specific instance
    (exhaustive two-block real stratum sweep). enumerate_designs in
@@ -562,6 +585,15 @@ the states paper.
   refuted, 4 open) by state transport + frozen-core/N=2 pairing +
   zero-restriction; see campaign item 3. Reproducible via
   scripts/settle_bracket_3_11.py; all 46 witnesses verified in this repo.
+- partial_families_3_11_3_12.json: the published stable Grassmann families for
+  N=3 at ranks 11 and 12 (the only rank-11/12 constraint data in print), tagged
+  PROVED (CMP 2008 Thms 4.2.1/4.3.1), WEAK (thesis odd-rank head), and CLAIMED
+  (the level-5 series, proof deferred / letter only). NECESSARY conditions, an
+  outer bound only. Regenerated and validated by scripts/partial_families.py:
+  all certified (3,11) and (3,12) true vertices satisfy every family, the proved
+  families restrict validly to {lambda_11=0} on all 113 (3,10) vertices, and the
+  four OPEN candidates each violate a CLAIMED (never a PROVED) inequality. Use as
+  a Farkas-style acceptance oracle for any future Stage-1 (3,11)/(3,12) output.
 - bracket_3_12_true_vertices.json: 19 CERTIFIED true vertices of (3,12),
   each a face embedding of a settled (3,11) true vertex (the {lambda_12=0}
   face of Delta(3,12) is Delta(3,11); a vertex of a face is a vertex of the
