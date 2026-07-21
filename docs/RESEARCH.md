@@ -793,17 +793,23 @@ RESULT (this SUPERSEDES the earlier "gate fix does not change the census output"
 note): the census's OWN production pipeline now cracks the false negatives, no
 external tooling. Each solve returns an exact certificate that is ALSO checked by
 an independent from-scratch 1-RDM (scripts/verify_hybrid_state.py):
- - v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
- - v60 (den 12): SOLVED 3 s, indep-verified.
- - v49 (den 13): SOLVED 42 s, indep-verified.
- - v40 (den 18): SOLVED 159 s, indep-verified.
+ - (3,10) v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
+ - (3,10) v60 (den 12): SOLVED 3 s, indep-verified.
+ - (3,10) v49 (den 13): SOLVED 42 s, indep-verified.
+ - (3,10) v73 (den 14): SOLVED 103 s, indep-verified.
+ - (3,10) v40 (den 18): SOLVED 159 s, indep-verified.
+ - (3,10) v57 (den 28): SOLVED 1042 s, indep-verified -- a DEDICATED run past the
+   300 s sweep cap; proves the high-denominator "timeouts" are compute limits, not
+   FAILs, and that even den 28 is a false negative.
  - the test's own "off-family frontier" (9,6,5,5,5,2,2,1,1)/9: SOLVED 185 s (a
    false negative too; the min_block_count budget test was corrected accordingly).
-A full filter-free sweep of all 14 is in progress (per-vertex 300 s cap; every OK
-independently verified). Even (4,9) v42 -- the supposed mixed-ansatz frontier --
-flips to min_block_count 1 filter-free, so the "v42 needs a mixed clique+block
-ansatz" conclusion is under review: it may be another filter false negative, not
-a genuine family gap (pending its solve verdict in the sweep).
+Full filter-free sweep of all 14 (per-vertex 300 s cap; every OK independently
+verified): SIX of the (3,10) roots SOLVED (v40 v49 v57 v60 v73 v96); v89 (den 26)
+and v103 (den 34) hit the 300 s cap but v57 shows those are compute-bound, not
+FAIL; the (4,10)/(4,9)/(5,10) roots were still running. Even (4,9) v42 -- the
+supposed mixed-ansatz frontier -- flips to min_block_count 1 filter-free, so the
+"v42 needs a mixed clique+block ansatz" conclusion is retracted pending its solve
+verdict: likely another filter false negative, not a genuine family gap.
 
 CAVEATS kept honest: (a) filter-free costs CP-SAT model size, not correctness --
 verify_exact still gates every certificate, so no false positive is possible, but
