@@ -502,6 +502,22 @@ the states paper.
   2008 paper, including extremal states (surd coefficients need re-checking
   against the PDF before use as ground truth).
 - bracket_3_11.json: the Stage-0 inner/outer bracket for (3,11).
+- bracket_3_11_settlement.json: 46/50 candidates settled (19 true, 27
+  refuted, 4 open) by state transport + frozen-core/N=2 pairing +
+  zero-restriction; see campaign item 3. Reproducible via
+  scripts/settle_bracket_3_11.py; all 46 witnesses verified in this repo.
+- bracket_3_12_true_vertices.json: 19 CERTIFIED true vertices of (3,12),
+  each a face embedding of a settled (3,11) true vertex (the {lambda_12=0}
+  face of Delta(3,12) is Delta(3,11); a vertex of a face is a vertex of the
+  polytope). Rigorous and reproducible from the (3,11) settlement; the
+  first vertices of a rank-12 system. LEAD (not shipped, not re-derived
+  here): a separate exact-plethysm approach (multiplicity of s_lambda in
+  h_m[e_3] via Murnaghan-Nakayama) generates a (3,12) Stage-0 INNER cloud
+  of attainable spectra without Stage 1; its extreme points are vertex
+  CANDIDATES only (cloud-extremality does not certify true vertexhood, cf.
+  (3,7) needing M >= 7), so that cloud needs an in-repo generator and the
+  usual acceptance-oracle checks before it ships. The plethysm generator
+  complements Stage 1 (inner side), it does not replace it.
 
 ## Adjacent literature to respect
 
