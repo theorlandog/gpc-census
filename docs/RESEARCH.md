@@ -664,6 +664,45 @@ Acceptance gates: reproduce 1/4/31/52/93 (the (3,d) counts) at ranks 6-10 first;
 the RHS law is a free invariant (any generated facet violating b = a_T is a
 bug), and the Edge law becomes one once reproduced.
 
+## Back-test of the Edge/rhs Laws on the open vertices: the depth triage score
+
+Applied the facet depth structure onto the (3,10) and (4,9) open vertices
+(exact arithmetic). Define per vertex the TOTAL ACTIVE DEPTH: the sum, over its
+saturated GPC facets, of each facet's rhs depth.
+
+- STRATIFICATION (within-system, reproduced here): the six (3,10) clique-family
+  opens sit at total depth 17-34, with v96 = 34 the highest among the fourteen
+  open vertices (and eleven active GPCs, also the open-set max). CORRECTION to
+  the handoff note "maximum of the entire system": this is the OPEN-SET maximum
+  only. The whole (3,10) system reaches total depth 304 (vertex 0) and 85 active
+  GPCs at highly degenerate design vertices, so v96 is the depth-extreme of the
+  opens, not of the polytope. v89/v103 sit at total depth 3-4 with ONE active
+  GPC each (reproduced here). (4,9): opens v40/v42 at
+  11/21 vs certified controls v_B/v30 at 6/6 (active-GPC counts reproduced:
+  v42 = 7, v30 = 3, v_B = 2). The open vertices are the depth-extremes of their
+  polytopes, in both directions.
+- CALIBRATION AGAINST SOLVE COST (handoff, NOT reproducible from shipped data):
+  among certified (3,10) interference vertices, the handoff reports
+  Spearman(total depth, Tier-A secs) = -0.625, median 8 s at depth > 12 vs 147 s
+  at depth <= 12: high constraint load makes the family search DECISIVE (fast
+  solve when a family solution exists, fast exhaust when not, mechanistically
+  explaining v96's fast exhaust), while near-zero load (v89/v103) is
+  under-constrained search blowup. states.jsonl does not store Tier-A solve
+  times, so this correlation is the campaign's, not re-run here.
+- TRIAGE RULE (proposed): compute total active depth (one exact pass, no
+  solving) at any rank. Near-zero => raise max_card / walltime (search-bound
+  stratum). Extreme-high within its system => route to the signed-cancellation
+  extension (family likely infeasible; do not spend the standard sweep).
+  Certified band lives between.
+- LIMITS (stated): no universal cross-system depth threshold (scales differ per
+  system); exhaust-vs-compute-bound within the high band is not depth-determined
+  on current evidence (v96 depth 34 exhausts, v42 depth 21 grinds; two points).
+  Also: the naive position-space selection-rule filter (support inside canonical
+  realizer sets) fails 0/34 on certified (3,10) interference states, though
+  stored supports carry arbitrary mode labels so this conflates label
+  permutation with genuine rotation; the degeneracy lemma's v_B diagnostic
+  remains the clean witness.
+
 ## The selection rule is basis-relative (degeneracy lemma)
 
 At a vertex, every active facet forces the extremal state onto
