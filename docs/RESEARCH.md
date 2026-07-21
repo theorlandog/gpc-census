@@ -793,21 +793,34 @@ gpc_census.states.block_ansatze already generates (ptype (5,1), split (3,3),
 x2 = 3*3 - 5*1 = 4, target |off-diagonal|^2 = 4/81, exactly the value the census
 (3,10) interference blocks carry).
 
-ROOT CAUSE of the false negative: solve_vertex_exact_first bails in 0 s because
-min_block_count(3,10,v96,max_blocks=2) returns None -- the preflight declares NO
-off-block-free block-ansatz support feasible, when one demonstrably exists (the
-24 states, mode sums (3,5,5,5,2,3,1,1,1,1), only the (0,5) pair carrying a hop).
-The preflight is a soundness bug: it rejects a feasible ansatz, so the block
-sweep never runs. The polygon-target solver, enumerating skeletons directly
-(scripts/hybrid_search.py, bypassing the preflight), phase-solves them exactly.
+ROOT CAUSE of the false negative (traced 2026-07, supersedes the first-pass
+"preflight bug" reading): v96 is a HIGHLY SATURATED vertex -- 11 of 93 GPC
+facets are active -- and only ONE determinant saturates all 11, so the
+selection-rule support set admissible_support(groups=None) has size 1 (a solved
+(3,10) interference vertex like v17 has 16). The census restricts every block
+ansatz's support to the signature closure of that strict set, and from a single
+determinant the closure cannot hold the 7-determinant support the valid states
+need. min_block_count then finds the CP-SAT feasibility model infeasible over the
+collapsed admissible set and returns None, so solve_vertex_exact_first bails in
+0 s. This is NOT a grouping bug: admissible_support does also mis-group
+cross-class (5,1) blocks under the equal-value grouping (a genuine but separate
+defect, fixable with block-aware groups), yet fixing the grouping does NOT crack
+v96, because the strict set is already size 1 before any grouping. The wall is
+the selection-rule support prune itself, which is sound for CERTIFICATION (the
+785 states are correctly certified) but too aggressive for SEARCH at saturated
+vertices. The polygon-target solver enumerates skeletons directly with NO
+selection-rule prune (scripts/hybrid_search.py) and phase-solves them exactly,
+which is why it finds what the census cannot.
 
-IMPLICATION: the residual of 14 (11 independent) is CONTAMINATED by preflight
-false negatives and is an upper bound, not the true count. A bounded max_blocks=1
-sweep of all 14 is underway (200 s/vertex). Early: v40 and v49 do NOT crack at
-max_blocks=1 (full walltime, no hit) and are being retried at max_blocks=2; v96
-cracks in ~5 s. This does not touch the 785 SOLVED states (each independently
-verify_exact-certified) -- only the FAIL labels are suspect. The paper's residual
-claim must be revised to whatever survives the sweep; do not cite 14/11 as final.
+IMPLICATION: the residual of 14 (11 independent) is an UPPER BOUND -- v96 is a
+confirmed false negative. But it does NOT collapse: a bounded sweep of all 14
+finds v40 and v49 resist even a deep max_blocks=2 slice (669k and 2.1M skeletons,
+no hit), so some residual vertices look genuinely hard. High-denominator vertices
+(v57/28, v89/26, v103/34, v113/v261/18) are not meaningfully searched yet (their
+weight = den makes supports run to 26-34 determinants). This does not touch the
+785 SOLVED states (each independently verify_exact-certified) -- only the FAIL
+labels are suspect. Do NOT cite 14/11 as final; revise to whatever survives a
+proper direct-enumeration sweep, and note v96 SOLVED explicitly.
 
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
