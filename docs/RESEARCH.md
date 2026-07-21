@@ -821,6 +821,47 @@ certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
 
+## CLASS-COUNT LAW: the two holdouts need a degenerate k x k block (keystone)
+
+Verified in-repo across the residual roots: every SOLVED root has >= 3 distinct
+eigenvalue classes (v40/v49/v57/(4,9)v40/(4,9)v42 have 4, v60/v73/v96 have 3),
+and the ONLY two-class vertices are (3,10) v89 (15,15,6^8)/26 and v103
+(18^4,5^6)/34 -- exactly the two (3,10) roots the filter-free sweep does not
+solve. This is structural, not compute: with two classes there is a single (a,b)
+block ptype and NO 3-clique is possible (a clique mixes DISTINCT classes), so the
+census family (block_ansatze = 2x2 only; cliques = distinct classes only) cannot
+express a two-class interference state. So v89's exhaustive 2x2 FAIL is a genuine
+FAMILY GAP, not a numeric-solver miss (superseding the earlier "unresolved /
+numeric miss" note): it needs a DEGENERATE k x k block -- k >= 3 modes mixing the
+two classes with a REPEATED eigenvalue (e.g. a 3x3 block with spectrum (15,6,6)/26
+at v89), which neither 2x2 blocks nor cliques generate. v96's degenerate 2x2
+(equal diagonal 3,3 splitting to 5,1) was this same phenomenon one size down.
+
+Two supporting laws from the shipped cracks (verified): (1) ONE-CHANNEL -- every
+shipped residual state (v96, v60, (4,9) v40/v42) uses exactly one exchange
+channel on 6-7 determinants; the residual was minimal interference hidden behind
+the filter bug, supporting Conjecture 3 where its falsification was predicted.
+(2) CONJECTURE 2 clean -- all new phases are exponent-2 abelian: v96 cos -1/4 ->
+2x^2+x+2 (Q(sqrt-15)); (4,9) v42 cos -sqrt(10)/20 -> 10x^4+19x^2+10; (4,9) v40
+cos sqrt(3)/6 -> 3x^4+5x^2+3 (both biquadratic, V4/abelian); v60 loop-free. Zero
+non-abelian holonomies. (A conjectured "scaling law", solve time ~1.32^den, is a
+handoff extrapolation, not reproduced here.)
+
+KEYSTONE TOOL: scripts/kxk_degen.py -- the degenerate 3x3 solver. Enumerates
+eigenvalue sub-multisets E (size 3, >= 2 distinct, repeats allowed), Schur-Horn
+integer diagonals majorized by E, mode-first DFS with one-hop pairs confined to
+the three block pairs, exact integer-surd off-diagonal sums with core-only sign
+enumeration, and the two exact 3x3 char-poly conditions
+(sum s^2 = e2(diag) - e2(E); cos theta from e3). Both identities VALIDATED
+in-repo (3000/3000 random symmetric 3x3). Every config reports EXHAUSTED or
+TIMEOUT (the exhaust-vs-timeout discipline). It runs at any rank, so it also
+attacks the two-class (3,11) open candidates (cand 23 = (6,6,1^9)/7, cand 44 =
+(6^5,1^6)/12), where a hit would falsify a claimed level-5 inequality -- the
+handoff reports cand 23 largely exhausted with two survivors under longer budget;
+those verdicts are the handoff engine's, pending a dedicated in-repo run. The one
+open decision for the whole rank-10/11 frontier is now this single extension:
+solve a two-class vertex with a degenerate k x k block, or exhaust it there.
+
 ## RESIDUAL SWEEP RESULT: 8 of 11 roots solved; v42 retraction; v89 the frontier
 
 Dedicated filter-free runs (per root: full max_card = total weight, max_blocks 2,
