@@ -666,6 +666,36 @@ Acceptance gates: reproduce 1/4/31/52/93 (the (3,d) counts) at ranks 6-10 first;
 the RHS law is a free invariant (any generated facet violating b = a_T is a
 bug), and the Edge law becomes one once reproduced.
 
+## v96 campaign: the signed-design family (NO-basis formulation, 2026-07)
+
+New ansatz family for the residual, formulated in the state's OWN natural-orbital
+basis, where rho is diagonal and the problem is exact: integer weights k_T >= 0
+with mode sums EXACTLY the integer spectrum, plus signs (or phases) making EVERY
+one-hop pair class cancel. This is a third family, strictly between the two the
+pipeline searches: designs (one-hop-free, rational weights) and block/clique
+states (one-hop pairs confined to blocks, algebraic weights). SIGNED DESIGNS
+(one-hop pairs present but cancelling, rational weights in the NO basis) were
+never searched by any census stage.
+
+v96 sandbox run (handoff): exact degree system (5,5,5,5,2,1,1,1,1,1), CP-SAT
+enumeration found 9,056 weight skeletons (TIME-CAPPED at 100 s, likely
+incomplete), all sign-searched with exact integer-surd class cancellation: ZERO
+signed-design hits at m=1, signs only. An independent in-repo search
+(scripts-style prototype over the six Schur-Horn diagonals with the same
+integer-surd cancellation) also returned zero, corroborating the negative.
+Escalation ladder for the rig, in order: (1) complete the m=1 enumeration (DFS
+with S4 x S5 symmetry reduction, not solution-capped CP-SAT); (2) PHASE
+cancellation -- classes with three equal-magnitude terms cancel at
+cube-root-of-unity phases, which signs cannot reach, and would carry a Z/3
+holonomy: a DIRECT TEST of the exponent-2 (Conjecture 2) holonomy law, since a
+Z/3 phase would falsify it; (3) m=2 (mode sums doubled), noting that all 142
+certified interference states have state-den = spectrum-den (VERIFIED in-repo;
+the only den-doubling states are 9 DESIGN-REAL, a different class), so m>1 has
+no interference precedent; (4) the same formulation for the other five
+signature-novel roots. A hit at any rung is an exact certificate by
+construction; exhausting rung 2 at m=1 would prove v96's extremal states have
+irrational NO-basis weight squares, itself a structural first.
+
 ## Depth triage score: back-testing the facet laws on the open vertices
 
 Define the TOTAL ACTIVE DEPTH of a vertex: the sum of rhs depths over its
