@@ -858,6 +858,26 @@ NOT reproduced here: clique_ansatze(sizes=(3,)) yields 374 ansatze, so that coun
 is from _solve_via_cliques's internal filtered enumeration, not independently
 confirmed; the gate-clean conclusion stands on min_clique_count = 3.)
 
+NO GENUINE CLIQUE PRECEDENT (verified 2026-07, and it gates the whole clique
+attack). Across all 785 solved states the MAXIMUM number of active off-diagonal
+edges is 2, and ZERO states have three mutually-active edges (a genuine
+triangle / 3-clique): every solved interference state is 0, 1, or 2 disjoint 2x2
+pairs. So the census's clique machinery, though present in code, has never
+produced a solved state, and there is NO positive control for a genuine k>=3
+clique solver. Consequence for v42: a clique/mixed solver can be built (the k x k
+realization primitive, a Chan-Li Givens sweep giving one symmetric matrix with
+the target diagonal and eigenvalues, was validated on 2836 random majorized
+cases), but without a genuine-clique control a NULL result on v42 is
+uninterpretable (no-solution vs incomplete solver vs too-slow), while a HIT stays
+independently verifiable via the from-scratch 1-RDM check. A first-pass clique
+driver was prototyped and deliberately NOT committed: it fails its own self-test
+(the chosen control (3,8) v20 turned out to be a single (3,7) pair, not a
+3-clique, and surd-magnitude recognition is incomplete), and high-denominator
+vertices like v42 hit the same enumeration-scaling wall as v57/v89/v103. v42 is
+genuinely novel territory: a real clique+mixed exact solver (surd-exact magnitude
+targets, realization-family search, scalable enumeration) is a substantial
+dedicated build, not a quick extension.
+
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
 ordered so the tightest (smallest-budget) modes bind first, with feasibility
