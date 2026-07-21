@@ -1,0 +1,86 @@
+{
+ "note": "Exact combinatorial invariants of the determinate moment polytopes, ranks 6-10, from the shipped V- and H-reps.",
+ "systems": {
+  "(3,6)": {
+   "dim": 3,
+   "vertices": 4,
+   "facets": 4,
+   "simple_vertices": 4,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 3,
+   "max_facets_per_vertex": 3
+  },
+  "(3,7)": {
+   "dim": 6,
+   "vertices": 10,
+   "facets": 10,
+   "simple_vertices": 2,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 6,
+   "max_facets_per_vertex": 9
+  },
+  "(3,8)": {
+   "dim": 7,
+   "vertices": 38,
+   "facets": 39,
+   "simple_vertices": 7,
+   "F_eq_V_plus_1": true,
+   "min_facets_per_vertex": 7,
+   "max_facets_per_vertex": 35
+  },
+  "(4,8)": {
+   "dim": 7,
+   "vertices": 22,
+   "facets": 23,
+   "simple_vertices": 9,
+   "F_eq_V_plus_1": true,
+   "min_facets_per_vertex": 7,
+   "max_facets_per_vertex": 22
+  },
+  "(3,9)": {
+   "dim": 8,
+   "vertices": 58,
+   "facets": 61,
+   "simple_vertices": 12,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 8,
+   "max_facets_per_vertex": 57
+  },
+  "(4,9)": {
+   "dim": 8,
+   "vertices": 103,
+   "facets": 69,
+   "simple_vertices": 25,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 8,
+   "max_facets_per_vertex": 65
+  },
+  "(3,10)": {
+   "dim": 9,
+   "vertices": 113,
+   "facets": 103,
+   "simple_vertices": 26,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 9,
+   "max_facets_per_vertex": 94
+  },
+  "(4,10)": {
+   "dim": 9,
+   "vertices": 159,
+   "facets": 135,
+   "simple_vertices": 32,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 9,
+   "max_facets_per_vertex": 131
+  },
+  "(5,10)": {
+   "dim": 9,
+   "vertices": 292,
+   "facets": 171,
+   "simple_vertices": 66,
+   "F_eq_V_plus_1": false,
+   "min_facets_per_vertex": 9,
+   "max_facets_per_vertex": 156
+  }
+ }
+}
