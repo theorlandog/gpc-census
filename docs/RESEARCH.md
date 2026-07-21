@@ -442,6 +442,30 @@ moduli denominators at the pairing values, not only at den. A second empirical
 prior from Lead B: most certified interference states are loop-free (signed-real
 suffices), so order the skeleton sweep signed-real-first before phase solves.
 
+### Synthesis: at most two exchange channels (VERIFIED, census-wide)
+
+The cleanest cross-cutting pattern, re-checked here at current counts: every
+certified interference state uses at most TWO one-hop exchange channels (active
+off-diagonal 1-RDM pairs). Distribution over the 142 certified interference
+states: 99 with one channel, 43 with two, ZERO with three or more (max = 2). If
+a constant channel bound survives the remaining Tier-A stragglers and higher
+ranks, the statement is strong: extremal N-representability requires only O(1)
+quantum interference, ever. This bears directly on discussion question (ii)
+(the sign-problem / interference gradation), and is a candidate for the paper's
+Discussion. Falsifiable prediction for the residual: since the certified solver
+sweeps small channel budgets first, the survivors should need >= 3 channels
+(equivalently, the <=2 law is either a theorem or a portrait of solver reach).
+
+More speculative synthesis leads (NOT verified here, recorded for follow-up):
+the elementary-abelian pattern across three unrelated computations (toric
+quotients (Z/p)^k at simple vertices, holonomy Galois groups (Z/2)^k with
+k<=3, channel budget <=2) suggests a toric/binomial structure on the extremal
+fiber after the Schur-Horn substitution, which would tie the multiquadratic
+phase fields, the norm-square law, and the elementary quotients together; the
+only measured invariant that is NOT elementary is the antiunitary overlap of
+psi_B (no minpoly of degree <=8, height <=1e10). First concrete test: write the
+polygon-closure equations of a kernel-dim-1 vertex and check binomiality.
+
 ## The selection rule is basis-relative (degeneracy lemma)
 
 At a vertex, every active facet forces the extremal state onto
