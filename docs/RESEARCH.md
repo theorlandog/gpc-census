@@ -497,6 +497,21 @@ claim: it holds for one stratum and not the other.
   equal +/- halves, which is CP-SAT-encodable per off-clique mode pair. This
   would also explain why min_clique_count passes while the sweep fails: the
   preflight tests only the degree system, without the one-hop-off-clique cut.
+  MEASURED CAVEAT (live runs): the stratum is not uniform. (3,10) v96 EXHAUSTS
+  its sweep (returns FAIL, not TIMEOUT) at max_clique=4, max_cliques=0
+  (capacity 5), max_card=36 -- a true expressiveness gap; reproduced here in
+  ~73 s (an earlier handoff note reported ~10 s at a smaller cap; 73 s is the
+  measured value at these settings). But (4,9) v42 at the same settings is
+  reported COMPUTE-BOUND past 200 s (no exhaustion), not reproduced here. So
+  before routing a root to the extension, classify it by exhaust-vs-timeout at
+  a short fixed budget: fast-exhaust roots need the new ansatz axis; slow roots
+  may still fall to walltime. Preflight table (min 2x2 blocks / min single
+  k-clique, max 5/5; reproduced exactly by scripts/leads-adjacent preflights):
+  (3,10) v40 None/3, v49 None/3, v57 None/3, v60 None/3, v73 None/3,
+  v89 1/None, v96 None/3, v103 1/None; (4,9) v40 None/3, v42 None/3;
+  (5,10) v113 None/3, v261 None/3. For the max_card stratum: v89 at
+  max_card=44 is reported to run past 280 s (real search space opens),
+  consistent with the raise-the-cap-and-wait plan.
 - max_card cap (the two simple survivors). (3,10) v89 (den 26) and v103 (den 34)
   are the two SIMPLE, isotypically impure survivors from the Lead-A lattice
   census (pairings {2,13,26} and {17,34}); both have min_block_count = 1 yet
@@ -529,6 +544,84 @@ phase fields, the norm-square law, and the elementary quotients together; the
 only measured invariant that is NOT elementary is the antiunitary overlap of
 psi_B (no minpoly of degree <=8, height <=1e10). First concrete test: write the
 polygon-closure equations of a kernel-dim-1 vertex and check binomiality.
+
+## Plethysm probe: cross-validation and a saturation warning (2026-07)
+
+Ran the shipped plethysm engine (scripts/plethysm_inner_hull.py) against the
+partial-families oracle and the four OPEN (3,11) candidates. Exact arithmetic
+throughout.
+
+- CROSS-VALIDATION (PASS): the certified-attainable clouds (217 points at
+  (3,11) M<=7 and 88 points at (3,12) M<=6) satisfy every published family in
+  partial_families_3_11_3_12.json with ZERO violations, across all three tiers
+  (PROVED, WEAK, CLAIMED). Mutual validation of the plethysm engine and the
+  transcribed families, and weak positive evidence for the CLAIMED level-5
+  series (attainable data keeps respecting it).
+- ATTAINABILITY PROBES of the OPENs at m = den: cand 23 (m=7) mult 0; cand 23
+  (m=14) mult 0; cand 44 (m=12) mult 0. INCONCLUSIVE (see the calibration below
+  before reading these as refutation).
+- SATURATION WARNING (the key finding): m = den is NOT sufficient even for TRUE
+  vertices. Control probes: cand 22 (TRUE, N=2-lift certificate) has mult 1 at
+  m=5, but cand 49, the uniform (3/11)^11 vertex with an explicit Z11
+  difference-design certificate, has mult 0 at m=11. A point can lie in the
+  moment polytope (mult(k*lambda) > 0 for some stretch k) while the primitive
+  multiplicity vanishes: plethysm coefficients are famously non-saturated, and
+  cand 49 is a concrete instance in the wild (attainable, mult 0 at the
+  primitive lattice point). Consequences: (a) negative probes at small m carry
+  almost no evidential weight, so the falsification branch on cand 44 needs m at
+  2-4x den (degree 72+, rig-scale, parallel over the mu-support); (b) the
+  convergence cost of the whole Stage-0 inner approach is set by the SATURATION
+  STRETCH of each vertex, not its denominator, so charting mult vs m for the
+  known rank<=10 vertices would calibrate that constant; (c) if cand 49 survives
+  scrutiny it may be independently citable (a physically meaningful
+  non-saturation example in the fermionic plethysm cone).
+- VERIFICATION STATUS (this repo): the saturation control probes (cand 22 mult 1
+  at m=5, cand 49 mult 0 at m=11) and the (3,12) M<=6 zero-violation check are
+  reproduced here. The (3,11) M<=7 count (217) and the OPEN-candidate probes are
+  from the handoff engine and not re-run at this budget (the (6,6,1^9)-type
+  characters are expensive).
+
+## Structure scan for the next campaigns (2026-07)
+
+Three empirical structures from re-mining states/vertices/facets, including the
+rank-11/12 data. These are HANDOFF LEADS: spot-checked (the flagship signature
+pair below is confirmed) but not fully reproduced in this repo; treat the
+per-count figures as the scanning engine's, pending an in-repo generator.
+
+1. VERTEX/FACET FUNCTORIAL ASYMMETRY. Vertices are mostly functorial (transport
+   dominates); facets are only HALF functorial, even after adding a second facet
+   map, SERIES EXTENSION (append a new index with coefficient +-1 or +-2, rhs
+   unchanged: the shape of the published level-5 series): pad+extend explains
+   48/93 facets at (3,10) and 53/125 at (4,10); appends (-1,0) and (-2,0) alone
+   hit 19 and 15 of the (4,10) facets from (4,9). The residual genuinely-new
+   facets per rank are characterized: dense support (6-8 nonzero coefficients at
+   d=10) and small height (max |coeff| <= 4, growing ~+1/rank). Generator
+   consequence: candidate facets = functorial closure (free, ~half) + a bounded
+   box (height <= prev+1, >=6 nonzero, decreasing-compatible) for the Schubert
+   test. The tower's irreducible novelty lives on the facet side.
+2. SIGNATURE GRAMMAR (multiplicity patterns of integer forms). TRUE vertices are
+   signature-hereditary: 17/19 rank-11 true vertices reuse a rank-10 signature
+   (novel: the boundary shapes (1,10) and (11,)). Signature-NOVELTY predicts
+   hardness: all 4 OPEN rank-11 candidates and 6 of the 14 open rank-10 vertices
+   ((3,10) v49/v57/v89/v96/v103, (5,10) v261) have signatures never certified
+   before. NEW SOLVER TECHNIQUE: ansatz transfer by signature -- warm-start the
+   block/clique sweep from certified same-signature interference siblings (same
+   mixed classes, split ratios rescaled to the new denominator). 8 of the 14
+   have donors; flagship pair (signature (1,4,2,2), confirmed here): (4,9) v42
+   (14,9,9,9,9,3,3,2,2)/15 with certified sibling (4,9) v30
+   (16,9,9,9,9,4,4,2,2)/16, near-identical architecture at the neighboring
+   denominator (the v_B-family phenomenon, now algorithmic). Implement as a
+   warm-start stage before the general sweep and before the signed-cancellation
+   extension.
+3. SUPPORT RIGIDITY. Only 267/785 certified supports admit even one
+   equal-occupation-class transposition symmetry as stored (caveat: stored
+   supports are orbit representatives, so this underestimates).
+   Equivariant/difference-design search is a useful prior (it built the (3,11)
+   uniform vertex), not a universal law.
+
+Hardness ordering of the 14 implied: 8 warm-startable by signature transfer; 6
+signature-novel (route to the signed-cancellation extension and, failing that,
+treat as the genuinely new mathematics of rank 10).
 
 ## The selection rule is basis-relative (degeneracy lemma)
 
