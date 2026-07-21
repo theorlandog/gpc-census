@@ -174,6 +174,11 @@ def main():
     ap.add_argument("--max-blocks", type=int, default=1)
     ap.add_argument("--max-seconds", type=float, default=None)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--max-support", type=int, default=None,
+                    help="cap the support cardinality (nonzero dets). Extremal "
+                         "states are sparse, so a small cap (e.g. 10) shrinks "
+                         "the skeleton search by orders of magnitude. Default: "
+                         "the full weight W, which is intractable at high den.")
     ap.add_argument("--dump", default=None)
     a = ap.parse_args()
     dumpf = open(a.dump, "w") if a.dump else None
@@ -182,14 +187,14 @@ def main():
         row = next(r for r in RESIDUAL if r[0] == (N, d) and r[1] == idx)
         search_vertex(row[0], row[1], row[2], row[3],
                       max_blocks=a.max_blocks, max_seconds=a.max_seconds,
-                      limit=a.limit, dumpf=dumpf)
+                      limit=a.limit, dumpf=dumpf, max_support=a.max_support)
     elif a.all:
         cracked = 0
         for (system, index, spec_int, den) in RESIDUAL:
             hits, _ = search_vertex(system, index, spec_int, den,
                                     max_blocks=a.max_blocks,
                                     max_seconds=a.max_seconds, limit=a.limit,
-                                    dumpf=dumpf)
+                                    dumpf=dumpf, max_support=a.max_support)
             cracked += bool(hits)
         print(f"\nCRACKED {cracked}/{len(RESIDUAL)} residual vertices "
               f"(this bounded slice)")
