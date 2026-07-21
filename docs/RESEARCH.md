@@ -677,18 +677,19 @@ states (one-hop pairs confined to blocks, algebraic weights). SIGNED DESIGNS
 (one-hop pairs present but cancelling, rational weights in the NO basis) were
 never searched by any census stage.
 
-v96 RESULT (handoff, exhaustive; supersedes the time-capped CP-SAT runs of
-9,056 and 6,395 skeletons). The structured enumeration (tail-cover decomposition
-over the five incidence-1 modes with a memoized head solve; signed_design_v96_
-full.py, NOT in-repo) is reported to cover the ENTIRE m=1 family: 116,916 tail
-covers, 350,980 weight skeletons, run to completion in 41 s, ZERO hits on all
-rungs. An independent in-repo search (six Schur-Horn diagonals, same
-integer-surd cancellation) returned zero on its slice, corroborating the
-negative but not the exhaustiveness (the full 350,980-skeleton enumerator is not
-reproduced here). Epistemic status per rung, as reported:
- - signs (rung 1): EXACT and EXHAUSTIVE, theorem-grade -- v96 admits NO signed
-   design at m=1 (no extremal state with rational weight squares in its own NO
-   basis and sign-only cancellation). Reproduce in-repo before citing.
+v96 RESULT (VERIFIED IN-REPO, exhaustive; supersedes the time-capped CP-SAT runs
+of 9,056 and 6,395 skeletons). The structured enumeration
+(scripts/signed_design_v96_full.py: tail-cover decomposition over the five
+incidence-1 modes with a memoized head solve) covers the ENTIRE m=1 family. The
+enumeration is exhaustive because the total weight is fixed at 9 (mode sums sum
+to 27, three per determinant), so every support has <= 9 determinants; the tail
+(the five incidence-1 modes, each in exactly one weight-1 det) plus the head
+(weighted dets inside {0..4}) enumerate every integer m=1 skeleton. REPRODUCED
+on this machine: 116,916 tail covers, 350,980 weight skeletons, ZERO hits, 44 s
+(handoff run 41 s). Epistemic status per rung:
+ - signs (rung 1): EXACT and EXHAUSTIVE, theorem-grade, VERIFIED IN-REPO -- v96
+   admits NO signed design at m=1 (no extremal state with rational weight squares
+   in its own NO basis and sign-only cancellation).
  - phase cancellation (rung 2-3): polygon filter exact-necessary; surviving
    skeletons excluded by multi-start numeric phase solve (12 starts, residual
    1e-10). High confidence, NOT certificate-grade. An exact algebraic exclusion
