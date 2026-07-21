@@ -442,6 +442,38 @@ moduli denominators at the pairing values, not only at den. A second empirical
 prior from Lead B: most certified interference states are loop-free (signed-real
 suffices), so order the skeleton sweep signed-real-first before phase solves.
 
+### Why the 14 fail: two strata (diagnosis, verified against the shipped data)
+
+The 14 SOLVE-FAILs in states.jsonl (785/799 certified) split into two distinct
+failure modes, both checked against the current data and the solver source. This
+sharpens the standing "cleared by a longer clique-timeout, not new mathematics"
+claim: it holds for one stratum and not the other.
+
+- Off-clique cancellation gap (the non-simple majority). These vertices carry no
+  feasible 2x2 block ansatz (min_block_count = None) but a single 3-clique is
+  degree-feasible (min_clique_count = 3), matching the >=2-channel synthesis
+  prediction. But _solve_via_cliques (src/gpc_census/states.py, the one-hop cut
+  at the AddBoolOr over hop_pairs) forbids EVERY support one-hop pair that lies
+  off the clique union, whereas 80 of the 127 certified interference states
+  settle their off-diagonals by SIGNED CANCELLATION on such pairs, not by
+  avoiding them. So the k-clique family as implemented cannot express those
+  states at all: for these the failure is an ANSATZ-EXPRESSIVENESS gap, not a
+  walltime budget, and more hardware alone will not close them. LEAD (proposed,
+  not implemented, not verified): add an ansatz axis that ADMITS off-clique
+  one-hop pairs required to cancel by signs. With integer weights on the natural
+  grid the sqrt(k_a k_b) products cancel iff the off-clique pairs partition into
+  equal +/- halves, which is CP-SAT-encodable per off-clique mode pair. This
+  would also explain why min_clique_count passes while the sweep fails: the
+  preflight tests only the degree system, without the one-hop-off-clique cut.
+- max_card cap (the two simple survivors). (3,10) v89 (den 26) and v103 (den 34)
+  are the two SIMPLE, isotypically impure survivors from the Lead-A lattice
+  census (pairings {2,13,26} and {17,34}); both have min_block_count = 1 yet
+  SOLVE-FAIL. Their denominators exceed the solver's default max_card = 24, so a
+  legitimate support may need more determinants than the cap admits. This IS the
+  genuine longer-walltime / raise-the-cap case: rerun with max_card >= den + 10
+  and the Lead-A prior (prioritize block splits aligned with the 13- and
+  17-structure). Not yet run to completion here.
+
 ### Synthesis: at most two exchange channels (VERIFIED, census-wide)
 
 The cleanest cross-cutting pattern, re-checked here at current counts: every
