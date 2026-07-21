@@ -724,6 +724,21 @@ den 18. Roots with no incidence-1 modes (v89, v103) have a much larger skeleton
 space; run under --max-seconds and read the frontier line (a capped run is a
 documented partial slice, not a silent cap).
 
+Fast variant (scripts/signed_design_fast.py): same enumeration and same hit
+definitions as the generic version, with three EXACT per-skeleton prunes -- (P1)
+a one-hop class with a single term can never cancel; (P2) a two-term class
+cancels only if the two surd magnitudes match (m1==m2 and q1==q2); (P3) each
+surviving two-term class is a linear GF(2) constraint on the sign bits, so
+Gaussian elimination replaces the 2^(n-1) sign sweep, and the remaining >=3-term
+classes are checked on the reduced solution set. All three are exact necessary
+conditions, so the answer is unchanged. VERIFIED IN-REPO two ways:
+tests/test_signed_design_fast.py is a differential guard asserting fast == generic
+(skeleton count AND hit set, signs and phases) across six small spectra chosen so
+the design/signed-design cases actually carry hits -- the guard that matters,
+since v96's zero-hit result cannot exercise a wrongly-dropped hit; and the v96
+full run reproduces 350,980 skeletons / 0 hits (60 s here vs the generic 79 s).
+Use it for the larger sibling roots (v89, v103) under --max-seconds.
+
 ## Depth triage score: back-testing the facet laws on the open vertices
 
 Define the TOTAL ACTIVE DEPTH of a vertex: the sum of rhs depths over its
