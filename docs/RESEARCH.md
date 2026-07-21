@@ -774,6 +774,41 @@ the census) is complete; arity >= 4 polygons carry internal freedom and fall to
 the bounded branch search, not proven complete. Next: feed hybrid block/target
 specifications for the v96 siblings (Task 1) into solve(..., targets=...).
 
+## v96 SOLVED: a census false negative (2026-07)
+
+(3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9, recorded SOLVE-FAIL, IS SOLVABLE. Exact
+closed-form extremal states exist; 24 were found in a single 540 s hybrid pass
+and all 24 pass BOTH an independent from-scratch 1-RDM spectrum check and the
+shipped verify_exact gate (scripts/verify_hybrid_state.py; stored in
+docs/hybrid_cracks/v96.jsonl; regression guard tests/test_v96_crack.py). A
+representative state, weights (1,1,1,1,1,2,2)/9 on dets (1,2,6)(1,3,7)(1,8,9)
+(0,1,4)(1,4,5)(0,2,3)(2,3,5), carries a single interference phase
+exp(-i acos(-1/4)) and reproduces the spectrum exactly.
+
+They live on the DEGENERATE (5,1) BLOCK ansatz: modes 0 and 5 both carry
+occupation 3/9, and their 2x2 block [[3/9, 2/9],[2/9, 3/9]] has eigenvalues
+5/9, 1/9. The 1-RDM is block diagonal (the supports are off-block-hop free), so
+this is NOT the signed-cancellation extension -- it is the plain block ansatz
+gpc_census.states.block_ansatze already generates (ptype (5,1), split (3,3),
+x2 = 3*3 - 5*1 = 4, target |off-diagonal|^2 = 4/81, exactly the value the census
+(3,10) interference blocks carry).
+
+ROOT CAUSE of the false negative: solve_vertex_exact_first bails in 0 s because
+min_block_count(3,10,v96,max_blocks=2) returns None -- the preflight declares NO
+off-block-free block-ansatz support feasible, when one demonstrably exists (the
+24 states, mode sums (3,5,5,5,2,3,1,1,1,1), only the (0,5) pair carrying a hop).
+The preflight is a soundness bug: it rejects a feasible ansatz, so the block
+sweep never runs. The polygon-target solver, enumerating skeletons directly
+(scripts/hybrid_search.py, bypassing the preflight), phase-solves them exactly.
+
+IMPLICATION: the residual of 14 (11 independent) is CONTAMINATED by preflight
+false negatives and is an upper bound, not the true count. A bounded max_blocks=1
+sweep of all 14 is underway (200 s/vertex). Early: v40 and v49 do NOT crack at
+max_blocks=1 (full walltime, no hit) and are being retried at max_blocks=2; v96
+cracks in ~5 s. This does not touch the 785 SOLVED states (each independently
+verify_exact-certified) -- only the FAIL labels are suspect. The paper's residual
+claim must be revised to whatever survives the sweep; do not cite 14/11 as final.
+
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
 ordered so the tightest (smallest-budget) modes bind first, with feasibility
