@@ -821,6 +821,40 @@ certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
 
+## RESIDUAL SWEEP RESULT: 8 of 11 roots solved; v42 retraction; v89 the frontier
+
+Dedicated filter-free runs (per root: full max_card = total weight, max_blocks 2,
+20 min budget, every SOLVE independently re-verified by the from-scratch 1-RDM).
+The 11 independent roots (14 SOLVE-FAIL vertices minus the two (4,10) trailing-
+zero pads of the (4,9) roots and the v113/v261 Hodge-dual merge):
+- SOLVED and VERIFIED (8): (3,10) v40 v49 v57 v60 v73 v96; (4,9) v40 v42. State
+  artifacts in docs/hybrid_cracks/ for v96, v60, 4_9_v40, 4_9_v42 (each passes
+  both the independent 1-RDM check and shipped verify_exact). The (4,10) v60/v62
+  pads and v261 dual follow from these for free.
+- COMPUTE-BOUND, NOT FAIL (2): (5,10) v113 (den 18, N=5, 252-det model exceeds
+  20 min) and (3,10) v103 (den 34, largest support space). v57 (den 28, solved at
+  1042 s) is the precedent that these need only more walltime.
+- GENUINE FRONTIER CANDIDATE (1): (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26. It
+  returns an EXHAUSTIVE FAIL (867 s, full max_card, filter-free), not a timeout,
+  and it has only TWO eigenvalue classes {15,6}, so the block family (<= 2 blocks,
+  no 3-clique possible) is COMPLETE for it. Caveat before calling it genuine: the
+  census phase solve is numeric (L-BFGS) and can miss a solution the exact
+  polygon-target solver would find, so v89 must be run through the exact solver
+  before it counts as a true residual.
+
+RETRACTION: the "(4,9) v42 needs a MIXED clique+block ansatz -- a genuine family
+gap" conclusion (the v42-audit and no-clique-precedent sections below) is WRONG.
+v42 solves via the plain filter-free block path as an ordinary interference state
+(phase exp(i(acos(-sqrt(10)/20)+pi))). The mixed-ansatz-gap narrative was entirely
+downstream of the support-filter bug; strike it. The clique machinery was never
+needed for any residual vertex reached so far.
+
+NET FOR THE PAPER: the residual of 14 (11 independent) is NOT a genuine residual.
+At least 8 of 11 roots are false negatives (verified), 2 more are compute-bound
+(expected to fall with walltime), and only v89 is a live candidate for a true
+residual pending its exact-solver verdict. Do not report 14/11; report the
+verified solved set and v89 as the single open frontier.
+
 ## v57 dive: why den 28 resists, and the core+completion algorithm (handoff)
 
 v57 = (19,19,10,10,6,6,6,6,1,1)/28 is the first residual vertex where
