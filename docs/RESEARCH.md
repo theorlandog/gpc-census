@@ -638,12 +638,14 @@ facet inequalities (all nine systems, exact rational arithmetic). Two laws:
   is what the Schubert coefficient certifies, so the generator only needs depths
   2..~8 at rank 11. (The depth analysis is the handoff engine's, not re-run
   here; the b = a_T law itself is reproduced.)
-- EDGE LAW (HANDOFF, not re-run here): every facet's sorted coefficient vector is
-  reported to be an EXTREMAL RAY of the arrangement cut on the ordered cone
+- EDGE LAW (VERIFIED IN-REPO, 542/542): every facet's sorted coefficient vector
+  is an EXTREMAL RAY of the arrangement cut on the ordered cone
   {a_1 >= ... >= a_d} by the subset-sum tie hyperplanes a_T = a_T' (tight rank
-  exactly d-2, a ray modulo the constant shift). Sharper than Klyachko's remark
-  that edges SUFFICE: empirically facets ARE edges. Worth a proof attempt from
-  Theorem 3.2.1; until then a claimed 542/542 law pending in-repo reproduction.
+  exactly d-2, a ray modulo the constant shift, under which the inequality
+  system is invariant). Sharper than Klyachko's remark that edges SUFFICE:
+  empirically facets ARE edges. Reproduce both laws with
+  `python scripts/facet_laws.py --verify` (exact rational arithmetic; also
+  prints the per-system depth tables). Worth a proof attempt from Thm 3.2.1.
 - Facet grammar corollary (handoff): facet vectors have few distinct values
   (typically 4-6 at d=10, heights <= 7), so facets carry their own
   multiplicity-signature grammar, mirroring the vertex grammar.
@@ -663,6 +665,219 @@ STAGE-1 BLUEPRINT this yields (handoff proposal; parameters reported measured):
 Acceptance gates: reproduce 1/4/31/52/93 (the (3,d) counts) at ranks 6-10 first;
 the RHS law is a free invariant (any generated facet violating b = a_T is a
 bug), and the Edge law becomes one once reproduced.
+
+## Core/hole isomorphisms and decomposability of the 14 (2026-07)
+
+Fresh sweep of functorial reductions over the residual, two results:
+
+- DUAL PAIR (VERIFIED IN-REPO): (5,10) v113 (17,17,16,8,8,8,4,4,4,4)/18 and
+  (5,10) v261 (14,14,14,14,10,10,10,2,1,1)/18 are HODGE DUALS of each other
+  (lambda -> 1 - lambda at half filling), previously carried as separate roots.
+  Checked against states.jsonl: v261's complement (18 - lambda, sorted) is
+  exactly v113. They are ONE problem -- an exact state for either yields the
+  other by the Hodge star immediately, so the residual is 11 independent
+  problems, not 12: the 14 SOLVE-FAIL vertices minus the two (4,10) entries
+  (v60, v62), which strip their trailing zero to become (4,9) v40, v42 exactly
+  (same denominator 15, verified), minus the merged dual pair. (5,10) is the
+  only self-dual system in the census (d - N = N), so this is the only
+  within-census dual: the (3,10), (4,9), (4,10) roots dualize to (7,10),
+  (5,9), (6,10), none of which is a solved system.
+- NO DECOMPOSITIONS (HANDOFF sweep, not re-run in-repo): the campaign reports
+  that none of the 14 splits as an exact wedge product of lower states on
+  disjoint mode sets, checked over all particle/mode splits with the full
+  reduction toolkit (frozen-core peeling, trailing-zero stripping,
+  particle-hole reduction, N=2 pairing, certified-library lookup) on each
+  part -- zero valid splits. Independently confirmed here only the necessary
+  conditions this rests on: no root (the 12, excluding the two (4,10) pads
+  where the trailing zeros live) has lambda_1 = 1 or a trailing zero at the
+  root level. The exhaustive negative itself is the handoff engine's, pending
+  an in-repo reproduction. If it holds, every residual vertex is "connected":
+  its extremal state entangles across the full mode set, so no product
+  construction cracks any of them.
+
+## v96 campaign: the signed-design family (NO-basis formulation, 2026-07)
+
+New ansatz family for the residual, formulated in the state's OWN natural-orbital
+basis, where rho is diagonal and the problem is exact: integer weights k_T >= 0
+with mode sums EXACTLY the integer spectrum, plus signs (or phases) making EVERY
+one-hop pair class cancel. This is a third family, strictly between the two the
+pipeline searches: designs (one-hop-free, rational weights) and block/clique
+states (one-hop pairs confined to blocks, algebraic weights). SIGNED DESIGNS
+(one-hop pairs present but cancelling, rational weights in the NO basis) were
+never searched by any census stage.
+
+v96 RESULT (VERIFIED IN-REPO, exhaustive; supersedes the time-capped CP-SAT runs
+of 9,056 and 6,395 skeletons). The structured enumeration
+(scripts/signed_design_v96_full.py: tail-cover decomposition over the five
+incidence-1 modes with a memoized head solve) covers the ENTIRE m=1 family. The
+enumeration is exhaustive because the total weight is fixed at 9 (mode sums sum
+to 27, three per determinant), so every support has <= 9 determinants; the tail
+(the five incidence-1 modes, each in exactly one weight-1 det) plus the head
+(weighted dets inside {0..4}) enumerate every integer m=1 skeleton. REPRODUCED
+on this machine: 116,916 tail covers, 350,980 weight skeletons, ZERO hits, 44 s
+(handoff run 41 s). Epistemic status per rung:
+ - signs (rung 1): EXACT and EXHAUSTIVE, theorem-grade, VERIFIED IN-REPO -- v96
+   admits NO signed design at m=1 (no extremal state with rational weight squares
+   in its own NO basis and sign-only cancellation).
+ - phase cancellation (rung 2-3): polygon filter exact-necessary; surviving
+   skeletons excluded by multi-start numeric phase solve (12 starts, residual
+   1e-10). High confidence, NOT certificate-grade. An exact algebraic exclusion
+   would upgrade to: v96's extremal states have IRRATIONAL NO-basis weight
+   squares, a structural first. Note the elegant self-test here: a class of three
+   equal-magnitude terms cancels at cube-root-of-unity phases, which carry a Z/3
+   holonomy -- so a phase-design hit would FALSIFY the exponent-2 holonomy law
+   (Conjecture 2), and its absence is weak positive evidence for it.
+Every searched family is now empty for v96 at m=1: 2x2 blocks (preflight None),
+k-cliques with the one-hop cut (solver exhaust), single 3-clique + signed
+off-clique cancellation (prototype slice), and the full signed/phased-design
+family (this run). Remaining rungs: (a) the HYBRID family -- rational weights in a
+block basis where designated block mode-pairs carry NONZERO off-diagonal targets
+(Schur-Horn magnitudes) and all off-block classes cancel, the capped prototype
+completed by the same tail-cover technique. The lone-pair funnel gives this
+search a new exact skeleton gate: a lone one-hop class cannot cancel (this is
+exactly the P1 prune in scripts/signed_design_fast.py), so in the hybrid it must
+sit on a block pair, its value becoming that block's off-diagonal; hence BLOCKS
+MUST COVER THE LONE-PAIR SET, and a skeleton whose lone pairs cannot be covered by
+admissible block pairs (distinct-eigenvalue mixing, few blocks) dies before any
+solve. The solver core is a POLYGON-TARGET SOLVER (BUILT: scripts/polygon_target.py):
+the coupled one-hop classes with mixed targets (prescribed magnitudes in-block,
+zero off-block), solved by triangle propagation (3-term classes pin relative
+phases by the law of cosines, up to reflection branches), 2-term propagation, and
+a bounded exact branch search over the remaining coupling; the stage-3b
+off-diagonal exactifier is its single-class special case. (b) m=2 rational (mode
+sums doubled; no interference precedent -- all 142 certified interference states
+have state-den = spectrum-den, VERIFIED in-repo, the 9 den-doubling states being
+DESIGN-REAL); (c) exactify rung 2-3. The same pipeline applies to the other five
+signature-novel roots.
+
+Polygon-target solver, verification (scripts/polygon_target.py, 2026-07). The
+solver only PROPOSES exact symbolic phases; a state is returned only if
+gpc_census.exactify.verify_exact certifies it (gauge-invariant char-poly
+identity), so an incomplete propagation can only miss a solution, never certify a
+wrong one -- soundness is architectural, the tests measure completeness. Two
+constraint geometries, handled distinctly: a MAGNITUDE target |P|=X is one real
+equation (the off-diagonal's own phase is free inside the block), reduced to a
+single-unknown law-of-cosines step (the stage-3b exactifier generalized); a
+CANCELLATION target P=0 is two real equations, so a 1-term class is infeasible
+(the lone-pair funnel, identical to signed_design_fast.py's P1 prune), a 2-term
+class pins its phase difference exactly, and a 3-term class is a rigid triangle
+(law of cosines, two reflection branches). Empirically the census never needs
+cancellation: across all 142 certified interference states every one-hop class
+with terms carries a NONZERO Schur-Horn target (active-class arity 1/2/3 =
+122/50/13, zero off-block classes), so the corpus tests the magnitude path only.
+VERIFIED IN-REPO: `python scripts/polygon_target.py --recertify-all` re-solves all
+142 from weights + spectrum alone (phases discarded), 142/142. The cancellation
+path is tested on a constructed positive (the 4-cycle signed design
+(|01>+|02>+|13>-|23>)/2, spectrum (1/2)^4, two 2-term classes cancelling) and the
+funnel negative (tests/test_polygon_target.py). Arity <= 3 (all that occurs in
+the census) is complete; arity >= 4 polygons carry internal freedom and fall to
+the bounded branch search, not proven complete. Next: feed hybrid block/target
+specifications for the v96 siblings (Task 1) into solve(..., targets=...).
+
+## v96 SOLVED: a census false negative (2026-07)
+
+(3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9, recorded SOLVE-FAIL, IS SOLVABLE. Exact
+closed-form extremal states exist; 24 were found in a single 540 s hybrid pass
+and all 24 pass BOTH an independent from-scratch 1-RDM spectrum check and the
+shipped verify_exact gate (scripts/verify_hybrid_state.py; stored in
+docs/hybrid_cracks/v96.jsonl; regression guard tests/test_v96_crack.py). A
+representative state, weights (1,1,1,1,1,2,2)/9 on dets (1,2,6)(1,3,7)(1,8,9)
+(0,1,4)(1,4,5)(0,2,3)(2,3,5), carries a single interference phase
+exp(-i acos(-1/4)) and reproduces the spectrum exactly.
+
+They live on the DEGENERATE (5,1) BLOCK ansatz: modes 0 and 5 both carry
+occupation 3/9, and their 2x2 block [[3/9, 2/9],[2/9, 3/9]] has eigenvalues
+5/9, 1/9. The 1-RDM is block diagonal (the supports are off-block-hop free), so
+this is NOT the signed-cancellation extension -- it is the plain block ansatz
+gpc_census.states.block_ansatze already generates (ptype (5,1), split (3,3),
+x2 = 3*3 - 5*1 = 4, target |off-diagonal|^2 = 4/81, exactly the value the census
+(3,10) interference blocks carry).
+
+ROOT CAUSE of the false negative: solve_vertex_exact_first bails in 0 s because
+min_block_count(3,10,v96,max_blocks=2) returns None -- the preflight declares NO
+off-block-free block-ansatz support feasible, when one demonstrably exists (the
+24 states, mode sums (3,5,5,5,2,3,1,1,1,1), only the (0,5) pair carrying a hop).
+The preflight is a soundness bug: it rejects a feasible ansatz, so the block
+sweep never runs. The polygon-target solver, enumerating skeletons directly
+(scripts/hybrid_search.py, bypassing the preflight), phase-solves them exactly.
+
+IMPLICATION: the residual of 14 (11 independent) is CONTAMINATED by preflight
+false negatives and is an upper bound, not the true count. A bounded max_blocks=1
+sweep of all 14 is underway (200 s/vertex). Early: v40 and v49 do NOT crack at
+max_blocks=1 (full walltime, no hit) and are being retried at max_blocks=2; v96
+cracks in ~5 s. This does not touch the 785 SOLVED states (each independently
+verify_exact-certified) -- only the FAIL labels are suspect. The paper's residual
+claim must be revised to whatever survives the sweep; do not cite 14/11 as final.
+
+Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
+search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
+ordered so the tightest (smallest-budget) modes bind first, with feasibility
+pruning and an optional walltime. CROSS-CHECK VERIFIED IN-REPO: on the v96
+spectrum (--ints 5,5,5,5,2,1,1,1,1,1 -N 3 --no-phases) it reproduces the
+specialized run EXACTLY -- 350,980 skeletons, 0 hits (79 s here; slower than the
+v96-specialized tail-cover/head-memo path, same answer). The five sibling roots
+are addressable directly by their integer forms (docstring --ints lines, each
+verified to match its vertex): v49 (9,9,5,5,5,2,1,1,1,1) den 13; v57
+(19,19,10,10,6,6,6,6,1,1) den 28; v89 (15,15,6,6,6,6,6,6,6,6) den 26; v103
+(18,18,18,18,5,5,5,5,5,5) den 34; (5,10) v261 (14,14,14,14,10,10,10,2,1,1) N=5
+den 18. Roots with no incidence-1 modes (v89, v103) have a much larger skeleton
+space; run under --max-seconds and read the frontier line (a capped run is a
+documented partial slice, not a silent cap).
+
+Fast variant (scripts/signed_design_fast.py): same enumeration and same hit
+definitions as the generic version, with three EXACT per-skeleton prunes -- (P1)
+a one-hop class with a single term can never cancel; (P2) a two-term class
+cancels only if the two surd magnitudes match (m1==m2 and q1==q2); (P3) each
+surviving two-term class is a linear GF(2) constraint on the sign bits, so
+Gaussian elimination replaces the 2^(n-1) sign sweep, and the remaining >=3-term
+classes are checked on the reduced solution set. All three are exact necessary
+conditions, so the answer is unchanged. VERIFIED IN-REPO two ways:
+tests/test_signed_design_fast.py is a differential guard asserting fast == generic
+(skeleton count AND hit set, signs and phases) across six small spectra chosen so
+the design/signed-design cases actually carry hits -- the guard that matters,
+since v96's zero-hit result cannot exercise a wrongly-dropped hit; and the v96
+full run reproduces 350,980 skeletons / 0 hits (60 s here vs the generic 79 s).
+Use it for the larger sibling roots (v89, v103) under --max-seconds.
+
+## Depth triage score: back-testing the facet laws on the open vertices
+
+Define the TOTAL ACTIVE DEPTH of a vertex: the sum of rhs depths over its
+saturated GPC facets (`python scripts/facet_laws.py --triage N D`; exact, no
+solving; compare only within a system and within the interference class, since
+design corners carry huge degenerate facet counts and are exact by construction
+anyway).
+
+- STRATIFICATION (distribution shift, NOT clean separation; reproduced here):
+  (3,10) certified interference median 12 vs the six clique-family opens at
+  17-34; the top scores INTERLEAVE (certified v90 = 41 SOLVED, open v96 = 34
+  with eleven active GPCs, certified v70 = 33, v86/v77 = 31, all EXACT). So
+  depth is a distribution shift, not a threshold: v96 is not even the deepest
+  interference vertex, only the deepest OPEN one, and the whole system reaches
+  depth 304 (a degenerate design vertex, v0). (4,9): opens v40/v42 at 11/21 vs
+  certified v_B/v30 at 6/6. v89/v103 sit at 3-4 (one active GPC each), the
+  opposite extreme. The opens are the depth-extremes of the OPEN set in both
+  directions, not of the polytope.
+- CALIBRATION AGAINST SOLVE COST (handoff, NOT reproducible from shipped data):
+  the handoff reports Spearman(total depth, Tier-A secs) = -0.625 over certified
+  (3,10) interference vertices, median 8 s at depth > 12 vs 147 s at depth <= 12
+  -- high constraint load makes the family search DECISIVE (fast solve when a
+  family solution exists, e.g. v90 at depth 41 solved; fast exhaust when not,
+  e.g. v96 at 34), near-zero load is under-constrained blowup (v89/v103).
+  states.jsonl stores no Tier-A solve times, so this correlation is the
+  campaign's and is NOT re-run here; ship the solve-time logs alongside the
+  states if it is to reach the paper.
+- TRIAGE RULE (proposed): compute total active depth (one exact pass, no
+  solving) at any rank. Near-zero => search-bound; raise max_card / walltime.
+  High relative to the system's certified band => decisiveness expected; if the
+  standard sweep exhausts quickly, route to the signed-cancellation extension
+  without more hardware. LIMITS: no cross-system threshold (scales differ);
+  exhaust-vs-compute-bound within the high band is not depth-determined on
+  current evidence (v96 depth 34 exhausts, v42 depth 21 grinds).
+- Quantified negative kept for the record: the naive position-space
+  selection-rule filter (support inside the active facets' canonical realizer
+  sets) fails 0/34 on certified (3,10) interference states; stored supports
+  carry arbitrary mode labels, so this conflates label permutation with genuine
+  rotation, and the degeneracy lemma's v_B diagnostic remains the clean witness.
 
 ## The selection rule is basis-relative (degeneracy lemma)
 
