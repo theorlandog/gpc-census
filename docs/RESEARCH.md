@@ -709,6 +709,21 @@ spectrum-den, VERIFIED in-repo, the 9 den-doubling states being DESIGN-REAL); (c
 exactify rung 2-3. The same pipeline applies to the other five signature-novel
 roots.
 
+Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
+search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
+ordered so the tightest (smallest-budget) modes bind first, with feasibility
+pruning and an optional walltime. CROSS-CHECK VERIFIED IN-REPO: on the v96
+spectrum (--ints 5,5,5,5,2,1,1,1,1,1 -N 3 --no-phases) it reproduces the
+specialized run EXACTLY -- 350,980 skeletons, 0 hits (79 s here; slower than the
+v96-specialized tail-cover/head-memo path, same answer). The five sibling roots
+are addressable directly by their integer forms (docstring --ints lines, each
+verified to match its vertex): v49 (9,9,5,5,5,2,1,1,1,1) den 13; v57
+(19,19,10,10,6,6,6,6,1,1) den 28; v89 (15,15,6,6,6,6,6,6,6,6) den 26; v103
+(18,18,18,18,5,5,5,5,5,5) den 34; (5,10) v261 (14,14,14,14,10,10,10,2,1,1) N=5
+den 18. Roots with no incidence-1 modes (v89, v103) have a much larger skeleton
+space; run under --max-seconds and read the frontier line (a capped run is a
+documented partial slice, not a silent cap).
+
 ## Depth triage score: back-testing the facet laws on the open vertices
 
 Define the TOTAL ACTIVE DEPTH of a vertex: the sum of rhs depths over its
