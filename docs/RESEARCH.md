@@ -774,6 +774,47 @@ the census) is complete; arity >= 4 polygons carry internal freedom and fall to
 the bounded branch search, not proven complete. Next: feed hybrid block/target
 specifications for the v96 siblings (Task 1) into solve(..., targets=...).
 
+## THE FILTER WAS UNSOUND: block path now filter-free, residual collapsing (2026-07)
+
+The real root cause, three bugs deep. The block-ansatz selection-rule support
+filter (admissible_support signature closure) is UNSOUND for a block target: it
+is valid only when the 1-RDM is diagonal in the canonical basis (the 0-block
+design probe), but a block target's 1-RDM is non-diagonal, and the closure
+provably DROPS true-solution determinants. Verified directly: the census's own
+exact v96 solution has 2 of its 7 support determinants OUTSIDE even the
+class-merged closure. Merging classes across block pairs (the earlier fix) was
+necessary but insufficient; the only sound choice is to enumerate ALL
+determinants for block ansatze. FIX applied to both min_block_count and the
+solve_vertex_exact_first block stage (adm = None / all determinants; the strict
+filter remains only for the 0-block design probe, where it is valid). The clique
+path already ran filter-free for exactly this reason.
+
+RESULT (this SUPERSEDES the earlier "gate fix does not change the census output"
+note): the census's OWN production pipeline now cracks the false negatives, no
+external tooling. Each solve returns an exact certificate that is ALSO checked by
+an independent from-scratch 1-RDM (scripts/verify_hybrid_state.py):
+ - v96 (den 9): min_block_count 1, SOLVED 7 s, indep-verified.
+ - v60 (den 12): SOLVED 3 s, indep-verified.
+ - v49 (den 13): SOLVED 42 s, indep-verified.
+ - v40 (den 18): SOLVED 159 s, indep-verified.
+ - the test's own "off-family frontier" (9,6,5,5,5,2,2,1,1)/9: SOLVED 185 s (a
+   false negative too; the min_block_count budget test was corrected accordingly).
+A full filter-free sweep of all 14 is in progress (per-vertex 300 s cap; every OK
+independently verified). Even (4,9) v42 -- the supposed mixed-ansatz frontier --
+flips to min_block_count 1 filter-free, so the "v42 needs a mixed clique+block
+ansatz" conclusion is under review: it may be another filter false negative, not
+a genuine family gap (pending its solve verdict in the sweep).
+
+CAVEATS kept honest: (a) filter-free costs CP-SAT model size, not correctness --
+verify_exact still gates every certificate, so no false positive is possible, but
+high-denominator vertices are much slower and may hit the cap (inconclusive, not
+FAIL). (b) min_block_count is now SOUND but a weaker gate: it rarely returns None
+(all determinants make degree-feasibility easy), so its fail-fast value is
+reduced. (c) the 785 previously-SOLVED states are unaffected (independently
+certified); this only turns former FAILs into SOLVEs. The paper's residual count
+must be revised DOWN to whatever survives the full sweep -- provisionally most of
+the 14 are false negatives, not a genuine residual.
+
 ## v96 SOLVED: a census false negative (2026-07)
 
 (3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9, recorded SOLVE-FAIL, IS SOLVABLE. Exact

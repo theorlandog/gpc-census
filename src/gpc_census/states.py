@@ -325,34 +325,6 @@ def _degenerate_blocks(spectrum, d: int):
     return blocks
 
 
-def _block_merge_groups(spectrum, d: int, blocks):
-    """Occupancy-signature groups for a block ansatz's selection-rule closure.
-
-    The closure over the lambda-DEGENERATE classes alone (groups="degenerate")
-    is correct only when every 2x2 block mixes modes WITHIN one value class. A
-    block that mixes two DISTINCT classes (e.g. a (5,1) block) rotates the
-    natural basis across the class boundary, reaching occupancy signatures the
-    within-class closure excludes, so the gate rejects every feasible support
-    for such a vertex and returns None (the v96 false SOLVE-FAIL). Merging the
-    classes joined by each block's mode pair restores a sound superset: the
-    signature is then invariant under the cross-class rotation. Reduces to the
-    degenerate classes when no block mixes classes."""
-    from fractions import Fraction as F
-
-    spec = [F(x) for x in spectrum]
-    cls: dict = {}
-    for m_, v in enumerate(spec):
-        cls.setdefault(v, []).append(m_)
-    groups = [set(ms) for ms in cls.values()]
-    for blk in blocks:
-        u, v_ = blk[0], blk[1]
-        gi = [i for i, g in enumerate(groups) if u in g or v_ in g]
-        merged = set().union(*[groups[i] for i in gi]) | {u, v_}
-        groups = [g for i, g in enumerate(groups) if i not in gi]
-        groups.append(merged)
-    return [sorted(g) for g in groups]
-
-
 def _ansatz_maps(nv, blocks, d: int, cap: int = 40320):
     """Mode permutations preserving the degree vector and the block
     structure: permutations within equal-nv classes of unblocked modes,
@@ -760,18 +732,17 @@ def min_block_count(n: int, d: int, spectrum, max_blocks: int = 4, time_cap: int
 
     strict = admissible_support(n, d, spectrum, groups=None)
     best = None
-    _adm_cache: dict = {}
     for nv, blocks in block_ansatze(n, d, spectrum, max_blocks=max_blocks):
         kb = len(blocks)
         if best is not None and kb >= best:
             continue  # a smaller feasible budget is already known
         if blocks:
-            groups = _block_merge_groups(spectrum, d, blocks)
-            key = tuple(tuple(g) for g in groups)
-            if key not in _adm_cache:
-                _adm_cache[key] = admissible_support(n, d, spectrum,
-                                                     groups=groups)
-            adm = _adm_cache[key]
+            # SOUNDNESS: no support filter for block ansatze. The signature
+            # closure is valid only for a diagonal 1-RDM (the 0-block design
+            # probe); for a block target the 1-RDM is non-diagonal in the
+            # canonical basis and even the class-merged closure provably drops
+            # true-solution determinants (v96), so enumerate all determinants.
+            adm = None
         else:
             adm = strict
         hop_pairs = [(u, v_) for u, v_, a_, b_, x2 in blocks]
@@ -1220,15 +1191,13 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             target = None
             xt = None
         else:
-            # sound prune: the occupancy-signature closure is a superset of the
-            # true support, unlike the operator eigenprojection which is ill
-            # posed at degenerate vertices. The groups must MERGE the classes a
-            # block joins: a cross-class block (e.g. (5,1)) rotates the natural
-            # basis across a class boundary, so the within-class ("degenerate")
-            # closure drops its support and the vertex reads as SOLVE-FAIL (the
-            # v96 false negative). _block_merge_groups restores the superset.
-            adm = admissible_support(n, d, spectrum,
-                                     groups=_block_merge_groups(spectrum, d, blocks))
+            # SOUNDNESS: no support filter for block ansatze. The signature
+            # closure is valid only for a diagonal 1-RDM (the 0-block design
+            # probe); for a block target the 1-RDM is non-diagonal in the
+            # canonical basis and the closure provably drops true-solution
+            # determinants (v96), so enumerate all determinants. Filter-free
+            # costs CP-SAT model size, not correctness (verify_exact gates).
+            adm = list(dets_all)
             target = np.diag([v / den for v in nv]).astype(complex)
             for u, v_, a_, b_, x2 in blocks:
                 target[u, v_] = target[v_, u] = (x2 ** 0.5) / den

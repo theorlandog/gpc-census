@@ -307,17 +307,23 @@ def test_design_vertex_built_from_witness():
 
 
 def test_min_block_count_predicts_budget():
-    # the block-budget preflight: 0 for a design, the exact budget for a
-    # single-block interference vertex, and None for a vertex outside the
-    # block-ansatz family (fail-fast frontier flag).
+    # the block-budget preflight, now SOUND (filter-free block enumeration; the
+    # signature-closure support filter was unsound for block ansatze and produced
+    # false SOLVE-FAILs -- v96 etc.): 0 for a design, the exact budget for a
+    # single-block interference vertex, and None only when no block ansatz within
+    # the budget is feasible.
     from gpc_census.states import min_block_count
     vA = [Fraction(x, 21) for x in (16, 16, 16, 6, 6, 6, 6, 6, 6)]
     vB = [Fraction(x, 23) for x in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
     assert min_block_count(4, 9, vA) == 0          # design: one-hop-free support
     assert min_block_count(4, 9, vB, max_blocks=2) == 1   # v_B is single-block
-    # (9:6:5:5:5:2:2:1:1) is a 4_9 interference vertex off the family <= 2 blocks
-    frontier = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
-    assert min_block_count(4, 9, frontier, max_blocks=2) is None
+    # the design probe alone (max_blocks=0) cannot fit an interference vertex
+    assert min_block_count(4, 9, vB, max_blocks=0) is None
+    # (9:6:5:5:5:2:2:1:1) was previously read as "off the block family <= 2
+    # blocks" -- a FALSE NEGATIVE from the unsound closure filter; filter-free it
+    # is correctly single-block feasible.
+    former_false_negative = [Fraction(x, 9) for x in (9, 6, 5, 5, 5, 2, 2, 1, 1)]
+    assert min_block_count(4, 9, former_false_negative, max_blocks=2) == 1
 
 
 def test_schur_horn_generalizes_splits():
