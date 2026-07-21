@@ -821,21 +821,35 @@ certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
 
-## CLASS-COUNT LAW: the two holdouts need a degenerate k x k block (keystone)
+## CLASS-COUNT LAW: RETRACTED (two-class interference IS 2x2-solvable)
 
-Verified in-repo across the residual roots: every SOLVED root has >= 3 distinct
-eigenvalue classes (v40/v49/v57/(4,9)v40/(4,9)v42 have 4, v60/v73/v96 have 3),
-and the ONLY two-class vertices are (3,10) v89 (15,15,6^8)/26 and v103
-(18^4,5^6)/34 -- exactly the two (3,10) roots the filter-free sweep does not
-solve. This is structural, not compute: with two classes there is a single (a,b)
-block ptype and NO 3-clique is possible (a clique mixes DISTINCT classes), so the
-census family (block_ansatze = 2x2 only; cliques = distinct classes only) cannot
-express a two-class interference state. So v89's exhaustive 2x2 FAIL is a genuine
-FAMILY GAP, not a numeric-solver miss (superseding the earlier "unresolved /
-numeric miss" note): it needs a DEGENERATE k x k block -- k >= 3 modes mixing the
-two classes with a REPEATED eigenvalue (e.g. a 3x3 block with spectrum (15,6,6)/26
-at v89), which neither 2x2 blocks nor cliques generate. v96's degenerate 2x2
-(equal diagonal 3,3 splitting to 5,1) was this same phenomenon one size down.
+RETRACTION (found by a QA check the same day it was posted). The claimed law --
+"the two holdouts v89/v103 are two-class, and two classes structurally require a
+degenerate k x k block the 2x2 family cannot express" -- is FALSE. Counterexamples
+in the shipped census: (3,10) v108 = (5^5,1^5)/10 and (3,8) v32 = (15^4,6^4) are
+BOTH two-class INTERFERENCE states already SOLVED by the ordinary 2x2 family (v108
+with an 8-determinant support and a pi/8 phase). A two-class vertex has one (top,
+bottom) block ptype, which is a perfectly good 2x2 block (v96's (5,1) block is
+exactly this) -- two classes do NOT preclude 2x2 interference. The only TRUE part
+is the correlation within the residual: v89/v103 happen to be the two-class roots.
+The MECHANISM ("needs k x k") does not follow and is refuted.
+
+REVISED READING of v89/v103. v89 = (15^2,6^8)/26 has a valid single (15,6) block
+ansatz (diagonal e.g. (10,11)/26, off-diagonal sqrt(20)/26, eigenvalues 15,6),
+structurally identical to v108's (5,1) block one class-size up and one
+denominator up. v108 (den 10) solved; v89 (den 26) did not. That is a DENOMINATOR
+/ ENUMERATION-SCALING difference, not a family gap: at den 26 the census's
+enumerate_weight_vectors (a 60 s enumerate_all_solutions CP-SAT pass) cannot emit
+even one support that min_support_cardinality proves feasible, so the ansatz
+contributes no support and the vertex reads as FAIL. So v89/v103 are almost
+certainly COMPUTE ARTIFACTS (a third false-negative source, after the support
+filter and the max_card cap), not genuine residuals. The fix is to make support
+enumeration scale (incremental find-and-cut, or a targeted search seeded from the
+known lower-denominator analog v108), NOT a new ansatz family.
+
+kxk_degen.py (the degenerate 3x3 solver) stands as a correct, math-validated tool
+for genuinely degenerate cases, but it is NOT the keystone for v89: v89 is
+2x2-solvable in principle, so the degenerate-block detour is unnecessary for it.
 
 Two supporting laws from the shipped cracks (verified): (1) ONE-CHANNEL -- every
 shipped residual state (v96, v60, (4,9) v40/v42) uses exactly one exchange
