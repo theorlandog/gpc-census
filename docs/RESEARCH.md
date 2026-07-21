@@ -821,6 +821,61 @@ certified); this only turns former FAILs into SOLVEs. The paper's residual count
 must be revised DOWN to whatever survives the full sweep -- provisionally most of
 the 14 are false negatives, not a genuine residual.
 
+## CLASS-COUNT LAW: RETRACTED (two-class interference IS 2x2-solvable)
+
+RETRACTION (found by a QA check the same day it was posted). The claimed law --
+"the two holdouts v89/v103 are two-class, and two classes structurally require a
+degenerate k x k block the 2x2 family cannot express" -- is FALSE. Counterexamples
+in the shipped census: (3,10) v108 = (5^5,1^5)/10 and (3,8) v32 = (15^4,6^4) are
+BOTH two-class INTERFERENCE states already SOLVED by the ordinary 2x2 family (v108
+with an 8-determinant support and a pi/8 phase). A two-class vertex has one (top,
+bottom) block ptype, which is a perfectly good 2x2 block (v96's (5,1) block is
+exactly this) -- two classes do NOT preclude 2x2 interference. The only TRUE part
+is the correlation within the residual: v89/v103 happen to be the two-class roots.
+The MECHANISM ("needs k x k") does not follow and is refuted.
+
+REVISED READING of v89/v103. v89 = (15^2,6^8)/26 has a valid single (15,6) block
+ansatz (diagonal e.g. (10,11)/26, off-diagonal sqrt(20)/26, eigenvalues 15,6),
+structurally identical to v108's (5,1) block one class-size up and one
+denominator up. v108 (den 10) solved; v89 (den 26) did not. That is a DENOMINATOR
+/ ENUMERATION-SCALING difference, not a family gap: at den 26 the census's
+enumerate_weight_vectors (a 60 s enumerate_all_solutions CP-SAT pass) cannot emit
+even one support that min_support_cardinality proves feasible, so the ansatz
+contributes no support and the vertex reads as FAIL. So v89/v103 are almost
+certainly COMPUTE ARTIFACTS (a third false-negative source, after the support
+filter and the max_card cap), not genuine residuals. The fix is to make support
+enumeration scale (incremental find-and-cut, or a targeted search seeded from the
+known lower-denominator analog v108), NOT a new ansatz family.
+
+kxk_degen.py (the degenerate 3x3 solver) stands as a correct, math-validated tool
+for genuinely degenerate cases, but it is NOT the keystone for v89: v89 is
+2x2-solvable in principle, so the degenerate-block detour is unnecessary for it.
+
+Two supporting laws from the shipped cracks (verified): (1) ONE-CHANNEL -- every
+shipped residual state (v96, v60, (4,9) v40/v42) uses exactly one exchange
+channel on 6-7 determinants; the residual was minimal interference hidden behind
+the filter bug, supporting Conjecture 3 where its falsification was predicted.
+(2) CONJECTURE 2 clean -- all new phases are exponent-2 abelian: v96 cos -1/4 ->
+2x^2+x+2 (Q(sqrt-15)); (4,9) v42 cos -sqrt(10)/20 -> 10x^4+19x^2+10; (4,9) v40
+cos sqrt(3)/6 -> 3x^4+5x^2+3 (both biquadratic, V4/abelian); v60 loop-free. Zero
+non-abelian holonomies. (A conjectured "scaling law", solve time ~1.32^den, is a
+handoff extrapolation, not reproduced here.)
+
+KEYSTONE TOOL: scripts/kxk_degen.py -- the degenerate 3x3 solver. Enumerates
+eigenvalue sub-multisets E (size 3, >= 2 distinct, repeats allowed), Schur-Horn
+integer diagonals majorized by E, mode-first DFS with one-hop pairs confined to
+the three block pairs, exact integer-surd off-diagonal sums with core-only sign
+enumeration, and the two exact 3x3 char-poly conditions
+(sum s^2 = e2(diag) - e2(E); cos theta from e3). Both identities VALIDATED
+in-repo (3000/3000 random symmetric 3x3). Every config reports EXHAUSTED or
+TIMEOUT (the exhaust-vs-timeout discipline). It runs at any rank, so it also
+attacks the two-class (3,11) open candidates (cand 23 = (6,6,1^9)/7, cand 44 =
+(6^5,1^6)/12), where a hit would falsify a claimed level-5 inequality -- the
+handoff reports cand 23 largely exhausted with two survivors under longer budget;
+those verdicts are the handoff engine's, pending a dedicated in-repo run. The one
+open decision for the whole rank-10/11 frontier is now this single extension:
+solve a two-class vertex with a degenerate k x k block, or exhaust it there.
+
 ## RESIDUAL SWEEP RESULT: 8 of 11 roots solved; v42 retraction; v89 the frontier
 
 Dedicated filter-free runs (per root: full max_card = total weight, max_blocks 2,
@@ -837,10 +892,16 @@ zero pads of the (4,9) roots and the v113/v261 Hodge-dual merge):
 - GENUINE FRONTIER CANDIDATE (1): (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26. It
   returns an EXHAUSTIVE FAIL (867 s, full max_card, filter-free), not a timeout,
   and it has only TWO eigenvalue classes {15,6}, so the block family (<= 2 blocks,
-  no 3-clique possible) is COMPLETE for it. Caveat before calling it genuine: the
-  census phase solve is numeric (L-BFGS) and can miss a solution the exact
-  polygon-target solver would find, so v89 must be run through the exact solver
-  before it counts as a true residual.
+  no 3-clique possible) is COMPLETE for it. Status: UNRESOLVED, not confirmed
+  genuine. The census phase solve is numeric (L-BFGS) and can miss a solution the
+  exact solver would find; an exact-solver check (hybrid_search, 1119 s) was
+  INCONCLUSIVE -- 0 solve calls, because its skeleton enumeration never surfaced a
+  block-hop-bearing support in the den-26 space (the pre-filter rejected all
+  106,400 skeletons it reached). So neither run settles v89: the census searched
+  supports and found no numeric phase solution, but the exact solver has not yet
+  been run on those same feasible supports. The decisive test is to extract the
+  census's block-feasible-but-unsolved supports and exact-phase-solve each; until
+  then v89 is the single open vertex, genuine-vs-numeric-miss undetermined.
 
 RETRACTION: the "(4,9) v42 needs a MIXED clique+block ansatz -- a genuine family
 gap" conclusion (the v42-audit and no-clique-precedent sections below) is WRONG.
