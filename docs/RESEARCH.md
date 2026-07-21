@@ -840,6 +840,24 @@ verify_exact-certified) -- only the FAIL labels are suspect. Do NOT cite 14/11 a
 final: v96 is SOLVED; the rest stay open pending a proper direct-enumeration
 sweep plus phase solves, not the gate re-audit alone.
 
+v42 audit (the surviving frontier vertex; handoff analysis, key claims
+reproduced in-repo). Unlike v96, (4,9) v42's persistence is NOT a gate artifact:
+its block path is exactly infeasible through 2 blocks (min_block_count = None
+with BOTH fixes in, a 3 s verdict not a timeout), while its clique path is
+gate-feasible (min_clique_count = 3: a single 3-clique ansatz is degree
+feasible). So v42 passes the clique gate and fails only in the phase solve --
+structural or compute bound, not gating. STRUCTURAL GAP located and verified: the
+solver enumerates block-only ansatze (block_ansatze, 2x2 blocks) OR clique-only
+ansatze (_solve_via_cliques over multi_clique_ansatze, disjoint cliques of size
+>= 3), and NEVER a MIXED configuration (a 2x2 block together with a 3-clique).
+v42 may need exactly such a mixed ansatz -- a genuine family gap, not a bug. The
+polygon-target solver can test mixed block+clique targets directly once
+hybrid_search is extended to emit them; that is the recommended next attack on
+v42. (The handoff's specific "35 feasible / 5 infeasible" single-clique tally was
+NOT reproduced here: clique_ansatze(sizes=(3,)) yields 374 ansatze, so that count
+is from _solve_via_cliques's internal filtered enumeration, not independently
+confirmed; the gate-clean conclusion stands on min_clique_count = 3.)
+
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
 ordered so the tightest (smallest-budget) modes bind first, with feasibility
