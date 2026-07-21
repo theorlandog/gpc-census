@@ -243,9 +243,23 @@ were the two they could not close at all.
    Schubert coefficient test via lrcalc). Test-first: it must reproduce the
    five known N=3 systems before any new output counts. Until then
    constraints ship as a lookup (src/gpc_census/data/constraints.json).
-3. The (3,11) bracket (docs/bracket_3_11.json): 17 vertices already
-   certified true by inner-hull membership; 33 gap vertices await either
-   restriction tests against rank-10 or Stage 1.
+3. The (3,11) bracket (docs/bracket_3_11.json): 46 of the 50 outer candidates
+   are now settled WITHOUT Stage 1, in exact arithmetic and independently
+   verified here (scripts/settle_bracket_3_11.py regenerates
+   docs/bracket_3_11_settlement.json). 19 TRUE (17 by state transport from the
+   rank-9/10 census, all verify_exact-checked; the uniform (3/11)^11 by an
+   explicit Z11 difference design on base block {0,1,3}, one-hop-free; and a
+   frozen-core paired state for (1,(1/5)^10)); 27 REFUTED (18 by frozen-core
+   pinning to N=2 plus the even-degeneracy pairing theorem, 9 by
+   zero-restriction, each restricted point violating the known lower-rank GPCs,
+   checked against gpc_census.constraints); 4 OPEN (cands 23, 26, 34, 44, all
+   genuinely rank-11 full-support; cand 23 admits no one-hop-free design by
+   weight counting on its two 6/7 modes, so INTERFERENCE if attainable). CAVEAT:
+   the 27 refutations do NOT finish (3,11) as a polytope: cutting them creates
+   new true vertices absent from the outer list, so Stage 1 (or a tighter
+   bracket) is still required. The refuted and certified points are a mandatory
+   acceptance oracle for any (3,11) constraint generator: it must exclude every
+   refuted point and retain every certified one.
 4. Real-attainability certification per vertex is open research; the
    historical scripts/interference8_1.py is the v_B-specific instance
    (exhaustive two-block real stratum sweep). enumerate_designs in
