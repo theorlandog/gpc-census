@@ -623,6 +623,47 @@ Hardness ordering of the 14 implied: 8 warm-startable by signature transfer; 6
 signature-novel (route to the signed-cancellation extension and, failing that,
 treat as the genuinely new mathematics of rank 10).
 
+## Generator blueprint: the Edge Law and rhs Law (2026-07, exact)
+
+Reverse-engineered the cubicle/Schubert layer of Stage 1 from the 542 known GPC
+facet inequalities (all nine systems, exact rational arithmetic). Two laws:
+
+- RHS LAW (VERIFIED HERE, 542/542): the right-hand side of every known GPC facet
+  equals an N-subset sum of its own sorted coefficient vector (the pure-state
+  specialization b = a_T). Reproduced in this repo across all nine systems
+  (per-system 1/4/31/15/52/60/93/125/161). Its DEPTH (position among the
+  distinct subset sums, 1 = maximum = trivial) is reported bounded and slow
+  growing: max depth 2 through rank 7, 5 at ranks 8-9, 7 at rank 10 (the single
+  depth-1 facet per half-filled system is the Pauli facet lambda_1 <= 1). Depth
+  is what the Schubert coefficient certifies, so the generator only needs depths
+  2..~8 at rank 11. (The depth analysis is the handoff engine's, not re-run
+  here; the b = a_T law itself is reproduced.)
+- EDGE LAW (HANDOFF, not re-run here): every facet's sorted coefficient vector is
+  reported to be an EXTREMAL RAY of the arrangement cut on the ordered cone
+  {a_1 >= ... >= a_d} by the subset-sum tie hyperplanes a_T = a_T' (tight rank
+  exactly d-2, a ray modulo the constant shift). Sharper than Klyachko's remark
+  that edges SUFFICE: empirically facets ARE edges. Worth a proof attempt from
+  Theorem 3.2.1; until then a claimed 542/542 law pending in-repo reproduction.
+- Facet grammar corollary (handoff): facet vectors have few distinct values
+  (typically 4-6 at d=10, heights <= 7), so facets carry their own
+  multiplicity-signature grammar, mirroring the vertex grammar.
+
+STAGE-1 BLUEPRINT this yields (handoff proposal; parameters reported measured):
+ 1. Enumerate integer extremal rays of the ordered subset-sum arrangement with
+    height <= H (H = previous-rank max + 1; H ~ 8 at rank 11): a
+    value-multiplicity composition (<= ~6 blocks), decreasing integer values
+    <= H, closed under subset ties to tight rank d-2; lrs-style ray enumeration.
+ 2. Prescreen against functorial closure (pad + series-extension supplies
+    ~half the candidates with known provenance).
+ 3. Per ray, per depth k = 2..K (K = previous max + 2): Schubert test c_vw(a)
+    via lrcalc for rhs = the depth-k subset sum.
+ 4. Assemble; verify inner = outer against the plethysm cloud, the vertex
+    attainability decision procedure, and the (3,11)/(3,12) oracles (19+19
+    certified true retained, 27 refuted excluded).
+Acceptance gates: reproduce 1/4/31/52/93 (the (3,d) counts) at ranks 6-10 first;
+the RHS law is a free invariant (any generated facet violating b = a_T is a
+bug), and the Edge law becomes one once reproduced.
+
 ## The selection rule is basis-relative (degeneracy lemma)
 
 At a vertex, every active facet forces the extremal state onto
