@@ -677,24 +677,36 @@ states (one-hop pairs confined to blocks, algebraic weights). SIGNED DESIGNS
 (one-hop pairs present but cancelling, rational weights in the NO basis) were
 never searched by any census stage.
 
-v96 sandbox run (handoff): exact degree system (5,5,5,5,2,1,1,1,1,1), CP-SAT
-enumeration found 9,056 weight skeletons (TIME-CAPPED at 100 s, likely
-incomplete), all sign-searched with exact integer-surd class cancellation: ZERO
-signed-design hits at m=1, signs only. An independent in-repo search
-(scripts-style prototype over the six Schur-Horn diagonals with the same
-integer-surd cancellation) also returned zero, corroborating the negative.
-Escalation ladder for the rig, in order: (1) complete the m=1 enumeration (DFS
-with S4 x S5 symmetry reduction, not solution-capped CP-SAT); (2) PHASE
-cancellation -- classes with three equal-magnitude terms cancel at
-cube-root-of-unity phases, which signs cannot reach, and would carry a Z/3
-holonomy: a DIRECT TEST of the exponent-2 (Conjecture 2) holonomy law, since a
-Z/3 phase would falsify it; (3) m=2 (mode sums doubled), noting that all 142
-certified interference states have state-den = spectrum-den (VERIFIED in-repo;
-the only den-doubling states are 9 DESIGN-REAL, a different class), so m>1 has
-no interference precedent; (4) the same formulation for the other five
-signature-novel roots. A hit at any rung is an exact certificate by
-construction; exhausting rung 2 at m=1 would prove v96's extremal states have
-irrational NO-basis weight squares, itself a structural first.
+v96 RESULT (handoff, exhaustive; supersedes the time-capped CP-SAT runs of
+9,056 and 6,395 skeletons). The structured enumeration (tail-cover decomposition
+over the five incidence-1 modes with a memoized head solve; signed_design_v96_
+full.py, NOT in-repo) is reported to cover the ENTIRE m=1 family: 116,916 tail
+covers, 350,980 weight skeletons, run to completion in 41 s, ZERO hits on all
+rungs. An independent in-repo search (six Schur-Horn diagonals, same
+integer-surd cancellation) returned zero on its slice, corroborating the
+negative but not the exhaustiveness (the full 350,980-skeleton enumerator is not
+reproduced here). Epistemic status per rung, as reported:
+ - signs (rung 1): EXACT and EXHAUSTIVE, theorem-grade -- v96 admits NO signed
+   design at m=1 (no extremal state with rational weight squares in its own NO
+   basis and sign-only cancellation). Reproduce in-repo before citing.
+ - phase cancellation (rung 2-3): polygon filter exact-necessary; surviving
+   skeletons excluded by multi-start numeric phase solve (12 starts, residual
+   1e-10). High confidence, NOT certificate-grade. An exact algebraic exclusion
+   would upgrade to: v96's extremal states have IRRATIONAL NO-basis weight
+   squares, a structural first. Note the elegant self-test here: a class of three
+   equal-magnitude terms cancels at cube-root-of-unity phases, which carry a Z/3
+   holonomy -- so a phase-design hit would FALSIFY the exponent-2 holonomy law
+   (Conjecture 2), and its absence is weak positive evidence for it.
+Every searched family is now empty for v96 at m=1: 2x2 blocks (preflight None),
+k-cliques with the one-hop cut (solver exhaust), single 3-clique + signed
+off-clique cancellation (prototype slice), and the full signed/phased-design
+family (this run). Remaining rungs: (a) the HYBRID family (clique block, algebraic
+weights, plus signed off-clique cancellation), the capped prototype completed by
+the same tail-cover technique; (b) m=2 rational (mode sums doubled; no
+interference precedent -- all 142 certified interference states have state-den =
+spectrum-den, VERIFIED in-repo, the 9 den-doubling states being DESIGN-REAL); (c)
+exactify rung 2-3. The same pipeline applies to the other five signature-novel
+roots.
 
 ## Depth triage score: back-testing the facet laws on the open vertices
 
