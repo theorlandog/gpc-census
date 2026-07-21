@@ -793,34 +793,52 @@ gpc_census.states.block_ansatze already generates (ptype (5,1), split (3,3),
 x2 = 3*3 - 5*1 = 4, target |off-diagonal|^2 = 4/81, exactly the value the census
 (3,10) interference blocks carry).
 
-ROOT CAUSE of the false negative (traced 2026-07, supersedes the first-pass
-"preflight bug" reading): v96 is a HIGHLY SATURATED vertex -- 11 of 93 GPC
-facets are active -- and only ONE determinant saturates all 11, so the
-selection-rule support set admissible_support(groups=None) has size 1 (a solved
-(3,10) interference vertex like v17 has 16). The census restricts every block
-ansatz's support to the signature closure of that strict set, and from a single
-determinant the closure cannot hold the 7-determinant support the valid states
-need. min_block_count then finds the CP-SAT feasibility model infeasible over the
-collapsed admissible set and returns None, so solve_vertex_exact_first bails in
-0 s. This is NOT a grouping bug: admissible_support does also mis-group
-cross-class (5,1) blocks under the equal-value grouping (a genuine but separate
-defect, fixable with block-aware groups), yet fixing the grouping does NOT crack
-v96, because the strict set is already size 1 before any grouping. The wall is
-the selection-rule support prune itself, which is sound for CERTIFICATION (the
-785 states are correctly certified) but too aggressive for SEARCH at saturated
-vertices. The polygon-target solver enumerates skeletons directly with NO
-selection-rule prune (scripts/hybrid_search.py) and phase-solves them exactly,
-which is why it finds what the census cannot.
+ROOT CAUSE, traced and FIXED at source (2026-07; this supersedes two earlier
+readings in this file's history -- the "min_block_count preflight" note and the
+"selection-rule collapse, grouping irrelevant" note, both wrong). The admission
+gate min_block_count took the selection-rule signature closure over the
+lambda-DEGENERATE (equal-value) classes only. A block that mixes two DISTINCT
+classes (the (5,1) block: a 5-mode with a 1-mode) rotates the natural basis
+across the class boundary, so the rotated support carries occupancy signatures
+the within-class closure drops; the gate found the CP-SAT model infeasible and
+returned None, and solve_vertex_exact_first bailed. FIX (src/gpc_census/states.py,
+_block_merge_groups, wired into both min_block_count and solve_vertex_exact_first):
+close over groups that MERGE the classes each block's mode pair joins. v96 is
+highly saturated (11 of 93 facets active, strict set size 1 vs 16 for a solved
+vertex like v17), and the earlier note wrongly concluded the size-1 strict set
+was a hard wall -- but the signature closure over the MERGED groups expands from
+it to a feasible admissible set (size 84 for the (5,1) ansatz). VERIFIED: the
+shipped test suite passes (64) and the fixed gate re-audit flips 12 of 14 to
+feasible (below).
 
-IMPLICATION: the residual of 14 (11 independent) is an UPPER BOUND -- v96 is a
-confirmed false negative. But it does NOT collapse: a bounded sweep of all 14
-finds v40 and v49 resist even a deep max_blocks=2 slice (669k and 2.1M skeletons,
-no hit), so some residual vertices look genuinely hard. High-denominator vertices
-(v57/28, v89/26, v103/34, v113/v261/18) are not meaningfully searched yet (their
-weight = den makes supports run to 26-34 determinants). This does not touch the
-785 SOLVED states (each independently verify_exact-certified) -- only the FAIL
-labels are suspect. Do NOT cite 14/11 as final; revise to whatever survives a
-proper direct-enumeration sweep, and note v96 SOLVED explicitly.
+IMPORTANT SCOPE: the gate fix is necessary but NOT sufficient. Gate feasibility
+is a lower bound; the census's own SOLVE path (per-ansatz min_support_cardinality
+plus the numeric L-BFGS phase solve and exactify) still returns FAIL on v96 even
+with the gate open -- a further CP-SAT inconsistency at the single-block ansatz
+plus the numeric solver's limits. So fixing the gate does NOT by itself change
+the census SOLVED/FAIL output. The actual exact states come from the
+direct-enumeration polygon-target solver (scripts/hybrid_search.py), which uses
+no selection-rule prune and phase-solves exactly; that is what cracked v96.
+
+FIXED-GATE RE-AUDIT of all 14 (max_blocks=2, time_cap 8 s; every number below
+reproduced in-repo against the patched gate): TWELVE now report a feasible block
+ansatz -- (3,10) v40:1 v49:2 v57:1 v60:1 v73:1 v89:1 v96:2 v103:1; (4,10) v60:1;
+(4,9) v40:1; (5,10) v113:2 v261:2. Only (4,9) v42 and its (4,10) v62 pad remain
+None. So the gate was a real false-negative FILTER on most of the residual.
+
+IMPLICATION, stated carefully: the residual of 14 (11 independent) is an UPPER
+BOUND and v96 is a confirmed crack, but the residual does NOT collapse to 2, and
+gate feasibility must not be read as solvability. A direct-enumeration sweep
+(hybrid_search, the real solve) finds v40 and v49 RESIST even a deep max_blocks=2
+slice (669k and 2.1M skeletons, no hit) despite both being gate-feasible -- so
+"gate artifact" explains the mislabeling but not the hardness; some residual
+vertices look genuinely hard. High-denominator vertices (v57/28, v89/26, v103/34,
+v113/v261/18) are not meaningfully searched yet (weight = den pushes supports to
+26-34 determinants). v42/v62 is the surviving gate-frontier candidate for a true
+family gap. This does not touch the 785 SOLVED states (each independently
+verify_exact-certified) -- only the FAIL labels are suspect. Do NOT cite 14/11 as
+final: v96 is SOLVED; the rest stay open pending a proper direct-enumeration
+sweep plus phase solves, not the gate re-audit alone.
 
 Generalized enumerator (scripts/signed_design_generic.py): the same three-rung
 search for an ARBITRARY (N,d) integer spectrum, exhaustive DFS over determinants
