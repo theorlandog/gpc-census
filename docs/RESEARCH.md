@@ -90,6 +90,20 @@ applies; (2) does the Frobenius-Schur indicator of each state under its Aut grou
 track the design/signed/complex trichotomy? if so reality is a Schur-index
 computation, not a numerical overlap. These are the recommended next probes.
 
+WEAKLY-SEPARATED PROBE RESULT (run over the corpus): the literal "supports are
+cluster seeds" hypothesis is FALSIFIED. 0 of 154 interference supports and only
+50 of 643 design supports are weakly separated collections (Leclerc-Zelevinsky).
+But a clean one-directional law is verified: weakly-separated (a Gr(N,d) cluster
+seed) implies DESIGN-attainable, and every interference support contains a
+crossing pair (154/154). So interference lives exactly in the non-cluster
+(crossing) regime. Consequence: single-seed mutation does not directly apply to
+v89/v103 (their supports are crossing). The refinement "crossing count = channel
+count" is ALSO falsified: crossings range 3 to 24 across the 154 supports,
+uncorrelated with the <=2 channel bound. So the only surviving verified fact from
+this probe is the one-directional law weakly-separated implies design; the
+cluster reading of interference supports (single seed, or crossing = channel) is
+refuted. Recorded as a falsified lead so it is not re-proposed.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
