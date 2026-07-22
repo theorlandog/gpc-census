@@ -612,6 +612,48 @@ def multi_clique_ansatze(n: int, d: int, spectrum, sizes=(3,), n_cliques: int = 
 _SYMMETRY_BREAK = True  # module default; _skeleton_model uses it when symmetry_break is None
 
 
+def one_hop_classes(dets):
+    """Group a support by one-hop mode pair.
+
+    Returns {(A, B): [(i, j), ...]} with A < B, where dets[j] equals dets[i]
+    with A replaced by B (so the pair (i, j) contributes to the 1-RDM
+    off-diagonal rho_{AB}). A class with a single (i, j) is a 1-TERM (rigid)
+    class: its off-diagonal magnitude is sqrt(k_i k_j)/den exactly, so a single
+    real term cannot cancel and the pair must be a genuine block whose target
+    off-diagonal it realizes.
+    """
+    idx = {tuple(t): i for i, t in enumerate(dets)}
+    d = max((m for T in dets for m in T), default=-1) + 1
+    out: dict = {}
+    for i, T in enumerate(dets):
+        s = set(T)
+        for a_ in T:
+            for b_ in range(d):
+                if b_ in s:
+                    continue
+                t2 = tuple(sorted((s - {a_}) | {b_}))
+                j = idx.get(t2)
+                if j is not None and j > i:
+                    out.setdefault((min(a_, b_), max(a_, b_)), []).append((i, j))
+    return out
+
+
+def rigid_class_products(dets, weights):
+    """Products k_i*k_j for every 1-term (rigid) one-hop class of the support.
+
+    Returns {(A, B): k_i*k_j}. In a certified state this product equals the
+    block target x2 (block eigenvalue identity), so during search a support
+    whose forced 1-term class (A, B) has target x2 not equal to any admissible
+    k_i*k_j is infeasible and can be pruned before any phase solve.
+    """
+    prod = {}
+    for pr, pairs in one_hop_classes(dets).items():
+        if len(pairs) == 1:
+            i, j = pairs[0]
+            prod[pr] = weights[i] * weights[j]
+    return prod
+
+
 def _lex_le(m, a, b):
     """Add a <=_lex b for two equal-length lists of CP-SAT int vars.
 
