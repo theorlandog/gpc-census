@@ -140,6 +140,25 @@ all 51 simple interference vertices, and adds the design index-multiple law.
 Full Ehrhart quasi-polynomials (which would explain the counting sequences
 directly) still need a lattice-point counter (LattE/Barvinok), not vendored.
 
+SNF REFINEMENT (the honest limit of the normal-fan result): among the saturating
+(index = den > 1) simple vertices, the Smith normal form is CYCLIC for BOTH
+classes (51 interference, 60 design, all one non-unit invariant factor = den). So
+the normal-cone arithmetic does NOT separate interference from design: those 60
+designs and 51 interference vertices have identical normal cones. Consequence for
+the epistemics: den = index is a general saturation fact (den | index always, by
+Cramer on the incident facet equations; equality is the tight case), and it is
+too COARSE to carry the interference/design distinction. That distinction is a
+function of the full determinant combinatorics of the vertex (classify.py decides
+it by integer programming, no state solve), not of the normal-fan arithmetic. The
+genuinely new content of the census is therefore NOT the base-polytope arithmetic
+(a function of the known Klyachko polytope) but the FIBER data over the vertices:
+the explicit extremal states, their fiber dimensions, holonomies, and the
+design/interference/complex trichotomy of the fibers. Klyachko proved the base
+polytope exists; this work computes the fibers, which the base does not encode at
+the level of its normal-fan arithmetic. The normal-cone result is a clean exact
+statement about the KNOWN object; the new information lives one level up, in the
+states.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
