@@ -34,9 +34,22 @@ that no certified state is excluded.
   without ever rejecting the verify_exact-certified state. The check is on the
   gauge invariant, not amplitude phases (trisections are expected). v_B, v113,
   v17 confirmed exponent-2; a C3 angle (cos 2pi/7) is correctly flagged.
-- F2 KERNEL QUOTIENTING: deferred. Its soundness is coupled to F3 (rigid 1-term
-  classes cut kernel directions), so a sound fundamental-domain construction must
-  quotient only the free kernel; parked as the next unit.
+- F2 KERNEL QUOTIENTING (states._KERNEL_QUOTIENT, _incidence_kernel_dim): on a
+  fixed support the integer weight solutions form a coset of the incidence
+  kernel; free-kernel translates are phase-equivalent (fiber-dimension law), so
+  solve_vertex_exact_first phase-solves one representative per (support,
+  rigid-class products) coset. Keying on the rigid products preserves the F3
+  coupling (rigidly-pinned distinctions, which cut the kernel, keep separate
+  keys), so nothing sound is skipped; verify_exact gates. Records
+  fiber_kernel_dim. Validated: v40 certifies with quotient on/off.
+- DEGENERATE-BLOCK ANSATZ (gpc_census.degenerate): the 2x2/clique families mix
+  DISTINCT eigenvalue classes and miss repeated-eigenvalue blocks (v89's
+  eightfold 6). The new generator emits degenerate k-block degree vectors (a
+  size-k eigen sub-multiset with a repeat, Schur-Horn-majorized integer
+  diagonal) and solves each with the shared skeleton enumeration (F1/F2 apply)
+  plus attain (eigenvalue matching is basis-free, so a block-diagonal 1-RDM is
+  fine) gated by exactify. crack_vertex_exact falls back to it when the
+  block/clique family exhausts. Soundness rests on the exact gate.
 
 Acceptance: G1 full suite green (75 tests). G3 v96 canary passes. G2 regression
 interference vertices still certify with symmetry on, suite faster.
@@ -54,8 +67,13 @@ v103. This is NOT a proof of non-attainability. v89's eightfold-6 degeneracy
 points to the degenerate-kxk ansatz (scripts/kxk_degen.py), which is outside
 solve_vertex_exact_first's family; v103 (den 34, two classes) likewise needs a
 richer or degenerate block. The census stays at 797/799; the ledger is untouched.
-Next levers: fold the degenerate-kxk ansatz into the production family, or
-implement F2 (kernel quotienting) to shrink the high-denominator weight search.
+
+FOLLOW-UP (both next levers now implemented): F2 kernel quotienting shipped, and
+the degenerate-block ansatz was folded into the family and wired into
+crack_vertex_exact as a fallback. A fresh v89/v103 run with the degenerate
+fallback is in progress; outcome to be recorded, same EXHAUST-vs-TIMEOUT
+discipline, ledger untouched until a SOLVE certifies and is independently
+verified.
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
