@@ -619,6 +619,27 @@ _SYMMETRY_BREAK = True  # module default; _skeleton_model uses it when symmetry_
 # bound justified by an exact law, never a filter (verify_exact still gates).
 MAX_DENOMINATOR_TIER = 2
 
+# Feature 2: kernel quotienting. On a fixed support the integer weight vectors
+# solving the degree system form a coset of the incidence kernel; free-kernel
+# translates are phase-equivalent (the phase absorbs kernel motion, the
+# fiber-dimension law), so only one representative per (support, rigid-class
+# products) coset is phase-solved. Rigid 1-term classes cut the kernel and keep
+# distinct keys, so nothing rigidly-pinned is skipped; verify_exact still gates.
+_KERNEL_QUOTIENT = True
+
+
+def _incidence_kernel_dim(support_dets):
+    """Dimension of the weight-deformation kernel of a support (fiber dim upper
+    bound): |support| minus the rank of its mode-incidence matrix."""
+    import numpy as np
+
+    if not support_dets:
+        return 0
+    d = max(m for T in support_dets for m in T) + 1
+    a = np.array([[1 if m in T else 0 for m in range(d)] for T in support_dets],
+                 dtype=float)
+    return len(support_dets) - int(np.linalg.matrix_rank(a))
+
 
 def one_hop_classes(dets):
     """Group a support by one-hop mode pair.
@@ -1367,7 +1388,21 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             n, d, spectrum, mincard, support_filter=adm, prefilter=pref,
             nv=nv, dedup_maps=maps, require_hop_pairs=hop_pairs,
             forbid_offtarget=bool(blocks), max_cardinality=cap, limit=400)
+        tried: set = set()  # F2 kernel quotient: one representative per coset
         for w in sorted(sols, key=lambda w: sum(1 for k in w if k)):
+            if _KERNEL_QUOTIENT:
+                sup0 = tuple(i for i, kk in enumerate(w) if kk)
+                supdets = [tuple(dets_all[i]) for i in sup0]
+                supw = [w[i] for i in sup0]
+                # key by support AND its rigid 1-term class products: free-kernel
+                # translates (phase-absorbed, fiber-dimension law) collapse to one
+                # representative, while rigidly-pinned distinctions (which cut the
+                # kernel, e.g. the blocked v140/v263) keep separate keys and are
+                # each tried. verify_exact still gates every hit.
+                key = (sup0, tuple(sorted(rigid_class_products(supdets, supw).items())))
+                if key in tried:
+                    continue
+                tried.add(key)
             psi, res = phase_solve(n, d, spectrum, dets_all, den, w,
                                    _built=built, target=target)
             if psi is None:
@@ -1386,6 +1421,8 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             rec = {"status": "OK", "residual": res,
                    "support_size": len(sup), "min_blocks": needed,
                    "weights": [w[i] for i in sup], "den": den,
+                   "fiber_kernel_dim": _incidence_kernel_dim(
+                       [tuple(dets_all[i]) for i in sup]),
                    "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
                    "support": [[list(dets_all[i]), float(abs(psi[i])),
                                 float(np.angle(psi[i]))] for i in sup]}
