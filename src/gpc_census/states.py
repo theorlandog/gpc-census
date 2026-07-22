@@ -609,8 +609,83 @@ def multi_clique_ansatze(n: int, d: int, spectrum, sizes=(3,), n_cliques: int = 
             yield nv, list(cliques)
 
 
+_SYMMETRY_BREAK = True  # module default; _skeleton_model uses it when symmetry_break is None
+
+
+def _lex_le(m, a, b):
+    """Add a <=_lex b for two equal-length lists of CP-SAT int vars.
+
+    Standard prefix-equality chain: at the first coordinate where a and b
+    differ, a must be the smaller. Sound symmetry breaking keeps the
+    lex-minimum element of every orbit, so no orbit is ever emptied.
+    """
+    prev = None  # None encodes "all earlier coordinates equal" (a true constant)
+    for p in range(len(a)):
+        if prev is None:
+            m.Add(a[p] <= b[p])
+        else:
+            m.Add(a[p] <= b[p]).OnlyEnforceIf(prev)
+        eqp = m.NewBoolVar(f"lexeq_{id(a)}_{p}")
+        m.Add(a[p] == b[p]).OnlyEnforceIf(eqp)
+        m.Add(a[p] != b[p]).OnlyEnforceIf(eqp.Not())
+        if prev is None:
+            prev = eqp
+        else:
+            nxt = m.NewBoolVar(f"lexpe_{id(a)}_{p}")
+            m.AddBoolAnd([prev, eqp]).OnlyEnforceIf(nxt)
+            m.AddBoolOr([prev.Not(), eqp.Not()]).OnlyEnforceIf(nxt.Not())
+            prev = nxt
+
+
+def _add_class_symmetry(m, k, allowed, nv, required):
+    """Break the degree system's mode-permutation symmetry by lex-leader.
+
+    The degree constraints are invariant under permuting modes with equal nv;
+    the hop constraints are NOT invariant under moving a block mode, so block
+    modes (any mode in a required hop pair) are colored as singletons and left
+    fixed. Within each remaining equal-nv color group, adjacent transpositions
+    generate the symmetric group, so imposing k <=_lex k^tau for each adjacent
+    transposition tau confines the search to the lex-minimum orbit
+    representative. This is an exact reformulation (orbit representative), not a
+    support filter: every orbit keeps exactly its lex-min member, which still
+    certifies. If the allowed set is not closed under a transposition (an
+    asymmetric support_filter), that transposition is not a model symmetry and
+    is skipped, so the reduction stays sound.
+    """
+    idx = {t: j for j, t in enumerate(allowed)}
+    block_modes = {x for pr in required for x in pr}
+    groups: dict = {}
+    for mo in range(len(nv)):
+        if mo in block_modes:
+            continue
+        groups.setdefault(nv[mo], []).append(mo)
+    for _val, modes in groups.items():
+        modes = sorted(modes)
+        for a_, b_ in zip(modes, modes[1:]):  # adjacent transpositions generate S_c
+            nonfixed = []
+            closed = True
+            for j, T in enumerate(allowed):
+                s = set(T)
+                ina, inb = a_ in s, b_ in s
+                if ina == inb:
+                    continue  # tau fixes this determinant
+                other = b_ if ina else a_
+                gone = a_ if ina else b_
+                T2 = tuple(sorted((s - {gone}) | {other}))
+                j2 = idx.get(T2)
+                if j2 is None:
+                    closed = False
+                    break
+                nonfixed.append((j, j2))
+            if not closed or not nonfixed:
+                continue
+            nonfixed.sort()
+            _lex_le(m, [k[j] for j, _ in nonfixed], [k[j2] for _, j2 in nonfixed])
+
+
 def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
-                    require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False):
+                    require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False,
+                    symmetry_break=None):
     """CP-SAT model of the degree system: weights k on allowed determinants
     with prescribed mode sums and indicators y. Hop structure is encoded per
     mode pair: target pairs (block ansatze) need at least one support hop.
@@ -659,6 +734,8 @@ def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
     required = {tuple(sorted(pr)) for pr in (require_hop_pairs or [])}
     if any(pr not in pair_hops for pr in required):
         return None
+    if symmetry_break if symmetry_break is not None else _SYMMETRY_BREAK:
+        _add_class_symmetry(m, k, allowed, nv, required)
     if not hop_cuts:
         return m, k, y, dets, den, allowed
     for pr, hops in pair_hops.items():
