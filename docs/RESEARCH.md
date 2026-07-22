@@ -120,6 +120,26 @@ organizing lens (it is established: Klyachko, Berenstein-Sjamaar, Walter et al),
 but the mechanism behind the observed laws (fiber continua, denominator ratio,
 2-elementary holonomy) is still open. Both probes are logged as tested leads.
 
+NORMAL-FAN PROBE RESULT (this one PAID OFF, exact): computed the normal-cone
+lattice index at every simple vertex of all nine systems (Smith/|det| of the
+incident primitive facet normals, projected to the polytope lattice
+Z^d / Z(1..1); validated on v_B, |det| = 23 = den). Findings, all exact integer
+arithmetic:
+- den = normal-cone index at ALL 51 simple INTERFERENCE vertices across every
+  system (the paper conjectured this and had verified only v_B; it now holds
+  51/51). Interference vertices are exactly the minimal, cyclic-order-den toric
+  quotient singularities.
+- DESIGN simple vertices have index = m * den with m in {1,2,3,4,5,6}
+  (m=1: 60, m=2: 45, m>=3: 23). So the law sharpens to a one-directional
+  characterization: normal-cone index > denominator implies DESIGN (never
+  interference). Interference forces m = 1.
+This is the toric-quotient-singularity structure the moment-map lens predicts,
+and unlike the cluster and Frobenius-Schur probes it is CONFIRMED and exact. It
+strengthens the paper's simple-vertex denominator conjecture from one vertex to
+all 51 simple interference vertices, and adds the design index-multiple law.
+Full Ehrhart quasi-polynomials (which would explain the counting sequences
+directly) still need a lattice-point counter (LattE/Barvinok), not vendored.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
