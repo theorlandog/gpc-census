@@ -92,6 +92,64 @@ def recognize_phase(theta: float):
     return None
 
 
+def is_exponent_two(cos_val):
+    """True if e^{i theta} with cos theta = cos_val lies in a 2-elementary abelian
+    (nested-square-root) extension of Q, the Conjecture 2 class.
+
+    e^{i theta} = cos + i sqrt(cos^2 - 1) is a quadratic extension of Q(cos), so
+    e^{i theta} is exponent-2 iff 2 cos theta generates a 2-elementary field.
+    Returns True/False from the Galois group of minpoly(2 cos), or None when the
+    degree exceeds the backend (>6) and cannot be classified here.
+    """
+    import sympy as sp
+
+    x = sp.Symbol("x")
+    try:
+        p = sp.minimal_polynomial(2 * cos_val, x)
+        deg = sp.Poly(p, x).degree()
+    except Exception:
+        return None
+    if deg <= 2:
+        return True  # a quadratic minpoly always gives a 2-elementary field
+    if deg > 6:
+        return None
+    try:
+        from sympy.polys.numberfields.galoisgroups import galois_group
+
+        g = galois_group(p, x)[0]
+        # elementary abelian 2-group: abelian with every generator of order <= 2
+        return bool(g.is_abelian and all(gen.order() <= 2 for gen in g.generators))
+    except Exception:
+        return None
+
+
+def conjecture2_scan(support, amps):
+    """Gauge-invariant loop holonomies of a certified state and their Conjecture 2
+    status. For each integer cycle in the support incidence kernel, the holonomy
+    sum_T u_T arg(amp_T) is a diagonal-gauge invariant; its cosine is classified
+    by is_exponent_two. Returns [{cycle, cos, exponent_two}]. Diagnostic only, it
+    never rejects a state; amplitude phases may trisect while these invariants
+    stay abelian (that is the content of the conjecture)."""
+    import sympy as sp
+
+    dets = [tuple(t) for t in support]
+    d = max((m for T in dets for m in T), default=-1) + 1
+    M = sp.Matrix([[1 if m in T else 0 for m in range(d)] for T in dets])
+    ph = [sp.arg(a) for a in amps]
+    out = []
+    for u in M.T.nullspace():
+        u = u * sp.lcm([c.q for c in u])
+        u = u / sp.gcd([sp.Integer(c) for c in u])
+        hol = sum(u[i] * ph[i] for i in range(len(dets)))
+        try:
+            cos_h = sp.nsimplify(sp.simplify(sp.cos(hol)))
+            e2 = is_exponent_two(cos_h)
+        except Exception:
+            cos_h, e2 = None, None
+        out.append({"cycle": [int(x) for x in u], "cos": cos_h, "exponent_two": e2})
+    return out
+
+
 def build_rho_symbolic(d: int, support, amps):
     """Exact symbolic 1-RDM of sum_t amps_t |t>, in rectangular (a + b i) form."""
     import sympy as sp
@@ -376,9 +434,29 @@ def exactify(n: int, d: int, spectrum, record):
             break
         exact_amps.append(sp.sqrt(sp.Rational(k, den)) * sp.exp(sp.I * ph))
     if recognized and verify_exact(n, d, spectrum, support, exact_amps):
-        return {"status": "EXACT", "weights": ks, "den": den,
-                "amplitudes": [sp.srepr(a) for a in exact_amps],
-                "pretty": [str(sp.simplify(a)) for a in exact_amps]}
+        out = {"status": "EXACT", "weights": ks, "den": den,
+               "amplitudes": [sp.srepr(a) for a in exact_amps],
+               "pretty": [str(sp.simplify(a)) for a in exact_amps]}
+        # Feature 5: every certified state is a live test of Conjecture 2. The
+        # gauge-invariant holonomies must be exponent-2 abelian; a definitive
+        # violation is surfaced loudly but never rejects the (verify_exact-
+        # certified) state.
+        try:
+            scan = conjecture2_scan(support, exact_amps)
+            bad = [s for s in scan if s["exponent_two"] is False]
+            if scan:
+                out["holonomy_exponent_two"] = not bad
+            if bad:
+                import warnings
+                msg = ("CONJECTURE2-CANDIDATE-COUNTEREXAMPLE: gauge-invariant "
+                       f"holonomy cosine {bad[0]['cos']} (cycle {bad[0]['cycle']}) "
+                       "generates a non-2-elementary field. State is certified by "
+                       "verify_exact; investigate the conjecture.")
+                warnings.warn(msg, stacklevel=2)
+                print("!!! " + msg, flush=True)
+        except Exception:
+            pass
+        return out
     # Per-phase recognition failed or did not certify. The absolute phases of an
     # interference corner are coupled polygon path-sums (high degree) even after
     # gauge fixing; solve instead in the pinned off-diagonal magnitudes.

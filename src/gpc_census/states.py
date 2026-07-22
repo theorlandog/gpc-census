@@ -611,6 +611,14 @@ def multi_clique_ansatze(n: int, d: int, spectrum, sizes=(3,), n_cliques: int = 
 
 _SYMMETRY_BREAK = True  # module default; _skeleton_model uses it when symmetry_break is None
 
+# Feature 4: denominator-grid tiering. The ratio state_den/spectrum_den is 1 or 2
+# across the whole certified corpus (test_denominator_ratio), and 2 occurs only
+# for DESIGN-REAL states. So the interference/design-int paths stay on the m=1
+# natural grid, DESIGN-REAL is the only consumer of the m=2 tier, and nothing
+# escalates past this cap without an explicit override. This is a search-order
+# bound justified by an exact law, never a filter (verify_exact still gates).
+MAX_DENOMINATOR_TIER = 2
+
 
 def one_hop_classes(dets):
     """Group a support by one-hop mode pair.
@@ -1223,9 +1231,13 @@ def solve_design_real_vertex(n: int, d: int, spectrum):
     pretty = [str(sp.nsimplify(sp.sqrt(sp.Rational(k, den)))) for k in weights]
     support = [[list(dets[sup[i]]), float(wfr[i]) ** 0.5, 0.0]
                for i in range(len(sup))]
+    spectrum_den = 1
+    for x in spec:
+        spectrum_den = spectrum_den * x.denominator // math.gcd(spectrum_den, x.denominator)
+    tier = den // spectrum_den if den % spectrum_den == 0 else None
     return {"status": "OK", "residual": 0.0, "support_size": len(sup),
             "weights": weights, "den": den, "verdict": "DESIGN-REAL",
-            "support": support,
+            "denominator_tier": tier, "support": support,
             "closed_form": {"den": den, "weights": weights, "pretty": pretty,
                             "support_dets": [list(dets[j]) for j in sup]}}
 
