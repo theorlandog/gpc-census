@@ -104,6 +104,22 @@ this probe is the one-directional law weakly-separated implies design; the
 cluster reading of interference supports (single seed, or crossing = channel) is
 refuted. Recorded as a falsified lead so it is not re-proposed.
 
+FROBENIUS-SCHUR PROBE RESULT (run over the complex corpus, implementation
+validated on design states): also does NOT unlock the reality question. Every
+complex certified state, v_B included, has NO finite antiunitary permutation
+symmetry (49/49 tested; real states trivially have one via complex conjugation
+K with pi = identity). So the real/complex split does coincide with
+antiunitary-symmetric/not, but there is NO Frobenius-Schur = -1 (quaternionic /
+Kramers) case among finite symmetries, so no exact Kramers proof of complexity
+is available and the reality obstruction for v_B stays CONTINUOUS (the open
+U(4)xU(4) block-rotation question, same as the numerical overlap faces). Net of
+both structural probes: the census's empirical rigidity does not reduce to
+Grassmannian-cluster or Frobenius-Schur structure in a form that decides reality
+or reaches v89/v103. The moment-map / GIT-symplectic framing remains the correct
+organizing lens (it is established: Klyachko, Berenstein-Sjamaar, Walter et al),
+but the mechanism behind the observed laws (fiber continua, denominator ratio,
+2-elementary holonomy) is still open. Both probes are logged as tested leads.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
