@@ -1,15 +1,17 @@
-"""v96 is solvable: a census false negative, resolved.
+"""v96 is solvable: a census false negative, now resolved in the dataset.
 
-(3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9 is recorded SOLVE-FAIL in the census
-(results/data/states.jsonl), but exact closed-form extremal states for it DO
-exist. They were found by the hybrid family (scripts/hybrid_search.py driving
-scripts/polygon_target.py) on the degenerate (5,1) block ansatz that the
-census's own block_ansatze generates -- but which solve_vertex_exact_first never
-phase-solves, because the min_block_count preflight returns None and it bails.
+(3,10) v96 = (5,5,5,5,2,1,1,1,1,1)/9 was recorded SOLVE-FAIL in the census, but
+exact closed-form extremal states for it DO exist. They were found by the hybrid
+family (scripts/hybrid_search.py driving scripts/polygon_target.py) on the
+degenerate (5,1) block ansatz that the census's own block_ansatze generates --
+which the earlier solve_vertex_exact_first missed because the unsound
+support-filter preflight excluded the true-solution determinants.
 
-This test pins the resolution: the stored states pass both the shipped exact gate
-verify_exact and an independent from-scratch 1-RDM spectrum check, while v96 is
-still labeled FAIL in the shipped dataset. See docs/RESEARCH.md, "v96 solved".
+With that filter removed the audit recovered v96 (and nine siblings), and the
+shipped dataset now records it certified. This test pins both ends of the
+resolution: the stored states pass the shipped exact gate verify_exact and an
+independent from-scratch 1-RDM spectrum check, and states.jsonl now labels v96
+OK with a closed form. See docs/RESEARCH.md, "v96 solved".
 """
 import json
 import pathlib
@@ -43,14 +45,15 @@ def test_stored_v96_states_are_exact():
     assert verify_exact(N, d, [Fraction(x, den) for x in h["spec"]], dets, amps_sp)
 
 
-def test_v96_is_recorded_solve_fail():
-    # the shipped census still marks v96 as FAIL: this crack is a correction
+def test_v96_is_recorded_certified():
+    # the audit merged the crack into the census: v96 is now OK with a closed form
     states = (ROOT / "results" / "data" / "states.jsonl")
     if not states.exists():
         return
     for line in states.read_text().splitlines():
         d = json.loads(line)
         if d.get("system") == "(3,10)" and d.get("index") == 96:
-            assert d["status"] == "FAIL"
+            assert d["status"] == "OK"
+            assert d.get("closed_form"), "v96 certified but carries no closed form"
             return
     raise AssertionError("v96 not found in states.jsonl")
