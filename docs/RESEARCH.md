@@ -4,6 +4,104 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## Toric-fiber conjecture: both tests RUN; a continuum of extremal states at v_B
+
+Ran the two named tests. Results are a genuine mixed verdict plus one
+discovery that supersedes the question as posed.
+
+- DISCOVERY (exact, certified): v_B's extremal fiber is POSITIVE-
+  DIMENSIONAL. The degree system on its 8-det support has a 1-dim
+  kernel (the vector (1,-1,0,0,-1,1,0,0)), and moving the weights along
+  it PRESERVES extremality because the block phase re-solves: at
+  t = 1/2 the displaced state with weights (3/2,15/2,4,3,3/2,5/2,1,2)/23
+  and cos(theta) = 4 sqrt(3)/15 satisfies the exact char-poly identity
+  (verified symbolically). The family lives on t in (-1, 2); at both
+  boundaries a weight vanishes, the exchange class drops to one term,
+  and NO real sign choice certifies -- so the family is genuinely
+  complex throughout and the paper's open question (does v_B admit any
+  real extremal state) STANDS, now over a strictly larger known search
+  space (the whole family, each point a distinct U(9) orbit; the
+  non-realifiability optimization was run only at t = 0).
+  FRAMING CAUTION (own goal avoided): weight-deformation directions and
+  holonomy loop vectors are ker of the SAME incidence map -- their
+  coincidence is definitional. The nontrivial content is PHASE
+  ABSORPTION: the char-poly conditions do not cut the kernel direction;
+  the phase absorbs it. First known continuum of extremal states at a
+  GPC vertex; the certified psi_B is one point of a curve.
+- LITERAL TORUS-ORBIT FORM: REFUTED. Along the family the loop monomial
+  prod k^v is NOT constant (1/8 at t=0, 1/3 at t=1/2), so the fiber
+  curve is not a naive torus orbit in amplitude coordinates.
+- BINOMIAL-SHAPE FORM: MOSTLY SUPPORTED, exceptions identified. Across
+  all 154 certified interference states, one-hop classes have 1 term
+  (123), 2 terms (61), or 3 terms (15); the >= 3-term (non-binomial)
+  states are exactly the 15 trisection states -- whose gauge-invariant
+  content nonetheless collapses to the abelian catalog. So the phase
+  ideals are binomial for ~92% of classes, trinomial precisely where
+  cube roots appear, with invariants lattice-clean even there.
+- TEST 2 AS DESIGNED: INCONCLUSIVE (the 24 v96 fiber states occupy 24
+  distinct supports; no shared-support pairs to test loop-monomial
+  constancy). Redesign: scan the v_B family instead -- its defining
+  curve in (k, z) coordinates is rational, cut by
+  m1^2 + m2^2 + 2 m1 m2 cos(theta) = x2 with m_i^2 linear in t.
+REVISED CONJECTURE DIRECTION (speculative, flagged): the fiber is not a
+torus orbit but a rational curve (or higher family) fibered over the
+kernel lattice, with holonomy varying along it -- the lattice controls
+deformations and phases jointly, cluster-algebra-like rather than
+naively toric. Census-wide question now well-posed: for every loopy
+certified state, does the kernel direction always survive phase
+absorption (fiber dim = kernel dim), or do 1-term rigid classes block
+it? That is a finite exact computation over the corpus.
+
+VERIFICATION (this session): the t=1/2 displaced state passes verify_exact
+exactly; the loop monomial is 1/8 at t=0 and 1/3 at t=1/2; 154 certified
+interference states and 15 trisection states confirmed against the ledger.
+Not recomputed here: the full 123/61/15 one-hop term-count histogram.
+
+## Symmetry census at 797: spontaneous symmetry breaking at the corners
+
+Computed the FULL automorphism group of every certified state (mode
+permutations within spectrum-degeneracy classes preserving the weighted
+support; 1-WL color refinement + in-cell brute force; 788/797 computed,
+9 skipped on cell size). New invariant per vertex: the SYMMETRY-BREAKING
+INDEX [G : Aut(psi)], G = the spectrum's class-permutation group.
+
+- SLATER RIGIDITY LAW (exact): exactly NINE states realize the full
+  symmetry of their spectrum (Aut = G) -- and they are precisely the
+  nine Slater corners (index 0 of each system, single determinant).
+  Every correlated extremal state in the census breaks its spectrum's
+  symmetry. Theorem-shaped; worth a short proof attempt (a G-invariant
+  correlated state on a vertex may be impossible for elementary
+  reasons).
+- STRATIFICATION BY CLASS: rigidity (Aut = 1) hits 63% of interference
+  states vs 40% of integer designs -- interference correlates with
+  symmetry breaking. ALL 12 DESIGN-REAL states have nontrivial Aut:
+  combined with the ratio-2 law, real designs are doubly special
+  (symmetric AND on the doubled grid).
+- LARGE EXTREMAL MULTIPLETS: the breaking index concentrates at
+  16-144, so each such vertex carries an orbit of that many distinct
+  extremal states -- massive extremal degeneracy, previously invisible.
+- HODGE BREAKING: of the 14 Hodge-self-dual spectra at half filling
+  with certified states, only TWO ((4,8) v21 and (5,10) v291, both
+  two-determinant states) have complement-closed (self-dual) supports;
+  the other 12 are attained by non-self-dual states, whose Hodge images
+  are DIFFERENT extremal states in the same fiber. (Shipped-state
+  statement only: whether every self-dual spectrum also admits a
+  self-dual representative is a clean open question -- the two
+  existing ones show it is sometimes possible.)
+
+Speculative framing, flagged: this is spontaneous symmetry breaking at
+polytope corners -- symmetric spectra, asymmetric extremal states,
+degenerate multiplets of order [G:Aut]. A toric extremal fiber
+(the standing conjecture) would organize exactly these orbits.
+
+VERIFICATION (this session): the nine single-determinant Slater corners
+(all at index 0) and the two Hodge self-dual supports ((4,8) v21,
+(5,10) v291, both two-determinant, complement-closed) confirmed against
+the ledger. Not recomputed here: the [G:Aut] automorphism statistics
+(the 63%/40% stratification, the 16-144 multiplet range, all-12-DESIGN-
+REAL-nontrivial), which rely on the automorphism tooling not shipped in
+the repo.
+
 ## Corpus-wide algebraic mining at 797/799 (2026-07)
 
 Three exact findings and one honest negative from mining every certified
