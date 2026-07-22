@@ -4,6 +4,59 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
+
+Method (two stages). STAGE A, exact linear algebra per state: kernel of
+the support incidence = the weight-deformation space (mode sums frozen);
+classify each one-hop class by (term count, target); a 1-TERM class is
+RIGID (its off-diagonal magnitude sqrt(k_i k_j)/den is pinned by the
+target spectrum, so any kernel direction with v_i + v_j motion changing
+the product is cut -- first-order test: v_i k_j + v_j k_i = 0); classes
+with >= 2 terms are OPEN (phases/signs absorb motion in the polygon
+interior). Predicted fiber dim = kernel dim minus the rank of the rigid
+cuts. STAGE B, certification: displace to a rational t, re-solve the
+phase, verify the exact char-poly identity (or exhibit the rigid-class
+obstruction for blocked states).
+
+RESULTS (797 states):
+- NEW LAW (exact): ALL 643 design states are LOOP-FREE -- design
+  supports never carry incidence kernels, so design fibers are rigid
+  points (up to symmetry orbits). Continuous moduli are exclusive to
+  interference.
+- Interference: 93 of 154 loop-free (rigid); of the 61 loopy states,
+  46 have kernel dim 1 and 15 have kernel dim 2, and Stage A predicts
+  FULL kernel-dimension families for 59 of 61 -- i.e. 44 certified-
+  candidate CURVES (the 46 kernel-dim-1 states minus the two blocked)
+  and 15 SURFACES of extremal states. Exactly TWO states are blocked:
+  (5,10) v140 and v263, each killed by a rigid 1-term class.
+- Stage B certifications: v_B (t=1/2, cos = 4 sqrt 3/15) and (3,10)
+  v40 (t=1/2, cos = sqrt(165)/33) displaced states verified by exact
+  char-poly identity; v140's blockage PROVED exactly (its 1-term class
+  (2,5) has product k_0 k_1 = 7t + 7 along the kernel, non-constant,
+  so any t != 0 moves the block off-diagonal with the diagonal fixed
+  and shifts the eigenvalues -- QED).
+- FIBER-DIMENSION LAW (empirical, 59/61 + 2 proved exceptions):
+  fiber dim = kernel dim, except where a rigid 1-term class cuts it.
+  Remaining Stage B work: certify the other 57 displaced points (same
+  script), certify one 2-parameter surface point, and prove v263's
+  blockage (same argument shape as v140).
+
+Consequence for the paper (do not add until Stage B completes): the
+extremal fibers of these polytopes are generically positive-dimensional
+at loopy interference vertices -- the census's one-state-per-vertex
+library is sampling curves and surfaces, and the multiplicity structure
+(symmetry orbits x continuous families) is now computable exactly.
+
+VERIFICATION (this session, against the 797 ledger): the design loop-free
+law reproduced exactly (643/643 kernel dim 0); the interference kernel-dim
+distribution is {0: 93, 1: 46, 2: 15} (61 loopy) -- NOTE the source patch
+wrote "44 have kernel dim 1", which is the CURVE count (46 dim-1 minus the
+2 blocked), not the dim-1 count; 44 + 15 = 59 predicted families is
+consistent, 46 + 15 = 61 loopy is the correct partition. v140 and v263
+confirmed kernel-dim-1 interference; the v_B (cos 4 sqrt 3/15) and v40
+(cos sqrt(165)/33) t=1/2 displaced states both pass verify_exact. The
+v140 first-order blockage arithmetic (7t+7) was not re-derived here.
+
 ## Toric-fiber conjecture: both tests RUN; a continuum of extremal states at v_B
 
 Ran the two named tests. Results are a genuine mixed verdict plus one
