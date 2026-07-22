@@ -4,6 +4,58 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## Corpus-wide algebraic mining at 797/799 (2026-07)
+
+Three exact findings and one honest negative from mining every certified
+state for algebraic relations and generating structure:
+
+1. DENOMINATOR-RATIO LAW (exact, 797/797): state-denominator over
+   spectrum-denominator is ALWAYS 1 or 2. All 785 DESIGN-INT and
+   INTERFERENCE states sit at exactly 1; the ratio-2 states are
+   precisely 9 of the 12 DESIGN-REAL states (12/6, 26/13, 28/14; the
+   other three DESIGN-REAL sit at 1). So the m=2 amplitude grid IS
+   realized in nature -- exclusively by real designs. Refines the old
+   "ratio-1 law" and gives DESIGN-REAL a sharp arithmetic signature.
+2. GAUGE TRISECTION, INVARIANT ABELIANNESS: 16 certified interference
+   states carry TRISECTED amplitude phases (atan-form arguments like
+   (pi + 3 atan sqrt(7))/3 -- cube roots of complex numbers, from the
+   cubic characteristic polynomials of 3-clique blocks). These look
+   non-abelian at the amplitude level, but the GAUGE-INVARIANT loop
+   holonomies collapse every time into the exponent-2 catalog (checked
+   at (3,10) v17: loops give minpolys 2x^2-3x+2, field Q(sqrt(-7)), and
+   the known octic 4x^8-6x^6+5x^4-6x^2+4). Conjecture 2 is doing real
+   work: parametrizations may trisect; invariants may not.
+3. FIRST NON-EVEN RECIPROCAL HOLONOMY + NORM-SQUARE LAW EXTENSION: the
+   fresh v113 crack carries holonomy minpoly 12x^4-2x^3-19x^2-2x+12 --
+   reciprocal but NOT even, the first holonomy outside the forced-V4
+   lemma's hypothesis in the census. Abelianness survives via the
+   norm-square mechanism one level up: with y = x + 1/x satisfying
+   12y^2-2y-43, the norm (y1^2-4)(y2^2-4) = 1/16 is a perfect square,
+   forcing V4 (confirmed by direct Galois computation). Conjecture 2's
+   evidence now includes its first non-even instance, and the
+   norm-square law generalizes: for reciprocal holonomy quartics, the
+   product of (y_i^2 - 4) over the y-conjugates is a rational square.
+   (v113's other loop is the even quartic 32x^4-17x^2+32, forced-V4,
+   field Q(sqrt 2, sqrt -94).)
+4. NEGATIVE, recorded honestly: the census counting sequences (vertices
+   4,10,38,58,113; designs; interference; facets 1,4,31,52,93 along
+   (3,d)) admit NO low-order linear recurrence on five terms -- second
+   differences are irregular (22,-8,35) -- so no generating function is
+   proposed. One qualitative regularity: growth alternates by parity of
+   d (jumps into even d are consistently larger: +28 into d=8, +55 into
+   d=10, vs +6/+20 into odd d), suggesting half-filling-adjacent
+   enrichment; parked as an observation, not a law.
+
+VERIFICATION (this session, against the shipped 797/799 ledger): law 1
+reproduced exactly (788 states at ratio 1, 9 at ratio 2, all DESIGN-REAL,
+spectrum-denominators 6/13/14); the v17 minpolys (2x^2-3x+2, octic
+4x^8-6x^6+5x^4-6x^2+4) and the v113 minpolys (12x^4-2x^3-19x^2-2x+12 and
+32x^4-17x^2+32) reproduced exactly, and the norm-square (y1^2-4)(y2^2-4)=1/16
+confirmed; the vertex sequence 4,10,38,58,113 and its second differences
+(22,-8,35) reproduced. Not independently confirmed here: the exact "16"
+trisected-state count (a phase-pattern scan found 15) and the (3,d) facet
+sequence 1,4,31,52,93 (no per-(3,d) facet-count artifact ships for d<=8).
+
 ## What this project is
 
 Complete classification program for fermionic moment polytopes (generalized
