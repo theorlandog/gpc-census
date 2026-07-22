@@ -39,11 +39,23 @@ that no certified state is excluded.
   quotient only the free kernel; parked as the next unit.
 
 Acceptance: G1 full suite green (75 tests). G3 v96 canary passes. G2 regression
-interference vertices still certify with symmetry on, suite faster. G4 (v89 den
-26, v103 den 34) running the upgraded sweep. EXHAUST/TIMEOUT discipline: a FAIL at
-the wall budget is a TIMEOUT, not an exhaust, since the full block search
-(max_cliques = 0) does not prove exhaustion within a bounded budget. G4 outcome
-pending; do not regenerate the ledger until a SOLVE certifies and is verified.
+interference vertices still certify with symmetry on, suite faster.
+
+G4 OUTCOME (upgraded sweep, max_clique = 4, max_cliques = 0, max_card above the
+denominator, 7200 s budget each): both open vertices EXHAUSTED the block/clique
+ansatz family with no phase-solvable skeleton, and both finished well under the
+budget, so this is an ansatz-family EXHAUST, not a timeout:
+- (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26: FAIL in 705 s (exhausted).
+- (3,10) v103 = (18,18,18,18,5,5,5,5,5,5)/34: FAIL in 1278 s (exhausted).
+The symmetry reduction (F1) is what let the full block search COMPLETE within
+budget where it previously timed out, so the negative is now informative: the
+2x2-block + clique family (through max_clique 4) provably does not reach v89 or
+v103. This is NOT a proof of non-attainability. v89's eightfold-6 degeneracy
+points to the degenerate-kxk ansatz (scripts/kxk_degen.py), which is outside
+solve_vertex_exact_first's family; v103 (den 34, two classes) likewise needs a
+richer or degenerate block. The census stays at 797/799; the ledger is untouched.
+Next levers: fold the degenerate-kxk ansatz into the production family, or
+implement F2 (kernel quotienting) to shrink the high-denominator weight search.
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
