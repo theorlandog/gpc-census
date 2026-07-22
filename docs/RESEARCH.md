@@ -4,6 +4,47 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
+
+Four of the five corpus-mined solver upgrades implemented. All are exact
+reformulations or theorem-grade constraints, never support filters; each ships
+with tests, and each that encodes a law ships with a corpus-containment proof
+that no certified state is excluded.
+
+- F1 SYMMETRY-REDUCED SKELETON SEARCH (states._skeleton_model): lex-leader orbit
+  reduction within equal-nv mode classes, with block modes colored as singletons
+  so the hop constraints stay invariant. Keeps the lex-minimum representative of
+  every orbit, so no orbit is emptied (sound; asymmetric support_filters skip the
+  transposition they break). Wired behind states._SYMMETRY_BREAK (default on).
+  Full suite runs faster with it on (about 27s vs 34s); v96 canary
+  min_block_count = 1 in 0.4s, production solve OK in 1.8s.
+- F3 RIGID ONE-HOP-CLASS CONSTRAINT (states.one_hop_classes,
+  rigid_class_products): a class with a single hop pair forces k_A k_B = x2 (the
+  block eigenvalue identity), a sound search prune. test_rigid_class proves the
+  identity over the whole corpus, so the prune never drops a certified state.
+- F4 DENOMINATOR-GRID TIERING (states.MAX_DENOMINATOR_TIER): the ratio
+  state_den/spectrum_den is 1 or 2 corpus-wide and 2 only for DESIGN-REAL, so the
+  interference/design-int paths stay m=1 and DESIGN-REAL is the sole m=2 consumer.
+  The design-real record carries denominator_tier; test_denominator_tier proves
+  the ratio law over the corpus.
+- F5 EXPONENT-2 LIVE TEST (exactify.is_exponent_two, conjecture2_scan): every
+  certified state's gauge-invariant loop holonomies are classified by the Galois
+  group of minpoly(2 cos theta); exactify records holonomy_exponent_two and raises
+  CONJECTURE2-CANDIDATE-COUNTEREXAMPLE on a definitive non-2-elementary holonomy
+  without ever rejecting the verify_exact-certified state. The check is on the
+  gauge invariant, not amplitude phases (trisections are expected). v_B, v113,
+  v17 confirmed exponent-2; a C3 angle (cos 2pi/7) is correctly flagged.
+- F2 KERNEL QUOTIENTING: deferred. Its soundness is coupled to F3 (rigid 1-term
+  classes cut kernel directions), so a sound fundamental-domain construction must
+  quotient only the free kernel; parked as the next unit.
+
+Acceptance: G1 full suite green (75 tests). G3 v96 canary passes. G2 regression
+interference vertices still certify with symmetry on, suite faster. G4 (v89 den
+26, v103 den 34) running the upgraded sweep. EXHAUST/TIMEOUT discipline: a FAIL at
+the wall budget is a TIMEOUT, not an exhaust, since the full block search
+(max_cliques = 0) does not prove exhaustion within a bounded budget. G4 outcome
+pending; do not regenerate the ledger until a SOLVE certifies and is verified.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
