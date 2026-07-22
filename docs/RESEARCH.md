@@ -70,10 +70,25 @@ richer or degenerate block. The census stays at 797/799; the ledger is untouched
 
 FOLLOW-UP (both next levers now implemented): F2 kernel quotienting shipped, and
 the degenerate-block ansatz was folded into the family and wired into
-crack_vertex_exact as a fallback. A fresh v89/v103 run with the degenerate
-fallback is in progress; outcome to be recorded, same EXHAUST-vs-TIMEOUT
-discipline, ledger untouched until a SOLVE certifies and is independently
-verified.
+crack_vertex_exact as a fallback.
+
+DEGENERATE-FALLBACK RUN OUTCOME (v89 3600 s + v103 3600 s degenerate budget): no
+solve, and crucially the degenerate pass TIMED OUT for both (v89 3608 s, v103
+3746 s), it did NOT exhaust. So this is inconclusive, not a family-does-not-reach
+result: brute degenerate enumeration (per-config support enumeration times a
+per-support attain) is too slow to finish even with F1 symmetry and F2 kernel
+quotienting. Census stays 797/799; ledger untouched.
+
+The right next move is structural, not more brute force. Under the moment-map
+lens the extremal supports are candidate Grassmannian cluster seeds and the
+one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
+CLUSTER MUTATION from a certified neighbor rather than by enumerating supports.
+Cheap falsifiable pre-checks (both reuse shipped data): (1) are the 154
+interference supports weakly separated collections (Leclerc-Zelevinsky /
+Oh-Postnikov-Speyer)? if so the fibers are cluster varieties and mutation search
+applies; (2) does the Frobenius-Schur indicator of each state under its Aut group
+track the design/signed/complex trichotomy? if so reality is a Schur-index
+computation, not a numerical overlap. These are the recommended next probes.
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
