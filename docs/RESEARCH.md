@@ -212,6 +212,50 @@ infeasible, the level-5 claim becomes theorem-adjacent without new mathematics. 
 is the recommended next concrete step for the rank-11 closure and needs an SDP-capable
 environment.
 
+## RANK-11 CERTIFICATE PATH: SDP RUN, method validated, scaling wall found (2026-07)
+
+Executed the recommended SDP path (Clarabel/cvxpy installed in the venv;
+scripts/sos_nonattain.py). Three concrete results, discipline preserved.
+
+1. CONE FIX (the naive relaxation is wrong). f = sum_ij |gamma_ij - g0 delta|^2 is
+   U(1)-gauge invariant, so it is a sum of squared magnitudes of the SESQUILINEAR
+   forms gamma_ij - g0 delta, NOT a holomorphic SOS. A holomorphic {1,c,c^2}-block
+   SOS cannot even represent it (fails to certify the trivial delta=0). The correct
+   cone squares the CHARGE-0 space B = {1} U {Re(c_a cbar_b), Im(c_a cbar_b)} (size
+   1 + nd^2, nd = C(d,N)): f - delta = B^T Q B + mu(||c||^2 - 1), Q >> 0, mu a free
+   charge-0 degree-<=2 multiplier. This is the level-2 relaxation on the sphere.
+
+2. VALIDATED on (2,4), whose pure spectra are the degenerate pairs (a,a,1-a,1-a).
+   EXTER (0.8,0.6,0.4,0.2) certifies delta = 0.04, EXACTLY the squared distance to
+   the nearest attainable (0.7,0.7,0.3,0.3); ATTAIN (0.7,0.7,0.3,0.3) gives
+   delta ~ 0. Two independent solvers (cvxpy and a hand-assembled native Clarabel
+   program) agree; the certificate reconstructs f to ~1e-14. So a positive delta IS
+   a rigorous non-attainability certificate and the pipeline is sound on a case with
+   a known answer.
+
+3. SCALING WALL -> symmetry reduction is REQUIRED, not optional. The single PSD
+   block has side 1 + nd^2: 401 for (3,6), 27226 for (3,11). A dense-scaling
+   interior-point method forms an npsd x npsd Nesterov-Todd scaling with
+   npsd = side(side+1)/2 ~ 80601^2 * 8 B ~ 52 GB already at (3,6) (OOM confirmed,
+   both cvxpy and native). The un-reduced degree-2 relaxation is thus intractable
+   beyond tiny systems. cand 44 g0 = diag(6^5,1^6)/12 has spectrum stabilizer
+   S5 x S6; block-diagonalizing Q under the fermionic determinant rep of that group
+   (Wedderburn / isotypic decomposition) collapses the 27226 side into a handful of
+   small irrep blocks whose multiplicities in the 165-determinant rep are single
+   digit. That symmetry-adapted assemble-and-solve is the open next step; the
+   validated un-reduced assembler and self-test ship in scripts/sos_nonattain.py.
+
+TARGET DATUM (for the reduced solve to reproduce). By orbital-rotation invariance of
+the pure-1-RDM set, min_Psi ||gamma(Psi) - diag(g0)||^2 = squared Euclidean distance
+from g0's spectrum to the (N,d) moment polytope (Hoffman-Wielandt: the nearest pure
+1-RDM aligns eigenbases). So a positive delta certifies the spectrum is OUTSIDE the
+polytope, and delta equals dist^2 to it. For cand 44 the contraction floor is
+~2.155e-3 (~1/464 to 7 figures, real and complex agree); that is the number the
+symmetry-reduced certificate must lower-bound. NOTE this reduction also means any
+single violated GPC facet inequality gives delta >= ((a.g0 - b)/||a||)^2 by exact
+rational arithmetic -- but the (3,11) level-5 facet is precisely the open Schubert
+object, which is why the ansatz-free SOS route (no facet list needed) is the target.
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
