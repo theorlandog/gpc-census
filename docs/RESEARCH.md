@@ -79,6 +79,30 @@ result: brute degenerate enumeration (per-config support enumeration times a
 per-support attain) is too slow to finish even with F1 symmetry and F2 kernel
 quotienting. Census stays 797/799; ledger untouched.
 
+SYMMETRY REDUCTION OF v89 -- a provable obstruction and the exact next ansatz
+(2026-07; scripts/v89_symmetry.py). v89 = (15,15,6^8)/26 has symmetry S_2 x S_8
+(head = the two 15-orbitals, octet = the eight 6-orbitals). The 3-subset
+determinants form THREE orbits ({3 octet} 56, {1 head 2 octet} 56, {2 head 1 octet}
+8), so a fully symmetric state has just THREE amplitudes (x,y,z) and its 1-RDM
+block-diagonalizes: antisym-head eigenvalue a-b, octet standard rep c-d (mult 7),
+and a 2x2 [[a+b,4e],[4e,c+7d]]. The five entries are exact quadratic forms:
+a=28y^2+8z^2, b=28y^2, c=21x^2+14y^2+z^2, d=15x^2+12y^2+z^2, e=7y(3x-z).
+RESULT: the fully-symmetric ALL-POSITIVE (trivial-rep = "design") ansatz PROVABLY
+cannot attain v89. The octet off-diagonal d is large and same-sign as c, so the
+mult-7 octet eigenvalue c-d = 6x^2+2y^2 is STRICTLY below the required (6/26) n2
+(gap = (90x^2+142y^2+24z^2)/13, positive-definite), yet it must equal 6/26 (part of
+the eightfold 6). So no symmetric design attains v89: the vertex demands
+INTERFERENCE that REDUCES the octet off-diagonal, i.e. intra-orbit sign/phase
+structure transforming under a NONTRIVIAL S_8 representation (a per-orbit phase or
+an all-positive signing cannot do it -- the reduction must live inside the octet
+3-subset orbit). This is a constructive re-derivation of v89's interference
+character (sharper than the MILP) and pinpoints the search: find the S_8-rep-
+theoretic signing of the 56 octet 3-subsets that lowers rho_{octet} to the target.
+That is a small structured combinatorial-design problem (56 signs modulo an
+S_8-orbit action), NOT a 120-determinant brute enumeration -- the first attack that
+uses v89's own symmetry. Still OPEN; this is progress and a precise next ansatz,
+not a solve.
+
 The right next move is structural, not more brute force. Under the moment-map
 lens the extremal supports are candidate Grassmannian cluster seeds and the
 one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
