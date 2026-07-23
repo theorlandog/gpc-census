@@ -149,6 +149,33 @@ exactly two rank-10 vertices resist closed forms. A genuine crack needs dedicate
 for rho = (6/26)I + (9/26)P_2, or a real cluster-algebra mutation engine -- not more
 ansatz search.
 
+RANK-2 INVERSE ATTEMPT via the group-theoretically CORRECT construction (a sharp
+negative result). To force the generic 8-block scalar one needs a NONABELIAN group
+with an IRREDUCIBLE 8-dim rep (abelian groups have only 1-dim irreps -- which is why
+the Z_8 cyclic attempt was doomed). The 3-qubit Pauli/Heisenberg group (order 128)
+is exactly that: generic orbitals ~ F_2^3, X_i/Z_i generators, irreducible on C^8.
+A 3-fermion state covariant under a linear character chi of this group has, by
+Schur, rho_generic proportional to I AND rho_{head,generic} = 0 (an intertwiner
+trivial -> irreducible vanishes), so rho is forced block-diagonal with a scalar
+octet and the two 15/26's in the head 2-block -- exactly the rank-2 target with
+P_2 = head. Computed: 28 of the 64 characters carry a nonzero covariant 3-fermion
+space, each exactly 2-DIMENSIONAL. RESULT: none reaches v89 -- scanning the
+one-parameter family in each, the best residual over all 28 is 0.34. The covariant
+states have the right STRUCTURE (scalar octet by Schur) but their rigid 2-dim
+freedom cannot tune the octet scalar and head block to the required (6/26, 15/26).
+CONSEQUENCE (a real characterization): v89's extremal state is NOT of the natural
+"two pure head orbitals + symmetric scalar octet" form; its rank-2 plane P_2 must be
+a MIXED generic 2-plane spanning head and generic orbitals together, with a
+NON-scalar octet block. Since the smallest group that could force a scalar octet is
+already the full order-128 Pauli group and it is too rigid, NO symmetry-aligned
+construction produces v89: the state is genuinely generic in its degenerate
+subspace, with no aligning symmetry to exploit. This closes the natural
+rank-2-inverse route and upgrades the open status to a near-theorem -- v89/v103
+resist closed forms because their extremal states carry NO exploitable symmetry.
+Any future crack must be a non-symmetric exact construction (a direct real-algebraic
+solve of the rank-2 N-representability system over a FREE mixed P_2), a dedicated
+computation rather than an ansatz.
+
 The right next move is structural, not more brute force. Under the moment-map
 lens the extremal supports are candidate Grassmannian cluster seeds and the
 one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
