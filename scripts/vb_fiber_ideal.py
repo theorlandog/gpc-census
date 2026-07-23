@@ -156,6 +156,34 @@ def paper_support_real_state():
     return out
 
 
+def fiber_physics_vb():
+    """The fiber as a 2-body observable + the reality selection principle (v_B).
+
+    Pair occupations <n_i n_j>(t) = sum_{T contains i,j} w_T(t)/23 are linear in t;
+    the ones that vary read the fiber coordinate that 1-body data cannot see. Since
+    they are linear, any density-density H = sum J_ij n_i n_j has <H>(t) linear, so
+    it is minimized at an endpoint of the physical (|cos| <= 1) interval -- a real
+    wall. Returns (varying_pairs, physical_endpoints_are_real_walls)."""
+    import sympy as sp
+    t = sp.symbols("t", real=True)
+    w = [sp.Integer(W0[i]) + t * KER[i] for i in range(8)]
+    varying = []
+    for i in range(9):
+        for j in range(i + 1, 9):
+            occ = sp.nsimplify(sum(w[k] for k in range(8)
+                                   if i in DETS[k] and j in DETS[k]) / DEN)
+            if sp.diff(occ, t) != 0:
+                varying.append(((i, j), occ))
+    walls = sorted(sp.solve(sp.Eq((2 * t**2 - 7 * t - 3)**2,
+                                  4 * (1 + t) * (8 - t) * (4 - t**2)), t), key=float)
+    cos = (3 + 7 * t - 2 * t**2) / (2 * sp.sqrt((1 + t) * (8 - t) * (4 - t**2)))
+    # reality (|cos|<=1) binds before positivity: |cos|>1 just outside the walls
+    binds = (abs(float(cos.subs(t, sp.Rational(0)))) <= 1
+             and abs(float(cos.subs(t, sp.Rational(-9, 10)))) > 1
+             and abs(float(cos.subs(t, sp.Rational(9, 5)))) > 1)
+    return varying, walls, binds
+
+
 def genus_and_invariants():
     """Genus (via the birational quartic) and elliptic invariants I, J, j."""
     import sympy as sp
@@ -198,6 +226,14 @@ def main():
     print("\nreal extremal state on the PAPER's Theorem-3 support (Q(sqrt15)):")
     for tv, ok, allreal in paper_support_real_state():
         print(f"  t={tv} ~ {float(tv):+.5f}: verify_exact={ok}  all_real_amps={allreal}")
+
+    varying, walls, binds = fiber_physics_vb()
+    print("\nfiber as a 2-body observable (pair occupations varying along t):")
+    for (i, j), occ in varying:
+        print(f"  <n_{i} n_{j}> = {occ}")
+    print(f"  reality selection: physical interval ends at the |cos|=1 real walls "
+          f"{[str(sp.nsimplify(x)) for x in walls]}; reality binds before "
+          f"positivity: {binds}")
 
     quartic, roots, sf, inv_i, inv_j, disc, j, genus = genus_and_invariants()
     print("\ngenus via the birational quartic s^2 = (1+t)(8-t)(4-t^2):")

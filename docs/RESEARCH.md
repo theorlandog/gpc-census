@@ -352,6 +352,48 @@ walls; the |cos| = 1 locus = the real wall states (generally irrational t);
 rational (t, w) points = rational-holonomy-cosine states, whose supply the rank
 governs. The 26 genus-0 fibers' (simpler) point arithmetic is uncatalogued.
 
+## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
+SELECTION PRINCIPLE (verified here for v_B, 2026-07)
+
+VERIFIED HERE (scripts/vb_fiber_ideal.py -> fiber_physics_vb): the fiber coordinate
+t is invisible to 1-body data but is a TWO-BODY observable. Along the v_B ledger
+family exactly EIGHT pair occupations <n_i n_j>(t) = sum_{T contains i,j} w_T(t)/23
+vary, all linear in t and all on the exchange-channel modes, e.g.
+<n_2 n_4> = (3 + t)/23, <n_1 n_8> = (9 - t)/23. Two states at the same maximally
+pinned vertex (identical natural occupations) therefore have measurably different
+density-density correlations: occupation spectroscopy is blind to the fiber, pair
+spectroscopy reads it.
+
+REALITY SELECTION PRINCIPLE (verified for v_B, general derivation, scope stated).
+The PHYSICAL interval of t is where |cos theta(t)| <= 1, and for v_B its endpoints
+are exactly the |cos| = 1 REAL walls t = 7/17 -+ 18 sqrt35/85, which sit strictly
+INSIDE the positivity interval (-1, 2) (checked: |cos| < 1 at t=0, |cos| > 1 at
+t = -0.9 and t = 1.8, both still weight-positive -- so reality, not positivity, is
+the binding constraint). Since every <n_i n_j>(t) is linear, any purely
+density-density Hamiltonian H = sum J_ij n_i n_j has <H>(t) LINEAR in t, hence its
+minimum over the family is at an endpoint of the physical interval -- a REAL wall
+state. So density-density interactions pin a pinned state to REALITY; the
+forced-complex interior is selected only by Hamiltonians with genuine exchange
+(nonlinear-in-t phase) terms. This gives the wall states a physical role
+(interaction-selected fiber representatives) and is the natural RDMFT statement:
+the exact functional's boundary degeneracy along the fiber is lifted LINEARLY by
+density-density terms. SCOPE (per-family, not yet census-wide): the "endpoints are
+real walls" step needs the |cos| = 1 walls to bind before positivity, verified for
+v_B and consistent with the 17 corpus vertices (all had interior real walls) but
+NOT checked for every family; linearity of <H> is general.
+
+PARALLEL-REPORTED, NOT INDEPENDENTLY CHECKED (a null result, low stakes): the
+quantum-metric / elliptic-differential bridge is COLD -- neither g(t) Q(t) nor
+g(t) sqrt(Q(t)) is constant along the v_B family (g the Fubini-Study metric), so
+no naive identity between the physical metric and the curve's invariant
+differential. Parked without decoration.
+
+CANDIDATE FOR THE PAPER (flag, do not inject unilaterally): the reality selection
+principle + the 2-body-observable framing is the most paper-ready physics to come
+out of the fiber work -- it connects the reality result to RDMFT and pinning
+(Section on applications) with a falsifiable, elementary statement. Hold for an
+explicit decision on scope.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
