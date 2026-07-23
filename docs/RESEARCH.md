@@ -159,6 +159,36 @@ the level of its normal-fan arithmetic. The normal-cone result is a clean exact
 statement about the KNOWN object; the new information lives one level up, in the
 states.
 
+FIBER PROBES (pushing into the new-information side). Two computations over the
+state data.
+
+(A) BASE-FIBER BRIDGE, combinatorial not arithmetic (this works): the vertex's
+facet-incidence combinatorics partially predicts the fiber dimension, where the
+normal-cone arithmetic could not. Over the certified corpus (fiber = incidence
+kernel dim of the support; excess = facets on the vertex minus dim):
+- fiber dim 2 (surfaces) occurs ONLY at simple or excess-1 vertices (15/15), a
+  clean necessary condition: big fibers live at near-simple vertices.
+- inverse tendency: non-simple vertices skew rigid (fiber 0: 70/105), simple
+  vertices carry the positive-dimensional fibers (26/49 have fiber > 0).
+- designs are always rigid (643/643).
+So facet-incidence combinatorics (not normal-cone arithmetic) is the base
+quantity that bridges to fiber dimension. Partial (a correlation plus the hard
+dim-2 constraint), not a determination.
+
+(B) v_B FIBER as a variety (only the verified part). Building the exact 1-RDM
+with weights linear in t and a free phase, sympy reports exactly ONE forced
+off-diagonal that must vanish, so the interference is confined to a single mode
+pair and the fiber is cut by essentially one (complex) relation, consistent with
+its kernel dim 1 (a curve). The two certified points (t=0 cos=-3sqrt2/16,
+t=1/2 cos=4sqrt3/15) confirm the continuum. NOT established here and explicitly
+retracted from an earlier draft: a naive one-phase magnitude reduction of that
+off-diagonal is WRONG (it would force |e^{i theta}| = 1/sqrt2 at t=0, impossible,
+yet v_B is certified there), so the constraint has more structure than a law of
+cosines and my hand-derivation of its degree does not hold. Extracting the exact
+defining polynomial F(t, cos theta) and its genus is a careful CAS task (sympy
+would not collapse the arg/Abs half-angle forms) and remains open; do not quote a
+bidegree or rationality claim until F is actually computed.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
