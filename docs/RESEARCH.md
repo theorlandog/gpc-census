@@ -103,6 +103,31 @@ S_8-orbit action), NOT a 120-determinant brute enumeration -- the first attack t
 uses v89's own symmetry. Still OPEN; this is progress and a precise next ansatz,
 not a solve.
 
+FULL-STEAM FOLLOW-UP (two more ansatze eliminated; the target structure pinned).
+The exact 1-RDM target is now explicit: eight eigenvalues equal 6/26, so
+rho - (6/26) I has rank EXACTLY 2, i.e. rho = (6/26) I + (9/26) P_2 with P_2 the
+rank-2 projector onto the two 15/26 natural orbitals. This is a maximally-mixed
+(scalar) 1-RDM on an 8-dim subspace plus a rank-2 bump -- a very rigid target.
+(a) A magnitude-S_8-symmetric octet block is gauge-equivalent to the all-positive
+design (rho_{ij} = lambda eps_i eps_j with eps a sign vector is the gauge
+a_i -> eps_i a_i), so it inherits the design obstruction: reducing the octet
+off-diagonal REQUIRES non-uniform octet off-diagonal magnitudes, i.e. the state
+BREAKS the octet magnitude-symmetry. (b) The natural symmetry-broken ansatz,
+splitting the octet into two S_4 blocks (S_2 x S_4 x S_4, nine determinant orbits,
+signs free), does NOT attain v89 either: an exact Powell search over the nine
+orbit amplitudes floors at residual 0.14 (eigenvalues spread 16.7,14.7,10.4,...,0),
+nowhere near the eightfold 6. So neither the fully symmetric nor the 4+4-split
+symmetric sparse ansatz reaches the rank-2 target. CONCLUSION: v89's extremal state
+is not captured by a small symmetric-orbit ansatz -- the rank-2 = (6/26)I + bump
+structure forces the state to be generic in the 8-dim degenerate subspace, which is
+exactly what defeats sparse symmetric constructions and the rational-grid search.
+This is honest negative progress: it rules out the two natural structured ansatze
+and identifies the precise obstruction (rank-2 target vs sparse symmetry). A crack
+likely needs either the cluster-mutation route (a certified neighbor plus an exact
+mutation, see below) or an explicit rank-2 1-RDM inverse construction, not another
+symmetric ansatz. v103 = (18^4,5^6)/34 is the analogous rank-2 case (rho -
+(5/34)I has rank 4: four 18/34 orbitals) and is expected to be harder still.
+
 The right next move is structural, not more brute force. Under the moment-map
 lens the extremal supports are candidate Grassmannian cluster seeds and the
 one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
