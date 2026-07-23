@@ -382,6 +382,35 @@ real walls" step needs the |cos| = 1 walls to bind before positivity, verified f
 v_B and consistent with the 17 corpus vertices (all had interior real walls) but
 NOT checked for every family; linearity of <H> is general.
 
+ENDPOINT THEOREM (verified here, 44/44 -- the scope caveat above is now DISCHARGED
+for the "walls interior" half). For a single active two-term block,
+cos^2 theta(t) = (tau - p1 - p2)^2 / (4 p1 p2) with p1, p2 the two weight products
+(linear in t) and tau the fixed exchange target. As t approaches any positivity
+boundary some weight -> 0, so a p_i -> 0 while the numerator -> (tau - p_j)^2 != 0,
+hence |cos theta| -> infinity: the |cos| = 1 walls are ALWAYS crossed strictly
+before positivity fails. Checked across every single-block kdim-1 family: 44/44
+(46/46 incl. the two multi-touch (5,10) cases) have the physical interval strictly
+interior to positivity, bounded by |cos| = 1 walls on both sides (|cos| > 1 at both
+positivity boundaries, physical region nonempty). So density-density minima land on
+|cos| = 1 boundary states (real: holonomy 0 or pi) for EVERY deforming single-block
+family, not just v_B. (What remains per-family is only the exact symbolic
+verify_exact of each wall's sign realizability: 17 done, the rest structural.)
+
+EXCHANGE SELECTS COMPLEX (mechanism verified here; exact v_B numbers parallel-
+reported). Adding a correlated-exchange term makes <H>(t) nonlinear: for v_B the
+exchange expectation <n_2 (a_4^dag a_8 + h.c.)>(t) reduces exactly to a multiple of
+(3 + 7t - 2t^2)/(2 sqrt(4 - t^2)), a nonlinear function of t. Minimizing
+[linear density-density] + lambda [exchange] over the physical interval: at
+lambda = 0 the min is the hi wall (real); at intermediate lambda the min moves
+INTERIOR (a genuinely complex extremal state is selected); at larger lambda it
+snaps to the lo wall, the jump between basins being discontinuous -- a first-order-
+like, two-basin selection crossover. So the "only genuine exchange reaches the
+complex interior" clause is backed by an explicit two-body mechanism. Parallel run
+reports the exact instance: exchange n_2(a_4^dag a_8 + h.c.) at mixing ratio 0.10
+puts the global min at t = -0.465 (interior/complex), with the transition near
+ratio 0.08-0.10 (their specific couplings; I reproduced the mechanism, not the
+exact threshold).
+
 PARALLEL-REPORTED, NOT INDEPENDENTLY CHECKED (a null result, low stakes): the
 quantum-metric / elliptic-differential bridge is COLD -- neither g(t) Q(t) nor
 g(t) sqrt(Q(t)) is constant along the v_B family (g the Fubini-Study metric), so
