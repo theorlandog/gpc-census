@@ -4,6 +4,214 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## v89/v103 NUMERICALLY ATTAINED (verified here) -- but NOT certified; census
+unchanged at 797/799 (2026-07)
+
+VERIFIED (ran scripts/contraction_attack.py independently). The ansatz-free
+contraction-map attack -- minimize ||gamma(Psi) - gamma_0||^2 over the FULL 120-dim
+Lambda^3 C^10 tensor with an analytic Wirtinger gradient, no support/sparsity/
+rationality restriction -- attains BOTH holdouts to machine precision from random
+starts: v89 residual 4.3e-17 (complex) and 7.6e-17 (REAL), v103 residual 2.2e-16
+(complex) and 5.0e-16 (REAL), eigenvalues exactly (15,15,6^8) and (18^4,5^6). So
+BOTH v89 and v103 numerically admit REAL states -- which CORRECTS an earlier hedge
+here (my real-diagonal attain floored at ~5e-6; that was a weak numeric gradient,
+not a real obstruction: the analytic-gradient version nails it). The analytic
+gradient is the whole difference from every prior stalled search.
+
+WHAT THIS IS, PRECISELY. Numerical ATTAINABILITY was never the open question --
+these are vertices, so states exist and my earlier attain already hit ~1e-14. The
+open problem is a CERTIFIED CLOSED FORM (an exact state passing the char-poly gate),
+and the contraction solutions do NOT provide one: they are DENSE generic fiber
+points (support 100-120 of 120), exactly the "dense, no exploitable symmetry" state
+my analysis predicted (design/split/cyclic/neighbor/Pauli all fail; see below). So
+this REINFORCES the near-theorem rather than overturning it: the state exists and is
+findable numerically, but it is generic in the degenerate subspace and yields no
+closed form. Census stays 797/799; do NOT read "numerically attained" as "solved".
+
+CERTIFICATION ROUTES (all still open; a distinguished, recognizable representative
+is required): (a) sparsity-seeking reoptimization on the solution manifold toward a
+small support, then the standard exactifier -- but the manifold may carry no sparse
+point (the numeric support is full); (b) the real-amplitude manifold (now known
+nonempty) with PSLQ/minpoly recovery of algebraic weights -- viable only if the
+weights are low-degree algebraic, unknown; (c) the equivariant route (a subgroup
+forcing gamma = scalar+projector by Schur) -- ALREADY SHOWN TOO RIGID for v89 (the
+order-128 Pauli construction gives only 2-dim covariant spaces, residual 0.34), so
+(c) is effectively closed. Net: attainability + reality settled numerically;
+certification remains the genuine open problem, and the honest odds of a clean
+closed form are low given the density.
+
+## RANK-11 FORK: contraction attack floors on all four open (3,11) candidates
+(verified here) -- strong evidence for the refutation branch, NOT proof (2026-07)
+
+VERIFIED (ran the same scripts/contraction_attack.py on the (3,11) settlement
+candidates). The attack that reaches ~1e-16 on true vertices FLOORS 11-14 orders
+higher on every open candidate. Controls (TRUE-VERTEX): idx0 7.1e-17, idx7 4.1e-16,
+idx14 2.8e-16, idx20 1.6e-16 -- machine precision, the solver has no trouble with
+attainable (3,11) spectra. Open candidates (docs/bracket_3_11_settlement.json,
+verdict OPEN): idx23 (den 7, spec 6,6,1^9) residual 9.2e-2; idx34 (den 17, 11^4,1^7)
+2.5e-2; idx26 (den 27, 21,21,11^3,1^6) 9.9e-3; idx44 (den 12, 6^5,1^6) 2.2e-3. My
+numbers reproduce the parallel run's to two figures. Targeting diag(spectrum) is
+WLOG (orbital rotation), so this tests attainability of the SPECTRUM directly; the
+floor is the squared distance from the target to the nearest pure-N-representable
+1-RDM, so a positive floor means the spectrum is OUTSIDE the (3,11) polytope.
+
+READING (evidence, discipline preserved): all four candidate spectra are very likely
+outside the true (3,11) polytope, hence the claimed level-5 second-kind inequality
+of Refs. AK2008/Klyachko2009 is very likely TRUE, and the bracket settles at 19
+true vertices + 27 refuted + 4 (now evidentially-refuted) = the falsification branch
+of the paper's "decisive fork" is heavily DISFAVORED. The floor magnitudes rank the
+candidates by distance-to-attainable (idx23 farthest, idx44 nearest), useful for a
+Stage-1 facet hunt. CAVEATS (do not overstate): nonconvergence is EVIDENCE, not
+proof -- a thin missed optimization basin is disfavored by the true-vertex control
+but not excluded; rigorous closure still requires the Schubert-coefficient proof of
+the level-5 series (which doubles as the Stage-1 constraint-generator verifier). So
+in the paper this shifts the fork's evidential weight toward refutation but must NOT
+be written as "resolved" -- it is a strong numerical indicator, and the exact proof
+is the open task. (Recorded in RESEARCH.md; not injected into main.md, which
+correctly keeps the fork open pending the Schubert computation.)
+
+## SKEPTICAL AUDIT + PRE-REGISTRATION for the rank-10 closure (2026-07)
+
+Selection-bias audit of the fiber era + anti-overfitting protocol (adopted from the
+parallel instance; sound practice, recorded verbatim in spirit):
+1. Every fiber law was mined from the 44 kdim-1 single-touched-class families of the
+   SOLVED corpus -- states our ansatz family finds. "44/44 conics" is a THEOREM for
+   single-2-term-class, +-1-loop families PLUS an empirical fact about the solver's
+   output distribution, not a law of nature. A v89/v103 state with multi-class or
+   3-term structure sits outside every fiber law's proven scope while violating
+   nothing. The endpoint theorem and wall-interiority are proved only in the
+   single-class scope.
+2. Mined-law mortality to date is about one in three (class-count, toric-orbit,
+   elliptic-fiber-as-the-rule -- all retracted). Presume survivors carry similar
+   out-of-sample risk until tested.
+3. Weapon vs law: the ENGINE features (symmetry reduction, kernel quotienting,
+   rigid-class arithmetic, continuous/wall-first search, and now the contraction
+   map) are sample-independent and bear on the holdouts; the LAWS describe solved
+   states post hoc and crack nothing. The x1.32/denominator scaling forecast is a
+   6-point fit -- an estimate, not a promise.
+
+PRE-REGISTERED PREDICTIONS (committed BEFORE any CERTIFIED v89/v103 state exists;
+score PASS/FAIL/NOT-TESTED against the certified states only, before writing any
+narrative; a FAIL is itself a publishable finding):
+- P1 every gauge-invariant holonomy of the v89/v103 states generates an exponent-2
+  abelian extension of Q (Conjecture 2).
+- P2 each state uses at most 2 exchange channels (Conjecture 3).
+- P3 rational-weight states have state-den = spectrum-den (26, 34); irrational
+  (continuous-search) states invoke the scope clause and do NOT test P3.
+- P4 loopy supports with no touched 1-term class deform (fiber dim = kernel dim).
+- P5 the states break their spectrum symmetry (Aut != G).
+- P6 if the family is single-2-term-class +-1-loop, its CM curve is a conic with
+  both walls real-type.
+(Caveat consistent with the above: the contraction solutions are DENSE, so a
+certified state -- if one is ever extracted -- may itself be dense/multi-class and
+land in several predictions' scope-exclusion clauses rather than testing them.)
+
+## THE FIBER IS THE 1-RDM -> 2-RDM INFORMATION GAP (verified at v_B, 2026-07)
+
+Framing (parallel instance's, adopted; candidate central claim for a second paper,
+NOT injected into the current main.md): even with the one-body spectrum EXACTLY
+pinned at a vertex -- the sharpest boundary the polytope offers -- the many-body
+state is not fixed. Natural occupation numbers are incomplete coordinates at maximal
+pinning; the fiber is precisely the information the 1-RDM cannot see but the 2-RDM
+can. This is STRUCTURAL and independent of the empirical quasipinning-deflation
+debate: pinning fixes the FORM of the state, the fiber is what lives inside the form,
+generically a continuum.
+
+VERIFIED HERE (v_B, exact 2-RDM built by second quantization, scratch vb_2rdm):
+- the RADIAL fiber coordinate t is read by PAIR OCCUPATIONS (diagonal of Gamma^2) --
+  already established (8 pair occupations vary linearly along the family; in the
+  paper).
+- the two conjugate sheets +Theta and -Theta (the state and its time-reversed image)
+  are INDISTINGUISHABLE in every T-even two-body datum: the diagonal-Gamma^2
+  (pair-occupation) difference is EXACTLY 0.0 and the real-part difference of the
+  full 2-RDM is EXACTLY 0.0.
+- they differ ENTIRELY in the T-ODD (imaginary) part of the 2-RDM: the whole
+  conjugate-sheet 2-RDM distance ||Gamma^2(+) - Gamma^2(-)||_F = 1.40 is imaginary,
+  max |Im Gamma^2| ~ 0.12. (The parallel run quotes 1.30 and ~0.24 for these; the
+  gap is a norm/normalization convention, the STRUCTURE -- all-difference-is-T-odd --
+  is exact and reproduced.)
+So the fiber orientation is a purely time-reversal-odd, two-body observable: the
+1-RDM is blind to the whole fiber; pair occupations resolve where on the arc; T-odd
+pair coherences resolve which sheet. Clean, correct, and paper-2 material.
+
+MISSING THEOREM (named honestly, unproven): quasi-fiber stability -- does the moduli
+continuum persist as a near-degenerate valley for spectra NEAR the vertex (the
+quasipinning regime, where real systems live)? Plausible by perturbing the exact
+families, but NOT proved. Until then the physicality claim is "exactly at the
+boundary"; with it, it reaches real systems. Do not state it as established.
+
+QUASI-FIBER STABILITY NUMERICALLY DEMONSTRATED (verified here; the theorem itself
+is still unproven). Extremized the pair occupation <n_2 n_4> over states with EXACT
+1-RDM diag(lambda), for lambda walking from v_B into the interior along
+(1-eps) v_B + eps*uniform (constraint-weighted contraction attack, residual < 1e-4):
+- eps=0.00 (at v_B): <n_2 n_4> in [0.216, 0.470], WIDTH 0.254
+- eps=0.05:          <n_2 n_4> in [0.200, 0.494], WIDTH 0.294
+My numbers reproduce the parallel run's (0.252 -> 0.290) to ~1%, and the lower end
+is exactly the Frechet bound occ_2 + occ_4 - 1 = 2*(14/23) - 1 = 0.2174 (analytic,
+matches). CONTENT confirmed: the occupation-blindness is NOT a knife-edge -- states
+with an identical FULL 1-RDM (gamma = diag(lambda), the constrained-search domain of
+RDMFT, NOT merely the spectrum) differ in a pair occupation by ~0.25 AT the vertex,
+and the width GROWS off-vertex, so along this ray maximal pinning is where the
+ambiguity is SMALLEST and even there it is bounded below by ~0.25. This is the
+data-backed, deflation-proof form of the physics claim: at fixed 1-RDM, two-body
+physics is underdetermined by a bounded-below amount.
+
+SCRUTINY REPAIRS (expert pass, binding -- corrects wording and scope of the above):
+- WORDING (important): the measurement fixes the full 1-RDM gamma = diag(lambda),
+  NOT the spectrum alone. Fixing only the spectrum is trivially large by basis
+  rotation and must never be the stated claim; the correct (stronger, RDMFT-relevant)
+  statement is "the 1-RDM underdetermines pair correlations". My computation targeted
+  diag(lambda) throughout, so the NUMBERS are for the fixed-1-RDM reading and stand;
+  only the "spectrum" phrasing was loose and is fixed here.
+- The widths are certified LOWER bounds (inner approximation by local optimization);
+  the true achievable ranges may be LARGER, and interval-ness of the achievable set
+  is UNPROVEN (fiber connectivity unknown) -- so "range [a,b]" means "endpoints a,b
+  are achieved values", not "every value between is achieved" (sample interior
+  targets or prove connectivity before asserting a full interval).
+- "maximal pinning locally minimizes the ambiguity" rests on ONE ray + three
+  epsilons: it is observed-along-this-ray + conjecture, not established; the eps=0.10
+  point failed for an unattributed reason (optimizer budget vs feasibility) and is
+  excluded, not glossed.
+- DISCIPLINE: numerically DEMONSTRATED, not a proved theorem -- the stability theorem
+  (valley width continuous in lambda, locally minimized at the vertex, bounded below)
+  still needs its proof (route: incidence surjectivity + open-polygon conditions +
+  the measured monotonicity).
+(Caveat on magnitude: the full-1-RDM-fiber width 0.25 exceeds the single ledger
+family's <n_2 n_4> range -- the whole fiber, all components and stabilizer orbits, is
+larger than any one deforming family; the family is a lower bound, the ansatz-free
+attack measures the whole thing.)
+
+SELECTION-PRINCIPLE GAP (patch-6, partially checked here): the endpoint theorem is
+PER-FAMILY, but the physical minimization runs over the FULL fiber (larger than any
+family), so "density-density interactions select real wall states" needs the fiber
+EXTREMES to admit real representatives. The parallel run reports complex and
+real-restricted extremization of <n2 n4> at v_B agree to ~1e-8. NOT INDEPENDENTLY
+CONFIRMED HERE: my quick penalty-extremizer is optimizer-limited (real vs complex
+differ by ~1e-2, and it even returned real-max > complex-max, impossible at the true
+extreme -- so it is not resolving the extremes to the claimed 1e-8). The mechanism
+is plausible (c -> conj(c) preserves gamma and all pair occupations, so extreme
+points plausibly have time-reversal-symmetric representatives), but treat "extremes
+are real" as parallel-reported + conjecture until a reliable constrained solver or a
+proof confirms it; scope any paper claim to "per-family theorem + v_B numerics".
+
+2-RDM EMBEDDING, proof upgrade (patch-6, consistent with my check): the
+conjugate-sheet T-odd coherences are proportional to sin Theta -- nonzero on the
+open interior, vanishing exactly at the |cos|=1 walls where the sheets glue. This
+matches my earlier finding that the +/- sheets differ ENTIRELY in the imaginary
+2-RDM part (real-part difference exactly 0). Injectivity of the fiber circle then
+follows from monotone t-resolution (pair occupations) + interior sheet separation
+(T-odd coherences). Upgrades the spot-check toward a one-line proof.
+
+RANK-11 CERTIFICATE PATH (patch-6 recommendation; NOT run -- no cvxpy/SDP solver in
+this environment): the contraction floors are UNCONSTRAINED local minima (evidence,
+not proof). A Lasserre/SOS (moment-relaxation) dual of min ||gamma(psi)-gamma_0||^2
+yields a CERTIFIED positive lower bound = rigorous non-attainability, independent of
+and faster than the Schubert route. Run the degree-2 relaxation on cand 44 (smallest
+floor, nearest to attainable) first: if even the nearest candidate certifies
+infeasible, the level-5 claim becomes theorem-adjacent without new mathematics. This
+is the recommended next concrete step for the rank-11 closure and needs an SDP-capable
+environment.
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
