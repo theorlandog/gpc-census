@@ -76,6 +76,40 @@ narrative; a FAIL is itself a publishable finding):
 certified state -- if one is ever extracted -- may itself be dense/multi-class and
 land in several predictions' scope-exclusion clauses rather than testing them.)
 
+## THE FIBER IS THE 1-RDM -> 2-RDM INFORMATION GAP (verified at v_B, 2026-07)
+
+Framing (parallel instance's, adopted; candidate central claim for a second paper,
+NOT injected into the current main.md): even with the one-body spectrum EXACTLY
+pinned at a vertex -- the sharpest boundary the polytope offers -- the many-body
+state is not fixed. Natural occupation numbers are incomplete coordinates at maximal
+pinning; the fiber is precisely the information the 1-RDM cannot see but the 2-RDM
+can. This is STRUCTURAL and independent of the empirical quasipinning-deflation
+debate: pinning fixes the FORM of the state, the fiber is what lives inside the form,
+generically a continuum.
+
+VERIFIED HERE (v_B, exact 2-RDM built by second quantization, scratch vb_2rdm):
+- the RADIAL fiber coordinate t is read by PAIR OCCUPATIONS (diagonal of Gamma^2) --
+  already established (8 pair occupations vary linearly along the family; in the
+  paper).
+- the two conjugate sheets +Theta and -Theta (the state and its time-reversed image)
+  are INDISTINGUISHABLE in every T-even two-body datum: the diagonal-Gamma^2
+  (pair-occupation) difference is EXACTLY 0.0 and the real-part difference of the
+  full 2-RDM is EXACTLY 0.0.
+- they differ ENTIRELY in the T-ODD (imaginary) part of the 2-RDM: the whole
+  conjugate-sheet 2-RDM distance ||Gamma^2(+) - Gamma^2(-)||_F = 1.40 is imaginary,
+  max |Im Gamma^2| ~ 0.12. (The parallel run quotes 1.30 and ~0.24 for these; the
+  gap is a norm/normalization convention, the STRUCTURE -- all-difference-is-T-odd --
+  is exact and reproduced.)
+So the fiber orientation is a purely time-reversal-odd, two-body observable: the
+1-RDM is blind to the whole fiber; pair occupations resolve where on the arc; T-odd
+pair coherences resolve which sheet. Clean, correct, and paper-2 material.
+
+MISSING THEOREM (named honestly, unproven): quasi-fiber stability -- does the moduli
+continuum persist as a near-degenerate valley for spectra NEAR the vertex (the
+quasipinning regime, where real systems live)? Plausible by perturbing the exact
+families, but NOT proved. Until then the physicality claim is "exactly at the
+boundary"; with it, it reaches real systems. Do not state it as established.
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
