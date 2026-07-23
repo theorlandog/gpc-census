@@ -175,19 +175,36 @@ So facet-incidence combinatorics (not normal-cone arithmetic) is the base
 quantity that bridges to fiber dimension. Partial (a correlation plus the hard
 dim-2 constraint), not a determination.
 
-(B) v_B FIBER as a variety (only the verified part). Building the exact 1-RDM
-with weights linear in t and a free phase, sympy reports exactly ONE forced
-off-diagonal that must vanish, so the interference is confined to a single mode
-pair and the fiber is cut by essentially one (complex) relation, consistent with
-its kernel dim 1 (a curve). The two certified points (t=0 cos=-3sqrt2/16,
-t=1/2 cos=4sqrt3/15) confirm the continuum. NOT established here and explicitly
-retracted from an earlier draft: a naive one-phase magnitude reduction of that
-off-diagonal is WRONG (it would force |e^{i theta}| = 1/sqrt2 at t=0, impossible,
-yet v_B is certified there), so the constraint has more structure than a law of
-cosines and my hand-derivation of its degree does not hold. Extracting the exact
-defining polynomial F(t, cos theta) and its genus is a careful CAS task (sympy
-would not collapse the arg/Abs half-angle forms) and remains open; do not quote a
-bidegree or rationality claim until F is actually computed.
+(B) v_B FIBER as a variety: it is a genus-1 ELLIPTIC CURVE (now derived, not
+sampled; scripts/vb_fiber_ideal.py). Displace the eight support weights along the
+kernel vector, w(t) = w0 + t (1,-1,0,0,-1,1,0,0). This keeps every orbital
+occupation fixed (the kernel is exactly the cycle that leaves the diagonal 1-RDM
+invariant: occ = (20,14,14,14,5,4,4,4,13)/23 for all t), so the whole 1-RDM stays
+block-diagonal with a SINGLE nontrivial 2x2 block on modes (4,8), diagonal
+(5,13)/23, which must split into eigenvalues (14,4)/23. That forces the one
+off-diagonal magnitude to the fixed value 3/23. Exactly two determinant pairs
+drive that entry, (D0,D1) and (D4,D5), and they carry OPPOSITE fermionic signs,
+so the modulus condition is
+  |sqrt(w0 w1) e^{i theta} - sqrt(w4 w5)|^2 = 9,
+i.e. the defining polynomial (c = cos theta, the gauge-invariant holonomy cosine)
+  F(t,c) = 4 c^2 (1+t)(8-t)(4-t^2) - (2 t^2 - 7 t - 3)^2 = 0,
+irreducible over Q, bidegree (deg_t, deg_c) = (4, 2). The physical branch is
+  c(t) = (3 + 7 t - 2 t^2) / (2 sqrt((1+t)(8-t)(4-t^2))),
+so at t=0 cos = +3 sqrt2 / 16 (the earlier -3sqrt2/16 was a sign error: the two
+pairs interfere with a relative minus) and at t=1/2 cos = 4 sqrt3 / 15, both now
+carrying an EXACT verify_exact certificate, and numerically the re-solved state
+matches the SPEC eigenvalues to 1e-15 across the entire real domain
+t in (-1, 2) (positivity of the weights and the radicand). Genus: substituting
+s = sqrt((1+t)(8-t)(4-t^2)) makes the curve birational to s^2 = (1+t)(8-t)(2-t)(2+t),
+a quartic with FOUR DISTINCT roots {-2,-1,2,8}, hence a nonsingular genus-1
+elliptic curve (not the rational curve a naive law-of-cosines would have given).
+Its quartic invariants are I=1116, J=-66528, discriminant 4I^3 - J^2 =
+1133740800 != 0, and j-invariant = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2). So the
+extremal fiber over a single interference vertex carries genuine modular
+structure: the "new information" beyond the (known) moment polytope is an
+elliptic curve, not merely a positive-dimensional but rational sheet. (The
+earlier retraction stands as to the wrong one-phase reduction; this derivation
+replaces it and pins the magnitude condition to the correct opposite-sign form.)
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
