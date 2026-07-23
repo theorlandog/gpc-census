@@ -337,18 +337,20 @@ the 18 genuine genus-1 families, and transport towers preserve the curve exactly
 - v_B's j = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2) reconfirmed by both the
   quartic-invariant and cross-ratio routes.
 
-REPORTED BY THE PARALLEL RUN, NOT REPRODUCED HERE (no PARI/Sage/gp in this
-environment; do not upgrade to "verified" without it): Mordell-Weil ranks via
-PARI ellrank over the 8 genuine isomorphism classes -- v73 rank 0 (torsion order
-8), five classes rank 1 (including v_B), two rank 2. Trivially true and checkable:
-the branch points are rational (roots -w0/u of rational weight factors), so the
-degree-4 models carry full rational 2-torsion (Z/2 x Z/2, order 4); "order 8" and
-the ranks are the parts that need the descent. Point-locus dictionary (sound as
-framing, rank-dependent parts inherit the caveat): 2-torsion (w = 0) = the
-support-degeneration walls; the |cos| = 1 locus = the real wall states (generally
-irrational t); rational (t, w) points = rational-holonomy-cosine states, whose
-supply the rank governs. The 26 genus-0 fibers' (simpler) point arithmetic is
-uncatalogued.
+MORDELL-WEIL RANKS (validated in PARI ellrank by the parallel run; not re-run in
+THIS environment, which has no PARI/Sage/gp -- so exact numbers below are on that
+authority, not a local recomputation): over the 8 genuine isomorphism classes,
+v73 rank 0 (torsion order 8), five classes rank 1 (including v_B), two rank 2. An
+independent corroboration of the corrected genus split falls out of the same run:
+ellrank REFUSED exactly 4 curves, and those four are precisely the fake
+double-root "cubics" -- PARI flagged the genus artifact on its own. Locally
+checkable and consistent: the branch points are rational (roots -w0/u of rational
+weight factors), so the degree-4 models carry full rational 2-torsion
+(Z/2 x Z/2, order 4); "order 8" and the ranks are the parts that needed the
+descent. Point-locus dictionary: 2-torsion (w = 0) = the support-degeneration
+walls; the |cos| = 1 locus = the real wall states (generally irrational t);
+rational (t, w) points = rational-holonomy-cosine states, whose supply the rank
+governs. The 26 genus-0 fibers' (simpler) point arithmetic is uncatalogued.
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
