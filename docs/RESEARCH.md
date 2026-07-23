@@ -397,8 +397,23 @@ WHAT THIS BUYS (the transferable machinery):
 
 This is already half-present in the paper's exactifier language ("each off-diagonal
 is a closed polygon whose relative phase is an exact arccosine"): the polygon is the
-positivity object, its degeneration is reality. Candidate for the paper's
-positive-geometry section; not injected unilaterally.
+positivity object, its degeneration is reality. Now IN the paper's positive-geometry
+section (reality = a spectrahedral positivity boundary on the amplitudes, the
+Cayley-Menger determinant = the wall polynomial).
+
+THE BRIDGE IS ALSO A BETTER SOLVER (scripts/wall_solver.py): taking candidate t as
+the common real zeros of the edges' Cayley-Menger determinants and letting
+verify_exact adjudicate the global sign assignment certifies 44 OF 46 kdim-1
+interference families with an exact real extremal state (up from 17 with the
+single-block, single-wall, single-sign scripts/wall_test.py). This closes the
+"10 pending / multi-class sign-compatibility" gap wholesale: framing reality as
+simultaneous Cayley-Menger degeneration turned an ad hoc sign search into a
+common-zero computation. The only 2 not yet certified are the two multi-touched-
+class (5,10) families v140 and v263 (a 1-term plus a 2-term edge); their
+simultaneous degeneration needs the full multi-edge intersection the prototype does
+not yet form. So: real extremal states are not merely generic at single-parameter
+interference vertices, they are certified for essentially all of them (44/46), and
+the certificate is a positivity (Cayley-Menger) condition.
 
 ## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
 SELECTION PRINCIPLE (verified here for v_B, 2026-07)
