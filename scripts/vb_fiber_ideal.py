@@ -100,6 +100,32 @@ def numeric_domain_check():
     return worst
 
 
+def real_wall_states():
+    """The arc endpoints |cos Theta| = 1: real extremal states over Q(sqrt35).
+
+    Where the physical branch reaches cos Theta = +-1 the holonomy is 0 or pi, so
+    every amplitude is real. Solving F(t, +-1) = 0 gives 85 t^2 - 70 t - 119 = 0,
+    t = 7/17 -+ 18 sqrt35 / 85, both interior to the positivity range (-1, 2).
+    Returns [(t, signs, verify_exact_ok, all_real)] for the two walls."""
+    import sympy as sp
+    from gpc_census.exactify import verify_exact
+    t = sp.symbols("t")
+    walls = sp.solve(sp.expand((2 * t ** 2 - 7 * t - 3) ** 2
+                               - 4 * (1 + t) * (8 - t) * (4 - t ** 2)), t)
+    spec = [Fraction(x, DEN) for x in SPEC_INT]
+    out = []
+    for tv in sorted(walls, key=float):
+        w = [sp.nsimplify(W0[i] + tv * KER[i]) for i in range(8)]
+        # cos Theta = -1 flips the D1 amplitude; cos Theta = +1 keeps all equal
+        signs = [1, -1, 1, 1, 1, 1, 1, 1] if float(sp.re(cos_branch(tv))) < 0 \
+            else [1, 1, 1, 1, 1, 1, 1, 1]
+        amps = [signs[i] * sp.sqrt(sp.Rational(1, DEN) * w[i]) for i in range(8)]
+        ok = verify_exact(4, 9, spec, DETS, amps)
+        allreal = all(sp.im(sp.simplify(a)) == 0 for a in amps)
+        out.append((sp.nsimplify(tv), signs, ok, allreal))
+    return out
+
+
 def genus_and_invariants():
     """Genus (via the birational quartic) and elliptic invariants I, J, j."""
     import sympy as sp
@@ -132,6 +158,12 @@ def main():
 
     worst = numeric_domain_check()
     print(f"\nnumeric SPEC match across the real domain t in (-1,2): max|eig-SPEC| = {worst:.2e}")
+
+    print("\nreal extremal states at the arc endpoints (|cos Theta| = 1):")
+    for tv, signs, ok, allreal in real_wall_states():
+        print(f"  t={tv} ~ {float(tv):+.5f}: signs {tuple('+' if s>0 else '-' for s in signs)}"
+              f"  verify_exact={ok}  all_real_amps={allreal}")
+    print("  => v_B admits REAL extremal states over Q(sqrt35) (open question: YES)")
 
     quartic, roots, sf, inv_i, inv_j, disc, j, genus = genus_and_invariants()
     print("\ngenus via the birational quartic s^2 = (1+t)(8-t)(4-t^2):")

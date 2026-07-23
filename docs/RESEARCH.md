@@ -206,6 +206,41 @@ elliptic curve, not merely a positive-dimensional but rational sheet. (The
 earlier retraction stands as to the wrong one-phase reduction; this derivation
 replaces it and pins the magnitude condition to the correct opposite-sign form.)
 
+ARC ENDPOINTS ARE REAL STATES -- v_B admits a REAL extremal state, so the paper's
+open question is ANSWERED (YES). Where the physical branch reaches cos theta = +-1
+the holonomy is 0 or pi and every amplitude is real. Solving F(t, +-1) = 0 gives
+85 t^2 - 70 t - 119 = 0, so t = 7/17 -+ 18 sqrt35 / 85 (= (35 -+ 18 sqrt35)/85),
+BOTH interior to the positivity range (-1, 2) (t ~ -0.84105 and +1.66458). At each
+wall the real-sign state certifies EXACTLY over Q(sqrt35) (verify_exact True,
+all-real amplitudes; scripts/vb_fiber_ideal.py -> real_wall_states):
+  t = 7/17 - 18 sqrt35/85 (cos theta = -1), signs (+,-,+,+,+,+,+,+), weights
+    (24/17 - 18sqrt35/85, 129/17 + 18sqrt35/85, 4, 3,
+     27/17 + 18sqrt35/85, 41/17 - 18sqrt35/85, 1, 2)/23;
+  t = 7/17 + 18 sqrt35/85 (cos theta = +1), signs all +.
+So v_B (the vertex/spectrum) IS realized by a real extremal state; what fails is
+realifying the HISTORICAL ledger state psi_B(t=0), which sits at cos = 3sqrt2/16
+!= +-1 and is genuinely complex up to gauge. Corrections this forces on the
+narrative (do BEFORE any paper/blog line):
+1. "v_B has no real extremal state" / "the first vertex that can't be real" is
+   FALSE as a vertex-level statement and must be softened. The correct residual
+   theorems are class-relative: no real state with RATIONAL squared amplitudes in
+   the searched classes (every exhaustive sweep ran on rational grids; the real
+   states live at quadratic-irrational Q(sqrt35) weights, which is exactly why the
+   grid searches missed them), and psi_B(t=0)'s U(9) orbit is non-realifiable.
+   "The phase is forced" is CLASS-RELATIVE, not a fact about the vertex.
+2. The interference CLASSIFICATION is untouched: the wall states are real but NOT
+   designs (an active exchange pair and irrational weights), so the design
+   infeasibility certificates stand.
+3. Clean fiber picture: one elliptic arc, complex in its interior, real exactly at
+   its two endpoints, containing the two previously-known certified points.
+   Conjecture (testable on every other deforming interference state): interference
+   fibers generically interpolate between real endpoint states through a
+   forced-complex interior.
+NOTE (not verified, do not quote): a parallel instance's aside about a "(7,11)
+split, x^2 = 21" fiber point does not arise in THIS one-parameter family -- along
+the kernel cycle the occupations are fixed and the only block is (5,13)->(14,4),
+x^2 = 9. Any (7,11) split would be a different deformation and is unconfirmed.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
