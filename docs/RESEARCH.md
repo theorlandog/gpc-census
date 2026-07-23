@@ -267,6 +267,210 @@ state for v_B with weights in Q(sqrt15). This is what should go in the paper
 (same support as Theorem 3), with the Q(sqrt35) ledger-support state as an
 independent second witness.
 
+CORPUS-WIDE (real fiber-wall states are GENERIC, verified 2026-07;
+scripts/wall_test.py). The v_B mechanism is not special. Ran the exact wall test
+over single-block, kernel-dim-1 interference vertices whose SHIPPED states are
+complex: displace the weights along the incidence cycle, solve the active
+two-term block's law-of-cosines wall polynomial exactly, verify_exact the
+real-sign state at each real root inside the positivity range. SEVENTEEN certify
+(v_B plus 16), each verify_exact True with all-real amplitudes at quadratic-
+irrational weights:
+- (4,9) v_B: t = 7/17 + 18 sqrt35/85
+- (3,8) v28 (Q sqrt14), v31 (Q sqrt30)
+- (3,9) v34 (Q sqrt3), v37 (Q sqrt2)
+- (4,10) v34 (Q sqrt3), v37 (Q sqrt2)  [transported siblings of the (3,9) pair:
+  wall t-values coincide, v34 -> -sqrt3/2 and v37 -> -8/49 - 40 sqrt2/49, exactly
+  as functorial padding transport of the whole fiber predicts]
+- (3,10) v40 v49 v57 v73 v81 v92 v96 v99 v101 v108 (fields sqrt21, sqrt5, sqrt6,
+  sqrt15, sqrt6, sqrt5, sqrt5, sqrt10, sqrt6, sqrt5)
+So an interference vertex being REALIZED BY A COMPLEX shipped state does NOT mean
+it forces complexity: real extremal states at the fiber walls are generic.
+
+SCOPE / WHAT IS NOT CLAIMED (discipline). Independently verified here: the 17
+positives above (exact t, verify_exact, all-real). NOT re-derived here: a parallel
+run reported testing 26 of 44 kdim-1 families and leaving 10 with no first-wall
+real state, but flagged that only the FIRST common root was sign-searched (second
+walls untried) and multi-class fermionic sign-compatibility was not analyzed --
+so those 10 are NOT negative results and are not recorded as such. Also untested:
+kdim-2 vertices (fiber is a surface, walls are curves not points) and multi-active-
+block interference. The clean, defensible statement is the one above: for every
+single-block kdim-1 interference vertex tested, a certified real fiber-wall state
+exists.
+
+## FIBER-CURVE ARITHMETIC: honest genus census (a "CM surprise" REFUTED, 2026-07)
+
+Both this instance and a parallel run computed the genus of the fiber curve
+w^2 = Q(t) (Q = product of the four weight factors of the single active block) for
+every single-block kdim-1 interference family, and BOTH first over-reached before
+correcting. Recording the corrected, agreed result and the DEAD claims so neither
+is re-applied from a pasted patch.
+
+REFUTED (do NOT re-add): "40 of 44 fiber curves are genus 1", "j = 1728 nineteen
+times (lemniscatic CM by Z[i])", and the "harmonic wall" cross-ratio verification
+(published twice with self-corrections). ALL ARTIFACTS of a wrong reduction of
+w^2 = Q when Q has a DOUBLE root: a repeated linear factor is an even-order zero,
+so it is NOT a branch point -- divide it out entirely (w^2 = (t-r)^2 g gives a
+conic v^2 = g, genus 0). The bad pass kept one power of the repeated factor,
+inventing a phantom cubic with a spurious branch point at infinity whose 4-point
+cross-ratio came out harmonic, hence the fake j = 1728. Riemann-Hurwitz settles
+each case: branch points = odd-multiplicity roots of Q (+ infinity iff their
+count is odd); genus 1 iff that count is 3 or 4.
+
+HONEST CENSUS (scripts/fiber_curves.py, committable source of truth): of the 44
+single-block kdim-1 families, GENUS 1 = 18, GENUS 0 (rational) = 26. The elliptic
+fiber is a structured MINORITY. The 26 rational ones share a weight between the
+two exchange terms (a repeated factor -> conic); one direction of the earlier
+"guessed genus law" is that trivial fact, the converse fails on coincidental root
+collisions. (Reconciliation note: a looser filter that keyed only on active 2-term
+off-diagonals counted 20/9-distinct-j by wrongly admitting (5,10) v140 and v263,
+which have TWO touched exchange classes -- multi-block, not a single w^2 = Q curve;
+the strict "exactly one touched class" filter gives 18.)
+
+WHAT SURVIVES (independently verified here): 8 distinct rational j-invariants over
+the 18 genuine genus-1 families, and transport towers preserve the curve exactly
+(the face-map functors are isomorphisms of fiber curves):
+- j = 5088448/441 x7: (3,8) v31 -> (3,9) v48 -> (3,10) v95 -> (4,9) v31 ->
+  (4,10) v48 -> (5,10) v31 (+ pad)
+- j = 1906624/225 x2: v_B (4,9) v65 and its (5,10) v65 Hodge partner
+- j = 19248832/3969 x2: (4,9) v42, (4,10) v62;  964430272/480249 x2;
+  3631696/2025 x2;  three singletons (3,10) v40, v73, v101
+- v_B's j = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2) reconfirmed by both the
+  quartic-invariant and cross-ratio routes.
+
+MORDELL-WEIL RANKS (validated in PARI ellrank by the parallel run; not re-run in
+THIS environment, which has no PARI/Sage/gp -- so exact numbers below are on that
+authority, not a local recomputation): over the 8 genuine isomorphism classes,
+v73 rank 0 (torsion order 8), five classes rank 1 (including v_B), two rank 2. An
+independent corroboration of the corrected genus split falls out of the same run:
+ellrank REFUSED exactly 4 curves, and those four are precisely the fake
+double-root "cubics" -- PARI flagged the genus artifact on its own. Locally
+checkable and consistent: the branch points are rational (roots -w0/u of rational
+weight factors), so the degree-4 models carry full rational 2-torsion
+(Z/2 x Z/2, order 4); "order 8" and the ranks are the parts that needed the
+descent. Point-locus dictionary: 2-torsion (w = 0) = the support-degeneration
+walls; the |cos| = 1 locus = the real wall states (generally irrational t);
+rational (t, w) points = rational-holonomy-cosine states, whose supply the rank
+governs. The 26 genus-0 fibers' (simpler) point arithmetic is uncatalogued.
+
+## REALITY IS A POSITIVITY BOUNDARY: the Cayley-Menger bridge (verified 2026-07)
+
+The reality question is not a separate kind of constraint from positivity -- it is
+the BOUNDARY of a positivity region, one level up from the moment polytope. The
+Schur-Horn condition fixes each interference off-diagonal MAGNITUDE |x_e| = sqrt(tau_e).
+The amplitudes on the one-hop-connected determinants are vectors that must sum to
+x_e: a closed polygon (for a 2-term block, a triangle with sides A, B, sqrt(tau),
+apex angle = the holonomy). Then:
+- COMPLEX state exists  <=>  the polygon CLOSES  <=>  triangle inequality
+  |A - B| <= sqrt(tau) <= A + B  <=>  the amplitude Gram matrix is PSD. This is a
+  convex/positivity condition, the exact analogue of "the 1-RDM is PSD" that cuts
+  out the moment polytope, but applied to the amplitude vectors.
+- REAL state  <=>  the polygon DEGENERATES (collinear, area 0)  <=>  the
+  CAYLEY-MENGER DETERMINANT VANISHES. Reality is the boundary of the positivity
+  region, not its interior.
+
+EXACT IDENTITY (verified, scripts reality_positivity): for the 2-term block with
+side-squares (p1, p2, tau), 16 Area^2 = -[(tau - p1 - p2)^2 - 4 p1 p2] = -(wall
+polynomial). So the Cayley-Menger determinant IS the wall polynomial: for v_B it is
+85 t^2 - 70 t - 119, whose roots are exactly the walls 7/17 -+ 18 sqrt35/85, and
+16 Area^2 > 0 on the physical (complex-allowed) interior, < 0 outside (no triangle,
+|cos| > 1). General for every single 2-term-block family, not just v_B.
+
+WHAT THIS BUYS (the transferable machinery):
+- A basis-free UNIVERSAL reality certificate: reality <=> a Gram/Cayley-Menger
+  determinant vanishes. Replaces the per-family wall-polynomial solve with one
+  determinantal object, and it is the SAME object.
+- The multi-edge case (the "10 pending" sign-compatibility gap) becomes a clean
+  real-algebraic question: do the several edge Cayley-Menger hypersurfaces have a
+  COMMON real zero inside the positivity region? That is a positivity/semialgebraic
+  problem with real tools (real Nullstellensatz, SOS certificates), not an ad hoc
+  sign search.
+- The k-term block generalizes: reality = the k amplitude vectors are COLLINEAR =
+  the amplitude Gram matrix drops to rank 1 = all 2x2 minors vanish = a
+  determinantal variety; positivity (state exists) = Gram PSD. Reality is the
+  deepest boundary stratum of that spectrahedron. Positivity of weights is
+  polyhedral (LP, the polytope); reality is spectrahedral (PSD-boundary): the
+  transfer is polytope -> spectrahedron.
+- Positive geometry: the physical region is {Cayley-Menger <= 0} and reality is its
+  boundary component, so the reality locus is a natural boundary of a positive
+  geometry -- a concrete handle for the Section-on-positive-geometry connection the
+  paper flags (cos gamma as "new data").
+
+This is already half-present in the paper's exactifier language ("each off-diagonal
+is a closed polygon whose relative phase is an exact arccosine"): the polygon is the
+positivity object, its degeneration is reality. Candidate for the paper's
+positive-geometry section; not injected unilaterally.
+
+## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
+SELECTION PRINCIPLE (verified here for v_B, 2026-07)
+
+VERIFIED HERE (scripts/vb_fiber_ideal.py -> fiber_physics_vb): the fiber coordinate
+t is invisible to 1-body data but is a TWO-BODY observable. Along the v_B ledger
+family exactly EIGHT pair occupations <n_i n_j>(t) = sum_{T contains i,j} w_T(t)/23
+vary, all linear in t and all on the exchange-channel modes, e.g.
+<n_2 n_4> = (3 + t)/23, <n_1 n_8> = (9 - t)/23. Two states at the same maximally
+pinned vertex (identical natural occupations) therefore have measurably different
+density-density correlations: occupation spectroscopy is blind to the fiber, pair
+spectroscopy reads it.
+
+REALITY SELECTION PRINCIPLE (verified for v_B, general derivation, scope stated).
+The PHYSICAL interval of t is where |cos theta(t)| <= 1, and for v_B its endpoints
+are exactly the |cos| = 1 REAL walls t = 7/17 -+ 18 sqrt35/85, which sit strictly
+INSIDE the positivity interval (-1, 2) (checked: |cos| < 1 at t=0, |cos| > 1 at
+t = -0.9 and t = 1.8, both still weight-positive -- so reality, not positivity, is
+the binding constraint). Since every <n_i n_j>(t) is linear, any purely
+density-density Hamiltonian H = sum J_ij n_i n_j has <H>(t) LINEAR in t, hence its
+minimum over the family is at an endpoint of the physical interval -- a REAL wall
+state. So density-density interactions pin a pinned state to REALITY; the
+forced-complex interior is selected only by Hamiltonians with genuine exchange
+(nonlinear-in-t phase) terms. This gives the wall states a physical role
+(interaction-selected fiber representatives) and is the natural RDMFT statement:
+the exact functional's boundary degeneracy along the fiber is lifted LINEARLY by
+density-density terms. SCOPE (per-family, not yet census-wide): the "endpoints are
+real walls" step needs the |cos| = 1 walls to bind before positivity, verified for
+v_B and consistent with the 17 corpus vertices (all had interior real walls) but
+NOT checked for every family; linearity of <H> is general.
+
+ENDPOINT THEOREM (verified here, 44/44 -- the scope caveat above is now DISCHARGED
+for the "walls interior" half). For a single active two-term block,
+cos^2 theta(t) = (tau - p1 - p2)^2 / (4 p1 p2) with p1, p2 the two weight products
+(linear in t) and tau the fixed exchange target. As t approaches any positivity
+boundary some weight -> 0, so a p_i -> 0 while the numerator -> (tau - p_j)^2 != 0,
+hence |cos theta| -> infinity: the |cos| = 1 walls are ALWAYS crossed strictly
+before positivity fails. Checked across every single-block kdim-1 family: 44/44
+(46/46 incl. the two multi-touch (5,10) cases) have the physical interval strictly
+interior to positivity, bounded by |cos| = 1 walls on both sides (|cos| > 1 at both
+positivity boundaries, physical region nonempty). So density-density minima land on
+|cos| = 1 boundary states (real: holonomy 0 or pi) for EVERY deforming single-block
+family, not just v_B. (What remains per-family is only the exact symbolic
+verify_exact of each wall's sign realizability: 17 done, the rest structural.)
+
+EXCHANGE SELECTS COMPLEX (mechanism verified here; exact v_B numbers parallel-
+reported). Adding a correlated-exchange term makes <H>(t) nonlinear: for v_B the
+exchange expectation <n_2 (a_4^dag a_8 + h.c.)>(t) reduces exactly to a multiple of
+(3 + 7t - 2t^2)/(2 sqrt(4 - t^2)), a nonlinear function of t. Minimizing
+[linear density-density] + lambda [exchange] over the physical interval: at
+lambda = 0 the min is the hi wall (real); at intermediate lambda the min moves
+INTERIOR (a genuinely complex extremal state is selected); at larger lambda it
+snaps to the lo wall, the jump between basins being discontinuous -- a first-order-
+like, two-basin selection crossover. So the "only genuine exchange reaches the
+complex interior" clause is backed by an explicit two-body mechanism. Parallel run
+reports the exact instance: exchange n_2(a_4^dag a_8 + h.c.) at mixing ratio 0.10
+puts the global min at t = -0.465 (interior/complex), with the transition near
+ratio 0.08-0.10 (their specific couplings; I reproduced the mechanism, not the
+exact threshold).
+
+PARALLEL-REPORTED, NOT INDEPENDENTLY CHECKED (a null result, low stakes): the
+quantum-metric / elliptic-differential bridge is COLD -- neither g(t) Q(t) nor
+g(t) sqrt(Q(t)) is constant along the v_B family (g the Fubini-Study metric), so
+no naive identity between the physical metric and the curve's invariant
+differential. Parked without decoration.
+
+CANDIDATE FOR THE PAPER (flag, do not inject unilaterally): the reality selection
+principle + the 2-body-observable framing is the most paper-ready physics to come
+out of the fiber work -- it connects the reality result to RDMFT and pinning
+(Section on applications) with a falsifiable, elementary statement. Hold for an
+explicit decision on scope.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
