@@ -267,6 +267,36 @@ state for v_B with weights in Q(sqrt15). This is what should go in the paper
 (same support as Theorem 3), with the Q(sqrt35) ledger-support state as an
 independent second witness.
 
+CORPUS-WIDE (real fiber-wall states are GENERIC, verified 2026-07;
+scripts/wall_test.py). The v_B mechanism is not special. Ran the exact wall test
+over single-block, kernel-dim-1 interference vertices whose SHIPPED states are
+complex: displace the weights along the incidence cycle, solve the active
+two-term block's law-of-cosines wall polynomial exactly, verify_exact the
+real-sign state at each real root inside the positivity range. SEVENTEEN certify
+(v_B plus 16), each verify_exact True with all-real amplitudes at quadratic-
+irrational weights:
+- (4,9) v_B: t = 7/17 + 18 sqrt35/85
+- (3,8) v28 (Q sqrt14), v31 (Q sqrt30)
+- (3,9) v34 (Q sqrt3), v37 (Q sqrt2)
+- (4,10) v34 (Q sqrt3), v37 (Q sqrt2)  [transported siblings of the (3,9) pair:
+  wall t-values coincide, v34 -> -sqrt3/2 and v37 -> -8/49 - 40 sqrt2/49, exactly
+  as functorial padding transport of the whole fiber predicts]
+- (3,10) v40 v49 v57 v73 v81 v92 v96 v99 v101 v108 (fields sqrt21, sqrt5, sqrt6,
+  sqrt15, sqrt6, sqrt5, sqrt5, sqrt10, sqrt6, sqrt5)
+So an interference vertex being REALIZED BY A COMPLEX shipped state does NOT mean
+it forces complexity: real extremal states at the fiber walls are generic.
+
+SCOPE / WHAT IS NOT CLAIMED (discipline). Independently verified here: the 17
+positives above (exact t, verify_exact, all-real). NOT re-derived here: a parallel
+run reported testing 26 of 44 kdim-1 families and leaving 10 with no first-wall
+real state, but flagged that only the FIRST common root was sign-searched (second
+walls untried) and multi-class fermionic sign-compatibility was not analyzed --
+so those 10 are NOT negative results and are not recorded as such. Also untested:
+kdim-2 vertices (fiber is a surface, walls are curves not points) and multi-active-
+block interference. The clean, defensible statement is the one above: for every
+single-block kdim-1 interference vertex tested, a certified real fiber-wall state
+exists.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
