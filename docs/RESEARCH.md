@@ -149,19 +149,68 @@ is still unproven). Extremized the pair occupation <n_2 n_4> over states with EX
 My numbers reproduce the parallel run's (0.252 -> 0.290) to ~1%, and the lower end
 is exactly the Frechet bound occ_2 + occ_4 - 1 = 2*(14/23) - 1 = 0.2174 (analytic,
 matches). CONTENT confirmed: the occupation-blindness is NOT a knife-edge -- states
-with an identical one-body spectrum differ in a pair occupation by ~0.25 AT the
-vertex, and the width GROWS off-vertex, so maximal pinning is where the ambiguity is
-SMALLEST and even there it is bounded below by ~0.25. This is the data-backed,
-deflation-proof form of the physics claim: in the quasipinning regime, occupations
-underdetermine two-body physics by a bounded-below amount. DISCIPLINE: this is
-numerically DEMONSTRATED, not a proved theorem -- the stability theorem (valley
-width continuous in lambda, locally minimized at the vertex, bounded below near it)
-still needs its proof (route: incidence surjectivity + open-polygon conditions +
-the measured monotonicity). So "demonstrated numerically", not "proved". (Caveat on
-magnitude: the full-fiber width 0.25 exceeds the single ledger family's <n_2 n_4>
-range -- the whole fiber, all components and stabilizer orbits, is larger than any
-one deforming family; the family is a lower bound, the ansatz-free attack measures
-the whole thing.)
+with an identical FULL 1-RDM (gamma = diag(lambda), the constrained-search domain of
+RDMFT, NOT merely the spectrum) differ in a pair occupation by ~0.25 AT the vertex,
+and the width GROWS off-vertex, so along this ray maximal pinning is where the
+ambiguity is SMALLEST and even there it is bounded below by ~0.25. This is the
+data-backed, deflation-proof form of the physics claim: at fixed 1-RDM, two-body
+physics is underdetermined by a bounded-below amount.
+
+SCRUTINY REPAIRS (expert pass, binding -- corrects wording and scope of the above):
+- WORDING (important): the measurement fixes the full 1-RDM gamma = diag(lambda),
+  NOT the spectrum alone. Fixing only the spectrum is trivially large by basis
+  rotation and must never be the stated claim; the correct (stronger, RDMFT-relevant)
+  statement is "the 1-RDM underdetermines pair correlations". My computation targeted
+  diag(lambda) throughout, so the NUMBERS are for the fixed-1-RDM reading and stand;
+  only the "spectrum" phrasing was loose and is fixed here.
+- The widths are certified LOWER bounds (inner approximation by local optimization);
+  the true achievable ranges may be LARGER, and interval-ness of the achievable set
+  is UNPROVEN (fiber connectivity unknown) -- so "range [a,b]" means "endpoints a,b
+  are achieved values", not "every value between is achieved" (sample interior
+  targets or prove connectivity before asserting a full interval).
+- "maximal pinning locally minimizes the ambiguity" rests on ONE ray + three
+  epsilons: it is observed-along-this-ray + conjecture, not established; the eps=0.10
+  point failed for an unattributed reason (optimizer budget vs feasibility) and is
+  excluded, not glossed.
+- DISCIPLINE: numerically DEMONSTRATED, not a proved theorem -- the stability theorem
+  (valley width continuous in lambda, locally minimized at the vertex, bounded below)
+  still needs its proof (route: incidence surjectivity + open-polygon conditions +
+  the measured monotonicity).
+(Caveat on magnitude: the full-1-RDM-fiber width 0.25 exceeds the single ledger
+family's <n_2 n_4> range -- the whole fiber, all components and stabilizer orbits, is
+larger than any one deforming family; the family is a lower bound, the ansatz-free
+attack measures the whole thing.)
+
+SELECTION-PRINCIPLE GAP (patch-6, partially checked here): the endpoint theorem is
+PER-FAMILY, but the physical minimization runs over the FULL fiber (larger than any
+family), so "density-density interactions select real wall states" needs the fiber
+EXTREMES to admit real representatives. The parallel run reports complex and
+real-restricted extremization of <n2 n4> at v_B agree to ~1e-8. NOT INDEPENDENTLY
+CONFIRMED HERE: my quick penalty-extremizer is optimizer-limited (real vs complex
+differ by ~1e-2, and it even returned real-max > complex-max, impossible at the true
+extreme -- so it is not resolving the extremes to the claimed 1e-8). The mechanism
+is plausible (c -> conj(c) preserves gamma and all pair occupations, so extreme
+points plausibly have time-reversal-symmetric representatives), but treat "extremes
+are real" as parallel-reported + conjecture until a reliable constrained solver or a
+proof confirms it; scope any paper claim to "per-family theorem + v_B numerics".
+
+2-RDM EMBEDDING, proof upgrade (patch-6, consistent with my check): the
+conjugate-sheet T-odd coherences are proportional to sin Theta -- nonzero on the
+open interior, vanishing exactly at the |cos|=1 walls where the sheets glue. This
+matches my earlier finding that the +/- sheets differ ENTIRELY in the imaginary
+2-RDM part (real-part difference exactly 0). Injectivity of the fiber circle then
+follows from monotone t-resolution (pair occupations) + interior sheet separation
+(T-odd coherences). Upgrades the spot-check toward a one-line proof.
+
+RANK-11 CERTIFICATE PATH (patch-6 recommendation; NOT run -- no cvxpy/SDP solver in
+this environment): the contraction floors are UNCONSTRAINED local minima (evidence,
+not proof). A Lasserre/SOS (moment-relaxation) dual of min ||gamma(psi)-gamma_0||^2
+yields a CERTIFIED positive lower bound = rigorous non-attainability, independent of
+and faster than the Schubert route. Run the degree-2 relaxation on cand 44 (smallest
+floor, nearest to attainable) first: if even the nearest candidate certifies
+infeasible, the level-5 claim becomes theorem-adjacent without new mathematics. This
+is the recommended next concrete step for the rank-11 closure and needs an SDP-capable
+environment.
 
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
