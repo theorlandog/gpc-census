@@ -4,6 +4,147 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## FIBER EXPLORATION III: anholonomy, the correlation dial, and the
+frontier vertices carry fibers too (2026-07)
+
+1. BERRY PHASE around the v_B fiber loop (natural gauge, phase carried
+   on the loop determinant): gamma_B = -2.1555 rad = -0.6861 pi, i.e.
+   +1.3139 pi mod 2pi -- a NONTRIVIAL anholonomy (neither 0 nor pi).
+   Adiabatically cycling the fiber once returns the state with a ~0.69 pi
+   geometric phase. Caveats: defined mod one-body gauge windings (the
+   mod-2pi value is the invariant); "adiabatic cycling" presupposes a
+   Hamiltonian path tracking the fiber -- the selection-transition
+   coupling circle is the natural candidate driver, unverified.
+2. THE CORRELATION DIAL: mutual information I(2:4) between modes varies
+   by a factor ~2000 along the fiber -- 6e-5 bits at the t=0 rational
+   point (modes essentially uncorrelated; n24 within 0.2% of n2*n4) to
+   0.107 bits at the right wall -- while n2, n4 and ALL single-mode
+   entropies are frozen. The fiber coordinate is a correlation dial
+   invisible to occupations: correlations redistribute between mode
+   pairs with no one-body trace. (Curious datum: the shipped rational
+   point sits almost exactly at the uncorrelated point of its family.)
+3. FRONTIER FIBERS: the achievable width of <n_2 n_3> at v89's exact
+   1-RDM is 0.1917, range [0.0000, 0.1917] -- the newest vertex carries
+   the same O(1) underdetermination the day it was attained, including
+   states where the two degenerate modes NEVER co-occur (p11 = 0
+   exactly attainable). Width includes stabilizer-orbit directions
+   (orbit-vs-intrinsic split not yet separated); v103 pending (bigger
+   space, optimizer budget).
+
+
+## SOS CERTIFICATE FOR CAND 44: the Coleman-hull obstruction and the
+symmetry-reduced route (session spec shipped)
+
+Lemma (proved by formulation, saves a wasted level): LINEAR duality
+cannot certify any rank-11 candidate's non-attainability. Constant
+multipliers separate gamma_0 only from conv{gamma(pure)} = Coleman's
+set {0 <= gamma <= 1, tr = N}, which contains every candidate (they all
+satisfy Pauli). The nonconvexity of the pure-state 1-RDM image is the
+entire content, so the certificate requires genuine degree-4
+Positivstellensatz (level-2 Lasserre on 330 real variables). Raw size
+(~55k moment basis) is intractable; the S5 x S6 spectrum-stabilizer
+symmetry (plus conjugation and gauge) block-diagonalizes it to
+expected-hundreds-size blocks -- the symmetry-adapted-SOS regime
+(SumOfSquares.jl + SymbolicWedderburn.jl / TSSOS). Session prompt with
+staged gates shipped (outputs/claude_code_prompt_sos_certificate.md):
+G1 pipeline validation on a known-exterior (3,6) point WITH an
+attainable-vertex negative control; G2 symmetry-machinery equivalence;
+G3 cand 44 with exact-arithmetic rationalization of the dual
+certificate (SDP proposes, exact algebra disposes -- census
+discipline); G4 the remaining candidates. A rational certificate with
+delta > 0 candidate-settles (3,11) at 19 vertices and makes the
+claimed level-5 inequality theorem-adjacent without Schubert calculus.
+
+
+## EXPERT SCRUTINY PASS: claim repairs before the papers (2026-07)
+
+Each recent claim attacked as a referee would; repairs binding.
+
+1. VALLEY CLAIM -- three repairs. (a) WORDING ERROR, fixed: the
+   measurement fixes the full 1-RDM gamma = diag(lambda), not merely the
+   spectrum. The correct (and STRONGER, and exactly RDMFT-relevant)
+   statement: THE 1-RDM ITSELF underdetermines pair correlations by
+   O(1) -- the constrained-search domain at fixed gamma contains the
+   measured width. Fixed-spectrum-only phrasing would be trivially true
+   by basis rotation and must not appear. (b) The widths are certified
+   LOWER bounds (inner approximation by local optimization); the true
+   ranges may be larger; endpoints are achieved values, and interval-
+   ness of the achievable set is UNPROVEN (fiber connectivity unknown)
+   -- sample intermediate targets or prove connectivity before writing
+   "range". (c) "Maximal pinning locally minimizes the ambiguity" rests
+   on one ray and three epsilons: downgraded to observed-along-this-ray
+   + conjecture; the eps=0.10 failure is unattributed (optimizer vs
+   feasibility) and must not be glossed.
+2. SELECTION PRINCIPLE -- gap found and closed with data. The endpoint
+   theorem is PER-FAMILY; the physical minimization runs over the FULL
+   fiber, which the valley measurement showed is larger than any
+   family. New test (this session): global fiber extremes of <n2 n4>
+   at v_B are attained by REAL states (complex vs real-restricted
+   extremization agree to 8e-7 / 1e-9). Paper language: theorem
+   (per-family) + global numerical verification at v_B (one observable,
+   one vertex) + conjecture (general), with a mechanism sketch: c ->
+   conj(c) preserves gamma and all pair occupations, so extreme points
+   plausibly admit time-reversal-symmetric representatives. Prove or
+   census this before claiming generality.
+3. 2-RDM EMBEDDING -- upgrade the conjugate-sheet separation from a
+   spot-check to a one-line proof: the T-odd coherences are
+   proportional to sin Theta, nonzero on the open interior, vanishing
+   exactly at the walls where the sheets glue. Injectivity of the
+   circle then follows from monotone t-resolution + interior sheet
+   separation.
+4. RANK-11 FLOORS -- strengthen from evidence toward certificate: the
+   floors are unconstrained local minima; a Lasserre/SOS relaxation of
+   min ||gamma(psi) - gamma_0||^2 yields a CERTIFIED positive lower
+   bound (dual certificate) = rigorous non-attainability, independent
+   of and faster than the Schubert route. Recommend running the
+   degree-2 relaxation on cand 44 (smallest floor) first: if even the
+   nearest candidate certifies infeasible, the level-5 claim is
+   theorem-adjacent without new mathematics.
+5. UNCHANGED after attack: v89/v103 numerical attainment (discipline
+   already in place), wall certificates, endpoint theorem (scope
+   stated), pre-registration protocol.
+
+
+## QUASI-FIBER STABILITY DEMONSTRATED: the valley persists and WIDENS
+off-vertex (2026-07)
+
+Measured the achievable range of <n_2 n_4> over states with EXACT
+spectrum lambda (contraction attack + kappa-continuation extremization,
+residual < 1e-13), for lambda walking from v_B into the polytope
+interior along (1-eps) v_B + eps uniform:
+
+  eps = 0.00: width 0.2522   (range [0.217, 0.470])
+  eps = 0.02: width 0.2627
+  eps = 0.05: width 0.2899   (eps = 0.10: optimizer budget, not physics)
+
+CONTENT: the occupation-blindness is not a knife-edge vertex
+phenomenon. States sharing an identical one-body spectrum differ in
+pair correlations by O(1) across a whole neighborhood of the vertex --
+and the width GROWS off-vertex, so maximal pinning is where the
+ambiguity is SMALLEST, and even there it is ~0.25. This is the
+data-backed form of the stability theorem and the deflation-proof
+version of the physics claim: in the quasipinning regime real systems
+occupy, occupations underdetermine two-body physics by a bounded-below
+amount. (Note the full-fiber width 0.25 at eps=0 exceeds the single
+v_B family's range -- the complete fiber, stabilizer orbits and all
+components included, is bigger than any one family; the family gave
+the lower bound, the attack measures the whole thing.)
+
+THEOREM TO WRITE (now with its numbers): valley width is continuous in
+lambda, locally minimized at the vertex, bounded below near it by the
+vertex width. Proof route: incidence surjectivity (linear algebra) +
+open polygon conditions + the measured monotonicity. PHYSICS QUEUE:
+(1) Berry phase around the fiber circle (closed-form afternoon);
+(2) exact RDMFT functional table F[gamma](H) along the valley for a
+    family of two-body H -- first exact functional data at a GPC
+    vertex, addressed to the ensemble-DFT/exchange-force program;
+(3) preparation-and-measurement sketch for a programmable simulator
+    (6-8 determinant states, shallow circuits; observables: pair
+    occupations for the radius, T-odd pair coherences for the
+    orientation, the discontinuous selection jump as the signature);
+(4) valley-width census over other deforming vertices (same script).
+
+
 ## v89/v103 NUMERICALLY ATTAINED (verified here) -- but NOT certified; census
 unchanged at 797/799 (2026-07)
 
@@ -211,6 +352,109 @@ floor, nearest to attainable) first: if even the nearest candidate certifies
 infeasible, the level-5 claim becomes theorem-adjacent without new mathematics. This
 is the recommended next concrete step for the rank-11 closure and needs an SDP-capable
 environment.
+
+## RANK-11 CERTIFICATE PATH: SDP RUN, method validated, scaling wall found (2026-07)
+
+Executed the recommended SDP path (Clarabel/cvxpy installed in the venv;
+scripts/sos_nonattain.py). Three concrete results, discipline preserved.
+
+1. CONE FIX (the naive relaxation is wrong). f = sum_ij |gamma_ij - g0 delta|^2 is
+   U(1)-gauge invariant, so it is a sum of squared magnitudes of the SESQUILINEAR
+   forms gamma_ij - g0 delta, NOT a holomorphic SOS. A holomorphic {1,c,c^2}-block
+   SOS cannot even represent it (fails to certify the trivial delta=0). The correct
+   cone squares the CHARGE-0 space B = {1} U {Re(c_a cbar_b), Im(c_a cbar_b)} (size
+   1 + nd^2, nd = C(d,N)): f - delta = B^T Q B + mu(||c||^2 - 1), Q >> 0, mu a free
+   charge-0 degree-<=2 multiplier. This is the level-2 relaxation on the sphere.
+
+2. VALIDATED on (2,4), whose pure spectra are the degenerate pairs (a,a,1-a,1-a).
+   EXTER (0.8,0.6,0.4,0.2) certifies delta = 0.04, EXACTLY the squared distance to
+   the nearest attainable (0.7,0.7,0.3,0.3); ATTAIN (0.7,0.7,0.3,0.3) gives
+   delta ~ 0. Two independent solvers (cvxpy and a hand-assembled native Clarabel
+   program) agree; the certificate reconstructs f to ~1e-14. So a positive delta IS
+   a rigorous non-attainability certificate and the pipeline is sound on a case with
+   a known answer.
+
+3. G1 PASSES un-reduced at (3,6) with the right solver. The single PSD block has
+   side 1 + nd^2: 401 for (3,6), 27226 for (3,11). Clarabel's dense-IPM
+   Nesterov-Todd scaling is O(npsd^2) = 80601^2 * 8 B ~ 52 GB and OOMs at (3,6);
+   SCS (ADMM, eigendecomposition PSD projection) is O(nz^2) and clears it. With
+   SCS the G1 gates both pass: EXTER diag(0.9,0.8,0.7,0.35,0.2,0.05) certifies
+   delta = 0.00416 > 0 (non-attainable, violates the (3,6) pairing), the attainable
+   CONTROL diag(1,1,1,0,0,0) returns delta ~ 1.5e-6 ~ 0 (feasible); certificate
+   residual ~1e-8. So the pipeline is validated on the actual (3,6) target, not
+   only the (2,4) toy.
+
+4. (3,11) STILL NEEDS SYMMETRY. SCS is O(nz^2) memory but O(nz^3) per PSD
+   projection: side 27226 is ~2e13 flops/iteration -- time-infeasible. cand 44
+   g0 = diag(6^5,1^6)/12 has spectrum stabilizer S5 x S6; block-diagonalizing Q
+   under the fermionic determinant rep collapses side 27226 into irrep blocks.
+   Burnside counts (computed): dim End_G(V) = sum m_lambda^2 = 18 (tiny
+   multiplicities in the 165-determinant rep), and dim End_G(Herm V) = sum
+   mult_nu(Herm V)^2 = 28884, so the largest reduced PSD block is <= ~170 -- easily
+   in SCS range. That symmetry-adapted assemble-and-solve (scripts/sos_symmetry.py)
+   is the next step; the validated un-reduced assembler and G1 self-test ship in
+   scripts/sos_nonattain.py.
+
+TARGET DATUM (for the reduced solve to reproduce). By orbital-rotation invariance of
+the pure-1-RDM set, min_Psi ||gamma(Psi) - diag(g0)||^2 = squared Euclidean distance
+from g0's spectrum to the (N,d) moment polytope (Hoffman-Wielandt: the nearest pure
+1-RDM aligns eigenbases). So a positive delta certifies the spectrum is OUTSIDE the
+polytope, and delta equals dist^2 to it. For cand 44 the contraction floor is
+~2.155e-3 (~1/464 to 7 figures, real and complex agree); that is the number the
+symmetry-reduced certificate must lower-bound. NOTE this reduction also means any
+single violated GPC facet inequality gives delta >= ((a.g0 - b)/||a||)^2 by exact
+rational arithmetic -- but the (3,11) level-5 facet is precisely the open Schubert
+object, which is why the ansatz-free SOS route (no facet list needed) is the target.
+
+## RANK-11 CERTIFICATE PATH: cand 44 symmetry-reduction analysis (2026-07)
+
+Groundwork for the S5 x S6 reduced solve (G3). All numbers below are computed
+(Burnside character sums + numerical isotypic split of the 165-determinant rep),
+not estimated.
+
+DECOMPOSITION of V = signed permutation rep on the 165 = C(11,3) determinants under
+G = S5 (modes 0-4) x S6 (modes 5-10). V splits into 9 distinct S5 x S6 irreps: three
+with multiplicity 2 and six with multiplicity 1 (so sum m_lambda = 12,
+sum m_lambda^2 = dim End_G(V) = 18). By (mult, dim): (2,4), (2,6), (2,20), (1,5),
+(1,10) x three distinct dim-10 irreps, (1,30), (1,40); check sum m*d = 165.
+
+The SOS Gram Q is indexed by the charge-0 basis {1} U {c_a cbar_b}, transforming as
+trivial (+) V (x) Vbar. Its G-invariant part block-diagonalizes with one PSD block
+per irrep of size = mult_nu(Herm V); dim End_G(Herm V) = sum mult_nu^2 = 28884, so
+the largest block is <= ~170 -- trivially in SCS range (vs the un-reduced side
+27226 that is time-infeasible).
+
+KEY COMPUTATIONAL UNLOCK (makes the matrix-free reduction cheap): because G is a
+DIRECT PRODUCT and rho_V(sigma,tau) = rho_V(sigma) rho_V(tau) with the character
+factorizing chi_nu(sigma,tau) = chi_a(sigma) chi_b(tau), the isotypic projector
+factorizes P_nu = P_a^{S5} . P_b^{S6}, each a sum over only 120 (resp. 720) group
+elements, not |G| = 86400. Applying rho_V(g) (x) conj(rho_V(g)) to a 165x165 matrix
+X is X with rows/cols signed-permuted -- O(nd^2). So building every isotypic
+projector costs ~840 * nd^2, seconds not hours. This is the lever that turns cand 44
+from intractable into a bounded computation.
+
+G2 DONE -- the reduction is BUILT and VALIDATED (scripts/sos_symmetry.py). The
+numerical-Wedderburn reduction (character-free: eigendecompose a random G-invariant
+operator for the isotypic split, link equal-irrep copies via a second invariant,
+parametrize the invariant Gram by signed index-pair orbits with y_o = y_{o^T} for
+symmetry) block-diagonalizes the charge-0 Gram and reproduces the un-reduced answer.
+Gate: on the S2 x S4-symmetric EXTERIOR (3,6) point diag(0.9,0.9,0.3,0.3,0.3,0.3)
+the reduced delta = 0.0882338 matches the un-reduced delta = 0.0882353 to 1.5e-6,
+with 10 blocks of sizes up to 26 (vs the un-reduced side-401 block). The
+group-action rho_B on the SOS basis is checked to be a genuine orthogonal rep
+before use.
+
+REMAINING to finish G3 (scoped): (i) SCALE the reduction to cand 44 -- the (3,6)
+build uses dense orbit enumeration (O(nz^2 |G|)) and dense invariant averaging
+(O(nz^2)), fine at nz=401 but not at nz=27226; needs the matrix-free V-first variant
+(block-diagonalize the 165-dim rep V, then lift to V (x) Vbar via the factorized
+S5 x S6 projectors -- 840 elements, cheap). (ii) assemble + solve the reduced SDP
+(blocks <= ~170). (iii) RIGORIZE per repo discipline -- round the dual to rational
+and verify f - delta = B^T Q B + mu(||c||^2 - 1) as an EXACT polynomial identity with
+each reduced block exactly PSD (block-diagonal => exact LDL is cheap). The exact
+identity is the theorem and is a false-positive-proof gate independent of any bug in
+the reduction code. The method is proven (G1 + G2); what remains is the scale-up and
+the rational endgame.
 
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
