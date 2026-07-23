@@ -40,6 +40,36 @@ order-128 Pauli construction gives only 2-dim covariant spaces, residual 0.34), 
 certification remains the genuine open problem, and the honest odds of a clean
 closed form are low given the density.
 
+## RANK-11 FORK: contraction attack floors on all four open (3,11) candidates
+(verified here) -- strong evidence for the refutation branch, NOT proof (2026-07)
+
+VERIFIED (ran the same scripts/contraction_attack.py on the (3,11) settlement
+candidates). The attack that reaches ~1e-16 on true vertices FLOORS 11-14 orders
+higher on every open candidate. Controls (TRUE-VERTEX): idx0 7.1e-17, idx7 4.1e-16,
+idx14 2.8e-16, idx20 1.6e-16 -- machine precision, the solver has no trouble with
+attainable (3,11) spectra. Open candidates (docs/bracket_3_11_settlement.json,
+verdict OPEN): idx23 (den 7, spec 6,6,1^9) residual 9.2e-2; idx34 (den 17, 11^4,1^7)
+2.5e-2; idx26 (den 27, 21,21,11^3,1^6) 9.9e-3; idx44 (den 12, 6^5,1^6) 2.2e-3. My
+numbers reproduce the parallel run's to two figures. Targeting diag(spectrum) is
+WLOG (orbital rotation), so this tests attainability of the SPECTRUM directly; the
+floor is the squared distance from the target to the nearest pure-N-representable
+1-RDM, so a positive floor means the spectrum is OUTSIDE the (3,11) polytope.
+
+READING (evidence, discipline preserved): all four candidate spectra are very likely
+outside the true (3,11) polytope, hence the claimed level-5 second-kind inequality
+of Refs. AK2008/Klyachko2009 is very likely TRUE, and the bracket settles at 19
+true vertices + 27 refuted + 4 (now evidentially-refuted) = the falsification branch
+of the paper's "decisive fork" is heavily DISFAVORED. The floor magnitudes rank the
+candidates by distance-to-attainable (idx23 farthest, idx44 nearest), useful for a
+Stage-1 facet hunt. CAVEATS (do not overstate): nonconvergence is EVIDENCE, not
+proof -- a thin missed optimization basin is disfavored by the true-vertex control
+but not excluded; rigorous closure still requires the Schubert-coefficient proof of
+the level-5 series (which doubles as the Stage-1 constraint-generator verifier). So
+in the paper this shifts the fork's evidential weight toward refutation but must NOT
+be written as "resolved" -- it is a strong numerical indicator, and the exact proof
+is the open task. (Recorded in RESEARCH.md; not injected into main.md, which
+correctly keeps the fork open pending the Schubert computation.)
+
 ## SKEPTICAL AUDIT + PRE-REGISTRATION for the rank-10 closure (2026-07)
 
 Selection-bias audit of the fiber era + anti-overfitting protocol (adopted from the
