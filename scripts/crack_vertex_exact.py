@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 
 def crack(n, d, idx, ints, den, budget, maxcard, dump_dir):
+    from gpc_census.degenerate import solve_degenerate_vertex
     from gpc_census.states import solve_vertex_exact_first
 
     spec = [Fraction(x, den) for x in ints]
@@ -37,7 +38,19 @@ def crack(n, d, idx, ints, den, budget, maxcard, dump_dir):
     ok = bool(rec and rec.get("status") == "OK")
     ex = rec.get("exact") if rec else None
     tag = f"OK {ex.get('status') if ex else '?'}" if ok else "FAIL"
-    print(f"v{idx} ({n},{d}) den{den}: {tag} ({time.time()-t:.0f}s)", flush=True)
+    print(f"v{idx} ({n},{d}) den{den}: block/clique {tag} ({time.time()-t:.0f}s)",
+          flush=True)
+    if not (ok and ex and ex.get("status") == "EXACT"):
+        # fall back to the degenerate-block ansatz (repeated-eigenvalue blocks
+        # the 2x2/clique family misses, e.g. v89's eightfold 6)
+        t2 = time.time()
+        rec = solve_degenerate_vertex(n, d, spec, budget=budget, max_card=maxcard)
+        ok = bool(rec and rec.get("status") == "OK")
+        ex = rec.get("exact") if rec else None
+        dtag = (f"OK {ex.get('status')}" if ok and ex
+                else f"FAIL ({rec.get('reason')})")
+        print(f"v{idx} ({n},{d}) den{den}: degenerate-block {dtag} "
+              f"({time.time()-t2:.0f}s)", flush=True)
     if ok and ex and ex.get("status") == "EXACT":
         out = Path(dump_dir) / f"v{idx}_production.json"
         out.parent.mkdir(parents=True, exist_ok=True)

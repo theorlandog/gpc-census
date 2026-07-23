@@ -4,6 +4,472 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
+
+Four of the five corpus-mined solver upgrades implemented. All are exact
+reformulations or theorem-grade constraints, never support filters; each ships
+with tests, and each that encodes a law ships with a corpus-containment proof
+that no certified state is excluded.
+
+- F1 SYMMETRY-REDUCED SKELETON SEARCH (states._skeleton_model): lex-leader orbit
+  reduction within equal-nv mode classes, with block modes colored as singletons
+  so the hop constraints stay invariant. Keeps the lex-minimum representative of
+  every orbit, so no orbit is emptied (sound; asymmetric support_filters skip the
+  transposition they break). Wired behind states._SYMMETRY_BREAK (default on).
+  Full suite runs faster with it on (about 27s vs 34s); v96 canary
+  min_block_count = 1 in 0.4s, production solve OK in 1.8s.
+- F3 RIGID ONE-HOP-CLASS CONSTRAINT (states.one_hop_classes,
+  rigid_class_products): a class with a single hop pair forces k_A k_B = x2 (the
+  block eigenvalue identity), a sound search prune. test_rigid_class proves the
+  identity over the whole corpus, so the prune never drops a certified state.
+- F4 DENOMINATOR-GRID TIERING (states.MAX_DENOMINATOR_TIER): the ratio
+  state_den/spectrum_den is 1 or 2 corpus-wide and 2 only for DESIGN-REAL, so the
+  interference/design-int paths stay m=1 and DESIGN-REAL is the sole m=2 consumer.
+  The design-real record carries denominator_tier; test_denominator_tier proves
+  the ratio law over the corpus.
+- F5 EXPONENT-2 LIVE TEST (exactify.is_exponent_two, conjecture2_scan): every
+  certified state's gauge-invariant loop holonomies are classified by the Galois
+  group of minpoly(2 cos theta); exactify records holonomy_exponent_two and raises
+  CONJECTURE2-CANDIDATE-COUNTEREXAMPLE on a definitive non-2-elementary holonomy
+  without ever rejecting the verify_exact-certified state. The check is on the
+  gauge invariant, not amplitude phases (trisections are expected). v_B, v113,
+  v17 confirmed exponent-2; a C3 angle (cos 2pi/7) is correctly flagged.
+- F2 KERNEL QUOTIENTING (states._KERNEL_QUOTIENT, _incidence_kernel_dim): on a
+  fixed support the integer weight solutions form a coset of the incidence
+  kernel; free-kernel translates are phase-equivalent (fiber-dimension law), so
+  solve_vertex_exact_first phase-solves one representative per (support,
+  rigid-class products) coset. Keying on the rigid products preserves the F3
+  coupling (rigidly-pinned distinctions, which cut the kernel, keep separate
+  keys), so nothing sound is skipped; verify_exact gates. Records
+  fiber_kernel_dim. Validated: v40 certifies with quotient on/off.
+- DEGENERATE-BLOCK ANSATZ (gpc_census.degenerate): the 2x2/clique families mix
+  DISTINCT eigenvalue classes and miss repeated-eigenvalue blocks (v89's
+  eightfold 6). The new generator emits degenerate k-block degree vectors (a
+  size-k eigen sub-multiset with a repeat, Schur-Horn-majorized integer
+  diagonal) and solves each with the shared skeleton enumeration (F1/F2 apply)
+  plus attain (eigenvalue matching is basis-free, so a block-diagonal 1-RDM is
+  fine) gated by exactify. crack_vertex_exact falls back to it when the
+  block/clique family exhausts. Soundness rests on the exact gate.
+
+Acceptance: G1 full suite green (75 tests). G3 v96 canary passes. G2 regression
+interference vertices still certify with symmetry on, suite faster.
+
+G4 OUTCOME (upgraded sweep, max_clique = 4, max_cliques = 0, max_card above the
+denominator, 7200 s budget each): both open vertices EXHAUSTED the block/clique
+ansatz family with no phase-solvable skeleton, and both finished well under the
+budget, so this is an ansatz-family EXHAUST, not a timeout:
+- (3,10) v89 = (15,15,6,6,6,6,6,6,6,6)/26: FAIL in 705 s (exhausted).
+- (3,10) v103 = (18,18,18,18,5,5,5,5,5,5)/34: FAIL in 1278 s (exhausted).
+The symmetry reduction (F1) is what let the full block search COMPLETE within
+budget where it previously timed out, so the negative is now informative: the
+2x2-block + clique family (through max_clique 4) provably does not reach v89 or
+v103. This is NOT a proof of non-attainability. v89's eightfold-6 degeneracy
+points to the degenerate-kxk ansatz (scripts/kxk_degen.py), which is outside
+solve_vertex_exact_first's family; v103 (den 34, two classes) likewise needs a
+richer or degenerate block. The census stays at 797/799; the ledger is untouched.
+
+FOLLOW-UP (both next levers now implemented): F2 kernel quotienting shipped, and
+the degenerate-block ansatz was folded into the family and wired into
+crack_vertex_exact as a fallback.
+
+DEGENERATE-FALLBACK RUN OUTCOME (v89 3600 s + v103 3600 s degenerate budget): no
+solve, and crucially the degenerate pass TIMED OUT for both (v89 3608 s, v103
+3746 s), it did NOT exhaust. So this is inconclusive, not a family-does-not-reach
+result: brute degenerate enumeration (per-config support enumeration times a
+per-support attain) is too slow to finish even with F1 symmetry and F2 kernel
+quotienting. Census stays 797/799; ledger untouched.
+
+The right next move is structural, not more brute force. Under the moment-map
+lens the extremal supports are candidate Grassmannian cluster seeds and the
+one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
+CLUSTER MUTATION from a certified neighbor rather than by enumerating supports.
+Cheap falsifiable pre-checks (both reuse shipped data): (1) are the 154
+interference supports weakly separated collections (Leclerc-Zelevinsky /
+Oh-Postnikov-Speyer)? if so the fibers are cluster varieties and mutation search
+applies; (2) does the Frobenius-Schur indicator of each state under its Aut group
+track the design/signed/complex trichotomy? if so reality is a Schur-index
+computation, not a numerical overlap. These are the recommended next probes.
+
+WEAKLY-SEPARATED PROBE RESULT (run over the corpus): the literal "supports are
+cluster seeds" hypothesis is FALSIFIED. 0 of 154 interference supports and only
+50 of 643 design supports are weakly separated collections (Leclerc-Zelevinsky).
+But a clean one-directional law is verified: weakly-separated (a Gr(N,d) cluster
+seed) implies DESIGN-attainable, and every interference support contains a
+crossing pair (154/154). So interference lives exactly in the non-cluster
+(crossing) regime. Consequence: single-seed mutation does not directly apply to
+v89/v103 (their supports are crossing). The refinement "crossing count = channel
+count" is ALSO falsified: crossings range 3 to 24 across the 154 supports,
+uncorrelated with the <=2 channel bound. So the only surviving verified fact from
+this probe is the one-directional law weakly-separated implies design; the
+cluster reading of interference supports (single seed, or crossing = channel) is
+refuted. Recorded as a falsified lead so it is not re-proposed.
+
+FROBENIUS-SCHUR PROBE RESULT (run over the complex corpus, implementation
+validated on design states): also does NOT unlock the reality question. Every
+complex certified state, v_B included, has NO finite antiunitary permutation
+symmetry (49/49 tested; real states trivially have one via complex conjugation
+K with pi = identity). So the real/complex split does coincide with
+antiunitary-symmetric/not, but there is NO Frobenius-Schur = -1 (quaternionic /
+Kramers) case among finite symmetries, so no exact Kramers proof of complexity
+is available and the reality obstruction for v_B stays CONTINUOUS (the open
+U(4)xU(4) block-rotation question, same as the numerical overlap faces). Net of
+both structural probes: the census's empirical rigidity does not reduce to
+Grassmannian-cluster or Frobenius-Schur structure in a form that decides reality
+or reaches v89/v103. The moment-map / GIT-symplectic framing remains the correct
+organizing lens (it is established: Klyachko, Berenstein-Sjamaar, Walter et al),
+but the mechanism behind the observed laws (fiber continua, denominator ratio,
+2-elementary holonomy) is still open. Both probes are logged as tested leads.
+
+NORMAL-FAN PROBE RESULT (this one PAID OFF, exact): computed the normal-cone
+lattice index at every simple vertex of all nine systems (Smith/|det| of the
+incident primitive facet normals, projected to the polytope lattice
+Z^d / Z(1..1); validated on v_B, |det| = 23 = den). Findings, all exact integer
+arithmetic:
+- den = normal-cone index at ALL 51 simple INTERFERENCE vertices across every
+  system (the paper conjectured this and had verified only v_B; it now holds
+  51/51). Interference vertices are exactly the minimal, cyclic-order-den toric
+  quotient singularities.
+- DESIGN simple vertices have index = m * den with m in {1,2,3,4,5,6}
+  (m=1: 60, m=2: 45, m>=3: 23). So the law sharpens to a one-directional
+  characterization: normal-cone index > denominator implies DESIGN (never
+  interference). Interference forces m = 1.
+This is the toric-quotient-singularity structure the moment-map lens predicts,
+and unlike the cluster and Frobenius-Schur probes it is CONFIRMED and exact. It
+strengthens the paper's simple-vertex denominator conjecture from one vertex to
+all 51 simple interference vertices, and adds the design index-multiple law.
+Full Ehrhart quasi-polynomials (which would explain the counting sequences
+directly) still need a lattice-point counter (LattE/Barvinok), not vendored.
+
+SNF REFINEMENT (the honest limit of the normal-fan result): among the saturating
+(index = den > 1) simple vertices, the Smith normal form is CYCLIC for BOTH
+classes (51 interference, 60 design, all one non-unit invariant factor = den). So
+the normal-cone arithmetic does NOT separate interference from design: those 60
+designs and 51 interference vertices have identical normal cones. Consequence for
+the epistemics: den = index is a general saturation fact (den | index always, by
+Cramer on the incident facet equations; equality is the tight case), and it is
+too COARSE to carry the interference/design distinction. That distinction is a
+function of the full determinant combinatorics of the vertex (classify.py decides
+it by integer programming, no state solve), not of the normal-fan arithmetic. The
+genuinely new content of the census is therefore NOT the base-polytope arithmetic
+(a function of the known Klyachko polytope) but the FIBER data over the vertices:
+the explicit extremal states, their fiber dimensions, holonomies, and the
+design/interference/complex trichotomy of the fibers. Klyachko proved the base
+polytope exists; this work computes the fibers, which the base does not encode at
+the level of its normal-fan arithmetic. The normal-cone result is a clean exact
+statement about the KNOWN object; the new information lives one level up, in the
+states.
+
+FIBER PROBES (pushing into the new-information side). Two computations over the
+state data.
+
+(A) BASE-FIBER BRIDGE, combinatorial not arithmetic (this works): the vertex's
+facet-incidence combinatorics partially predicts the fiber dimension, where the
+normal-cone arithmetic could not. Over the certified corpus (fiber = incidence
+kernel dim of the support; excess = facets on the vertex minus dim):
+- fiber dim 2 (surfaces) occurs ONLY at simple or excess-1 vertices (15/15), a
+  clean necessary condition: big fibers live at near-simple vertices.
+- inverse tendency: non-simple vertices skew rigid (fiber 0: 70/105), simple
+  vertices carry the positive-dimensional fibers (26/49 have fiber > 0).
+- designs are always rigid (643/643).
+So facet-incidence combinatorics (not normal-cone arithmetic) is the base
+quantity that bridges to fiber dimension. Partial (a correlation plus the hard
+dim-2 constraint), not a determination.
+
+(B) v_B FIBER as a variety: it is a genus-1 ELLIPTIC CURVE (now derived, not
+sampled; scripts/vb_fiber_ideal.py). Displace the eight support weights along the
+kernel vector, w(t) = w0 + t (1,-1,0,0,-1,1,0,0). This keeps every orbital
+occupation fixed (the kernel is exactly the cycle that leaves the diagonal 1-RDM
+invariant: occ = (20,14,14,14,5,4,4,4,13)/23 for all t), so the whole 1-RDM stays
+block-diagonal with a SINGLE nontrivial 2x2 block on modes (4,8), diagonal
+(5,13)/23, which must split into eigenvalues (14,4)/23. That forces the one
+off-diagonal magnitude to the fixed value 3/23. Exactly two determinant pairs
+drive that entry, (D0,D1) and (D4,D5), and they carry OPPOSITE fermionic signs,
+so the modulus condition is
+  |sqrt(w0 w1) e^{i theta} - sqrt(w4 w5)|^2 = 9,
+i.e. the defining polynomial (c = cos theta, the gauge-invariant holonomy cosine)
+  F(t,c) = 4 c^2 (1+t)(8-t)(4-t^2) - (2 t^2 - 7 t - 3)^2 = 0,
+irreducible over Q, bidegree (deg_t, deg_c) = (4, 2). The physical branch is
+  c(t) = (3 + 7 t - 2 t^2) / (2 sqrt((1+t)(8-t)(4-t^2))),
+so at t=0 cos = +3 sqrt2 / 16 (the earlier -3sqrt2/16 was a sign error: the two
+pairs interfere with a relative minus) and at t=1/2 cos = 4 sqrt3 / 15, both now
+carrying an EXACT verify_exact certificate, and numerically the re-solved state
+matches the SPEC eigenvalues to 1e-15 across the entire real domain
+t in (-1, 2) (positivity of the weights and the radicand). Genus: substituting
+s = sqrt((1+t)(8-t)(4-t^2)) makes the curve birational to s^2 = (1+t)(8-t)(2-t)(2+t),
+a quartic with FOUR DISTINCT roots {-2,-1,2,8}, hence a nonsingular genus-1
+elliptic curve (not the rational curve a naive law-of-cosines would have given).
+Its quartic invariants are I=1116, J=-66528, discriminant 4I^3 - J^2 =
+1133740800 != 0, and j-invariant = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2). So the
+extremal fiber over a single interference vertex carries genuine modular
+structure (for THIS slice). (The earlier retraction stands as to the wrong
+one-phase reduction; this derivation replaces it and pins the magnitude condition
+to the correct opposite-sign form.)
+
+CAVEAT (genus is slice-dependent, not a vertex invariant -- corrects an earlier
+overclaim). "The v_B fiber is an elliptic curve" is too strong: the genus is a
+property of the chosen one-parameter kernel family, not of the vertex. The
+family above lives on the LEDGER support (weights (1,8,4,3,2,2,1,2)/23, block
+(5,13)->(14,4), x^2 = 9) and is genus 1. The PAPER's Theorem-3 support is a
+DIFFERENT 8-determinant support attaining the same vertex (weights
+(4,2,7,3,2,2,1,2)/23, block on orbitals (8,9) = (7,11)->(14,4), x^2 = 21,
+cos gamma = 3/(4 sqrt14)); its kernel cycle is (0,1,-1,0,-1,1,0,0) and its
+one-parameter family is s^2 = (2+t)^2 (7-t)(2-t) -- a DOUBLE root, hence
+genus 0 (RATIONAL). So two natural slices through v_B have different genus; the
+elliptic structure is real but is a statement about the ledger slice, not "the
+fiber." (This also resolves the parallel instance's "(7,11), x^2 = 21" remark: it
+is not a phantom, it is exactly the paper's own support -- I was wrong to file it
+as unconfirmed.)
+
+ARC ENDPOINTS ARE REAL STATES -- v_B admits a REAL extremal state, so the paper's
+open question is ANSWERED (YES). Where the physical branch reaches cos theta = +-1
+the holonomy is 0 or pi and every amplitude is real. Solving F(t, +-1) = 0 gives
+85 t^2 - 70 t - 119 = 0, so t = 7/17 -+ 18 sqrt35 / 85 (= (35 -+ 18 sqrt35)/85),
+BOTH interior to the positivity range (-1, 2) (t ~ -0.84105 and +1.66458). At each
+wall the real-sign state certifies EXACTLY over Q(sqrt35) (verify_exact True,
+all-real amplitudes; scripts/vb_fiber_ideal.py -> real_wall_states):
+  t = 7/17 - 18 sqrt35/85 (cos theta = -1), signs (+,-,+,+,+,+,+,+), weights
+    (24/17 - 18sqrt35/85, 129/17 + 18sqrt35/85, 4, 3,
+     27/17 + 18sqrt35/85, 41/17 - 18sqrt35/85, 1, 2)/23;
+  t = 7/17 + 18 sqrt35/85 (cos theta = +1), signs all +.
+So v_B (the vertex/spectrum) IS realized by a real extremal state; what fails is
+realifying the HISTORICAL ledger state psi_B(t=0), which sits at cos = 3sqrt2/16
+!= +-1 and is genuinely complex up to gauge. Corrections this forces on the
+narrative (do BEFORE any paper/blog line):
+1. "v_B has no real extremal state" / "the first vertex that can't be real" is
+   FALSE as a vertex-level statement and must be softened. The correct residual
+   theorems are class-relative: no real state with RATIONAL squared amplitudes in
+   the searched classes (every exhaustive sweep ran on rational grids; the real
+   states live at quadratic-irrational Q(sqrt35) weights, which is exactly why the
+   grid searches missed them), and psi_B(t=0)'s U(9) orbit is non-realifiable.
+   "The phase is forced" is CLASS-RELATIVE, not a fact about the vertex.
+2. The interference CLASSIFICATION is untouched: the wall states are real but NOT
+   designs (an active exchange pair and irrational weights), so the design
+   infeasibility certificates stand.
+3. Clean fiber picture: one arc, complex in its interior, real exactly at its two
+   endpoints, containing the previously-known certified points. Conjecture
+   (testable on every other deforming interference state): interference fibers
+   generically interpolate between real endpoint states through a forced-complex
+   interior.
+
+REAL STATE ON THE PAPER'S OWN SUPPORT (the cleanest witness, use this in the
+paper). Displace psi_B's squared weights along its support's incidence cycle
+(0,1,-1,0,-1,1,0,0): k(t) = (4, 2+t, 7-t, 3, 2-t, 2+t, 1, 2). The single
+off-diagonal magnitude |rho_{89}|^2 = 21/23^2 is fixed; both exchange-pair
+fermionic signs are +1, so |rho_{89}|^2 = k1 k2 + k4 k5 + 2 sqrt(k1 k2 k4 k5)
+cos theta. Real means cos theta = +-1: solving with cos theta = +1 gives
+t = 55/109 -+ 42 sqrt15 / 109, both interior to the positivity range and BOTH
+certified real over Q(sqrt15) (verify_exact True, all-real amplitudes;
+scratchpad support_A_certify). At the canonical t=0 the same relation gives
+cos theta = 3/(4 sqrt14) = cos gamma, the Theorem-3 phase. So the narrative is
+exact and self-contained: deform psi_B's weights along its one free support
+direction and the phase gamma relaxes to 0 -- the endpoint is a REAL extremal
+state for v_B with weights in Q(sqrt15). This is what should go in the paper
+(same support as Theorem 3), with the Q(sqrt35) ledger-support state as an
+independent second witness.
+
+## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
+
+Method (two stages). STAGE A, exact linear algebra per state: kernel of
+the support incidence = the weight-deformation space (mode sums frozen);
+classify each one-hop class by (term count, target); a 1-TERM class is
+RIGID (its off-diagonal magnitude sqrt(k_i k_j)/den is pinned by the
+target spectrum, so any kernel direction with v_i + v_j motion changing
+the product is cut -- first-order test: v_i k_j + v_j k_i = 0); classes
+with >= 2 terms are OPEN (phases/signs absorb motion in the polygon
+interior). Predicted fiber dim = kernel dim minus the rank of the rigid
+cuts. STAGE B, certification: displace to a rational t, re-solve the
+phase, verify the exact char-poly identity (or exhibit the rigid-class
+obstruction for blocked states).
+
+RESULTS (797 states):
+- NEW LAW (exact): ALL 643 design states are LOOP-FREE -- design
+  supports never carry incidence kernels, so design fibers are rigid
+  points (up to symmetry orbits). Continuous moduli are exclusive to
+  interference.
+- Interference: 93 of 154 loop-free (rigid); of the 61 loopy states,
+  46 have kernel dim 1 and 15 have kernel dim 2, and Stage A predicts
+  FULL kernel-dimension families for 59 of 61 -- i.e. 44 certified-
+  candidate CURVES (the 46 kernel-dim-1 states minus the two blocked)
+  and 15 SURFACES of extremal states. Exactly TWO states are blocked:
+  (5,10) v140 and v263, each killed by a rigid 1-term class.
+- Stage B certifications: v_B (t=1/2, cos = 4 sqrt 3/15) and (3,10)
+  v40 (t=1/2, cos = sqrt(165)/33) displaced states verified by exact
+  char-poly identity; v140's blockage PROVED exactly (its 1-term class
+  (2,5) has product k_0 k_1 = 7t + 7 along the kernel, non-constant,
+  so any t != 0 moves the block off-diagonal with the diagonal fixed
+  and shifts the eigenvalues -- QED).
+- FIBER-DIMENSION LAW (empirical, 59/61 + 2 proved exceptions):
+  fiber dim = kernel dim, except where a rigid 1-term class cuts it.
+  Remaining Stage B work: certify the other 57 displaced points (same
+  script), certify one 2-parameter surface point, and prove v263's
+  blockage (same argument shape as v140).
+
+Consequence for the paper (do not add until Stage B completes): the
+extremal fibers of these polytopes are generically positive-dimensional
+at loopy interference vertices -- the census's one-state-per-vertex
+library is sampling curves and surfaces, and the multiplicity structure
+(symmetry orbits x continuous families) is now computable exactly.
+
+VERIFICATION (this session, against the 797 ledger): the design loop-free
+law reproduced exactly (643/643 kernel dim 0); the interference kernel-dim
+distribution is {0: 93, 1: 46, 2: 15} (61 loopy) -- NOTE the source patch
+wrote "44 have kernel dim 1", which is the CURVE count (46 dim-1 minus the
+2 blocked), not the dim-1 count; 44 + 15 = 59 predicted families is
+consistent, 46 + 15 = 61 loopy is the correct partition. v140 and v263
+confirmed kernel-dim-1 interference; the v_B (cos 4 sqrt 3/15) and v40
+(cos sqrt(165)/33) t=1/2 displaced states both pass verify_exact. The
+v140 first-order blockage arithmetic (7t+7) was not re-derived here.
+
+## Toric-fiber conjecture: both tests RUN; a continuum of extremal states at v_B
+
+Ran the two named tests. Results are a genuine mixed verdict plus one
+discovery that supersedes the question as posed.
+
+- DISCOVERY (exact, certified): v_B's extremal fiber is POSITIVE-
+  DIMENSIONAL. The degree system on its 8-det support has a 1-dim
+  kernel (the vector (1,-1,0,0,-1,1,0,0)), and moving the weights along
+  it PRESERVES extremality because the block phase re-solves: at
+  t = 1/2 the displaced state with weights (3/2,15/2,4,3,3/2,5/2,1,2)/23
+  and cos(theta) = 4 sqrt(3)/15 satisfies the exact char-poly identity
+  (verified symbolically). The family lives on t in (-1, 2); at both
+  boundaries a weight vanishes, the exchange class drops to one term,
+  and NO real sign choice certifies -- so the family is genuinely
+  complex throughout and the paper's open question (does v_B admit any
+  real extremal state) STANDS, now over a strictly larger known search
+  space (the whole family, each point a distinct U(9) orbit; the
+  non-realifiability optimization was run only at t = 0).
+  FRAMING CAUTION (own goal avoided): weight-deformation directions and
+  holonomy loop vectors are ker of the SAME incidence map -- their
+  coincidence is definitional. The nontrivial content is PHASE
+  ABSORPTION: the char-poly conditions do not cut the kernel direction;
+  the phase absorbs it. First known continuum of extremal states at a
+  GPC vertex; the certified psi_B is one point of a curve.
+- LITERAL TORUS-ORBIT FORM: REFUTED. Along the family the loop monomial
+  prod k^v is NOT constant (1/8 at t=0, 1/3 at t=1/2), so the fiber
+  curve is not a naive torus orbit in amplitude coordinates.
+- BINOMIAL-SHAPE FORM: MOSTLY SUPPORTED, exceptions identified. Across
+  all 154 certified interference states, one-hop classes have 1 term
+  (123), 2 terms (61), or 3 terms (15); the >= 3-term (non-binomial)
+  states are exactly the 15 trisection states -- whose gauge-invariant
+  content nonetheless collapses to the abelian catalog. So the phase
+  ideals are binomial for ~92% of classes, trinomial precisely where
+  cube roots appear, with invariants lattice-clean even there.
+- TEST 2 AS DESIGNED: INCONCLUSIVE (the 24 v96 fiber states occupy 24
+  distinct supports; no shared-support pairs to test loop-monomial
+  constancy). Redesign: scan the v_B family instead -- its defining
+  curve in (k, z) coordinates is rational, cut by
+  m1^2 + m2^2 + 2 m1 m2 cos(theta) = x2 with m_i^2 linear in t.
+REVISED CONJECTURE DIRECTION (speculative, flagged): the fiber is not a
+torus orbit but a rational curve (or higher family) fibered over the
+kernel lattice, with holonomy varying along it -- the lattice controls
+deformations and phases jointly, cluster-algebra-like rather than
+naively toric. Census-wide question now well-posed: for every loopy
+certified state, does the kernel direction always survive phase
+absorption (fiber dim = kernel dim), or do 1-term rigid classes block
+it? That is a finite exact computation over the corpus.
+
+VERIFICATION (this session): the t=1/2 displaced state passes verify_exact
+exactly; the loop monomial is 1/8 at t=0 and 1/3 at t=1/2; 154 certified
+interference states and 15 trisection states confirmed against the ledger.
+Not recomputed here: the full 123/61/15 one-hop term-count histogram.
+
+## Symmetry census at 797: spontaneous symmetry breaking at the corners
+
+Computed the FULL automorphism group of every certified state (mode
+permutations within spectrum-degeneracy classes preserving the weighted
+support; 1-WL color refinement + in-cell brute force; 788/797 computed,
+9 skipped on cell size). New invariant per vertex: the SYMMETRY-BREAKING
+INDEX [G : Aut(psi)], G = the spectrum's class-permutation group.
+
+- SLATER RIGIDITY LAW (exact): exactly NINE states realize the full
+  symmetry of their spectrum (Aut = G) -- and they are precisely the
+  nine Slater corners (index 0 of each system, single determinant).
+  Every correlated extremal state in the census breaks its spectrum's
+  symmetry. Theorem-shaped; worth a short proof attempt (a G-invariant
+  correlated state on a vertex may be impossible for elementary
+  reasons).
+- STRATIFICATION BY CLASS: rigidity (Aut = 1) hits 63% of interference
+  states vs 40% of integer designs -- interference correlates with
+  symmetry breaking. ALL 12 DESIGN-REAL states have nontrivial Aut:
+  combined with the ratio-2 law, real designs are doubly special
+  (symmetric AND on the doubled grid).
+- LARGE EXTREMAL MULTIPLETS: the breaking index concentrates at
+  16-144, so each such vertex carries an orbit of that many distinct
+  extremal states -- massive extremal degeneracy, previously invisible.
+- HODGE BREAKING: of the 14 Hodge-self-dual spectra at half filling
+  with certified states, only TWO ((4,8) v21 and (5,10) v291, both
+  two-determinant states) have complement-closed (self-dual) supports;
+  the other 12 are attained by non-self-dual states, whose Hodge images
+  are DIFFERENT extremal states in the same fiber. (Shipped-state
+  statement only: whether every self-dual spectrum also admits a
+  self-dual representative is a clean open question -- the two
+  existing ones show it is sometimes possible.)
+
+Speculative framing, flagged: this is spontaneous symmetry breaking at
+polytope corners -- symmetric spectra, asymmetric extremal states,
+degenerate multiplets of order [G:Aut]. A toric extremal fiber
+(the standing conjecture) would organize exactly these orbits.
+
+VERIFICATION (this session): the nine single-determinant Slater corners
+(all at index 0) and the two Hodge self-dual supports ((4,8) v21,
+(5,10) v291, both two-determinant, complement-closed) confirmed against
+the ledger. Not recomputed here: the [G:Aut] automorphism statistics
+(the 63%/40% stratification, the 16-144 multiplet range, all-12-DESIGN-
+REAL-nontrivial), which rely on the automorphism tooling not shipped in
+the repo.
+
+## Corpus-wide algebraic mining at 797/799 (2026-07)
+
+Three exact findings and one honest negative from mining every certified
+state for algebraic relations and generating structure:
+
+1. DENOMINATOR-RATIO LAW (exact, 797/797): state-denominator over
+   spectrum-denominator is ALWAYS 1 or 2. All 785 DESIGN-INT and
+   INTERFERENCE states sit at exactly 1; the ratio-2 states are
+   precisely 9 of the 12 DESIGN-REAL states (12/6, 26/13, 28/14; the
+   other three DESIGN-REAL sit at 1). So the m=2 amplitude grid IS
+   realized in nature -- exclusively by real designs. Refines the old
+   "ratio-1 law" and gives DESIGN-REAL a sharp arithmetic signature.
+2. GAUGE TRISECTION, INVARIANT ABELIANNESS: 16 certified interference
+   states carry TRISECTED amplitude phases (atan-form arguments like
+   (pi + 3 atan sqrt(7))/3 -- cube roots of complex numbers, from the
+   cubic characteristic polynomials of 3-clique blocks). These look
+   non-abelian at the amplitude level, but the GAUGE-INVARIANT loop
+   holonomies collapse every time into the exponent-2 catalog (checked
+   at (3,10) v17: loops give minpolys 2x^2-3x+2, field Q(sqrt(-7)), and
+   the known octic 4x^8-6x^6+5x^4-6x^2+4). Conjecture 2 is doing real
+   work: parametrizations may trisect; invariants may not.
+3. FIRST NON-EVEN RECIPROCAL HOLONOMY + NORM-SQUARE LAW EXTENSION: the
+   fresh v113 crack carries holonomy minpoly 12x^4-2x^3-19x^2-2x+12 --
+   reciprocal but NOT even, the first holonomy outside the forced-V4
+   lemma's hypothesis in the census. Abelianness survives via the
+   norm-square mechanism one level up: with y = x + 1/x satisfying
+   12y^2-2y-43, the norm (y1^2-4)(y2^2-4) = 1/16 is a perfect square,
+   forcing V4 (confirmed by direct Galois computation). Conjecture 2's
+   evidence now includes its first non-even instance, and the
+   norm-square law generalizes: for reciprocal holonomy quartics, the
+   product of (y_i^2 - 4) over the y-conjugates is a rational square.
+   (v113's other loop is the even quartic 32x^4-17x^2+32, forced-V4,
+   field Q(sqrt 2, sqrt -94).)
+4. NEGATIVE, recorded honestly: the census counting sequences (vertices
+   4,10,38,58,113; designs; interference; facets 1,4,31,52,93 along
+   (3,d)) admit NO low-order linear recurrence on five terms -- second
+   differences are irregular (22,-8,35) -- so no generating function is
+   proposed. One qualitative regularity: growth alternates by parity of
+   d (jumps into even d are consistently larger: +28 into d=8, +55 into
+   d=10, vs +6/+20 into odd d), suggesting half-filling-adjacent
+   enrichment; parked as an observation, not a law.
+
+VERIFICATION (this session, against the shipped 797/799 ledger): law 1
+reproduced exactly (788 states at ratio 1, 9 at ratio 2, all DESIGN-REAL,
+spectrum-denominators 6/13/14); the v17 minpolys (2x^2-3x+2, octic
+4x^8-6x^6+5x^4-6x^2+4) and the v113 minpolys (12x^4-2x^3-19x^2-2x+12 and
+32x^4-17x^2+32) reproduced exactly, and the norm-square (y1^2-4)(y2^2-4)=1/16
+confirmed; the vertex sequence 4,10,38,58,113 and its second differences
+(22,-8,35) reproduced. Not independently confirmed here: the exact "16"
+trisected-state count (a phase-pattern scan found 15) and the (3,d) facet
+sequence 1,4,31,52,93 (no per-(3,d) facet-count artifact ships for d<=8).
+
 ## What this project is
 
 Complete classification program for fermionic moment polytopes (generalized

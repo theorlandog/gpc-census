@@ -609,8 +609,154 @@ def multi_clique_ansatze(n: int, d: int, spectrum, sizes=(3,), n_cliques: int = 
             yield nv, list(cliques)
 
 
+_SYMMETRY_BREAK = True  # module default; _skeleton_model uses it when symmetry_break is None
+
+# Feature 4: denominator-grid tiering. The ratio state_den/spectrum_den is 1 or 2
+# across the whole certified corpus (test_denominator_ratio), and 2 occurs only
+# for DESIGN-REAL states. So the interference/design-int paths stay on the m=1
+# natural grid, DESIGN-REAL is the only consumer of the m=2 tier, and nothing
+# escalates past this cap without an explicit override. This is a search-order
+# bound justified by an exact law, never a filter (verify_exact still gates).
+MAX_DENOMINATOR_TIER = 2
+
+# Feature 2: kernel quotienting. On a fixed support the integer weight vectors
+# solving the degree system form a coset of the incidence kernel; free-kernel
+# translates are phase-equivalent (the phase absorbs kernel motion, the
+# fiber-dimension law), so only one representative per (support, rigid-class
+# products) coset is phase-solved. Rigid 1-term classes cut the kernel and keep
+# distinct keys, so nothing rigidly-pinned is skipped; verify_exact still gates.
+_KERNEL_QUOTIENT = True
+
+
+def _incidence_kernel_dim(support_dets):
+    """Dimension of the weight-deformation kernel of a support (fiber dim upper
+    bound): |support| minus the rank of its mode-incidence matrix."""
+    import numpy as np
+
+    if not support_dets:
+        return 0
+    d = max(m for T in support_dets for m in T) + 1
+    a = np.array([[1 if m in T else 0 for m in range(d)] for T in support_dets],
+                 dtype=float)
+    return len(support_dets) - int(np.linalg.matrix_rank(a))
+
+
+def one_hop_classes(dets):
+    """Group a support by one-hop mode pair.
+
+    Returns {(A, B): [(i, j), ...]} with A < B, where dets[j] equals dets[i]
+    with A replaced by B (so the pair (i, j) contributes to the 1-RDM
+    off-diagonal rho_{AB}). A class with a single (i, j) is a 1-TERM (rigid)
+    class: its off-diagonal magnitude is sqrt(k_i k_j)/den exactly, so a single
+    real term cannot cancel and the pair must be a genuine block whose target
+    off-diagonal it realizes.
+    """
+    idx = {tuple(t): i for i, t in enumerate(dets)}
+    d = max((m for T in dets for m in T), default=-1) + 1
+    out: dict = {}
+    for i, T in enumerate(dets):
+        s = set(T)
+        for a_ in T:
+            for b_ in range(d):
+                if b_ in s:
+                    continue
+                t2 = tuple(sorted((s - {a_}) | {b_}))
+                j = idx.get(t2)
+                if j is not None and j > i:
+                    out.setdefault((min(a_, b_), max(a_, b_)), []).append((i, j))
+    return out
+
+
+def rigid_class_products(dets, weights):
+    """Products k_i*k_j for every 1-term (rigid) one-hop class of the support.
+
+    Returns {(A, B): k_i*k_j}. In a certified state this product equals the
+    block target x2 (block eigenvalue identity), so during search a support
+    whose forced 1-term class (A, B) has target x2 not equal to any admissible
+    k_i*k_j is infeasible and can be pruned before any phase solve.
+    """
+    prod = {}
+    for pr, pairs in one_hop_classes(dets).items():
+        if len(pairs) == 1:
+            i, j = pairs[0]
+            prod[pr] = weights[i] * weights[j]
+    return prod
+
+
+def _lex_le(m, a, b):
+    """Add a <=_lex b for two equal-length lists of CP-SAT int vars.
+
+    Standard prefix-equality chain: at the first coordinate where a and b
+    differ, a must be the smaller. Sound symmetry breaking keeps the
+    lex-minimum element of every orbit, so no orbit is ever emptied.
+    """
+    prev = None  # None encodes "all earlier coordinates equal" (a true constant)
+    for p in range(len(a)):
+        if prev is None:
+            m.Add(a[p] <= b[p])
+        else:
+            m.Add(a[p] <= b[p]).OnlyEnforceIf(prev)
+        eqp = m.NewBoolVar(f"lexeq_{id(a)}_{p}")
+        m.Add(a[p] == b[p]).OnlyEnforceIf(eqp)
+        m.Add(a[p] != b[p]).OnlyEnforceIf(eqp.Not())
+        if prev is None:
+            prev = eqp
+        else:
+            nxt = m.NewBoolVar(f"lexpe_{id(a)}_{p}")
+            m.AddBoolAnd([prev, eqp]).OnlyEnforceIf(nxt)
+            m.AddBoolOr([prev.Not(), eqp.Not()]).OnlyEnforceIf(nxt.Not())
+            prev = nxt
+
+
+def _add_class_symmetry(m, k, allowed, nv, required):
+    """Break the degree system's mode-permutation symmetry by lex-leader.
+
+    The degree constraints are invariant under permuting modes with equal nv;
+    the hop constraints are NOT invariant under moving a block mode, so block
+    modes (any mode in a required hop pair) are colored as singletons and left
+    fixed. Within each remaining equal-nv color group, adjacent transpositions
+    generate the symmetric group, so imposing k <=_lex k^tau for each adjacent
+    transposition tau confines the search to the lex-minimum orbit
+    representative. This is an exact reformulation (orbit representative), not a
+    support filter: every orbit keeps exactly its lex-min member, which still
+    certifies. If the allowed set is not closed under a transposition (an
+    asymmetric support_filter), that transposition is not a model symmetry and
+    is skipped, so the reduction stays sound.
+    """
+    idx = {t: j for j, t in enumerate(allowed)}
+    block_modes = {x for pr in required for x in pr}
+    groups: dict = {}
+    for mo in range(len(nv)):
+        if mo in block_modes:
+            continue
+        groups.setdefault(nv[mo], []).append(mo)
+    for _val, modes in groups.items():
+        modes = sorted(modes)
+        for a_, b_ in zip(modes, modes[1:]):  # adjacent transpositions generate S_c
+            nonfixed = []
+            closed = True
+            for j, T in enumerate(allowed):
+                s = set(T)
+                ina, inb = a_ in s, b_ in s
+                if ina == inb:
+                    continue  # tau fixes this determinant
+                other = b_ if ina else a_
+                gone = a_ if ina else b_
+                T2 = tuple(sorted((s - {gone}) | {other}))
+                j2 = idx.get(T2)
+                if j2 is None:
+                    closed = False
+                    break
+                nonfixed.append((j, j2))
+            if not closed or not nonfixed:
+                continue
+            nonfixed.sort()
+            _lex_le(m, [k[j] for j, _ in nonfixed], [k[j2] for _, j2 in nonfixed])
+
+
 def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
-                    require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False):
+                    require_hop_pairs=None, hop_cuts=True, forbid_offtarget=False,
+                    symmetry_break=None):
     """CP-SAT model of the degree system: weights k on allowed determinants
     with prescribed mode sums and indicators y. Hop structure is encoded per
     mode pair: target pairs (block ansatze) need at least one support hop.
@@ -659,6 +805,8 @@ def _skeleton_model(n: int, d: int, spectrum, nv=None, support_filter=None,
     required = {tuple(sorted(pr)) for pr in (require_hop_pairs or [])}
     if any(pr not in pair_hops for pr in required):
         return None
+    if symmetry_break if symmetry_break is not None else _SYMMETRY_BREAK:
+        _add_class_symmetry(m, k, allowed, nv, required)
     if not hop_cuts:
         return m, k, y, dets, den, allowed
     for pr, hops in pair_hops.items():
@@ -1104,9 +1252,13 @@ def solve_design_real_vertex(n: int, d: int, spectrum):
     pretty = [str(sp.nsimplify(sp.sqrt(sp.Rational(k, den)))) for k in weights]
     support = [[list(dets[sup[i]]), float(wfr[i]) ** 0.5, 0.0]
                for i in range(len(sup))]
+    spectrum_den = 1
+    for x in spec:
+        spectrum_den = spectrum_den * x.denominator // math.gcd(spectrum_den, x.denominator)
+    tier = den // spectrum_den if den % spectrum_den == 0 else None
     return {"status": "OK", "residual": 0.0, "support_size": len(sup),
             "weights": weights, "den": den, "verdict": "DESIGN-REAL",
-            "support": support,
+            "denominator_tier": tier, "support": support,
             "closed_form": {"den": den, "weights": weights, "pretty": pretty,
                             "support_dets": [list(dets[j]) for j in sup]}}
 
@@ -1236,7 +1388,21 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             n, d, spectrum, mincard, support_filter=adm, prefilter=pref,
             nv=nv, dedup_maps=maps, require_hop_pairs=hop_pairs,
             forbid_offtarget=bool(blocks), max_cardinality=cap, limit=400)
+        tried: set = set()  # F2 kernel quotient: one representative per coset
         for w in sorted(sols, key=lambda w: sum(1 for k in w if k)):
+            if _KERNEL_QUOTIENT:
+                sup0 = tuple(i for i, kk in enumerate(w) if kk)
+                supdets = [tuple(dets_all[i]) for i in sup0]
+                supw = [w[i] for i in sup0]
+                # key by support AND its rigid 1-term class products: free-kernel
+                # translates (phase-absorbed, fiber-dimension law) collapse to one
+                # representative, while rigidly-pinned distinctions (which cut the
+                # kernel, e.g. the blocked v140/v263) keep separate keys and are
+                # each tried. verify_exact still gates every hit.
+                key = (sup0, tuple(sorted(rigid_class_products(supdets, supw).items())))
+                if key in tried:
+                    continue
+                tried.add(key)
             psi, res = phase_solve(n, d, spectrum, dets_all, den, w,
                                    _built=built, target=target)
             if psi is None:
@@ -1255,6 +1421,8 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             rec = {"status": "OK", "residual": res,
                    "support_size": len(sup), "min_blocks": needed,
                    "weights": [w[i] for i in sup], "den": den,
+                   "fiber_kernel_dim": _incidence_kernel_dim(
+                       [tuple(dets_all[i]) for i in sup]),
                    "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
                    "support": [[list(dets_all[i]), float(abs(psi[i])),
                                 float(np.angle(psi[i]))] for i in sup]}
