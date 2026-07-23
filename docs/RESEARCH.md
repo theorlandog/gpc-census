@@ -352,6 +352,54 @@ walls; the |cos| = 1 locus = the real wall states (generally irrational t);
 rational (t, w) points = rational-holonomy-cosine states, whose supply the rank
 governs. The 26 genus-0 fibers' (simpler) point arithmetic is uncatalogued.
 
+## REALITY IS A POSITIVITY BOUNDARY: the Cayley-Menger bridge (verified 2026-07)
+
+The reality question is not a separate kind of constraint from positivity -- it is
+the BOUNDARY of a positivity region, one level up from the moment polytope. The
+Schur-Horn condition fixes each interference off-diagonal MAGNITUDE |x_e| = sqrt(tau_e).
+The amplitudes on the one-hop-connected determinants are vectors that must sum to
+x_e: a closed polygon (for a 2-term block, a triangle with sides A, B, sqrt(tau),
+apex angle = the holonomy). Then:
+- COMPLEX state exists  <=>  the polygon CLOSES  <=>  triangle inequality
+  |A - B| <= sqrt(tau) <= A + B  <=>  the amplitude Gram matrix is PSD. This is a
+  convex/positivity condition, the exact analogue of "the 1-RDM is PSD" that cuts
+  out the moment polytope, but applied to the amplitude vectors.
+- REAL state  <=>  the polygon DEGENERATES (collinear, area 0)  <=>  the
+  CAYLEY-MENGER DETERMINANT VANISHES. Reality is the boundary of the positivity
+  region, not its interior.
+
+EXACT IDENTITY (verified, scripts reality_positivity): for the 2-term block with
+side-squares (p1, p2, tau), 16 Area^2 = -[(tau - p1 - p2)^2 - 4 p1 p2] = -(wall
+polynomial). So the Cayley-Menger determinant IS the wall polynomial: for v_B it is
+85 t^2 - 70 t - 119, whose roots are exactly the walls 7/17 -+ 18 sqrt35/85, and
+16 Area^2 > 0 on the physical (complex-allowed) interior, < 0 outside (no triangle,
+|cos| > 1). General for every single 2-term-block family, not just v_B.
+
+WHAT THIS BUYS (the transferable machinery):
+- A basis-free UNIVERSAL reality certificate: reality <=> a Gram/Cayley-Menger
+  determinant vanishes. Replaces the per-family wall-polynomial solve with one
+  determinantal object, and it is the SAME object.
+- The multi-edge case (the "10 pending" sign-compatibility gap) becomes a clean
+  real-algebraic question: do the several edge Cayley-Menger hypersurfaces have a
+  COMMON real zero inside the positivity region? That is a positivity/semialgebraic
+  problem with real tools (real Nullstellensatz, SOS certificates), not an ad hoc
+  sign search.
+- The k-term block generalizes: reality = the k amplitude vectors are COLLINEAR =
+  the amplitude Gram matrix drops to rank 1 = all 2x2 minors vanish = a
+  determinantal variety; positivity (state exists) = Gram PSD. Reality is the
+  deepest boundary stratum of that spectrahedron. Positivity of weights is
+  polyhedral (LP, the polytope); reality is spectrahedral (PSD-boundary): the
+  transfer is polytope -> spectrahedron.
+- Positive geometry: the physical region is {Cayley-Menger <= 0} and reality is its
+  boundary component, so the reality locus is a natural boundary of a positive
+  geometry -- a concrete handle for the Section-on-positive-geometry connection the
+  paper flags (cos gamma as "new data").
+
+This is already half-present in the paper's exactifier language ("each off-diagonal
+is a closed polygon whose relative phase is an exact arccosine"): the polygon is the
+positivity object, its degeneration is reality. Candidate for the paper's
+positive-geometry section; not injected unilaterally.
+
 ## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
 SELECTION PRINCIPLE (verified here for v_B, 2026-07)
 
