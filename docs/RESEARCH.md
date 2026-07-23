@@ -297,6 +297,59 @@ block interference. The clean, defensible statement is the one above: for every
 single-block kdim-1 interference vertex tested, a certified real fiber-wall state
 exists.
 
+## FIBER-CURVE ARITHMETIC: honest genus census (a "CM surprise" REFUTED, 2026-07)
+
+Both this instance and a parallel run computed the genus of the fiber curve
+w^2 = Q(t) (Q = product of the four weight factors of the single active block) for
+every single-block kdim-1 interference family, and BOTH first over-reached before
+correcting. Recording the corrected, agreed result and the DEAD claims so neither
+is re-applied from a pasted patch.
+
+REFUTED (do NOT re-add): "40 of 44 fiber curves are genus 1", "j = 1728 nineteen
+times (lemniscatic CM by Z[i])", and the "harmonic wall" cross-ratio verification
+(published twice with self-corrections). ALL ARTIFACTS of a wrong reduction of
+w^2 = Q when Q has a DOUBLE root: a repeated linear factor is an even-order zero,
+so it is NOT a branch point -- divide it out entirely (w^2 = (t-r)^2 g gives a
+conic v^2 = g, genus 0). The bad pass kept one power of the repeated factor,
+inventing a phantom cubic with a spurious branch point at infinity whose 4-point
+cross-ratio came out harmonic, hence the fake j = 1728. Riemann-Hurwitz settles
+each case: branch points = odd-multiplicity roots of Q (+ infinity iff their
+count is odd); genus 1 iff that count is 3 or 4.
+
+HONEST CENSUS (scripts/fiber_curves.py, committable source of truth): of the 44
+single-block kdim-1 families, GENUS 1 = 18, GENUS 0 (rational) = 26. The elliptic
+fiber is a structured MINORITY. The 26 rational ones share a weight between the
+two exchange terms (a repeated factor -> conic); one direction of the earlier
+"guessed genus law" is that trivial fact, the converse fails on coincidental root
+collisions. (Reconciliation note: a looser filter that keyed only on active 2-term
+off-diagonals counted 20/9-distinct-j by wrongly admitting (5,10) v140 and v263,
+which have TWO touched exchange classes -- multi-block, not a single w^2 = Q curve;
+the strict "exactly one touched class" filter gives 18.)
+
+WHAT SURVIVES (independently verified here): 8 distinct rational j-invariants over
+the 18 genuine genus-1 families, and transport towers preserve the curve exactly
+(the face-map functors are isomorphisms of fiber curves):
+- j = 5088448/441 x7: (3,8) v31 -> (3,9) v48 -> (3,10) v95 -> (4,9) v31 ->
+  (4,10) v48 -> (5,10) v31 (+ pad)
+- j = 1906624/225 x2: v_B (4,9) v65 and its (5,10) v65 Hodge partner
+- j = 19248832/3969 x2: (4,9) v42, (4,10) v62;  964430272/480249 x2;
+  3631696/2025 x2;  three singletons (3,10) v40, v73, v101
+- v_B's j = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2) reconfirmed by both the
+  quartic-invariant and cross-ratio routes.
+
+REPORTED BY THE PARALLEL RUN, NOT REPRODUCED HERE (no PARI/Sage/gp in this
+environment; do not upgrade to "verified" without it): Mordell-Weil ranks via
+PARI ellrank over the 8 genuine isomorphism classes -- v73 rank 0 (torsion order
+8), five classes rank 1 (including v_B), two rank 2. Trivially true and checkable:
+the branch points are rational (roots -w0/u of rational weight factors), so the
+degree-4 models carry full rational 2-torsion (Z/2 x Z/2, order 4); "order 8" and
+the ranks are the parts that need the descent. Point-locus dictionary (sound as
+framing, rank-dependent parts inherit the caveat): 2-torsion (w = 0) = the
+support-degeneration walls; the |cos| = 1 locus = the real wall states (generally
+irrational t); rational (t, w) points = rational-holonomy-cosine states, whose
+supply the rank governs. The 26 genus-0 fibers' (simpler) point arithmetic is
+uncatalogued.
+
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
 Method (two stages). STAGE A, exact linear algebra per state: kernel of
