@@ -4,6 +4,78 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## v89/v103 NUMERICALLY ATTAINED (verified here) -- but NOT certified; census
+unchanged at 797/799 (2026-07)
+
+VERIFIED (ran scripts/contraction_attack.py independently). The ansatz-free
+contraction-map attack -- minimize ||gamma(Psi) - gamma_0||^2 over the FULL 120-dim
+Lambda^3 C^10 tensor with an analytic Wirtinger gradient, no support/sparsity/
+rationality restriction -- attains BOTH holdouts to machine precision from random
+starts: v89 residual 4.3e-17 (complex) and 7.6e-17 (REAL), v103 residual 2.2e-16
+(complex) and 5.0e-16 (REAL), eigenvalues exactly (15,15,6^8) and (18^4,5^6). So
+BOTH v89 and v103 numerically admit REAL states -- which CORRECTS an earlier hedge
+here (my real-diagonal attain floored at ~5e-6; that was a weak numeric gradient,
+not a real obstruction: the analytic-gradient version nails it). The analytic
+gradient is the whole difference from every prior stalled search.
+
+WHAT THIS IS, PRECISELY. Numerical ATTAINABILITY was never the open question --
+these are vertices, so states exist and my earlier attain already hit ~1e-14. The
+open problem is a CERTIFIED CLOSED FORM (an exact state passing the char-poly gate),
+and the contraction solutions do NOT provide one: they are DENSE generic fiber
+points (support 100-120 of 120), exactly the "dense, no exploitable symmetry" state
+my analysis predicted (design/split/cyclic/neighbor/Pauli all fail; see below). So
+this REINFORCES the near-theorem rather than overturning it: the state exists and is
+findable numerically, but it is generic in the degenerate subspace and yields no
+closed form. Census stays 797/799; do NOT read "numerically attained" as "solved".
+
+CERTIFICATION ROUTES (all still open; a distinguished, recognizable representative
+is required): (a) sparsity-seeking reoptimization on the solution manifold toward a
+small support, then the standard exactifier -- but the manifold may carry no sparse
+point (the numeric support is full); (b) the real-amplitude manifold (now known
+nonempty) with PSLQ/minpoly recovery of algebraic weights -- viable only if the
+weights are low-degree algebraic, unknown; (c) the equivariant route (a subgroup
+forcing gamma = scalar+projector by Schur) -- ALREADY SHOWN TOO RIGID for v89 (the
+order-128 Pauli construction gives only 2-dim covariant spaces, residual 0.34), so
+(c) is effectively closed. Net: attainability + reality settled numerically;
+certification remains the genuine open problem, and the honest odds of a clean
+closed form are low given the density.
+
+## SKEPTICAL AUDIT + PRE-REGISTRATION for the rank-10 closure (2026-07)
+
+Selection-bias audit of the fiber era + anti-overfitting protocol (adopted from the
+parallel instance; sound practice, recorded verbatim in spirit):
+1. Every fiber law was mined from the 44 kdim-1 single-touched-class families of the
+   SOLVED corpus -- states our ansatz family finds. "44/44 conics" is a THEOREM for
+   single-2-term-class, +-1-loop families PLUS an empirical fact about the solver's
+   output distribution, not a law of nature. A v89/v103 state with multi-class or
+   3-term structure sits outside every fiber law's proven scope while violating
+   nothing. The endpoint theorem and wall-interiority are proved only in the
+   single-class scope.
+2. Mined-law mortality to date is about one in three (class-count, toric-orbit,
+   elliptic-fiber-as-the-rule -- all retracted). Presume survivors carry similar
+   out-of-sample risk until tested.
+3. Weapon vs law: the ENGINE features (symmetry reduction, kernel quotienting,
+   rigid-class arithmetic, continuous/wall-first search, and now the contraction
+   map) are sample-independent and bear on the holdouts; the LAWS describe solved
+   states post hoc and crack nothing. The x1.32/denominator scaling forecast is a
+   6-point fit -- an estimate, not a promise.
+
+PRE-REGISTERED PREDICTIONS (committed BEFORE any CERTIFIED v89/v103 state exists;
+score PASS/FAIL/NOT-TESTED against the certified states only, before writing any
+narrative; a FAIL is itself a publishable finding):
+- P1 every gauge-invariant holonomy of the v89/v103 states generates an exponent-2
+  abelian extension of Q (Conjecture 2).
+- P2 each state uses at most 2 exchange channels (Conjecture 3).
+- P3 rational-weight states have state-den = spectrum-den (26, 34); irrational
+  (continuous-search) states invoke the scope clause and do NOT test P3.
+- P4 loopy supports with no touched 1-term class deform (fiber dim = kernel dim).
+- P5 the states break their spectrum symmetry (Aut != G).
+- P6 if the family is single-2-term-class +-1-loop, its CM curve is a conic with
+  both walls real-type.
+(Caveat consistent with the above: the contraction solutions are DENSE, so a
+certified state -- if one is ever extracted -- may itself be dense/multi-class and
+land in several predictions' scope-exclusion clauses rather than testing them.)
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
