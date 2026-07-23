@@ -3,50 +3,48 @@
 
 This is the RANK-11 CERTIFICATE PATH recommended in docs/RESEARCH.md ("A
 Lasserre/SOS moment-relaxation dual of min ||gamma(psi)-gamma_0||^2 yields a
-CERTIFIED positive lower bound = rigorous non-attainability"), now runnable: an
-SDP solver (Clarabel) is available in the venv. It computes a lower bound delta
+CERTIFIED positive lower bound = rigorous non-attainability"), now runnable: SDP
+solvers (SCS, Clarabel) are available in the venv. It computes a lower bound delta
 on
 
     min_{||c||^2 = 1}  f(c),   f = sum_ij |gamma_ij(c) - g0_i delta_ij|^2,
 
 the squared distance from the target spectrum diag(g0) to the nearest pure
 N-representable 1-RDM. delta > 0 is a rigorous certificate that diag(g0) is
-OUTSIDE the (N,d) polytope (non-attainable); the contraction attack only produces
-an UNCONSTRAINED floor (evidence, not proof).
+OUTSIDE the (N,d) polytope (non-attainable). By orbital-rotation invariance
+(Hoffman-Wielandt) min f equals the squared Euclidean distance from g0's spectrum
+to the moment polytope, so a positive delta both proves non-attainability and
+quantifies the gap. The contraction attack only produces an UNCONSTRAINED floor
+(evidence, not proof).
 
-FORMULATION (gauge-reduced, exact cone). f is U(1)-gauge invariant
-(c -> e^{i phi} c), so every monomial has charge |holo| - |anti| = 0, and f is a
-sum of squared magnitudes of the SESQUILINEAR forms gamma_ij - g0 delta -- NOT a
-holomorphic SOS. The correct cone squares elements of the charge-0 space
+FORMULATION (gauge-reduced, exact cone). f is U(1)-gauge invariant, so every
+monomial has charge |holo| - |anti| = 0, and f squares the SESQUILINEAR forms
+gamma_ij - g0 delta (NOT a holomorphic SOS -- a holomorphic {1,c,c^2} block cannot
+even certify the trivial delta=0). The correct cone squares the CHARGE-0 space
     B = {1} U {Re(c_a cbar_b): a<=b} U {Im(c_a cbar_b): a<b}   (size 1 + nd^2),
-nd = C(d,N) the number of Slater determinants. The certificate is
+nd = C(d,N). The certificate is
     f - delta = B^T Q B + mu (||c||^2 - 1),   Q >> 0 (real symmetric),
-with mu = sum_S mu_S B_S a free charge-0 degree-<=2 multiplier (this is exactly
-the level-2 relaxation on the sphere). Coefficients are matched over complex
-monomial keys (holo multiset, anti multiset) and handed to Clarabel natively
-(min 1/2 x'Px + q'x s.t. Ax + s = b, s in cones): one PSDTriangleCone(1+nd^2) +
-a ZeroCone of equalities. delta=0 is always feasible (Q = Gram of f, mu=0), so the
-cone is correct; the multiplier lifts delta onto the sphere.
+mu = sum_S mu_S B_S a free charge-0 degree-<=2 multiplier (level-2 relaxation on
+the sphere). delta=0 is always feasible (Q = Gram of f, mu=0), so the cone is
+correct; the multiplier lifts delta onto the sphere. Coefficients are matched over
+complex monomial keys (holo multiset, anti multiset) and handed to a solver
+natively (min c'x s.t. Ax + s = b, s in cones): one PSD cone (side 1+nd^2) + a
+ZeroCone of equalities.
 
-VALIDATED (self-test, run this file): (2,4), whose pure spectra are the degenerate
-pairs (a,a,1-a,1-a):
-  EXTER  (0.8,0.6,0.4,0.2) -> delta = 0.04  == exact squared distance to the
-         nearest attainable (0.7,0.7,0.3,0.3); certified non-attainable.
-  ATTAIN (0.7,0.7,0.3,0.3) -> delta ~ 0     (attainable, as it must be).
+BACKEND. Default SCS: its ADMM projects the PSD cone by eigendecomposition,
+O(nz^2) memory, so it clears side nz=401 at (3,6) where Clarabel's dense-IPM
+Nesterov-Todd scaling (O(npsd^2) ~ 52 GB) OOMs. The single un-reduced block still
+scales as nz = 1 + nd^2 (401 at (3,6), 27226 at (3,11)); (3,11) needs the
+symmetry-reduced solver (see scripts/sos_symmetry.py), which block-diagonalizes Q
+under the spectrum stabilizer into small irrep blocks.
 
-SCALING WALL (why symmetry reduction is REQUIRED, not optional). The single PSD
-block has side 1 + nd^2: 401 for (3,6), 27226 for (3,11). Any dense-scaling
-interior-point method forms an npsd x npsd Nesterov-Todd scaling with
-npsd = side(side+1)/2, i.e. 80601^2 * 8 bytes ~ 52 GB already at (3,6). So the
-UN-REDUCED relaxation is intractable beyond tiny systems. The target cand 44 of
-(3,11), g0 = diag(6,6,6,6,6,1,1,1,1,1,1)/12 (numerical floor ~ 2.155e-3 ~ 1/464,
-non-attainable -- see scripts/contraction_attack.py), has spectrum stabilizer
-S5 x S6; block-diagonalizing Q under that group (Wedderburn / isotypic
-decomposition of the fermionic determinant rep) collapses the 27226 side into a
-handful of small irrep blocks. That symmetry-adapted solve is the next step; this
-module supplies the (validated) un-reduced assembler and the exact target datum.
+VALIDATED gates (run this file):
+  (3,6) EXTER diag(0.9,0.8,0.7,0.35,0.2,0.05) -> delta ~ 0.0042 > 0
+        (violates the (3,6) pairing lambda_i + lambda_{7-i} = 1, non-attainable)
+  (3,6) CONTROL diag(1,1,1,0,0,0) (attainable Slater) -> delta ~ 0 (feasible)
+  (2,4) EXTER (0.8,0.6,0.4,0.2) -> delta = 0.04 == exact distance^2 to (0.7,0.7,0.3,0.3).
 
-Run:  .venv/bin/python scripts/sos_nonattain.py            # (2,4) self-test
+Run:  .venv/bin/python scripts/sos_nonattain.py [--full]
 Diagnostic; scripts/ is ruff-excluded.
 """
 from __future__ import annotations
@@ -94,61 +92,54 @@ def f_coeffs(d, N, g0):
 
 
 def charge0_basis(nd):
-    """Real charge-0 basis: each element a real linear form in complex monomials
-    c_h conj(c_a), returned as (label, [ (holo_tuple, anti_tuple, complex_coeff) ])."""
+    """Real charge-0 basis: (label, [ (holo_tuple, anti_tuple, complex_coeff) ])."""
     B = [("const", [((), (), 1.0 + 0j)])]
     for a in range(nd):
         for b in range(a, nd):
             if a == b:
                 B.append((("sym", a, a), [((a,), (a,), 1.0 + 0j)]))
-            else:  # Re(c_a cbar_b)
+            else:
                 B.append((("sym", a, b), [((a,), (b,), 0.5 + 0j), ((b,), (a,), 0.5 + 0j)]))
     for a in range(nd):
-        for b in range(a + 1, nd):  # Im(c_a cbar_b)
+        for b in range(a + 1, nd):
             B.append((("asym", a, b), [((a,), (b,), -0.5j), ((b,), (a,), 0.5j)]))
     return B
 
 
-def _mul(t1, t2):
+def mul_mono(t1, t2):
     (h1, a1, c1), (h2, a2, c2) = t1, t2
     return (tuple(sorted(h1 + h2)), tuple(sorted(a1 + a2)), c1 * c2)
 
 
-def certify(d, N, g0, eps=1e-9, want_cert=False):
-    """Maximize delta with f - delta = B^T Q B + mu(||c||^2-1), Q>>0. Native Clarabel."""
-    import clarabel
+def certify(d, N, g0, solver="SCS", eps=1e-6, max_iters=50000, verbose=False):
+    """Maximize delta with f - delta = B^T Q B + mu(||c||^2-1), Q>>0. Returns dict."""
     nd, F = f_coeffs(d, N, g0)
     B = charge0_basis(nd)
     nz = len(B)
-    keys = {}
-
-    def kidx(k):
-        return keys.setdefault(k, len(keys))
-
-    psd_pairs = [(i, j) for j in range(nz) for i in range(j + 1)]  # col-major svec
+    lower = (solver == "SCS")   # SCS: lower-tri col-major svec; Clarabel: upper-tri
+    if lower:
+        psd_pairs = [(i, j) for j in range(nz) for i in range(j, nz)]
+    else:
+        psd_pairs = [(i, j) for j in range(nz) for i in range(j + 1)]
     npsd = len(psd_pairs)
-    nmu = nz
-    nx = npsd + nmu + 1
+    nx = npsd + nz + 1
     idelta = nx - 1
     imu0 = npsd
     keymap = defaultdict(list)
-
-    # sigma = B^T Q B ; svec entry (P<=R) scales the off-diagonal by sqrt2
     for col, (P, R) in enumerate(psd_pairs):
         scale = 1.0 if P == R else R2
         for t1 in B[P][1]:
             for t2 in B[R][1]:
-                h, a, cc = _mul(t1, t2)
+                h, a, cc = mul_mono(t1, t2)
                 keymap[(h, a)].append((col, scale * cc))
-    # mu (||c||^2 - 1)
     for S in range(nz):
         col = imu0 + S
         for (h0, a0, c0) in B[S][1]:
-            for k in range(nd):  # times +sum_k c_k cbar_k
-                h, a, cc = _mul((h0, a0, c0), ((k,), (k,), 1.0 + 0j))
+            for k in range(nd):
+                h, a, cc = mul_mono((h0, a0, c0), ((k,), (k,), 1.0 + 0j))
                 keymap[(h, a)].append((col, cc))
-            keymap[(h0, a0)].append((col, -c0))  # times -1
-    keymap[((), ())].append((idelta, 1.0 + 0j))  # -delta on empty (LHS: f - delta)
+            keymap[(h0, a0)].append((col, -c0))
+    keymap[((), ())].append((idelta, 1.0 + 0j))
 
     allkeys = sorted(set(keymap) | set(F))
     rows, cols, dat, b_vec = [], [], [], []
@@ -162,61 +153,66 @@ def certify(d, N, g0, eps=1e-9, want_cert=False):
                     rows.append(rr); cols.append(col); dat.append(float(v))
             b_vec.append(target); rr += 1
     neq = rr
-    for i in range(npsd):  # PSD slack: s = x_svec
+    for i in range(npsd):
         rows.append(neq + i); cols.append(i); dat.append(-1.0)
-
-    A = sp.coo_matrix((dat, (rows, cols)), shape=(neq + npsd, nx)).tocsc()
+    A = sp.csc_matrix((dat, (rows, cols)), shape=(neq + npsd, nx))
     b = np.array(b_vec + [0.0] * npsd)
-    P = sp.csc_matrix((nx, nx))
-    q = np.zeros(nx); q[idelta] = -1.0
-    cones = [clarabel.ZeroConeT(neq), clarabel.PSDTriangleConeT(nz)]
-    settings = clarabel.DefaultSettings()
-    settings.verbose = False
-    settings.tol_gap_abs = settings.tol_gap_rel = settings.tol_feas = eps
+    c = np.zeros(nx); c[idelta] = -1.0
     t0 = time.time()
-    sol = clarabel.DefaultSolver(P, q, A, b, cones, settings).solve()
-    out = dict(status=str(sol.status), delta=float(sol.x[idelta]), nz=nz,
-               neq=neq, npsd=npsd, secs=time.time() - t0)
-    if want_cert:
-        out["residual"] = _identity_residual(sol.x, psd_pairs, B, nd, F, idelta, imu0)
-    return out
+    if solver == "SCS":
+        import scs
+        sol = scs.solve(dict(A=A, b=b, c=c), dict(z=neq, s=[nz]),
+                        verbose=verbose, eps_abs=eps, eps_rel=eps, max_iters=max_iters)
+        x = sol["x"]; status = sol["info"]["status"]
+    else:
+        import clarabel
+        P = sp.csc_matrix((nx, nx))
+        st = clarabel.DefaultSettings(); st.verbose = verbose
+        st.tol_gap_abs = st.tol_gap_rel = st.tol_feas = eps
+        sol = clarabel.DefaultSolver(P, c, A, b, [clarabel.ZeroConeT(neq),
+                                     clarabel.PSDTriangleConeT(nz)], st).solve()
+        x = np.array(sol.x); status = str(sol.status)
+    delta = float(x[idelta])
+    resid = _resid(x, psd_pairs, B, nd, F, idelta, imu0)
+    return dict(status=status, delta=delta, resid=resid, nz=nz, neq=neq,
+                secs=time.time() - t0)
 
 
-def _identity_residual(x, psd_pairs, B, nd, F, idelta, imu0):
-    """max_k | coeff_k( B^T Q B + mu(||c||^2-1) + delta*[empty] ) - F_k |, numeric check."""
+def _resid(x, psd_pairs, B, nd, F, idelta, imu0):
     acc = defaultdict(complex)
     for col, (P, R) in enumerate(psd_pairs):
         scale = 1.0 if P == R else R2
         for t1 in B[P][1]:
             for t2 in B[R][1]:
-                h, a, cc = _mul(t1, t2)
+                h, a, cc = mul_mono(t1, t2)
                 acc[(h, a)] += x[col] * scale * cc
     for S in range(len(B)):
         v = x[imu0 + S]
         for (h0, a0, c0) in B[S][1]:
             for k in range(nd):
-                h, a, cc = _mul((h0, a0, c0), ((k,), (k,), 1.0 + 0j))
+                h, a, cc = mul_mono((h0, a0, c0), ((k,), (k,), 1.0 + 0j))
                 acc[(h, a)] += v * cc
             acc[(h0, a0)] += v * (-c0)
     acc[((), ())] += x[idelta]
-    keysall = set(acc) | set(F)
-    return max(abs(acc.get(k, 0) - F.get(k, 0)) for k in keysall)
+    return max(abs(acc.get(k, 0) - F.get(k, 0)) for k in set(acc) | set(F))
 
 
 def main():
-    jobs = [("ATTAIN(2,4)", 4, 2, [0.7, 0.7, 0.3, 0.3]),
-            ("EXTER (2,4)", 4, 2, [0.8, 0.6, 0.4, 0.2])]
-    print("charge-0 Hermitian-SOS non-attainability certifier -- (2,4) self-test")
-    print("(2,4) pure spectra are degenerate pairs (a,a,1-a,1-a); EXTER breaks it.\n")
-    for tag, d, N, g0 in jobs:
-        r = certify(d, N, g0, want_cert=True)
-        verdict = ("NON-ATTAINABLE (delta>0)" if r["delta"] > 1e-6
-                   else "attainable / boundary (delta~0)")
-        print(f"{tag}: {r['status']}  delta = {r['delta']:.6g}  -> {verdict}")
-        print(f"           identity residual {r['residual']:.2e}  "
-              f"(nz {r['nz']}, {r['neq']} eq, {r['secs']:.2f}s)")
-    print("\nExpected: EXTER delta = 0.04 (= squared distance to (0.7,0.7,0.3,0.3)),")
-    print("          ATTAIN delta ~ 0. See module docstring for the (3,11) scaling wall.")
+    print("charge-0 Hermitian-SOS non-attainability certifier (SCS backend)\n")
+    jobs = [("EXTER  (3,6)", 6, 3, [0.9, 0.8, 0.7, 0.35, 0.2, 0.05], True),
+            ("CONTROL(3,6)", 6, 3, [1, 1, 1, 0, 0, 0], False),
+            ("EXTER  (2,4)", 4, 2, [0.8, 0.6, 0.4, 0.2], True)]
+    if "--full" not in sys.argv:
+        jobs = [j for j in jobs if j[1] != 6 or j[0].startswith("EXTER")] + \
+               [("CONTROL(3,6)", 6, 3, [1, 1, 1, 0, 0, 0], False)]
+    for tag, d, N, g0, ext in jobs:
+        r = certify(d, N, g0, eps=1e-5, max_iters=20000)
+        v = ("NON-ATTAINABLE (delta>0)" if r["delta"] > 1e-4
+             else "attainable / feasible (delta~0)")
+        ok = "OK" if (r["delta"] > 1e-4) == ext else "??"
+        print(f"{tag}: {r['status']:8} delta={r['delta']:.6g}  resid={r['resid']:.1e}  "
+              f"{r['secs']:.0f}s -> {v}  [{ok}]")
+    print("\nGate: EXTER must give delta>0, CONTROL delta~0.")
 
 
 if __name__ == "__main__":

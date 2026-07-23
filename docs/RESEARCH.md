@@ -233,17 +233,26 @@ scripts/sos_nonattain.py). Three concrete results, discipline preserved.
    a rigorous non-attainability certificate and the pipeline is sound on a case with
    a known answer.
 
-3. SCALING WALL -> symmetry reduction is REQUIRED, not optional. The single PSD
-   block has side 1 + nd^2: 401 for (3,6), 27226 for (3,11). A dense-scaling
-   interior-point method forms an npsd x npsd Nesterov-Todd scaling with
-   npsd = side(side+1)/2 ~ 80601^2 * 8 B ~ 52 GB already at (3,6) (OOM confirmed,
-   both cvxpy and native). The un-reduced degree-2 relaxation is thus intractable
-   beyond tiny systems. cand 44 g0 = diag(6^5,1^6)/12 has spectrum stabilizer
-   S5 x S6; block-diagonalizing Q under the fermionic determinant rep of that group
-   (Wedderburn / isotypic decomposition) collapses the 27226 side into a handful of
-   small irrep blocks whose multiplicities in the 165-determinant rep are single
-   digit. That symmetry-adapted assemble-and-solve is the open next step; the
-   validated un-reduced assembler and self-test ship in scripts/sos_nonattain.py.
+3. G1 PASSES un-reduced at (3,6) with the right solver. The single PSD block has
+   side 1 + nd^2: 401 for (3,6), 27226 for (3,11). Clarabel's dense-IPM
+   Nesterov-Todd scaling is O(npsd^2) = 80601^2 * 8 B ~ 52 GB and OOMs at (3,6);
+   SCS (ADMM, eigendecomposition PSD projection) is O(nz^2) and clears it. With
+   SCS the G1 gates both pass: EXTER diag(0.9,0.8,0.7,0.35,0.2,0.05) certifies
+   delta = 0.00416 > 0 (non-attainable, violates the (3,6) pairing), the attainable
+   CONTROL diag(1,1,1,0,0,0) returns delta ~ 1.5e-6 ~ 0 (feasible); certificate
+   residual ~1e-8. So the pipeline is validated on the actual (3,6) target, not
+   only the (2,4) toy.
+
+4. (3,11) STILL NEEDS SYMMETRY. SCS is O(nz^2) memory but O(nz^3) per PSD
+   projection: side 27226 is ~2e13 flops/iteration -- time-infeasible. cand 44
+   g0 = diag(6^5,1^6)/12 has spectrum stabilizer S5 x S6; block-diagonalizing Q
+   under the fermionic determinant rep collapses side 27226 into irrep blocks.
+   Burnside counts (computed): dim End_G(V) = sum m_lambda^2 = 18 (tiny
+   multiplicities in the 165-determinant rep), and dim End_G(Herm V) = sum
+   mult_nu(Herm V)^2 = 28884, so the largest reduced PSD block is <= ~170 -- easily
+   in SCS range. That symmetry-adapted assemble-and-solve (scripts/sos_symmetry.py)
+   is the next step; the validated un-reduced assembler and G1 self-test ship in
+   scripts/sos_nonattain.py.
 
 TARGET DATUM (for the reduced solve to reproduce). By orbital-rotation invariance of
 the pure-1-RDM set, min_Psi ||gamma(Psi) - diag(g0)||^2 = squared Euclidean distance
