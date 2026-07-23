@@ -126,6 +126,36 @@ def real_wall_states():
     return out
 
 
+def paper_support_real_state():
+    """Real extremal state for v_B on the PAPER's Theorem-3 support (Q(sqrt15)).
+
+    The published psi_B lives on a different eight-determinant support (squared
+    weights (4,2,7,3,2,2,1,2), block on orbitals (8,9) = (7,11)->(14,4),
+    |rho_89|^2 = 21/23^2, cos gamma = 3/(4 sqrt14)). Its incidence cycle is
+    (0,1,-1,0,-1,1,0,0); displacing the weights along it and demanding cos theta = 1
+    (a real state) gives 109 t^2 - 110 t - 215 = 0, t = 55/109 -+ 42 sqrt15 / 109,
+    both interior. This is the cleanest witness that v_B admits a real extremal
+    state, on the paper's own support. Returns [(t, verify_exact_ok, all_real)]."""
+    import sympy as sp
+    from gpc_census.exactify import verify_exact
+    dets = [(0, 1, 2, 5), (0, 1, 3, 7), (0, 1, 3, 8), (0, 2, 3, 4),
+            (0, 2, 6, 7), (0, 2, 6, 8), (1, 2, 4, 7), (2, 3, 7, 8)]
+    k0 = [4, 2, 7, 3, 2, 2, 1, 2]
+    u = [0, 1, -1, 0, -1, 1, 0, 0]
+    signs = [1, 1, 1, -1, 1, 1, -1, 1]  # psi_B signs; cos theta = 1 keeps them real
+    spec = [Fraction(x, DEN) for x in SPEC_INT]
+    walls = [sp.Rational(55, 109) - 42 * sp.sqrt(15) / 109,
+             sp.Rational(55, 109) + 42 * sp.sqrt(15) / 109]
+    out = []
+    for tv in walls:
+        k = [sp.nsimplify(k0[i] + tv * u[i]) for i in range(8)]
+        amps = [signs[i] * sp.sqrt(sp.Rational(1, DEN) * k[i]) for i in range(8)]
+        ok = verify_exact(4, 9, spec, dets, amps)
+        allreal = all(sp.im(sp.simplify(a)) == 0 for a in amps)
+        out.append((sp.nsimplify(tv), ok, allreal))
+    return out
+
+
 def genus_and_invariants():
     """Genus (via the birational quartic) and elliptic invariants I, J, j."""
     import sympy as sp
@@ -164,6 +194,10 @@ def main():
         print(f"  t={tv} ~ {float(tv):+.5f}: signs {tuple('+' if s>0 else '-' for s in signs)}"
               f"  verify_exact={ok}  all_real_amps={allreal}")
     print("  => v_B admits REAL extremal states over Q(sqrt35) (open question: YES)")
+
+    print("\nreal extremal state on the PAPER's Theorem-3 support (Q(sqrt15)):")
+    for tv, ok, allreal in paper_support_real_state():
+        print(f"  t={tv} ~ {float(tv):+.5f}: verify_exact={ok}  all_real_amps={allreal}")
 
     quartic, roots, sf, inv_i, inv_j, disc, j, genus = genus_and_invariants()
     print("\ngenus via the birational quartic s^2 = (1+t)(8-t)(4-t^2):")

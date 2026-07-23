@@ -201,10 +201,24 @@ elliptic curve (not the rational curve a naive law-of-cosines would have given).
 Its quartic invariants are I=1116, J=-66528, discriminant 4I^3 - J^2 =
 1133740800 != 0, and j-invariant = 1906624/225 = 2^6 * 31^3 / (3^2 * 5^2). So the
 extremal fiber over a single interference vertex carries genuine modular
-structure: the "new information" beyond the (known) moment polytope is an
-elliptic curve, not merely a positive-dimensional but rational sheet. (The
-earlier retraction stands as to the wrong one-phase reduction; this derivation
-replaces it and pins the magnitude condition to the correct opposite-sign form.)
+structure (for THIS slice). (The earlier retraction stands as to the wrong
+one-phase reduction; this derivation replaces it and pins the magnitude condition
+to the correct opposite-sign form.)
+
+CAVEAT (genus is slice-dependent, not a vertex invariant -- corrects an earlier
+overclaim). "The v_B fiber is an elliptic curve" is too strong: the genus is a
+property of the chosen one-parameter kernel family, not of the vertex. The
+family above lives on the LEDGER support (weights (1,8,4,3,2,2,1,2)/23, block
+(5,13)->(14,4), x^2 = 9) and is genus 1. The PAPER's Theorem-3 support is a
+DIFFERENT 8-determinant support attaining the same vertex (weights
+(4,2,7,3,2,2,1,2)/23, block on orbitals (8,9) = (7,11)->(14,4), x^2 = 21,
+cos gamma = 3/(4 sqrt14)); its kernel cycle is (0,1,-1,0,-1,1,0,0) and its
+one-parameter family is s^2 = (2+t)^2 (7-t)(2-t) -- a DOUBLE root, hence
+genus 0 (RATIONAL). So two natural slices through v_B have different genus; the
+elliptic structure is real but is a statement about the ledger slice, not "the
+fiber." (This also resolves the parallel instance's "(7,11), x^2 = 21" remark: it
+is not a phantom, it is exactly the paper's own support -- I was wrong to file it
+as unconfirmed.)
 
 ARC ENDPOINTS ARE REAL STATES -- v_B admits a REAL extremal state, so the paper's
 open question is ANSWERED (YES). Where the physical branch reaches cos theta = +-1
@@ -231,15 +245,27 @@ narrative (do BEFORE any paper/blog line):
 2. The interference CLASSIFICATION is untouched: the wall states are real but NOT
    designs (an active exchange pair and irrational weights), so the design
    infeasibility certificates stand.
-3. Clean fiber picture: one elliptic arc, complex in its interior, real exactly at
-   its two endpoints, containing the two previously-known certified points.
-   Conjecture (testable on every other deforming interference state): interference
-   fibers generically interpolate between real endpoint states through a
-   forced-complex interior.
-NOTE (not verified, do not quote): a parallel instance's aside about a "(7,11)
-split, x^2 = 21" fiber point does not arise in THIS one-parameter family -- along
-the kernel cycle the occupations are fixed and the only block is (5,13)->(14,4),
-x^2 = 9. Any (7,11) split would be a different deformation and is unconfirmed.
+3. Clean fiber picture: one arc, complex in its interior, real exactly at its two
+   endpoints, containing the previously-known certified points. Conjecture
+   (testable on every other deforming interference state): interference fibers
+   generically interpolate between real endpoint states through a forced-complex
+   interior.
+
+REAL STATE ON THE PAPER'S OWN SUPPORT (the cleanest witness, use this in the
+paper). Displace psi_B's squared weights along its support's incidence cycle
+(0,1,-1,0,-1,1,0,0): k(t) = (4, 2+t, 7-t, 3, 2-t, 2+t, 1, 2). The single
+off-diagonal magnitude |rho_{89}|^2 = 21/23^2 is fixed; both exchange-pair
+fermionic signs are +1, so |rho_{89}|^2 = k1 k2 + k4 k5 + 2 sqrt(k1 k2 k4 k5)
+cos theta. Real means cos theta = +-1: solving with cos theta = +1 gives
+t = 55/109 -+ 42 sqrt15 / 109, both interior to the positivity range and BOTH
+certified real over Q(sqrt15) (verify_exact True, all-real amplitudes;
+scratchpad support_A_certify). At the canonical t=0 the same relation gives
+cos theta = 3/(4 sqrt14) = cos gamma, the Theorem-3 phase. So the narrative is
+exact and self-contained: deform psi_B's weights along its one free support
+direction and the phase gamma relaxes to 0 -- the endpoint is a REAL extremal
+state for v_B with weights in Q(sqrt15). This is what should go in the paper
+(same support as Theorem 3), with the Q(sqrt35) ledger-support state as an
+independent second witness.
 
 ## FIBER-DIMENSION CENSUS: the loopy-state question ANSWERED (Stage A full, Stage B sampled)
 
