@@ -265,6 +265,45 @@ single violated GPC facet inequality gives delta >= ((a.g0 - b)/||a||)^2 by exac
 rational arithmetic -- but the (3,11) level-5 facet is precisely the open Schubert
 object, which is why the ansatz-free SOS route (no facet list needed) is the target.
 
+## RANK-11 CERTIFICATE PATH: cand 44 symmetry-reduction analysis (2026-07)
+
+Groundwork for the S5 x S6 reduced solve (G3). All numbers below are computed
+(Burnside character sums + numerical isotypic split of the 165-determinant rep),
+not estimated.
+
+DECOMPOSITION of V = signed permutation rep on the 165 = C(11,3) determinants under
+G = S5 (modes 0-4) x S6 (modes 5-10). V splits into 9 distinct S5 x S6 irreps: three
+with multiplicity 2 and six with multiplicity 1 (so sum m_lambda = 12,
+sum m_lambda^2 = dim End_G(V) = 18). By (mult, dim): (2,4), (2,6), (2,20), (1,5),
+(1,10) x three distinct dim-10 irreps, (1,30), (1,40); check sum m*d = 165.
+
+The SOS Gram Q is indexed by the charge-0 basis {1} U {c_a cbar_b}, transforming as
+trivial (+) V (x) Vbar. Its G-invariant part block-diagonalizes with one PSD block
+per irrep of size = mult_nu(Herm V); dim End_G(Herm V) = sum mult_nu^2 = 28884, so
+the largest block is <= ~170 -- trivially in SCS range (vs the un-reduced side
+27226 that is time-infeasible).
+
+KEY COMPUTATIONAL UNLOCK (makes the matrix-free reduction cheap): because G is a
+DIRECT PRODUCT and rho_V(sigma,tau) = rho_V(sigma) rho_V(tau) with the character
+factorizing chi_nu(sigma,tau) = chi_a(sigma) chi_b(tau), the isotypic projector
+factorizes P_nu = P_a^{S5} . P_b^{S6}, each a sum over only 120 (resp. 720) group
+elements, not |G| = 86400. Applying rho_V(g) (x) conj(rho_V(g)) to a 165x165 matrix
+X is X with rows/cols signed-permuted -- O(nd^2). So building every isotypic
+projector costs ~840 * nd^2, seconds not hours. This is the lever that turns cand 44
+from intractable into a bounded computation.
+
+REMAINING to finish G3 (scoped): (i) S5, S6 irreducible characters (Murnaghan-
+Nakayama or explicit Young seminormal form); (ii) multiplicity-block extraction from
+the isotypic projectors (Gatermann-Parrilo symmetry-adapted basis), giving the
+reduced PSD blocks; (iii) assemble + solve the reduced SDP with SCS; (iv) RIGORIZE
+per repo discipline -- round the dual to rational and verify f - delta = B^T Q B +
+mu(||c||^2 - 1) as an EXACT polynomial identity with each reduced block exactly PSD
+(block-diagonal => exact LDL is cheap). The exact identity is the theorem and is a
+false-positive-proof gate independent of any bug in the reduction code. Blocked in
+this environment only by tooling: the standard tool (SymbolicWedderburn.jl) needs
+Julia, whose binary host is proxy-blocked (403); a from-scratch Python build is
+feasible given the factorization above but is a multi-hour effort.
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
