@@ -292,17 +292,28 @@ X is X with rows/cols signed-permuted -- O(nd^2). So building every isotypic
 projector costs ~840 * nd^2, seconds not hours. This is the lever that turns cand 44
 from intractable into a bounded computation.
 
-REMAINING to finish G3 (scoped): (i) S5, S6 irreducible characters (Murnaghan-
-Nakayama or explicit Young seminormal form); (ii) multiplicity-block extraction from
-the isotypic projectors (Gatermann-Parrilo symmetry-adapted basis), giving the
-reduced PSD blocks; (iii) assemble + solve the reduced SDP with SCS; (iv) RIGORIZE
-per repo discipline -- round the dual to rational and verify f - delta = B^T Q B +
-mu(||c||^2 - 1) as an EXACT polynomial identity with each reduced block exactly PSD
-(block-diagonal => exact LDL is cheap). The exact identity is the theorem and is a
-false-positive-proof gate independent of any bug in the reduction code. Blocked in
-this environment only by tooling: the standard tool (SymbolicWedderburn.jl) needs
-Julia, whose binary host is proxy-blocked (403); a from-scratch Python build is
-feasible given the factorization above but is a multi-hour effort.
+G2 DONE -- the reduction is BUILT and VALIDATED (scripts/sos_symmetry.py). The
+numerical-Wedderburn reduction (character-free: eigendecompose a random G-invariant
+operator for the isotypic split, link equal-irrep copies via a second invariant,
+parametrize the invariant Gram by signed index-pair orbits with y_o = y_{o^T} for
+symmetry) block-diagonalizes the charge-0 Gram and reproduces the un-reduced answer.
+Gate: on the S2 x S4-symmetric EXTERIOR (3,6) point diag(0.9,0.9,0.3,0.3,0.3,0.3)
+the reduced delta = 0.0882338 matches the un-reduced delta = 0.0882353 to 1.5e-6,
+with 10 blocks of sizes up to 26 (vs the un-reduced side-401 block). The
+group-action rho_B on the SOS basis is checked to be a genuine orthogonal rep
+before use.
+
+REMAINING to finish G3 (scoped): (i) SCALE the reduction to cand 44 -- the (3,6)
+build uses dense orbit enumeration (O(nz^2 |G|)) and dense invariant averaging
+(O(nz^2)), fine at nz=401 but not at nz=27226; needs the matrix-free V-first variant
+(block-diagonalize the 165-dim rep V, then lift to V (x) Vbar via the factorized
+S5 x S6 projectors -- 840 elements, cheap). (ii) assemble + solve the reduced SDP
+(blocks <= ~170). (iii) RIGORIZE per repo discipline -- round the dual to rational
+and verify f - delta = B^T Q B + mu(||c||^2 - 1) as an EXACT polynomial identity with
+each reduced block exactly PSD (block-diagonal => exact LDL is cheap). The exact
+identity is the theorem and is a false-positive-proof gate independent of any bug in
+the reduction code. The method is proven (G1 + G2); what remains is the scale-up and
+the rational endgame.
 
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
