@@ -4,6 +4,147 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## FIBER EXPLORATION III: anholonomy, the correlation dial, and the
+frontier vertices carry fibers too (2026-07)
+
+1. BERRY PHASE around the v_B fiber loop (natural gauge, phase carried
+   on the loop determinant): gamma_B = -2.1555 rad = -0.6861 pi, i.e.
+   +1.3139 pi mod 2pi -- a NONTRIVIAL anholonomy (neither 0 nor pi).
+   Adiabatically cycling the fiber once returns the state with a ~0.69 pi
+   geometric phase. Caveats: defined mod one-body gauge windings (the
+   mod-2pi value is the invariant); "adiabatic cycling" presupposes a
+   Hamiltonian path tracking the fiber -- the selection-transition
+   coupling circle is the natural candidate driver, unverified.
+2. THE CORRELATION DIAL: mutual information I(2:4) between modes varies
+   by a factor ~2000 along the fiber -- 6e-5 bits at the t=0 rational
+   point (modes essentially uncorrelated; n24 within 0.2% of n2*n4) to
+   0.107 bits at the right wall -- while n2, n4 and ALL single-mode
+   entropies are frozen. The fiber coordinate is a correlation dial
+   invisible to occupations: correlations redistribute between mode
+   pairs with no one-body trace. (Curious datum: the shipped rational
+   point sits almost exactly at the uncorrelated point of its family.)
+3. FRONTIER FIBERS: the achievable width of <n_2 n_3> at v89's exact
+   1-RDM is 0.1917, range [0.0000, 0.1917] -- the newest vertex carries
+   the same O(1) underdetermination the day it was attained, including
+   states where the two degenerate modes NEVER co-occur (p11 = 0
+   exactly attainable). Width includes stabilizer-orbit directions
+   (orbit-vs-intrinsic split not yet separated); v103 pending (bigger
+   space, optimizer budget).
+
+
+## SOS CERTIFICATE FOR CAND 44: the Coleman-hull obstruction and the
+symmetry-reduced route (session spec shipped)
+
+Lemma (proved by formulation, saves a wasted level): LINEAR duality
+cannot certify any rank-11 candidate's non-attainability. Constant
+multipliers separate gamma_0 only from conv{gamma(pure)} = Coleman's
+set {0 <= gamma <= 1, tr = N}, which contains every candidate (they all
+satisfy Pauli). The nonconvexity of the pure-state 1-RDM image is the
+entire content, so the certificate requires genuine degree-4
+Positivstellensatz (level-2 Lasserre on 330 real variables). Raw size
+(~55k moment basis) is intractable; the S5 x S6 spectrum-stabilizer
+symmetry (plus conjugation and gauge) block-diagonalizes it to
+expected-hundreds-size blocks -- the symmetry-adapted-SOS regime
+(SumOfSquares.jl + SymbolicWedderburn.jl / TSSOS). Session prompt with
+staged gates shipped (outputs/claude_code_prompt_sos_certificate.md):
+G1 pipeline validation on a known-exterior (3,6) point WITH an
+attainable-vertex negative control; G2 symmetry-machinery equivalence;
+G3 cand 44 with exact-arithmetic rationalization of the dual
+certificate (SDP proposes, exact algebra disposes -- census
+discipline); G4 the remaining candidates. A rational certificate with
+delta > 0 candidate-settles (3,11) at 19 vertices and makes the
+claimed level-5 inequality theorem-adjacent without Schubert calculus.
+
+
+## EXPERT SCRUTINY PASS: claim repairs before the papers (2026-07)
+
+Each recent claim attacked as a referee would; repairs binding.
+
+1. VALLEY CLAIM -- three repairs. (a) WORDING ERROR, fixed: the
+   measurement fixes the full 1-RDM gamma = diag(lambda), not merely the
+   spectrum. The correct (and STRONGER, and exactly RDMFT-relevant)
+   statement: THE 1-RDM ITSELF underdetermines pair correlations by
+   O(1) -- the constrained-search domain at fixed gamma contains the
+   measured width. Fixed-spectrum-only phrasing would be trivially true
+   by basis rotation and must not appear. (b) The widths are certified
+   LOWER bounds (inner approximation by local optimization); the true
+   ranges may be larger; endpoints are achieved values, and interval-
+   ness of the achievable set is UNPROVEN (fiber connectivity unknown)
+   -- sample intermediate targets or prove connectivity before writing
+   "range". (c) "Maximal pinning locally minimizes the ambiguity" rests
+   on one ray and three epsilons: downgraded to observed-along-this-ray
+   + conjecture; the eps=0.10 failure is unattributed (optimizer vs
+   feasibility) and must not be glossed.
+2. SELECTION PRINCIPLE -- gap found and closed with data. The endpoint
+   theorem is PER-FAMILY; the physical minimization runs over the FULL
+   fiber, which the valley measurement showed is larger than any
+   family. New test (this session): global fiber extremes of <n2 n4>
+   at v_B are attained by REAL states (complex vs real-restricted
+   extremization agree to 8e-7 / 1e-9). Paper language: theorem
+   (per-family) + global numerical verification at v_B (one observable,
+   one vertex) + conjecture (general), with a mechanism sketch: c ->
+   conj(c) preserves gamma and all pair occupations, so extreme points
+   plausibly admit time-reversal-symmetric representatives. Prove or
+   census this before claiming generality.
+3. 2-RDM EMBEDDING -- upgrade the conjugate-sheet separation from a
+   spot-check to a one-line proof: the T-odd coherences are
+   proportional to sin Theta, nonzero on the open interior, vanishing
+   exactly at the walls where the sheets glue. Injectivity of the
+   circle then follows from monotone t-resolution + interior sheet
+   separation.
+4. RANK-11 FLOORS -- strengthen from evidence toward certificate: the
+   floors are unconstrained local minima; a Lasserre/SOS relaxation of
+   min ||gamma(psi) - gamma_0||^2 yields a CERTIFIED positive lower
+   bound (dual certificate) = rigorous non-attainability, independent
+   of and faster than the Schubert route. Recommend running the
+   degree-2 relaxation on cand 44 (smallest floor) first: if even the
+   nearest candidate certifies infeasible, the level-5 claim is
+   theorem-adjacent without new mathematics.
+5. UNCHANGED after attack: v89/v103 numerical attainment (discipline
+   already in place), wall certificates, endpoint theorem (scope
+   stated), pre-registration protocol.
+
+
+## QUASI-FIBER STABILITY DEMONSTRATED: the valley persists and WIDENS
+off-vertex (2026-07)
+
+Measured the achievable range of <n_2 n_4> over states with EXACT
+spectrum lambda (contraction attack + kappa-continuation extremization,
+residual < 1e-13), for lambda walking from v_B into the polytope
+interior along (1-eps) v_B + eps uniform:
+
+  eps = 0.00: width 0.2522   (range [0.217, 0.470])
+  eps = 0.02: width 0.2627
+  eps = 0.05: width 0.2899   (eps = 0.10: optimizer budget, not physics)
+
+CONTENT: the occupation-blindness is not a knife-edge vertex
+phenomenon. States sharing an identical one-body spectrum differ in
+pair correlations by O(1) across a whole neighborhood of the vertex --
+and the width GROWS off-vertex, so maximal pinning is where the
+ambiguity is SMALLEST, and even there it is ~0.25. This is the
+data-backed form of the stability theorem and the deflation-proof
+version of the physics claim: in the quasipinning regime real systems
+occupy, occupations underdetermine two-body physics by a bounded-below
+amount. (Note the full-fiber width 0.25 at eps=0 exceeds the single
+v_B family's range -- the complete fiber, stabilizer orbits and all
+components included, is bigger than any one family; the family gave
+the lower bound, the attack measures the whole thing.)
+
+THEOREM TO WRITE (now with its numbers): valley width is continuous in
+lambda, locally minimized at the vertex, bounded below near it by the
+vertex width. Proof route: incidence surjectivity (linear algebra) +
+open polygon conditions + the measured monotonicity. PHYSICS QUEUE:
+(1) Berry phase around the fiber circle (closed-form afternoon);
+(2) exact RDMFT functional table F[gamma](H) along the valley for a
+    family of two-body H -- first exact functional data at a GPC
+    vertex, addressed to the ensemble-DFT/exchange-force program;
+(3) preparation-and-measurement sketch for a programmable simulator
+    (6-8 determinant states, shallow circuits; observables: pair
+    occupations for the radius, T-odd pair coherences for the
+    orientation, the discontinuous selection jump as the signature);
+(4) valley-width census over other deforming vertices (same script).
+
+
 ## v89/v103 NUMERICALLY ATTAINED (verified here) -- but NOT certified; census
 unchanged at 797/799 (2026-07)
 
