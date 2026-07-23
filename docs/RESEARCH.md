@@ -140,6 +140,29 @@ quasipinning regime, where real systems live)? Plausible by perturbing the exact
 families, but NOT proved. Until then the physicality claim is "exactly at the
 boundary"; with it, it reaches real systems. Do not state it as established.
 
+QUASI-FIBER STABILITY NUMERICALLY DEMONSTRATED (verified here; the theorem itself
+is still unproven). Extremized the pair occupation <n_2 n_4> over states with EXACT
+1-RDM diag(lambda), for lambda walking from v_B into the interior along
+(1-eps) v_B + eps*uniform (constraint-weighted contraction attack, residual < 1e-4):
+- eps=0.00 (at v_B): <n_2 n_4> in [0.216, 0.470], WIDTH 0.254
+- eps=0.05:          <n_2 n_4> in [0.200, 0.494], WIDTH 0.294
+My numbers reproduce the parallel run's (0.252 -> 0.290) to ~1%, and the lower end
+is exactly the Frechet bound occ_2 + occ_4 - 1 = 2*(14/23) - 1 = 0.2174 (analytic,
+matches). CONTENT confirmed: the occupation-blindness is NOT a knife-edge -- states
+with an identical one-body spectrum differ in a pair occupation by ~0.25 AT the
+vertex, and the width GROWS off-vertex, so maximal pinning is where the ambiguity is
+SMALLEST and even there it is bounded below by ~0.25. This is the data-backed,
+deflation-proof form of the physics claim: in the quasipinning regime, occupations
+underdetermine two-body physics by a bounded-below amount. DISCIPLINE: this is
+numerically DEMONSTRATED, not a proved theorem -- the stability theorem (valley
+width continuous in lambda, locally minimized at the vertex, bounded below near it)
+still needs its proof (route: incidence surjectivity + open-polygon conditions +
+the measured monotonicity). So "demonstrated numerically", not "proved". (Caveat on
+magnitude: the full-fiber width 0.25 exceeds the single ledger family's <n_2 n_4>
+range -- the whole fiber, all components and stabilizer orbits, is larger than any
+one deforming family; the family is a lower bound, the ansatz-free attack measures
+the whole thing.)
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
