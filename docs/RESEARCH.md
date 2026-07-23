@@ -79,6 +79,103 @@ result: brute degenerate enumeration (per-config support enumeration times a
 per-support attain) is too slow to finish even with F1 symmetry and F2 kernel
 quotienting. Census stays 797/799; ledger untouched.
 
+SYMMETRY REDUCTION OF v89 -- a provable obstruction and the exact next ansatz
+(2026-07; scripts/v89_symmetry.py). v89 = (15,15,6^8)/26 has symmetry S_2 x S_8
+(head = the two 15-orbitals, octet = the eight 6-orbitals). The 3-subset
+determinants form THREE orbits ({3 octet} 56, {1 head 2 octet} 56, {2 head 1 octet}
+8), so a fully symmetric state has just THREE amplitudes (x,y,z) and its 1-RDM
+block-diagonalizes: antisym-head eigenvalue a-b, octet standard rep c-d (mult 7),
+and a 2x2 [[a+b,4e],[4e,c+7d]]. The five entries are exact quadratic forms:
+a=28y^2+8z^2, b=28y^2, c=21x^2+14y^2+z^2, d=15x^2+12y^2+z^2, e=7y(3x-z).
+RESULT: the fully-symmetric ALL-POSITIVE (trivial-rep = "design") ansatz PROVABLY
+cannot attain v89. The octet off-diagonal d is large and same-sign as c, so the
+mult-7 octet eigenvalue c-d = 6x^2+2y^2 is STRICTLY below the required (6/26) n2
+(gap = (90x^2+142y^2+24z^2)/13, positive-definite), yet it must equal 6/26 (part of
+the eightfold 6). So no symmetric design attains v89: the vertex demands
+INTERFERENCE that REDUCES the octet off-diagonal, i.e. intra-orbit sign/phase
+structure transforming under a NONTRIVIAL S_8 representation (a per-orbit phase or
+an all-positive signing cannot do it -- the reduction must live inside the octet
+3-subset orbit). This is a constructive re-derivation of v89's interference
+character (sharper than the MILP) and pinpoints the search: find the S_8-rep-
+theoretic signing of the 56 octet 3-subsets that lowers rho_{octet} to the target.
+That is a small structured combinatorial-design problem (56 signs modulo an
+S_8-orbit action), NOT a 120-determinant brute enumeration -- the first attack that
+uses v89's own symmetry. Still OPEN; this is progress and a precise next ansatz,
+not a solve.
+
+FULL-STEAM FOLLOW-UP (two more ansatze eliminated; the target structure pinned).
+The exact 1-RDM target is now explicit: eight eigenvalues equal 6/26, so
+rho - (6/26) I has rank EXACTLY 2, i.e. rho = (6/26) I + (9/26) P_2 with P_2 the
+rank-2 projector onto the two 15/26 natural orbitals. This is a maximally-mixed
+(scalar) 1-RDM on an 8-dim subspace plus a rank-2 bump -- a very rigid target.
+(a) A magnitude-S_8-symmetric octet block is gauge-equivalent to the all-positive
+design (rho_{ij} = lambda eps_i eps_j with eps a sign vector is the gauge
+a_i -> eps_i a_i), so it inherits the design obstruction: reducing the octet
+off-diagonal REQUIRES non-uniform octet off-diagonal magnitudes, i.e. the state
+BREAKS the octet magnitude-symmetry. (b) The natural symmetry-broken ansatz,
+splitting the octet into two S_4 blocks (S_2 x S_4 x S_4, nine determinant orbits,
+signs free), does NOT attain v89 either: an exact Powell search over the nine
+orbit amplitudes floors at residual 0.14 (eigenvalues spread 16.7,14.7,10.4,...,0),
+nowhere near the eightfold 6. So neither the fully symmetric nor the 4+4-split
+symmetric sparse ansatz reaches the rank-2 target. CONCLUSION: v89's extremal state
+is not captured by a small symmetric-orbit ansatz -- the rank-2 = (6/26)I + bump
+structure forces the state to be generic in the 8-dim degenerate subspace, which is
+exactly what defeats sparse symmetric constructions and the rational-grid search.
+This is honest negative progress: it rules out the two natural structured ansatze
+and identifies the precise obstruction (rank-2 target vs sparse symmetry). A crack
+likely needs either the cluster-mutation route (a certified neighbor plus an exact
+mutation, see below) or an explicit rank-2 1-RDM inverse construction, not another
+symmetric ansatz. v103 = (18^4,5^6)/34 is the analogous rank-2 case (rho -
+(5/34)I has rank 4: four 18/34 orbitals) and is expected to be harder still.
+
+NEIGHBOR-MUTATION ROUTE ALSO CLOSES (checked against shipped vertex data). v89's
+nearest CERTIFIED neighbor sharing its (15,15,6...) architecture is v81 =
+(15,15,6^5,4^3)/24 (INTERFERENCE, 9-determinant support). Its orbital occupations
+are [15,15,6,6,6,6,5,4,4,5]/24: it makes FOUR of its 6's DIAGONALLY (orbitals 2-5
+are occupation-6 outright) and only ONE by an interference 2x2 block (orbitals
+(6,9): (5,5) -> (6,4)). That sparse "mostly-diagonal-plus-one-block" mechanism is
+incompatible with v89's requirement that ALL EIGHT generic orbitals be degenerate
+at 6/26 via the maximally-mixed rank-2 block -- so mutating/extending v81's support
+cannot reach v89 (different construction in kind, not degree). Every concrete route
+tried -- symmetric design (provably out), 4+4-split symmetric (residual 0.14),
+Z_8 cyclic complex (search did not converge), and neighbor mutation from the
+nearest certified vertex (mechanism-incompatible) -- converges on the same reading:
+v89's extremal state is dense/generic in its 8-dim degenerate subspace and is not
+reachable by any sparse, symmetric, or neighbor-derived construction available here.
+v89/v103 stay OPEN; what is now firmly established is WHY (rank-2/rank-4
+maximally-mixed target), which is itself a paper-worthy characterization of why
+exactly two rank-10 vertices resist closed forms. A genuine crack needs dedicated
+(non-interactive) machinery: an exact rank-2 pure-state N-representability inverse
+for rho = (6/26)I + (9/26)P_2, or a real cluster-algebra mutation engine -- not more
+ansatz search.
+
+RANK-2 INVERSE ATTEMPT via the group-theoretically CORRECT construction (a sharp
+negative result). To force the generic 8-block scalar one needs a NONABELIAN group
+with an IRREDUCIBLE 8-dim rep (abelian groups have only 1-dim irreps -- which is why
+the Z_8 cyclic attempt was doomed). The 3-qubit Pauli/Heisenberg group (order 128)
+is exactly that: generic orbitals ~ F_2^3, X_i/Z_i generators, irreducible on C^8.
+A 3-fermion state covariant under a linear character chi of this group has, by
+Schur, rho_generic proportional to I AND rho_{head,generic} = 0 (an intertwiner
+trivial -> irreducible vanishes), so rho is forced block-diagonal with a scalar
+octet and the two 15/26's in the head 2-block -- exactly the rank-2 target with
+P_2 = head. Computed: 28 of the 64 characters carry a nonzero covariant 3-fermion
+space, each exactly 2-DIMENSIONAL. RESULT: none reaches v89 -- scanning the
+one-parameter family in each, the best residual over all 28 is 0.34. The covariant
+states have the right STRUCTURE (scalar octet by Schur) but their rigid 2-dim
+freedom cannot tune the octet scalar and head block to the required (6/26, 15/26).
+CONSEQUENCE (a real characterization): v89's extremal state is NOT of the natural
+"two pure head orbitals + symmetric scalar octet" form; its rank-2 plane P_2 must be
+a MIXED generic 2-plane spanning head and generic orbitals together, with a
+NON-scalar octet block. Since the smallest group that could force a scalar octet is
+already the full order-128 Pauli group and it is too rigid, NO symmetry-aligned
+construction produces v89: the state is genuinely generic in its degenerate
+subspace, with no aligning symmetry to exploit. This closes the natural
+rank-2-inverse route and upgrades the open status to a near-theorem -- v89/v103
+resist closed forms because their extremal states carry NO exploitable symmetry.
+Any future crack must be a non-symmetric exact construction (a direct real-algebraic
+solve of the rank-2 N-representability system over a FREE mixed P_2), a dedicated
+computation rather than an ansatz.
+
 The right next move is structural, not more brute force. Under the moment-map
 lens the extremal supports are candidate Grassmannian cluster seeds and the
 one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
@@ -397,8 +494,37 @@ WHAT THIS BUYS (the transferable machinery):
 
 This is already half-present in the paper's exactifier language ("each off-diagonal
 is a closed polygon whose relative phase is an exact arccosine"): the polygon is the
-positivity object, its degeneration is reality. Candidate for the paper's
-positive-geometry section; not injected unilaterally.
+positivity object, its degeneration is reality. Now IN the paper's positive-geometry
+section (reality = a spectrahedral positivity boundary on the amplitudes, the
+Cayley-Menger determinant = the wall polynomial).
+
+THE BRIDGE IS ALSO A BETTER SOLVER, AND THE CENSUS IS NOW COMPLETE
+(scripts/wall_solver.py): taking candidate t as the common real zeros of the edges'
+Cayley-Menger determinants and letting verify_exact adjudicate the global sign
+assignment certifies ALL 44 genuine single-parameter deforming kdim-1 interference
+families with an exact real extremal state (up from 17 with the single-block,
+single-wall, single-sign scripts/wall_test.py). This closes the "10 pending /
+multi-class sign-compatibility" gap wholesale: framing reality as simultaneous
+Cayley-Menger degeneration turned an ad hoc sign search into a common-zero
+computation.
+
+THE TWO REMAINING ARE NOT A GAP -- they are structurally different. The
+multi-touched-class (5,10) families v140 and v263 each carry a 1-TERM active edge
+(the off-diagonal rho_{2,5}, target 7/1521). A one-term off-diagonal has no phase
+to adjust, so its magnitude sqrt(w_i w_j)/den is RIGID; along the incidence kernel
+that magnitude equals its Schur-Horn target only at a single point (t = 0, the
+shipped complex state). Hence there is NO 1-parameter spectrum-preserving fiber to
+carry real endpoints: the deformation is pinned, and the wall/reality method is
+inapplicable by construction, not by solver deficiency. Their reality is genuinely
+OPEN (a numeric real-restricted attainment floors at ~1e-11, indistinguishable from
+the v_B control that provably has a real state, so it settles nothing). They are the
+census's candidate GENUINELY-COMPLEX interference vertices -- the analogue of what
+v_B was once thought to be -- and deciding them needs a construction outside the
+single-kernel deformation (a different support, or an exact real-infeasibility
+certificate à la the design MILP). So the clean statement: EVERY genuine
+single-parameter interference family (44/44) admits a certified real extremal state,
+the certificate being a positivity (Cayley-Menger) condition; exactly two nominal
+kdim-1 families are rigid and their reality is the remaining open problem.
 
 ## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
 SELECTION PRINCIPLE (verified here for v_B, 2026-07)
