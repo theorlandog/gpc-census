@@ -128,6 +128,27 @@ mutation, see below) or an explicit rank-2 1-RDM inverse construction, not anoth
 symmetric ansatz. v103 = (18^4,5^6)/34 is the analogous rank-2 case (rho -
 (5/34)I has rank 4: four 18/34 orbitals) and is expected to be harder still.
 
+NEIGHBOR-MUTATION ROUTE ALSO CLOSES (checked against shipped vertex data). v89's
+nearest CERTIFIED neighbor sharing its (15,15,6...) architecture is v81 =
+(15,15,6^5,4^3)/24 (INTERFERENCE, 9-determinant support). Its orbital occupations
+are [15,15,6,6,6,6,5,4,4,5]/24: it makes FOUR of its 6's DIAGONALLY (orbitals 2-5
+are occupation-6 outright) and only ONE by an interference 2x2 block (orbitals
+(6,9): (5,5) -> (6,4)). That sparse "mostly-diagonal-plus-one-block" mechanism is
+incompatible with v89's requirement that ALL EIGHT generic orbitals be degenerate
+at 6/26 via the maximally-mixed rank-2 block -- so mutating/extending v81's support
+cannot reach v89 (different construction in kind, not degree). Every concrete route
+tried -- symmetric design (provably out), 4+4-split symmetric (residual 0.14),
+Z_8 cyclic complex (search did not converge), and neighbor mutation from the
+nearest certified vertex (mechanism-incompatible) -- converges on the same reading:
+v89's extremal state is dense/generic in its 8-dim degenerate subspace and is not
+reachable by any sparse, symmetric, or neighbor-derived construction available here.
+v89/v103 stay OPEN; what is now firmly established is WHY (rank-2/rank-4
+maximally-mixed target), which is itself a paper-worthy characterization of why
+exactly two rank-10 vertices resist closed forms. A genuine crack needs dedicated
+(non-interactive) machinery: an exact rank-2 pure-state N-representability inverse
+for rho = (6/26)I + (9/26)P_2, or a real cluster-algebra mutation engine -- not more
+ansatz search.
+
 The right next move is structural, not more brute force. Under the moment-map
 lens the extremal supports are candidate Grassmannian cluster seeds and the
 one-hop graph is the hypersimplex 1-skeleton, so v89/v103 should be reachable by
