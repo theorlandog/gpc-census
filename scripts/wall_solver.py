@@ -67,6 +67,15 @@ def solve(system, index, recs, max_signs=1 << 12):
     occ, edges = _active_offdiagonals(d, dets, w0, den, spec)
     active = [e for e in edges if e[3] and e[2] is not None]
 
+    # a 1-term active edge cannot re-phase, so its magnitude sqrt(w_i w_j)/den is
+    # rigid; if that magnitude varies along the kernel it pins the deformation to a
+    # point (no 1-parameter fiber), and the wall/reality method does not apply.
+    for (_p, _q, _tgt, terms) in active:
+        if len(terms) == 1:
+            (i1, j1, _s1) = terms[0]
+            if sp.diff(w[i1] * w[j1], t) != 0:
+                return "rigid (1-term edge pins deformation)", None
+
     # candidate t: real roots of each edge's reality (Cayley-Menger) polynomial
     cands = set()
     for (_p, _q, tgt, terms) in active:
@@ -113,17 +122,23 @@ def solve(system, index, recs, max_signs=1 << 12):
 def main():
     recs = _load()
     jobs = [k for k, r in recs.items() if r.get("classified") == "INTERFERENCE"]
-    cert = []
-    kdim1 = 0
+    cert, rigid, failed = [], [], []
     for key in jobs:
         status, res = solve(*key, recs=recs)
         if status.startswith("kdim") or status == "no state":
             continue
-        kdim1 += 1
         if status == "CERTIFIED":
             cert.append((key, res[0]))
-    print(f"kdim-1 interference families examined: {kdim1}")
-    print(f"CERTIFIED real extremal state: {len(cert)}")
+        elif status.startswith("rigid"):
+            rigid.append(key)
+        else:
+            failed.append(key)
+    genuine = len(cert) + len(failed)
+    print(f"deforming (genuine 1-parameter) kdim-1 interference families: {genuine}")
+    print(f"CERTIFIED real extremal state: {len(cert)}/{genuine}"
+          + (f"  (uncertified: {sorted(failed)})" if failed else "  (ALL certified)"))
+    print(f"rigid families (1-term edge pins the deformation; wall method N/A, "
+          f"reality open): {len(rigid)} {sorted(rigid)}")
     for (sysx, tv) in sorted(cert):
         print(f"  {sysx[0]:8} v{sysx[1]:<4} t = {tv}")
 

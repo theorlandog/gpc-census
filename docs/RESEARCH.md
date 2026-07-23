@@ -401,19 +401,33 @@ positivity object, its degeneration is reality. Now IN the paper's positive-geom
 section (reality = a spectrahedral positivity boundary on the amplitudes, the
 Cayley-Menger determinant = the wall polynomial).
 
-THE BRIDGE IS ALSO A BETTER SOLVER (scripts/wall_solver.py): taking candidate t as
-the common real zeros of the edges' Cayley-Menger determinants and letting
-verify_exact adjudicate the global sign assignment certifies 44 OF 46 kdim-1
-interference families with an exact real extremal state (up from 17 with the
-single-block, single-wall, single-sign scripts/wall_test.py). This closes the
-"10 pending / multi-class sign-compatibility" gap wholesale: framing reality as
-simultaneous Cayley-Menger degeneration turned an ad hoc sign search into a
-common-zero computation. The only 2 not yet certified are the two multi-touched-
-class (5,10) families v140 and v263 (a 1-term plus a 2-term edge); their
-simultaneous degeneration needs the full multi-edge intersection the prototype does
-not yet form. So: real extremal states are not merely generic at single-parameter
-interference vertices, they are certified for essentially all of them (44/46), and
-the certificate is a positivity (Cayley-Menger) condition.
+THE BRIDGE IS ALSO A BETTER SOLVER, AND THE CENSUS IS NOW COMPLETE
+(scripts/wall_solver.py): taking candidate t as the common real zeros of the edges'
+Cayley-Menger determinants and letting verify_exact adjudicate the global sign
+assignment certifies ALL 44 genuine single-parameter deforming kdim-1 interference
+families with an exact real extremal state (up from 17 with the single-block,
+single-wall, single-sign scripts/wall_test.py). This closes the "10 pending /
+multi-class sign-compatibility" gap wholesale: framing reality as simultaneous
+Cayley-Menger degeneration turned an ad hoc sign search into a common-zero
+computation.
+
+THE TWO REMAINING ARE NOT A GAP -- they are structurally different. The
+multi-touched-class (5,10) families v140 and v263 each carry a 1-TERM active edge
+(the off-diagonal rho_{2,5}, target 7/1521). A one-term off-diagonal has no phase
+to adjust, so its magnitude sqrt(w_i w_j)/den is RIGID; along the incidence kernel
+that magnitude equals its Schur-Horn target only at a single point (t = 0, the
+shipped complex state). Hence there is NO 1-parameter spectrum-preserving fiber to
+carry real endpoints: the deformation is pinned, and the wall/reality method is
+inapplicable by construction, not by solver deficiency. Their reality is genuinely
+OPEN (a numeric real-restricted attainment floors at ~1e-11, indistinguishable from
+the v_B control that provably has a real state, so it settles nothing). They are the
+census's candidate GENUINELY-COMPLEX interference vertices -- the analogue of what
+v_B was once thought to be -- and deciding them needs a construction outside the
+single-kernel deformation (a different support, or an exact real-infeasibility
+certificate à la the design MILP). So the clean statement: EVERY genuine
+single-parameter interference family (44/44) admits a certified real extremal state,
+the certificate being a positivity (Cayley-Menger) condition; exactly two nominal
+kdim-1 families are rigid and their reality is the remaining open problem.
 
 ## PHYSICS OF THE FIBER: the fiber is a 2-body observable, and a REALITY
 SELECTION PRINCIPLE (verified here for v_B, 2026-07)
