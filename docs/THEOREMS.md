@@ -325,3 +325,157 @@ machinery to census. Rig session: port the local-spectra map to the
 multipartite setting (per-party marginal Gram, same Wirtinger gradient),
 enumerate the published vertex list, run the fiber-moduli test at every
 vertex, and score the Incompleteness Principle on independent ground.
+
+## T7 — THE INVERSE-IMAGE PROGRAM: foundations, the Refinement Theorem
+split into provable pieces, and the gamma-2 branch (2026-07)
+
+1. THE EXISTENCE THEOREM IS ALREADY IN THE LITERATURE (key catch): the
+   reviewer's aspirational "Refinement Theorem" splits into three parts
+   with very different costs, and the first is FREE. Existence: the map
+   Phi is semialgebraic (Prop 1), so by HARDT'S TRIVIALIZATION THEOREM
+   the Kirwan polytope admits a FINITE semialgebraic partition over
+   which Phi is locally trivial -- i.e. the quantum stratification
+   EXISTS and is FINITE, as a theorem of real algebraic geometry, not a
+   conjecture. Strictness: proved at the vertex level by the 183-simple
+   exhibit (Theorem A). Computation: our program -- computing Hardt
+   strata explicitly for a nontrivial nonabelian moment map would
+   itself be new. Remaining care: "strictly finer than the FACE
+   stratification" globally requires fiber-type behavior on face
+   interiors (constancy on the polytope interior follows from the
+   Generic Fiber Theorem; boundary faces are where the content lives).
+2. THE (P, S) INVARIANT -- in-corpus evidence it behaves functorially:
+   the pad/lift maps embed P(N,d-1) as a face of P(N,d), and the census
+   shows the stratification is CARRIED along these embeddings (classes,
+   fibers, walls, and curve isomorphism classes all transport). Hodge
+   gives isomorphic (P, S) pairs, as it must (induced by an isomorphism
+   of the quantum problems), so it is not the discriminating test; a
+   true "same P, different S" pair must come from accidental polytope
+   isomorphisms or the entanglement side. Open, correctly framed.
+3. THE gamma-2 BRANCH (reviewer's surprise entry) -- calibrated against
+   known theory: unlike the 1-RDM case, gamma-2 fibers are GENERICALLY
+   POINTS (generic pure states are determined among pure states by
+   their 2-RDMs -- the parts-and-whole literature), so the fiber
+   program there is the classification of the EXCEPTIONAL LOCUS where
+   determination fails. Census connection already in hand: on every
+   fiber we probed, gamma-2 is injective (the T-odd coherences separate
+   conjugate sheets), consistent with generic determination; our fiber
+   states are thus NOT in the exceptional locus, and the machinery
+   (contraction attack with Gamma-2 targets) ports directly to hunting
+   states that ARE. Physics-facing: the exceptional locus is exactly
+   where 2-RDM methods can be blind, the most chemistry-adjacent
+   question this program owns.
+4. TARGET RANKING (adopted): entanglement polytopes and quantum
+   marginal polytopes first (mature images, near-empty fiber theory);
+   Horn/LR next; GT = negative control. Home mathematics confirmed:
+   stratified symplectic geometry (Sjamaar-Lerman), now with Hardt as
+   the semialgebraic backbone.
+
+## T7-PILOT: the gamma-2 fiber program's first data point (2026-07)
+
+Ran the ansatz-free attack with a Gamma-2 MATRIX target at psi_B over
+the full 126-dimensional space: 10/10 random starts converge to residual
+< 1e-16 with overlap |<psi_B|found>| = 1.00000000 every time. VERDICT:
+psi_B has a POINT 2-RDM fiber -- fully determined among pure states by
+its two-body marginals, hence NOT in the exceptional locus, despite
+sitting on a 1-RDM fiber that is a measured surface. The hierarchy in
+one sentence: the 1-RDM forgets a surface; the 2-RDM forgets nothing --
+at this state. The exceptional-locus hunt (states the 2-RDM fails to
+determine) now has validated machinery and its first negative control;
+candidate targets for the hunt: maximal-ODLRO / eta-pairing-type states
+and high-symmetry states, where determination is classically suspected
+to fail. This branch is the program's chemistry-facing frontier: the
+exceptional locus is exactly where 2-RDM-based methods are blind, and
+mapping it is a fiber question, not an image question.
+
+HIGH-Tc CALIBRATION (completing the reviewer's truncated paragraph, at
+the honesty level this repo requires): no path from fibers to materials.
+The defensible indirect chain: fiber diagnostics (uniqueness, flat
+directions, hidden degeneracies) can harden v2RDM-type solvers; those
+solvers are used on pairing models (Hubbard-class) relevant to
+superconductivity THEORY; better instruments for model studies is the
+entire claim, several removes from any material. Anything stronger is
+marketing.
+
+## T8 — THE FIBER-ANSATZ PILOT: first empirical test of "inverse geometry
+as a computational tool" (2026-07), with a methodological confession
+
+The reviewer's decomposition (optimize over occupation variables + fiber
+variables instead of CI coefficients) is testable, and was tested at
+v_B: E_fiber(min over the family) vs E_exact (dense diagonalization,
+126-dim) for H = dd + exchange - w * (one-body field aligned with v_B
+occupations), sweeping w.
+
+CONFESSION FIRST: the pilot script printed a pre-written interpretation
+("gap -> 0 as pinning strengthens") beneath the table before the numbers
+existed; the numbers refuted it in the same output. Narrative-before-
+data is the exact failure mode this repository polices, committed by its
+own police. Logged.
+
+THE ACTUAL RESULT (more instructive than the predicted one):
+  w = 0.0: gap 0.093, fidelity 0.63  (pure 2-body: CLOSEST to the fiber)
+  w = 0.5..8.0: gap grows LINEARLY (0.34 -> 4.14), fidelity 0.00.
+MECHANISM: a linear one-body field pins toward SLATER corners (the field
+ground state is the top-occupation determinant |0123>), never toward a
+correlated vertex -- the deflation literature's core point, reproduced
+by our own instrument in six rows. One-body pinning ANTI-selects the
+fiber.
+
+CONSEQUENCES FOR THE COMPUTATIONAL-TOOL VISION (Level-0 calibration):
+1. The fiber ansatz is valid exactly where ground states are fiber-
+   adjacent, and that regime is NOT reachable by one-body engineering;
+   it requires interaction-dominated parent Hamiltonians.
+2. Therefore the gate question is PARENT-HAMILTONIAN CONSTRUCTION: for
+   which 2-body H is a given fiber (or wall state) the exact or near
+   ground state? Symmetry-protected pinning is the design candidate.
+   Until that exists, CI wins everywhere physical, and the honest claim
+   is the reviewer's own phrasing: whether the decomposition is ever
+   faster is an empirical question -- now with its first (negative,
+   mechanistic) data point.
+3. Positioning advice ADOPTED verbatim: this ships as "a geometric
+   framework for organizing many-body states with identical reduced
+   observables," never as a physics search. Levels: L1 (GPC invariant)
+   = Theorem A + the stratification, nearly done; L2 (nonabelian
+   invariant) = the four-qubit experiment; L3 (general inverse-image
+   framework) = Hardt + the ported machinery, aspirational and labeled.
+
+## T8-II — PARENT HAMILTONIAN CONSTRUCTED: the fiber-ansatz gate opens
+(2026-07)
+
+The reviewer's construction, corrected and executed. Corrections: (a)
+the frustration-free shortcut H = sum A^dag A over 2-body annihilators
+yields a 4-BODY parent -- the strictly-2-body question needs the SDP;
+(b) the naive feasibility SDP admits the trivial solution (the identity
+IS 2-body on a fixed-N sector: sum_{p<q} n_p n_q = C(N,2) I -- the first
+run dutifully returned H = I/126); the correct program maximizes the
+gap: max s s.t. H - <H>_psi I >= s (I - |psi><psi|).
+
+RESULT (target: the certified REAL WALL STATE of v_B, the selection
+principle's object): the SDP is feasible with OPTIMAL GAP s = 1.147 --
+an explicit strictly 2-body Hamiltonian (666 real symmetric pair-
+operator coefficients) whose UNIQUE gapped ground state is the wall
+state: |<gs|psi_wall>| = 0.99997, spectrum (-3.395, -2.248, ...), gap
+1.147 on a spectral scale of ~3.4. Pilot-grade caveats: SCS returned
+optimal_inaccurate (eigen-residual 2.7e-2); rig should re-solve tight +
+attempt rationalization/exact certification, same proposer/certifier
+pattern as everything else.
+
+CONSEQUENCES:
+1. T8's negative + this positive = the complete calibrated picture:
+   one-body fields CANNOT pin correlated vertices (measured), but
+   2-body parent Hamiltonians for fiber-distinguished states EXIST and
+   are CONSTRUCTIBLE BY SDP. Pinning at correlated vertices is a
+   solvable design problem. The fiber-ansatz computational program has
+   its existence proof.
+2. Equivalent statement, N-representability language: the wall state's
+   (gamma1, gamma2) pair is an EXPOSED POINT of the N-representable
+   body (numerically, pilot grade) -- ground states of 2-body H's are
+   exactly exposed faces, so parent-Hamiltonian construction IS
+   exposedness certification.
+3. Experimental upgrade for paper 2: the wall state is not merely
+   preparable by circuit -- it can be COOLED INTO: an explicit gapped
+   2-body H has it as the ground state, so the reality-selection
+   prediction becomes a ground-state property of a specific
+   interacting model, the strongest possible form for a simulator
+   proposal.
+Next: parent-Hamiltonian census over the 17 certified wall states
+(same SDP, batch); gap statistics; exactification of one instance.
