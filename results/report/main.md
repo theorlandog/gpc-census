@@ -8,7 +8,7 @@ abstract: |
 author:
   - James Orlando[^1]
 date: |
-  July 2026 --- DRAFT v0.8\
+  July 2026 --- DRAFT v0.10\
   Preprint: [doi:10.5281/zenodo.21313834](https://doi.org/10.5281/zenodo.21313834)
 title: |
   Algorithmic construction of exact extremal states for fermionic moment\
