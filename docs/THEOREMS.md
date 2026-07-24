@@ -369,3 +369,29 @@ split into provable pieces, and the gamma-2 branch (2026-07)
    Horn/LR next; GT = negative control. Home mathematics confirmed:
    stratified symplectic geometry (Sjamaar-Lerman), now with Hardt as
    the semialgebraic backbone.
+
+## T7-PILOT: the gamma-2 fiber program's first data point (2026-07)
+
+Ran the ansatz-free attack with a Gamma-2 MATRIX target at psi_B over
+the full 126-dimensional space: 10/10 random starts converge to residual
+< 1e-16 with overlap |<psi_B|found>| = 1.00000000 every time. VERDICT:
+psi_B has a POINT 2-RDM fiber -- fully determined among pure states by
+its two-body marginals, hence NOT in the exceptional locus, despite
+sitting on a 1-RDM fiber that is a measured surface. The hierarchy in
+one sentence: the 1-RDM forgets a surface; the 2-RDM forgets nothing --
+at this state. The exceptional-locus hunt (states the 2-RDM fails to
+determine) now has validated machinery and its first negative control;
+candidate targets for the hunt: maximal-ODLRO / eta-pairing-type states
+and high-symmetry states, where determination is classically suspected
+to fail. This branch is the program's chemistry-facing frontier: the
+exceptional locus is exactly where 2-RDM-based methods are blind, and
+mapping it is a fiber question, not an image question.
+
+HIGH-Tc CALIBRATION (completing the reviewer's truncated paragraph, at
+the honesty level this repo requires): no path from fibers to materials.
+The defensible indirect chain: fiber diagnostics (uniqueness, flat
+directions, hidden degeneracies) can harden v2RDM-type solvers; those
+solvers are used on pairing models (Hubbard-class) relevant to
+superconductivity THEORY; better instruments for model studies is the
+entire claim, several removes from any material. Anything stronger is
+marketing.
