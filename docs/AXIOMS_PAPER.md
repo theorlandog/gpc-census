@@ -101,3 +101,17 @@ structural feature of the paper rather than a concession.
 - The historical framing (knot tables -> invariants; enumerations ->
   theories) is the introduction's opening move: the census as
   laboratory, the objects as the contribution.
+
+## Section 7 (ADDED per review) -- Methodological Portability
+Explicit table of which constructions are polytope-independent:
+  Construction              Depends on GPC?   Demonstrated in
+  Projected Jacobian        No                GPC, 4-qubit
+  Orbit quotient            No                GPC, 4-qubit
+  Stabilizer computation    No                GPC, 4-qubit (exact)
+  Fiber sampling            No                GPC, 4-qubit, Horn
+  Obstruction analysis      No                GPC (Horn/4q queued)
+  Hardt/T-S framework       No                all (cited machinery)
+  Pre-registration harness  No                all three families
+The claim the table supports: these are canonical constructions for
+inverse images of moment maps, with the GPC census as first complete
+instance -- not GPC-specific techniques.

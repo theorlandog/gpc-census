@@ -683,3 +683,37 @@ fiber in the transfer family. Together with the sampled continuum
 (P-ENT-2) this gives the transfer paper its two-evidence-line core:
 positive dimensionality (sampling + moduli upper bounds agree) and
 stratification (exact stabilizer census).
+
+## TRANSFER PART 3: THIRD FAMILY -- Horn's problem (2026-07)
+
+Per review ("one genuinely different inverse-image problem"): the
+moment map spec(A+B) on O_alpha x O_beta (3x3 Hermitian pairs; no
+quantum states anywhere). Pre-registered and scored:
+P-HORN-1 PASS: interior fiber, 30/30 converged, witness Tr(A^2 B)
+  spreads over [15.989, 16.614] -- a positive-dimensional fiber with
+  continuously varying non-spectral structure.
+P-HORN-2 PASS: aligned corner gamma = alpha + beta, 30/30 converged,
+  Tr(A^2 B) = 22.00000 exactly = sum alpha_i^2 beta_i -- FROZEN. The
+  Ky Fan equality argument (corner attainment forces simultaneous
+  diagonalization) gives the rigidity mechanism symbolically: the
+  corner fiber is the commuting stratum, the Horn analogue of a design
+  vertex. The rigid-distinguished-points / deformable-interior
+  dichotomy now appears in THREE unrelated nonabelian families.
+
+CONFESSION (same-run catch): the first registered witness Tr(AB) is
+PROVABLY CONSTANT on every Horn fiber (Newton identity: fixed by the
+three spectra) -- a design error in the pre-registration, exposed by
+its own exact-zero spread within one run and corrected to Tr(A^2 B).
+Registered invariants must be checked for vacuity against the
+constraint algebra before running; added to the protocol.
+
+CLAIM CLASSIFICATION (reviewer's, adopted for the transfer sections):
+ESTABLISHED (exact): the 4-qubit fiber contains states of distinct LU
+  stabilizer dimensions (6, 5, 9); the Horn corner fiber freezes
+  Tr(A^2 B) at the commuting value.
+STRONGLY SUPPORTED (two methodologies): positive-dimensional reduced
+  fibers in both transfer families.
+OPEN: the internal stratification geometry (obstruction analysis at
+  EPRxEPR and at Horn corners = the designated next exact step);
+  cross-vertex same-face-type comparisons; anything called a
+  "principle."
