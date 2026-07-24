@@ -479,3 +479,47 @@ CONSEQUENCES:
    proposal.
 Next: parent-Hamiltonian census over the 17 certified wall states
 (same SDP, batch); gap statistics; exactification of one instance.
+
+## T8-III — REALIZABILITY AND TIME REVERSAL: one theorem, one open
+puzzle (the reviewer's discriminating experiment, executed 2026-07)
+
+THEOREM (T-symmetric realizability -- proved, two lines): a Hamiltonian
+with real couplings commutes with complex conjugation, so any genuinely
+complex state has its conjugate exactly degenerate and can NEVER be the
+unique gapped ground state of a real 2-body H. In deforming census
+families, real <=> wall. Hence: AMONG FIBER STATES, ONLY WALL STATES ARE
+UNIQUELY REALIZABLE BY T-SYMMETRIC TWO-BODY HAMILTONIANS -- the reality
+selection principle in Hamiltonian form, now a theorem for real
+couplings. Empirically confirmed: interior psi_B(t=0), real-coupling
+gap-max SDP: optimal s = 0.000 exactly (vs 1.147 for the wall state,
+same budget).
+
+OPEN PUZZLE (the unpredicted zero): with FULL COMPLEX Hermitian 2-body
+couplings -- where the conjugation argument does not apply -- the
+interior state's optimal gap is ALSO 0.000 at this budget. Two live
+interpretations, deliberately unresolved tonight:
+(a) GENUINE NON-EXPOSEDNESS: the interior point's (gamma1, gamma2) is
+    extreme but not exposed in the N-rep body -- only special fiber
+    points are Hamiltonian-realizable at all. This would be a sharp
+    structural discovery (and note the T7-pilot showed its Gamma2 fiber
+    is a POINT, so the degeneracy is NOT explained by 2-RDM sharing).
+(b) SOLVER ARTIFACT: coupling budget ||c||_1 <= 10, SCS at 5-6k
+    iterations; the wall's 1.147 under identical budget argues against,
+    but does not exclude, a budget/accuracy effect.
+RIG PROTOCOL to decide: tighter solves (higher iters, alternative
+solver), coupling-budget sweep, and CRITICALLY test the
+exchange-selected interior state t = -0.465 (the state an explicit H
+actually selects on-family) -- if THAT point gaps and t=0 does not,
+exposedness varies along the fiber curve, which is interpretation (a)
+with fine structure.
+
+ADOPTED FROM REVIEW: the softened realization wording ("admits a
+candidate gapped two-body parent Hamiltonian, making ground-state
+preparation a principled route to realization") replaces "cooled into"
+in all shipping text; the PARENT-COMPLEXITY INVARIANT (minimal nonzero
+couplings / l1 norm / interaction-graph diameter, via sparsity-SDP
+post-processing) joins the feature table spec; the parent-Hamiltonian
+census table (existence, uniqueness, gap, sparsity, rationalizability,
+symmetry per wall state) is the next batch job; and the three-dual-
+geometries frame (image / inverse / supporting-hyperplane) is adopted
+as paper 2's conceptual architecture.
