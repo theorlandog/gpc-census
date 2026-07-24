@@ -40,7 +40,7 @@ the pre-registered protocol functioning exactly as designed. Both
 closure states are REAL, both are silent-channeled, both live at
 denominators no grid search could reach: the last two vertices were
 never hard, and the census's final lesson is about its own instruments.
-+
+
 
 ## RANK-10 CLOSED: v89 AND v103 CERTIFIED EXACT; the near-theorem is FALSE
 (2026-07)
