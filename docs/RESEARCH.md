@@ -2758,8 +2758,10 @@ recorded is the D1-carrier value; state the carrier in the claim.
   everywhere-single-well property makes hidden jumps implausible but unproven.
 - D0-carrier family is gapped but softer (min gap 0.052, one coeff step 4.4).
 
-Scripts: verify_driver.py (stages A-E), verify_parent2.py / verify_parent3.py
-(stage F). Run from a checkout with gpc-census importable.
+Scripts: scripts/verify_driver.py (stages A-E), scripts/verify_parent2.py /
+scripts/verify_parent3.py (stage F). Run from the repo root with the package
+installed (make sync); they need numpy and, for stage A, sympy and
+gpc_census.exactify.
 
 ## Source documents in docs/
 
