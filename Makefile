@@ -6,6 +6,7 @@ GEN_SPEC := build/gpc-census.spec
 RPM_TOPDIR := $(CURDIR)/build/rpm
 REPORT_MD := results/report/main.md
 REPORT_PDF := results/report/main.pdf
+REPORT_TEX := results/report/main.tex
 REPORT_BIB := results/report/references.bib
 REPORT_CSL := results/report/american-physics-society.csl
 
@@ -17,7 +18,7 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := -F pandoc-crossref --citeproc --number-sections
 
-.PHONY: sync test lint build sdist wheel srpm rpm report upgrade clean
+.PHONY: sync test lint build sdist wheel srpm rpm report report-tex upgrade clean
 
 sync:
 	$(UV) sync
@@ -76,6 +77,27 @@ $(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	  echo "report: unresolved crossref marks in PDF output"; exit 1; fi
 	@echo "==> $(REPORT_PDF)"
 
+report-tex: $(REPORT_TEX)
+
+# Standalone LaTeX for journal upload, from the same pinned image and
+# filter chain as the PDF so both outputs stay in lockstep. citeproc
+# bakes the formatted bibliography into the .tex, so the file is
+# self-contained (no .bbl/.bib needed at submission). For journals that
+# require natbib \citep markup and a .bib instead, swap --citeproc for
+# --natbib in PANDOC_FLAGS for this target and upload $(REPORT_BIB)
+# alongside. Unlike PDF output, .tex is not standalone by default,
+# hence -s. The guard mirrors the PDF one: pandoc-crossref renders
+# missing targets as literal ?id? marks in LaTeX output.
+$(REPORT_TEX): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
+	mkdir -p build
+	$(PANDOC_RUN) $(REPORT_MD) $(PANDOC_FLAGS) -s -o $(REPORT_TEX) 2> build/report-tex.log \
+	  || { cat build/report-tex.log; exit 1; }
+	@if grep -Ei 'not found|undefined' build/report-tex.log; then \
+	  echo "report-tex: unresolved references or citations, see build/report-tex.log"; exit 1; fi
+	@if grep -q '?[A-Za-z:-]*?}' $(REPORT_TEX); then \
+	  echo "report-tex: unresolved crossref marks in TeX output"; exit 1; fi
+	@echo "==> $(REPORT_TEX)"
+
 clean:
 	rm -rf dist build data-output data-output.zip
-	rm -f $(REPORT_PDF)
+	rm -f $(REPORT_PDF) $(REPORT_TEX)
