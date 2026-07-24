@@ -11,6 +11,9 @@ of the wedge^4 H_9 polytope resolved only numerically. This project
 closed both, then classified every vertex of every known system, and
 packages the machinery so the results are reproducible with one command.
 
+A narrative walkthrough is on the blog:
+https://nutfieldsecurity.com/posts/ai-vacation-physics/
+
 ## The classification
 
 Each polytope vertex is an extremal spectrum, and the census asks how it
@@ -21,8 +24,9 @@ can be attained. Exactly one of three things is true:
   a one-hop-free support (no two determinants share N-1 orbitals), so no
   phase cancellation is needed. A combinatorial design, hence the name.
 - DESIGN-REAL: real nonnegative weights suffice but integers do not.
-- INTERFERENCE: no nonnegative weighting exists at all; complex relative
-  phases are forced. The canonical example is the vertex
+- INTERFERENCE: no nonnegative weighting exists at all; phase
+  cancellation is forced (signed real amplitudes can suffice, or complex
+  ones are needed). The canonical example is the vertex
   v_B = (20:14:14:14:14:4:4:4:4)/23 of wedge^4 H_9, whose extremal state
   requires cos(gamma) = 3/(4*sqrt(14)).
 
@@ -107,10 +111,9 @@ Four stages, mirroring the mathematics:
       is v_B's cos(gamma) = 3/(4 sqrt(14)) as a general rule, and it certifies
       every interference corner whose support the solver finds
       (`exactify_interference`, which certifies v_B itself). Of the 799 census
-      vertices, 785 now carry a
-      certified closed form; what is left uncertified is a compute frontier at
-      the state-finding stage (a longer clique-timeout and wider block search
-      reach it), not an open-form one.
+      vertices, all 799 now carry a certified closed form; the last two rank-10
+      corners were closed off the rational search grid after the attainability
+      audit self-corrected (see docs/RESEARCH.md).
    The historical alternating-projection solver (`attain`) remains as a
    general Tier-A fallback: `scripts/solve_all.py` cascades to it when the
    block solver fails, so every vertex records at least a numeric state.
@@ -172,17 +175,17 @@ precompute` (the default) is a lookup, not a solve. Current coverage:
 | (3, 8) | 38 | 27 | 11 | 38 |
 | (4, 8) | 22 | 22 | 0 | 22 |
 | (3, 9) | 58 | 38 | 20 | 58 |
-| (4, 9) | 103 | 87 | 16 | 101 |
-| (3, 10) | 113 | 71 | 42 | 105 |
-| (4, 10) | 159 | 134 | 25 | 157 |
-| (5, 10) | 292 | 250 | 42 | 290 |
-| **Total** | **799** | **643** | **156** | **785** |
+| (4, 9) | 103 | 87 | 16 | 103 |
+| (3, 10) | 113 | 71 | 42 | 113 |
+| (4, 10) | 159 | 134 | 25 | 159 |
+| (5, 10) | 292 | 250 | 42 | 292 |
+| **Total** | **799** | **643** | **156** | **799** |
 
-Every design corner (integer and real) is certified by construction. Of the
-156 interference corners, every one whose extremal state the engine has found
-now also certifies (`exactify_interference`, the off-diagonal-target
-constructive solver): the remaining gap is entirely vertices where Tier A
-(state-finding) has not yet found a support, not an exactification frontier.
+Every design corner (integer and real) is certified by construction. All
+156 interference corners are now certified as well; the final two rank-10
+corners were closed off the rational search grid by an exact reconstruction
+after the attainability audit self-corrected (`exactify_interference`, the
+off-diagonal-target constructive solver, certifies the rest).
 `scripts/build_states.py --retry-uncertified` closes that gap with more
 compute, and `scripts/transport_states.py` closes more of it for free by
 transporting a certified sibling's state along the padding, frozen-core lift,

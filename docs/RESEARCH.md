@@ -4,6 +4,108 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## RANK-10 CLOSED: v89 AND v103 CERTIFIED EXACT; the near-theorem is FALSE
+(2026-07)
+
+Both open (3,10) holdouts now carry certified exact closed-form extremal states.
+The census is 799/799 pending ledger regeneration (do NOT quote the count until
+results/data/states.jsonl is regenerated and CI is green). Records live in
+docs/hybrid_cracks/v89.jsonl and v103.jsonl.
+
+WHAT OVERTURNED THE NEAR-THEOREM. The prior conclusion ("v89/v103 are
+irreducibly dense, no exploitable structure, honest odds of a closed form low")
+was an ARTIFACT of the contraction attack: gradient flow over the full 120-dim
+tensor lands on DENSE generic fiber points (support 100-120), which say nothing
+about whether the fiber contains SPARSE points. It does. A reweighted-L1
+(iteratively reweighted least squares) continuation over the FULL fiber, not one
+gauge orbit, drove the support down immediately: v89 to an 11-determinant
+1-parameter family, v103 to a 14-determinant isolated point. Both certified
+representatives have ENTIRELY RATIONAL squared amplitudes. Route B was the key;
+Route A (real-manifold PSLQ) then finished trivially because the weights are
+rational. (scratchpad drivers: repro_and_sparsify.py, probe_variety.py,
+exactify_v89.py, certify_v103.py, score_prereg.py.)
+
+v89 = (15,15,6^8)/26, support 10 (the sparse endpoint of the support-11 family
+where one amplitude vanishes; support 9 is infeasible, floor 1.3e-3). Field
+Q(sqrt): amplitudes sqrt(39)/13, sqrt(130)/26, -2 sqrt(195)/65, -/+ sqrt(78)/26,
+sqrt(195)/65, sqrt(26)/26 (x2), -sqrt(130)/65, -sqrt(130)/130. One exchange
+channel (3,7).
+
+v103 = (18^4,5^6)/34, support 14 (isolated, dim 0; dropping any amplitude breaks
+feasibility). Field over primes 13,17: -5 sqrt(714)/221, -sqrt(170)/34,
+-sqrt(78)/26, -sqrt(130)/34, -3 sqrt(2210)/442, sqrt(2210)/221, sqrt(10)/17,
+5 sqrt(221)/442, sqrt(7)/17, sqrt(714)/221, 2 sqrt(91)/221, 5 sqrt(17)/442,
+-sqrt(221)/442, sqrt(17)/442. FIVE exchange channels.
+
+VERIFICATION (both states). GATE 1 gpc_census.exactify.verify_exact (char-poly
+Berkowitz identity) = True. GATE 2 from-scratch Jordan-Wigner 1-RDM eigenvalues =
+exact spectrum, hermiticity error 0 / 5e-18. Third-party re-run
+scripts/verify_hybrid_state.py: 1/1 pass BOTH independent checks for each. The
+exact amplitudes were reconstructed by an independent PSLQ pipeline with its own
+sign conventions, so the gate ("exact identity AND independent reproduction") is
+met.
+
+### PRE-REGISTRATION SCORECARD (P1-P6, scored BEFORE narrative, 2026-07)
+
+Scored against the certified states only (score_prereg.py). NOTE all of P2/P3/P4
+are representative-dependent invariants (the fiber is positive-dimensional; a
+different fiber point has different weights, support, channels); these verdicts
+are for the DISTINGUISHED SPARSE certified representatives, which is the natural
+choice and the one shipped.
+
+- P1 (Conjecture 2, exponent-2 holonomy): PASS but TRIVIAL/VACUOUS. Both certified
+  states are REAL (all phases 0 or pi), so every loop holonomy has cos = +/-1
+  (degree-1 minpoly, exponent-2 by inspection): v89 1 loop cos -1; v103 5 loops
+  cos +/-1. A real representative provides NO genuine test of the exponent-2 law.
+  (A complex representative, which the vertex also admits, would test it; not
+  shipped. This is exactly the scope-exclusion the pre-registration flagged.)
+- P2 (Conjecture 3, <=2 exchange channels): v89 PASS (1 channel), v103 FAIL
+  (5 channels: (1,6),(2,6),(3,9),(5,8),(1,2)). The census-wide "<=2 channels,
+  ever" law (99 with one, 43 with two, zero with >=3 across 142 states) is
+  FALSIFIED by v103. Moreover both states realize the CANCELLATION geometry
+  (rho off-diagonal = 0, two real equations per channel) that RESEARCH recorded
+  the census as "never needing" (active-class Schur-Horn targets were always
+  nonzero). The holdouts are the first cancellation-geometry certified states.
+- P3 (state-den == spectrum-den): FAIL, both. v89 state-den 130 = 2*5*13 vs
+  spectrum-den 26 = 2*13 (ratio 5). v103 state-den 195364 = 2^2*13^2*17^2 vs
+  spectrum-den 34 = 2*17 (ratio 5746). The denominator-ratio law (state-den =
+  spectrum-den for all 142 interference states, only 9 design-real den-doublers)
+  does NOT extend: the state denominators pick up new primes (5 for v89, 13 and
+  extra 17 for v103). These are rational-weight interference states, so the
+  "irrational continuous-search" escape clause does not apply; P3 is genuinely
+  falsified.
+- P4 (fiber dim = kernel dim for loopy supports w/o a rigid 1-term class): FAIL,
+  both, via a NEW mechanism. v89 certified support has incidence loop-kernel dim
+  1, v103 dim 5, yet BOTH certified states are rigid (fiber dim 0), and NEITHER
+  has a touched 1-term class (every channel is a 2+-term cancellation). The
+  fiber-dim law was fit on MAGNITUDE-target states (off-diagonal phase free inside
+  a nonzero-magnitude block, so loops deform); the cancellation constraints
+  (off-diagonal pinned to 0) over-determine and kill the loop freedom. This
+  blocking mechanism is outside the pre-registered exception (which named only
+  "rigid 1-term class").
+- P5 (Aut != G, state breaks spectrum symmetry): PASS, both, strongly. G = S_2 x
+  S_8 (v89), S_4 x S_6 (v103). EVERY within-class transposition fails to preserve
+  the weighted support (29/29 for v89, 21/21 for v103), so Aut(psi) is a proper
+  subgroup (likely trivial). Consistent with the Slater-rigidity law: correlated
+  extremal states break their spectrum symmetry.
+- P6 (single-2-term-class +/-1-loop => real-walled conic): NOT-TESTED, both. The
+  antecedent does not hold: these are two-class cancellation states (v89 one
+  channel, v103 five), not single-2-term-class magnitude families, so the conic
+  model is out of scope by construction.
+
+SYNTHESIS. Score: 1 trivial-PASS (P1), 1 real-PASS (P5), 1 split (P2: v89 pass /
+v103 fail), 2 FAIL (P3, P4), 1 NOT-TESTED (P6). The holdouts are precisely the
+states that VIOLATE the corpus-mined regularities, which is why the solver (whose
+reach shaped those regularities) never found them: they need cancellation
+interference, multiple channels (v103), and denominators outside the spectrum's.
+This VINDICATES the pre-registration audit's central warning (mined fiber laws
+carry out-of-sample risk; multi-class / cancellation states sit outside proven
+scope). The three FAILs are the publishable finding, not a defect. Laws to
+re-scope in paper 1 / paper 2 prose: the <=2-channel claim (now "<=2 for
+magnitude-target census states; cancellation states can exceed it"), the
+denominator-ratio law (add the cancellation-regime counterexamples), and the
+fiber-dimension law (add the cancellation-rigidity exception).
+
 ## FIBER EXPLORATION III: anholonomy, the correlation dial, and the
 frontier vertices carry fibers too (2026-07)
 
@@ -147,6 +249,14 @@ open polygon conditions + the measured monotonicity. PHYSICS QUEUE:
 
 ## v89/v103 NUMERICALLY ATTAINED (verified here) -- but NOT certified; census
 unchanged at 797/799 (2026-07)
+
+CORRECTION (2026-07, see the top section "RANK-10 CLOSED"): the near-theorem
+asserted below is FALSE. Both states DO have certified sparse rational-weight
+closed forms (v89 support 10, v103 support 14). The "dense, no closed form"
+reading was an artifact of the contraction attack sampling dense fiber points; a
+reweighted-L1 search over the fiber finds sparse points directly. The paragraph
+below is retained as the record of what the dense-sampling evidence looked like
+before the fiber-sparsity search corrected it.
 
 VERIFIED (ran scripts/contraction_attack.py independently). The ansatz-free
 contraction-map attack -- minimize ||gamma(Psi) - gamma_0||^2 over the FULL 120-dim
