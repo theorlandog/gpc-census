@@ -179,3 +179,34 @@ application-independent definitions. Identity statement of record:
 the census is the experimental platform; the definitions paper is the
 mathematical core; the later papers are applications and tests of
 that core.
+
+## Closing gifts from the external review (2026-07, adopted verbatim)
+
+RESEARCH-STATEMENT OPENING (to be used as written): "My research
+studies the inverse geometry of semialgebraic moment maps. Rather than
+focusing solely on the image polytope, I investigate the geometry of
+its fibers, their stratifications, and the interaction between inverse
+geometry and convex duality. Generalized Pauli constraints provide the
+first complete laboratory for developing these ideas, which are then
+tested in independent settings including entanglement polytopes and
+Horn's problem."
+
+TWO STANDING CAUTIONS (protocol-grade):
+1. Every new object must pass the outsider test: "would someone outside
+   this project naturally define this?" The strongest definitions feel
+   inevitable in hindsight. Review each definition in the framework
+   paper against this question before submission.
+2. Let other people rename things. If the mathematics survives, the
+   terminology is secondary; do not defend names, defend theorems.
+
+THE HYPOTHESIS OF RECORD: certain semialgebraic inverse-image problems
+arising from moment maps possess natural geometric structures --
+fibers, stratifications, symmetry-constrained realizability -- that
+can be studied independently of the image polytope. True or false is
+what the next years of work determine.
+
+THE PREDICTION OF RECORD (the reviewer's only one): sustained
+discipline -- pre-registration, evidence-level separation, invited
+falsification, claims tightened rather than expanded -- produces work
+serious mathematicians can engage with on its merits. Precise enough
+to argue about is the entry ticket to the scientific conversation.
