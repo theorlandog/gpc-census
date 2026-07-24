@@ -566,3 +566,50 @@ QUEUED (rig): t = -0.465 run (timed out here -- SCS compile), the
 17-wall parent census with g_real and g_full columns plus the
 parent-complexity invariants, tighter solves throughout, and one
 exactified instance.
+
+## T8-V — EQUIVARIANT EXPOSEDNESS: consolidation of the review round
+(2026-07)
+
+NAME ADOPTED: "equivariant exposedness" / the symmetry-resolved gap
+functions g_G(psi) = sup over G-symmetric 2-body H of gap(H, psi).
+"Optimization geometry" retired as too broad. The object is CANONICAL:
+defined intrinsically by (fiber point, symmetry class, operator degree);
+the SDP is merely one computation of it -- the property that makes it an
+invariant rather than an artifact.
+
+PRESENTATION ADOPTED (theorem + corollary structure): the load-bearing
+statement is the standard spinless theorem (real H => nondegenerate
+eigenstates are real up to phase); OUR contribution is the corollary
+through the new classification (interior fiber states are certified
+genuinely complex, hence never uniquely realizable by real 2-body H).
+Standard mathematics + new geometry, in that order. "Reality selection"
+demoted to informal gloss. The overclaim "fiber geometry and Hamiltonian
+symmetry classify each other" is WITHDRAWN per review: shown is one
+direction (symmetry class constrains realizability); completeness,
+multiplicity, and accidental degeneracies are open.
+
+NEW FREE FOUNDATION (Tarski-Seidenberg, parallel to the Hardt move):
+for each fixed symmetry class G, the condition g_G(psi) > gamma is the
+projection of a semialgebraic set (the pairs (H, psi) with H in the
+linear space H_G, the PSD gap condition, and bounded coupling norm),
+hence E_G = {psi in F : g_G(psi) > 0} is SEMIALGEBRAIC and g_G is a
+semialgebraic function on the fiber -- by quantifier elimination, before
+any further work. The reviewer's conjecture therefore refines to the
+substantive parts: Whitney regularity of the E_G decomposition, and
+whether the E_G strata COINCIDE with (or further refine) the quantum
+stratification already defined. Both are precise and computable.
+
+THE MATRIX (adopted as the next batch experiment, rig): rows = 17
+certified walls + interior points (t = 0, exchange-selected t = -0.465)
++ interference representatives; columns = symmetry classes (real,
+full complex, spin-adapted, particle-hole, number-parity/translation
+where meaningful); entries = max gap. Pattern-hunting across the matrix
+replaces single-symmetry anecdotes. Pre-registration applies: predicted
+zero-pattern from the T-theorem (g_real = 0 off the real locus) is the
+one PROVED column; everything else is measured before narrated.
+
+THRESHOLD NOTE (the reviewer's assessment, recorded): the program's
+objects -- quantum stratification, equivariant exposedness, g_G -- are
+now formulated independently of the computations that discovered them.
+That is the definition of the transition from computational project to
+mathematical theory, and the standard the remaining work is held to.
