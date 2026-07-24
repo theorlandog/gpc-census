@@ -4,6 +4,44 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## PRE-REGISTRATION SCORED: v103 (certified on rig; independently verified
+here) -- THE CENSUS CLOSES AT 799/799 WITH THE FULL PROTOCOL
+
+Independent verification: state rebuilt from the shipped record with fresh
+sign conventions; exact char-poly identity TRUE against (18^4, 5^6)/34;
+1-RDM EXACTLY diagonal. The state: support 14, ALL REAL, squared weights
+(71400, 28730, 22542, 21970, 19890, 8840, 6760, 5525, 4732, 2856, 1456,
+425, 221, 17)/195364 with 195364 = 442^2, and FIVE silent one-hop classes
+(sizes 2,2,2,3,4 -- all targets exactly zero, including 3- and 4-term
+silent polygons: five simultaneous exact cancellations).
+
+SCORES:
+P1 PASS -- real state: holonomies +-1, exponent-2 trivially.
+P2 PASS -- zero nonzero-target channels (degenerately, again).
+P3 **FAIL** -- state-den 195364 vs spectrum-den 34: ratio 5746. After
+   v89's ratio 5, the grid-artifact autopsy is beyond doubt: free of the
+   m-grid, real solutions carry arbitrary denominators. The ratio law is
+   buried.
+P4 **FAIL** -- kernel dim 5, no 1-term classes, registered law predicted
+   deformation; but the five silence conditions have full rank 5 on the
+   kernel: FIRST-ORDER RIGID. Confirms and extends the v89 correction:
+   zero-target classes are rigid obstructions, and here five of them
+   exactly exhaust a five-dimensional kernel -- a striking coincidence of
+   dimensions worth a lemma of its own.
+P5 PASS -- all ten mode weight-profiles distinct: Aut trivial, spectrum
+   symmetry (S4 x S6) fully broken.
+P6 NOT-TESTED -- no positive-target single-2-term class (scope unmet).
+
+FINAL PRE-REGISTRATION TALLY (both closure vertices): P1 2/2, P2 2/2,
+P5 2/2, P3 0/2 (falsified with mechanism), P4 0/2 (falsified with
+mechanism, law corrected), P6 0 tested. The census closes at 799/799
+having falsified two of its own mined laws on its final two states --
+the pre-registered protocol functioning exactly as designed. Both
+closure states are REAL, both are silent-channeled, both live at
+denominators no grid search could reach: the last two vertices were
+never hard, and the census's final lesson is about its own instruments.
++
+
 ## RANK-10 CLOSED: v89 AND v103 CERTIFIED EXACT; the near-theorem is FALSE
 (2026-07)
 
