@@ -613,3 +613,107 @@ objects -- quantum stratification, equivariant exposedness, g_G -- are
 now formulated independently of the computations that discovered them.
 That is the definition of the transition from computational project to
 mathematical theory, and the standard the remaining work is held to.
+
+## TRANSFER EXPERIMENT PART 1 EXECUTED: the four-qubit top vertex
+carries a stratified positive-dimensional reduced fiber (2026-07)
+
+Setup: the 2x2x2x2 entanglement polytope's top vertex (1/2,1/2,1/2,1/2)
+-- the all-marginals-maximally-mixed point, over which GHZ4, the cluster
+state, and all three EPRxEPR pairings sit simultaneously (verified:
+objective exactly 0 for all three constructions). Sixty random-start
+fiber samples with analytic-gradient descent (the 3-qubit pilot's
+stalling fixed). Pre-registered predictions scored:
+
+P-ENT-1 PASS -- 60/60 samples converge to the fiber (residual < 1e-18).
+P-ENT-2 PASS -- the LU invariant Tr(rho_12^2) varies CONTINUOUSLY across
+  samples: range [0.2806, 0.5287], largest gap in 60 sorted values
+  0.026. The reduced fiber is POSITIVE-DIMENSIONAL with continuously
+  varying two-body structure -- the 3-qubit collapse does NOT persist.
+P-ENT-3 PARTIAL -- special values 1/2 (GHZ/cluster) and ~1/4 approached
+  (0.006, 0.031); purity 1 (EPRxEPR) NOT reached by random sampling
+  (nearest 0.53) although EPRxEPR is verified IN the fiber by
+  construction. Mechanism identified and familiar: interior-biased
+  sampling misses extreme strata -- the same lesson as generator
+  gate-1, now appearing INSIDE a fiber. Reading: the reduced fiber is
+  STRATIFIED, with a sampled continuum stratum and a verified isolated
+  (or boundary) EPRxEPR stratum the random walk cannot reach.
+
+VERDICT: the quantum stratification is NONTRIVIAL on an independent
+nonabelian family. One vertex of the four-qubit entanglement polytope
+carries a positive-dimensional, multiply-stratified reduced fiber --
+maximal contrast with both negative controls (GT toric; 3-qubit
+collapse). The Incompleteness phenomenon is NOT peculiar to fermionic
+occupation polytopes. Remaining for the full test (rig): the
+same-local-face-type comparison across DISTINCT vertices using the
+published WDGC vertex list, and LU-orbit dimension counts to convert
+"continuum of invariant values" into an exact reduced-fiber dimension.
+This is the transfer paper's opening result.
+
+## TRANSFER PART 2: independent exact validation -- the tangent table
+(reviewer's request, executed 2026-07; claim language softened per review)
+
+CLAIM (softened, adopted): a positive-dimensional reduced fiber is
+observed in an independent family of nonabelian moment polytopes, now
+supported by TWO independent methodologies (optimization sampling +
+exact symbolic tangent analysis). "The Incompleteness phenomenon
+transfers" is retired until the cross-vertex comparison completes.
+
+THE EXACT TABLE (sympy, rational amplitudes, exact ranks):
+  state     ker(Dmu)  LU-orbit dim  stabilizer dim  1st-order moduli
+  GHZ4         22          10             6               12
+  cluster      21          11             5               10
+  EPRxEPR      25           7             9               18
+
+REGISTERED PREDICTION SCORED: "EPRxEPR is rigid (moduli 0), explaining
+its absence from sampling" -- **FAIL**. EPRxEPR shows the LARGEST
+first-order moduli. Standing caveat applies with force: this is the
+Slater-pattern signature from the GPC program (a maximally singular
+point whose first-order kernel is dominated by the obstructed cone), so
+the 18 is an upper bound carrying no lower-bound information; the
+absence-from-sampling mechanism remains open (obstructed excess vs
+boundary stratum vs basin geometry). Obstruction analysis at EPRxEPR =
+the designated next exact computation.
+
+THE UNAMBIGUOUS RESULT (no caveats attach): the three named states have
+THREE DISTINCT EXACT LU-STABILIZER DIMENSIONS (6, 5, 9). Stabilizer
+dimension is a clean invariant; therefore the reduced fiber over the
+four-qubit top vertex contains AT LEAST THREE DISTINCT ORBIT-TYPE
+STRATA -- exact, symbolic, methodology-independent stratification of a
+fiber in the transfer family. Together with the sampled continuum
+(P-ENT-2) this gives the transfer paper its two-evidence-line core:
+positive dimensionality (sampling + moduli upper bounds agree) and
+stratification (exact stabilizer census).
+
+## TRANSFER PART 3: THIRD FAMILY -- Horn's problem (2026-07)
+
+Per review ("one genuinely different inverse-image problem"): the
+moment map spec(A+B) on O_alpha x O_beta (3x3 Hermitian pairs; no
+quantum states anywhere). Pre-registered and scored:
+P-HORN-1 PASS: interior fiber, 30/30 converged, witness Tr(A^2 B)
+  spreads over [15.989, 16.614] -- a positive-dimensional fiber with
+  continuously varying non-spectral structure.
+P-HORN-2 PASS: aligned corner gamma = alpha + beta, 30/30 converged,
+  Tr(A^2 B) = 22.00000 exactly = sum alpha_i^2 beta_i -- FROZEN. The
+  Ky Fan equality argument (corner attainment forces simultaneous
+  diagonalization) gives the rigidity mechanism symbolically: the
+  corner fiber is the commuting stratum, the Horn analogue of a design
+  vertex. The rigid-distinguished-points / deformable-interior
+  dichotomy now appears in THREE unrelated nonabelian families.
+
+CONFESSION (same-run catch): the first registered witness Tr(AB) is
+PROVABLY CONSTANT on every Horn fiber (Newton identity: fixed by the
+three spectra) -- a design error in the pre-registration, exposed by
+its own exact-zero spread within one run and corrected to Tr(A^2 B).
+Registered invariants must be checked for vacuity against the
+constraint algebra before running; added to the protocol.
+
+CLAIM CLASSIFICATION (reviewer's, adopted for the transfer sections):
+ESTABLISHED (exact): the 4-qubit fiber contains states of distinct LU
+  stabilizer dimensions (6, 5, 9); the Horn corner fiber freezes
+  Tr(A^2 B) at the commuting value.
+STRONGLY SUPPORTED (two methodologies): positive-dimensional reduced
+  fibers in both transfer families.
+OPEN: the internal stratification geometry (obstruction analysis at
+  EPRxEPR and at Horn corners = the designated next exact step);
+  cross-vertex same-face-type comparisons; anything called a
+  "principle."
