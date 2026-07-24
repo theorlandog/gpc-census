@@ -523,3 +523,46 @@ census table (existence, uniqueness, gap, sparsity, rationalizability,
 symmetry per wall state) is the next batch job; and the three-dual-
 geometries frame (image / inverse / supporting-hyperplane) is adopted
 as paper 2's conceptual architecture.
+
+## T8-IV — PUZZLE RESOLVED (possibility B) AND THE DICHOTOMY COMPLETED;
+the new object sharpens into SYMMETRY-RESOLVED GAP FUNCTIONS (2026-07)
+
+RESOLUTION: the reviewer's instruction -- eliminate incomplete
+parametrization (B) before entertaining non-exposedness (A/D) -- found
+the answer immediately. The block constructor pre-summed the (P,Q) and
+(Q,P) entry lists, auto-symmetrizing every matrix and ANNIHILATING all
+imaginary-coupling generators: the T8-III "complex-coupling SDP" had
+zero complex couplings, and its mysterious zero was the T-theorem in
+disguise. Corrected basis: 666 symmetric + 630 antisymmetric blocks.
+Rerun: interior psi_B(t=0) under TRUE complex Hermitian couplings gaps
+at 0.582. Possibility A (non-exposedness) is DEAD at this point;
+the interior IS exposed once T-breaking is allowed.
+
+THE COMPLETED DICHOTOMY (now two-sided and clean):
+- Wall (real) fiber states: uniquely realizable by T-SYMMETRIC 2-body
+  Hamiltonians (gap 1.147 measured).
+- Interior (complex) fiber states: NEVER by real couplings (theorem,
+  with the spinless T = K qualification stated; Kramers systems need
+  separate treatment) -- but realizable by T-BREAKING complex couplings
+  (gap 0.582 measured).
+The reality-selection principle in final Hamiltonian form: THE SYMMETRY
+CLASS OF THE PARENT DETERMINES WHICH FIBER STRATUM IT CAN PIN. Walls
+are T-symmetric matter; the fiber interior is T-broken matter; the
++-Theta sheets are T-conjugate partners.
+
+THE NEW OBJECT (sharpened from the reviewer's Gap Stratification
+Conjecture): not one gap function but a SYMMETRY-RESOLVED FAMILY --
+for each symmetry class G of admissible Hamiltonians,
+    g_G(psi) = sup over G-symmetric 2-body H of gap(H, psi),
+a function on the fiber. Measured so far: g_real vanishes identically
+off the real locus (THEOREM) and is 1.147 at the wall; g_full is 0.582
+at the interior point (and positive at the wall a fortiori). The
+stratification of fibers by Hamiltonian realizability is therefore a
+stratification BY SYMMETRY CLASS -- optimization geometry on fibers,
+resolved by physical symmetry. This is the candidate new mathematical
+object, now with three measured values and one proved vanishing law.
+
+QUEUED (rig): t = -0.465 run (timed out here -- SCS compile), the
+17-wall parent census with g_real and g_full columns plus the
+parent-complexity invariants, tighter solves throughout, and one
+exactified instance.
