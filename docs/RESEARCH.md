@@ -4,6 +4,41 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## PRE-REGISTRATION SCORED: v89 (certified on rig; independently verified here)
+
+Independent verification: state rebuilt from the closed form with fresh
+sign conventions; exact char-poly identity TRUE; 1-RDM EXACTLY diagonal
+(the single one-hop class on modes (3,7), pairs (2,9)/(5,8), cancels
+identically -- a SILENT channel, target zero). Squared weights
+(30,25,24,15,15,6,5,5,4,1)/130, all real.
+
+SCORES (against the certified state, before narrative, per protocol):
+P1 PASS -- real state: all holonomies +-1, exponent-2 trivially.
+P2 PASS -- zero nonzero-target channels (<= 2), degenerately.
+P3 **FAIL** -- state-den 130, spectrum-den 26, RATIO 5, outside {1,2}.
+   MECHANISM IDENTIFIED: the "797/797 ratio law" was a GRID ARTIFACT --
+   every prior state came from m in {1,2} amplitude-grid searches, which
+   FORCE ratio in {1,2}. The law was the search lens reflected back,
+   exactly the selection-bias failure the skeptical audit pre-named.
+P4 **FAIL** -- kernel dim 1, touched class is 2-term (not rigid 1-term),
+   law predicted deformation; but the class has TARGET ZERO, and the
+   silent condition p1(t) = p2(t) gives p1 - p2 = 25t: rigid at t = 0
+   only, phases cannot rescue magnitude mismatch. CORRECTED LAW:
+   zero-target touched classes are rigid obstructions alongside 1-term
+   classes; the mined law saw only tau > 0 families.
+P5 PASS -- 7 distinct weight-profiles among the 8 degenerate modes:
+   spectrum symmetry broken (Slater-rigidity law holds).
+P6 NOT-TESTED -- tau = 0 is outside the conic model's tau > 0 scope
+   (the CM curve degenerates to a point; consistent with P4's rigidity).
+
+Score: 3 PASS / 2 FAIL / 1 NOT-TESTED. Both failures are publishable
+findings with mechanisms, caught by the protocol before any narrative
+formed. New phenomena logged: silent exchange channels (interference-
+classified vertices can carry real states with exactly diagonal 1-RDM
+that are NOT designs), and the tau = 0 rigidity class. v103 scoring
+pending its certificate.
+
+
 ## FIBER EXPLORATION III: anholonomy, the correlation dial, and the
 frontier vertices carry fibers too (2026-07)
 
@@ -444,17 +479,38 @@ with 10 blocks of sizes up to 26 (vs the un-reduced side-401 block). The
 group-action rho_B on the SOS basis is checked to be a genuine orthogonal rep
 before use.
 
-REMAINING to finish G3 (scoped): (i) SCALE the reduction to cand 44 -- the (3,6)
-build uses dense orbit enumeration (O(nz^2 |G|)) and dense invariant averaging
-(O(nz^2)), fine at nz=401 but not at nz=27226; needs the matrix-free V-first variant
-(block-diagonalize the 165-dim rep V, then lift to V (x) Vbar via the factorized
-S5 x S6 projectors -- 840 elements, cheap). (ii) assemble + solve the reduced SDP
-(blocks <= ~170). (iii) RIGORIZE per repo discipline -- round the dual to rational
-and verify f - delta = B^T Q B + mu(||c||^2 - 1) as an EXACT polynomial identity with
-each reduced block exactly PSD (block-diagonal => exact LDL is cheap). The exact
-identity is the theorem and is a false-positive-proof gate independent of any bug in
-the reduction code. The method is proven (G1 + G2); what remains is the scale-up and
-the rational endgame.
+G3 SCALE-UP: primitives BUILT and VALIDATED, one bottleneck remains
+(scripts/sos_symmetry_scaled.py). The scalable swaps needed for cand 44 are done and
+each is checked:
+  * FACTORIZED REYNOLDS. For G = A x B on DISJOINT modes (A,B commute),
+    Reynolds_G = Reynolds_A o Reynolds_B -- |A|+|B| = 840 conjugations, not 86400.
+    Verified to reproduce the dense full-|G| average to 9e-16, so the
+    block-diagonalization scales.
+  * GENERATOR-BFS signed orbits (over adjacent transpositions), and exact S_n
+    characters (scripts/sn_characters.py, Murnaghan-Nakayama, verified by
+    dim-sum-of-squares and orthogonality).
+  * SUPPORT (term-sparsity) parametrized by hop distance N - |a & b|. FINDING: the
+    certificate needs TWO-HOP support. On the (3,6)/S2xS4 exterior point the scalable
+    pipeline reproduces the un-reduced delta EXACTLY at hop<=2 (0.08822 vs 0.08823)
+    but COLLAPSES to ~0 at hop<=1 -- one-hop pairs alone cannot carry the
+    Positivstellensatz. So the whole scalable pipeline (factorized Reynolds +
+    generator-BFS + hop-restricted reduced SDP) is validated end-to-end at (3,6).
+  * WHY cand 44 is not yet solved: at hop<=2 the (3,11) basis is nz = 17986 (vs full
+    27226). The current assembly enumerates all nz^2 index pairs (BFS + coefficient
+    matching) and forms dense constraint matrices (nk x norb) -- ~3.2e8 pairs and a
+    multi-GB constraint matrix, which does not fit. The remaining piece is a
+    GROUP-SUM assembly: compute each orbit's coefficient contribution as the Reynolds
+    of the single monomial product B_{P0} B_{Q0} (840 elements) instead of
+    enumerating orbit members, and keep the constraint map sparse. That replaces the
+    O(nz^2) enumeration with O(norb * 840 * small) and is the one component between
+    here and a numerical cand-44 delta.
+
+Then RIGORIZE per repo discipline: round the dual to rational and verify
+f - delta = B^T Q B + mu(||c||^2 - 1) as an EXACT polynomial identity with each
+reduced block exactly PSD (block-diagonal => exact LDL is cheap). That exact identity
+is the theorem and a false-positive-proof gate independent of any reduction-code bug.
+Method proven (G1 + G2), primitives validated; the group-sum assembly + rational
+endgame remain.
 
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
