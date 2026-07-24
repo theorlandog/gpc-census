@@ -648,3 +648,38 @@ same-local-face-type comparison across DISTINCT vertices using the
 published WDGC vertex list, and LU-orbit dimension counts to convert
 "continuum of invariant values" into an exact reduced-fiber dimension.
 This is the transfer paper's opening result.
+
+## TRANSFER PART 2: independent exact validation -- the tangent table
+(reviewer's request, executed 2026-07; claim language softened per review)
+
+CLAIM (softened, adopted): a positive-dimensional reduced fiber is
+observed in an independent family of nonabelian moment polytopes, now
+supported by TWO independent methodologies (optimization sampling +
+exact symbolic tangent analysis). "The Incompleteness phenomenon
+transfers" is retired until the cross-vertex comparison completes.
+
+THE EXACT TABLE (sympy, rational amplitudes, exact ranks):
+  state     ker(Dmu)  LU-orbit dim  stabilizer dim  1st-order moduli
+  GHZ4         22          10             6               12
+  cluster      21          11             5               10
+  EPRxEPR      25           7             9               18
+
+REGISTERED PREDICTION SCORED: "EPRxEPR is rigid (moduli 0), explaining
+its absence from sampling" -- **FAIL**. EPRxEPR shows the LARGEST
+first-order moduli. Standing caveat applies with force: this is the
+Slater-pattern signature from the GPC program (a maximally singular
+point whose first-order kernel is dominated by the obstructed cone), so
+the 18 is an upper bound carrying no lower-bound information; the
+absence-from-sampling mechanism remains open (obstructed excess vs
+boundary stratum vs basin geometry). Obstruction analysis at EPRxEPR =
+the designated next exact computation.
+
+THE UNAMBIGUOUS RESULT (no caveats attach): the three named states have
+THREE DISTINCT EXACT LU-STABILIZER DIMENSIONS (6, 5, 9). Stabilizer
+dimension is a clean invariant; therefore the reduced fiber over the
+four-qubit top vertex contains AT LEAST THREE DISTINCT ORBIT-TYPE
+STRATA -- exact, symbolic, methodology-independent stratification of a
+fiber in the transfer family. Together with the sampled continuum
+(P-ENT-2) this gives the transfer paper its two-evidence-line core:
+positive dimensionality (sampling + moduli upper bounds agree) and
+stratification (exact stabilizer census).
