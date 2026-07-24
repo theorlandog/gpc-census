@@ -717,3 +717,27 @@ OPEN: the internal stratification geometry (obstruction analysis at
   EPRxEPR and at Horn corners = the designated next exact step);
   cross-vertex same-face-type comparisons; anything called a
   "principle."
+
+## THE FIBER-STEERING TRANSITION: piloted (2026-07) -- the physics
+frontier's opening result
+
+Model: H(lambda) = H_parent(wall) + lambda * i n-weighted (a4+ a8 - h.c.)
+(T-odd 2-body). Swept lambda in [0, 0.8], dense diagonalization.
+RESULT (pilot grade; parent is the SCS solution, residual ~1e-2 = the
+noise floor below): the ground state moves ALONG the fiber's phase
+direction at rate d(arg gamma_48)/d lambda ~ 1.26 -- while the 1-RDM
+diagonal, the 1-RDM spectrum, |gamma_48|, and all pair occupations
+remain at the noise floor, support leakage ~1e-4, and the gap stays
+open (1.15 -> 0.72). First mis-specified blindness metric corrected
+in-session: pure phase motion freezes ALL occupations (1- and 2-body
+diagonal); the correct order parameter is the coherence phase /
+T-odd 2-RDM components (exactly the quantities shown earlier to
+separate conjugate sheets).
+STATEMENT (softened, model-system only): a tunable T-breaking 2-body
+coupling steers a gapped ground state through a quantum-marginal fiber
+-- a ground-state transition invisible to every occupation observable,
+with the geometric phase as its order parameter. Physics-letter seed;
+requires: exactified parent, adiabatic-path analysis, Berry-phase
+accumulation along the steering path, and honest scoping (no materials
+claims). Queue: after papers 1-2 per roadmap; feeds the Schilling-
+facing RDMFT thread (what pinning does and does not determine).
