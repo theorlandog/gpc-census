@@ -667,6 +667,48 @@ is the theorem and a false-positive-proof gate independent of any reduction-code
 Method proven (G1 + G2), primitives validated; the group-sum assembly + rational
 endgame remain.
 
+## RANK-11 CERTIFICATE PATH: the wall is block-diagonalization, not assembly;
+165-dim reduction gives a 58-block problem (2026-07)
+
+Re-attacked cand 44 in a fresh session (SCS + Clarabel reinstalled locally via
+`uv pip`, uncommitted, since a `uv sync --locked` had removed the prior instance's
+install). Reconfirmed the gates: sos_nonattain.py G1 passes (EXTER (3,6) delta
+0.00416, CONTROL ~1.5e-6, (2,4) exact 0.04); sos_symmetry_scaled.py --test36
+reproduces the (3,6) reduced delta ~0.0882 on both the orbit and direct paths.
+
+DIAGNOSIS (corrects the earlier "one bottleneck is the assembly" reading). The
+wall is scripts/sos_symmetry_scaled.py's block_diagonalize itself, which does an
+nz x nz Reynolds average + eigendecomposition on the charge-0 basis: O(nz^2 |G|) +
+O(nz^3). MEASURED at nz = 4126 (cand 44, hop<=1): one reynolds_factorized 199 s,
+one eigh 41 s, so block_diagonalize alone did not finish in 500 s; projected to
+nz = 17986 (hop<=2) that is ~3 h, before any assembly. A gather-instead-of-scatter
+rewrite of the Reynolds does NOT help (231 s vs 199 s; the cost is memory bandwidth
+over the 840 group elements on nz^2 arrays, not the scatter). So the committed
+reduced solver cannot reach cand 44 by more compute alone.
+
+THE FIX (built + validated, scripts/sos_reduce_165.py). Do the whole block-
+structure computation in the 165-dim DETERMINANT rep, where the symmetry lives,
+not on the nz = 27226 charge-0 basis. Two results, both ~2 s and both matching the
+Burnside counts above:
+  * decompose_V(): V = C(11,3) signed rep under S5 x S6 = 9 irreps
+    (dim,mult) [(4,1),(4,1),(5,1),(6,2),(10,1),(10,2),(20,2),(30,1),(40,1)];
+    sum m_mu = 12, dim End_G(V) = 18. Via a 165 x 165 factorized Reynolds.
+  * block_sizes(): the exact PSD block sizes = mult of each S5 x S6 irrep in
+    Herm(V) = V (x) Vbar, from exact Murnaghan-Nakayama characters. RESULT: 58
+    nonzero blocks, sum mult_nu^2 = 28884, and the LARGEST BLOCK IS 58 (the earlier
+    "<= ~170" was a loose bound; the true max is 58). So the un-reduced side-27226
+    SDP reduces to 58 PSD blocks of side <= 58 -- trivially solvable in seconds
+    once assembled.
+
+STATUS. Foundation done and committed. REMAINING for a numerical delta: the
+Clebsch-Gordan assembly -- build the symmetry-adapted basis of V (x) Vbar
+(combine V's irrep vectors into the 58 nu-blocks) and map f's ~65k monomial-
+coefficient constraints onto the block entries; then solve. THEN the exact
+rational endgame (round the dual, verify f - delta = B^T Q B + mu(||c||^2-1) as an
+exact identity with each small block exactly PSD, ship a standalone checker) -- the
+theorem-grade deliverable. A brute nz x nz hop<=2 run was also launched as a slow
+fallback (~3 h), independent of the reduction.
+
 ## SOLVER UPGRADES: moduli/symmetry-informed search (2026-07)
 
 Four of the five corpus-mined solver upgrades implemented. All are exact
