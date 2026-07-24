@@ -1,6 +1,29 @@
 # PAPER: "Quantum Stratifications and Equivariant Exposedness of
 # Moment-Map Fibers" -- axiomatization skeleton (2026-07)
 
+INVERSION DIRECTIVE (final review round, adopted): the paper must be
+readable almost without knowing what a generalized Pauli constraint is.
+Structure: "here are four natural objects associated with inverse images
+of moment maps" -- reduced fibers, quantum stratification, equivariant
+exposedness, symmetry-resolved gap functions -- developed abstractly
+with the classical existence machinery (Hardt, Tarski-Seidenberg) doing
+the foundation work; THEN "the generalized Pauli setting provides the
+motivating example and first complete computation." Mathematics primary,
+census illustrative. Sections 1-5 below to be redrafted in that order:
+objects and definitions first (currently Sections 2 and 4), setting and
+worked example second (currently Sections 1 and 3), interaction agenda
+last. Layer IV items are presented as THE RESEARCH AGENDA, never as
+expected truths, until proved or demonstrated in an independent family.
+
+OFFICIAL PAPER ROADMAP (adopted from review, in order):
+  1. Rank-10 census (finished reference work; in final assembly).
+  2. Definitions/framework paper (this skeleton).
+  3. Local fiber geometry paper (PROVED results only).
+  4. Transfer paper (one genuinely different moment polytope --
+     the four-qubit entanglement polytope).
+2-RDM exceptional-locus and Hamiltonian-design expansions come only
+after these four.
+
 PURPOSE (per external review): define the objects independently of the
 GPC census; state precisely what is proved, by what kind of proof, and
 what is conjectured. Minimal computation -- the census appears only as
