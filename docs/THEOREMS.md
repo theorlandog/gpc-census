@@ -395,3 +395,45 @@ solvers are used on pairing models (Hubbard-class) relevant to
 superconductivity THEORY; better instruments for model studies is the
 entire claim, several removes from any material. Anything stronger is
 marketing.
+
+## T8 — THE FIBER-ANSATZ PILOT: first empirical test of "inverse geometry
+as a computational tool" (2026-07), with a methodological confession
+
+The reviewer's decomposition (optimize over occupation variables + fiber
+variables instead of CI coefficients) is testable, and was tested at
+v_B: E_fiber(min over the family) vs E_exact (dense diagonalization,
+126-dim) for H = dd + exchange - w * (one-body field aligned with v_B
+occupations), sweeping w.
+
+CONFESSION FIRST: the pilot script printed a pre-written interpretation
+("gap -> 0 as pinning strengthens") beneath the table before the numbers
+existed; the numbers refuted it in the same output. Narrative-before-
+data is the exact failure mode this repository polices, committed by its
+own police. Logged.
+
+THE ACTUAL RESULT (more instructive than the predicted one):
+  w = 0.0: gap 0.093, fidelity 0.63  (pure 2-body: CLOSEST to the fiber)
+  w = 0.5..8.0: gap grows LINEARLY (0.34 -> 4.14), fidelity 0.00.
+MECHANISM: a linear one-body field pins toward SLATER corners (the field
+ground state is the top-occupation determinant |0123>), never toward a
+correlated vertex -- the deflation literature's core point, reproduced
+by our own instrument in six rows. One-body pinning ANTI-selects the
+fiber.
+
+CONSEQUENCES FOR THE COMPUTATIONAL-TOOL VISION (Level-0 calibration):
+1. The fiber ansatz is valid exactly where ground states are fiber-
+   adjacent, and that regime is NOT reachable by one-body engineering;
+   it requires interaction-dominated parent Hamiltonians.
+2. Therefore the gate question is PARENT-HAMILTONIAN CONSTRUCTION: for
+   which 2-body H is a given fiber (or wall state) the exact or near
+   ground state? Symmetry-protected pinning is the design candidate.
+   Until that exists, CI wins everywhere physical, and the honest claim
+   is the reviewer's own phrasing: whether the decomposition is ever
+   faster is an empirical question -- now with its first (negative,
+   mechanistic) data point.
+3. Positioning advice ADOPTED verbatim: this ships as "a geometric
+   framework for organizing many-body states with identical reduced
+   observables," never as a physics search. Levels: L1 (GPC invariant)
+   = Theorem A + the stratification, nearly done; L2 (nonabelian
+   invariant) = the four-qubit experiment; L3 (general inverse-image
+   framework) = Hardt + the ported machinery, aspirational and labeled.
