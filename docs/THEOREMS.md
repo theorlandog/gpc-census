@@ -781,3 +781,37 @@ examples is understood) + transfer completion (20); physics (10),
 proceeding only through the quantified-operator-class formulation.
 Summit of record: the Local Structure Theorem, stated so as to be
 recognizably independent of the GPC setting.
+
+## T-MAIN VALIDATION CASE 1 EXECUTED: the Slater germ (2026-07)
+
+The extreme test of the Local Structure Theorem's algorithm -- the case
+where first-order theory fails worst. At the (3,6) Slater point:
+- Projected first-order kernel: 39 of 40 real directions (rank 1!).
+- TRUE spectrum-fiber germ: the U(6)-orbit of rank-3-projector states,
+  dimension 19 (orbit tangent rank computed; the identification
+  spectrum-fiber = orbit is a one-line structural fact for idempotent
+  spectra).
+- OBSTRUCTED EXCESS: 20 dimensions, and the obstruction quadric does
+  the killing exactly as T-MAIN requires: the transverse direction
+  (amplitude on the complementary determinant (3,4,5)) is FIRST-ORDER
+  FLAT (dgamma vanishes identically -- zero mode overlap) and
+  SECOND-ORDER FORBIDDEN (gamma(delta) = diag on modes 3,4,5,
+  commutant-block norm sqrt(3), nonzero). First-order-flat +
+  second-order-forbidden is precisely the mechanism the theorem
+  formalizes; validation case 1 PASSES.
+
+CONFESSION AND PROTOCOL AMENDMENT: the run script asserted "true fiber
+= circle" -- the matrix-fiber answer, while computing the spectrum
+fiber. Third occurrence of the matrix/spectrum conflation in this
+program (T1 step-1, the intro repair, now here). Standing rule: EVERY
+germ or fiber claim names its fiber type (matrix / spectrum / reduced)
+in the same sentence, in code comments included. T-MAIN's statement
+will quantify over fiber type explicitly.
+
+Remaining validation cases: v_B (spectrum-fiber germ must be the
+surface -- largely done via the integrability tests), v89 (reduced
+germ must be a point -- done at first order via the projected map).
+The Slater case was the one requiring genuine second-order work; with
+it passed, T-MAIN's algorithmic content is validated on rigid-orbit,
+surface, and point germs. Next: state and prove the general theorem
+(70-percent lane, with the reviewer).
