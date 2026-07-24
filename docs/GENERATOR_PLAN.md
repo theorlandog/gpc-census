@@ -90,3 +90,40 @@ with pre-registered rank-11 predictions. The representation-theoretic
 generator (branching-rule origin of the mechanism classes) is the long
 game, feeding on the Murnaghan-Nakayama infrastructure already built
 for the SOS work.
+
+
+## PERIODIC-TABLE PROGRAM: steps 1, 2-lite, 4-increment EXECUTED (2026-07)
+
+Step 1 DONE: results/data/feature_table.csv v2 -- all 799 vertices with
+class, denominator, support size, exact kernel dim, one-hop class count,
+silent-channel count, max class size, reality, and descent status.
+
+FIRST DISCOVERY (step 2's opening cross-tab): THE TWO CLOSURE HOLDOUTS
+ARE THE CENSUS'S ONLY SILENT-CHANNELED STATES. Census-wide silent-channel
+distribution: 797 states with zero silent channels; exactly two with any
+-- v89 (one silent class) and v103 (five). The vertices that resisted
+every search for weeks are precisely the only two requiring
+silent-channel realizations, which the block/clique ansatz family
+(nonzero targets assumed) was structurally incapable of expressing. The
+residual WAS the silent-channel class: the census's hardest empirical
+mystery now has a one-line taxonomic answer, produced by the feature
+table on its first query.
+
+Other cross-tabs: kernel dim is a perfect one-way indicator in-corpus
+(every kdim > 0 shipped state is INTERFERENCE, 63/63; designs all kdim 0
+by Theorem B; caveat -- shipped-state features, not proven vertex
+invariants, for the interference side). 
+
+Step 4 increment -- GRAMMAR AFTER THREE RULES: adding Hodge pairing
+WITHIN the irreducibles (self-dual systems: 110 paired + 8 self-dual):
+799 vertices -> 403 descent-irreducibles -> 348 Hodge-orbit generators
+(56 percent total compression from three exact rules). The compression
+question now reads: can ~350 generators collapse under mechanism rules?
+Next: cluster the 348 on the v2 features (rig; steps 2/3 full), then
+per-cluster construction-rule inference with pre-registered rank-11
+predictions. Step 5 (statistical quantum-stratification test) needs the
+per-vertex excess/simplicity data from the full_hrep session -- rig.
+Agreed with the reviewer that this program outranks pushing to rank 11
+-- with one amendment: the cand-44 SOS certificate is 90 percent built
+and settles a published question; finish it, then all frontier effort
+goes here.
