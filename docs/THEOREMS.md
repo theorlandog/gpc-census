@@ -613,3 +613,38 @@ objects -- quantum stratification, equivariant exposedness, g_G -- are
 now formulated independently of the computations that discovered them.
 That is the definition of the transition from computational project to
 mathematical theory, and the standard the remaining work is held to.
+
+## TRANSFER EXPERIMENT PART 1 EXECUTED: the four-qubit top vertex
+carries a stratified positive-dimensional reduced fiber (2026-07)
+
+Setup: the 2x2x2x2 entanglement polytope's top vertex (1/2,1/2,1/2,1/2)
+-- the all-marginals-maximally-mixed point, over which GHZ4, the cluster
+state, and all three EPRxEPR pairings sit simultaneously (verified:
+objective exactly 0 for all three constructions). Sixty random-start
+fiber samples with analytic-gradient descent (the 3-qubit pilot's
+stalling fixed). Pre-registered predictions scored:
+
+P-ENT-1 PASS -- 60/60 samples converge to the fiber (residual < 1e-18).
+P-ENT-2 PASS -- the LU invariant Tr(rho_12^2) varies CONTINUOUSLY across
+  samples: range [0.2806, 0.5287], largest gap in 60 sorted values
+  0.026. The reduced fiber is POSITIVE-DIMENSIONAL with continuously
+  varying two-body structure -- the 3-qubit collapse does NOT persist.
+P-ENT-3 PARTIAL -- special values 1/2 (GHZ/cluster) and ~1/4 approached
+  (0.006, 0.031); purity 1 (EPRxEPR) NOT reached by random sampling
+  (nearest 0.53) although EPRxEPR is verified IN the fiber by
+  construction. Mechanism identified and familiar: interior-biased
+  sampling misses extreme strata -- the same lesson as generator
+  gate-1, now appearing INSIDE a fiber. Reading: the reduced fiber is
+  STRATIFIED, with a sampled continuum stratum and a verified isolated
+  (or boundary) EPRxEPR stratum the random walk cannot reach.
+
+VERDICT: the quantum stratification is NONTRIVIAL on an independent
+nonabelian family. One vertex of the four-qubit entanglement polytope
+carries a positive-dimensional, multiply-stratified reduced fiber --
+maximal contrast with both negative controls (GT toric; 3-qubit
+collapse). The Incompleteness phenomenon is NOT peculiar to fermionic
+occupation polytopes. Remaining for the full test (rig): the
+same-local-face-type comparison across DISTINCT vertices using the
+published WDGC vertex list, and LU-orbit dimension counts to convert
+"continuum of invariant values" into an exact reduced-fiber dimension.
+This is the transfer paper's opening result.
