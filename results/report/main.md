@@ -199,19 +199,17 @@ _Resources._ Instruments (i)--(iii) run at $(3,d)$ for $d \le 20$ on a single wo
 
 # The census at ranks 9 and 10 {#sec:census910}
 
-polytope $\dim$ vertices constraints design (int) design (real) interference
-
----
-
-$\Pi_{3,6}$ 3 4 $1{+}3$eq all design (doubly-excited regime [@MT17])  
-$\Pi_{3,7}$ 6 10 4 all design (doubly-excited regime [@MT17])  
-$\Pi_{3,8}$ 7 38 31 26 1 11
-$\Pi_{4,8}$ 7 22 15 22 0 0
-$\Pi_{3,9}$ 8 58 52 37 1 20
-$\Pi_{4,9}$ 8 103 60 85 2 16
-$\Pi_{3,10}$ 9 113 93 69 2 42
-$\Pi_{4,10}$ 9 159 125 132 2 25
-$\Pi_{5,10}$ 9 292 161 246 4 42
+| polytope | $\dim$ | vertices | constraints | design (int) | design (real) | interference |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\Pi_{3,6}$ | 3 | 4 | $1{+}3$eq | all design (doubly-excited regime [@MT17]) | | |
+| $\Pi_{3,7}$ | 6 | 10 | 4 | all design (doubly-excited regime [@MT17]) | | |
+| $\Pi_{3,8}$ | 7 | 38 | 31 | 26 | 1 | 11 |
+| $\Pi_{4,8}$ | 7 | 22 | 15 | 22 | 0 | 0 |
+| $\Pi_{3,9}$ | 8 | 58 | 52 | 37 | 1 | 20 |
+| $\Pi_{4,9}$ | 8 | 103 | 60 | 85 | 2 | 16 |
+| $\Pi_{3,10}$ | 9 | 113 | 93 | 69 | 2 | 42 |
+| $\Pi_{4,10}$ | 9 | 159 | 125 | 132 | 2 | 25 |
+| $\Pi_{5,10}$ | 9 | 292 | 161 | 246 | 4 | 42 |
 
 : Every determinate fermionic moment polytope, with the design/interference census. Ranks $\le 8$ are rigorously complete; the rank-$10$ constraint lists are conjecturally complete as in Ref. [@AK2008], and all rank-$10$ rows are conditional on them. Verdicts transport under particle--hole duality, extending the classification to all $(N,d)$ with $d\le 10$. For $\Pi_{4,8}$ (half filling) the particle--hole involution maps vertex and facet sets to themselves; by uniqueness of the canonical form, $\Omega$ is exactly PH-invariant. Interference is absent at rank $8$ in the $N{=}4$ series and first appears at rank $9$---the system of this paper. The $16$ interference vertices of $\wedge^4\mathcal{H}_9$ (integer forms at natural denominator): $(12{,}9{,}5{,}5{,}5{,}3{,}3{,}3{,}3)$, $(10{,}7{,}7{,}4{,}4{,}4{,}2{,}1{,}1)$, $(10{,}7{,}5{,}5{,}5{,}2{,}2{,}2{,}2)$, $(9{,}6{,}6{,}4{,}4{,}4{,}1{,}1{,}1)$, $(18{,}12{,}12{,}7{,}7{,}4{,}4{,}4{,}4)$, $(9{,}6{,}5{,}5{,}5{,}2{,}2{,}1{,}1)$, $(15{,}9{,}8{,}8{,}8{,}3{,}3{,}3{,}3)$, $(7{,}4{,}4{,}4{,}4{,}2{,}1{,}1{,}1)$, $(16{,}9{,}9{,}9{,}9{,}4{,}4{,}2{,}2)$, $(18{,}10{,}10{,}10{,}10{,}4{,}4{,}3{,}3)$, $(28{,}15{,}15{,}15{,}15{,}6{,}6{,}6{,}6)$, $(20{,}12{,}12{,}12{,}12{,}4{,}4{,}4{,}4)$, $(14{,}11{,}11{,}6{,}6{,}6{,}2{,}2{,}2)$, $(14{,}9{,}9{,}9{,}9{,}3{,}3{,}2{,}2)$, $(11{,}8{,}7{,}7{,}7{,}2{,}2{,}2{,}2)$, and $v_B=(20{,}14{,}14{,}14{,}14{,}4{,}4{,}4{,}4)$. Real-not-integer vertices: $(6{,}3{,}3{,}3{,}3{,}3{,}1{,}1{,}1)$ and $(10{,}10{,}10{,}7{,}7{,}2{,}2{,}2{,}2)$. Full lists, verdicts, and validation code accompany the data bundle. {#tbl:census}
 
