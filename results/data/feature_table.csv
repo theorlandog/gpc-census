@@ -105,7 +105,7 @@ system,index,class,denominator,support_size,kernel_dim,onehop_classes,silent_cla
 "(3,10)",103,INTERFERENCE,34,14,5,5,5,4,1,NEW
 "(3,10)",104,DESIGN-INT,2,2,0,0,0,0,1,pad0
 "(3,10)",105,DESIGN-INT,4,4,0,0,0,0,1,pad0
-"(3,10)",106,DESIGN-REAL,6,6,0,2,0,1,1,pad0
+"(3,10)",106,DESIGN-REAL,6,6,0,0,0,0,1,pad0
 "(3,10)",107,DESIGN-INT,8,6,0,0,0,0,1,pad0
 "(3,10)",108,INTERFERENCE,10,8,1,1,0,2,0,NEW
 "(3,10)",109,DESIGN-INT,7,5,0,0,0,0,1,pad0
@@ -217,7 +217,7 @@ system,index,class,denominator,support_size,kernel_dim,onehop_classes,silent_cla
 "(3,9)",50,INTERFERENCE,28,7,0,1,0,1,1,pad0
 "(3,9)",51,DESIGN-INT,2,2,0,0,0,0,1,pad0
 "(3,9)",52,DESIGN-INT,4,4,0,0,0,0,1,pad0
-"(3,9)",53,DESIGN-REAL,6,6,0,2,0,1,1,pad0
+"(3,9)",53,DESIGN-REAL,6,6,0,0,0,0,1,pad0
 "(3,9)",54,DESIGN-INT,8,6,0,0,0,0,1,NEW
 "(3,9)",55,DESIGN-INT,7,5,0,0,0,0,1,pad0
 "(3,9)",56,DESIGN-INT,8,8,0,0,0,0,1,pad0
@@ -275,7 +275,7 @@ system,index,class,denominator,support_size,kernel_dim,onehop_classes,silent_cla
 "(4,10)",50,INTERFERENCE,28,7,0,1,0,1,1,pad0
 "(4,10)",51,DESIGN-INT,2,2,0,0,0,0,1,pad0
 "(4,10)",52,DESIGN-INT,4,4,0,0,0,0,1,pad0
-"(4,10)",53,DESIGN-REAL,6,6,0,2,0,1,1,pad0
+"(4,10)",53,DESIGN-REAL,6,6,0,0,0,0,1,pad0
 "(4,10)",54,DESIGN-INT,8,6,0,0,0,0,1,lift1
 "(4,10)",55,DESIGN-INT,7,5,0,0,0,0,1,pad0
 "(4,10)",56,DESIGN-INT,8,8,0,0,0,0,1,pad0

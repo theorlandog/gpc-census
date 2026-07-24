@@ -22,8 +22,15 @@ by exact characteristic-polynomial identity where the closed form is recognized
 recognized) or FAIL (outside the current ansatz family). Each record carries the
 classification verdict, so the dataset cross-checks census_master.csv.
 
-This file is PARTIAL and resumable: it currently covers (3,9) and (4,9), still in
-progress on the slow k>=3 interference vertices; scripts/solve_all.py skips
-already-recorded (system, index) pairs, so rerunning resumes and extends it to
-(3,10), (4,10), (5,10). Regenerated fresh it is deterministic up to the
-interference phase gauge, which does not affect the certified spectrum.
+This file is COMPLETE: all 799 vertices of the nine determinate systems
+(ranks 6 to 10) carry a certified closed-form extremal state. Regenerated fresh
+it is deterministic up to the interference phase gauge, which does not affect
+the certified spectrum.
+
+Correction (v0.11): three DESIGN-REAL records, (3,9) index 53, (3,10) index 106,
+and (4,10) index 53, shipped valid extremal states on one-hop-connected supports
+rather than genuine design witnesses. They were replaced by design witnesses
+transported (padding / frozen-core lift) from the (3,8) parent design at
+denominator 12, each verified by the exact characteristic-polynomial identity;
+their feature_table.csv rows (one-hop-class and max-class-size counts) were
+regenerated to match.
