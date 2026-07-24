@@ -201,3 +201,127 @@ commutant-diagonal stratum -- and since gamma is exactly quadratic, the
 MGS normal form TERMINATES: the obstruction analysis is exact, with the
 obstruction quadric equal to gamma(delta) plus degenerate-PT feedback.
 This is the theorem's worked example, ready.
+
+## T6 — THE GENERALIZATION QUESTION: fiber geometry vs face combinatorics
+(response to the reviewer's "inverse-geometry principle", 2026-07)
+
+Their bold statement -- "the combinatorics of a moment polytope are
+encoded in the geometry of its moment-map fibers" -- splits cleanly on
+the abelian/nonabelian line, and the census decides the nonabelian half:
+
+1. ABELIAN (toric) CASE: the principle is a CLASSICAL THEOREM (Delzant).
+   Fibers are tori; dimension drop equals face codimension; face lattice
+   and fiber degeneration determine each other exactly. Gelfand-Tsetlin
+   is (via its toric degeneration) in this regime -- so testing there
+   would confirm trivially, not discriminate. GT is the NEGATIVE CONTROL,
+   not the test.
+2. NONABELIAN (our case): the naive equivalence is FALSE BY EXHIBIT.
+   The census contains 183 simple vertices -- combinatorially the same
+   local face structure -- splitting as 128+ simple DESIGN vertices
+   (rigid fibers) and 51 simple INTERFERENCE vertices (including the
+   deforming families). Same local combinatorics, radically different
+   fiber geometry. Arithmetic agrees: the den = normal-cone-index law
+   holds 51/51 at simple interference and fails at 68 of the simple
+   designs -- quantities split along the STATE class, not the face class.
+   Conclusion: the face lattice does NOT determine the fibers.
+3. THE CORRECT (evidence-backed) STATEMENT is the refinement, running
+   the other way: fiber invariants define a stratification of the
+   Kirwan polytope STRICTLY FINER than the face lattice -- a "quantum
+   stratification" (design/interference, rigidity, silent channels,
+   fiber dimension) invisible to convex geometry -- with partial forward
+   control (fiber dim 2 forces simple-or-excess-1, 15/15). Fibers know
+   the faces AND MORE; faces cannot recover the fibers.
+4. THE DISCRIMINATING EXPERIMENT (replacing their GT proposal): port the
+   fiber census to a genuinely nonabelian, independently-understood
+   moment polytope -- the natural candidate is a small ENTANGLEMENT
+   POLYTOPE (Walter-Doran-Gross-Christandl), where vertices classify
+   entanglement types. If the refinement phenomenon recurs (same face,
+   different fiber classes), the quantum stratification is a general
+   feature of nonabelian moment maps and the method is a general
+   instrument. GT alongside as control, where the refinement must
+   collapse to the toric equivalence.
+5. Adopted claim (their phrasing, endorsed): the complete GPC census is
+   a uniquely well-characterized testbed for fiber-based methods on
+   moment polytopes. No stronger claim until the entanglement-polytope
+   experiment reports.
+
+## T6 PROOF PROGRAM (how the quantum stratification becomes theorems)
+
+THEOREM A (strictly-finer; exhibit + definitions): design/interference
+are vertex-level certified invariants; simple vertices have pairwise
+combinatorially isomorphic vertex figures (simplicial normal cones); the
+183-simple census supplies same-system design/interference pairs. Hence
+the classification does not factor through the local face lattice.
+Status: WRITING TASK (days). Requires: pin the definitions, name one
+certified pair, cite both certificates.
+
+THEOREM B (design rigidity) -- FINITE PART PROVED THIS SESSION:
+Reduction: a design support has no one-hop pairs, so all phases are
+gauge and the only candidate deformations are incidence-kernel weight
+shifts, which preserve every mode sum and hence gamma itself -- giving a
+continuum of designs iff the kernel is nonzero. VERIFIED EXACTLY: all
+643 certified design supports have kernel dimension ZERO (rational rank,
+corpus-wide). Therefore every certified design state is rigid within its
+support, by proof. Remaining open sliver: whether design supports are
+kernel-free NECESSARILY (a design vertex with a loopy design support
+would carry a design continuum -- not excluded abstractly; in-corpus it
+never occurs). Either resolution is publishable.
+
+THEOREM C (fiber-dim 2 => excess <= 1; 15/15 observed): corollary of the
+capstone -- the MGS slice representation's weight count bounds fiber
+dimension against active walls. Priced into T-MAIN, not separate.
+
+T-MAIN (the capstone, with the reviewer): the Local Structure Theorem in
+algorithmic form. Because gamma is EXACTLY quadratic, mu(psi + delta) =
+mu(psi) + d mu(delta) + mu(delta) with no remainder, so the reduced
+fiber germ at any certified state is the solution set of an explicit
+quadratic system computable from (support, weights, classes) -- the
+theorem is an algorithm plus a correctness proof in the MGS frame. The
+v_B surface, the silent-channel rigidity, and the conic families are its
+first three worked corollaries, already computed.
+
+TRANSFER PREREQUISITE: the portable (category-free) definitions --
+e.g. "design" as: the fiber meets the toric stratum (states whose
+moment image already lies in the Cartan). Needed before the
+entanglement-polytope experiment can be stated cleanly.
+
+Division of labor: A + B-sliver + algorithm implementation = us/rig;
+MGS formalism = the reviewer's frame; finite verifications = CI.
+
+## T6 FINALIZED: the Incompleteness Principle, the rigorous definition,
+and the transfer experiment's pilot (2026-07)
+
+ADOPTED (reviewer's formulation, verbatim):
+  CONJECTURE (Combinatorial Incompleteness of Nonabelian Moment
+  Polytopes). For generic nonabelian moment polytopes, the face lattice
+  is not a complete invariant of the geometry of the associated reduced
+  fibers. Consequently there exists a strictly finer stratification of
+  the polytope by reduced-fiber type.
+Sharpened headline sentence (adopted): THE FACE LATTICE IS NOT A
+COMPLETE INVARIANT OF THE UNDERLYING QUANTUM GEOMETRY. The GPC census is
+the first substantial evidence body (183 simple vertices, two fiber
+classes at one combinatorial type).
+
+RIGOROUS DEFINITION (reviewer's, adopted): a QUANTUM STRATIFICATION of a
+Kirwan polytope is a decomposition into strata whose points possess
+equivalent reduced-fiber geometry. Design/interference, rigidity, silent
+channels, and fiber dimension are REALIZATIONS of the invariant, not its
+definition. Theorem to record: the design/interference dichotomy refines
+the face stratification of the GPC polytopes (Theorem A's content).
+
+TRANSFER PILOT EXECUTED -- THREE QUBITS IS A SECOND NEGATIVE CONTROL:
+sampled the fiber over the entanglement polytope's top vertex
+(1/2,1/2,1/2); every convergent sample has 3-tangle = 1.000000 (GHZ
+LU-orbit; consistent with the known classification of locally maximally
+mixed 3-qubit pure states). All 3-qubit vertex fibers reduce to points:
+the quantum stratification COLLAPSES there -- the smallest entanglement
+polytope behaves torically at its vertices despite the nonabelian group.
+(Sample size small, backed by the known theorem; noted.)
+CONSEQUENCE FOR THE EXPERIMENT: negative controls are now GT (abelian)
+and 3 qubits (nonabelian-but-collapsed). The first LIVE test is the
+2x2x2x2 (four-qubit) or 2x3x3 entanglement polytope -- big enough for
+fiber classes to differ, small enough for the contraction-attack
+machinery to census. Rig session: port the local-spectra map to the
+multipartite setting (per-party marginal Gram, same Wirtinger gradient),
+enumerate the published vertex list, run the fiber-moduli test at every
+vertex, and score the Incompleteness Principle on independent ground.
