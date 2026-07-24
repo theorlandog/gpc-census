@@ -815,3 +815,42 @@ The Slater case was the one requiring genuine second-order work; with
 it passed, T-MAIN's algorithmic content is validated on rigid-orbit,
 surface, and point germs. Next: state and prove the general theorem
 (70-percent lane, with the reviewer).
+
+## THE SYMMETRY CONTROL: verdict, rule, and the surviving ledger (2026-07)
+
+VERDICT -- POSSIBILITY A, established twice: (1) two-line proof: for
+real-symmetric H, |g> is real and a T-odd drive makes |g1> purely
+imaginary, so first-order response vanishes for EVERY T-even
+observable; (2) control run: a generic gapped real-symmetric H with no
+fiber relation, same drive, gives fitted exponents T-even ~ lam^2.00,
+T-odd ~ lam^1.00 -- identical hierarchy. The steering response orders
+are STANDARD SYMMETRY PHYSICS. Per review: cite and move on; the
+physics letter reframes accordingly -- response orders cited as
+classical, with the fiber contribution being WHERE the trajectory goes
+(along a certified inverse-image fiber, densities pinned at vertex
+values, gap open), not HOW the operator classes scale.
+
+STANDING CONTROL RULE (adopted, protocol-grade): every proposed "fiber
+effect" ships with an explicit control answering: can this be derived
+from symmetry, perturbation theory, or standard moment-map geometry?
+Yes -> cite and move on. No -> isolated novelty.
+
+THE SURVIVING LEDGER (what passes the rule as of today):
+- Equivariant exposedness dichotomy: which fiber states can be unique
+  gapped grounds under which symmetry class -- a convex-geometry
+  statement about supporting hyperplanes, not response theory.
+- Parent-Hamiltonian existence at a correlated (interference) vertex:
+  exposedness of a specific (gamma1, gamma2) -- geometry.
+- Quasi-fiber stability (valley persistence off-vertex): a property of
+  the moment map's local structure -- geometry.
+- Fiber holonomy values and the conic models -- geometry.
+- The quantum stratification and its transfer (three families) --
+  geometry.
+KILLED BY THE RULE: "the response hierarchy" as novel physics. The
+division of labor (reviewer's): symmetry-dictated response = classical
+and cited; fiber-constrained content = trajectory location,
+realizability by symmetry class, adiabatic confinement to an
+inverse-image component. Open fiber-genuine question promoted: does
+the adiabatic path REMAIN within the fiber component to all orders, or
+only perturbatively near it -- a confinement question that symmetry
+does not answer.
