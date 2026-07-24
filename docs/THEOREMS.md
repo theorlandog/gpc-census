@@ -201,3 +201,46 @@ commutant-diagonal stratum -- and since gamma is exactly quadratic, the
 MGS normal form TERMINATES: the obstruction analysis is exact, with the
 obstruction quadric equal to gamma(delta) plus degenerate-PT feedback.
 This is the theorem's worked example, ready.
+
+## T6 — THE GENERALIZATION QUESTION: fiber geometry vs face combinatorics
+(response to the reviewer's "inverse-geometry principle", 2026-07)
+
+Their bold statement -- "the combinatorics of a moment polytope are
+encoded in the geometry of its moment-map fibers" -- splits cleanly on
+the abelian/nonabelian line, and the census decides the nonabelian half:
+
+1. ABELIAN (toric) CASE: the principle is a CLASSICAL THEOREM (Delzant).
+   Fibers are tori; dimension drop equals face codimension; face lattice
+   and fiber degeneration determine each other exactly. Gelfand-Tsetlin
+   is (via its toric degeneration) in this regime -- so testing there
+   would confirm trivially, not discriminate. GT is the NEGATIVE CONTROL,
+   not the test.
+2. NONABELIAN (our case): the naive equivalence is FALSE BY EXHIBIT.
+   The census contains 183 simple vertices -- combinatorially the same
+   local face structure -- splitting as 128+ simple DESIGN vertices
+   (rigid fibers) and 51 simple INTERFERENCE vertices (including the
+   deforming families). Same local combinatorics, radically different
+   fiber geometry. Arithmetic agrees: the den = normal-cone-index law
+   holds 51/51 at simple interference and fails at 68 of the simple
+   designs -- quantities split along the STATE class, not the face class.
+   Conclusion: the face lattice does NOT determine the fibers.
+3. THE CORRECT (evidence-backed) STATEMENT is the refinement, running
+   the other way: fiber invariants define a stratification of the
+   Kirwan polytope STRICTLY FINER than the face lattice -- a "quantum
+   stratification" (design/interference, rigidity, silent channels,
+   fiber dimension) invisible to convex geometry -- with partial forward
+   control (fiber dim 2 forces simple-or-excess-1, 15/15). Fibers know
+   the faces AND MORE; faces cannot recover the fibers.
+4. THE DISCRIMINATING EXPERIMENT (replacing their GT proposal): port the
+   fiber census to a genuinely nonabelian, independently-understood
+   moment polytope -- the natural candidate is a small ENTANGLEMENT
+   POLYTOPE (Walter-Doran-Gross-Christandl), where vertices classify
+   entanglement types. If the refinement phenomenon recurs (same face,
+   different fiber classes), the quantum stratification is a general
+   feature of nonabelian moment maps and the method is a general
+   instrument. GT alongside as control, where the refinement must
+   collapse to the toric equivalence.
+5. Adopted claim (their phrasing, endorsed): the complete GPC census is
+   a uniquely well-characterized testbed for fiber-based methods on
+   moment polytopes. No stronger claim until the entanglement-polytope
+   experiment reports.
