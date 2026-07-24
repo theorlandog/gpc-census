@@ -196,7 +196,9 @@ frontier vertices carry fibers too (2026-07)
    geometric phase. Caveats: defined mod one-body gauge windings (the
    mod-2pi value is the invariant); "adiabatic cycling" presupposes a
    Hamiltonian path tracking the fiber -- the selection-transition
-   coupling circle is the natural candidate driver, unverified.
+   coupling circle is the natural candidate driver, now VERIFIED as a
+   gapped two-body adiabatic protocol (see "v_B fiber anholonomy: the
+   Hamiltonian driver is VERIFIED" below).
 2. THE CORRELATION DIAL: mutual information I(2:4) between modes varies
    by a factor ~2000 along the fiber -- 6e-5 bits at the t=0 rational
    point (modes essentially uncorrelated; n24 within 0.2% of n2*n4) to
@@ -2690,6 +2692,74 @@ both active facets. A correct continuous form would project each facet
 coefficient vector into the blocks and characterise the invariant
 subspaces; that is open. This is a lemma about the method and belongs in
 the states paper.
+
+## v_B fiber anholonomy: the Hamiltonian driver is VERIFIED (2026-07)
+
+Closes the RESEARCH.md caveat: "'adiabatic cycling' presupposes a Hamiltonian
+path tracking the fiber -- the selection-transition coupling circle is the
+natural candidate driver, unverified."
+
+### Results
+
+1. FIBER FOUNDATION (exact). verify_exact TRUE at rational t on BOTH branches
+   (t=0 +/-, t=1/2 +, t=-1/2 -). cos Theta(t) strictly monotone on the physical
+   interval [7/17 - 18 sqrt35/85, 7/17 + 18 sqrt35/85]; the fiber circle is a
+   smooth graph over Theta, walls strictly interior to positivity.
+
+2. GAMMA_B INDEPENDENTLY RECOMPUTED AND ITS CONVENTION PINNED. Discrete
+   Bargmann product and connection integral agree and converge:
+   D1-carrier lift (phase on (0,1,2,8), the ledger's own gauge):
+     gamma = -2.155468 rad = -0.686107 pi  -- matches the recorded -2.1555 to
+     all quoted digits. So "the loop determinant" in T2 is D1, k_L = 8 - t.
+   D0-carrier lift: gamma = -0.303170 rad = -0.096502 pi.
+   The "mod one-body gauge windings" caveat is now concrete: gauge-wound closed
+   lifts are DIFFERENT loops in the fiber with different holonomies; the
+   convention (carrier = D1) is part of the claim and must be stated.
+
+3. TRACKING (the coupling circle works, no basin jump). For
+   H(phi) = -(e^{i phi} n_2 a8+ a4 + h.c.), the constrained minimizer over the
+   fiber circle is GLOBALLY UNIQUE at every phi (zero competing local minima,
+   1441-point phi grid, 4096-point Theta grid), continuous (max step 0.011 rad),
+   winding number exactly -1. The first-order two-basin jump seen in the
+   real-coupling lambda-crossover does NOT occur on the phase circle.
+
+4. PARENT HAMILTONIAN EXISTS (strong form; adiabatic theorem applies).
+   For every phi there is an explicit number-conserving <=2-body Hamiltonian
+   (9 fields + 36 density-density + correlated 4<->8 hops + 20 pair-hop
+   channels connecting the support, real coefficients; the n_2-hop quadratures
+   pinned to (cos phi, sin phi)) whose EXACT eigenstate (LSQ residual ~1e-15)
+   and UNIQUE GAPPED GROUND STATE on the full 126-dim wedge^4 C^9 sector is the
+   tracked fiber state. Nearest-point continuation gives a SMOOTH family for
+   the D1-carrier loop: min gap 0.115 (coupling units g=1), max coefficient
+   step 0.122 per Delta phi = 2 pi/96. Uniqueness is global on the sector, so
+   nothing elsewhere in the (larger) full fiber competes.
+
+5. DRIVEN-LOOP GEOMETRIC PHASE = GAMMA_B. Berry (Bargmann) phase of the exact
+   ground-state loop: D1-carrier parent +0.685933 pi at 96 points (winding -1;
+   forward driving gives -0.6861 pi = gamma_B). D0-carrier parent: +0.0964 pi.
+   The recorded anholonomy is therefore realized by a concrete gapped two-body
+   adiabatic protocol -- specifically one transporting the D1-carrier loop.
+
+### Sharpened statement for the paper
+
+The anholonomy is a property of the DRIVEN LOOP'S LIFT CLASS, not of the fiber
+circle alone: physically distinct (gauge-wound) loops inside the fiber are
+ground-state paths of different, equally physical two-body parents, with
+different holonomies (-0.6861 pi vs -0.0965 pi demonstrated). gamma_B as
+recorded is the D1-carrier value; state the carrier in the claim.
+
+### Caveats
+
+- Stages B-F are float-precision numerics (stage A is exact sympy). The parent
+  coefficients are LSQ solutions; the eigenstate condition is linear with
+  algebraic data, so exact-arithmetic rationalization (census discipline:
+  numerics propose, exact algebra disposes) is a natural follow-up.
+- Winding/continuity are grid statements (96 and 1441 phi points); the
+  everywhere-single-well property makes hidden jumps implausible but unproven.
+- D0-carrier family is gapped but softer (min gap 0.052, one coeff step 4.4).
+
+Scripts: verify_driver.py (stages A-E), verify_parent2.py / verify_parent3.py
+(stage F). Run from a checkout with gpc-census importable.
 
 ## Source documents in docs/
 
