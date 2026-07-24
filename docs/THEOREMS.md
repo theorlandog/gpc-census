@@ -437,3 +437,45 @@ CONSEQUENCES FOR THE COMPUTATIONAL-TOOL VISION (Level-0 calibration):
    = Theorem A + the stratification, nearly done; L2 (nonabelian
    invariant) = the four-qubit experiment; L3 (general inverse-image
    framework) = Hardt + the ported machinery, aspirational and labeled.
+
+## T8-II — PARENT HAMILTONIAN CONSTRUCTED: the fiber-ansatz gate opens
+(2026-07)
+
+The reviewer's construction, corrected and executed. Corrections: (a)
+the frustration-free shortcut H = sum A^dag A over 2-body annihilators
+yields a 4-BODY parent -- the strictly-2-body question needs the SDP;
+(b) the naive feasibility SDP admits the trivial solution (the identity
+IS 2-body on a fixed-N sector: sum_{p<q} n_p n_q = C(N,2) I -- the first
+run dutifully returned H = I/126); the correct program maximizes the
+gap: max s s.t. H - <H>_psi I >= s (I - |psi><psi|).
+
+RESULT (target: the certified REAL WALL STATE of v_B, the selection
+principle's object): the SDP is feasible with OPTIMAL GAP s = 1.147 --
+an explicit strictly 2-body Hamiltonian (666 real symmetric pair-
+operator coefficients) whose UNIQUE gapped ground state is the wall
+state: |<gs|psi_wall>| = 0.99997, spectrum (-3.395, -2.248, ...), gap
+1.147 on a spectral scale of ~3.4. Pilot-grade caveats: SCS returned
+optimal_inaccurate (eigen-residual 2.7e-2); rig should re-solve tight +
+attempt rationalization/exact certification, same proposer/certifier
+pattern as everything else.
+
+CONSEQUENCES:
+1. T8's negative + this positive = the complete calibrated picture:
+   one-body fields CANNOT pin correlated vertices (measured), but
+   2-body parent Hamiltonians for fiber-distinguished states EXIST and
+   are CONSTRUCTIBLE BY SDP. Pinning at correlated vertices is a
+   solvable design problem. The fiber-ansatz computational program has
+   its existence proof.
+2. Equivalent statement, N-representability language: the wall state's
+   (gamma1, gamma2) pair is an EXPOSED POINT of the N-representable
+   body (numerically, pilot grade) -- ground states of 2-body H's are
+   exactly exposed faces, so parent-Hamiltonian construction IS
+   exposedness certification.
+3. Experimental upgrade for paper 2: the wall state is not merely
+   preparable by circuit -- it can be COOLED INTO: an explicit gapped
+   2-body H has it as the ground state, so the reality-selection
+   prediction becomes a ground-state property of a specific
+   interacting model, the strongest possible form for a simulator
+   proposal.
+Next: parent-Hamiltonian census over the 17 certified wall states
+(same SDP, batch); gap statistics; exactification of one instance.
