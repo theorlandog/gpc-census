@@ -741,3 +741,43 @@ requires: exactified parent, adiabatic-path analysis, Berry-phase
 accumulation along the steering path, and honest scoping (no materials
 claims). Queue: after papers 1-2 per roadmap; feeds the Schilling-
 facing RDMFT thread (what pinning does and does not determine).
+
+## FIBER STEERING, QUANTIFIED: the operator-class hierarchy (reviewer's
+formulation, executed 2026-07)
+
+Computed sup over unit-spectral-norm observables per class (trace norms
+of the relevant Delta-gamma parts) along the steering path:
+  lam    T-even 1-body   T-ODD 1-body   pair densities
+  0.05      0.0239          0.0163          0.0058
+  0.10      0.0247          0.0327          0.0064
+  0.20      0.0344          0.0655          0.0090
+  0.40      0.0877          0.1323          0.0217
+READING (scored against the registered hierarchy): T-odd response is
+LINEAR in lambda (~0.33 lam; the current switches on at first order).
+T-even response sits at the SCS floor (~0.024) through lam = 0.1 and
+then grows QUADRATICALLY -- standard perturbative structure, NOT exact
+invariance. Registered "noise floor for T-even" therefore only
+half-right; corrected statement, adopted for all shipping text:
+
+  THE STEERING IS DETECTED AT FIRST ORDER ONLY BY T-ODD ONE-BODY
+  CURRENTS; ALL T-EVEN AND DENSITY OBSERVABLES RESPOND AT SECOND ORDER.
+
+Language retirements (per review + this measurement): "hidden order"
+retired (established condensed-matter baggage); "invisible to one-body
+observables" retired (false at second order and false for currents);
+replacement: "ground-state evolution first-order-visible only to
+time-reversal-odd currents." The minimal detecting class question --
+the reviewer's "most interesting physics question" -- has its pilot
+answer: T-odd one-body, i.e. the steering drives a current at frozen
+densities. Candidate theorem (queued): the order-separation follows
+from T-symmetry of H_parent + T-oddness of the drive by standard
+response theory; if so it is a symmetry theorem, not a fiber theorem
+-- determine which before claiming novelty.
+
+EFFORT ALLOCATION ADOPTED (70/20/10): T-MAIN + obstruction theory +
+framework paper (70); EPRxEPR obstruction test + Toric Attainment
+Rigidity (kept at conjecture until the mechanism behind the known
+examples is understood) + transfer completion (20); physics (10),
+proceeding only through the quantified-operator-class formulation.
+Summit of record: the Local Structure Theorem, stated so as to be
+recognizably independent of the GPC setting.
