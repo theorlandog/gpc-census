@@ -523,3 +523,93 @@ census table (existence, uniqueness, gap, sparsity, rationalizability,
 symmetry per wall state) is the next batch job; and the three-dual-
 geometries frame (image / inverse / supporting-hyperplane) is adopted
 as paper 2's conceptual architecture.
+
+## T8-IV — PUZZLE RESOLVED (possibility B) AND THE DICHOTOMY COMPLETED;
+the new object sharpens into SYMMETRY-RESOLVED GAP FUNCTIONS (2026-07)
+
+RESOLUTION: the reviewer's instruction -- eliminate incomplete
+parametrization (B) before entertaining non-exposedness (A/D) -- found
+the answer immediately. The block constructor pre-summed the (P,Q) and
+(Q,P) entry lists, auto-symmetrizing every matrix and ANNIHILATING all
+imaginary-coupling generators: the T8-III "complex-coupling SDP" had
+zero complex couplings, and its mysterious zero was the T-theorem in
+disguise. Corrected basis: 666 symmetric + 630 antisymmetric blocks.
+Rerun: interior psi_B(t=0) under TRUE complex Hermitian couplings gaps
+at 0.582. Possibility A (non-exposedness) is DEAD at this point;
+the interior IS exposed once T-breaking is allowed.
+
+THE COMPLETED DICHOTOMY (now two-sided and clean):
+- Wall (real) fiber states: uniquely realizable by T-SYMMETRIC 2-body
+  Hamiltonians (gap 1.147 measured).
+- Interior (complex) fiber states: NEVER by real couplings (theorem,
+  with the spinless T = K qualification stated; Kramers systems need
+  separate treatment) -- but realizable by T-BREAKING complex couplings
+  (gap 0.582 measured).
+The reality-selection principle in final Hamiltonian form: THE SYMMETRY
+CLASS OF THE PARENT DETERMINES WHICH FIBER STRATUM IT CAN PIN. Walls
+are T-symmetric matter; the fiber interior is T-broken matter; the
++-Theta sheets are T-conjugate partners.
+
+THE NEW OBJECT (sharpened from the reviewer's Gap Stratification
+Conjecture): not one gap function but a SYMMETRY-RESOLVED FAMILY --
+for each symmetry class G of admissible Hamiltonians,
+    g_G(psi) = sup over G-symmetric 2-body H of gap(H, psi),
+a function on the fiber. Measured so far: g_real vanishes identically
+off the real locus (THEOREM) and is 1.147 at the wall; g_full is 0.582
+at the interior point (and positive at the wall a fortiori). The
+stratification of fibers by Hamiltonian realizability is therefore a
+stratification BY SYMMETRY CLASS -- optimization geometry on fibers,
+resolved by physical symmetry. This is the candidate new mathematical
+object, now with three measured values and one proved vanishing law.
+
+QUEUED (rig): t = -0.465 run (timed out here -- SCS compile), the
+17-wall parent census with g_real and g_full columns plus the
+parent-complexity invariants, tighter solves throughout, and one
+exactified instance.
+
+## T8-V — EQUIVARIANT EXPOSEDNESS: consolidation of the review round
+(2026-07)
+
+NAME ADOPTED: "equivariant exposedness" / the symmetry-resolved gap
+functions g_G(psi) = sup over G-symmetric 2-body H of gap(H, psi).
+"Optimization geometry" retired as too broad. The object is CANONICAL:
+defined intrinsically by (fiber point, symmetry class, operator degree);
+the SDP is merely one computation of it -- the property that makes it an
+invariant rather than an artifact.
+
+PRESENTATION ADOPTED (theorem + corollary structure): the load-bearing
+statement is the standard spinless theorem (real H => nondegenerate
+eigenstates are real up to phase); OUR contribution is the corollary
+through the new classification (interior fiber states are certified
+genuinely complex, hence never uniquely realizable by real 2-body H).
+Standard mathematics + new geometry, in that order. "Reality selection"
+demoted to informal gloss. The overclaim "fiber geometry and Hamiltonian
+symmetry classify each other" is WITHDRAWN per review: shown is one
+direction (symmetry class constrains realizability); completeness,
+multiplicity, and accidental degeneracies are open.
+
+NEW FREE FOUNDATION (Tarski-Seidenberg, parallel to the Hardt move):
+for each fixed symmetry class G, the condition g_G(psi) > gamma is the
+projection of a semialgebraic set (the pairs (H, psi) with H in the
+linear space H_G, the PSD gap condition, and bounded coupling norm),
+hence E_G = {psi in F : g_G(psi) > 0} is SEMIALGEBRAIC and g_G is a
+semialgebraic function on the fiber -- by quantifier elimination, before
+any further work. The reviewer's conjecture therefore refines to the
+substantive parts: Whitney regularity of the E_G decomposition, and
+whether the E_G strata COINCIDE with (or further refine) the quantum
+stratification already defined. Both are precise and computable.
+
+THE MATRIX (adopted as the next batch experiment, rig): rows = 17
+certified walls + interior points (t = 0, exchange-selected t = -0.465)
++ interference representatives; columns = symmetry classes (real,
+full complex, spin-adapted, particle-hole, number-parity/translation
+where meaningful); entries = max gap. Pattern-hunting across the matrix
+replaces single-symmetry anecdotes. Pre-registration applies: predicted
+zero-pattern from the T-theorem (g_real = 0 off the real locus) is the
+one PROVED column; everything else is measured before narrated.
+
+THRESHOLD NOTE (the reviewer's assessment, recorded): the program's
+objects -- quantum stratification, equivariant exposedness, g_G -- are
+now formulated independently of the computations that discovered them.
+That is the definition of the transition from computational project to
+mathematical theory, and the standard the remaining work is held to.
