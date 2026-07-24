@@ -12,7 +12,7 @@ date: |
   Preprint: [doi:10.5281/zenodo.21313834](https://doi.org/10.5281/zenodo.21313834)
 title: |
   Algorithmic construction of exact extremal states for fermionic moment\
-  polytopes: completing $\wedge^4\mathcal{H}_9$
+  polytopes: a complete census through rank 10
 ---
 
 # Introduction
