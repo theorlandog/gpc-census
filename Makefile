@@ -62,13 +62,18 @@ report: $(REPORT_PDF)
 # pandoc-crossref runs before citeproc so it consumes the [-@sec:x]
 # style citations that are cross-references, not bibliography keys;
 # anything either filter leaves unresolved surfaces as a citeproc
-# "not found" warning, which fails the build.
+# "not found" warning or a LaTeX "Reference undefined" warning, and
+# pandoc-crossref renders missing targets as literal ?id? marks in the
+# PDF, so the guard checks all three and fails the build on any.
 $(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	mkdir -p build
 	$(PANDOC_RUN) $(REPORT_MD) $(PANDOC_FLAGS) -o $(REPORT_PDF) 2> build/report.log \
 	  || { cat build/report.log; exit 1; }
-	@if grep -i 'not found' build/report.log; then \
+	@if grep -Ei 'not found|undefined' build/report.log; then \
 	  echo "report: unresolved references or citations, see build/report.log"; exit 1; fi
+	@if command -v pdftotext >/dev/null 2>&1 \
+	  && pdftotext $(REPORT_PDF) - 2>/dev/null | grep -q '¿'; then \
+	  echo "report: unresolved crossref marks in PDF output"; exit 1; fi
 	@echo "==> $(REPORT_PDF)"
 
 clean:

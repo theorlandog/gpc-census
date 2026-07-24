@@ -717,3 +717,101 @@ OPEN: the internal stratification geometry (obstruction analysis at
   EPRxEPR and at Horn corners = the designated next exact step);
   cross-vertex same-face-type comparisons; anything called a
   "principle."
+
+## THE FIBER-STEERING TRANSITION: piloted (2026-07) -- the physics
+frontier's opening result
+
+Model: H(lambda) = H_parent(wall) + lambda * i n-weighted (a4+ a8 - h.c.)
+(T-odd 2-body). Swept lambda in [0, 0.8], dense diagonalization.
+RESULT (pilot grade; parent is the SCS solution, residual ~1e-2 = the
+noise floor below): the ground state moves ALONG the fiber's phase
+direction at rate d(arg gamma_48)/d lambda ~ 1.26 -- while the 1-RDM
+diagonal, the 1-RDM spectrum, |gamma_48|, and all pair occupations
+remain at the noise floor, support leakage ~1e-4, and the gap stays
+open (1.15 -> 0.72). First mis-specified blindness metric corrected
+in-session: pure phase motion freezes ALL occupations (1- and 2-body
+diagonal); the correct order parameter is the coherence phase /
+T-odd 2-RDM components (exactly the quantities shown earlier to
+separate conjugate sheets).
+STATEMENT (softened, model-system only): a tunable T-breaking 2-body
+coupling steers a gapped ground state through a quantum-marginal fiber
+-- a ground-state transition invisible to every occupation observable,
+with the geometric phase as its order parameter. Physics-letter seed;
+requires: exactified parent, adiabatic-path analysis, Berry-phase
+accumulation along the steering path, and honest scoping (no materials
+claims). Queue: after papers 1-2 per roadmap; feeds the Schilling-
+facing RDMFT thread (what pinning does and does not determine).
+
+## FIBER STEERING, QUANTIFIED: the operator-class hierarchy (reviewer's
+formulation, executed 2026-07)
+
+Computed sup over unit-spectral-norm observables per class (trace norms
+of the relevant Delta-gamma parts) along the steering path:
+  lam    T-even 1-body   T-ODD 1-body   pair densities
+  0.05      0.0239          0.0163          0.0058
+  0.10      0.0247          0.0327          0.0064
+  0.20      0.0344          0.0655          0.0090
+  0.40      0.0877          0.1323          0.0217
+READING (scored against the registered hierarchy): T-odd response is
+LINEAR in lambda (~0.33 lam; the current switches on at first order).
+T-even response sits at the SCS floor (~0.024) through lam = 0.1 and
+then grows QUADRATICALLY -- standard perturbative structure, NOT exact
+invariance. Registered "noise floor for T-even" therefore only
+half-right; corrected statement, adopted for all shipping text:
+
+  THE STEERING IS DETECTED AT FIRST ORDER ONLY BY T-ODD ONE-BODY
+  CURRENTS; ALL T-EVEN AND DENSITY OBSERVABLES RESPOND AT SECOND ORDER.
+
+Language retirements (per review + this measurement): "hidden order"
+retired (established condensed-matter baggage); "invisible to one-body
+observables" retired (false at second order and false for currents);
+replacement: "ground-state evolution first-order-visible only to
+time-reversal-odd currents." The minimal detecting class question --
+the reviewer's "most interesting physics question" -- has its pilot
+answer: T-odd one-body, i.e. the steering drives a current at frozen
+densities. Candidate theorem (queued): the order-separation follows
+from T-symmetry of H_parent + T-oddness of the drive by standard
+response theory; if so it is a symmetry theorem, not a fiber theorem
+-- determine which before claiming novelty.
+
+EFFORT ALLOCATION ADOPTED (70/20/10): T-MAIN + obstruction theory +
+framework paper (70); EPRxEPR obstruction test + Toric Attainment
+Rigidity (kept at conjecture until the mechanism behind the known
+examples is understood) + transfer completion (20); physics (10),
+proceeding only through the quantified-operator-class formulation.
+Summit of record: the Local Structure Theorem, stated so as to be
+recognizably independent of the GPC setting.
+
+## T-MAIN VALIDATION CASE 1 EXECUTED: the Slater germ (2026-07)
+
+The extreme test of the Local Structure Theorem's algorithm -- the case
+where first-order theory fails worst. At the (3,6) Slater point:
+- Projected first-order kernel: 39 of 40 real directions (rank 1!).
+- TRUE spectrum-fiber germ: the U(6)-orbit of rank-3-projector states,
+  dimension 19 (orbit tangent rank computed; the identification
+  spectrum-fiber = orbit is a one-line structural fact for idempotent
+  spectra).
+- OBSTRUCTED EXCESS: 20 dimensions, and the obstruction quadric does
+  the killing exactly as T-MAIN requires: the transverse direction
+  (amplitude on the complementary determinant (3,4,5)) is FIRST-ORDER
+  FLAT (dgamma vanishes identically -- zero mode overlap) and
+  SECOND-ORDER FORBIDDEN (gamma(delta) = diag on modes 3,4,5,
+  commutant-block norm sqrt(3), nonzero). First-order-flat +
+  second-order-forbidden is precisely the mechanism the theorem
+  formalizes; validation case 1 PASSES.
+
+CONFESSION AND PROTOCOL AMENDMENT: the run script asserted "true fiber
+= circle" -- the matrix-fiber answer, while computing the spectrum
+fiber. Third occurrence of the matrix/spectrum conflation in this
+program (T1 step-1, the intro repair, now here). Standing rule: EVERY
+germ or fiber claim names its fiber type (matrix / spectrum / reduced)
+in the same sentence, in code comments included. T-MAIN's statement
+will quantify over fiber type explicitly.
+
+Remaining validation cases: v_B (spectrum-fiber germ must be the
+surface -- largely done via the integrability tests), v89 (reduced
+germ must be a point -- done at first order via the projected map).
+The Slater case was the one requiring genuine second-order work; with
+it passed, T-MAIN's algorithmic content is validated on rigid-orbit,
+surface, and point germs. Next: state and prove the general theorem
+(70-percent lane, with the reviewer).

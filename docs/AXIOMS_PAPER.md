@@ -1,5 +1,9 @@
-# PAPER: "Quantum Stratifications and Equivariant Exposedness of
-# Moment-Map Fibers" -- axiomatization skeleton (2026-07)
+# PAPER: "Inverse Geometry of Moment Maps" (retitled per final review
+# round) -- framework skeleton (2026-07)
+# Architecture: definitions and canonical constructions first; then
+# three worked examples as APPLICATIONS -- I. generalized Pauli
+# (complete instance), II. entanglement polytopes, III. Horn's problem.
+# Later papers are Application papers of this framework.
 
 INVERSION DIRECTIVE (final review round, adopted): the paper must be
 readable almost without knowing what a generalized Pauli constraint is.
@@ -115,3 +119,94 @@ Explicit table of which constructions are polytope-independent:
 The claim the table supports: these are canonical constructions for
 inverse images of moment maps, with the GPC census as first complete
 instance -- not GPC-specific techniques.
+
+## Section 8 (ADDED) -- Limits of applicability: the designed failure
+Per the reviewer's falsification challenge, a deliberate failure search.
+STRUCTURAL FAILURE EXHIBITED: the cut polytope (CUT(K4) computed as the
+minimal exhibit). Its defining map has a discrete source, no group
+action, finite constant-size fibers ({S, S^c}, size exactly 2 over
+every vertex), and no operator class -- every instrument in the toolkit
+is inapplicable or vacuous, for identifiable structural reasons. PRESENTATION CAUTION (final review, adopted): the cut polytope is an
+EXAMPLE OF AN OBJECT LACKING THE INGREDIENTS the framework uses -- it
+illustrates the intended scope. It is NOT a proof that those
+ingredients are necessary, and must not be presented as characterizing
+the exact boundary of applicability. Scope statement: the framework is
+designed for inverse images of semialgebraic maps with geometric
+structure -- the toolkit's natural domain is HAMILTONIAN
+settings -- semialgebraic maps from smooth (projective/orbit) domains
+carrying a group action and a dual operator class. Outside that class
+(cut, matching, and other purely combinatorial polytopes) the framework
+claims nothing.
+IN-CLASS FAILURE: none found to date; the search is OPEN and logged as
+a standing task (candidate stress tests: maps with wild non-proper
+fibers; infinite-dimensional limits; non-compact groups). Per the
+reviewer: continued survival of serious falsification attempts is the
+naturalness evidence that positive examples alone cannot provide.
+
+## Language directive (final round, adopted): "the pilot computations
+exhibit ANALOGOUS rigid-versus-deformable behavior in three distinct
+inverse-image problems" replaces any "same phenomenon in three
+families" phrasing, until a common theorem unifies the observations.
+The evolved thesis (recorded as the program's falsifiable statement):
+inverse geometry of semialgebraic moment maps admits natural canonical
+structures -- stratifications, symmetry-constrained realizability,
+computational diagnostics -- that can be studied independently of the
+particular application.
+
+## Section ordering (final): per the closing review -- 1. Motivation;
+2. Canonical definitions; 3. Classical existence (Hardt, T-S);
+4. New constructions (quantum stratification, equivariant exposedness,
+symmetry gap functions); 5. Applications AS EVIDENCE (GPC,
+entanglement, Horn); 6. Open structural questions. The applications
+are evidence for the framework, not the framework itself.
+
+## External assessment of record (closing review round, 2026-07)
+Confidence levels, as stated by the external reviewer and adopted as
+the program's public posture:
+- WELL ESTABLISHED (conditional on exact verification): the census;
+  nontrivial GPC fibers; machinery transfer to 4-qubit entanglement
+  polytopes; applicability to Horn's problem.
+- PLAUSIBLE, NEEDS BROADER VALIDATION: quantum stratification as the
+  canonical stratification; equivariant exposedness as a useful
+  invariant; structural theorems for gap functions beyond
+  semialgebraicity.
+- GENUINELY OPEN (the frontier): a common theorem behind the analogous
+  rigid/deformable behavior; extension beyond moment-map-type
+  problems; independent adoption.
+The program's remaining decisive test is INDEPENDENT ENGAGEMENT --
+not computable, only maximizable through clean, intrinsic,
+application-independent definitions. Identity statement of record:
+the census is the experimental platform; the definitions paper is the
+mathematical core; the later papers are applications and tests of
+that core.
+
+## Closing gifts from the external review (2026-07, adopted verbatim)
+
+RESEARCH-STATEMENT OPENING (to be used as written): "My research
+studies the inverse geometry of semialgebraic moment maps. Rather than
+focusing solely on the image polytope, I investigate the geometry of
+its fibers, their stratifications, and the interaction between inverse
+geometry and convex duality. Generalized Pauli constraints provide the
+first complete laboratory for developing these ideas, which are then
+tested in independent settings including entanglement polytopes and
+Horn's problem."
+
+TWO STANDING CAUTIONS (protocol-grade):
+1. Every new object must pass the outsider test: "would someone outside
+   this project naturally define this?" The strongest definitions feel
+   inevitable in hindsight. Review each definition in the framework
+   paper against this question before submission.
+2. Let other people rename things. If the mathematics survives, the
+   terminology is secondary; do not defend names, defend theorems.
+
+THE HYPOTHESIS OF RECORD: certain semialgebraic inverse-image problems
+arising from moment maps possess natural geometric structures --
+fibers, stratifications, symmetry-constrained realizability -- that
+can be studied independently of the image polytope. True or false is
+what the next years of work determine.
+
+THE PREDICTION OF RECORD (the reviewer's only one): sustained
+discipline -- pre-registration, evidence-level separation, invited
+falsification, claims tightened rather than expanded -- produces work
+serious mathematicians can engage with on its merits. Precise enough
+to argue about is the entry ticket to the scientific conversation.
