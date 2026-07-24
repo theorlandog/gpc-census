@@ -126,8 +126,13 @@ STRUCTURAL FAILURE EXHIBITED: the cut polytope (CUT(K4) computed as the
 minimal exhibit). Its defining map has a discrete source, no group
 action, finite constant-size fibers ({S, S^c}, size exactly 2 over
 every vertex), and no operator class -- every instrument in the toolkit
-is inapplicable or vacuous, for identifiable structural reasons. This
-draws the boundary: the toolkit's natural domain is HAMILTONIAN
+is inapplicable or vacuous, for identifiable structural reasons. PRESENTATION CAUTION (final review, adopted): the cut polytope is an
+EXAMPLE OF AN OBJECT LACKING THE INGREDIENTS the framework uses -- it
+illustrates the intended scope. It is NOT a proof that those
+ingredients are necessary, and must not be presented as characterizing
+the exact boundary of applicability. Scope statement: the framework is
+designed for inverse images of semialgebraic maps with geometric
+structure -- the toolkit's natural domain is HAMILTONIAN
 settings -- semialgebraic maps from smooth (projective/orbit) domains
 carrying a group action and a dual operator class. Outside that class
 (cut, matching, and other purely combinatorial polytopes) the framework
@@ -147,3 +152,30 @@ inverse geometry of semialgebraic moment maps admits natural canonical
 structures -- stratifications, symmetry-constrained realizability,
 computational diagnostics -- that can be studied independently of the
 particular application.
+
+## Section ordering (final): per the closing review -- 1. Motivation;
+2. Canonical definitions; 3. Classical existence (Hardt, T-S);
+4. New constructions (quantum stratification, equivariant exposedness,
+symmetry gap functions); 5. Applications AS EVIDENCE (GPC,
+entanglement, Horn); 6. Open structural questions. The applications
+are evidence for the framework, not the framework itself.
+
+## External assessment of record (closing review round, 2026-07)
+Confidence levels, as stated by the external reviewer and adopted as
+the program's public posture:
+- WELL ESTABLISHED (conditional on exact verification): the census;
+  nontrivial GPC fibers; machinery transfer to 4-qubit entanglement
+  polytopes; applicability to Horn's problem.
+- PLAUSIBLE, NEEDS BROADER VALIDATION: quantum stratification as the
+  canonical stratification; equivariant exposedness as a useful
+  invariant; structural theorems for gap functions beyond
+  semialgebraicity.
+- GENUINELY OPEN (the frontier): a common theorem behind the analogous
+  rigid/deformable behavior; extension beyond moment-map-type
+  problems; independent adoption.
+The program's remaining decisive test is INDEPENDENT ENGAGEMENT --
+not computable, only maximizable through clean, intrinsic,
+application-independent definitions. Identity statement of record:
+the census is the experimental platform; the definitions paper is the
+mathematical core; the later papers are applications and tests of
+that core.
