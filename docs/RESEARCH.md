@@ -4,6 +4,41 @@ This file encodes the working understanding of the research program so any
 agent or collaborator can continue from the command line. Read this before
 touching the science. House rules live in AGENTS.md.
 
+## PRE-REGISTRATION SCORED: v89 (certified on rig; independently verified here)
+
+Independent verification: state rebuilt from the closed form with fresh
+sign conventions; exact char-poly identity TRUE; 1-RDM EXACTLY diagonal
+(the single one-hop class on modes (3,7), pairs (2,9)/(5,8), cancels
+identically -- a SILENT channel, target zero). Squared weights
+(30,25,24,15,15,6,5,5,4,1)/130, all real.
+
+SCORES (against the certified state, before narrative, per protocol):
+P1 PASS -- real state: all holonomies +-1, exponent-2 trivially.
+P2 PASS -- zero nonzero-target channels (<= 2), degenerately.
+P3 **FAIL** -- state-den 130, spectrum-den 26, RATIO 5, outside {1,2}.
+   MECHANISM IDENTIFIED: the "797/797 ratio law" was a GRID ARTIFACT --
+   every prior state came from m in {1,2} amplitude-grid searches, which
+   FORCE ratio in {1,2}. The law was the search lens reflected back,
+   exactly the selection-bias failure the skeptical audit pre-named.
+P4 **FAIL** -- kernel dim 1, touched class is 2-term (not rigid 1-term),
+   law predicted deformation; but the class has TARGET ZERO, and the
+   silent condition p1(t) = p2(t) gives p1 - p2 = 25t: rigid at t = 0
+   only, phases cannot rescue magnitude mismatch. CORRECTED LAW:
+   zero-target touched classes are rigid obstructions alongside 1-term
+   classes; the mined law saw only tau > 0 families.
+P5 PASS -- 7 distinct weight-profiles among the 8 degenerate modes:
+   spectrum symmetry broken (Slater-rigidity law holds).
+P6 NOT-TESTED -- tau = 0 is outside the conic model's tau > 0 scope
+   (the CM curve degenerates to a point; consistent with P4's rigidity).
+
+Score: 3 PASS / 2 FAIL / 1 NOT-TESTED. Both failures are publishable
+findings with mechanisms, caught by the protocol before any narrative
+formed. New phenomena logged: silent exchange channels (interference-
+classified vertices can carry real states with exactly diagonal 1-RDM
+that are NOT designs), and the tau = 0 rigidity class. v103 scoring
+pending its certificate.
+
+
 ## FIBER EXPLORATION III: anholonomy, the correlation dial, and the
 frontier vertices carry fibers too (2026-07)
 
