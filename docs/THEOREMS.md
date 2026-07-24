@@ -325,3 +325,47 @@ machinery to census. Rig session: port the local-spectra map to the
 multipartite setting (per-party marginal Gram, same Wirtinger gradient),
 enumerate the published vertex list, run the fiber-moduli test at every
 vertex, and score the Incompleteness Principle on independent ground.
+
+## T7 — THE INVERSE-IMAGE PROGRAM: foundations, the Refinement Theorem
+split into provable pieces, and the gamma-2 branch (2026-07)
+
+1. THE EXISTENCE THEOREM IS ALREADY IN THE LITERATURE (key catch): the
+   reviewer's aspirational "Refinement Theorem" splits into three parts
+   with very different costs, and the first is FREE. Existence: the map
+   Phi is semialgebraic (Prop 1), so by HARDT'S TRIVIALIZATION THEOREM
+   the Kirwan polytope admits a FINITE semialgebraic partition over
+   which Phi is locally trivial -- i.e. the quantum stratification
+   EXISTS and is FINITE, as a theorem of real algebraic geometry, not a
+   conjecture. Strictness: proved at the vertex level by the 183-simple
+   exhibit (Theorem A). Computation: our program -- computing Hardt
+   strata explicitly for a nontrivial nonabelian moment map would
+   itself be new. Remaining care: "strictly finer than the FACE
+   stratification" globally requires fiber-type behavior on face
+   interiors (constancy on the polytope interior follows from the
+   Generic Fiber Theorem; boundary faces are where the content lives).
+2. THE (P, S) INVARIANT -- in-corpus evidence it behaves functorially:
+   the pad/lift maps embed P(N,d-1) as a face of P(N,d), and the census
+   shows the stratification is CARRIED along these embeddings (classes,
+   fibers, walls, and curve isomorphism classes all transport). Hodge
+   gives isomorphic (P, S) pairs, as it must (induced by an isomorphism
+   of the quantum problems), so it is not the discriminating test; a
+   true "same P, different S" pair must come from accidental polytope
+   isomorphisms or the entanglement side. Open, correctly framed.
+3. THE gamma-2 BRANCH (reviewer's surprise entry) -- calibrated against
+   known theory: unlike the 1-RDM case, gamma-2 fibers are GENERICALLY
+   POINTS (generic pure states are determined among pure states by
+   their 2-RDMs -- the parts-and-whole literature), so the fiber
+   program there is the classification of the EXCEPTIONAL LOCUS where
+   determination fails. Census connection already in hand: on every
+   fiber we probed, gamma-2 is injective (the T-odd coherences separate
+   conjugate sheets), consistent with generic determination; our fiber
+   states are thus NOT in the exceptional locus, and the machinery
+   (contraction attack with Gamma-2 targets) ports directly to hunting
+   states that ARE. Physics-facing: the exceptional locus is exactly
+   where 2-RDM methods can be blind, the most chemistry-adjacent
+   question this program owns.
+4. TARGET RANKING (adopted): entanglement polytopes and quantum
+   marginal polytopes first (mature images, near-empty fiber theory);
+   Horn/LR next; GT = negative control. Home mathematics confirmed:
+   stratified symplectic geometry (Sjamaar-Lerman), now with Hardt as
+   the semialgebraic backbone.
