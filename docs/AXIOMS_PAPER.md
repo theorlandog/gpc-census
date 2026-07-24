@@ -1,5 +1,9 @@
-# PAPER: "Quantum Stratifications and Equivariant Exposedness of
-# Moment-Map Fibers" -- axiomatization skeleton (2026-07)
+# PAPER: "Inverse Geometry of Moment Maps" (retitled per final review
+# round) -- framework skeleton (2026-07)
+# Architecture: definitions and canonical constructions first; then
+# three worked examples as APPLICATIONS -- I. generalized Pauli
+# (complete instance), II. entanglement polytopes, III. Horn's problem.
+# Later papers are Application papers of this framework.
 
 INVERSION DIRECTIVE (final review round, adopted): the paper must be
 readable almost without knowing what a generalized Pauli constraint is.
@@ -115,3 +119,31 @@ Explicit table of which constructions are polytope-independent:
 The claim the table supports: these are canonical constructions for
 inverse images of moment maps, with the GPC census as first complete
 instance -- not GPC-specific techniques.
+
+## Section 8 (ADDED) -- Limits of applicability: the designed failure
+Per the reviewer's falsification challenge, a deliberate failure search.
+STRUCTURAL FAILURE EXHIBITED: the cut polytope (CUT(K4) computed as the
+minimal exhibit). Its defining map has a discrete source, no group
+action, finite constant-size fibers ({S, S^c}, size exactly 2 over
+every vertex), and no operator class -- every instrument in the toolkit
+is inapplicable or vacuous, for identifiable structural reasons. This
+draws the boundary: the toolkit's natural domain is HAMILTONIAN
+settings -- semialgebraic maps from smooth (projective/orbit) domains
+carrying a group action and a dual operator class. Outside that class
+(cut, matching, and other purely combinatorial polytopes) the framework
+claims nothing.
+IN-CLASS FAILURE: none found to date; the search is OPEN and logged as
+a standing task (candidate stress tests: maps with wild non-proper
+fibers; infinite-dimensional limits; non-compact groups). Per the
+reviewer: continued survival of serious falsification attempts is the
+naturalness evidence that positive examples alone cannot provide.
+
+## Language directive (final round, adopted): "the pilot computations
+exhibit ANALOGOUS rigid-versus-deformable behavior in three distinct
+inverse-image problems" replaces any "same phenomenon in three
+families" phrasing, until a common theorem unifies the observations.
+The evolved thesis (recorded as the program's falsifiable statement):
+inverse geometry of semialgebraic moment maps admits natural canonical
+structures -- stratifications, symmetry-constrained realizability,
+computational diagnostics -- that can be studied independently of the
+particular application.
