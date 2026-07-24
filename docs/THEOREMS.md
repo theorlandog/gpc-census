@@ -287,3 +287,41 @@ entanglement-polytope experiment can be stated cleanly.
 
 Division of labor: A + B-sliver + algorithm implementation = us/rig;
 MGS formalism = the reviewer's frame; finite verifications = CI.
+
+## T6 FINALIZED: the Incompleteness Principle, the rigorous definition,
+and the transfer experiment's pilot (2026-07)
+
+ADOPTED (reviewer's formulation, verbatim):
+  CONJECTURE (Combinatorial Incompleteness of Nonabelian Moment
+  Polytopes). For generic nonabelian moment polytopes, the face lattice
+  is not a complete invariant of the geometry of the associated reduced
+  fibers. Consequently there exists a strictly finer stratification of
+  the polytope by reduced-fiber type.
+Sharpened headline sentence (adopted): THE FACE LATTICE IS NOT A
+COMPLETE INVARIANT OF THE UNDERLYING QUANTUM GEOMETRY. The GPC census is
+the first substantial evidence body (183 simple vertices, two fiber
+classes at one combinatorial type).
+
+RIGOROUS DEFINITION (reviewer's, adopted): a QUANTUM STRATIFICATION of a
+Kirwan polytope is a decomposition into strata whose points possess
+equivalent reduced-fiber geometry. Design/interference, rigidity, silent
+channels, and fiber dimension are REALIZATIONS of the invariant, not its
+definition. Theorem to record: the design/interference dichotomy refines
+the face stratification of the GPC polytopes (Theorem A's content).
+
+TRANSFER PILOT EXECUTED -- THREE QUBITS IS A SECOND NEGATIVE CONTROL:
+sampled the fiber over the entanglement polytope's top vertex
+(1/2,1/2,1/2); every convergent sample has 3-tangle = 1.000000 (GHZ
+LU-orbit; consistent with the known classification of locally maximally
+mixed 3-qubit pure states). All 3-qubit vertex fibers reduce to points:
+the quantum stratification COLLAPSES there -- the smallest entanglement
+polytope behaves torically at its vertices despite the nonabelian group.
+(Sample size small, backed by the known theorem; noted.)
+CONSEQUENCE FOR THE EXPERIMENT: negative controls are now GT (abelian)
+and 3 qubits (nonabelian-but-collapsed). The first LIVE test is the
+2x2x2x2 (four-qubit) or 2x3x3 entanglement polytope -- big enough for
+fiber classes to differ, small enough for the contraction-attack
+machinery to census. Rig session: port the local-spectra map to the
+multipartite setting (per-party marginal Gram, same Wirtinger gradient),
+enumerate the published vertex list, run the fiber-moduli test at every
+vertex, and score the Incompleteness Principle on independent ground.
