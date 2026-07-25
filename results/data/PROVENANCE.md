@@ -68,3 +68,31 @@ scripts/reconcile_claims.py re-derives the four claims this session corrects
 an upper bound, and the DESIGN-REAL denominator ratio count) so each correction
 points at a measurement rather than at prose. The denominator-ratio item is
 exact rational arithmetic; the rest are numerical.
+
+## cascade_exact.json, v103_support10_certificate.json (EXACT support bounds)
+
+EXACT, in contrast to cascade.jsonl. scripts/exactify_cascade.py refines each
+cascade endpoint in 40-digit arithmetic, recognizes the squared weights by
+integer relation detection, gauge-fixes the phases, and verifies the
+characteristic-polynomial identity det(rho - x I) = prod_m (n_m/D - x) in exact
+rational and radical arithmetic. An entry is marked CERTIFIED only when the
+weights are rationals summing to 1, the state is real up to the orbital-phase
+gauge, and the exact identity holds; every other status is reported with the
+reason it fell short and its bound stays numerical.
+
+69 of the 71 sparsified endpoints are CERTIFIED, so those vertices carry an
+exactly certified support bound strictly better than the library state's. The
+two exceptions, (5,10) index 144 and index 256, have partly irrational weights.
+
+v103_support10_certificate.json is the same result for (3,10) index 103 by an
+independent standalone route, kept separate because it is the instance that
+changes a published claim: support 14 in the library, support 10 certified here,
+state denominator 46852 = 2^2*13*17*53. The two routes agree on support,
+weights and denominator; their sign patterns differ by a gauge choice and both
+satisfy the exact identity.
+
+## v103_endpoint.json (high-precision endpoint)
+
+The 60-digit refinement of the v103 support-10 endpoint with its
+integer-relation recognition, kept as the numerical input the exact certificate
+was derived from.

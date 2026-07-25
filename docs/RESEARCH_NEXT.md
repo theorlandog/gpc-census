@@ -123,6 +123,16 @@ These should not be claimed as established until formal proofs are written into 
   [docs/cascade_census.md; src/gpc_census/cascade.py;
   scripts/census_cascade.py; results/data/cascade.jsonl;
   results/data/cascade_summary.json]
+- ✅ 69 of the 71 improved support bounds are EXACT, not numerical. The v103
+  recipe (high-precision Gauss-Newton refine → integer relation detection on
+  the squared weights → gauge-fix → exact characteristic-polynomial identity)
+  certifies 69 cascade endpoints: 55 one determinant below the library
+  support, 13 two below, v103 four below. The two holdouts, (5,10) v144 and
+  (5,10) v256, are partly rational (four of eight weights at denominator 37)
+  and partly not, the signature of a stratum whose distinguished point the
+  cascade missed, exactly as v_B's real states sit at quadratic surds;
+  extending recognition to quadratic surds is the open piece.
+  [scripts/exactify_cascade.py; results/data/cascade_exact.json]
 - ✅ s_Q(v103) ≤ 10, EXACT. The support-10 cascade endpoint has all ten
   squared weights rational (13/34, 5/34, 53/442, 195/1802, 5/68, 5/68,
   35/901, 1/34, 18/901, 84/11713), loop holonomy π so it is real up to

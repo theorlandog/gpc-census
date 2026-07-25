@@ -37,7 +37,9 @@ Two additions to the method as handed over, both load bearing:
 ## Headline result
 
 71 of the 799 certified states sparsify, removing 89 amplitudes in total. All 71
-are INTERFERENCE vertices; no DESIGN-INT or DESIGN-REAL state moves.
+are INTERFERENCE vertices; no DESIGN-INT or DESIGN-REAL state moves. 69 of the
+71 improved bounds are then certified in EXACT arithmetic (see below), so this
+is not only a numerical result.
 
 The census support column is therefore an UPPER BOUND on the minimal support
 s_Q, and it is now known STRICT at 71 vertices, not just at v103. The new column
@@ -155,6 +157,50 @@ endpoint: the high-precision re-solve plus integer relation detection worked on
 the first attempt, and the recognized values verify exactly. The remaining
 exactification targets are the other 70 sparsified states, none of which have
 been refined or recognized.
+
+## 69 of the 71 improved bounds are CERTIFIED, not numerical
+
+The v103 recipe generalizes. `scripts/exactify_cascade.py` runs it on every
+cascade endpoint: refine to 40 digits by Gauss-Newton, recognize the squared
+weights by integer relation detection, gauge-fix the phases, and verify the
+characteristic-polynomial identity in exact rational and radical arithmetic.
+A state is reported CERTIFIED only if the weights are rationals summing to 1,
+the state is real up to the orbital-phase gauge, and the exact charpoly matches.
+
+    endpoints attempted     71
+    CERTIFIED               69
+    weights not rational     2
+
+So 69 vertices now carry an EXACTLY certified improved support bound, 55 of them
+one determinant better than the library and 13 two better, plus v103 at four
+better. Artifact: `results/data/cascade_exact.json`, which ships the exact
+weights, signs, support and state denominator of every certified endpoint.
+
+Two independent routes agree at v103: the standalone certificate
+(`scripts/v103_support10_certificate.py`) and this pipeline produce identical
+support, identical squared weights and identical state denominator 46852. Their
+sign patterns differ, which is expected and not a discrepancy: signs are
+gauge dependent, the two runs fix the gauge differently, and both patterns pass
+the exact characteristic-polynomial check.
+
+The two that resisted are (5,10) v144 and (5,10) v256, both dropping 10 to 8 at
+refinement residual below 1e-40. Their endpoints are partly rational (four of
+eight squared weights at denominator 37) and partly not, which is the signature
+of a positive-dimensional stratum whose distinguished exact point the cascade did
+not land on. This is the same phenomenon the paper records for v_B, whose real
+extremal states sit at quadratic-irrational weights in Q(sqrt 15) and Q(sqrt 35)
+rather than on any rational grid. Extending recognition to quadratic surds is
+the obvious next step for these two and was not done here; their bounds stay
+NUMERICAL.
+
+One methodological note worth keeping. The first version of this pipeline
+gauge-fixed the phases by an ordinary least-squares fit, which spreads the
+residual over every coordinate instead of concentrating it on the
+gauge-invariant directions, and it wrongly reported v103's endpoint as not real
+up to gauge. Fitting exactly on a maximal independent set of support rows is the
+correct test. The bug was caught only because v103 had already been certified by
+hand, which is an argument for keeping at least one instance verified by an
+independent route.
 
 ## Cancellation-regime census: still exactly two
 

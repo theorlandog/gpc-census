@@ -78,3 +78,66 @@ def test_support10_state_is_a_new_denominator():
     den = sp.ilcm(*[w.q for w in WEIGHTS])
     assert den == 46852
     assert sp.factorint(den) == {2: 2, 13: 1, 17: 1, 53: 1}
+
+
+def test_shipped_certified_bounds_reverify_exactly():
+    """Spot-check the shipped exact cascade bounds by rebuilding them here.
+
+    results/data/cascade_exact.json claims exactly certified improved support
+    bounds. This test re-derives the characteristic-polynomial identity for a
+    sample of them in exact arithmetic, so a corrupted or over-claimed record
+    cannot ship unnoticed.
+    """
+    import json
+    from fractions import Fraction
+
+    import pytest
+
+    data = ROOT / "results" / "data" / "cascade_exact.json"
+    states = ROOT / "results" / "data" / "states.jsonl"
+    if not data.exists() or not states.exists():
+        pytest.skip("no cascade dataset present")
+    report = json.loads(data.read_text())
+    certified = [r for r in report["results"] if r["status"] == "CERTIFIED"]
+    assert certified, "no certified bounds shipped"
+
+    ledger = {}
+    for line in states.read_text().splitlines():
+        if line.strip():
+            rec = json.loads(line)
+            ledger[(rec["system"], rec["index"])] = rec
+
+    # the smallest few, so the exact algebra stays fast
+    sample = sorted(certified, key=lambda r: r["support_upper"])[:4]
+    for r in sample:
+        d = int(r["system"].strip("()").split(",")[1])
+        dets = [tuple(t) for t in r["support_dets"]]
+        weights = [sp.Rational(w) for w in r["squared_weights"]]
+        assert sum(weights) == 1, r["system"]
+        assert len(dets) == r["support_upper"] < r["support_certified"]
+        amps = [s * sp.sqrt(w) for s, w in zip(r["signs"], weights)]
+
+        pos = {t: i for i, t in enumerate(dets)}
+        rho = sp.zeros(d, d)
+        for col, det in enumerate(dets):
+            for q in det:
+                sign_out = (-1) ** det.index(q)
+                reduced = tuple(u for u in det if u != q)
+                for p in range(d):
+                    if p in reduced:
+                        continue
+                    target = tuple(sorted(reduced + (p,)))
+                    row = pos.get(target)
+                    if row is None:
+                        continue
+                    rho[p, q] += (amps[row] * amps[col] * sign_out
+                                  * (-1) ** target.index(p))
+
+        src = ledger[(r["system"], r["index"])]
+        den = int(src["denominator"])
+        spectrum = [Fraction(int(x), den) for x in src["integer_form"]]
+        x = sp.Symbol("x")
+        charpoly = sp.expand(sp.simplify(rho).charpoly(x).as_expr())
+        target_poly = sp.expand(sp.prod([(x - sp.Rational(v.numerator, v.denominator))
+                                         for v in spectrum]))
+        assert sp.simplify(charpoly - target_poly) == 0, (r["system"], r["index"])

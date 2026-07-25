@@ -1,0 +1,5190 @@
+{
+  "note": "Exact certification of fixed-spectrum cascade endpoints. A CERTIFIED entry means the improved support bound holds in exact arithmetic; every other status is reported as not certified.",
+  "digits": 40,
+  "endpoints_attempted": 71,
+  "certified": 69,
+  "status_tally": {
+    "CERTIFIED": 69,
+    "WEIGHTS-NOT-RATIONAL": 2
+  },
+  "certified_bounds": [
+    {
+      "system": "(3,10)",
+      "index": 17,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 170
+    },
+    {
+      "system": "(3,10)",
+      "index": 25,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 30
+    },
+    {
+      "system": "(3,10)",
+      "index": 33,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(3,10)",
+      "index": 40,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 126
+    },
+    {
+      "system": "(3,10)",
+      "index": 49,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 26
+    },
+    {
+      "system": "(3,10)",
+      "index": 57,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 28
+    },
+    {
+      "system": "(3,10)",
+      "index": 66,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 18
+    },
+    {
+      "system": "(3,10)",
+      "index": 70,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 36
+    },
+    {
+      "system": "(3,10)",
+      "index": 71,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(3,10)",
+      "index": 73,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 42
+    },
+    {
+      "system": "(3,10)",
+      "index": 75,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 28
+    },
+    {
+      "system": "(3,10)",
+      "index": 77,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 55
+    },
+    {
+      "system": "(3,10)",
+      "index": 81,
+      "support_certified_library": 9,
+      "support_certified_exact": 8,
+      "state_denominator": 120
+    },
+    {
+      "system": "(3,10)",
+      "index": 88,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(3,10)",
+      "index": 92,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 189
+    },
+    {
+      "system": "(3,10)",
+      "index": 95,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(3,10)",
+      "index": 96,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 36
+    },
+    {
+      "system": "(3,10)",
+      "index": 98,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 440
+    },
+    {
+      "system": "(3,10)",
+      "index": 99,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 60
+    },
+    {
+      "system": "(3,10)",
+      "index": 101,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 120
+    },
+    {
+      "system": "(3,10)",
+      "index": 103,
+      "support_certified_library": 14,
+      "support_certified_exact": 10,
+      "state_denominator": 46852
+    },
+    {
+      "system": "(3,10)",
+      "index": 108,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 30
+    },
+    {
+      "system": "(3,8)",
+      "index": 10,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(3,8)",
+      "index": 24,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 36
+    },
+    {
+      "system": "(3,8)",
+      "index": 28,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(3,8)",
+      "index": 31,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(3,9)",
+      "index": 13,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(3,9)",
+      "index": 34,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 18
+    },
+    {
+      "system": "(3,9)",
+      "index": 36,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 36
+    },
+    {
+      "system": "(3,9)",
+      "index": 37,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(3,9)",
+      "index": 44,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(3,9)",
+      "index": 48,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(4,10)",
+      "index": 13,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(4,10)",
+      "index": 34,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 18
+    },
+    {
+      "system": "(4,10)",
+      "index": 36,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 36
+    },
+    {
+      "system": "(4,10)",
+      "index": 37,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(4,10)",
+      "index": 44,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(4,10)",
+      "index": 48,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(4,10)",
+      "index": 60,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 30
+    },
+    {
+      "system": "(4,10)",
+      "index": 68,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 60
+    },
+    {
+      "system": "(4,10)",
+      "index": 93,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 184
+    },
+    {
+      "system": "(4,9)",
+      "index": 10,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(4,9)",
+      "index": 24,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 36
+    },
+    {
+      "system": "(4,9)",
+      "index": 28,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(4,9)",
+      "index": 31,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 36
+    },
+    {
+      "system": "(4,9)",
+      "index": 40,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 30
+    },
+    {
+      "system": "(4,9)",
+      "index": 42,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(4,9)",
+      "index": 47,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 60
+    },
+    {
+      "system": "(4,9)",
+      "index": 65,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 115
+    },
+    {
+      "system": "(5,10)",
+      "index": 10,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    },
+    {
+      "system": "(5,10)",
+      "index": 24,
+      "support_certified_library": 6,
+      "support_certified_exact": 5,
+      "state_denominator": 18
+    },
+    {
+      "system": "(5,10)",
+      "index": 28,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(5,10)",
+      "index": 31,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(5,10)",
+      "index": 40,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 60
+    },
+    {
+      "system": "(5,10)",
+      "index": 42,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(5,10)",
+      "index": 47,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 12
+    },
+    {
+      "system": "(5,10)",
+      "index": 65,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 115
+    },
+    {
+      "system": "(5,10)",
+      "index": 113,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 108
+    },
+    {
+      "system": "(5,10)",
+      "index": 140,
+      "support_certified_library": 9,
+      "support_certified_exact": 8,
+      "state_denominator": 351
+    },
+    {
+      "system": "(5,10)",
+      "index": 171,
+      "support_certified_library": 9,
+      "support_certified_exact": 8,
+      "state_denominator": 168
+    },
+    {
+      "system": "(5,10)",
+      "index": 189,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 60
+    },
+    {
+      "system": "(5,10)",
+      "index": 191,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(5,10)",
+      "index": 212,
+      "support_certified_library": 9,
+      "support_certified_exact": 8,
+      "state_denominator": 392
+    },
+    {
+      "system": "(5,10)",
+      "index": 218,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 126
+    },
+    {
+      "system": "(5,10)",
+      "index": 230,
+      "support_certified_library": 8,
+      "support_certified_exact": 7,
+      "state_denominator": 184
+    },
+    {
+      "system": "(5,10)",
+      "index": 250,
+      "support_certified_library": 7,
+      "support_certified_exact": 6,
+      "state_denominator": 45
+    },
+    {
+      "system": "(5,10)",
+      "index": 261,
+      "support_certified_library": 9,
+      "support_certified_exact": 7,
+      "state_denominator": 108
+    },
+    {
+      "system": "(5,10)",
+      "index": 263,
+      "support_certified_library": 9,
+      "support_certified_exact": 8,
+      "state_denominator": 351
+    },
+    {
+      "system": "(5,10)",
+      "index": 268,
+      "support_certified_library": 8,
+      "support_certified_exact": 6,
+      "state_denominator": 24
+    }
+  ],
+  "results": [
+    {
+      "system": "(3,10)",
+      "index": 17,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          4,
+          9
+        ],
+        [
+          0,
+          8,
+          9
+        ],
+        [
+          2,
+          5,
+          7
+        ],
+        [
+          4,
+          7,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "5/17",
+        "3/17",
+        "5/34",
+        "3/170",
+        "16/85",
+        "2/17",
+        "1/17"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 170,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 25,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          9
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          4,
+          6
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          9
+        ],
+        [
+          2,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "1.24429e-42",
+      "squared_weights": [
+        "1/5",
+        "2/15",
+        "4/15",
+        "1/5",
+        "1/30",
+        "1/10",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 30,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 33,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          2,
+          3
+        ],
+        [
+          0,
+          6,
+          7
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          1,
+          4,
+          7
+        ],
+        [
+          2,
+          4,
+          6
+        ]
+      ],
+      "refined_residual": "5.74656e-43",
+      "squared_weights": [
+        "1/4",
+        "1/6",
+        "1/3",
+        "1/8",
+        "1/24",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 40,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          9
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          4,
+          6
+        ],
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          1,
+          4,
+          8
+        ],
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          2,
+          4,
+          9
+        ]
+      ],
+      "refined_residual": "2.51949e-43",
+      "squared_weights": [
+        "7/18",
+        "5/18",
+        "1/18",
+        "1/18",
+        "1/18",
+        "1/14",
+        "2/21"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 49,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2,
+          8
+        ],
+        [
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "5/13",
+        "1/13",
+        "2/13",
+        "1/13",
+        "3/26",
+        "5/26"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 26,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 57,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          4,
+          8
+        ],
+        [
+          0,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          6
+        ],
+        [
+          1,
+          4,
+          7
+        ],
+        [
+          1,
+          4,
+          9
+        ]
+      ],
+      "refined_residual": "8.47152e-44",
+      "squared_weights": [
+        "5/14",
+        "3/14",
+        "1/28",
+        "1/14",
+        "1/7",
+        "1/14",
+        "3/28"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 28,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 66,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          4,
+          9
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          1,
+          3,
+          9
+        ],
+        [
+          1,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.41721e-42",
+      "squared_weights": [
+        "1/3",
+        "1/9",
+        "2/9",
+        "1/6",
+        "1/18",
+        "1/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 18,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 70,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ],
+        [
+          2,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "2.09958e-43",
+      "squared_weights": [
+        "5/36",
+        "1/12",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 71,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          8
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          2,
+          4,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "8/45",
+        "2/9",
+        "4/15",
+        "1/15",
+        "1/15",
+        "1/5"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 73,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2,
+          9
+        ],
+        [
+          0,
+          4,
+          6
+        ],
+        [
+          1,
+          2,
+          8
+        ],
+        [
+          1,
+          4,
+          5
+        ],
+        [
+          1,
+          4,
+          9
+        ],
+        [
+          2,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "5/14",
+        "3/14",
+        "1/14",
+        "1/14",
+        "5/42",
+        "2/21",
+        "1/14"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 42,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 75,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          3
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          8,
+          9
+        ],
+        [
+          1,
+          3,
+          9
+        ],
+        [
+          1,
+          4,
+          5
+        ],
+        [
+          1,
+          6,
+          8
+        ]
+      ],
+      "refined_residual": "8.1996e-43",
+      "squared_weights": [
+        "1/7",
+        "2/7",
+        "3/28",
+        "3/28",
+        "1/14",
+        "1/7",
+        "1/7"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 28,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 77,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ],
+        [
+          2,
+          5,
+          6
+        ],
+        [
+          2,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "6/55",
+        "4/55",
+        "5/11",
+        "1/11",
+        "2/11",
+        "1/11"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 55,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 81,
+      "support_certified": 9,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          4
+        ],
+        [
+          0,
+          2,
+          9
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          5,
+          7
+        ],
+        [
+          1,
+          2,
+          8
+        ],
+        [
+          1,
+          3,
+          7
+        ],
+        [
+          1,
+          5,
+          6
+        ],
+        [
+          1,
+          5,
+          9
+        ]
+      ],
+      "refined_residual": "1.97303e-42",
+      "squared_weights": [
+        "1/4",
+        "5/24",
+        "1/8",
+        "1/24",
+        "1/24",
+        "1/8",
+        "1/5",
+        "1/120"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 120,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 88,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          2,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "3.24987e-43",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 92,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          9
+        ],
+        [
+          0,
+          2,
+          8
+        ],
+        [
+          1,
+          2,
+          5
+        ],
+        [
+          2,
+          3,
+          7
+        ],
+        [
+          2,
+          4,
+          6
+        ],
+        [
+          2,
+          7,
+          9
+        ],
+        [
+          3,
+          5,
+          9
+        ]
+      ],
+      "refined_residual": "4.68548e-43",
+      "squared_weights": [
+        "3/7",
+        "1/7",
+        "2/21",
+        "20/189",
+        "1/7",
+        "1/27",
+        "1/21"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 189,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 95,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "8.26708e-43",
+      "squared_weights": [
+        "1/6",
+        "7/18",
+        "1/6",
+        "1/7",
+        "5/63",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 96,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          9
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          1,
+          2,
+          8
+        ],
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          2,
+          4,
+          9
+        ],
+        [
+          2,
+          6,
+          7
+        ]
+      ],
+      "refined_residual": "2.30934e-42",
+      "squared_weights": [
+        "4/9",
+        "1/9",
+        "1/9",
+        "5/36",
+        "1/12",
+        "1/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 98,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          4,
+          9
+        ],
+        [
+          0,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/10",
+        "3/20",
+        "1/5",
+        "1/10",
+        "4/55",
+        "9/88",
+        "11/40"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 440,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 99,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          9
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          2,
+          6,
+          9
+        ],
+        [
+          2,
+          7,
+          8
+        ],
+        [
+          3,
+          7,
+          9
+        ]
+      ],
+      "refined_residual": "2.0663e-42",
+      "squared_weights": [
+        "1/6",
+        "7/30",
+        "3/20",
+        "3/20",
+        "3/20",
+        "1/10",
+        "1/20"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 60,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 101,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          8
+        ],
+        [
+          0,
+          2,
+          9
+        ],
+        [
+          1,
+          2,
+          6
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          1,
+          4,
+          9
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          3,
+          5,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/8",
+        "5/12",
+        "1/8",
+        "1/10",
+        "1/15",
+        "1/8",
+        "1/24"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 120,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 103,
+      "support_certified": 14,
+      "support_upper": 10,
+      "support_dets": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          8
+        ],
+        [
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          4,
+          9
+        ],
+        [
+          3,
+          8,
+          9
+        ],
+        [
+          1,
+          6,
+          9
+        ],
+        [
+          3,
+          5,
+          9
+        ],
+        [
+          0,
+          1,
+          5
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "13/34",
+        "5/34",
+        "53/442",
+        "195/1802",
+        "5/68",
+        "5/68",
+        "35/901",
+        "1/34",
+        "18/901",
+        "84/11713"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 46852,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,10)",
+      "index": 108,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          8
+        ],
+        [
+          0,
+          2,
+          9
+        ],
+        [
+          0,
+          3,
+          5
+        ],
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          1,
+          3,
+          9
+        ],
+        [
+          2,
+          3,
+          6
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "1/10",
+        "3/10",
+        "1/10",
+        "1/10",
+        "1/6",
+        "2/15",
+        "1/10"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 30,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,8)",
+      "index": 10,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          3,
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "9.90459e-43",
+      "squared_weights": [
+        "1/4",
+        "1/3",
+        "1/6",
+        "1/24",
+        "1/8",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,8)",
+      "index": 24,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ],
+        [
+          2,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "5/36",
+        "1/12",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,8)",
+      "index": 28,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          2,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,8)",
+      "index": 31,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "1/6",
+        "7/18",
+        "1/6",
+        "1/7",
+        "5/63",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 13,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          3,
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "9.97082e-43",
+      "squared_weights": [
+        "1/4",
+        "1/3",
+        "1/6",
+        "1/24",
+        "1/8",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 34,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          3,
+          6
+        ],
+        [
+          0,
+          4,
+          8
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          3,
+          8
+        ],
+        [
+          1,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.84873e-43",
+      "squared_weights": [
+        "1/3",
+        "1/9",
+        "2/9",
+        "1/6",
+        "1/18",
+        "1/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 18,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 36,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ],
+        [
+          2,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "1.04979e-43",
+      "squared_weights": [
+        "5/36",
+        "1/12",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 37,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          8
+        ],
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          2,
+          4,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "8/45",
+        "2/9",
+        "4/15",
+        "1/15",
+        "1/15",
+        "1/5"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 44,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          2,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(3,9)",
+      "index": 48,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "refined_residual": "8.26708e-43",
+      "squared_weights": [
+        "1/6",
+        "7/18",
+        "1/6",
+        "1/7",
+        "5/63",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 13,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          7,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          5,
+          7
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "4.31573e-43",
+      "squared_weights": [
+        "1/4",
+        "1/6",
+        "1/3",
+        "1/8",
+        "1/24",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 34,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          1,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          5,
+          9
+        ],
+        [
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          2,
+          5,
+          7
+        ]
+      ],
+      "refined_residual": "3.87406e-43",
+      "squared_weights": [
+        "1/3",
+        "1/9",
+        "2/9",
+        "1/6",
+        "1/18",
+        "1/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 18,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 36,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          2,
+          4,
+          7
+        ],
+        [
+          0,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          3,
+          5,
+          7
+        ]
+      ],
+      "refined_residual": "1.13962e-43",
+      "squared_weights": [
+        "5/36",
+        "1/12",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 37,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          9
+        ],
+        [
+          0,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          2,
+          6,
+          9
+        ],
+        [
+          0,
+          3,
+          6,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "4/15",
+        "8/45",
+        "2/9",
+        "1/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 44,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          3,
+          7,
+          8
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 48,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          3,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          6,
+          8
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "1/6",
+        "7/18",
+        "1/6",
+        "1/7",
+        "5/63",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 60,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          1,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          8
+        ],
+        [
+          1,
+          2,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "9.14273e-43",
+      "squared_weights": [
+        "2/5",
+        "2/15",
+        "2/15",
+        "1/10",
+        "1/6",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 30,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 68,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          4,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ],
+        [
+          1,
+          2,
+          4,
+          5
+        ]
+      ],
+      "refined_residual": "7.97183e-44",
+      "squared_weights": [
+        "1/10",
+        "5/12",
+        "1/6",
+        "1/6",
+        "1/15",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 60,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,10)",
+      "index": 93,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          3,
+          4,
+          5
+        ],
+        [
+          0,
+          3,
+          5,
+          8
+        ],
+        [
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          2,
+          3,
+          4,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "9/23",
+        "4/23",
+        "3/23",
+        "11/184",
+        "21/184",
+        "1/23",
+        "2/23"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 184,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 10,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          7,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          5,
+          7
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "4.35786e-43",
+      "squared_weights": [
+        "1/4",
+        "1/6",
+        "1/3",
+        "1/8",
+        "1/24",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 24,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          2,
+          4,
+          7
+        ],
+        [
+          0,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          3,
+          5,
+          7
+        ]
+      ],
+      "refined_residual": "1.12104e-43",
+      "squared_weights": [
+        "5/36",
+        "1/12",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 28,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          3,
+          6,
+          8
+        ],
+        [
+          0,
+          4,
+          7,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 31,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          3,
+          6,
+          8
+        ],
+        [
+          0,
+          4,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/4",
+        "5/36",
+        "1/6",
+        "1/6",
+        "2/9",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 36,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 40,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          1,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          8
+        ],
+        [
+          1,
+          2,
+          5,
+          8
+        ]
+      ],
+      "refined_residual": "9.79579e-43",
+      "squared_weights": [
+        "2/5",
+        "2/15",
+        "2/15",
+        "1/10",
+        "1/6",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 30,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 42,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          4,
+          8
+        ]
+      ],
+      "refined_residual": "1.79366e-43",
+      "squared_weights": [
+        "2/15",
+        "8/45",
+        "2/9",
+        "1/5",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 47,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          8
+        ],
+        [
+          0,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          4,
+          5
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "1/10",
+        "5/12",
+        "1/6",
+        "1/6",
+        "1/15",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 60,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(4,9)",
+      "index": 65,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          3,
+          7,
+          8
+        ],
+        [
+          1,
+          3,
+          6,
+          8
+        ],
+        [
+          2,
+          3,
+          4,
+          8
+        ]
+      ],
+      "refined_residual": "1.6143e-42",
+      "squared_weights": [
+        "9/23",
+        "4/23",
+        "3/23",
+        "12/115",
+        "8/115",
+        "1/23",
+        "2/23"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 115,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 10,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          5,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          6,
+          8
+        ],
+        [
+          0,
+          1,
+          5,
+          6,
+          9
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "1/4",
+        "1/3",
+        "1/6",
+        "1/24",
+        "1/8",
+        "1/12"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 24,
+      "support_certified": 6,
+      "support_upper": 5,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          5,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          8
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          9
+        ],
+        [
+          0,
+          1,
+          4,
+          7,
+          8
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "5/18",
+        "2/9",
+        "1/6",
+        "1/9",
+        "2/9"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 18,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 28,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          4,
+          7,
+          9
+        ],
+        [
+          0,
+          1,
+          5,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "1/5",
+        "2/15",
+        "1/5",
+        "1/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 31,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          6,
+          9
+        ],
+        [
+          0,
+          1,
+          5,
+          7,
+          9
+        ]
+      ],
+      "refined_residual": "6.61367e-42",
+      "squared_weights": [
+        "1/6",
+        "7/18",
+        "1/6",
+        "1/7",
+        "5/63",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 40,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          3,
+          6,
+          7,
+          8,
+          9
+        ],
+        [
+          1,
+          4,
+          6,
+          7,
+          9
+        ],
+        [
+          1,
+          3,
+          5,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          6,
+          8,
+          9
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          9
+        ],
+        [
+          0,
+          1,
+          5,
+          6,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/15",
+        "2/5",
+        "4/15",
+        "1/12",
+        "1/20",
+        "2/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 60,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 42,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          4,
+          6,
+          7,
+          9
+        ],
+        [
+          0,
+          1,
+          6,
+          8,
+          9
+        ],
+        [
+          0,
+          1,
+          5,
+          7,
+          9
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          6,
+          7
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/15",
+        "1/5",
+        "2/9",
+        "8/45",
+        "1/5",
+        "2/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 47,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          9
+        ],
+        [
+          0,
+          1,
+          4,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "1.79366e-43",
+      "squared_weights": [
+        "1/12",
+        "1/6",
+        "1/6",
+        "1/6",
+        "1/4",
+        "1/6"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 12,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 65,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          4,
+          7,
+          9
+        ],
+        [
+          0,
+          2,
+          4,
+          5,
+          9
+        ],
+        [
+          0,
+          3,
+          4,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "24/115",
+        "21/115",
+        "3/23",
+        "4/23",
+        "4/23",
+        "2/23",
+        "1/23"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 115,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 113,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          5,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          8,
+          9
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          6,
+          9
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "1.14794e-41",
+      "squared_weights": [
+        "2/9",
+        "1/4",
+        "7/27",
+        "5/108",
+        "1/9",
+        "1/18",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 108,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 140,
+      "support_certified": 9,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        [
+          2,
+          3,
+          7,
+          8,
+          9
+        ],
+        [
+          1,
+          4,
+          6,
+          8,
+          9
+        ],
+        [
+          1,
+          4,
+          5,
+          7,
+          8
+        ],
+        [
+          1,
+          3,
+          6,
+          7,
+          9
+        ],
+        [
+          1,
+          3,
+          4,
+          8,
+          9
+        ],
+        [
+          1,
+          2,
+          4,
+          7,
+          9
+        ],
+        [
+          0,
+          4,
+          7,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "3.87176e-42",
+      "squared_weights": [
+        "2/13",
+        "5/13",
+        "20/351",
+        "1/13",
+        "1/39",
+        "7/351",
+        "2/39",
+        "3/13"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 351,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 144,
+      "support_certified": 10,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          8,
+          9
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          2,
+          3,
+          7,
+          9
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          8
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "status": "WEIGHTS-NOT-RATIONAL",
+      "recognized": [
+        "8/37",
+        null,
+        null,
+        null,
+        "3/37",
+        "1/37",
+        "2/37",
+        "3/37"
+      ]
+    },
+    {
+      "system": "(5,10)",
+      "index": 171,
+      "support_certified": 9,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          9
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          8
+        ],
+        [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        [
+          1,
+          3,
+          4,
+          5,
+          9
+        ]
+      ],
+      "refined_residual": "4.20229e-42",
+      "squared_weights": [
+        "5/14",
+        "5/168",
+        "9/56",
+        "5/56",
+        "9/56",
+        "2/21",
+        "1/28",
+        "1/14"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 168,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 189,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          8
+        ],
+        [
+          0,
+          2,
+          4,
+          8,
+          9
+        ],
+        [
+          0,
+          3,
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          4,
+          5,
+          7,
+          8
+        ],
+        [
+          2,
+          3,
+          4,
+          7,
+          8
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "1/15",
+        "2/5",
+        "4/15",
+        "1/12",
+        "1/20",
+        "2/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 60,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 191,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          1,
+          2,
+          3,
+          5,
+          8
+        ],
+        [
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        [
+          2,
+          3,
+          4,
+          6,
+          8
+        ],
+        [
+          2,
+          3,
+          6,
+          8,
+          9
+        ],
+        [
+          2,
+          4,
+          7,
+          8,
+          9
+        ],
+        [
+          3,
+          4,
+          5,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "7.60779e-43",
+      "squared_weights": [
+        "1/15",
+        "1/5",
+        "2/9",
+        "8/45",
+        "1/5",
+        "2/15"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 212,
+      "support_certified": 9,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          9
+        ],
+        [
+          0,
+          1,
+          2,
+          6,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          6,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          6,
+          9
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          9
+        ]
+      ],
+      "refined_residual": "2.76736e-42",
+      "squared_weights": [
+        "5/14",
+        "1/8",
+        "1/28",
+        "9/56",
+        "15/392",
+        "6/49",
+        "1/14",
+        "5/56"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 392,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 218,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          5,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          2,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          3,
+          5,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          7
+        ]
+      ],
+      "refined_residual": "1.66281e-42",
+      "squared_weights": [
+        "1/6",
+        "1/7",
+        "7/18",
+        "1/18",
+        "5/63",
+        "1/6"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 126,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 230,
+      "support_certified": 8,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          6,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          1,
+          2,
+          4,
+          5,
+          7
+        ]
+      ],
+      "refined_residual": "2.29589e-41",
+      "squared_weights": [
+        "2/23",
+        "9/23",
+        "4/23",
+        "3/23",
+        "1/23",
+        "11/184",
+        "21/184"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 184,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 250,
+      "support_certified": 7,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      ],
+      "refined_residual": "1.22447e-42",
+      "squared_weights": [
+        "14/45",
+        "4/45",
+        "2/15",
+        "1/15",
+        "1/5",
+        "1/5"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 45,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 256,
+      "support_certified": 10,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          7
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          5,
+          6,
+          9
+        ]
+      ],
+      "refined_residual": "8.07329e-43",
+      "status": "WEIGHTS-NOT-RATIONAL",
+      "recognized": [
+        null,
+        null,
+        "1/37",
+        null,
+        "8/37",
+        "2/37",
+        "3/37",
+        "3/37"
+      ]
+    },
+    {
+      "system": "(5,10)",
+      "index": 261,
+      "support_certified": 9,
+      "support_upper": 7,
+      "support_dets": [
+        [
+          4,
+          5,
+          6,
+          8,
+          9
+        ],
+        [
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          3,
+          4,
+          6,
+          7,
+          9
+        ],
+        [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          2,
+          5,
+          7,
+          8,
+          9
+        ],
+        [
+          1,
+          4,
+          5,
+          7,
+          8
+        ],
+        [
+          0,
+          4,
+          7,
+          8,
+          9
+        ]
+      ],
+      "refined_residual": "7.11157e-43",
+      "squared_weights": [
+        "2/9",
+        "1/4",
+        "7/27",
+        "5/108",
+        "1/9",
+        "1/18",
+        "1/18"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 108,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 263,
+      "support_certified": 9,
+      "support_upper": 8,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          3,
+          6,
+          9
+        ],
+        [
+          0,
+          2,
+          4,
+          5,
+          8
+        ],
+        [
+          0,
+          2,
+          5,
+          6,
+          7
+        ],
+        [
+          0,
+          3,
+          5,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "1.63022e-42",
+      "squared_weights": [
+        "2/13",
+        "5/13",
+        "20/351",
+        "1/13",
+        "1/39",
+        "7/351",
+        "2/39",
+        "3/13"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 351,
+      "evidence": "EXACT"
+    },
+    {
+      "system": "(5,10)",
+      "index": 268,
+      "support_certified": 8,
+      "support_upper": 6,
+      "support_dets": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          5,
+          6,
+          7
+        ],
+        [
+          0,
+          3,
+          4,
+          6,
+          7
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      ],
+      "refined_residual": "5.37123e-43",
+      "squared_weights": [
+        "1/3",
+        "1/6",
+        "1/24",
+        "1/8",
+        "1/12",
+        "1/4"
+      ],
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "CERTIFIED",
+      "state_denominator": 24,
+      "evidence": "EXACT"
+    }
+  ]
+}
