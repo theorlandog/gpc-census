@@ -55,8 +55,9 @@ lives in `results/report/main.md`; computed data results live under
   Section, equation, and table refs are live crossref citations
   (`[-@sec:x]`); theorem-family numbering is literal text since crossref has
   no theorem type, so renumber by hand when inserting theorems. Citations
-  resolve via citeproc against `results/report/references.bib` (APS numeric
-  style, vendored CSL); `nocite: "@*"` prints uncited entries. The build
+  resolve via citeproc against `results/report/references.bib` (IOP numeric
+  style, vendored CSL, per the J. Phys. A target journal); every bib entry
+  is cited in the text (no `nocite`). The build
   fails if any reference or citation does not resolve. `results/report` is
   excluded from the sdist and RPM; the PDF ships in the release
   `data-output.zip`.

@@ -8,7 +8,7 @@ REPORT_MD := results/report/main.md
 REPORT_PDF := results/report/main.pdf
 REPORT_TEX := results/report/main.tex
 REPORT_BIB := results/report/references.bib
-REPORT_CSL := results/report/american-physics-society.csl
+REPORT_CSL := results/report/institute-of-physics-numeric.csl
 
 # pandoc/extra bundles pandoc, a matched pandoc-crossref, and a TeX
 # engine, so one pinned image covers the whole markdown-to-PDF build.
