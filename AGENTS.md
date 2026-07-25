@@ -60,7 +60,10 @@ lives in `results/report/main.md`; computed data results live under
   is cited in the text (no `nocite`). The build
   fails if any reference or citation does not resolve. `results/report` is
   excluded from the sdist and RPM; the PDF ships in the release
-  `data-output.zip`.
+  `data-output.zip`. `results/report/anonymized/` is the double-anonymous
+  review copy, generated from `main.md` by `make anonymize` (renders with
+  `make report-anon`); never edit it by hand, the drift test fails if it
+  goes stale.
 - `results/data/`: computed data results, shipped in the release
   `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow

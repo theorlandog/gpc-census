@@ -228,3 +228,6 @@ data-output.zip
 
 # Claude
 .claude/
+
+# anonymized review copy render output
+results/report/anonymized/main.pdf

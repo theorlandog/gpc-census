@@ -9,6 +9,9 @@ REPORT_PDF := results/report/main.pdf
 REPORT_TEX := results/report/main.tex
 REPORT_BIB := results/report/references.bib
 REPORT_CSL := results/report/institute-of-physics-numeric.csl
+ANON_DIR := results/report/anonymized
+ANON_MD := $(ANON_DIR)/main.md
+ANON_PDF := $(ANON_DIR)/main.pdf
 
 # pandoc/extra bundles pandoc, a matched pandoc-crossref, and a TeX
 # engine, so one pinned image covers the whole markdown-to-PDF build.
@@ -18,7 +21,7 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := -F pandoc-crossref --citeproc --number-sections
 
-.PHONY: sync test lint build sdist wheel srpm rpm report report-tex upgrade clean
+.PHONY: sync test lint build sdist wheel srpm rpm report report-tex anonymize report-anon upgrade clean
 
 sync:
 	$(UV) sync
@@ -98,6 +101,25 @@ $(REPORT_TEX): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	  echo "report-tex: unresolved crossref marks in TeX output"; exit 1; fi
 	@echo "==> $(REPORT_TEX)"
 
+# Double-anonymous review copy for journal submission. The folder is
+# generated from the master manuscript, never edited by hand; the
+# generator strips the author list, affiliation footnote, preprint DOI,
+# and personal acknowledgments, and fails if any identifying string
+# survives. tests/test_anonymized_report.py guards against drift.
+anonymize:
+	python3 scripts/make_anonymized_report.py
+
+report-anon: anonymize
+	mkdir -p build
+	$(PANDOC_RUN) $(ANON_MD) $(PANDOC_FLAGS) -o $(ANON_PDF) 2> build/report-anon.log \
+	  || { cat build/report-anon.log; exit 1; }
+	@if grep -Ei 'not found|undefined' build/report-anon.log; then \
+	  echo "report-anon: unresolved references or citations, see build/report-anon.log"; exit 1; fi
+	@if command -v pdftotext >/dev/null 2>&1 \
+	  && pdftotext $(ANON_PDF) - 2>/dev/null | grep -q '¿'; then \
+	  echo "report-anon: unresolved crossref marks in PDF output"; exit 1; fi
+	@echo "==> $(ANON_PDF)"
+
 clean:
 	rm -rf dist build data-output data-output.zip
-	rm -f $(REPORT_PDF) $(REPORT_TEX)
+	rm -f $(REPORT_PDF) $(REPORT_TEX) $(ANON_PDF)
