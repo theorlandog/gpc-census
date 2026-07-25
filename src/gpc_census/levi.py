@@ -155,7 +155,17 @@ def _herm_coords_matrix(d):
 
 
 def fiber_and_orbit(psi, basis, n, d, rank_rtol=1e-9, eig_tol=1e-8):
-    """vectorized: build J from u_pq = A_p^dag A_q psi  (d^2 matvecs, not 2H*d)"""
+    """Levi-orbit diagnostics plus the FIXED-RHO fiber dimension.
+
+    vectorized: build J from u_pq = A_p^dag A_q psi  (d^2 matvecs, not 2H*d)
+
+    The dimension returned as fixed_rho_fiber_dim is of the fiber
+    {psi : rho_1(psi) = rho}, over the FULL Fock space of (n, d), with only the
+    global phase quotiented. It is NOT the census fixed-spectrum fiber and not
+    comparable to gpc_census.fiber.fixed_spectrum_tangent, which is
+    support-restricted and quotients the whole orbital-phase gauge. See the
+    module docstring of gpc_census.fiber for the two-fiber contract.
+    """
     ann = annihilation_matrices(n, d, basis)
     low = [a @ psi for a in ann]
     rho = np.array([[np.vdot(low[p], low[q]) for q in range(d)] for p in range(d)])

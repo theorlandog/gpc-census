@@ -42,7 +42,8 @@ def test_quotient_keeps_certification_and_records_fiber_dim():
                                      certify_tier_b=True)
     assert rec and rec.get("status") == "OK"
     assert rec.get("exact", {}).get("status") == "EXACT"
-    assert "fiber_kernel_dim" in rec and rec["fiber_kernel_dim"] >= 0
+    assert "incidence_kernel_dim" in rec and rec["incidence_kernel_dim"] >= 0
+    assert "fiber_kernel_dim" not in rec  # unqualified fiber naming is banned
 
 
 def test_quotient_toggle_both_certify():
