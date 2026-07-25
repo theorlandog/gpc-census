@@ -51,6 +51,10 @@ def solve(system, index, recs, max_signs=1 << 12):
     if not cf or not cf.get("support_dets"):
         return "no state", None
     dets = [tuple(x) for x in cf["support_dets"]]
+    if not all(isinstance(x, int) for x in cf["weights"]):
+        # e.g. the real v_B library state: weights already off the rational
+        # grid, so the rational-anchor wall walk does not apply
+        return "irrational-weight record; wall family not applicable", None
     w0 = [int(x) for x in cf["weights"]]
     den = int(cf["den"])
     spec = [Fraction(x, r["denominator"]) for x in r["integer_form"]]

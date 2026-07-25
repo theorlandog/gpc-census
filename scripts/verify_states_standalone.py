@@ -65,12 +65,25 @@ def verify(rec):
         return False, "design support not one-hop independent"
 
     rho = build_rdm(dets, amps, d)
-    lam = sp.symbols("lam")
+    # lam is the eigenvalue variable of a Hermitian matrix, hence real; a
+    # generic complex symbol makes expand_complex split it into re/im parts,
+    # which blocks exact cancellation of nested-radical amplitude products.
+    lam = sp.symbols("lam", real=True)
     cp = (rho - lam * sp.eye(d)).det()
     tgt = sp.prod([(sp.Rational(n, D) - lam) for n in rec["integer_form"]])
-    diff = sp.simplify(sp.expand(sp.expand_complex(cp - tgt)))
+    diff = sp.expand(sp.expand_complex(cp - tgt))
     if diff != 0:
-        return False, "characteristic-polynomial identity"
+        diff = sp.simplify(diff)
+    if diff != 0:
+        # Nested-radical amplitudes (e.g. the real v_B library state, weights
+        # in Q(sqrt(35))) defeat generic simplify. Decide exactly instead:
+        # Poly normalization groups radical monomials the bare Add tree keeps
+        # apart, and a surviving coefficient is zero iff its minimal
+        # polynomial is x (an exact algebraic-number decision).
+        x = sp.symbols("x")
+        if not all(c == 0 or sp.minimal_polynomial(c, x) == x
+                   for c in sp.Poly(diff, lam).all_coeffs()):
+            return False, "characteristic-polynomial identity"
     return True, "ok"
 
 

@@ -346,6 +346,11 @@ def recertify(N, d, limit=None):
     ok = 0
     for st in states:
         cf = st["closed_form"]
+        if not all(isinstance(x, int) for x in cf["weights"]):
+            # e.g. the real v_B library state: no integer-weight anchor to
+            # re-solve from, and the exact record carries its own certificate
+            print(f"  SKIP ({N},{d}) v{st['index']}: irrational-weight record")
+            continue
         den = st["denominator"]
         spec = [Fraction(x, den) for x in st["integer_form"]]
         rec = solve(N, d, spec, cf["support_dets"], cf["weights"], den)

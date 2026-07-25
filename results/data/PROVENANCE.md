@@ -34,3 +34,15 @@ transported (padding / frozen-core lift) from the (3,8) parent design at
 denominator 12, each verified by the exact characteristic-polynomial identity;
 their feature_table.csv rows (one-hop-class and max-class-size counts) were
 regenerated to match.
+
+Update (v0.12): the (4,9) index 65 record (v_B = (20,14,14,14,14,4,4,4,4)/23)
+now ships the REAL extremal state: the theta=0 endpoint of the wall family
+k(t) = (1+t, 8-t, 4, 3, 2-t, 2+t, 1, 2)/23 on the same support, at
+t0 = 7/17 - 18*sqrt(35)/85 (reality wall 85 t^2 - 70 t - 119), squared
+weights in Q(sqrt(35)). Generated and certified by scripts/vb_real_state.py
+(exact characteristic-polynomial identity; independently re-verified by
+scripts/verify_states_standalone.py). closed_form.weights for this record
+holds exact radical strings instead of integers; its feature_table.csv
+all_real flag is now 1. The previously shipped phase-carrying fiber point is
+the t=0 rational anchor of the same family, recoverable from the family
+metadata in the record.

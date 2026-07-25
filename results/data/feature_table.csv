@@ -468,7 +468,7 @@ system,index,class,denominator,support_size,kernel_dim,onehop_classes,silent_cla
 "(4,9)",62,DESIGN-INT,9,5,0,0,0,0,1,NEW
 "(4,9)",63,DESIGN-INT,16,6,0,0,0,0,1,NEW
 "(4,9)",64,DESIGN-INT,8,5,0,0,0,0,1,NEW
-"(4,9)",65,INTERFERENCE,23,8,1,1,0,2,0,NEW
+"(4,9)",65,INTERFERENCE,23,8,1,1,0,2,1,NEW
 "(4,9)",66,DESIGN-INT,15,6,0,0,0,0,1,NEW
 "(4,9)",67,DESIGN-INT,14,5,0,0,0,0,1,NEW
 "(4,9)",68,DESIGN-INT,7,4,0,0,0,0,1,pad0
