@@ -189,7 +189,9 @@ These should not be claimed as established until formal proofs are written into 
   [P3: ratios 5 (v89) and 5746 (v103), rational-weight states, no escape
   clause. LEDGER NOTE 2026-07: the regenerated ledger ships all 12
   DESIGN-REAL states at ratio 2 (archive's mined "9 of 12" is stale —
-  representative-dependent, as the P2/P3/P4 caveat predicts).]
+  representative-dependent, as the P2/P3/P4 caveat predicts). Re-derived in
+  exact rational arithmetic, per state, by scripts/reconcile_claims.py →
+  results/data/reconciliation.json.]
 - Complex representative ⇒ intrinsically complex fiber. [Both closures real;
   archive "the near-theorem is FALSE".]
 - Positive-dimensional fibers are literal torus orbits. [Archive retraction:
@@ -357,3 +359,27 @@ Archive the file; keep these alive (here or in the named homes):
   FIRST-ORDER RIGID" is a fixed-ρ verdict; the fixed-spectrum fiber at v103
   is positive-dimensional (see the corrected cancellation-rigidity item and
   Problem 2b). P4's v89 verdict stands in both senses.
+
+## Reconciliation ledger (2026-07 fiber session)
+
+All four items below are re-derived by scripts/reconcile_claims.py into
+results/data/reconciliation.json, so a merge can check them rather than
+trust this list.
+
+| superseded reading | corrected reading |
+|---|---|
+| v103 is first-order rigid | rigid for the FIXED-RHO fiber, deformable (tangent 6) for the FIXED-SPECTRUM fiber; v89 rigid in both |
+| v103 is an isolated support-14 point | true of the route-B search landscape and gauge slice, false of the fiber: support 10 is reached and CERTIFIED exactly |
+| the census support column is the minimal support | it is the certified support, an upper bound on s_Q, strict at 71 of 799 vertices |
+| 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
+
+Two further scope corrections from this session, both from evidence rather
+than re-reading:
+
+- The fixed-ρ / fixed-spectrum gap is not confined to the cancellation
+  regime. It appears in the magnitude regime at (3,11) v43 (fixed-ρ 1,
+  fixed-spectrum 2), found by the out-of-sample holdout.
+  [docs/prereg_bracket_3_11_3_12.md B3]
+- The cancellation regime is a property of the REPRESENTATIVE, not the
+  vertex: v103's own cascade leaves the regime. "Exactly two cancellation
+  states" counts certified representatives. [docs/cascade_census.md]
