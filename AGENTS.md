@@ -117,6 +117,10 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 
 Read docs/RESEARCH.md before working on the science. It encodes the
 classification trichotomy, the validation law, campaign state, and the
-location of every source document. The short version: never ship a result
-that has not passed the structural invariants in gpc_census.validate, and
-never change state-solving code without the v_B preflight.
+location of every source document; its status tags point into the frozen
+census-era evidence log docs/RESEARCH_ARCHIVE.md. The short version: never
+ship a result that has not passed the structural invariants in
+gpc_census.validate, and never change state-solving code without the v_B
+preflight. Every claim in RESEARCH.md carries an in-repo certifying
+artifact; a fiber-dimension or rigidity claim must name fixed-spectrum vs
+fixed-rho and reduced vs unreduced.

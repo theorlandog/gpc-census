@@ -22,7 +22,7 @@ Gate: both states pass verify-style exact identity AND independent
 
 ## Step 2 -- score the pre-registration (BEFORE any narrative)
 
-Mark P1-P6 PASS/FAIL/NOT-TESTED in docs/RESEARCH.md ("SKEPTICAL AUDIT +
+Mark P1-P6 PASS/FAIL/NOT-TESTED in docs/RESEARCH_ARCHIVE.md ("SKEPTICAL AUDIT +
 PRE-REGISTRATION" section) against the certified states: holonomy fields (P1),
 channel counts (P2), ratio law scope (P3), deformability (P4), Aut (P5),
 CM-conic model (P6). A FAIL is a finding; write it as one.
