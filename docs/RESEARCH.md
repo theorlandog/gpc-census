@@ -2763,6 +2763,128 @@ scripts/verify_parent3.py (stage F). Run from the repo root with the package
 installed (make sync); they need numpy and, for stage A, sympy and
 gpc_census.exactify.
 
+## Levi symmetry: a theorem, and a mined law that died in the same session (2026-07)
+
+### THEOREM (proved, basis-independent, no extremality needed)
+
+Let lambda have degeneracy blocks of sizes m_1..m_r and L_lambda = prod_k U(m_k)
+be the stabiliser of diag(lambda) in U(d).  Then [psi] in P(wedge^N C^d) is fixed
+by L_lambda -- equivalently psi spans a ONE-DIMENSIONAL L_lambda-subrepresentation
+-- iff psi is a single Slater determinant filling complete blocks, iff lambda is
+{0,1}-valued.
+
+Proof: wedge^N C^d = sum_{sum n_k = N} tensor_k wedge^{n_k} C^{m_k}; the factor
+wedge^{n} C^{m} has highest weight (1^n, 0^{m-n}) and is one-dimensional exactly
+when n in {0, m}.  QED.
+
+Symmetry breaking at correlated vertices is therefore FORCED BY BRANCHING: not a
+census-wide coincidence, no polytope input, and no future vertex at any rank can
+falsify it.  NOTE the correct notion is invariance UP TO PHASE -- wedge^m C^m is
+the determinant character, one-dimensional but not trivial, so strict invariance
+fails even for Slater determinants.
+
+VERIFIED on all 799 certified states (scripts/levi_orbit_audit.py, 15 s): the 9
+Slater states have levi_orbit_dim exactly 0; all 790 non-Slater states have
+levi_orbit_dim > 0; zero counterexamples; and zero multiplicity mismatches
+between recorded spectra and 1-RDMs recomputed from the closed forms.
+
+### PERMUTATION-LEVEL COROLLARY (hard/soft split)
+
+For G_lambda = prod_k S_{m_k}: wedge^n C^m contains the trivial character iff
+n in {0,1} and the sign character iff n in {m-1,m}.  So a G_lambda-symmetric
+state EXISTS iff N = sum_k n_k is solvable with n_k in {0, 1, m_k-1, m_k}.
+Where it is not ("HARD"), no state whatsoever can be symmetric.
+
+Census split: 47 HARD / 752 soft of 799.
+  DESIGN-INT    631   46 hard (7.3%)
+  DESIGN-REAL    12    0 hard (0.0%)
+  INTERFERENCE  156    1 hard (0.6%)
+The single hard interference vertex is (3,10) v108 = [5,5,5,5,5,1,1,1,1,1]/10,
+blocks (5,5): the only census vertex both correlated and representation-
+theoretically obstructed.  Worth its own look.
+
+Hard obstruction is a DESIGN-INT phenomenon living on long uniform runs;
+correlated vertices break symmetry SOFTLY, so extremality does the work and
+representation theory is silent.  The criterion is an almost-perfect NEGATIVE
+predictor of correlation.
+
+### DEMOTED (not deleted): the "residual symmetry" law
+
+Mined observation: projective_stabilizer_dim >= 2 for ALL 799 certified states
+(global phase contributes exactly 1; zero states sat at 1).  Proposed as a new
+per-vertex invariant.
+
+STATUS: the MEASUREMENT stands, the INTERPRETATION is refuted.  All 799
+certified representatives really do carry stab >= 2; that is a true fact about
+the ledger.  It is not a fact about vertices.
+
+PROVEN (scripts/fiber_sampler.py).  Sampling the fixed-rho fiber over the SAME
+vertex spectrum gives generic points with projective_stabilizer_dim = 1, while
+the certified representative has 2-38.  Two points of one fiber, one spectrum,
+different stabilisers => the quantity is REPRESENTATIVE-DEPENDENT and cannot be
+a vertex invariant.  Interior points mu(t) = (1-t)lambda + t(N/d)*ones -- which
+preserve the degeneracy pattern exactly, since adding a multiple of the all-ones
+vector preserves every coordinate equality -- behave identically.
+
+  vertex        blocks    certified rep stab   generic fiber-point stab
+  (3,6)  v1     [1,4,1]                   13   1,1,1,1,1,1,1,1
+  (3,6)  v3     [6]                       17   1,1,1,1,1,1,7,17
+  (3,9)  v3     [1,8]                     38   1,1,1,1,1,1,1,1
+  (4,8)  v12    [3,4,1]                   11   1,1,1,1,1,1,1,1
+  (3,10) v89    [2,8]                      2   1,1,1,1,1,1,1,1
+  (3,10) v103   [4,6]                      2   1,1,1,1,1,1,1,1
+
+Correlation with sparsity is strong: corr(support_size, stab) = -0.68,
+corr(levi_dim, stab) = +0.50.
+
+NOT SETTLED -- the one gap in the above.  The sampled fiber points came out
+DENSE (support 84/84 at (3,9), 120/120 at (3,10)), so the comparison was
+dense-interior vs sparse-extremal and CONFLATES sparsity with extremality.  The
+open question is whether the chain
+
+    extremal  =>  forced sparse  =>  large residual stabiliser
+
+is real, i.e. whether INTERIOR spectra admit sparse states at all.  A
+reweighted-L1 probe attempted here converged on only 1 of 4 vertex cases
+((3,6) v1: min support 2, matching the certified support) and on 0 interior
+cases, so its interior failures carry NO information.  Re-run with Route B
+(scripts/repro_and_sparsify.py), which is the far better implementation, before
+drawing any conclusion.
+
+ACTION: KEEP the implementation and KEEP logging projective_stabilizer_dim,
+levi_orbit_dim and rank_deficiency.  Tag them representative-dependent, in the
+same bucket as P2/P3/P4, and do NOT publish stab as a vertex invariant.  If the
+sparsity question later resolves in favour of the chain above, the quantity is
+promoted to a statement about the DISTINGUISHED SPARSE representative, which is
+the natural shipped choice anyway.
+
+Mined-law mortality now about one in two, holding.
+
+### BUGS FIXED IN src/gpc_census/levi.py
+
+1. CRITICAL: levi_theorem_consistent was target_line_possible == slater with
+   target_line_possible = slater, i.e. a tautology.  20000 random spectra never
+   produced False; the SystemExit gate in levi_orbit_audit.py could never fire.
+   Now checks whether a one-dimensional sector's INDUCED occupation pattern
+   reproduces the target spectrum.  Falsifiable: fires on records with
+   sum(integer_form) != n*denominator; passes on all 38398 valid random spectra
+   tested and on all 799 census records.
+2. tests/test_levi.py asserted full_levi_line_possible(2,[4]) both True and
+   False in two different tests; the suite could not pass.
+3. transverse_tangent_dim is ~ 2H - d^2 for any generic state and carries no
+   structural signal.  Replaced by rank_deficiency = d^2 - rank(J), the failure
+   of psi -> rho to be a submersion (generic state in (3,6): 2; extremal: 16).
+4. fixed_rho_fiber_dim renamed from fiber_tangent_dim: it is the fixed-rho
+   fiber, NOT the census fixed-spectrum fiber_kernel_dim.  Different objects.
+5. Support determinants now sorted with fermionic sign tracking.
+
+### OPEN
+
+The soft cases (752/799) remain unexplained: G_lambda-symmetric states exist in
+abundance and the extremal one is not among them, with large misses (0.87-1.41
+Frobenius on the (3,6) probes), not near-misses.  That is the real conjecture,
+now precisely delimited.
+
 ## Source documents in docs/
 
 - stage1_klyachko_spec.md: the constraint-generation algorithm, verbatim
