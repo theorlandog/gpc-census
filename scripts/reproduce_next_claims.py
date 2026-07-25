@@ -202,6 +202,81 @@ def v89_family(extra_det=(0, 3, 6), ts=(0.0, 0.05, 0.1, 0.2)):
     return out
 
 
+# ------------------------------------------------- silence-rank lemma evidence
+def v103_deformability(ts=(0.0, 0.05, 0.10)):
+    """v103 is fixed-spectrum DEFORMABLE: continue along a non-gauge tangent
+    direction of the first-order fixed-spectrum kernel; residual stays at
+    machine precision, and the deformation switches on cross-block 1-RDM
+    coherences. (Fixed-rho rigidity — all-channel silence rank 5 = kernel
+    dim 5 — is a different, compatible statement.)"""
+    r = load("(3,10)", 103)
+    c0 = np.array([complex(sp.N(sp.sympify(s), 30)) for s in r["closed_form"]["pretty"]])
+    dets = [tuple(t) for t in r["closed_form"]["support_dets"]]
+    m = len(dets)
+    a, b = 18 / 34, 5 / 34
+    blocks = [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9]]
+
+    def bil(x, y):
+        idx = {t: i for i, t in enumerate(dets)}
+        R = np.zeros((D, D), dtype=complex)
+        for ti, t in enumerate(dets):
+            for qi, q in enumerate(t):
+                rest = [u for u in t if u != q]
+                for p_ in range(D):
+                    if p_ in rest:
+                        continue
+                    sdet = tuple(sorted(rest + [p_]))
+                    si = idx.get(sdet)
+                    if si is None:
+                        continue
+                    R[p_, q] += np.conj(x[si]) * y[ti] * (-1) ** qi * (-1) ** sdet.index(p_)
+        return R
+
+    rows = []
+    for k in range(2 * m):
+        dc = np.zeros(m, dtype=complex)
+        dc[k % m] = 1 if k < m else 1j
+        dR = bil(dc, c0) + bil(c0, dc)
+        row = []
+        for B in blocks:
+            for ii, pp in enumerate(B):
+                for qq in B[ii:]:
+                    row += [dR[pp, qq].real, dR[pp, qq].imag]
+        row.append(2 * np.real(np.vdot(c0, dc)))
+        rows.append(row)
+    Mfull = np.array(rows).T
+    _, S, Vt = np.linalg.svd(Mfull)
+    null = Vt[np.sum(S > 1e-7):]
+    G = np.array([
+        np.concatenate([(1j * c0 * [1 if o in t else 0 for t in dets]).real,
+                        (1j * c0 * [1 if o in t else 0 for t in dets]).imag])
+        for o in range(D)
+    ])
+    Q, _ = np.linalg.qr(G.T)
+    proj = null @ (np.eye(2 * m) - Q @ Q.T)
+    _, Sc, Vc = np.linalg.svd(proj)
+    u = Vc[0]
+
+    def resid(v, t):
+        c = v[:m] + 1j * v[m:]
+        R = bil(c, c)
+        Qm = (R - a * np.eye(D)) @ (R - b * np.eye(D))
+        iu = np.triu_indices(D)
+        pin = [v @ u - t] + list(G @ (v - np.concatenate([c0.real, c0.imag])))
+        return np.concatenate([Qm[iu].real, Qm[iu].imag, [np.vdot(c, c).real - 1], np.array(pin)])
+
+    v = np.concatenate([c0.real, c0.imag])
+    out = []
+    for t in ts:
+        sol = least_squares(resid, v, args=(t,), method="lm", xtol=3e-16, ftol=3e-16, gtol=3e-16)
+        v = sol.x
+        c = v[:m] + 1j * v[m:]
+        R = bil(c, c)
+        off = float(np.max(np.abs(R - np.diag(np.diag(R)))))
+        out.append((t, float(np.max(np.abs(sol.fun[: (D * (D + 1))]))), off))
+    return int(null.shape[0]) - int(np.linalg.matrix_rank(G, tol=1e-10)), out
+
+
 if __name__ == "__main__":
     print("== claim 1: incidence min-supports + witness kills")
     for name, spec, den in [
@@ -224,3 +299,9 @@ if __name__ == "__main__":
     print("== claim 3: v89 support-11 family through the certified endpoint")
     for t, r in v89_family():
         print(f"  c_(0,3,6) = {t:.2f}  max |(rho-aI)(rho-bI)| = {r:.1e}")
+
+    print("== silence-rank lemma: v103 fixed-spectrum deformability")
+    extra, curve = v103_deformability()
+    print(f"  non-gauge first-order fixed-spectrum directions: {extra}")
+    for t, r, off in curve:
+        print(f"  t = {t:.2f}  certificate residual = {r:.1e}  max 1-RDM off-diag = {off:.2e}")

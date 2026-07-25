@@ -79,12 +79,26 @@ These should not be claimed as established until formal proofs are written into 
   "v_B ANOMALY RESOLVED" (reduced spectrum-fiber is a surface);
   RESEARCH_ARCHIVE "THE FIBER IS THE 1-RDM → 2-RDM INFORMATION GAP";
   scripts/fiber_sampler.py, scripts/vb_fiber_ideal.py.]
-- Cancellation rigidity exists (v89, v103): certified states are first-order
-  rigid with NO touched 1-term class; the silence conditions have full rank on
-  the incidence kernel. [RESEARCH_ARCHIVE pre-registration scorecard P4, both
-  closures; docs/hybrid_cracks/v89.jsonl, v103.jsonl;
-  scripts/verify_hybrid_state.py. Kernel dims 1 and 5 and channel class sizes
-  {2} and {4,3,2,2,2} independently re-verified 2026-07.]
+- Cancellation rigidity exists (v89): the certified state is first-order
+  fixed-SPECTRUM rigid with no touched 1-term class — its single silent
+  channel is within-block and has full rank on the 1-dim incidence kernel;
+  full tangent kernel = gauge (dim 9), verified independently 2026-07.
+  CORRECTION (2026-07, supersedes the P4 scorecard's reading for v103): v103
+  is first-order rigid only in the fixed-ρ sense. Three of its five silent
+  channels are CROSS-BLOCK (9/17 vs 5/34 eigenspaces) and impose no
+  first-order fixed-spectrum constraint (degenerate perturbation theory:
+  cross-block δρ rotates eigenvectors, not eigenvalues). The certified v103
+  state is fixed-spectrum DEFORMABLE: 6 non-gauge first-order directions,
+  none of them in-span stabilizer-orbit directions (all 42 off-diagonal
+  U(4)×U(6) generators leave the support), and three independent
+  deformation curves continued to t = 0.10 at residual ~1e-17 with the exact
+  (ρ−aI)(ρ−bI) = 0 certificate — the deformations switch on cross-block
+  1-RDM coherences while holding the spectrum exact. "Isolated support-14
+  point" remains true of the SPARSITY landscape (dropping any amplitude
+  breaks feasibility), not of the fiber. This is the fixed-ρ vs
+  fixed-spectrum conflation (levi.py bug log, item 4) recurring in the P4
+  scoring; the archive's P4 narrative should be annotated on merge.
+  [scripts/reproduce_next_claims.py::v103_deformability]
 - Real boundary states can exist inside fibers whose generic/dense
   representatives are complex. [Both rank-10 closures are all-real with
   rational squared weights, found by reweighted-L1 continuation after the
@@ -176,10 +190,17 @@ These should not be claimed as established until formal proofs are written into 
 2. Explicit reduced-fiber invariant for v_B. [Groundwork: v_B anomaly
    resolution, holonomy/wall data in REVISION_NOTES.md, vb_holonomy.py,
    vb_fiber_ideal.py.]
-   2b. Silence-rank lemma: when do the zero-target channel conditions have
-   full rank on the incidence kernel (first-order rigidity), and is the
-   kernel-dim = channel-count coincidence at v89/v103 forced or accidental?
-   [Finite exact rank statement; most tractable new item on this list.]
+   2b. Silence-rank lemma — STATEMENT NOW FIXED BY DATA (2026-07), proof is
+   ~1 page of degenerate perturbation theory, assigned: at a diagonal-1-RDM
+   state over a vertex, first-order fixed-SPECTRUM weight deformations are
+   ker A_S ∩ ker J_within (within-block silent channels only), while
+   first-order fixed-ρ deformations are ker A_S ∩ ker J_all. Corollaries:
+   v89 spectrum-rigid; v103 fixed-ρ-rigid but spectrum-deformable (≥3-dim
+   verified fiber germ, tangent dim 6). The v103 kernel-dim = channel-count
+   coincidence (5 = 5) is a fixed-ρ statement. Remaining open: the
+   second-order structure (which of the 6 tangent directions integrate — at
+   least 3 do), and whether within-block silence rank = kernel dim is forced
+   for census cancellation states or accidental (sample of size 2).
 3. Interior inverse walls. [Groundwork: wall_solver.py, wall_test.py,
    per-family endpoint theorem (T4).]
 4. Graph-theoretic coupled-phase realizability criterion. [Groundwork:
@@ -275,3 +296,7 @@ Archive the file; keep these alive (here or in the named homes):
 - Known-stale items to fix on merge, not copy: the "785 of 799" paragraph
   (ledger is 799/799, CI-green), and the "9 of 12 DESIGN-REAL at ratio 2"
   mining figure (shipped ledger: 12 of 12).
+- ANNOTATE on merge, do not silently copy: the P4 scorecard's "v103
+  FIRST-ORDER RIGID" is a fixed-ρ verdict; the fixed-spectrum fiber at v103
+  is positive-dimensional (see the corrected cancellation-rigidity item and
+  Problem 2b). P4's v89 verdict stands in both senses.
