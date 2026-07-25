@@ -31,7 +31,7 @@ sector -- see T1.
 
 Goal: invert the 70/30 numerical/theoretical ratio. Each target theorem below
 carries an honest status and its proof route. Numerical facts cited are exact
-or machine-precision and live in RESEARCH.md.
+or machine-precision and live in RESEARCH_ARCHIVE.md.
 
 ## T1 -- Fiber Dimension Theorem (the centerpiece)
 Statement (target): for an extremal spectrum v and a certified state psi over

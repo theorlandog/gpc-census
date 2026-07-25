@@ -2,7 +2,7 @@
 """Polygon-target solver: exact phases for a fixed skeleton with mixed one-hop
 targets (prescribed magnitudes in-block, zero off-block).
 
-See docs/RESEARCH.md, "v96 campaign" (remaining rung (a), the hybrid family).
+See docs/RESEARCH_ARCHIVE.md, "v96 campaign" (remaining rung (a), the hybrid family).
 Given a support of determinants with fixed integer weights k_t (so moduli
 |c_t| = sqrt(k_t/den)), find per-determinant phases theta_t so that every
 one-hop pair class {p,q} meets its target:

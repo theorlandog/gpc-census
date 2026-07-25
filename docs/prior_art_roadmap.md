@@ -1,6 +1,6 @@
 # Prior Art and Cross-Field Roadmap for the Inverse-Fiber Program (2026-07)
 
-Purpose: every object in RESEARCH_NEXT.md has a mature sibling in some other
+Purpose: every object in RESEARCH.md has a mature sibling in some other
 field. This file names the sibling, cites the canonical sources, and states
 the concrete import. Ordered by expected payoff. GPC-internal prior art
 (pinning selection rules, UDA/UDP, entanglement polytopes, stratified
@@ -157,7 +157,7 @@ Sources:
 
 IMPORTS:
 (a) Formal definitions: support-rank and border-support-rank of a spectrum;
-    the RESEARCH_NEXT "border support" claim becomes a crisp question with
+    the RESEARCH.md "border support" claim becomes a crisp question with
     tensor-land intuition predicting the OPPOSITE of the v89 finding, so
     either fermionic spectral fibers are better behaved (a theorem worth
     having) or a gap instance exists at higher rank (a hunt worth running).
@@ -219,7 +219,7 @@ defect ladder to a theorem.
 
 ---
 
-## Ordered action list (mapped to RESEARCH_NEXT problems)
+## Ordered action list (mapped to RESEARCH.md problems)
 
 1. α-certify the cascade endpoints and the (0,3,6) family (Tool 4a),
    upgrades this month's numerical findings to certified theorems. [feeds

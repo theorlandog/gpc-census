@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reproduce the evidence behind three RESEARCH_NEXT.md claims (2026-07).
+"""Reproduce the evidence behind three RESEARCH.md claims (2026-07).
 
 Independent of the gpc_census package on purpose: fresh fermionic-sign
 bookkeeping, fresh incidence solver. Requires numpy, scipy (HiGHS MILP), sympy.

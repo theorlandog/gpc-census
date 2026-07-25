@@ -20,7 +20,7 @@ a computable structural predicate:
 
 verified here with zero counterexamples. This test is the containment proof for
 the grid solver's search-order bound, scoped to the states that bound governs.
-See docs/RESEARCH.md "RANK-10 CLOSED" and the pre-registration P3 scoring.
+See docs/RESEARCH_ARCHIVE.md "RANK-10 CLOSED" and the pre-registration P3 scoring.
 """
 import json
 import pathlib

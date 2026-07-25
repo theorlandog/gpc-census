@@ -235,7 +235,7 @@ def admissible_support(n: int, d: int, spectrum, groups="degenerate"):
     occupancy signatures over the given mode groups: "degenerate" uses the
     lambda-degenerate classes; an explicit list of mode collections covers
     rotated natural bases whose 2x2 blocks mix classes (see
-    docs/RESEARCH.md, degeneracy lemma)."""
+    docs/RESEARCH_ARCHIVE.md, degeneracy lemma)."""
     from fractions import Fraction as F
 
     from .constraints import constraints

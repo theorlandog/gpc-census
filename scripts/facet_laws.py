@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """In-repo verification of the two facet laws, plus the depth triage score.
 
-LAWS (see docs/RESEARCH.md, "Generator blueprint"):
+LAWS (see docs/RESEARCH_ARCHIVE.md, "Generator blueprint"):
   rhs LAW : every known GPC facet's rhs is an N-subset sum of its own sorted
             coefficient vector; its DEPTH (position among distinct subset
             sums, 1 = max = trivial) is small (<= 7 through rank 10).
@@ -12,7 +12,7 @@ LAWS (see docs/RESEARCH.md, "Generator blueprint"):
             modulo the constant shift (1,...,1), under which the inequality
             system is invariant (Sum lambda = N).
 
-TRIAGE SCORE (docs/RESEARCH.md, "Depth triage score"):
+TRIAGE SCORE (docs/RESEARCH_ARCHIVE.md, "Depth triage score"):
   total active depth of a vertex = sum of rhs depths over its saturated GPC
   facets. Calibration on certified (3,10) interference vertices:
   Spearman(depth, solve secs) = -0.625; median 8 s at depth > 12 vs 147 s at

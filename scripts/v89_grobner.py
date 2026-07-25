@@ -16,7 +16,7 @@ a fixed, small-enough support. The scaffold: (1) a numeric real-signed diagonal
 attain to find candidate supports, (2) an exact Groebner/solve on each candidate
 under a time cap, (3) verify_exact on any hit. Designed for an UNATTENDED background
 run; logs progress. Success is not guaranteed -- v89's state may be irreducibly
-dense (see the RESEARCH.md near-theorem: no exploitable symmetry), in which case no
+dense (see the RESEARCH_ARCHIVE.md near-theorem: no exploitable symmetry), in which case no
 small support solves and this reports that honestly.
 
 Run (background):  .venv/bin/python scripts/v89_grobner.py --budget 3600 --maxcard 14

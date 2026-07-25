@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Signed/phased-design search, generalized to any (N,d) vertex.
 
-Same problem as signed_design_v96_full.py (see docs/RESEARCH.md, "v96
+Same problem as signed_design_v96_full.py (see docs/RESEARCH_ARCHIVE.md, "v96
 campaign"), for an arbitrary integer spectrum at m=1: integer weights with
 mode sums EXACTLY the integer form, phases cancelling every one-hop class.
 

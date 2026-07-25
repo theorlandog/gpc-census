@@ -10,7 +10,7 @@ block-structure computation in the 165-dim DETERMINANT rep instead (~2 s), which
 is where the symmetry actually lives.
 
 Two results, both matrix-free / cheap and both checked against the Burnside counts
-recorded in docs/RESEARCH.md ("RANK-11 CERTIFICATE PATH"):
+recorded in docs/RESEARCH_ARCHIVE.md ("RANK-11 CERTIFICATE PATH"):
 
   1. decompose_V(): the 165 = C(11,3) signed determinant rep V under
      G = S5 (modes 0-4) x S6 (modes 5-10) into irrep copies, via a factorized

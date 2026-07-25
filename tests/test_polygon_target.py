@@ -3,7 +3,7 @@
 The solver proposes exact phases and accepts a state only if
 gpc_census.exactify.verify_exact certifies it, so these tests measure
 COMPLETENESS (does it find a solution when one exists) and the two exact prunes;
-soundness is guaranteed by the gate. See docs/RESEARCH.md, "v96 campaign".
+soundness is guaranteed by the gate. See docs/RESEARCH_ARCHIVE.md, "v96 campaign".
 """
 import sys
 from fractions import Fraction
