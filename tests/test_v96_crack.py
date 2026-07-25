@@ -11,7 +11,7 @@ With that filter removed the audit recovered v96 (and nine siblings), and the
 shipped dataset now records it certified. This test pins both ends of the
 resolution: the stored states pass the shipped exact gate verify_exact and an
 independent from-scratch 1-RDM spectrum check, and states.jsonl now labels v96
-OK with a closed form. See docs/RESEARCH.md, "v96 solved".
+OK with a closed form. See docs/RESEARCH_ARCHIVE.md, "v96 solved".
 """
 import json
 import pathlib

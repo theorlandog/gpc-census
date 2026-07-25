@@ -42,7 +42,7 @@ cracked none of the 14; the off-clique cancellation gap is not a walltime issue)
 
 1.3 The lost rank-9/10 extremal-state tables. A&K print states only for ranks
     <= 8; rank-9 data was electronic supplementary (now dead), rank-10 never
-    released (see RESEARCH.md). Census: results/data/states.jsonl is the first
+    released (see RESEARCH_ARCHIVE.md). Census: results/data/states.jsonl is the first
     public, certified, machine-readable extremal-state library for ranks 6-10,
     a strict superset of everything A&K distributed. Argues for a Zenodo DOI on
     results/data at submission.

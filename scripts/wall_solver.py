@@ -2,7 +2,7 @@
 """General reality solver for kdim-1 interference vertices, via the Cayley-Menger
 (positivity-boundary) characterization of reality.
 
-Reality is the boundary of a positivity region (docs/RESEARCH.md, "REALITY IS A
+Reality is the boundary of a positivity region (docs/RESEARCH_ARCHIVE.md, "REALITY IS A
 POSITIVITY BOUNDARY"): fixing the occupations pins each interference off-diagonal
 to a Schur-Horn magnitude, the one-hop amplitudes form a closed polygon, and a REAL
 extremal state is where every such polygon DEGENERATES -- each edge's Cayley-Menger
@@ -51,6 +51,10 @@ def solve(system, index, recs, max_signs=1 << 12):
     if not cf or not cf.get("support_dets"):
         return "no state", None
     dets = [tuple(x) for x in cf["support_dets"]]
+    if not all(isinstance(x, int) for x in cf["weights"]):
+        # e.g. the real v_B library state: weights already off the rational
+        # grid, so the rational-anchor wall walk does not apply
+        return "irrational-weight record; wall family not applicable", None
     w0 = [int(x) for x in cf["weights"]]
     den = int(cf["den"])
     spec = [Fraction(x, r["denominator"]) for x in r["integer_form"]]

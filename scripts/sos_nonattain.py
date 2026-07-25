@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Certified non-attainability via a charge-0 Hermitian-SOS (moment) relaxation.
 
-This is the RANK-11 CERTIFICATE PATH recommended in docs/RESEARCH.md ("A
+This is the RANK-11 CERTIFICATE PATH recommended in docs/RESEARCH_ARCHIVE.md ("A
 Lasserre/SOS moment-relaxation dual of min ||gamma(psi)-gamma_0||^2 yields a
 CERTIFIED positive lower bound = rigorous non-attainability"), now runnable: SDP
 solvers (SCS, Clarabel) are available in the venv. It computes a lower bound delta

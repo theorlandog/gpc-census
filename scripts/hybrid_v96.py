@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hybrid-family search for (3,10) v96, driving the polygon-target solver.
 
-See docs/RESEARCH.md, "v96 campaign" (remaining rung a). The pure
+See docs/RESEARCH_ARCHIVE.md, "v96 campaign" (remaining rung a). The pure
 signed/phased-design family (all one-hop classes cancel, diagonal mode sums =
 spectrum) is EXHAUSTIVELY EMPTY at m=1 (350,980 skeletons; signed_design_*).
 The HYBRID family relaxes that: the state's 1-RDM is BLOCK diagonal, not fully

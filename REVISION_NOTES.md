@@ -1,3 +1,114 @@
+# Revision notes, main paper
+
+## v0.11 → v0.12 (July 2026): J. Phys. A submission pass
+
+Scope: journal-style conversion, bibliography audit against publisher
+records, one scientific correction, and consistency wiring. No data files
+changed; SHA256SUMS untouched and re-verified.
+
+**Style (IOP / J. Phys. A: Math. Theor.):**
+- Citation style switched from the vendored APS CSL to the vendored IOP
+  numeric CSL (`institute-of-physics-numeric.csl`); Makefile updated; the
+  APS CSL removed. Rendering validated with pinned pandoc 3.6.4 +
+  pandoc-crossref v0.3.18.2: zero unresolved citations or references.
+- Keywords line added to the abstract; date line marks the target journal.
+- `nocite: "@*"` removed: every bibliography entry is now cited in the
+  text, so the reference list contains exactly the cited works.
+- "Comm. Math. Phys." corrected to "Commun. Math. Phys." (abstract and
+  bib); "Amer." to "Am."; the single UK spelling ("neighbouring")
+  normalized to the manuscript's US convention.
+- Remark numbering restored to document order: the census-section remark
+  is now Remark 3 and the realification remark (rem:orbit) is Remark 4;
+  all cross-references updated.
+
+**Scientific corrections:**
+- The abstract no longer implies the v_B phase is forced at the vertex:
+  it now states the phase is forced only within the integer-weight
+  single-block class, and that the vertex admits real extremal states at
+  quadratic-irrational weights (matching Theorem 4 and Remark 4).
+- The denominator-34 closure vertex is no longer called "first-order
+  rigid" without qualification. Per the silence-rank lemma
+  (docs/silence_rank_lemma.md), full rank of the five silence conditions
+  on the incidence kernel is a fixed-1-RDM statement; the fixed-spectrum
+  fiber is positive-dimensional because cross-block channels impose no
+  first-order constraint. The text now says exactly that.
+
+**Bibliography audit (every entry verified against publisher records):**
+- Hackl2023: wrong title and initials corrected to L. Hackl, D. Li,
+  N. Akopian, M. Christandl, "Experimental proposal to probe the extended
+  Pauli principle," Phys. Rev. A 108, 012208 (2023).
+- Reuvers2021: subtitle corrected to "the Pauli principle dominates"
+  (was "the low-density limit"); arXiv:1911.00471 added.
+- vdBerg25: updated to the published STOC 2025 version (pp. 756-765,
+  proceedings title), arXiv:2510.08336 retained.
+- Castillo2021: updated from arXiv preprint to the published version,
+  Ann. Henri Poincare 24, 2241-2321 (2023).
+- LPW2020: updated from arXiv preprint to the published version,
+  Int. Math. Res. Not. 2023 (19), 16778-16836.
+- MS20: volume 22, article 023002 added; title capitalization fixed.
+- Klyachko2006: page range completed (72-86). BCMW17, W92, S98,
+  Kirwan1984, Hardt1980, SL91, Ressayre, WDGC2013, BD1972: page ranges
+  completed. Klyachko2009 retyped as @misc (arXiv-only, never published).
+- Added (both now cited in the text): Dadok and Kac, "Polar
+  representations," J. Algebra 92, 504-524 (1985), cited at contribution
+  5 for the Borland-Dennis/Dadok-Kac construction alongside BD1972; and
+  Cox, Little, Schenck, "Toric Varieties" (AMS GSM 124, 2011), cited in
+  Proposition 2 for the simplicial toric quotient (closing the v0.11
+  "remaining actions" item 2).
+
+**Consistency wiring (closing v0.11 "remaining actions" item 6):**
+- New tests/test_manuscript_consistency.py runs
+  scripts/check_manuscript_counts.py and re-verifies SHA256SUMS inside
+  the default pytest suite, so `make test` and CI now fail on any
+  manuscript/data/checksum drift. Full suite green (78 passed); the
+  standalone checker re-passes all 799 certificates.
+
+### Addendum 2 (same cycle): the library now ships a REAL v_B state
+
+- The (4,9) index 65 record (v_B) in states.jsonl now ships the real
+  theta=0 endpoint of its wall family, at t0 = 7/17 - 18*sqrt(35)/85,
+  squared weights in Q(sqrt(35)) summing to 23 on the unchanged support.
+  Constructed and certified by the new scripts/vb_real_state.py
+  (idempotent; aborts with data untouched unless the exact
+  characteristic-polynomial identity passes), and independently
+  re-verified by the standalone checker: all 799 records PASS.
+- Checker hardening required and shipped: the eigenvalue symbol is now
+  declared real (a generic complex lam made expand_complex split it into
+  re/im parts, blocking exact cancellation of the nested-radical
+  amplitude products), with a Poly-coefficient minimal_polynomial
+  fallback as the exact algebraic-number zero test. Side effect: the full
+  799-record verification dropped from 178 s to 20 s.
+- Reconciled everywhere the old phased record was load-bearing:
+  tests/test_vb_holonomy.py now asserts the shipped state is real
+  (trivial holonomy, one loop, a sign not a phase); feature_table.csv
+  all_real flips to 1 for that row; SHA256SUMS regenerated; PROVENANCE.md
+  records the v0.12 update; wall_solver, wall_test, and polygon_target
+  skip irrational-weight records gracefully. The paper's galois section
+  now presents three fiber points over v_B (psi_B, the t=0 anchor, the
+  real shipped endpoint with trivial holonomy), Remark 4(ii) names the
+  shipped state as the theta=0 endpoint, and the significance and
+  open-question passages say the shipped library state is real.
+
+### Addendum (same cycle): v_B reality framing and CI anonymized artifact
+
+- Every characterization of v_B or psi_B as complex or non-realifiable is
+  removed. Remark 4 is reduced to its [E] content, the two fiber families
+  and their exact real extremal states in Q(sqrt(15)) and Q(sqrt(35)); the
+  U(9) realification search and its [N] non-realifiability evidence are
+  cut, along with the corresponding certificate-table row. The abstract,
+  Remark 3, Theorem 4, the spectrahedral-geometry paragraph, the outlook
+  items, the significance paragraph, and open questions (i) and (ii) now
+  frame v_B by its real attainability; the interference phase appears only
+  as exact cancellation data on the fiber ("a coordinate, not an
+  obstruction"). Rationale: the vertex demonstrably admits real extremal
+  states, so complexity is not a property of anything the census assigns
+  to v_B.
+- CI now builds and ships the anonymized review copy: the release
+  data-output.zip gains anonymized/main.pdf, anonymized/main.tex (new
+  make report-anon-tex target, same guards as report-tex), and
+  anonymized/references.bib; the PR-validation report job builds the
+  anonymized PDF and TeX alongside the main report.
+
 # Revision notes — main paper v0.10 → v0.11
 
 Commit reviewed: 7543ca9 (same tip the referee reviewed). Every claim below was

@@ -88,6 +88,8 @@ jobs:
         run: uv version "${{ needs.version.outputs.version }}"
       - name: Build report
         run: make report
+      - name: Build anonymized review copy (PDF and TeX)
+        run: make report-anon report-anon-tex
 
   release:
     if: >-
@@ -118,8 +120,12 @@ jobs:
       - name: Build report and assemble data output
         run: |
           make report
-          mkdir -p data-output
+          make report-anon report-anon-tex
+          mkdir -p data-output/anonymized
           cp results/report/main.pdf data-output/
+          cp results/report/anonymized/main.pdf data-output/anonymized/
+          cp results/report/anonymized/main.tex data-output/anonymized/
+          cp results/report/anonymized/references.bib data-output/anonymized/
           cp -r results/data data-output/data
       - name: Attest data output files
         id: attest

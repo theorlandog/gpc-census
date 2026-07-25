@@ -55,11 +55,15 @@ lives in `results/report/main.md`; computed data results live under
   Section, equation, and table refs are live crossref citations
   (`[-@sec:x]`); theorem-family numbering is literal text since crossref has
   no theorem type, so renumber by hand when inserting theorems. Citations
-  resolve via citeproc against `results/report/references.bib` (APS numeric
-  style, vendored CSL); `nocite: "@*"` prints uncited entries. The build
+  resolve via citeproc against `results/report/references.bib` (IOP numeric
+  style, vendored CSL, per the J. Phys. A target journal); every bib entry
+  is cited in the text (no `nocite`). The build
   fails if any reference or citation does not resolve. `results/report` is
   excluded from the sdist and RPM; the PDF ships in the release
-  `data-output.zip`.
+  `data-output.zip`. `results/report/anonymized/` is the double-anonymous
+  review copy, generated from `main.md` by `make anonymize` (renders with
+  `make report-anon`); never edit it by hand, the drift test fails if it
+  goes stale.
 - `results/data/`: computed data results, shipped in the release
   `data-output.zip`.
 - `.github/pull_request_template.md`: PR template. The `pr-metadata` workflow
@@ -117,6 +121,10 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 
 Read docs/RESEARCH.md before working on the science. It encodes the
 classification trichotomy, the validation law, campaign state, and the
-location of every source document. The short version: never ship a result
-that has not passed the structural invariants in gpc_census.validate, and
-never change state-solving code without the v_B preflight.
+location of every source document; its status tags point into the frozen
+census-era evidence log docs/RESEARCH_ARCHIVE.md. The short version: never
+ship a result that has not passed the structural invariants in
+gpc_census.validate, and never change state-solving code without the v_B
+preflight. Every claim in RESEARCH.md carries an in-repo certifying
+artifact; a fiber-dimension or rigidity claim must name fixed-spectrum vs
+fixed-rho and reduced vs unreduced.
