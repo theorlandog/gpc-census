@@ -183,6 +183,11 @@ def fiber_and_orbit(psi, basis, n, d, rank_rtol=1e-9, eig_tol=1e-8):
     o = np.argsort(w)[::-1]
     w = w[o]
     V = V[:, o]
+    # one_rdm returns <a_p^dag a_q> = rho_1^T, whose eigenvectors are the
+    # CONJUGATES of the natural orbitals.  Build Levi generators from the
+    # natural orbitals themselves; without this, stabilizer/orbit ranks are
+    # wrong for any state with complex amplitudes (real states unaffected).
+    V = V.conj()
     blocks, cur = [], [0]
     for i in range(1, d):
         if abs(w[i] - w[cur[0]]) > eig_tol:

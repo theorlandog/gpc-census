@@ -55,6 +55,7 @@ def main():
     stab_below_two = []
     slater_nonzero_orbit = []
     correlated_zero_orbit = []
+    identity_failures = []
 
     hard_by_class = Counter()
     total_by_class = Counter()
@@ -89,6 +90,15 @@ def main():
             stab_below_two.append((rec["system"], rec["index"],
                                    info["projective_stabilizer_dim"]))
 
+        # post-fix identity: the submersion rank deficiency of psi -> rho equals
+        # the residual stabiliser minus the global phase.  Holds 799/799 only
+        # once Levi generators are built from the natural orbitals (not their
+        # conjugates); it is the sharpest smoke test for the conjugate bug.
+        if info["rank_deficiency"] != info["projective_stabilizer_dim"] - 1:
+            identity_failures.append((rec["system"], rec["index"],
+                                      info["rank_deficiency"],
+                                      info["projective_stabilizer_dim"]))
+
         if static["slater_spectrum"] and info["levi_orbit_dim"] != 0:
             slater_nonzero_orbit.append((rec["system"], rec["index"],
                                          info["levi_orbit_dim"]))
@@ -116,6 +126,7 @@ def main():
     print(f"projective_stabilizer_dim < 2    : {len(stab_below_two)}")
     print(f"slater states with orbit != 0    : {len(slater_nonzero_orbit)}")
     print(f"correlated states with orbit <=0 : {len(correlated_zero_orbit)}")
+    print(f"rank_deficiency != stab - 1      : {len(identity_failures)}")
 
     failed = False
     if theorem_failures:
@@ -130,6 +141,10 @@ def main():
     if multiplicity_mismatches:
         failed = True
         print(f"MULTIPLICITY MISMATCH on {multiplicity_mismatches[:5]} ...", file=sys.stderr)
+    if identity_failures:
+        failed = True
+        print(f"IDENTITY rank_deficiency != stab-1 on {identity_failures[:5]} ...",
+              file=sys.stderr)
 
     if failed:
         raise SystemExit("Levi audit FAILED")

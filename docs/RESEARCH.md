@@ -2878,6 +2878,56 @@ Mined-law mortality now about one in two, holding.
    fiber, NOT the census fixed-spectrum fiber_kernel_dim.  Different objects.
 5. Support determinants now sorted with fermionic sign tracking.
 
+### AUDIT (second pass): a third bug found by the invariance gate; census REDONE
+
+The unitary-invariance check (stab must be constant along psi -> Lambda^N(U) psi)
+FAILED on complex conjugates: Slater stab 8 -> 2, (3,6) v1 13 -> 1, (3,9) v3
+38 -> 23.  Root cause: one_rdm returns <a_p^dag a_q> = rho_1^TRANSPOSE, whose
+eigenvectors are the CONJUGATES of the natural orbitals; fiber_and_orbit built
+Levi generators from those conjugates.  Real states are unaffected (v = conj v),
+which is why 798/799 certified states looked consistent -- the census is mostly
+real, and the one exception was the one complex enough to show it.
+
+Fix: V = V.conj() after the eigendecomposition (src/gpc_census/levi.py), pinned
+by two new tests: test_stabilizer_is_unitarily_invariant (Slater conjugated by a
+complex Haar unitary must keep stab 8; pre-fix value was 2) and
+test_one_rdm_is_rho1_transpose (transformation law rho' = conj(U) rho U^T).
+
+CENSUS REDONE with fixed code (12 s, 0 failures).  Post-fix:
+- Levi theorem: unchanged, 9 Slater at orbit dim 0, 790 non-Slater positive,
+  zero counterexamples, zero multiplicity mismatches.
+- The identity rank_deficiency == stab - 1 now holds 799/799 EXACTLY (was
+  798/799).
+- The (3,10) v73 "second-order moment-map anomaly" reported earlier is
+  RESOLVED AS A BUG SYMPTOM: corrected stab is 6 (was 4), excess 0.  v73 is
+  simply the complex-amplitude state on which the conjugate-orbital error was
+  visible.  No second-order degeneracy exists anywhere in the census.
+- Invariance gate now passes on all sampled states including the complex
+  interference vertices: (3,6)v1 13, (3,9)v3 38, (3,10)v73 6, v70 8, v89 2,
+  v103 2, (4,9)v19 7 -- all constant across Haar conjugates.
+- The DEMOTION of projective_stabilizer_dim as a vertex invariant STANDS under
+  the corrected code: random same-support complex states reach stab 1-2 while
+  e.g. (3,9) v3 certified sits at 38; v89/v103 (cert 2) are indistinguishable
+  from random.  Corrected class summary: min stab 2 in every class; zero states
+  at stab 1; DESIGN-INT median 7 max 58, INTERFERENCE median 5 max 12.
+
+Also verified this pass: the 154 states with non-diagonal computational-basis
+1-RDMs are EXACTLY the interference class minus {v89, v103} (the two hybrid
+closures, whose records state the 1-RDM is exactly diagonal) -- a clean
+structural identification, and a reminder that certificates fix spec(rho), not
+rho.  The v1 fiber sampler minimised ||rho - diag(lambda)|| and therefore
+sampled the wrong fiber for those 154; scripts/fiber_sampler.py is now the
+spectrum-targeting v2 (its L-BFGS mode stalls at eigenvalue degeneracies --
+0/8 convergence -- so the working sampler is exact conjugation by Haar
+unitaries, which is also the invariance gate).
+
+Unaffected by the bug (independent pipelines): the hard/soft criterion (pure
+combinatorics), the exhaustive min-support result (vertex 2 vs interior 4;
+no eigenvectors involved), the plethysm/branching theorem itself, and
+rank_deficiency (built from J, which transforms by a fixed linear isomorphism
+and passed the invariance gate throughout -- it was the disagreement between
+the invariant J and the non-invariant orbit branch that localised the bug).
+
 ### OPEN
 
 The soft cases (752/799) remain unexplained: G_lambda-symmetric states exist in
