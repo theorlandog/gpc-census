@@ -87,6 +87,10 @@ def analyse(record):
         "final_certificate_residual": out["final_residual"],
         "final_spectrum_error": out["final_spectrum_error"],
         "final_support_dets": out["final_support_dets"],
+        # ship the endpoint itself so a drop can be rechecked without rerunning
+        # the search (rule 2: every claim points at an artifact)
+        "final_amplitudes_real": out["final_amplitudes_real"],
+        "final_amplitudes_imag": out["final_amplitudes_imag"],
         "floor_residual": out["floor_residual"],
         "blocked_reason": out["blocked_reason"],
         "multiplicity_drift_seen": out["multiplicity_drift_seen"],

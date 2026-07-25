@@ -94,11 +94,52 @@ These should not be claimed as established until formal proofs are written into 
   deformation curves continued to t = 0.10 at residual ~1e-17 with the exact
   (ρ−aI)(ρ−bI) = 0 certificate — the deformations switch on cross-block
   1-RDM coherences while holding the spectrum exact. "Isolated support-14
-  point" remains true of the SPARSITY landscape (dropping any amplitude
-  breaks feasibility), not of the fiber. This is the fixed-ρ vs
+  point" is a statement about the route-B SEARCH LANDSCAPE and its gauge
+  slice, not about the fiber. This is the fixed-ρ vs
   fixed-spectrum conflation (levi.py bug log, item 4) recurring in the P4
   scoring; the archive's P4 narrative should be annotated on merge.
-  [scripts/reproduce_next_claims.py::v103_deformability]
+  The distinction is now STRUCTURAL in the code rather than in prose:
+  gpc_census.fiber exposes fixed_rho_tangent and fixed_spectrum_tangent,
+  each naming its fiber in the JSON keys it writes, and a regression test
+  fails on any unqualified fiber-dimension name.
+  [scripts/reproduce_next_claims.py::v103_deformability;
+  src/gpc_census/fiber.py; tests/test_fiber_notions.py;
+  scripts/reconcile_claims.py; results/data/reconciliation.json]
+- The two fibers differ in the MAGNITUDE regime too, not only in the
+  cancellation regime where the gap was discovered. Found out of sample:
+  at (3,11) v43 (transport of (3,10) v108, one channel with 1-RDM
+  off-diagonal 0.2) the fixed-ρ tangent is 1 and the fixed-spectrum
+  tangent is 2. Any text presenting the two-fiber gap as a
+  cancellation-regime phenomenon is too narrow.
+  [docs/prereg_bracket_3_11_3_12.md B3, scored FAIL;
+  results/data/oos_bracket.json]
+- The census support column is an UPPER BOUND on minimal support s_Q, and
+  it is strict at 71 of the 799 certified states, all INTERFERENCE. The
+  census-wide cascade removes 89 amplitudes in total; v103 goes 14 → 10
+  (superseding the ≤ 12 of docs/unified_fiber_dimension.md), 55 states drop
+  one amplitude, 15 drop two. NUMERICAL except where noted: certificate
+  residuals ≤ 2.2e-16 with eigenvalue multiplicities gated at each round,
+  not proofs.
+  [docs/cascade_census.md; src/gpc_census/cascade.py;
+  scripts/census_cascade.py; results/data/cascade.jsonl;
+  results/data/cascade_summary.json]
+- ✅ s_Q(v103) ≤ 10, EXACT. The support-10 cascade endpoint has all ten
+  squared weights rational (13/34, 5/34, 53/442, 195/1802, 5/68, 5/68,
+  35/901, 1/34, 18/901, 84/11713), loop holonomy π so it is real up to
+  gauge, and det(ρ − xI) = (x − 9/17)^4 (x − 5/34)^6 verified in exact
+  rational and radical arithmetic. State denominator 46852 = 2²·13·17·53
+  against the library state's 195364 = 442² = 2²·13²·17²: the prime 53 is
+  new, and appears in neither the spectrum denominator nor the library
+  state, which is why grid searches over multiples of the natural
+  denominator could not reach it. Upper bound only; not a minimality claim.
+  [scripts/v103_endpoint_precision.py; scripts/v103_support10_certificate.py;
+  tests/test_v103_support10.py; results/data/v103_support10_certificate.json]
+- The cancellation regime (exactly diagonal 1-RDM with silent channels) has
+  exactly TWO members across all 799 certified representatives, v89 and
+  v103. The census-wide cascade adds none, so the silence-rank lemma's
+  genericity question stays on a sample of size two. Note the regime is a
+  property of the REPRESENTATIVE, not the vertex: v103 leaves it by cascade
+  round 4. [results/data/cascade_summary.json]
 - Real boundary states can exist inside fibers whose generic/dense
   representatives are complex. [Both rank-10 closures are all-real with
   rational squared weights, found by reweighted-L1 continuation after the
@@ -264,7 +305,23 @@ Priority:
 6. Develop practical realization algorithms from the corrected theory
    (reweighted-L1 full-fiber continuation → PSLQ exactification is the
    validated pipeline; productionize scripts/repro_and_sparsify.py-class
-   tooling out of scratch).
+   tooling out of scratch). PARTLY DONE: gpc_census.cascade is the
+   productionized minimal-polynomial continuation, run census-wide in
+   scripts/census_cascade.py; the PSLQ exactification half is not.
+7. Certify the cascade endpoints (alpha-theory or exact recognition). The
+   best target this program has produced is the v103 support-10 endpoint:
+   isolated (first-order rigid in BOTH fiber senses), correct eigenvalue
+   multiplicities, five of ten squared weights already exact rationals at
+   denominator 68 with the remaining five summing to exactly 5/17, and the
+   (0,2,7) weight still exactly 5/34. Route: high-precision re-solve seeded
+   from results/data/cascade.jsonl, then integer relation detection.
+   [docs/cascade_census.md]
+8. Test the candidate law "positive fixed-spectrum tangent ⇔ the cascade
+   sparsifies" out of sample. It holds 726/726 in the rigid direction and
+   71/73 in the deformable direction across the census, with both exceptions
+   flooring at 2 to 3e-6, i.e. blocked on the path rather than blocked. It is
+   a post-hoc pattern in the corpus the cascade itself explored and must be
+   pre-registered before it is believed. [docs/cascade_census.md]
 
 # 8. Guiding Principle
 

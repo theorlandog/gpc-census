@@ -103,13 +103,30 @@ the two sectors and subtracting gauge gives (iii). ∎
    constant tangent rank along continued fiber points (numerical); a
    constant-rank argument in exact arithmetic would upgrade it.
 3. The fixed-ρ / fixed-spectrum distinction here is the same one
-   recorded in the levi.py bug log (fixed_rho_fiber_dim vs
-   fiber_kernel_dim). This lemma is the positive result that distinction
+   recorded in the levi.py bug log (fixed_rho_fiber_dim vs the then
+   unqualified fiber_kernel_dim, since renamed incidence_kernel_dim).
+   This lemma is the positive result that distinction
    was waiting for: the two fibers differ at first order exactly by the
-   cross-block channel conditions.
+   cross-block channel conditions. The distinction now lives in the code:
+   gpc_census.fiber.fixed_rho_tangent and
+   gpc_census.fiber.fixed_spectrum_tangent, with tests/test_fiber_notions.py
+   pinning the v103 disagreement and the v89 agreement.
 4. Consequence for T1 (Jacobian theorem): in the cancellation regime the
    correct fiber-dimension formula is (iii), not
    dim K − #(touched 1-term classes). The magnitude-target regime's
    formula and (iii) should be unified by the observation that in the
    magnitude regime every active channel behaves as a within-block
    constraint on its modulus with a free phase.
+5. Scope correction (2026-07, out of sample): the gap between the two
+   fibers is NOT confined to the cancellation regime this lemma is about.
+   At (3,11) v43, a magnitude-regime state with one channel and 1-RDM
+   off-diagonal 0.2, the fixed-ρ tangent is 1 while the fixed-spectrum
+   tangent is 2. The lemma computes the gap in the cancellation regime; it
+   does not claim the gap occurs only there.
+   [docs/prereg_bracket_3_11_3_12.md, prediction B3, scored FAIL]
+6. The cancellation regime is a property of the REPRESENTATIVE, not of the
+   vertex. The census-wide cascade walks v103 from its certified
+   cancellation-regime state to a support-10 point whose 1-RDM has
+   off-diagonal 7.4e-2, i.e. out of the regime entirely. So "the census has
+   exactly two cancellation states" counts certified representatives.
+   [docs/cascade_census.md]

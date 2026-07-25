@@ -1,0 +1,107 @@
+"""Regression tests for the fixed-spectrum sparsification cascade.
+
+The cascade lowers the UPPER BOUND on minimal support s_Q. These tests pin the
+two behaviours that make its output trustworthy: a landed drop reproduces the
+target spectrum with the right MULTIPLICITIES (not merely the right eigenvalue
+set, which is all the minimal-polynomial certificate constrains), and a state
+that cannot be sparsified on this path reports a floor rather than a drop.
+"""
+import json
+import pathlib
+import sys
+from fractions import Fraction
+
+import numpy as np
+import pytest
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+DATA = ROOT / "results" / "data" / "states.jsonl"
+
+
+def _record(system, index):
+    if not DATA.exists():
+        pytest.skip("no states atlas present")
+    for line in DATA.read_text().splitlines():
+        if line.strip():
+            r = json.loads(line)
+            if r["system"] == system and r["index"] == index:
+                return r
+    raise AssertionError((system, index))
+
+
+def _case(system, index, d):
+    from gpc_census.fiber import amplitudes_from_record
+
+    rec = _record(system, index)
+    c, dets = amplitudes_from_record(rec)
+    den = int(rec["denominator"])
+    spectrum = [Fraction(int(x), den) for x in rec["integer_form"]]
+    return c, dets, spectrum, d
+
+
+def test_distinct_eigenvalues_dedups():
+    """One factor per DISTINCT eigenvalue: the certificate stalls otherwise."""
+    from gpc_census.cascade import distinct_eigenvalues
+
+    spec = [Fraction(18, 34)] * 4 + [Fraction(5, 34)] * 6
+    assert distinct_eigenvalues(spec) == [18 / 34, 5 / 34]
+
+
+def test_v103_sparsifies_below_its_certified_support():
+    """v103's certified support 14 is not minimal: the fiber reaches sparser."""
+    from gpc_census.cascade import cascade
+
+    out = cascade(*_case("(3,10)", 103, 10))
+    assert out["support_start"] == 14
+    assert out["support_upper"] <= 12, out["support_upper"]
+    assert out["final_residual"] < 1e-10
+    assert out["final_spectrum_error"] < 1e-8
+    assert out["fiber"] == "fixed_spectrum"
+    assert out["evidence"] == "numerical"
+    for rnd in out["rounds"]:
+        assert rnd["certificate_residual"] < 1e-10
+        assert rnd["spectrum_error"] < 1e-8
+
+
+def test_v89_does_not_sparsify_on_this_path():
+    """v89 floors; the result must be a recorded floor, never a claimed drop."""
+    from gpc_census.cascade import cascade
+
+    out = cascade(*_case("(3,10)", 89, 10))
+    assert out["support_upper"] == out["support_start"] == 10
+    assert out["blocked_on_path"] is True
+    assert out["blocked_reason"] in ("certificate_floor", "multiplicity_drift")
+    assert out["floor_residual"] is not None
+
+
+def test_spectrum_error_catches_multiplicity_drift():
+    """The minimal polynomial pins the eigenvalue SET; multiplicities need this.
+
+    Build a state on v103's spectrum values with the WRONG multiplicities and
+    check the gate rejects it while the minimal-polynomial certificate does not.
+    """
+    from gpc_census.cascade import (certificate_residual, distinct_eigenvalues,
+                                    spectrum_error)
+
+    # a single Slater determinant has eigenvalues 1, 1, 1 and zeros: the
+    # eigenvalue set of the spectrum (1,1,1,0,...) with multiplicities that
+    # differ from the (2,1,1,1,...) target below
+    dets = [(0, 1, 2)]
+    c = np.array([1.0 + 0j])
+    target = [Fraction(1)] * 3 + [Fraction(0)] * 7
+    lams = distinct_eigenvalues(target)
+    assert certificate_residual(c, dets, lams, 10) < 1e-12
+    assert spectrum_error(c, dets, target, 10) < 1e-12
+    wrong = [Fraction(1)] * 2 + [Fraction(0)] * 8  # same value set, wrong count
+    assert spectrum_error(c, dets, wrong, 10) > 0.5
+
+
+def test_cascade_reports_its_fiber_and_evidence_level():
+    """Rules 2 and 4: every result names its fiber and its evidence level."""
+    from gpc_census.cascade import cascade
+
+    out = cascade(*_case("(3,10)", 89, 10))
+    assert out["fiber"] == "fixed_spectrum"
+    assert out["evidence"] == "numerical"
+    assert "method" in out and out["method"]

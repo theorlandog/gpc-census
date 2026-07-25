@@ -1,0 +1,92 @@
+{
+  "note": "Reconciliation of claims this session corrects. Each item names the superseded reading, the correction, and the measurement.",
+  "items": {
+    "p4_scorecard_v103_rigidity": {
+      "claim_superseded": "P4 scorecard reads v103 as first-order rigid without naming the fiber",
+      "correction": "v103 is rigid for the fixed-rho fiber and DEFORMABLE for the fixed-spectrum fiber; v89 is rigid in both senses",
+      "measured": {
+        "v89": {
+          "fixed_rho_tangent_dim": 0,
+          "fixed_spectrum_tangent_dim": 0
+        },
+        "v103": {
+          "fixed_rho_tangent_dim": 0,
+          "fixed_spectrum_tangent_dim": 6
+        }
+      },
+      "holds": true,
+      "evidence": "numerical (first-order rank computation)"
+    },
+    "v103_isolated_support_14": {
+      "claim_superseded": "v103's certified state is an isolated support-14 point, dropping any amplitude breaks feasibility",
+      "correction": "true of the route-B search landscape and gauge slice, false of the fixed-spectrum fiber",
+      "measured": {
+        "support_certified": 14,
+        "support_upper": 10,
+        "dropped_dets": [
+          [
+            2,
+            6,
+            9
+          ],
+          [
+            1,
+            3,
+            6
+          ],
+          [
+            2,
+            3,
+            6
+          ],
+          [
+            1,
+            2,
+            9
+          ]
+        ],
+        "final_certificate_residual": 1.7239104055733914e-17,
+        "final_spectrum_error": 3.3306690738754696e-16,
+        "blocked_reason": "certificate_floor",
+        "floor_residual": 0.002794407268268107
+      },
+      "holds": true,
+      "evidence": "numerical (minimal-polynomial continuation)"
+    },
+    "ledger_support_column": {
+      "claim_superseded": "the census support column is the minimal support",
+      "correction": "it is the CERTIFIED support, an upper bound on the minimal support s_Q, and it is known strict at v103",
+      "measured": {
+        "v103_certified_support": 14,
+        "v103_support_upper": 10
+      },
+      "holds": true,
+      "evidence": "numerical"
+    },
+    "design_real_denominator_ratio": {
+      "claim_superseded": "9 of 12 DESIGN-REAL states sit at denominator ratio 2",
+      "correction": "the SHIPPED ledger has 12 of 12 at ratio 2; the mined count is representative dependent, exactly the P2/P3/P4 caveat",
+      "measured": {
+        "ratios": {
+          "(3,10) v74": "2",
+          "(3,10) v106": "2",
+          "(3,8) v35": "2",
+          "(3,9) v53": "2",
+          "(4,10) v53": "2",
+          "(4,10) v141": "2",
+          "(4,9) v35": "2",
+          "(4,9) v91": "2",
+          "(5,10) v35": "2",
+          "(5,10) v91": "2",
+          "(5,10) v203": "2",
+          "(5,10) v217": "2"
+        },
+        "at_ratio_2": 12,
+        "total": 12
+      },
+      "holds": true,
+      "evidence": "exact (rational arithmetic on the shipped closed forms)"
+    }
+  },
+  "all_hold": true
+}

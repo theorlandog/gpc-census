@@ -95,6 +95,76 @@ returns a finished record: certificate residual below 1e-10 at the starting
 point and spectrum error below 1e-8. A numerical failure at d = 11 or d = 12
 that did not occur at d <= 10 counts as a FAIL of B6 even if B1 to B5 pass.
 
+## SCORED (2026-07, after running; predictions above are unedited)
+
+Predictions and `scripts/oos_bracket.py` were committed in b41d3e6 BEFORE the
+script was run. Measurements: `results/data/oos_bracket.json`.
+
+Score: 4 PASS, 2 FAIL. Both FAILs are the same vertex, (3,11) index 43, the
+state transport of (3,10) index 108, spectrum [5,5,5,5,5,1,1,1,1,1,0]/10.
+
+| prediction | verdict | scope |
+|---|---|---|
+| B1 unified dimension formula, channel-free branch | PASS | 36 states |
+| B2 padding invariance | PASS | 19 embeddings |
+| B3 the two fibers agree on the holdout | FAIL | 2 of 38 |
+| B4 no cancellation-regime member | PASS | 0 members found |
+| B5 no out-of-sample state sparsifies | FAIL | 2 of 38 |
+| B6 numerics healthy at d = 11 and d = 12 | PASS | 38 states |
+
+B1 PASS. Every channel-free state has measured fixed-spectrum tangent exactly
+2 dim K, including both genuinely new states (index 22 and index 49, both 0).
+Weak evidence by design, see the power caveat.
+
+B2 PASS. All 19 (3,12) face embeddings reproduce their (3,11) inner vertex on
+tangent dimension, gauge dimension, incidence kernel dimension AND cascade
+outcome. The enlarged zero-eigenvalue block contributes only vacuous
+constraint rows, as predicted. Notably this held through a support drop: the
+inner vertex and its embedding both sparsify 8 to 7.
+
+B3 FAIL. At (3,11) v43 and its (3,12) embedding, fixed_rho_tangent is 1 and
+fixed_spectrum_tangent is 2. The prediction was wrong, and the reason is a
+SCOPE ERROR in its stated rationale, not a numerical accident: B3 argued from
+B4 that no holdout state has channels, but B4 only excludes the CANCELLATION
+regime (diagonal 1-RDM with channels). v43 has one channel with a NONZERO
+1-RDM off-diagonal, 0.2, so it sits in the MAGNITUDE regime, where the
+cross-block channel conditions that separate the two fibers are live.
+
+The finding this FAIL buys is worth more than the prediction was: the
+fixed-rho / fixed-spectrum gap is NOT a peculiarity of the cancellation regime
+where it was discovered (v103). It occurs in the magnitude regime too, at a
+plain kdim-1 interference vertex, with gap 1 rather than v103's 6. Any text
+that presents the two-fiber distinction as a cancellation-regime phenomenon is
+too narrow. This is the second independent confirmation, on a holdout, that
+rule 3 of the fiber program is load bearing.
+
+B5 FAIL on its headline, PASS on its sub-clause. The headline "no out-of-sample
+state sparsifies" is falsified: (3,11) v43 and its (3,12) embedding both drop
+from support 8 to support 7, certificate residual 4.7e-17, spectrum error at
+machine precision, dropping determinant (0,2,4). The sub-clause "transported
+vertices reproduce their donor's support_upper" holds: the donor (3,10) v108
+independently cascades 8 to 7 dropping the same determinant. So the FAIL is
+not an out-of-sample effect at all. It is a failure of the predictor's
+assumption that certified supports are hard to beat, and the census-wide run
+(Task 1) confirms that assumption was wrong in-sample as well. The two
+low-risk clauses of B5 that did hold: both explicit states stayed at their
+certified supports, 5 and 11, as the dim K = 0 argument required.
+
+B4 PASS, and therefore the SILENCE-RANK LEMMA is NOT-TESTED on this holdout.
+Zero cancellation-regime members appeared, exactly as predicted. The lemma's
+genericity question (sample size two) is untouched by this holdout, and the
+count of known cancellation states is unchanged by it.
+
+B6 PASS. All 38 states start at certificate residual below 7e-18 and spectrum
+error below 7e-17 at d = 11 and d = 12; no rank-dependent numerical defect.
+
+HONEST SUMMARY. The holdout was weak, as pre-registered, and it still produced
+one genuine correction (B3) to how the two-fiber distinction is described.
+Nothing here tests the silence-rank lemma, and B1's PASS should not be quoted
+as out-of-sample confirmation of the unified formula in its interesting
+regimes: the 36 states it scored are channel-free, which is the formula's
+easiest branch.
+
 ## Scoring rules
 
 PASS / FAIL / NOT-TESTED per prediction, decided by

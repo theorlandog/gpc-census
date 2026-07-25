@@ -223,6 +223,8 @@ def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
         "final_residual": certificate_residual(c, dets, lams, d),
         "final_spectrum_error": spectrum_error(c, dets, spectrum, d),
         "final_support_dets": [list(t) for t in dets],
+        "final_amplitudes_real": [float(x) for x in np.real(c)],
+        "final_amplitudes_imag": [float(x) for x in np.imag(c)],
         "floor_residual": floor,
         "blocked_on_path": _blocked_reason(len(dets), floor, drift) in (
             "certificate_floor", "multiplicity_drift"),

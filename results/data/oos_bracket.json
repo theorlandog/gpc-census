@@ -1,0 +1,1147 @@
+{
+  "preregistration": "docs/prereg_bracket_3_11_3_12.md",
+  "holdout": "19 certified (3,11) true vertices + 19 (3,12) face embeddings",
+  "evidence": "numerical",
+  "scorecard": {
+    "B1_unified_dimension_formula": {
+      "verdict": "PASS",
+      "scope": 36,
+      "mismatches": []
+    },
+    "B2_padding_invariance": {
+      "verdict": "PASS",
+      "scope": 19,
+      "mismatches": []
+    },
+    "B3_two_fibers_agree": {
+      "verdict": "FAIL",
+      "scope": 38,
+      "disagreements": [
+        {
+          "label": "(3,11) v43",
+          "fixed_rho": 1,
+          "fixed_spectrum": 2
+        },
+        {
+          "label": "(3,12) from (3,11) v43",
+          "fixed_rho": 1,
+          "fixed_spectrum": 2
+        }
+      ]
+    },
+    "B4_no_cancellation_regime": {
+      "verdict": "PASS",
+      "members": [],
+      "silence_rank_lemma": "NOT-TESTED"
+    },
+    "B5_no_sparsification": {
+      "verdict": "FAIL",
+      "scope": 38,
+      "drops": [
+        {
+          "label": "(3,11) v43",
+          "certified": 8,
+          "upper": 7
+        },
+        {
+          "label": "(3,12) from (3,11) v43",
+          "certified": 8,
+          "upper": 7
+        }
+      ]
+    },
+    "B6_numerics_at_new_rank": {
+      "verdict": "PASS",
+      "scope": 38,
+      "failures": []
+    }
+  },
+  "measurements": [
+    {
+      "label": "(3,11) v0",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 0
+        }
+      },
+      "d": 11,
+      "support_certified": 1,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 1,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 1,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 1,
+      "cascade_blocked_reason": "support_exhausted",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v7",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 1
+        }
+      },
+      "d": 11,
+      "support_certified": 2,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 2,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 2,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 2,
+      "cascade_blocked_reason": "multiplicity_drift",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v14",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 2
+        }
+      },
+      "d": 11,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v20",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 3
+        }
+      },
+      "d": 11,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v22",
+      "provenance": {
+        "certificate": "EXPLICIT-STATE"
+      },
+      "d": 11,
+      "support_certified": 5,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.1102230246251565e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 5,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 5,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 5,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.1102230246251565e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v29",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 29
+        }
+      },
+      "d": 11,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.0408340855860852e-17,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.0408340855860852e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v32",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 41
+        }
+      },
+      "d": 11,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v33",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 64
+        }
+      },
+      "d": 11,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v38",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 85
+        }
+      },
+      "d": 11,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.1102230246251565e-16,
+      "start_spectrum_error": 2.7755575615628914e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.1102230246251565e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v39",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 104
+        }
+      },
+      "d": 11,
+      "support_certified": 2,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 2,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 2,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 2,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v40",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 105
+        }
+      },
+      "d": 11,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v41",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 106
+        }
+      },
+      "d": 11,
+      "support_certified": 6,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 9.251858538542968e-18,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 6,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 6,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 9.251858538542968e-18,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v42",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 107
+        }
+      },
+      "d": 11,
+      "support_certified": 6,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.3010426069826057e-18,
+      "start_spectrum_error": 2.7755575615628914e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 6,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 6,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.3010426069826057e-18,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v43",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 108
+        }
+      },
+      "d": 11,
+      "support_certified": 8,
+      "incidence_kernel_dim": 1,
+      "one_hop_channels": 1,
+      "rdm_max_offdiagonal": 0.19999999999999996,
+      "cancellation_regime": false,
+      "start_certificate_residual": 6.9388939039072276e-18,
+      "start_spectrum_error": 6.938893903907228e-17,
+      "fixed_spectrum_tangent_dim": 2,
+      "fixed_spectrum_gauge_dim": 7,
+      "fixed_rho_tangent_dim": 1,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": null,
+      "support_upper": 7,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 4.711365246412495e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v45",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 109
+        }
+      },
+      "d": 11,
+      "support_certified": 5,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.3790493384824785e-17,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 5,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 5,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 5,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.3790493384824785e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v46",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 110
+        }
+      },
+      "d": 11,
+      "support_certified": 8,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 8,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 8,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 8,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v47",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 111
+        }
+      },
+      "d": 11,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v48",
+      "provenance": {
+        "certificate": "STATE-TRANSPORT",
+        "donor": {
+          "system": "(3,10)",
+          "index": 112
+        }
+      },
+      "d": 11,
+      "support_certified": 8,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.665334536937735e-17,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 8,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 8,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 8,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.665334536937735e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,11) v49",
+      "provenance": {
+        "certificate": "EXPLICIT-STATE"
+      },
+      "d": 11,
+      "support_certified": 11,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 11,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 11,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 11,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v0",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 0,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 0
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 1,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 1,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 1,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 1,
+      "cascade_blocked_reason": "support_exhausted",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v7",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 7,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 1
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 2,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 2,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 2,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 2,
+      "cascade_blocked_reason": "multiplicity_drift",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v14",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 14,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 2
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v20",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 20,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 3
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v22",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 22,
+        "inner": {
+          "certificate": "EXPLICIT-STATE"
+        }
+      },
+      "d": 12,
+      "support_certified": 5,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.1102230246251565e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 5,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 5,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 5,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.1102230246251565e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v29",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 29,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 29
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.0408340855860852e-17,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.0408340855860852e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v32",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 32,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 41
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v33",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 33,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 64
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 2.220446049250313e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v38",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 38,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 85
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.1102230246251565e-16,
+      "start_spectrum_error": 2.7755575615628914e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.1102230246251565e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v39",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 39,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 104
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 2,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 2,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 2,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 2,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v40",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 40,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 105
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 4,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 4,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 4,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 4,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v41",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 41,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 106
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 6,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 9.251858538542968e-18,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 6,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 6,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 9.251858538542968e-18,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v42",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 42,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 107
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 6,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.3010426069826057e-18,
+      "start_spectrum_error": 2.7755575615628914e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 6,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 6,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.3010426069826057e-18,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v43",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 43,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 108
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 8,
+      "incidence_kernel_dim": 1,
+      "one_hop_channels": 1,
+      "rdm_max_offdiagonal": 0.19999999999999996,
+      "cancellation_regime": false,
+      "start_certificate_residual": 6.9388939039072276e-18,
+      "start_spectrum_error": 6.938893903907228e-17,
+      "fixed_spectrum_tangent_dim": 2,
+      "fixed_spectrum_gauge_dim": 7,
+      "fixed_rho_tangent_dim": 1,
+      "fixed_rho_gauge_dim": 6,
+      "predicted_tangent_channel_free": null,
+      "support_upper": 7,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.2204460492503144e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v45",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 45,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 109
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 5,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.3790493384824785e-17,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 5,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 5,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 5,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.3790493384824785e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v46",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 46,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 110
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 8,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 8,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 8,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 8,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v47",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 47,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 111
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 3,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 2.220446049250313e-16,
+      "start_spectrum_error": 1.1102230246251565e-16,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 3,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 3,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 3,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 2.220446049250313e-16,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v48",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 48,
+        "inner": {
+          "certificate": "STATE-TRANSPORT",
+          "donor": {
+            "system": "(3,10)",
+            "index": 112
+          }
+        }
+      },
+      "d": 12,
+      "support_certified": 8,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 1.665334536937735e-17,
+      "start_spectrum_error": 5.551115123125783e-17,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 8,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 8,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 8,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 1.665334536937735e-17,
+      "evidence": "numerical"
+    },
+    {
+      "label": "(3,12) from (3,11) v49",
+      "provenance": {
+        "certificate": "FACE-EMBEDDING",
+        "source_3_11": 49,
+        "inner": {
+          "certificate": "EXPLICIT-STATE"
+        }
+      },
+      "d": 12,
+      "support_certified": 11,
+      "incidence_kernel_dim": 0,
+      "one_hop_channels": 0,
+      "rdm_max_offdiagonal": 0.0,
+      "cancellation_regime": false,
+      "start_certificate_residual": 0.0,
+      "start_spectrum_error": 0.0,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_spectrum_gauge_dim": 11,
+      "fixed_rho_tangent_dim": 0,
+      "fixed_rho_gauge_dim": 11,
+      "predicted_tangent_channel_free": 0,
+      "support_upper": 11,
+      "cascade_blocked_reason": "certificate_floor",
+      "cascade_final_residual": 0.0,
+      "evidence": "numerical"
+    }
+  ]
+}

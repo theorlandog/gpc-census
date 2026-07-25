@@ -1,0 +1,45 @@
+{
+  "states": 799,
+  "errors": [],
+  "states_with_support_drop": 71,
+  "total_amplitudes_removed": 89,
+  "largest_drop": 4,
+  "worst_residual_among_drops": 2.220446049250313e-16,
+  "blocked_reasons": {
+    "support_exhausted": 9,
+    "multiplicity_drift": 33,
+    "certificate_floor": 757
+  },
+  "cancellation_regime_members": [
+    {
+      "system": "(3,10)",
+      "index": 89,
+      "support_certified": 10,
+      "support_upper": 10,
+      "fixed_spectrum_tangent_dim": 0,
+      "fixed_rho_tangent_dim": 0
+    },
+    {
+      "system": "(3,10)",
+      "index": 103,
+      "support_certified": 14,
+      "support_upper": 10,
+      "fixed_spectrum_tangent_dim": 6,
+      "fixed_rho_tangent_dim": 0
+    }
+  ],
+  "cancellation_regime_count": 2,
+  "drops_by_class": {
+    "INTERFERENCE": 71
+  },
+  "drops_by_system": {
+    "(3,10)": 22,
+    "(3,8)": 4,
+    "(3,9)": 6,
+    "(4,10)": 9,
+    "(4,9)": 8,
+    "(5,10)": 22
+  },
+  "evidence": "numerical: minimal-polynomial continuation residuals, not certified solutions",
+  "seconds": 926.1
+}

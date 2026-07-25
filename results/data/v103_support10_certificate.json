@@ -1,0 +1,97 @@
+{
+  "vertex": "(3,10) index 103, spectrum (18,18,18,18,5,5,5,5,5,5)/34",
+  "claim": "s_Q(v103) <= 10: an extremal state of Slater support 10 attains this vertex exactly",
+  "evidence": "EXACT (rational and radical arithmetic, no floating point)",
+  "provenance": "fixed-spectrum sparsification cascade endpoint (docs/cascade_census.md), weights recognized by high-precision integer relation (scripts/v103_endpoint_precision.py), verified here exactly",
+  "certified_library_support": 14,
+  "support_dets": [
+    [
+      1,
+      2,
+      3
+    ],
+    [
+      0,
+      2,
+      7
+    ],
+    [
+      0,
+      5,
+      6
+    ],
+    [
+      0,
+      1,
+      8
+    ],
+    [
+      0,
+      3,
+      4
+    ],
+    [
+      0,
+      4,
+      9
+    ],
+    [
+      3,
+      8,
+      9
+    ],
+    [
+      1,
+      6,
+      9
+    ],
+    [
+      3,
+      5,
+      9
+    ],
+    [
+      0,
+      1,
+      5
+    ]
+  ],
+  "squared_weights": [
+    "13/34",
+    "5/34",
+    "53/442",
+    "195/1802",
+    "5/68",
+    "5/68",
+    "35/901",
+    "1/34",
+    "18/901",
+    "84/11713"
+  ],
+  "signs": [
+    1,
+    1,
+    1,
+    -1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "state_denominator": 46852,
+  "state_denominator_factored": "{2: 2, 13: 1, 17: 1, 53: 1}",
+  "library_state_denominator": 195364,
+  "loop_holonomy": "pi (state is real up to the orbital-phase gauge)",
+  "rdm_max_offdiagonal": "5/68",
+  "checks": {
+    "support_size": 10,
+    "normalization_exact": true,
+    "charpoly_identity_exact": true,
+    "trace_equals_particle_number": true,
+    "hermitian_exact": true
+  },
+  "all_checks_pass": true,
+  "caveat": "an upper bound on the minimal support, not a minimality claim; the endpoint is first-order rigid in both fiber senses but that does not prove no sparser state exists"
+}
