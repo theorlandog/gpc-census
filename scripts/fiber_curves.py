@@ -3,7 +3,7 @@
 
 For each family the fiber curve is w^2 = Q(t), Q = product of the touched
 class's weight-product factors. CORRECT reduction (an earlier radical-based
-pass was WRONG -- see docs/RESEARCH.md retraction): divide Q by its square
+pass was WRONG -- see docs/RESEARCH_ARCHIVE.md retraction): divide Q by its square
 factors, i.e. keep each linear factor to its multiplicity MOD 2. Genus is 1
 iff the reduced polynomial has degree 3 or 4 (3 or 4 odd-multiplicity roots),
 else 0. j-invariants are computed only for genuine genus-1 models.

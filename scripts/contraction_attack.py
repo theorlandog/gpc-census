@@ -11,7 +11,7 @@ weak-gradient searches stall.
 
 This attains the two open (3,10) holdouts v89 = (15,15,6^8)/26 and
 v103 = (18^4,5^6)/34 to ~1e-16, complex AND real, from random starts -- see
-docs/RESEARCH.md. IMPORTANT STATUS: numerical attainment is NOT certification. The
+docs/RESEARCH_ARCHIVE.md. IMPORTANT STATUS: numerical attainment is NOT certification. The
 solutions are DENSE generic fiber points (support ~100-120 of 120), so they do not
 yield a closed form and do NOT close the census (which requires an exact,
 char-poly-gated state). This tool establishes attainability and the real/complex

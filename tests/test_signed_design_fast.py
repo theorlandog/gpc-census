@@ -6,7 +6,7 @@ GF(2) sign propagation) on top of signed_design_generic.py. The prunes are
 sound only if they never drop a real hit and never invent one, so the guard
 is equivalence on spectra that actually PRODUCE hits (design and
 signed-design), not just on a zero-hit spectrum like v96. See
-docs/RESEARCH.md, "v96 campaign".
+docs/RESEARCH_ARCHIVE.md, "v96 campaign".
 """
 import importlib.util
 import pathlib

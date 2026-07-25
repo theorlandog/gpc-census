@@ -2,7 +2,7 @@
 """General reality solver for kdim-1 interference vertices, via the Cayley-Menger
 (positivity-boundary) characterization of reality.
 
-Reality is the boundary of a positivity region (docs/RESEARCH.md, "REALITY IS A
+Reality is the boundary of a positivity region (docs/RESEARCH_ARCHIVE.md, "REALITY IS A
 POSITIVITY BOUNDARY"): fixing the occupations pins each interference off-diagonal
 to a Schur-Horn magnitude, the one-hop amplitudes form a closed polygon, and a REAL
 extremal state is where every such polygon DEGENERATES -- each edge's Cayley-Menger

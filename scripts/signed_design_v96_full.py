@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Exhaustive signed/phased-design search for (3,10) v96 in the NO basis.
 
-PROBLEM (see docs/RESEARCH.md, "v96 campaign"):
+PROBLEM (see docs/RESEARCH_ARCHIVE.md, "v96 campaign"):
   find integer weights k_T >= 0 on 3-subsets of {0..9} with mode sums
   EXACTLY (5,5,5,5,2,1,1,1,1,1), and per-determinant phases phi_T (rung 1:
   signs only) such that every one-hop pair class cancels:

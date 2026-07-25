@@ -113,7 +113,7 @@ Four stages, mirroring the mathematics:
       (`exactify_interference`, which certifies v_B itself). Of the 799 census
       vertices, all 799 now carry a certified closed form; the last two rank-10
       corners were closed off the rational search grid after the attainability
-      audit self-corrected (see docs/RESEARCH.md).
+      audit self-corrected (see docs/RESEARCH_ARCHIVE.md).
    The historical alternating-projection solver (`attain`) remains as a
    general Tier-A fallback: `scripts/solve_all.py` cascades to it when the
    block solver fails, so every vertex records at least a numeric state.
@@ -122,7 +122,8 @@ Every output passes structural validation (`gpc_census.validate`):
 embedding coherence between ranks, frozen-core lifts, particle-hole
 self-duality, physicality. These invariants caught every real error made
 while building the census; nothing ships without them. The research
-narrative and continuity notes live in `docs/RESEARCH.md`; the paper in
+narrative and continuity notes live in `docs/RESEARCH.md` (census-era
+evidence log: `docs/RESEARCH_ARCHIVE.md`); the paper in
 `results/report/`; the certified dataset with provenance and checksums
 in `results/data/`.
 

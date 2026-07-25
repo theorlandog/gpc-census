@@ -25,7 +25,7 @@ diag(0.9,0.9,0.3,0.3,0.3,0.3) the reduced delta reproduces the un-reduced delta
 SCALING NOTE: the dense orbit enumeration and dense invariant-operator averaging
 here are O(nz^2 * |G|) and O(nz^2), fine at (3,6) (nz=401) but NOT at (3,11)
 (nz=27226); cand 44 needs the matrix-free V-first variant (factorized S5xS6
-projectors, see docs/RESEARCH.md). Diagnostic; scripts/ is ruff-excluded.
+projectors, see docs/RESEARCH_ARCHIVE.md). Diagnostic; scripts/ is ruff-excluded.
 """
 import sys, itertools, time
 sys.path.insert(0, "scripts")
