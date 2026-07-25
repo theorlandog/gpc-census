@@ -53,14 +53,28 @@ iterating:
 - round 2: det (2,3,6) would not zero on this path (floor 1.4e-6); greedy
   cascade stops at 12. Other fiber branches untested.
 
-Consequences:
-- s_Q(v103) ≤ 12 (was: certified support 14). The route-B "isolated
+SUPERSEDED (2026-07, Task 1): the round-2 floor was a property of that
+continuation path, not of the fiber. With a geometric continuation schedule and
+fallback drop targets the cascade continues 12 → 11 (det (2,3,6), the one that
+floored before) → 10 (det (1,2,9)), every round at certificate residual below
+1e-16 with the eigenvalue multiplicities (4,6) verified at each step. The
+endpoint is EXACTLY recognizable: all ten squared weights are rationals, its
+loop holonomy is π so it is real up to gauge, and the characteristic-polynomial
+identity holds in exact arithmetic, so s_Q(v103) ≤ 10 is CERTIFIED, not
+numerical [scripts/v103_support10_certificate.py,
+results/data/v103_support10_certificate.json]. The endpoint is first-order RIGID in both
+fiber senses and sits in the MAGNITUDE regime (1-RDM off-diagonal 7.4e-2), so
+the cascade carries v103 out of the cancellation regime it started in. Details,
+artifacts, and the census-wide run in docs/cascade_census.md.
+
+Consequences (with ≤ 12 now read as ≤ 10):
+- s_Q(v103) ≤ 10 (was: certified support 14). The route-B "isolated
   support-14 point, dropping any amplitude breaks feasibility" is a statement
   about that search's landscape/gauge slice, NOT about the fiber: the fiber
   is a 6-manifold whose boundary strata contain strictly sparser states.
 - The defect hierarchy at the closures now reads
       v89 :  s_M = 4 < s_I = 7 ≤ s_Q ≤ 10
-      v103:  s_M = 4 < s_I = 6 ≤ s_Q ≤ 12
+      v103:  s_M = 4 < s_I = 6 ≤ s_Q ≤ 10   (was ≤ 12; the ≤ 10 is EXACT)
   with s_M the (weak) majorization baseline, s_I the diagonal-incidence
   baseline (exact MILP + rational certificates), and only s_M ≤ s_Q
   guaranteed a priori. Ladder status for v89 at size 7: 41 supports

@@ -629,16 +629,18 @@ _KERNEL_QUOTIENT = True
 
 
 def _incidence_kernel_dim(support_dets):
-    """Dimension of the weight-deformation kernel of a support (fiber dim upper
-    bound): |support| minus the rank of its mode-incidence matrix."""
-    import numpy as np
+    """|support| minus the rank of its mode-incidence matrix.
 
-    if not support_dets:
-        return 0
-    d = max(m for T in support_dets for m in T) + 1
-    a = np.array([[1 if m in T else 0 for m in range(d)] for T in support_dets],
-                 dtype=float)
-    return len(support_dets) - int(np.linalg.matrix_rank(a))
+    This is the ambient weight kernel K, NOT a fiber dimension: it is an upper
+    bound on the FIXED-SPECTRUM fiber's weight sector, before the within-block
+    channel conditions cut it down (docs/silence_rank_lemma.md). It says
+    nothing about the fixed-rho fiber. For an actual tangent dimension of
+    either fiber use gpc_census.fiber.fixed_spectrum_tangent or
+    gpc_census.fiber.fixed_rho_tangent, which name the fiber they measure.
+    """
+    from .fiber import incidence_kernel_dim
+
+    return incidence_kernel_dim(support_dets)
 
 
 def one_hop_classes(dets):
@@ -1421,7 +1423,7 @@ def solve_vertex_exact_first(n: int, d: int, spectrum, max_card: int = 24,
             rec = {"status": "OK", "residual": res,
                    "support_size": len(sup), "min_blocks": needed,
                    "weights": [w[i] for i in sup], "den": den,
-                   "fiber_kernel_dim": _incidence_kernel_dim(
+                   "incidence_kernel_dim": _incidence_kernel_dim(
                        [tuple(dets_all[i]) for i in sup]),
                    "ansatz": {"nv": nv, "blocks": [list(b) for b in blocks]},
                    "support": [[list(dets_all[i]), float(abs(psi[i])),

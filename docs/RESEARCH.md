@@ -167,7 +167,15 @@ plethysm criterion feed Problem 7 below.
   fixed-spectrum deformable.
 - unified_fiber_dimension.md: the unified first-order fiber-dimension
   formula (both regimes), its corpus verification over all 156 interference
-  states, the v103 sparsification cascade (s_Q <= 12), and merge notes.
+  states, the v103 sparsification cascade, and merge notes. Its s_Q(v103)
+  <= 12 is superseded by <= 10, certified exactly; see cascade_census.md.
+- cascade_census.md: the census-wide sparsification cascade, the exact
+  certification of 69 of the 71 improved support bounds, the v103
+  support-10 state, the cancellation-regime census, and the
+  representative-swap check against the v0.12 real v_B record.
+- prereg_bracket_3_11_3_12.md: the scored out-of-sample pre-registration on
+  the (3,11) and (3,12) bracket holdout (4 PASS, 2 FAIL), including the
+  power caveat stated before scoring.
 - prior_art_roadmap.md: the outside-GPC prior-art map (phase retrieval,
   rigidity theory, structured inverse eigenvalue problems, numerical
   algebraic geometry, tensor rank, ED degrees, SOS) with an ordered action
@@ -315,11 +323,55 @@ into the project.
   dim 2 independently reproduces the archive's "reduced spectrum-fiber is a
   surface". [docs/unified_fiber_dimension.md section 2.]
 - v103 sparsification cascade: on-fiber continuation reaches exact-spectrum
-  states of support 13 and then 12 (residuals 3.3e-16, 3.9e-15), so
-  s_Q(v103) <= 12 and the certified support-14 state is NOT isolated in the
-  fiber; the greedy cascade floors at 12 on this path. The fiber germ at
+  states of support 13 and then 12 (residuals 3.3e-16, 3.9e-15), so the
+  certified support-14 state is NOT isolated in the fiber. The fiber germ at
   the certified point is a smooth 6-manifold whose closure is stratified by
   support. [docs/unified_fiber_dimension.md section 3.]
+  SUPERSEDED 2026-07: the floor at 12 was a property of that continuation
+  path. With a geometric schedule and fallback drop targets the cascade
+  continues to support 10, and that endpoint is EXACT, not numerical: all
+  ten squared weights are rationals (13/34, 5/34, 53/442, 195/1802, 5/68,
+  5/68, 35/901, 1/34, 18/901, 84/11713), the single loop holonomy is pi so
+  the state is real up to gauge, and det(rho - xI) = (x - 9/17)^4
+  (x - 5/34)^6 holds in exact rational and radical arithmetic. So
+  s_Q(v103) <= 10, certified. Its state denominator 46852 = 2^2*13*17*53
+  carries a prime found in neither the spectrum denominator nor the
+  library state, which is why no grid search over multiples of the natural
+  denominator could reach it. Upper bound only, not a minimality claim.
+  [docs/cascade_census.md; scripts/v103_endpoint_precision.py;
+  scripts/v103_support10_certificate.py; tests/test_v103_support10.py;
+  results/data/v103_support10_certificate.json]
+- Census-wide sparsification: the support column is an UPPER BOUND on the
+  minimal support s_Q, and it is STRICT at 71 of the 799 certified states,
+  all INTERFERENCE. The cascade removes 89 amplitudes in total: 55 states
+  drop one, 15 drop two, v103 drops four. 69 of the 71 improved bounds are
+  then EXACT (high-precision refine, integer relation detection on the
+  squared weights, gauge-fix, exact characteristic-polynomial identity);
+  the two holdouts, (5,10) v144 and v256, have partly irrational weights,
+  the signature of a stratum whose distinguished point the cascade missed,
+  as v_B's real states sit at quadratic surds. Quadratic-surd recognition
+  is the open piece. [docs/cascade_census.md; src/gpc_census/cascade.py;
+  scripts/census_cascade.py; scripts/exactify_cascade.py;
+  results/data/cascade.jsonl; results/data/cascade_exact.json]
+- Rigidity predicts sparsifiability across the census: every state with
+  fixed-spectrum tangent 0 fails to sparsify (726 of 726) and 71 of the 73
+  with positive tangent do, the two exceptions flooring at 2 to 3e-6, which
+  is blocked-on-this-path rather than blocked. This is a POST-HOC pattern in
+  the corpus the cascade itself explored; it needs a pre-registered
+  out-of-sample test before it is believed. [docs/cascade_census.md]
+- The fixed-rho / fixed-spectrum gap is NOT confined to the cancellation
+  regime where it was discovered. It occurs in the magnitude regime at v_B
+  itself (fixed-rho 1, fixed-spectrum 2) and, out of sample, at (3,11) v43
+  (same 1 vs 2). Any text presenting the two-fiber distinction as a
+  cancellation-regime phenomenon is too narrow.
+  [docs/prereg_bracket_3_11_3_12.md B3, scored FAIL;
+  results/data/oos_bracket.json; results/data/cascade.jsonl]
+- The cancellation regime (exactly diagonal 1-RDM with silent channels) has
+  exactly TWO members across all 799 certified representatives, v89 and
+  v103; the census-wide cascade adds none, so the silence-rank lemma's
+  genericity question stays on a sample of size two. The regime is a
+  property of the REPRESENTATIVE, not the vertex: v103 leaves it by cascade
+  round 4. [results/data/cascade_summary.json]
 - Real boundary states can exist inside fibers whose generic/dense
   representatives are complex. [Both rank-10 closures are all-real with
   rational squared weights, found by reweighted-L1 continuation after the
@@ -502,14 +554,26 @@ support-11 family, v103 deformability); the silence-rank lemma proof
 (docs/silence_rank_lemma.md); the corpus tangent census and v103 cascade
 (docs/unified_fiber_dimension.md).
 
+Also done and landed (2026-07, fiber session): the two fiber notions made
+structural in code (src/gpc_census/fiber.py, tests/test_fiber_notions.py);
+the census-wide sparsification cascade (src/gpc_census/cascade.py,
+scripts/census_cascade.py, docs/cascade_census.md); exact certification of
+the improved support bounds (scripts/exactify_cascade.py); the scored
+out-of-sample bracket pre-registration (docs/prereg_bracket_3_11_3_12.md);
+and the reconciliation artifact (scripts/reconcile_claims.py).
+
 Priority:
 
 1. Formalize the theorem-candidate proofs (the two Hardt-dependent ones
    together).
-2. Alpha-certify the cascade endpoints (v103 support-13/-12) and the v89
-   (0,3,6) family points: converts the numerical claims into certified
-   theorems without closed forms (alphaCertified; prior_art_roadmap
-   action 1).
+2. Alpha-certify what exact recognition could not reach. MOSTLY OVERTAKEN:
+   69 of the 71 cascade endpoints were certified outright by high-precision
+   refinement plus integer relation detection plus an exact
+   characteristic-polynomial check, which is stronger than an alpha
+   certificate and needs no external tool. What remains for alphaCertified
+   or for quadratic-surd recognition: the two endpoints with irrational
+   weights ((5,10) v144 and v256) and the v89 (0,3,6) family points.
+   [results/data/cascade_exact.json]
 3. Witness set + numerical irreducible decomposition of the v103 fiber and
    the v_B surface; monodromy Galois groups feed the holonomy program
    (prior_art_roadmap action 2).
@@ -526,6 +590,36 @@ Priority:
    validated pipeline; isospectral-flow explorers are the principled
    replacement for ad-hoc continuation; productionize
    scripts/repro_and_sparsify.py-class tooling out of scratch).
+
+## Reconciliation ledger (2026-07 fiber session)
+
+Each item is re-derived by scripts/reconcile_claims.py into
+results/data/reconciliation.json, so a reader can check it rather than trust
+this table.
+
+| superseded reading | corrected reading |
+|---|---|
+| v103 is first-order rigid | rigid for the FIXED-RHO fiber, deformable (tangent 6) for the FIXED-SPECTRUM fiber; v89 rigid in both |
+| v103 is an isolated support-14 point | true of the route-B search landscape and gauge slice, false of the fiber: support 10 is reached and certified exactly |
+| the census support column is the minimal support | it is the certified support, an upper bound on s_Q, strict at 71 of 799 vertices |
+| 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
+
+REPRESENTATIVE-SWAP CHECK (v0.12, the real v_B record). Shipping the real
+theta=0 endpoint in place of the phase-carrying fiber point over
+(4,9) index 65 leaves every fiber-program result unchanged. Re-run on the new
+ledger: identical census totals (71 sparsifying states, 89 amplitudes, 33
+multiplicity-drift stops, 2 cancellation-regime members), identical per-vertex
+verdicts and tangent dimensions for all 799 records, and identical exact
+certification (69 of 71, same weights throughout). v_B's own numbers are
+stable too: incidence kernel 1, fixed-spectrum tangent 2, fixed-rho tangent 1
+for BOTH representatives, and both cascade to the same support-7 point,
+dropping determinant (0,1,2,4) and certifying at the same squared weights
+(9/23, 4/23, 3/23, 12/115, 8/115, 1/23, 2/23), state denominator 115. The two
+endpoints differ only by a gauge phase, so the real representative simply
+lands on the real form directly. The one visible change is elsewhere: v_B's
+phase tier in the block-count census moves from COMPLEX to REAL, so the
+3-block row reads 152 REAL / 13 COMPLEX rather than 151 / 14
+(scripts/reproduce_next_claims.py claim 2).
 
 ## Guiding principle
 
