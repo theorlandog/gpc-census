@@ -1,0 +1,115 @@
+# The Silence-Rank Lemma (2026-07)
+
+Status: PROVED below (first-order statements; elementary degenerate
+perturbation theory). Dimension formula VERIFIED at both census
+cancellation states. Supersedes the P4 scorecard's rigidity reading for
+v103; confirms it for v89.
+
+## Setting
+
+Fix a system (N, d), a vertex spectrum λ with distinct values
+λ^(1) > ... > λ^(k) on orbital blocks B_1, ..., B_k, and a state
+ψ = Σ_{t ∈ S} c_t |t⟩ with support S whose 1-RDM ρ is EXACTLY DIAGONAL
+with diag(ρ) = λ (the cancellation regime: every one-hop channel of S is
+silent). Assume ψ real (both census instances are; the complex case
+changes only bookkeeping). Write:
+
+- A_S : R^S → R^d, the incidence map (A_S p)_o = Σ_{t ∋ o} p_t, and
+  K = ker A_S ∩ {Σ δp = 0} the incidence kernel;
+- for a channel γ = (p, q) (an orbital pair realized by at least one
+  one-hop determinant pair in S), σ_γ(c) = ρ_{pq}(c), the signed channel
+  sum. Silence: σ_γ(c) = 0 for all γ. A channel is WITHIN-BLOCK if p, q
+  lie in the same B_i, CROSS-BLOCK otherwise;
+- J_within, J_all: the Jacobians of the within-block (resp. all) channel
+  sums with respect to weight deformations δp at fixed phases
+  (δc_t = δp_t / (2 c_t)).
+
+## Lemma
+
+(i) [Fixed spectrum, weight sector] The first-order deformations of the
+weights preserving spec(ρ) = λ are exactly K ∩ ker J_within^Re.
+Cross-block silence imposes no first-order fixed-spectrum condition.
+
+(ii) [Fixed ρ, weight sector] The first-order deformations preserving
+ρ itself are exactly K ∩ ker J_all^Re.
+
+(iii) [Dimension formula, full tangent] The first-order fixed-spectrum
+tangent space of the support-restricted fiber, modulo the U(1)^d × U(1)
+gauge, has dimension
+
+    dim = (dim K − rank J_within^Re) + (|S| − g − rank J_within^Im),
+
+where g is the rank of the gauge action on S (the number of independent
+orbital-phase directions, global phase included).
+
+## Proof
+
+Let δc be a first-order deformation and δρ the induced 1-RDM variation;
+δρ is R-linear in δc. Since ρ is diagonal with blocks B_i, its spectral
+projectors P_i are coordinate projectors. By first-order degenerate
+perturbation theory, the eigenvalues of ρ + ε δρ within the λ^(i)
+cluster are λ^(i) + ε · eig(P_i δρ P_i) + O(ε²). Hence spec is
+stationary and non-splitting at first order iff P_i δρ P_i = 0 for
+every i. The off-block components P_i δρ P_j (i ≠ j) are unconstrained:
+they rotate eigenvectors at first order and move eigenvalues only at
+O(ε²). This proves the cross-block clause of (i).
+
+The entries of P_i δρ P_i are: the diagonal entries δρ_oo for o ∈ B_i,
+and the off-diagonal entries δρ_{pq} for p, q ∈ B_i, which are nonzero
+only on channels of S, i.e. exactly the within-block channel variations
+δσ_γ. At a real state the deformation splits orthogonally into a weight
+part (δc real) and a phase part (δc imaginary), and δρ splits
+accordingly into its real and imaginary parts (the diagonal receives
+only the real part).
+
+Weight sector: δρ_oo = (A_S δp)_o, so the diagonal conditions are
+A_S δp = 0 with the norm condition Σ δp = 0, i.e. δp ∈ K; the
+within-block off-diagonal conditions are J_within^Re δp = 0. This is
+(i). For (ii), fixing ρ itself additionally requires every off-diagonal
+of δρ to vanish, i.e. all channel sums stationary: J_all^Re δp = 0 on K.
+
+Phase sector: δc = i θ ⊙ c contributes nothing to the diagonal (at a
+real state, δρ_oo = 2 Re(i · (...)) = 0) and contributes i-parts to the
+channel sums; the within-block conditions are J_within^Im θ = 0. The
+gauge directions θ_t = Σ_{o ∈ t} φ_o form a rank-g subspace of the
+phase sector and lie in the kernel of every within-block condition
+(gauge rotates ρ_{pq} by e^{i(φ_p − φ_q)}, preserving zeros). Summing
+the two sectors and subtracting gauge gives (iii). ∎
+
+## Verified corollaries (census instances; scripts/reproduce_next_claims.py)
+
+- v89 = (15,15,6^8)/26, |S| = 10, dim K = 1, one channel, WITHIN-block
+  (both orbitals at 6/26), rank J_within^Re = 1, rank J_within^Im = 1,
+  g = 9. Dimension formula: (1−1) + (10−9−1) = 0. v89 is first-order
+  fixed-spectrum rigid, in agreement with the direct tangent
+  computation (kernel = gauge = 9) and with the P4 scorecard.
+- v103 = (18^4,5^6)/34, |S| = 14, dim K = 5, five channels of which two
+  within-block ((1,2) in the 18/34 block, (5,8) in the 5/34 block) and
+  three cross-block. rank J_within^Re = 2, rank J_within^Im = 2, g = 9.
+  Dimension formula: (5−2) + (14−9−2) = 3 + 3 = 6. Directly measured
+  first-order tangent: 6, constant along the fiber at t = 0.05, 0.10
+  with eigenvalue multiplicities (4,6) preserved: the germ is a smooth
+  6-manifold. v103 is fixed-spectrum DEFORMABLE; the P4 "first-order
+  rigid" verdict is the fixed-ρ statement (ii): rank J_all^Re = 5 =
+  dim K, which this lemma shows is a statement about a different fiber.
+
+## Remarks
+
+1. The "coincidence of dimensions" at v103 (five silence conditions
+   exhausting a five-dimensional kernel) is a fixed-ρ fact. Whether
+   rank J_all^Re = dim K is forced for cancellation states or accidental
+   is open on a sample of size two.
+2. The lemma is first-order. The v103 germ's smoothness is inferred from
+   constant tangent rank along continued fiber points (numerical); a
+   constant-rank argument in exact arithmetic would upgrade it.
+3. The fixed-ρ / fixed-spectrum distinction here is the same one
+   recorded in the levi.py bug log (fixed_rho_fiber_dim vs
+   fiber_kernel_dim). This lemma is the positive result that distinction
+   was waiting for: the two fibers differ at first order exactly by the
+   cross-block channel conditions.
+4. Consequence for T1 (Jacobian theorem): in the cancellation regime the
+   correct fiber-dimension formula is (iii), not
+   dim K − #(touched 1-term classes). The magnitude-target regime's
+   formula and (iii) should be unified by the observation that in the
+   magnitude regime every active channel behaves as a within-block
+   constraint on its modulus with a free phase.
