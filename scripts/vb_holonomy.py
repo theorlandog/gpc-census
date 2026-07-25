@@ -17,8 +17,12 @@ beyond an irrationality check that is also confirmed symbolically.
 
 This does NOT settle reality under the non-diagonal block rotations that mix
 degenerate natural orbitals (U(1) x U(4) x U(4) for v_B); that residual gap is
-the target of scripts/vb_reality_sos.py. But the diagonal-gauge obstruction it
-certifies is exact, and for v_B it is nonzero.
+the target of scripts/vb_reality_sos.py. The diagonal-gauge obstruction it
+certifies is exact. Historical note: the phase-carrying fiber point the
+library previously shipped for v_B carried a nonzero holonomy; the library
+now ships the real wall-family endpoint, whose one loop holonomy is an
+integer multiple of pi (a sign), so is_complex is False for the shipped
+record.
 
 Usage:
   python scripts/vb_holonomy.py                 # v_B = (4,9) idx 65

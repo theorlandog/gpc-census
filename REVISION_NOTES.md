@@ -63,6 +63,32 @@ changed; SHA256SUMS untouched and re-verified.
   manuscript/data/checksum drift. Full suite green (78 passed); the
   standalone checker re-passes all 799 certificates.
 
+### Addendum 2 (same cycle): the library now ships a REAL v_B state
+
+- The (4,9) index 65 record (v_B) in states.jsonl now ships the real
+  theta=0 endpoint of its wall family, at t0 = 7/17 - 18*sqrt(35)/85,
+  squared weights in Q(sqrt(35)) summing to 23 on the unchanged support.
+  Constructed and certified by the new scripts/vb_real_state.py
+  (idempotent; aborts with data untouched unless the exact
+  characteristic-polynomial identity passes), and independently
+  re-verified by the standalone checker: all 799 records PASS.
+- Checker hardening required and shipped: the eigenvalue symbol is now
+  declared real (a generic complex lam made expand_complex split it into
+  re/im parts, blocking exact cancellation of the nested-radical
+  amplitude products), with a Poly-coefficient minimal_polynomial
+  fallback as the exact algebraic-number zero test. Side effect: the full
+  799-record verification dropped from 178 s to 20 s.
+- Reconciled everywhere the old phased record was load-bearing:
+  tests/test_vb_holonomy.py now asserts the shipped state is real
+  (trivial holonomy, one loop, a sign not a phase); feature_table.csv
+  all_real flips to 1 for that row; SHA256SUMS regenerated; PROVENANCE.md
+  records the v0.12 update; wall_solver, wall_test, and polygon_target
+  skip irrational-weight records gracefully. The paper's galois section
+  now presents three fiber points over v_B (psi_B, the t=0 anchor, the
+  real shipped endpoint with trivial holonomy), Remark 4(ii) names the
+  shipped state as the theta=0 endpoint, and the significance and
+  open-question passages say the shipped library state is real.
+
 ### Addendum (same cycle): v_B reality framing and CI anonymized artifact
 
 - Every characterization of v_B or psi_B as complex or non-realifiable is
