@@ -1,16 +1,16 @@
 ---
-bibliography: results/report/references.bib
-csl: results/report/institute-of-physics-numeric.csl
+bibliography: results/report/anonymized/references.bib
+csl: results/report/anonymized/institute-of-physics-numeric.csl
 link-citations: true
 abstract: |
   The generalized Pauli constraints (GPCs) confine the natural occupation numbers of an $N$-fermion pure state to a moment polytope $\Pi_{N,d}$. For $\wedge^4\mathcal{H}_9$, two vertices of the polytope of Altunbulak and Klyachko \[Commun. Math. Phys. 282, 287 (2008)\] were verified only numerically, and the completeness argument for the published $\wedge^4\mathcal{H}_{10}$ constraint list depends on them. We give explicit closed-form extremal states for both, with elementary hand-checkable proofs: $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$ is attained by a seven-determinant state whose supporting determinants are pairwise one-hop independent, and $v_B = \tfrac1{23}(20,14,14,14,14,4,4,4,4)$---for which we prove, by mixed-integer infeasibility independently reproduced on two solvers, that no one-hop-independent extremal state exists in any orbital basis---by an eight-determinant state with a single interference phase, $\cos\gamma = 3/(4\sqrt{14})$, together with exact real extremal states at quadratic-irrational weights on the same fiber. Classifying every vertex as *design* (attained by a state whose off-diagonal 1-RDM contributions vanish termwise) or *interference* (requiring coherent cancellation), we then construct and certify, in exact arithmetic, closed-form extremal states for all $799$ vertices of every published fermionic moment polytope through rank $d = 10$ ($631$ integer designs, $12$ rational designs, $156$ interference states), and release them as a machine-readable library with a per-state certificate. Under the explicit hypothesis that each published rank-$10$ inequality is valid, certified attainment of all $564$ rank-$10$ vertices closes the completeness of those constraint lists by convexity. Code, data, an automated manuscript--dataset consistency test, and an independent verification script accompany the paper.
 
   Keywords: generalized Pauli constraints, quantum marginal problem, pure-state $N$-representability, moment polytope, extremal states, natural occupation numbers
 author:
-  - James Orlando[^1]
+  - Anonymized for double-anonymous review
 date: |
   July 2026 --- DRAFT v0.12, prepared for J. Phys. A: Math. Theor.\
-  Preprint: [doi:10.5281/zenodo.21313736](https://doi.org/10.5281/zenodo.21313736)
+  Preprint DOI withheld for double-anonymous review
 title: |
   Algorithmic construction of exact extremal states for fermionic moment\
   polytopes: a certified census through rank 10
@@ -86,7 +86,7 @@ Design-attainability is thus a feasibility question for a system of integer inci
 _Provenance note._ An earlier iteration of this census reported $22$ integer designs for $\Pi_{3,8}$; a subsequent longer search produced integer witnesses at the natural denominator for four further vertices. Every count in this paper is regenerated from the released dataset by the automated consistency test `scripts/check_manuscript_counts.py` (Section [-@sec:certs]), which fails if any number in the manuscript disagrees with `states.jsonl`.
 
 ::: {#thm:B .theorem}
-**Theorem 2** ($v_B$ is interference-type) \[CA\]. *No weighted design with any positive real weights exists for $v_B = (20,14,14,14,14,4,4,4,4)/23$. Since the family of Slater determinants and its one-hop structure are identical in every orthonormal orbital basis, the statement is basis-free: no extremal state of $v_B$ is one-hop independent in *any* orbital basis. Equivalently, in any basis in which the 1-RDM of an extremal state is diagonal, the supporting determinants necessarily fail one-hop independence; the vertex is attained through interference. (We thank T. Maciazek for prompting this basis-free formulation: a $2\times2$ rotation inside the mixing block of the state of Theorem [3](#thm:psiB) diagonalizes its 1-RDM while destroying independence, illustrating both halves of the statement.)*
+**Theorem 2** ($v_B$ is interference-type) \[CA\]. *No weighted design with any positive real weights exists for $v_B = (20,14,14,14,14,4,4,4,4)/23$. Since the family of Slater determinants and its one-hop structure are identical in every orthonormal orbital basis, the statement is basis-free: no extremal state of $v_B$ is one-hop independent in *any* orbital basis. Equivalently, in any basis in which the 1-RDM of an extremal state is diagonal, the supporting determinants necessarily fail one-hop independence; the vertex is attained through interference. (A $2\times2$ rotation inside the mixing block of the state of Theorem [3](#thm:psiB) diagonalizes its 1-RDM while destroying independence, illustrating both halves of the statement.)*
 :::
 
 ::: proof
@@ -280,4 +280,3 @@ The immediate consumers of an explicit atlas of extremal states are the methods 
 ::: {#refs}
 :::
 
-[^1]: Independent researcher, Derry, NH, USA. `jamie@orlandonh.com`. ORCID: 0009-0008-3158-771X.
