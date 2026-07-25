@@ -63,6 +63,26 @@ changed; SHA256SUMS untouched and re-verified.
   manuscript/data/checksum drift. Full suite green (78 passed); the
   standalone checker re-passes all 799 certificates.
 
+### Addendum (same cycle): v_B reality framing and CI anonymized artifact
+
+- Every characterization of v_B or psi_B as complex or non-realifiable is
+  removed. Remark 4 is reduced to its [E] content, the two fiber families
+  and their exact real extremal states in Q(sqrt(15)) and Q(sqrt(35)); the
+  U(9) realification search and its [N] non-realifiability evidence are
+  cut, along with the corresponding certificate-table row. The abstract,
+  Remark 3, Theorem 4, the spectrahedral-geometry paragraph, the outlook
+  items, the significance paragraph, and open questions (i) and (ii) now
+  frame v_B by its real attainability; the interference phase appears only
+  as exact cancellation data on the fiber ("a coordinate, not an
+  obstruction"). Rationale: the vertex demonstrably admits real extremal
+  states, so complexity is not a property of anything the census assigns
+  to v_B.
+- CI now builds and ships the anonymized review copy: the release
+  data-output.zip gains anonymized/main.pdf, anonymized/main.tex (new
+  make report-anon-tex target, same guards as report-tex), and
+  anonymized/references.bib; the PR-validation report job builds the
+  anonymized PDF and TeX alongside the main report.
+
 # Revision notes — main paper v0.10 → v0.11
 
 Commit reviewed: 7543ca9 (same tip the referee reviewed). Every claim below was
