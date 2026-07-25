@@ -41,5 +41,5 @@
     "(5,10)": 22
   },
   "evidence": "numerical: minimal-polynomial continuation residuals, not certified solutions",
-  "seconds": 926.1
+  "seconds": 913.1
 }

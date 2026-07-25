@@ -217,6 +217,29 @@ leaves the regime by round 4. So "exactly two" means two certified
 representatives, and a different fiber point of the same vertex may or may not
 be in the regime.
 
+## Representative-swap check (v0.12 real v_B record)
+
+Everything above was first computed against the ledger that shipped the
+phase-carrying fiber point over v_B = (4,9) index 65, and re-run against the
+v0.12 ledger that ships the real theta=0 endpoint of the same wall family.
+Nothing moved: the same 71 states sparsify, the same 89 amplitudes come out,
+the same 33 states stop on multiplicity drift, the cancellation regime still
+has two members, and all 799 per-vertex verdicts and tangent dimensions are
+identical. Exact certification is identical too, 69 of 71 with the same
+weights.
+
+v_B itself is a useful check on representative dependence. Both
+representatives give incidence kernel 1, fixed-spectrum tangent 2 and
+fixed-rho tangent 1, and both cascade to support 7 by dropping the same
+determinant (0,1,2,4), certifying at the same squared weights (9/23, 4/23,
+3/23, 12/115, 8/115, 1/23, 2/23) with state denominator 115. The two endpoints
+differ only by a gauge phase on one amplitude: starting from the real
+representative the cascade lands on the real form directly, with an
+all-positive sign pattern, where the complex representative needed the
+gauge-fixing step to get there. Fiber-level quantities are representative
+independent here, which is what the theory predicts and worth having on
+record given how often representative dependence has bitten this project.
+
 ## Caveats
 
 - Greedy smallest-first is one branch of a large tree. Every floor recorded here
