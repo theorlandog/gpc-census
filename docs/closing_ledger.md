@@ -112,15 +112,18 @@ interference states.
 | (separated) every rigid state has one weight multiset | **PASS**, 12 of 12 |
 
 The failure does not damage the Rigidity-Rationality target and the split is
-why: v103's fiber carries several isolated points, consistent with
-first-order rigidity being local, but they share one weight multiset and
-differ only in loop holonomies. Gap (b) feared Galois-conjugate points with
-different weights; what occurs is discrete phase multiplicity with the weight
-vector Galois-fixed.
+why: v103's fiber carries many isolated points, consistent with first-order
+rigidity being local, but they share one weight vector and differ only in
+loop holonomies. Gap (b) feared Galois-conjugate points with different
+weights; what occurs is discrete phase multiplicity with the weight vector
+fixed. Isolation is established by the tangent rank vanishing at random
+solutions, not only at the certified one. The NUMBER of points is open: the
+support-preserving orbital permutations are trivial, so nothing quotients the
+count, and multi-start reaches at least 59 without saturating.
 
 ## 2. Corrections, with cause
 
-Ten this program, five this month. Each is a case where a claim in the
+Eleven this program, six this month. Each is a case where a claim in the
 repository was wrong and structural evidence, not inspection, caught it.
 
 | # | superseded claim | cause | artifact |
@@ -134,6 +137,7 @@ repository was wrong and structural evidence, not inspection, caught it.
 | 7 | holonomy radicands are square roots of weight monomials | false at 15 of 82 loops; the mechanism predicts exactly where, confirmed 63/63 | `holonomy_fields.json` |
 | 8 | 12 quartic holonomies | 13; 37 + 32 + 12 does not equal 82 | `holonomy_fields.json` |
 | 9 | the fixed-rho inversion has sample size one | 14 states in 7 transport classes; v103 is unique in magnitude, not in kind | `two_block_family.json` |
+| 11 | v103's fiber is discrete because distinct cosine values equal points times loops | that identity is not evidence: random samples from a CONTINUUM also have pairwise distinct coordinates almost surely, so it holds either way. Discreteness re-established properly by the fixed-rho tangent vanishing at random solutions, not only at the certified one | `uniqueness_census.json`, v103_discreteness_probe |
 | 10 | v103 has natural-orbital support 79 | 14. My own ledger rotated a record that already passed the gate, and with degenerate lambda eigh returns an arbitrary eigenspace basis rather than the identity | `natural_orbital_summary.json` |
 
 Corrections 4, 5, 9 and 10 all have the same shape: a claim about the library
@@ -141,9 +145,12 @@ was carried in memory rather than read off an artifact. That is why the house
 rule now reads: any convention claim about the library must cite the audit
 artifact that verifies it.
 
-Correction 10 is mine, made this month, and it was caught by scoring a
-prediction I expected to fail for a different reason. That is the process
-working.
+Corrections 10 and 11 are both mine, made this month. Correction 10 was
+caught by scoring a prediction I expected to fail for a different reason;
+correction 11 was caught by pushing the sample further and noticing the count
+would not saturate, which sent me back to an argument that had looked
+conclusive and was not. That is the process working, and it is also why the
+mechanism-first tally below carries a near-miss line.
 
 ## 3. Mortality: mined laws versus mechanism-first
 
@@ -170,6 +177,25 @@ being tested:
 | ratio > 1 implies generic interference | sparsity and diagonality cannot share a basis outside design and cancellation | CONFIRMED, 141 of 141 |
 
     4 scored, 4 confirmed.
+
+**NEAR MISS, and it belongs in the tally.** A fifth mechanism-first idea was
+proposed at the end of the arc and did not survive: that v103's several
+isolated fiber points, v_B's 64-of-128 attaining sign patterns, and the
+multiquadratic holonomy fields are one phenomenon, namely that the fixed-rho
+fiber of a rigid vertex is a finite 2-TORSION set over a unique rational
+weight vector. Checked before it was written into the manuscript, it split:
+the v_B leg is exactly right (64 = 2^6, a torsion coset over one weight
+vector, certified), and the v103 leg is wrong (its points share one weight
+vector but are separated by holonomy cosines spread across (-1,1), not by
+signs). The unifying clause was pulled from the manuscript outlook and
+relocated to RESEARCH.md's open-problem register; the two certified counts
+stay in the results section as data.
+
+Scored honestly, mechanism-first therefore runs 4 confirmed, 1 partial. The
+4 of 4 above should not be quoted without this line: the difference between
+this near miss and the eleven dead mined laws is not that it was luckier, it
+is that it was checked before being asserted, and the check is what caught
+the half that was wrong.
 
 This is the single most useful methodological finding of the arc, and it is
 what the ordering rule "mechanism before mining" is now based on. It is also

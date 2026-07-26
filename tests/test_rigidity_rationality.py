@@ -227,14 +227,34 @@ def test_the_solved_system_is_the_fixed_rho_fiber(uniqueness):
 # ------------------------------------------- v103 discreteness confirmations
 
 
-def test_v103_counting_identity_certifies_discreteness(uniqueness):
-    """Distinct cosine values = points x loops exactly. A positive-dimensional
-    set would not give an exact product."""
-    probe = uniqueness["v103_discreteness_probe"]
-    i = probe["counting_identity"]
-    assert i["identity_holds"]
-    assert i["distinct_cosine_values"] == i["distinct_points_mod_gauge"] * i["loops"]
-    assert i["loops"] == 5
+def test_v103_points_are_isolated_by_tangent_rank(uniqueness):
+    """What actually certifies discreteness: the fixed-rho tangent vanishes at
+    random solutions, not only at the certified representative."""
+    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
+    assert i["tangent_dim_at_certified_point"] == 0
+    assert i["tangent_dim_at_random_solutions"]
+    assert all(v == 0 for v in i["tangent_dim_at_random_solutions"])
+    assert i["all_sampled_points_isolated"]
+
+
+def test_the_counting_identity_argument_is_retracted(uniqueness):
+    """Pinned so the retracted argument is not quietly reinstated: random
+    samples from a continuum also have pairwise distinct coordinates."""
+    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
+    assert "retracted_counting_identity" in i
+    assert "not evidence" in i["retracted_counting_identity"]
+
+
+def test_v103_point_count_is_open_with_no_symmetry_to_quotient(uniqueness):
+    """The support-preserving permutations are trivial, so nothing collapses
+    the count, and the count has not saturated."""
+    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
+    assert i["support_preserving_orbital_permutations"] == 1
+    assert i["full_block_permutation_group_order"] == 17280
+    assert i["symmetry_quotient_is_trivial"]
+    assert i["count_saturated"] is False
+    curve = i["saturation_curve"]
+    assert curve[-1]["distinct_points"] >= curve[0]["distinct_points"]
 
 
 def test_v103_multiplicity_is_not_a_solver_artifact(uniqueness):

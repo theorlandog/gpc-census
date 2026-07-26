@@ -7,12 +7,19 @@ solutions at (3,10) v103 whose loop-holonomy cosines are spread across
 would contradict v103's measured fixed-rho tangent dimension 0. It is not.
 Three checks, all recorded into the census artifact's note:
 
-1. THE COUNTING IDENTITY. The number of distinct holonomy cosine VALUES over
-   all converged solutions equals (number of distinct points modulo gauge) x
-   (number of loops), exactly. No two points share any cosine value, and no
-   point contributes fewer than one value per loop. A continuum would not
-   produce an exact product; a discrete set of points each carrying its own
-   holonomy vector does.
+1. THE TANGENT RANK AT RANDOM SOLUTIONS. The fixed-rho tangent dimension is
+   computed not only at the certified point but at solutions reached from
+   random starts. All of them come back 0 (kernel 9, all gauge), so every
+   sampled point of the fiber is isolated and the fiber is 0-dimensional
+   where it has been sampled, not merely at the certified representative.
+
+   RETRACTED, and recorded so the mistake is not repeated: an earlier version
+   of this probe argued discreteness from a COUNTING IDENTITY, that the number
+   of distinct holonomy cosine values equals points times loops exactly. That
+   argument is worthless. Random samples drawn from a CONTINUUM also have
+   pairwise distinct coordinates almost surely, so the identity holds just as
+   well for a positive-dimensional fiber and distinguishes nothing. The
+   tangent-rank test above is what actually settles it.
 
 2. HIGH-PRECISION POLISH. Two solutions with the same weight vector and
    clearly different holonomies are refined by damped Gauss-Newton in mpmath
@@ -23,9 +30,23 @@ Three checks, all recorded into the census artifact's note:
    converge. It does neither, and they stay distinct.
 
 3. THE MIDPOINT TEST. The normalized midpoint of two polished solutions is
-   evaluated on the same system. On a connected positive-dimensional fiber a
-   midpoint sits near the solution set; between two isolated points it does
-   not. The midpoint residual is reported against the endpoint residuals.
+   evaluated on the same system, and its residual is reported against the
+   endpoints'. Read narrowly: it shows the two points are not joined by a
+   straight segment lying in the fiber. On a curved positive-dimensional
+   component a chord midpoint would also sit off the set, so this is
+   corroboration, not proof; the tangent-rank test carries the weight.
+
+HOW MANY POINTS. Not settled, and multi-start is the wrong instrument for it.
+The support-preserving orbital permutations turn out to be TRIVIAL (only the
+identity, out of |S_4 x S_6| = 17280), so there is no symmetry quotient to
+collapse the count and the raw number is the number. But the count does not
+saturate: 800 random starts, all converging, yield 18 / 26 / 35 / 47 / 59
+distinct points at 50 / 100 / 200 / 400 / 800 starts, still climbing by
+roughly ten per doubling. So the fiber has AT LEAST 59 isolated points and the
+true count is open. Basins are plainly very unequal, which is why
+coupon-collector extrapolation from these numbers is not reported. Settling it
+needs a certified root count, homotopy continuation with a trace test or
+monodromy, per docs/prior_art_roadmap.md section 4.
 
 WHAT THE POINTS ACTUALLY ARE, which is not what was expected. They are NOT
 distinguished by weight ASSIGNMENT. Every converged solution carries the SAME
@@ -53,6 +74,9 @@ import argparse
 import json
 import sys
 from pathlib import Path
+
+from itertools import permutations
+from math import factorial
 
 import mpmath as mp
 import numpy as np
@@ -221,25 +245,78 @@ def run():
         sols.append((r.x, c))
         cosvecs.append(np.array([np.cos(loops[k] @ np.angle(c)) for k in range(len(loops))]))
 
-    # check 1: the counting identity
+    # check 1: the tangent rank at random solutions, which is what actually
+    # certifies discreteness. The counting identity used here before did not.
+    from gpc_census.fiber import fixed_rho_tangent
+
+    tangents = []
+    for x, c in sols[:8]:
+        t = fixed_rho_tangent(c, dets, d).as_json()
+        tangents.append(int(t["fixed_rho_tangent_dim"]))
+    certified = fixed_rho_tangent(
+        np.asarray(amplitudes_from_record(rec)[0], dtype=complex), dets, d
+    ).as_json()
+
+    # the symmetry available to quotient the count: orbital permutations that
+    # preserve lambda AND map the support to itself
+    blocks = {}
+    for mode, value in enumerate(rec["integer_form"]):
+        blocks.setdefault(value, []).append(mode)
+    support_set = set(dets)
+    stab = 0
+    keys = sorted(blocks)
+    for p0 in permutations(blocks[keys[0]]):
+        for p1 in permutations(blocks[keys[1]]):
+            sigma = {}
+            for a, b in zip(blocks[keys[0]], p0):
+                sigma[a] = b
+            for a, b in zip(blocks[keys[1]], p1):
+                sigma[a] = b
+            if {tuple(sorted(sigma[m] for m in t)) for t in dets} == support_set:
+                stab += 1
+    full_group = 1
+    for b in blocks.values():
+        full_group *= factorial(len(b))
+
+    # saturation: does the point count stop growing?
     fps = [
-        np.concatenate([np.sort([abs(a) ** 2 for a in c]), np.sort(cv)])
+        np.concatenate([[abs(a) ** 2 for a in c], np.sort(cv)])
         for (_, c), cv in zip(sols, cosvecs)
     ]
-    points = cluster(fps)
-    distinct_cos = cluster([np.array([v]) for v in np.concatenate(cosvecs)], tol=1e-5)
+    curve = [
+        {"converged_used": k, "distinct_points": len(cluster(fps[:k]))}
+        for k in (10, 20, 30, 40, 50, len(fps))
+        if k <= len(fps)
+    ]
+
     identity = {
-        "converged": len(sols),
-        "distinct_points_mod_gauge": len(points),
-        "loops": int(len(loops)),
-        "distinct_cosine_values": len(distinct_cos),
-        "product": len(points) * int(len(loops)),
-        "identity_holds": len(distinct_cos) == len(points) * int(len(loops)),
+        "tangent_dim_at_certified_point": int(certified["fixed_rho_tangent_dim"]),
+        "tangent_dim_at_random_solutions": tangents,
+        "all_sampled_points_isolated": all(v == 0 for v in tangents)
+        and certified["fixed_rho_tangent_dim"] == 0,
+        "support_preserving_orbital_permutations": stab,
+        "full_block_permutation_group_order": full_group,
+        "symmetry_quotient_is_trivial": stab == 1,
+        "saturation_curve": curve,
+        "distinct_points_at_this_sample": len(cluster(fps)),
+        "count_saturated": False,
+        "retracted_counting_identity": (
+            "An earlier version argued discreteness from distinct cosine "
+            "values equalling points times loops. That is not evidence: random "
+            "samples from a CONTINUUM also have pairwise distinct coordinates "
+            "almost surely, so the identity holds for a positive-dimensional "
+            "fiber too. Superseded by the tangent-rank test above."
+        ),
         "reading": (
-            "Distinct cosine values equal points times loops exactly: every "
-            "point contributes one value per loop and no value is shared "
-            "between points. A positive-dimensional set would not produce an "
-            "exact product. This is the discreteness evidence."
+            "Every sampled point has fixed-rho tangent dimension 0, at the "
+            "certified representative and at solutions from random starts "
+            "alike, so the fiber is 0-dimensional where sampled and the points "
+            "are isolated. The count of them is NOT settled: the "
+            "support-preserving orbital permutations are trivial, so no "
+            "symmetry quotient reduces it, and the raw count keeps growing "
+            "with the number of starts. The fiber has at least as many "
+            "isolated points as reported here, and a certified root count is "
+            "what would give the exact number."
         ),
     }
 
@@ -320,7 +397,7 @@ def run():
         "generated_by": "scripts/v103_discreteness_probe.py",
         "seed": SEED,
         "starts": STARTS,
-        "counting_identity": identity,
+        "discreteness_and_count": identity,
         "polish_and_midpoint": polish_block,
         "what_the_points_are": (
             "Not what was expected, and the correction matters. The points are "
@@ -367,11 +444,17 @@ def main():
     doc = json.loads(CENSUS.read_text())
     doc["v103_discreteness_probe"] = probe
     CENSUS.write_text(json.dumps(doc, indent=1) + "\n")
-    ident = probe["counting_identity"]
+    ident = probe["discreteness_and_count"]
     print(f"updated {CENSUS}")
-    print(f"  identity: {ident['distinct_cosine_values']} cosine values = "
-          f"{ident['distinct_points_mod_gauge']} points x {ident['loops']} loops "
-          f"-> {ident['identity_holds']}")
+    print(f"  tangent at certified point: {ident['tangent_dim_at_certified_point']}; "
+          f"at random solutions: {ident['tangent_dim_at_random_solutions']}")
+    print(f"  all sampled points isolated: {ident['all_sampled_points_isolated']}")
+    print(f"  support-preserving permutations: "
+          f"{ident['support_preserving_orbital_permutations']} of "
+          f"{ident['full_block_permutation_group_order']} "
+          f"(trivial: {ident['symmetry_quotient_is_trivial']})")
+    print(f"  distinct points at this sample: {ident['distinct_points_at_this_sample']} "
+          f"(saturated: {ident['count_saturated']})")
     pm = probe["polish_and_midpoint"]
     print(f"  weight vector spread across all solutions: "
           f"{pm['weight_vector_spread_over_all_solutions']:.3e} "

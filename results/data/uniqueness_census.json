@@ -16,7 +16,7 @@
  "weights_verdict": "PASS",
  "weight_exceptions": 0,
  "weight_exception_labels": [],
- "finding": "The prereg FAILS as stated, at one state of twelve: v103's fixed-rho fiber carries several isolated points modulo gauge, which is consistent with first-order rigidity since rigidity is local and says nothing about how many isolated points exist. But the failure does NOT threaten the Rigidity-Rationality target. Every solution found at v103 shares ONE weight multiset; the points differ only in their loop holonomies. Gap (b) worried about Galois-conjugate points with different weights forcing algebraic weights of degree equal to the orbit size, and that is not what occurs here: the weight vector is still Galois-fixed, and the multiplicity is a discrete PHASE multiplicity. REFRAMED 2026-07 after three confirmations (v103_discreteness_probe). DISCRETENESS: the number of distinct holonomy cosine values equals 25 points times 5 loops = 125 exactly, with no value shared between points; a positive-dimensional set would not give an exact product, so the solutions are isolated and the earlier reading of a near-continuum was wrong. NOT A SOLVER ARTIFACT: two solutions polish by damped Gauss-Newton against the exact rational target to residuals 2.152e-46 and 2.283e-50 at 60 digits, far below the 1e-11 float64 acceptance threshold, and remain distinct. DISCRETE BETWEEN THEM: their normalized midpoint has residual 0.207333, some forty-five orders above the endpoints, so the two do not lie on a connected component. WHAT SEPARATES THEM: not weight assignment. Every solution carries the SAME unsorted weight vector to 6.7e-14, so the points differ only in loop holonomy and there is no assignment variation for the vertex's support-preserving orbital permutations to quotient away; the count is an upper bound only through a much smaller action on holonomy vectors. This is stronger than assignment multiplicity would have been for the Rigidity-Rationality target: the weight vector is literally unique, so the multiplicity sits entirely in the phase sector.",
+ "finding": "The prereg FAILS as stated, at one state of twelve: v103's fixed-rho fiber carries several isolated points modulo gauge, which is consistent with first-order rigidity since rigidity is local and says nothing about how many isolated points exist. But the failure does NOT threaten the Rigidity-Rationality target. Every solution found at v103 shares ONE weight multiset; the points differ only in their loop holonomies. Gap (b) worried about Galois-conjugate points with different weights forcing algebraic weights of degree equal to the orbit size, and that is not what occurs here: the weight vector is still Galois-fixed, and the multiplicity is a discrete PHASE multiplicity. REFRAMED 2026-07 (v103_discreteness_probe), with one retraction. DISCRETENESS, established: the fixed-rho tangent dimension is 0 not only at v103's certified representative but at every solution reached from a random start, so the fiber is 0-dimensional where sampled and its points are isolated. RETRACTED: an earlier version of this note argued discreteness from a counting identity, distinct holonomy cosine values equalling points times loops. That is not evidence, because random samples from a continuum also have pairwise distinct coordinates almost surely; the identity holds for a positive-dimensional fiber too. NOT A SOLVER ARTIFACT: two solutions polish against the exact rational target to 2.15e-46 and 2.28e-50 at 60 digits and stay distinct; their midpoint sits at residual 0.207, which corroborates without proving. WHAT SEPARATES THEM: not weight assignment. Every solution carries the SAME unsorted weight vector to 6.7e-14, so the multiplicity is confined to the phase sector and cannot perturb weight rationality. HOW MANY: OPEN. The support-preserving orbital permutations are TRIVIAL (1 of |S_4 x S_6| = 17280), so no symmetry quotient collapses the count and the raw number is the number, but it does not saturate: 800 random starts give 18 / 26 / 35 / 47 / 59 distinct points at 50 / 100 / 200 / 400 / 800, still climbing by about ten per doubling. The fiber has AT LEAST 59 isolated points. Basins are very unequal, so no coupon-collector extrapolation is offered; a certified root count (homotopy continuation with a trace test or monodromy, docs/prior_art_roadmap.md section 4) is what would settle it.",
  "evidence": "NUMERICAL. Multi-start finds solutions; it cannot prove there are no others, so this bounds gap (b) empirically and does not close it. Isolation itself (gap a) is untouched here.",
  "records": [
   {
@@ -217,14 +217,52 @@
   "generated_by": "scripts/v103_discreteness_probe.py",
   "seed": 11,
   "starts": 60,
-  "counting_identity": {
-   "converged": 60,
-   "distinct_points_mod_gauge": 25,
-   "loops": 5,
-   "distinct_cosine_values": 125,
-   "product": 125,
-   "identity_holds": true,
-   "reading": "Distinct cosine values equal points times loops exactly: every point contributes one value per loop and no value is shared between points. A positive-dimensional set would not produce an exact product. This is the discreteness evidence."
+  "discreteness_and_count": {
+   "tangent_dim_at_certified_point": 0,
+   "tangent_dim_at_random_solutions": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "all_sampled_points_isolated": true,
+   "support_preserving_orbital_permutations": 1,
+   "full_block_permutation_group_order": 17280,
+   "symmetry_quotient_is_trivial": true,
+   "saturation_curve": [
+    {
+     "converged_used": 10,
+     "distinct_points": 9
+    },
+    {
+     "converged_used": 20,
+     "distinct_points": 16
+    },
+    {
+     "converged_used": 30,
+     "distinct_points": 21
+    },
+    {
+     "converged_used": 40,
+     "distinct_points": 23
+    },
+    {
+     "converged_used": 50,
+     "distinct_points": 24
+    },
+    {
+     "converged_used": 60,
+     "distinct_points": 25
+    }
+   ],
+   "distinct_points_at_this_sample": 25,
+   "count_saturated": false,
+   "retracted_counting_identity": "An earlier version argued discreteness from distinct cosine values equalling points times loops. That is not evidence: random samples from a CONTINUUM also have pairwise distinct coordinates almost surely, so the identity holds for a positive-dimensional fiber too. Superseded by the tangent-rank test above.",
+   "reading": "Every sampled point has fixed-rho tangent dimension 0, at the certified representative and at solutions from random starts alike, so the fiber is 0-dimensional where sampled and the points are isolated. The count of them is NOT settled: the support-preserving orbital permutations are trivial, so no symmetry quotient reduces it, and the raw count keeps growing with the number of starts. The fiber has at least as many isolated points as reported here, and a certified root count is what would give the exact number."
   },
   "polish_and_midpoint": {
    "found_holonomy_distinct_pair": true,

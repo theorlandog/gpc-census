@@ -313,16 +313,32 @@ empirically rather than closing it; gap (a), isolation itself, is untouched.
 
 ## uniqueness_census.json: v103_discreteness_probe block (added 2026-07)
 
-NUMERICAL, at 60 digits. scripts/v103_discreteness_probe.py confirms that the
-multiplicity found at (3,10) v103 is a discrete set of isolated points and not
-a positive-dimensional component, by three independent checks. The counting
-identity: distinct holonomy cosine values equal points times loops exactly
-(125 = 25 x 5), with no value shared between points. The polish: two solutions
-refined by damped Gauss-Newton against the EXACT rational target reach
-residuals near 1e-46 and 1e-50, far below the 1e-11 float64 acceptance
-threshold, and stay distinct. The midpoint: their normalized midpoint has
-residual 0.207, some forty-five orders above the endpoints, so they do not lie
-on a connected component.
+NUMERICAL, at 60 digits for the polish. scripts/v103_discreteness_probe.py
+establishes that the multiplicity found at (3,10) v103 is a discrete set of
+isolated points. The TANGENT RANK is what carries it: the fixed-rho tangent
+dimension is 0 at the certified representative and at every solution reached
+from a random start, so the fiber is 0-dimensional where sampled. The POLISH
+corroborates: two solutions refined by damped Gauss-Newton against the exact
+rational target reach 2.15e-46 and 2.28e-50, far below the 1e-11 float64
+acceptance threshold, and stay distinct. The MIDPOINT of those two sits at
+residual 0.207, which shows they are not joined by a straight segment in the
+fiber; on a curved component a chord midpoint would also miss, so this is
+corroboration and not proof.
+
+RETRACTED: an earlier version of this block argued discreteness from a
+counting identity, distinct holonomy cosine values equalling points times
+loops (125 = 25 x 5). That is not evidence. Random samples from a CONTINUUM
+also have pairwise distinct coordinates almost surely, so the identity holds
+for a positive-dimensional fiber too and distinguishes nothing.
+
+THE NUMBER OF POINTS IS OPEN. The support-preserving orbital permutations are
+TRIVIAL (1 of |S_4 x S_6| = 17280), so no symmetry quotient collapses the
+count and the raw number is the number. But it does not saturate: 800 random
+starts give 18 / 26 / 35 / 47 / 59 distinct points at 50 / 100 / 200 / 400 /
+800, still climbing by about ten per doubling. So the fiber has AT LEAST 59
+isolated points. Basins are very unequal, so no coupon-collector
+extrapolation is offered; a certified root count (homotopy continuation with a
+trace test or monodromy) is what would settle it.
 
 Two method notes. Damping is not optional: the orbital-phase gauge makes J^T J
 singular, and undamped Gauss-Newton diverges. And the target must be the exact
