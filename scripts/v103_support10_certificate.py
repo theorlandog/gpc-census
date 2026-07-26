@@ -11,8 +11,27 @@ fermionic-sign bookkeeping and verifies the characteristic-polynomial identity
 
     det(rho - x I) = (x - 9/17)^4 (x - 5/34)^6
 
-with no floating point anywhere. That makes s_Q(v103) <= 10 a CERTIFIED bound,
-not a numerical one. It says nothing about whether 10 is minimal.
+with no floating point anywhere.
+
+WHICH QUANTITY THIS BOUNDS (corrected 2026-07). The 1-RDM of this state is NOT
+diagonal: rho_{18} = 5/68 exactly, verified below. Its natural occupation
+numbers are the EIGENVALUES, which are lambda exactly, so the state does attain
+the vertex; but it attains it in a basis that is not its own natural-orbital
+basis. Consequently this certificate bounds
+
+    s_Q^free(v103) <= 10   (minimum over all states with spec(rho) = lambda)
+
+and NOT s_Q^NO(v103), the natural-orbital minimum that the census library column
+reports and that s_I bounds from below. The distinction is not cosmetic: s_I
+bounds only the natural-orbital quantity, so this 10 must never be quoted in a
+sentence with s_I(v103) = 6 as though the two were comparable.
+
+The state is moreover the certified library state itself in different orbitals
+(scripts/orbit_check.py exhibits the connecting one-body unitary, residual
+7.5e-14, with off-block entries 0.196 so it is not a gauge rotation). So 10 also
+bounds the ORBIT-MINIMAL support of that one state. The natural-orbital minimum
+for v103 is a different number: the library support is 14 and the gauge-invariant
+lower bound is 9 (scripts/gauge_census.py).
 
   python scripts/v103_support10_certificate.py
 
@@ -78,11 +97,28 @@ def main():
     state_den = sp.ilcm(*[w.q for w in SQUARED_WEIGHTS])
     offdiag = sp.simplify(sp.Max(*[abs(rho[i, j]) for i in range(D)
                                    for j in range(D) if i != j]))
+    # the diagonality question, settled exactly rather than at a tolerance
+    checks["one_rdm_is_diagonal_exact"] = bool(
+        sp.simplify(rho - sp.diag(*[rho[i, i] for i in range(D)])) == sp.zeros(D, D))
+    checks["diagonal_equals_lambda_exact"] = bool(
+        all(sp.simplify(rho[i, i] - TARGET[i]) == 0 for i in range(D)))
 
     report = {
         "vertex": "(3,10) index 103, spectrum (18,18,18,18,5,5,5,5,5,5)/34",
-        "claim": "s_Q(v103) <= 10: an extremal state of Slater support 10 attains "
-                 "this vertex exactly",
+        "claim": "s_Q^free(v103) <= 10: a state of Slater support 10 has "
+                 "spec(rho) = lambda exactly, so it attains this vertex",
+        "quantity_bounded": "s_Q^free, the minimum over ALL states with "
+                            "spec(rho) = lambda. NOT s_Q^NO: this state's 1-RDM "
+                            "is not diagonal (rho_18 = 5/68 exactly), so it is "
+                            "not a natural-orbital representative and s_I does "
+                            "not bound it",
+        "natural_orbital_counterpart": {
+            "library_support": 14,
+            "gauge_lower_bound": 9,
+            "note": "s_Q^NO(v103) is bounded above by 14 (the library state, no "
+                    "gauge sparsification found) and below by 9; the support-10 "
+                    "state does not improve it",
+        },
         "evidence": "EXACT (rational and radical arithmetic, no floating point)",
         "provenance": "fixed-spectrum sparsification cascade endpoint "
                       "(docs/cascade_census.md), weights recognized by "
@@ -98,10 +134,17 @@ def main():
         "loop_holonomy": "pi (state is real up to the orbital-phase gauge)",
         "rdm_max_offdiagonal": str(offdiag),
         "checks": checks,
-        "all_checks_pass": all(checks[k] for k in checks if k != "support_size"),
+        "all_checks_pass": all(
+            checks[k] for k in checks
+            if k not in ("support_size", "one_rdm_is_diagonal_exact",
+                         "diagonal_equals_lambda_exact")),
         "caveat": "an upper bound on the minimal support, not a minimality claim; "
                   "the endpoint is first-order rigid in both fiber senses but that "
                   "does not prove no sparser state exists",
+        "diagonality_caveat": "one_rdm_is_diagonal_exact is FALSE by design and is "
+                              "reported, not asserted: it is the fact that makes "
+                              "this a free-basis bound rather than a "
+                              "natural-orbital one",
     }
     (ROOT / "results/data/v103_support10_certificate.json").write_text(
         json.dumps(report, indent=2) + "\n")
