@@ -1,0 +1,104 @@
+{
+ "generated_by": "scripts/v103_sqfree_certificate.py",
+ "status": "CURRENT",
+ "vertex": "(3,10) v103, spectrum (18^4, 5^6)/34",
+ "claim": "s_Q^free(v103) <= 10",
+ "claim_is_not": "s_Q^NO(v103) <= 10. That stronger claim is FALSE for this state and was the error the superseded artifact records: s_Q^NO needs a 1-RDM exactly equal to diag(lambda), and this one is not diagonal.",
+ "supersedes_the_claim_in": "results/data/v103_support10_certificate.json",
+ "note_on_the_superseded_file": "That file is retained deliberately as documented history. The state in it is correct; only the claim attached to it was wrong.",
+ "evidence": "EXACT (rational and radical arithmetic throughout)",
+ "support": 10,
+ "support_dets": [
+  [
+   1,
+   2,
+   3
+  ],
+  [
+   0,
+   2,
+   7
+  ],
+  [
+   0,
+   5,
+   6
+  ],
+  [
+   0,
+   1,
+   8
+  ],
+  [
+   0,
+   3,
+   4
+  ],
+  [
+   0,
+   4,
+   9
+  ],
+  [
+   3,
+   8,
+   9
+  ],
+  [
+   1,
+   6,
+   9
+  ],
+  [
+   3,
+   5,
+   9
+  ],
+  [
+   0,
+   1,
+   5
+  ]
+ ],
+ "squared_weights": [
+  "13/34",
+  "5/34",
+  "53/442",
+  "195/1802",
+  "5/68",
+  "5/68",
+  "35/901",
+  "1/34",
+  "18/901",
+  "84/11713"
+ ],
+ "signs": [
+  1,
+  1,
+  1,
+  -1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1
+ ],
+ "weights_sum_to_one": true,
+ "weights_all_rational": true,
+ "state_denominator": 46852,
+ "characteristic_polynomial": "(17*x - 9)**4*(34*x - 5)**6/129023609628736",
+ "spectrum_equals_lambda": true,
+ "rdm_is_diagonal": false,
+ "rdm_nonzero_offdiagonals": {
+  "rho[1,6]": "-sqrt(42)/221",
+  "rho[3,9]": "-5/68",
+  "rho[6,1]": "-sqrt(42)/221",
+  "rho[9,3]": "-5/68"
+ },
+ "why_s_Q_free_and_not_s_Q_NO": "The 1-RDM has two nonzero off-diagonal entries, rho[3,9] = -5/68 and rho[1,6] = -sqrt(42)/221. So the state attains the spectrum in a basis other than the natural-orbital one, and its support bounds s_Q^free. The s_Q^NO bound for this vertex remains the library value 14.",
+ "loop_holonomies": [
+  "-pi"
+ ],
+ "real_up_to_gauge": true
+}

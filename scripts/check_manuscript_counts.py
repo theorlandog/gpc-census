@@ -68,6 +68,9 @@ ORBIT = "results/data/orbit_check.json"
 EXPECT_ORBIT = dict(endpoints_tested=71, same_state_as_library=63,
                     new_states_found=8, endpoints_in_natural_orbital_basis=0)
 V103_S10 = "results/data/v103_support10_certificate.json"
+V103_FREE = "results/data/v103_sqfree_certificate.json"
+NO_LEDGER = "results/data/natural_orbital_summary.json"
+NO_RATIO = "results/data/no_support_ratio.json"
 EXPECT_V103_S10 = dict(
     state_denominator=46852,
     squared_weights=["13/34", "5/34", "53/442", "195/1802", "5/68", "5/68",
@@ -224,6 +227,60 @@ def main():
         errors.append("v103 support-10 certificate lost its exact charpoly identity")
     if v.get("checks", {}).get("rdm_is_exactly_diagonal") is not False:
         errors.append("v103 support-10 certificate should record a NON-diagonal 1-RDM")
+
+    # ---- the s_Q^free certificate that carries the CURRENT claim for the same
+    # state. The manuscript names both nonzero off-diagonal entries, so both are
+    # pinned here: quoting only one of them was a review finding.
+    free = json.load(open(V103_FREE))
+    if free.get("status") != "CURRENT":
+        errors.append("v103 s_Q^free certificate should be marked CURRENT")
+    if free.get("claim") != "s_Q^free(v103) <= 10":
+        errors.append("v103 s_Q^free certificate carries the wrong claim")
+    for key in ("spectrum_equals_lambda", "weights_all_rational",
+                "weights_sum_to_one", "real_up_to_gauge"):
+        if free.get(key) is not True:
+            errors.append(f"v103 s_Q^free certificate lost check {key}")
+    if free.get("rdm_is_diagonal") is not False:
+        errors.append("v103 s_Q^free certificate should record a NON-diagonal 1-RDM")
+    offdiag = free.get("rdm_nonzero_offdiagonals", {})
+    for entry, value in (("rho[3,9]", "-5/68"), ("rho[1,6]", "-sqrt(42)/221")):
+        if offdiag.get(entry) != value:
+            errors.append(
+                f"v103 off-diagonal {entry} should be {value}; the manuscript "
+                "names both entries and a referee recomputes them"
+            )
+
+    # ---- the natural-orbital ledger aggregates the manuscript quotes. These
+    # moved once already, when an eigh-basis bug rotated records that were
+    # already diagonal, so they are pinned rather than trusted.
+    no = json.load(open(NO_LEDGER))
+    expect_no = {"records": 156, "support_grew": 141, "support_unchanged": 15,
+                 "support_shrank": 0, "already_natural_orbital": 2}
+    for key, want in expect_no.items():
+        if no.get(key) != want:
+            errors.append(f"natural-orbital ledger {key}: manuscript {want} "
+                          f"vs data {no.get(key)}")
+    if abs(no.get("support_after", {}).get("mean", 0) - 11.7) > 0.05:
+        errors.append("natural-orbital mean support: manuscript 11.7 vs data "
+                      f"{no.get('support_after', {}).get('mean')}")
+    if no.get("support_after", {}).get("max") != 57:
+        errors.append("natural-orbital max support: manuscript 57 vs data "
+                      f"{no.get('support_after', {}).get('max')}")
+    if abs(no.get("support_before", {}).get("mean", 0) - 6.8) > 0.05:
+        errors.append("sparse mean support: manuscript 6.8 vs data "
+                      f"{no.get('support_before', {}).get('mean')}")
+
+    # ---- the support-ratio diagnostic quoted in the taxonomy paragraph
+    ratio = json.load(open(NO_RATIO))
+    above = [r for r in ratio["records"] if r["no_support_ratio"] > 1]
+    if len(above) != 141:
+        errors.append(f"ratio > 1 count: manuscript 141 vs data {len(above)}")
+    if any(r["regime"] != "INTERFERENCE-GENERIC" for r in above):
+        errors.append("ratio > 1 should hold only on generic INTERFERENCE records")
+    flat = [r for r in ratio["records"]
+            if r["regime"] == "INTERFERENCE-GENERIC" and r["no_support_ratio"] == 1]
+    if len(flat) != 13:
+        errors.append(f"flat generic count: manuscript 13 vs data {len(flat)}")
 
     if errors:
         print("MANUSCRIPT/DATA INCONSISTENCIES:")
