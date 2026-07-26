@@ -161,6 +161,16 @@ plethysm criterion feed Problem 7 below.
   status tags point into it).
 - THEOREMS.md: numbered theorem statements (T1 Jacobian program, T4
   endpoint theorem, T7 stratification reduction, v_B anomaly resolution).
+- holonomy_rationality.md: the arithmetic of loop holonomies. Theorem A
+  (PROVED) settles the Holonomy Rationality conjecture for one-hop channel
+  classes of size at most 2, with the adjoined radicand a weight monomial;
+  Proposition B (PROVED) is the reduction step at larger classes and yields
+  only a 2-tower, which is weaker than multiquadratic, so the conjecture
+  stays open there on 82/82 evidence. Also carries the trisection
+  dissolution and the analysis of the one non-rational-weight ledger record.
+- prereg_denominator_arithmetic.md: the pre-registered denominator-arithmetic
+  predictions, committed before the census run, scored FAIL/FAIL/PASS in
+  results/data/denominator_arithmetic.json with mechanisms for both FAILs.
 - silence_rank_lemma.md: the silence-rank lemma, PROVED (first-order
   statements, degenerate perturbation theory), with verified census
   corollaries: v89 fixed-spectrum rigid, v103 fixed-rho rigid but
@@ -263,6 +273,14 @@ Working philosophy:
   v103 fixed-rho rigid (all-channel silence rank 5 = kernel dim 5) but
   fixed-spectrum DEFORMABLE (formula and direct tangent both give 6).
 
+- Holonomy quadraticity at small channel classes (Theorem A,
+  docs/holonomy_rationality.md). If a state has rational squared weights and
+  rational channel targets, every one-hop class of size 2 gives a loop
+  holonomy whose cosine lies in Q(sqrt(N)) for N a rational MONOMIAL in the
+  weights. Proof by expanding the channel modulus; the v_B phase
+  cos(gamma) = 3/(4*sqrt(14)) is exactly this formula.
+  [docs/holonomy_rationality.md; results/data/holonomy_fields.json]
+
 ### 🟨 Theorem candidates
 
 - Compact semialgebraic support layers Delta^(k). (Route: Delta^(k) is the
@@ -298,6 +316,55 @@ These should not be claimed as established until formal proofs are written
 into the project.
 
 ### 🟦 Confirmed by project evidence
+
+- Holonomy fields are 2-elementary, census-wide. All 82 gauge-invariant loop
+  holonomies of all 63 loopy interference states have cosine of degree 1 (37),
+  2 (32) or 4 (13) over Q, with Galois group C1, C2, V4 respectively; no C4,
+  D4 or Q8 anywhere. Groups computed with sympy galois_group, not inferred
+  from the polynomial having only even terms; loop-kernel bases certified
+  saturated so nothing is missed; every PSLQ relation recognized at 120 digits
+  and re-verified at 240 with the residual recorded (worst 1e-251).
+  PRECISION PROTOCOL, now mandatory for this area: a recognized integer
+  relation must be re-verified at at least double the working precision and
+  the residual recorded; a relation that fails re-verification is DELETED, not
+  downgraded. An exploratory scan at 60 digits produced a false counterexample
+  without it. [scripts/holonomy_field_scan.py;
+  results/data/holonomy_fields.json; tests/test_holonomy_fields.py]
+- The theorem's hypotheses hold census-wide, checked rather than assumed: all
+  84 one-hop channels of the loopy states have rational |rho_AB|^2, and for
+  all 63 states the within-channel difference vectors generate the loop
+  lattice, saturated over Z. The latter is a HYPOTHESIS, not a theorem: a
+  support could carry a loop with no one-hop structure, and none does here.
+  [results/data/holonomy_fields.json, channel_hypotheses]
+- The TRISECTED phase tier is a printing artifact, not a phase-complexity
+  tier. The tier is assigned syntactically ("atan" and "/3" both present in
+  the printed closed form); the written phase (pi + 3*atan(t))/3 equals
+  pi/3 + atan(t), and across all 13 states every representative amplitude has
+  2-power degree over Q while every loop holonomy has degree 1, 2 or 4 with
+  2-elementary group. No cubic subextension exists anywhere in the class.
+  This is stronger than "the cube roots are a gauge artifact"; there was never
+  any cubic algebra to be a gauge artifact of.
+  [results/data/holonomy_fields.json, trisection_audit]
+- Denominator minting is a two-stage arithmetic. The incidence solve
+  A_S p = lambda, sum p = 1 and then the pinning solve by the channel
+  conditions; the state denominator's new primes come from the second stage.
+  At v89 the single silence condition restricted to the incidence line loses
+  its quadratic terms and the surviving linear equation is literally
+  130*p9 - 1 = 0, minting the prime 5. At v103 the same cancellation happens
+  BETWEEN two channel equations, whose difference is 13*p12 = p9 + p13,
+  minting 13; the incidence solve there is unimodular over the spectrum
+  denominator 34 and mints nothing.
+  [scripts/denominator_arithmetic.py; results/data/denominator_arithmetic.json]
+- Exactly ONE of the 799 certified records has non-rational squared weights:
+  the shipped v_B record at (4,9) index 65, whose weights are quadratic
+  irrationals in Q(sqrt 35). It is a genuine non-rational-weight state, not a
+  formatting inconsistency: it is the endpoint of a wall family cut out by the
+  quadratic 85t^2 - 70t - 119, whose two roots are a Galois conjugate pair
+  with only one physical, so the distinguished point has orbit size 2. Its own
+  loop holonomy is a sign (minimal polynomial x + 1), consistent with the
+  record being real up to gauge. It is excluded from denominator predictions,
+  having no state denominator. [docs/holonomy_rationality.md;
+  tests/test_holonomy_fields.py]
 
 - Positive-dimensional REDUCED vertex fibers exist (v_B). [THEOREMS.md
   "v_B ANOMALY RESOLVED" (reduced spectrum-fiber is a surface);
@@ -418,6 +485,28 @@ and untested.
 
 ### ❌ Disproved
 
+- Holonomy radicands are square roots of rational MONOMIALS in the weights.
+  This was the stronger sub-clause of the Holonomy Rationality sketch; it
+  fails on 15 of the 82 loops, whose radicands (42, 235, 517, 3266, 4899,
+  5538) lie outside the group generated by the weights and the denominator in
+  Q*/(Q*)^2. Mechanism: at a channel class of size 3 or more the elimination
+  adjoins sqrt(alpha^2 + beta^2 - delta^2), a POLYNOMIAL and not a monomial in
+  the weight data, and later loops see the sines of earlier ones. The
+  mechanism predicted exactly where the failures must live (only at states
+  with a class of size >= 3) and that prediction is confirmed 63 of 63. The
+  conjecture's actual conclusion, that the field is multiquadratic, is
+  untouched. [docs/holonomy_rationality.md;
+  results/data/holonomy_fields.json, radicand_weight_group]
+- Ratio-1 states have unimodular incidence solves (P-DEN-2, pre-registered).
+  FAIL, 18 exceptions. Unimodularity of A_S is SUFFICIENT for the incidence
+  solve to stay over the spectrum denominator but not NECESSARY: an invariant
+  factor f > 1 obstructs only right-hand sides outside the image sublattice,
+  and (lambda, 1) can lie inside it anyway. P-DEN-3 (the converse) also
+  failed, as pre-registered, with its predicted shape: the single exception
+  v103 is pinned. P-DEN-4, the version with the escape route named in advance,
+  PASSED on 736 states with 0 exceptions.
+  [docs/prereg_denominator_arithmetic.md;
+  results/data/denominator_arithmetic.json]
 - Fiber dimension = incidence-kernel dimension, AS A UNIVERSAL LAW. [P4,
   both closures.] SCOPE NOTE: the law was fit on magnitude-target states
   and fails in the cancellation regime; the scoped (magnitude-sector)
@@ -513,7 +602,16 @@ and names the tools to import.)
 7. Levi-theoretic lower bounds. [Groundwork: levi.py post-audit, the
    rank_deficiency == stab - 1 identity (799/799), the hard/soft plethysm
    criterion.]
-8. Complexity classification. [BLOCKED on choosing the complexity measure:
+8. Holonomy Rationality at channel classes of size 3 or more. [Theorem A
+   settles size <= 2; Proposition B gives only a 2-tower, and a 2-tower can be
+   dihedral (sqrt(1 + sqrt 2) has D4 closure). What is needed: an argument
+   that the eliminated discriminants alpha^2 + beta^2 - delta^2 are always
+   squares times elements already in the field, or a structural reason the
+   towers cannot go dihedral. A single C4 or D4 holonomy anywhere settles it
+   the other way; none occurs in 82 loops. Second open piece: is hypothesis
+   (H3) forced, i.e. can a vertex support carry a loop with no one-hop
+   structure? docs/holonomy_rationality.md.]
+9. Complexity classification. [BLOCKED on choosing the complexity measure:
    support size, state-denominator, phase field degree, and clique budget
    are all in play and provably non-equivalent (den-ratio falsification).
    Define the measure first.]
@@ -562,6 +660,17 @@ the improved support bounds (scripts/exactify_cascade.py); the scored
 out-of-sample bracket pre-registration (docs/prereg_bracket_3_11_3_12.md);
 and the reconciliation artifact (scripts/reconcile_claims.py).
 
+Also done and landed (2026-07, arithmetic session): the census-wide holonomy
+field scan (scripts/holonomy_field_scan.py,
+results/data/holonomy_fields.json, tests/test_holonomy_fields.py); the
+Holonomy Rationality theorem note with Theorem A proved and the conjecture
+scoped (docs/holonomy_rationality.md); the two-stage denominator derivation
+with its pre-registered census test (scripts/denominator_arithmetic.py,
+docs/prereg_denominator_arithmetic.md,
+results/data/denominator_arithmetic.json); the trisection dissolution; and
+the manuscript's Galois section updated from the stale 142-state tally to the
+full 82-loop result.
+
 Priority:
 
 1. Formalize the theorem-candidate proofs (the two Hardt-dependent ones
@@ -603,6 +712,9 @@ this table.
 | v103 is an isolated support-14 point | true of the route-B search landscape and gauge slice, false of the fiber: support 10 is reached and certified exactly |
 | the census support column is the minimal support | it is the certified support, an upper bound on s_Q, strict at 71 of 799 vertices |
 | 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
+| the trisected states are a cube-root phase-complexity tier | a printing artifact: (pi + 3*atan(t))/3 is pi/3 + atan(t), and no cubic subextension exists in any of the 13, invariant or representative |
+| holonomy radicands are square roots of weight monomials | true only for channel classes of size at most 2 (proved); false at 15 of 82 loops, all at classes of size 3 or more, exactly as the mechanism predicts |
+| the manuscript's Galois tally covers 142 states / 62 holonomies | superseded by the full corpus: 63 states, 82 loops, all 2-elementary |
 
 REPRESENTATIVE-SWAP CHECK (v0.12, the real v_B record). Shipping the real
 theta=0 endpoint in place of the phase-carrying fiber point over

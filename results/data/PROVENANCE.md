@@ -108,3 +108,44 @@ satisfy the exact identity.
 The 60-digit refinement of the v103 support-10 endpoint with its
 integer-relation recognition, kept as the numerical input the exact certificate
 was derived from.
+
+## holonomy_fields.json (gauge-invariant loop holonomy fields)
+
+EXACT, with an independent numerical cross-check. scripts/holonomy_field_scan.py
+walks every certified INTERFERENCE state whose support carries loops (63 states,
+82 independent loops) and records, per loop: the integer kernel vector, the
+exact holonomy cosine, its minimal polynomial, its degree, its Galois group
+computed with sympy galois_group rather than inferred from the shape of the
+polynomial, the extracted square-root radicands, and a PSLQ integer-relation
+recognition performed at 120 digits and RE-VERIFIED at 240, with the
+verification residual recorded on every row. A relation that fails
+re-verification is deleted, not downgraded; the discriminating evidence for that
+protocol is reproduced in the precision_lesson block.
+
+Result: all 82 degrees lie in {1, 2, 4} (37 / 32 / 13) and all 82 Galois groups
+are 2-elementary (C1 / C2 / V4). The loop-kernel bases are certified saturated,
+so no holonomy relation is missed. The channel_hypotheses block verifies the
+hypotheses the theorem of docs/holonomy_rationality.md runs on: all 84 one-hop
+channels have rational |rho_AB|^2, and for all 63 states the within-channel
+difference vectors generate the loop lattice, saturated over Z. The
+trisection_audit block shows the pipeline's TRISECTED phase tier is a property
+of how the amplitude phase is printed, not of the state: no cubic subextension
+occurs anywhere in those 13 states.
+
+## denominator_arithmetic.json (where a state denominator comes from)
+
+EXACT. scripts/denominator_arithmetic.py splits the state denominator into an
+incidence stage (solve A_S p = lambda, sum p = 1 over Q, with the Smith
+invariant factors of A_S recorded) and a pinning stage (the one-hop channel
+conditions restricted to the incidence solution space). Worked examples at v89,
+where the silence condition on the incidence line loses its quadratic terms and
+the surviving linear equation 130 p9 - 1 = 0 mints the prime 5, and at v103,
+where two channel equations have identical quadratic parts and their difference
+13 p12 = p9 + p13 carries the minted prime 13.
+
+The census block scores the predictions pre-registered in
+docs/prereg_denominator_arithmetic.md: P-DEN-2 FAIL (18 exceptions, mechanism
+recorded), P-DEN-3 FAIL as predicted (1 exception, v103, pinned as predicted),
+P-DEN-4 PASS (736 states, 0 exceptions). The (4,9) index 65 record is excluded
+from the ratio predictions: its weights are not rational, so it has no state
+denominator.
