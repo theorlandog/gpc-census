@@ -72,9 +72,11 @@ made and caught once; see tests pinning v_A and v_B).
   state-den/spectrum-den ratio 2 (the archive's mined "9 of 12" figure is a
   stale snapshot; the ratio is representative-dependent, exactly as the
   P2/P3/P4 caveat predicts). The census min-support column (support of the
-  certified state) is an UPPER bound on s_Q^NO, the NATURAL-ORBITAL minimal
-  support; see the support taxonomy below before quoting it. It is NOT known
-  strict at v103.
+  certified state) is an UPPER bound on s_Q^NO for the 645 records that pass
+  the diagonality gate, and on s_Q^free only for the other 154; see the
+  support taxonomy below before quoting it, and use
+  results/data/states_natural_orbital.jsonl for an s_Q^NO bound at an
+  interference vertex. It is NOT known strict at v103.
 
 ## The support taxonomy (adopted 2026-07; do not collapse these)
 
@@ -909,9 +911,23 @@ assume gets its grounding.
   identity), and RESEARCH.md already recorded the same fact from the other
   side in the cancellation-regime count. So this is how the interference
   library was built, not a regression. What genuinely needed repair was the
-  support-taxonomy claim, corrected above. Whether to rotate the 154 records
-  into natural orbitals is DEFERRED, not decided.
+  support-taxonomy claim, corrected above.
   [scripts/attainer_gate_audit.py; results/data/attainer_gate_audit.json]
+- 🟦 REPAIRED (2026-07), additively. All 156 interference records now have a
+  natural-orbital representative in results/data/states_natural_orbital.jsonl,
+  each with 1-RDM exactly diag(lambda) (worst off-diagonal 2.8e-16) and each
+  passing the gate, re-verified from the shipped amplitudes. The 2-RDM
+  spectrum is unchanged to 1.6e-15, so the rotation moved the basis and not
+  the state. Convention note: the compound is of U^T, NOT U^H; they agree for
+  real rotations, so a wrong convention fails only on the complex records.
+  THE COST: support grows on 142 of 156 (mean 6.8 -> 12.1, max 14 -> 79) and
+  the exact closed forms do NOT survive the rotation, so the new ledger is
+  NUMERICAL. states.jsonl is therefore NOT replaced. The two ledgers bound
+  different quantities: the census column bounds s_Q^free, the new ledger
+  bounds s_Q^NO, and any s_Q^NO claim must quote the latter.
+  [scripts/natural_orbital_ledger.py;
+  results/data/states_natural_orbital.jsonl;
+  tests/test_natural_orbital_ledger.py]
 - 🔬 PREREG-PENDING: the v_B Galois embedding test. The naive substitution
   sqrt(35) -> -sqrt(35) fails attainment (spectrum error 0.068), and that
   failure is DIAGNOSTIC, not refuting: the amplitudes carry nested surds like

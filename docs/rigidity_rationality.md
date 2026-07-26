@@ -58,11 +58,53 @@ column bounds". For the 154 non-diagonal records the support column bounds
 s_Q^free and not s_Q^NO, which is exactly the conflation the taxonomy was
 written to prevent.
 
-**What is NOT settled here** is whether to repair the records themselves.
-Rotating one record into its natural-orbital basis while 153 others stay as
-they are would leave the library in a worse state than either extreme, and
-rotating all 154 is a rewrite of the shipped dataset with knock-on effects on
-every downstream artifact. That decision is deferred, not taken.
+### The repair: all 156 interference records, as an additive ledger
+
+Decision taken 2026-07: repair all of them, not just v_B. Repairing one record
+while 153 identical cases remain would imply a library-wide fix that had not
+happened.
+
+`scripts/natural_orbital_ledger.py` produces
+`results/data/states_natural_orbital.jsonl`: for every interference record,
+diagonalize its 1-RDM as rho = U diag(w) U^H with w ordered to match lambda,
+and push the state through the N-th compound of U^T. Every one of the 156
+resulting states has 1-RDM exactly diag(lambda) (worst off-diagonal 2.8e-16,
+worst diagonal error 7.8e-16) and passes the gate, re-verified from the
+shipped amplitudes in `tests/test_natural_orbital_ledger.py` rather than
+trusted from the generator. The 2-RDM spectrum, which is basis-free, is
+unchanged to 1.6e-15, so the rotation moved the basis and not the state.
+
+A convention note worth recording, because getting it wrong is silent: the
+correct compound is of the TRANSPOSE U^T, not the conjugate transpose. The two
+agree for real rotations, so an incorrect convention still appears to work on
+the real records and fails only on the complex ones.
+
+**The repair is not free, and the cost is why it is additive rather than a
+replacement.**
+
+| | states.jsonl | states_natural_orbital.jsonl |
+|---|---|---|
+| amplitudes | EXACT symbolic closed forms | NUMERICAL |
+| support, mean / max | 6.8 / 14 | 12.1 / 79 |
+| 1-RDM | not diagonal on 154 records | diag(lambda) on all 156 |
+| support bounds | s_Q^free | s_Q^NO |
+
+Rotating into natural orbitals destroys sparsity: support grows on 142 of the
+156 records, is unchanged on 14, and never shrinks. The exact closed forms do
+not survive the rotation, and re-recognizing them is a research task rather
+than a mechanical one, so the new ledger is numerical.
+
+So `states.jsonl` is NOT replaced. The two ledgers answer different questions
+and both are needed: the exact sparse library for everything that depends on
+closed forms (holonomy fields, denominator arithmetic, the whole arithmetic
+layer), and the natural-orbital ledger for any claim about s_Q^NO. This also
+honours the originating instruction to keep the existing record as a
+documented spectrum-attainer rather than overwrite it.
+
+**Consequence for support claims.** Every vertex now has a natural-orbital
+support bound, but for the 154 it is LARGER than the number in the census
+column. Any s_Q^NO claim must quote the natural-orbital ledger; the census
+column remains correct for s_Q^free.
 
 ## The census result
 

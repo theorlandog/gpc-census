@@ -1,0 +1,26 @@
+{
+ "generated_by": "scripts/natural_orbital_ledger.py",
+ "ledger": "results/data/states_natural_orbital.jsonl",
+ "records": 156,
+ "all_diagonal_after": true,
+ "all_diagonal_equals_lambda": true,
+ "worst_offdiagonal_after": 2.7755575615628914e-16,
+ "worst_diagonal_error_after": 7.771561172376096e-16,
+ "worst_truncation_norm_loss": 2.220446049250313e-16,
+ "worst_two_rdm_deviation": 1.5543122344752192e-15,
+ "support_grew": 142,
+ "support_unchanged": 14,
+ "support_shrank": 0,
+ "support_before": {
+  "min": 5,
+  "max": 14,
+  "mean": 6.762820512820513
+ },
+ "support_after": {
+  "min": 6,
+  "max": 79,
+  "mean": 12.134615384615385
+ },
+ "evidence": "NUMERICAL",
+ "reading": "Every interference record now has a natural-orbital representative whose 1-RDM is exactly diag(lambda), so a s_Q^NO bound exists for every vertex. The cost is sparsity and exactness: support grows on 142 of 156 records and never shrinks, and the rotated amplitudes are numerical because the exact closed forms do not survive the rotation. states.jsonl is therefore NOT replaced; it remains the exact, sparse, spectrum-attaining library, and the two ledgers bound different quantities."
+}

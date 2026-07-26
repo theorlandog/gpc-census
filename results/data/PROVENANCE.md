@@ -249,3 +249,23 @@ all 645 natural-orbital representatives are rigid and all 59 deformable
 records fail the diagonality gate, so the implication has no
 rigid-versus-deformable contrast among gate-passing records and its
 discriminating power lies entirely in the non-natural-orbital population.
+
+## states_natural_orbital.jsonl, natural_orbital_summary.json
+
+NUMERICAL, and additive: it does NOT replace states.jsonl. For each of the 156
+interference records, scripts/natural_orbital_ledger.py diagonalizes the
+1-RDM as rho = U diag(w) U^H with w ordered to match lambda and pushes the
+state through the N-th compound of U^T (the transpose, not the conjugate
+transpose; the two agree for real rotations, so the wrong convention fails
+only on the complex records). Every resulting state has 1-RDM exactly
+diag(lambda) to 2.8e-16 and passes the attainer gate; the basis-free 2-RDM
+spectrum is unchanged to 1.6e-15, so the rotation moved the basis and not the
+state.
+
+The cost is sparsity and exactness: support grows on 142 of 156 records and
+never shrinks (mean 6.8 to 12.1, max 14 to 79), and the exact symbolic closed
+forms do not survive the rotation, so the amplitudes here are floating point.
+The two ledgers bound different quantities. states.jsonl keeps EXACT closed
+forms on sparse supports whose 1-RDM is not diagonal for these records, so its
+support column bounds s_Q^free; this ledger has diagonal 1-RDMs, so its
+support column bounds s_Q^NO. Quote the right one.
