@@ -310,3 +310,28 @@ have a UNIQUE weight multiset, so the multiplicity at v103 is a discrete phase
 multiplicity and the weight vector is still Galois-fixed. Multi-start finds
 solutions and cannot prove there are no others, so this bounds gap (b)
 empirically rather than closing it; gap (a), isolation itself, is untouched.
+
+## uniqueness_census.json: v103_discreteness_probe block (added 2026-07)
+
+NUMERICAL, at 60 digits. scripts/v103_discreteness_probe.py confirms that the
+multiplicity found at (3,10) v103 is a discrete set of isolated points and not
+a positive-dimensional component, by three independent checks. The counting
+identity: distinct holonomy cosine values equal points times loops exactly
+(125 = 25 x 5), with no value shared between points. The polish: two solutions
+refined by damped Gauss-Newton against the EXACT rational target reach
+residuals near 1e-46 and 1e-50, far below the 1e-11 float64 acceptance
+threshold, and stay distinct. The midpoint: their normalized midpoint has
+residual 0.207, some forty-five orders above the endpoints, so they do not lie
+on a connected component.
+
+Two method notes. Damping is not optional: the orbital-phase gauge makes J^T J
+singular, and undamped Gauss-Newton diverges. And the target must be the exact
+rational diag(lambda), available because v103 is one of the two interference
+records that pass the diagonality gate; converting the float64 1-RDM instead
+caps every residual at the target's own 1e-16 error, a floor an earlier
+version of this probe hit and misread as a solver limit.
+
+The points are NOT distinguished by weight assignment: every solution carries
+the same unsorted weight vector to 6.7e-14 and they differ only in loop
+holonomy, so the multiplicity is confined to the phase sector and cannot
+perturb weight rationality.
