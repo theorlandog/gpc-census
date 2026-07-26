@@ -59,7 +59,11 @@ EXPECT_CASCADE = dict(states_with_support_drop=71,
                       multiplicity_drift_blocked=33,
                       drops_by_class={"INTERFERENCE": 71})
 CASCADE_EXACT = "results/data/cascade_exact.json"
-EXPECT_CASCADE_EXACT = dict(endpoints_attempted=71, certified=69)
+# CORRECTED: the characteristic-polynomial identity is conjugation invariant,
+# so "exactly recognized" is not "attains the vertex". Zero endpoints are
+# attainers; 69 are exact on the spectrum locus only.
+EXPECT_CASCADE_EXACT = dict(endpoints_attempted=71, certified_s_Q_NO=0,
+                            exact_spectrum_only_s_Q_free=69)
 ORBIT = "results/data/orbit_check.json"
 EXPECT_ORBIT = dict(endpoints_tested=71, same_state_as_library=63,
                     new_states_found=8, endpoints_in_natural_orbital_basis=0)
@@ -210,8 +214,16 @@ def main():
         errors.append("v103 support-10 support size: data disagrees")
     if v.get("certified_library_support") != EXPECT_V103_S10["certified_library_support"]:
         errors.append("v103 library support 14: data disagrees")
-    if not v.get("all_checks_pass"):
-        errors.append("v103 support-10 certificate reports a failing check")
+    # The v103 support-10 certificate is SUPERSEDED by design: the state is not
+    # diagonal, so its diagonality checks are EXPECTED to fail. What must hold is
+    # that it is marked superseded and still carries the exact spectrum-locus
+    # content the manuscript quotes.
+    if v.get("status") != "SUPERSEDED":
+        errors.append("v103 support-10 certificate should be marked SUPERSEDED")
+    if v.get("checks", {}).get("charpoly_identity_exact") is not True:
+        errors.append("v103 support-10 certificate lost its exact charpoly identity")
+    if v.get("checks", {}).get("rdm_is_exactly_diagonal") is not False:
+        errors.append("v103 support-10 certificate should record a NON-diagonal 1-RDM")
 
     if errors:
         print("MANUSCRIPT/DATA INCONSISTENCIES:")

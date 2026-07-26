@@ -97,6 +97,83 @@ def certificate_residual(c, dets, lams, d):
                                             rdm_tensor(dets, d), lams))))
 
 
+class SpectrumLocus:
+    """{psi : spec rho(psi) = lambda}, the U(d)-saturated locus.
+
+    Conditions: the minimal polynomial prod_i (rho - lambda_i I) = 0 over
+    DISTINCT eigenvalues, plus normalization. This locus is invariant under
+    conjugation of rho by any unitary, so a state on it need not have a
+    diagonal 1-RDM. Supports counted here bound s_Q^free, whose only valid
+    lower bound is majorization. They do NOT bound s_Q^NO and must never be
+    placed in a chain with the diagonal-incidence baseline s_I.
+    """
+
+    name = "fixed_spectrum"
+    bounds = "s_Q_free"
+
+    def __init__(self, spectrum):
+        self.lams = distinct_eigenvalues(spectrum)
+
+    def residual(self, c, a):
+        q = minpoly(rdm(c, a), self.lams)
+        iu = np.triu_indices(q.shape[0])
+        return np.concatenate([q[iu].real, q[iu].imag,
+                               [float(np.vdot(c, c).real) - 1.0]])
+
+
+class NaturalOrbitalLocus:
+    """{psi : rho(psi) = diag(lambda)}, the census attainment convention.
+
+    Conditions: every off-diagonal entry of rho vanishes AND the diagonal
+    equals lambda entrywise, plus normalization. This is the fixed-RHO locus,
+    and it is the basis in which occupation numbers, the natural-orbital
+    selection rules, and the incidence baseline s_I are statements. Supports
+    counted here bound s_Q^NO, for which s_I is a valid lower bound.
+
+    Note the constraint must hold at the STARTING point too: a library state
+    whose 1-RDM is not diagonal is not on this locus, so a cascade cannot be
+    launched from it in this basis without first rotating (which changes the
+    support and so changes the question).
+    """
+
+    name = "natural_orbital"
+    bounds = "s_Q_NO"
+
+    def __init__(self, spectrum):
+        self.lam = np.array([float(v) for v in spectrum])
+
+    def residual(self, c, a):
+        r = rdm(c, a)
+        iu = np.triu_indices(r.shape[0], k=1)
+        return np.concatenate([r[iu].real, r[iu].imag,
+                               np.real(np.diag(r)) - self.lam,
+                               [float(np.vdot(c, c).real) - 1.0]])
+
+
+def make_locus(spectrum, locus="natural_orbital"):
+    """Build a locus by name. Say which one you mean; there is no default view."""
+    if locus in ("natural_orbital", "s_Q_NO", "fixed_rho"):
+        return NaturalOrbitalLocus(spectrum)
+    if locus in ("fixed_spectrum", "s_Q_free", "spectrum"):
+        return SpectrumLocus(spectrum)
+    raise ValueError(f"unknown locus {locus!r}")
+
+
+def diagonality_error(c, dets, spectrum, d):
+    """max(|rho_pq| for p != q, |rho_pp - lambda_p|): distance to attainment.
+
+    A spectrum-level check cannot see this quantity because det(rho - xI) is
+    conjugation invariant. Every claim that a state ATTAINS a vertex has to
+    report it.
+    """
+    a = rdm_tensor([tuple(t) for t in dets], d)
+    r = rdm(np.asarray(c, dtype=complex), a)
+    iu = np.triu_indices(d, k=1)
+    off = float(np.max(np.abs(r[iu]))) if iu[0].size else 0.0
+    lam = np.array([float(v) for v in spectrum])
+    return max(off, float(np.max(np.abs(np.real(np.diag(r)) - lam))))
+
+
 def spectrum_error(c, dets, spectrum, d):
     """max |sorted eig(rho) - sorted lambda|: the MULTIPLICITY check.
 
@@ -112,13 +189,13 @@ def spectrum_error(c, dets, spectrum, d):
     return float(np.max(np.abs(np.sort(w)[::-1] - tgt)))
 
 
-def _solve_at(v0, a, lams, gauge, vref, j, t, gauge_weight=1.0):
+def _solve_at(v0, a, locus, gauge, vref, j, t, gauge_weight=1.0):
     m = a.shape[2]
 
     def resid(v):
         c = v[:m] + 1j * v[m:]
         return np.concatenate([
-            _certificate(c, a, lams),
+            locus.residual(c, a),
             gauge_weight * (gauge @ (v - vref)),
             [abs(c[j]) ** 2 - t],
         ])
@@ -126,8 +203,7 @@ def _solve_at(v0, a, lams, gauge, vref, j, t, gauge_weight=1.0):
     sol = least_squares(resid, v0, method="lm", xtol=3e-16, ftol=3e-16, gtol=3e-16,
                         max_nfev=20000)
     c = sol.x[:m] + 1j * sol.x[m:]
-    cert = float(np.max(np.abs(_certificate(c, a, lams))))
-    return sol.x, cert
+    return sol.x, float(np.max(np.abs(locus.residual(c, a))))
 
 
 def _schedule(t0, steps=8):
@@ -138,11 +214,12 @@ def _schedule(t0, steps=8):
     return [x for x in out if x > 1e-14] + [0.0]
 
 
-def drive_to_zero(c0, dets, lams, d, j, steps=8):
-    """Continue the fixed-spectrum fiber driving |c_j|^2 to zero.
+def drive_to_zero(c0, dets, locus, d, j, steps=8):
+    """Continue along `locus` driving |c_j|^2 to zero.
 
-    Returns (amplitudes, certificate residual) at the endpoint. A residual
-    below SOLVED_TOL means the sparser state was reached (numerically).
+    Returns (amplitudes, residual) at the endpoint. A residual below
+    SOLVED_TOL means the sparser state was reached (numerically) ON THAT
+    LOCUS; which locus decides which minimal support the result bounds.
     """
     a = rdm_tensor(dets, d)
     gauge = gauge_generators(c0, dets, d)
@@ -151,7 +228,7 @@ def drive_to_zero(c0, dets, lams, d, j, steps=8):
     vref = v.copy()
     best = (v, float("inf"))
     for t in _schedule(float(abs(c0[j]) ** 2), steps=steps):
-        v, cert = _solve_at(v, a, lams, gauge, vref, j, t)
+        v, cert = _solve_at(v, a, locus, gauge, vref, j, t)
         if t == 0.0:
             best = (v, cert)
     v, cert = best
@@ -159,24 +236,56 @@ def drive_to_zero(c0, dets, lams, d, j, steps=8):
 
 
 def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
-            rng=None, retries=3):
-    """Greedy smallest-first sparsification along the fixed-spectrum fiber.
+            rng=None, retries=3, locus="natural_orbital"):
+    """Greedy smallest-first sparsification along a NAMED locus.
+
+    `locus` decides which minimal support the result bounds, and the two are
+    different invariants:
+
+      "natural_orbital" (default): hold rho = diag(lambda). Bounds s_Q^NO, the
+          census attainment convention, for which the diagonal-incidence
+          baseline s_I is a valid lower bound. Requires the starting state to
+          be ON the locus; a library state with a non-diagonal 1-RDM is not,
+          and the run reports start_off_locus instead of pretending otherwise.
+      "fixed_spectrum": hold only spec(rho) = lambda. Bounds s_Q^free, whose
+          only valid lower bound is majorization. Endpoints here may have a
+          rotated 1-RDM and must never be compared against s_I.
 
     Repeatedly drives the smallest surviving amplitude to zero. Where the
-    greedy branch stalls, retries from random points of the fiber reached by
+    greedy branch stalls, retries from random points of the locus reached by
     first deforming (a random gauge-orthogonal least-squares re-solve) and then
     cascading, before recording a floor.
 
-    Returns a dict with the starting support size, the best support size
-    reached (support_upper), the residual at each landed round, and the floor
-    that stopped it. All numbers are numerical, never certified.
+    All numbers are numerical, never certified.
     """
     dets = [tuple(int(o) for o in t) for t in support_dets]
     c = np.asarray(amplitudes, dtype=complex)
     if d is None:
         d = max(o for t in dets for o in t) + 1
-    lams = distinct_eigenvalues(spectrum)
+    loc = make_locus(spectrum, locus)
     rng = np.random.default_rng(0 if rng is None else rng)
+    start_off = float(np.max(np.abs(loc.residual(c, rdm_tensor(dets, d)))))
+    if start_off > SOLVED_TOL:
+        return {
+            "support_start": len(dets),
+            "support_upper": len(dets),
+            "dropped_dets": [], "rounds": [],
+            "final_residual": start_off,
+            "final_spectrum_error": spectrum_error(c, dets, spectrum, d),
+            "final_diagonality_error": diagonality_error(c, dets, spectrum, d),
+            "final_support_dets": [list(t) for t in dets],
+            "final_amplitudes_real": [float(x) for x in np.real(c)],
+            "final_amplitudes_imag": [float(x) for x in np.imag(c)],
+            "floor_residual": None,
+            "blocked_on_path": False,
+            "blocked_reason": "start_off_locus",
+            "multiplicity_drift_seen": False,
+            "method": f"{loc.name} continuation not attempted: the starting "
+                      "state does not satisfy the locus constraint",
+            "evidence": "numerical",
+            "locus": loc.name,
+            "bounds": loc.bounds,
+        }
     start = len(dets)
     rounds = []
     dropped = []
@@ -191,7 +300,7 @@ def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
         landed = False
         # greedy smallest-first, then the next few smallest as fallback targets
         for j in order[: min(len(order), 3)]:
-            c_out, new_dets, info = _try_drop(c, dets, lams, spectrum, d, int(j))
+            c_out, new_dets, info = _try_drop(c, dets, loc, spectrum, d, int(j))
             if info["ok"]:
                 dropped.append(dets[int(j)])
                 dets, c = new_dets, c_out
@@ -210,7 +319,7 @@ def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
             continue
         # blocked on the greedy branch: deform to other fiber points and retry
         landed, c, dets, extra, floor = _retry_from_fiber_points(
-            c, dets, lams, spectrum, d, rng, retries, floor)
+            c, dets, loc, spectrum, d, rng, retries, floor)
         rounds.extend(extra)
         if not landed:
             break
@@ -220,8 +329,9 @@ def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
         "support_upper": len(dets),
         "dropped_dets": [list(t) for t in dropped],
         "rounds": rounds,
-        "final_residual": certificate_residual(c, dets, lams, d),
+        "final_residual": float(np.max(np.abs(loc.residual(c, rdm_tensor(dets, d))))),
         "final_spectrum_error": spectrum_error(c, dets, spectrum, d),
+        "final_diagonality_error": diagonality_error(c, dets, spectrum, d),
         "final_support_dets": [list(t) for t in dets],
         "final_amplitudes_real": [float(x) for x in np.real(c)],
         "final_amplitudes_imag": [float(x) for x in np.imag(c)],
@@ -230,10 +340,11 @@ def cascade(amplitudes, support_dets, spectrum, d=None, max_rounds=None,
             "certificate_floor", "multiplicity_drift"),
         "blocked_reason": _blocked_reason(len(dets), floor, drift),
         "multiplicity_drift_seen": drift,
-        "method": "greedy-smallest-first minimal-polynomial continuation, "
+        "method": f"greedy-smallest-first {loc.name} continuation, "
                   "gauge-pinned, scipy least_squares lm",
         "evidence": "numerical",
-        "fiber": "fixed_spectrum",
+        "locus": loc.name,
+        "bounds": loc.bounds,
     }
 
 
@@ -255,7 +366,7 @@ def _blocked_reason(size, floor, drift):
     return "certificate_floor" if floor is not None else "no_attempt"
 
 
-def polish(c, dets, lams, d):
+def polish(c, dets, locus, d):
     """Re-solve the certificate on a support after a drop.
 
     Driving |c_j|^2 to zero leaves c_j at roughly the solver tolerance, so
@@ -270,24 +381,24 @@ def polish(c, dets, lams, d):
 
     def resid(v):
         cc = v[:m] + 1j * v[m:]
-        return np.concatenate([_certificate(cc, a, lams), gauge @ (v - v0)])
+        return np.concatenate([locus.residual(cc, a), gauge @ (v - v0)])
 
     sol = least_squares(resid, v0, method="lm", xtol=3e-16, ftol=3e-16,
                         gtol=3e-16, max_nfev=20000)
     cc = sol.x[:m] + 1j * sol.x[m:]
-    return cc, float(np.max(np.abs(_certificate(cc, a, lams))))
+    return cc, float(np.max(np.abs(locus.residual(cc, a))))
 
 
-def _try_drop(c, dets, lams, spectrum, d, j):
+def _try_drop(c, dets, locus, spectrum, d, j):
     """One drop attempt. Returns (amplitudes, dets, info) with info['ok']."""
-    c_new, cert = drive_to_zero(c, dets, lams, d, j)
+    c_new, cert = drive_to_zero(c, dets, locus, d, j)
     if cert >= SOLVED_TOL:
         return None, None, {"ok": False, "reason": "certificate_floor",
                             "certificate_residual": cert}
     keep = [i for i in range(len(dets)) if i != j]
     new_dets = [dets[i] for i in keep]
     c_out = c_new[keep] / np.linalg.norm(c_new[keep])
-    c_out, cert = polish(c_out, new_dets, lams, d)
+    c_out, cert = polish(c_out, new_dets, locus, d)
     if cert >= SOLVED_TOL:
         return None, None, {"ok": False, "reason": "certificate_floor",
                             "certificate_residual": cert}
@@ -299,7 +410,7 @@ def _try_drop(c, dets, lams, spectrum, d, j):
                              "spectrum_error": serr}
 
 
-def _retry_from_fiber_points(c, dets, lams, spectrum, d, rng, retries, floor):
+def _retry_from_fiber_points(c, dets, locus, spectrum, d, rng, retries, floor):
     """Deform to a random nearby fiber point, then retry the smallest drop."""
     a = rdm_tensor(dets, d)
     gauge = gauge_generators(c, dets, d)
@@ -311,7 +422,7 @@ def _retry_from_fiber_points(c, dets, lams, spectrum, d, rng, retries, floor):
         def resid(v, step=step):
             cc = v[:m] + 1j * v[m:]
             return np.concatenate([
-                _certificate(cc, a, lams),
+                locus.residual(cc, a),
                 gauge @ (v - v0),
                 0.3 * (v - (v0 + step)),
             ])
@@ -319,10 +430,10 @@ def _retry_from_fiber_points(c, dets, lams, spectrum, d, rng, retries, floor):
         sol = least_squares(resid, v0 + step, method="lm", xtol=1e-14,
                             ftol=1e-14, gtol=1e-14, max_nfev=8000)
         c1 = sol.x[:m] + 1j * sol.x[m:]
-        if float(np.max(np.abs(_certificate(c1, a, lams)))) > SOLVED_TOL:
+        if float(np.max(np.abs(locus.residual(c1, a)))) > SOLVED_TOL:
             continue
         for j in list(np.argsort(np.abs(c1)))[:2]:
-            c_out, new_dets, info = _try_drop(c1, dets, lams, spectrum, d, int(j))
+            c_out, new_dets, info = _try_drop(c1, dets, locus, spectrum, d, int(j))
             if info["ok"]:
                 return True, c_out, new_dets, [{
                     "dropped_det": list(dets[int(j)]),

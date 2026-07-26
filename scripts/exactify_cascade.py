@@ -138,13 +138,22 @@ def exact_rho(amps, dets, d):
 
 
 def process(args):
-    rec, digits = args
+    rec, digits, which = args
     mp.dps = digits
     system, index = rec["system"], rec["index"]
     d = int(system.strip("()").split(",")[1])
-    dets = [tuple(t) for t in rec["final_support_dets"]]
+    pre = f"support_upper_{which}"
+    if f"{pre}_dets" in rec:                      # two-locus schema
+        dets = [tuple(t) for t in rec[f"{pre}_dets"]]
+        c = (np.array(rec[f"{pre}_amplitudes_real"])
+             + 1j * np.array(rec[f"{pre}_amplitudes_imag"]))
+        upper = rec[pre]
+    else:                                          # single-locus (spectrum) schema
+        dets = [tuple(t) for t in rec["final_support_dets"]]
+        c = (np.array(rec["final_amplitudes_real"])
+             + 1j * np.array(rec["final_amplitudes_imag"]))
+        upper = rec["support_upper"]
     m = len(dets)
-    c = np.array(rec["final_amplitudes_real"]) + 1j * np.array(rec["final_amplitudes_imag"])
 
     src = next(json.loads(x) for x in STATES.read_text().splitlines()
                if x.strip() and json.loads(x)["system"] == system
@@ -154,8 +163,9 @@ def process(args):
     lams = sorted({mp.mpf(v.numerator) / v.denominator for v in spectrum}, reverse=True)
 
     out = {"system": system, "index": index,
+           "locus": "natural_orbital" if which == "no" else "fixed_spectrum",
            "support_certified": rec["support_certified"],
-           "support_upper": rec["support_upper"],
+           "support_upper": upper,
            "support_dets": [list(t) for t in dets]}
     try:
         terms = rdm_terms(dets, d)
@@ -208,11 +218,38 @@ def process(args):
         charpoly = sp.expand(rho.charpoly(x).as_expr())
         target = sp.expand(sp.prod([(x - sp.Rational(v.numerator, v.denominator))
                                     for v in spectrum]))
-        if sp.simplify(charpoly - target) != 0:
+        # The characteristic polynomial is CONJUGATION INVARIANT, so it is a
+        # consistency check and never the acceptance criterion: it is satisfied
+        # by every state in the U(d) orbit, including states whose 1-RDM is
+        # rotated away from the diagonal. Acceptance requires attainment in the
+        # census convention: rho exactly diagonal AND diag(rho) = lambda.
+        out["charpoly_identity_exact"] = bool(sp.simplify(charpoly - target) == 0)
+        offdiag = [sp.simplify(rho[i, j]) for i in range(d) for j in range(d)
+                   if i != j]
+        nonzero_off = [str(e) for e in offdiag if e != 0]
+        out["rdm_offdiagonal_nonzero"] = nonzero_off[:8]
+        out["rdm_is_exactly_diagonal"] = not nonzero_off
+        diag = [sp.simplify(rho[i, i]) for i in range(d)]
+        lam = [sp.Rational(v.numerator, v.denominator) for v in spectrum]
+        out["rdm_diagonal"] = [str(e) for e in diag]
+        out["diag_equals_lambda"] = bool(all(a == b for a, b in zip(diag, lam)))
+        out["state_denominator"] = int(sp.ilcm(*[r.q for r in rats]))
+
+        if not out["charpoly_identity_exact"]:
             out["status"] = "CHARPOLY-MISMATCH"
             return out
+        if not out["rdm_is_exactly_diagonal"]:
+            # a genuine exact state on the spectrum locus, but NOT an attainer
+            # in the diagonal sense: it bounds s_Q^free, not s_Q^NO
+            out["status"] = "SPECTRUM-ONLY-NOT-DIAGONAL"
+            out["bounds"] = "s_Q_free"
+            out["evidence"] = "EXACT for the spectrum locus only"
+            return out
+        if not out["diag_equals_lambda"]:
+            out["status"] = "DIAGONAL-BUT-WRONG-OCCUPATIONS"
+            return out
         out["status"] = "CERTIFIED"
-        out["state_denominator"] = int(sp.ilcm(*[r.q for r in rats]))
+        out["bounds"] = "s_Q_NO"
         out["evidence"] = "EXACT"
     except Exception as exc:
         out["status"] = f"ERROR: {type(exc).__name__}: {exc}"
@@ -226,16 +263,24 @@ def main():
     args = ap.parse_args()
 
     rows = [json.loads(x) for x in CASCADE.read_text().splitlines() if x.strip()]
-    todo = [r for r in rows if r.get("support_dropped_by", 0) > 0
-            and "final_amplitudes_real" in r]
-    print(f"exactifying {len(todo)} cascade endpoints at {args.digits} digits",
-          flush=True)
+    todo = []
+    for r in rows:
+        if "support_upper_free_dropped_by" in r:
+            for which in ("no", "free"):
+                if r.get(f"support_upper_{which}_dropped_by", 0) > 0:
+                    todo.append((r, args.digits, which))
+        elif r.get("support_dropped_by", 0) > 0:
+            todo.append((r, args.digits, "free"))
+    print(f"exactifying {len(todo)} cascade endpoints at {args.digits} digits "
+          f"({sum(1 for x in todo if x[2] == 'no')} natural-orbital, "
+          f"{sum(1 for x in todo if x[2] == 'free')} free-basis)", flush=True)
 
     with mp_pool.Pool(args.jobs) as pool:
-        results = pool.map(process, [(r, args.digits) for r in todo])
+        results = pool.map(process, todo)
 
-    results.sort(key=lambda r: (r["system"], r["index"]))
+    results.sort(key=lambda r: (r["locus"], r["system"], r["index"]))
     certified = [r for r in results if r["status"] == "CERTIFIED"]
+    spectrum_only = [r for r in results if r["status"] == "SPECTRUM-ONLY-NOT-DIAGONAL"]
     tally = {}
     for r in results:
         key = r["status"].split(":")[0]
@@ -246,20 +291,33 @@ def main():
                 "arithmetic; every other status is reported as not certified.",
         "digits": args.digits,
         "endpoints_attempted": len(results),
-        "certified": len(certified),
+        "certified_s_Q_NO": len(certified),
+        "exact_spectrum_only_s_Q_free": len(spectrum_only),
+        "acceptance_criterion": "rho exactly diagonal AND diag(rho) = lambda, "
+                                "in exact arithmetic. The characteristic-"
+                                "polynomial identity is conjugation invariant "
+                                "and is recorded as a consistency check only.",
         "status_tally": tally,
-        "certified_bounds": [
+        "certified_s_Q_NO_bounds": [
             {"system": r["system"], "index": r["index"],
              "support_certified_library": r["support_certified"],
              "support_certified_exact": r["support_upper"],
              "state_denominator": r["state_denominator"]}
             for r in certified],
+        "exact_s_Q_free_bounds": [
+            {"system": r["system"], "index": r["index"],
+             "support_certified_library": r["support_certified"],
+             "support_exact_free": r["support_upper"],
+             "state_denominator": r["state_denominator"],
+             "rdm_offdiagonal_nonzero": r["rdm_offdiagonal_nonzero"]}
+            for r in spectrum_only],
         "results": results,
     }
     (ROOT / "results/data/cascade_exact.json").write_text(
         json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: report[k] for k in
-                      ("endpoints_attempted", "certified", "status_tally")}, indent=2))
+                      ("endpoints_attempted", "certified_s_Q_NO",
+                       "exact_spectrum_only_s_Q_free", "status_tally")}, indent=2))
 
 
 if __name__ == "__main__":

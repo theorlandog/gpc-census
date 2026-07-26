@@ -1,37 +1,35 @@
 #!/usr/bin/env python3
-"""EXACT certificate: v103 admits an extremal state of support 10.
+"""SUPERSEDED: the v103 support-10 state bounds s_Q^free, not s_Q^NO.
 
-Vertex v103 = (18^4, 5^6)/34 of Delta(3,10). Its certified library state has
-support 14. The fixed-spectrum sparsification cascade (docs/cascade_census.md)
-reaches support 10 numerically; high-precision refinement plus integer-relation
-recognition (scripts/v103_endpoint_precision.py) identifies every squared weight
-of that endpoint as a rational. This script closes the loop in EXACT arithmetic:
-it rebuilds the 1-RDM from the exact rational weights and signs with independent
-fermionic-sign bookkeeping and verifies the characteristic-polynomial identity
+Vertex v103 = (18^4, 5^6)/34 of Delta(3,10), library support 14.
 
-    det(rho - x I) = (x - 9/17)^4 (x - 5/34)^6
+WHAT THIS SCRIPT ORIGINALLY CLAIMED, AND WHY IT WAS WRONG. It rebuilt the
+support-10 cascade endpoint from recognized rational weights and verified
+normalization, hermiticity, trace and the identity
+det(rho - x I) = (x - 9/17)^4 (x - 5/34)^6 in exact arithmetic, then reported
+s_Q(v103) <= 10 as CERTIFIED. Every one of those checks is correct, and none of
+them establishes vertex attainment: the characteristic polynomial is invariant
+under conjugation, so it is satisfied by every state in the U(d) orbit,
+including states whose 1-RDM is rotated off the diagonal. This one is rotated.
+Its 1-RDM has rho_{3,9} = -5/68 and rho_{1,6} = -sqrt(42)/221, and its diagonal
+is strictly majorized by lambda rather than equal to it.
 
-with no floating point anywhere.
+WHAT SURVIVES. The state is a genuine exact solution with the correct 1-RDM
+spectrum and multiplicities, on support 10. So
 
-WHICH QUANTITY THIS BOUNDS (corrected 2026-07). The 1-RDM of this state is NOT
-diagonal: rho_{18} = 5/68 exactly, verified below. Its natural occupation
-numbers are the EIGENVALUES, which are lambda exactly, so the state does attain
-the vertex; but it attains it in a basis that is not its own natural-orbital
-basis. Consequently this certificate bounds
+    s_Q^free(v103) <= 10   EXACT,
 
-    s_Q^free(v103) <= 10   (minimum over all states with spec(rho) = lambda)
+where s_Q^free is the minimum support over the whole U(d)-saturated set
+{psi : spec rho(psi) = lambda}. Its only valid lower bound is majorization.
 
-and NOT s_Q^NO(v103), the natural-orbital minimum that the census library column
-reports and that s_I bounds from below. The distinction is not cosmetic: s_I
-bounds only the natural-orbital quantity, so this 10 must never be quoted in a
-sentence with s_I(v103) = 6 as though the two were comparable.
+WHAT DOES NOT. s_Q^NO(v103), the minimum over states whose 1-RDM is diagonal
+with diagonal equal to lambda, is NOT bounded by this state. That is the census
+attainment convention and the quantity the diagonal-incidence baseline s_I = 6
+speaks about, so this state may not be placed in a chain with s_I. The
+diagonality-constrained cascade does not sparsify v103 at all: it stays at
+support 14.
 
-The state is moreover the certified library state itself in different orbitals
-(scripts/orbit_check.py exhibits the connecting one-body unitary, residual
-7.5e-14, with off-block entries 0.196 so it is not a gauge rotation). So 10 also
-bounds the ORBIT-MINIMAL support of that one state. The natural-orbital minimum
-for v103 is a different number: the library support is 14 and the gauge-invariant
-lower bound is 9 (scripts/gauge_census.py).
+This script now records the corrected status rather than the original claim.
 
   python scripts/v103_support10_certificate.py
 
@@ -95,35 +93,37 @@ def main():
     checks["hermitian_exact"] = bool(sp.simplify(rho - rho.T) == sp.zeros(D, D))
 
     state_den = sp.ilcm(*[w.q for w in SQUARED_WEIGHTS])
-    offdiag = sp.simplify(sp.Max(*[abs(rho[i, j]) for i in range(D)
-                                   for j in range(D) if i != j]))
-    # the diagonality question, settled exactly rather than at a tolerance
-    checks["one_rdm_is_diagonal_exact"] = bool(
-        sp.simplify(rho - sp.diag(*[rho[i, i] for i in range(D)])) == sp.zeros(D, D))
-    checks["diagonal_equals_lambda_exact"] = bool(
-        all(sp.simplify(rho[i, i] - TARGET[i]) == 0 for i in range(D)))
+    offdiag_max = sp.simplify(sp.Max(*[abs(rho[i, j]) for i in range(D)
+                                       for j in range(D) if i != j]))
+
+    diag = [sp.simplify(rho[i, i]) for i in range(D)]
+    offdiag = [(i, j, sp.simplify(rho[i, j])) for i in range(D) for j in range(D)
+               if i != j and sp.simplify(rho[i, j]) != 0]
+    checks["rdm_is_exactly_diagonal"] = not offdiag
+    checks["diag_equals_lambda"] = bool(diag == list(TARGET))
 
     report = {
+        "status": "SUPERSEDED",
+        "superseded_reason":
+            "The acceptance criterion used here, the characteristic-polynomial "
+            "identity, is invariant under conjugation and therefore cannot "
+            "establish vertex attainment. This state's 1-RDM is NOT diagonal "
+            "(rho_{3,9} = -5/68, rho_{1,6} = -sqrt(42)/221) and its diagonal is "
+            "strictly majorized by lambda rather than equal to it. It is an "
+            "exact state on the spectrum locus, so it bounds s_Q^free, not "
+            "s_Q^NO. The diagonality-constrained cascade does not sparsify v103 "
+            "at all (support stays 14).",
         "vertex": "(3,10) index 103, spectrum (18,18,18,18,5,5,5,5,5,5)/34",
-        "claim": "s_Q^free(v103) <= 10: a state of Slater support 10 has "
-                 "spec(rho) = lambda exactly, so it attains this vertex",
-        "quantity_bounded": "s_Q^free, the minimum over ALL states with "
-                            "spec(rho) = lambda. NOT s_Q^NO: this state's 1-RDM "
-                            "is not diagonal (rho_18 = 5/68 exactly), so it is "
-                            "not a natural-orbital representative and s_I does "
-                            "not bound it",
-        "natural_orbital_counterpart": {
-            "library_support": 14,
-            "gauge_lower_bound": 9,
-            "note": "s_Q^NO(v103) is bounded above by 14 (the library state, no "
-                    "gauge sparsification found) and below by 9; the support-10 "
-                    "state does not improve it",
-        },
-        "evidence": "EXACT (rational and radical arithmetic, no floating point)",
-        "provenance": "fixed-spectrum sparsification cascade endpoint "
-                      "(docs/cascade_census.md), weights recognized by "
-                      "high-precision integer relation "
-                      "(scripts/v103_endpoint_precision.py), verified here exactly",
+        "claim_retained": "s_Q^free(v103) <= 10, EXACT: an exact state of "
+                          "Slater support 10 has this 1-RDM spectrum with the "
+                          "correct multiplicities",
+        "claim_retracted": "s_Q^NO(v103) <= 10. Not supported by this state, "
+                           "and not currently supported by anything.",
+        "evidence": "EXACT for the spectrum-locus claim (rational and radical "
+                    "arithmetic, no floating point)",
+        "provenance": "fixed-spectrum sparsification cascade endpoint, weights "
+                      "recognized by high-precision integer relation "
+                      "(scripts/v103_endpoint_precision.py)",
         "certified_library_support": 14,
         "support_dets": [list(t) for t in SUPPORT],
         "squared_weights": [str(w) for w in SQUARED_WEIGHTS],
@@ -132,26 +132,23 @@ def main():
         "state_denominator_factored": str(sp.factorint(state_den)),
         "library_state_denominator": 195364,
         "loop_holonomy": "pi (state is real up to the orbital-phase gauge)",
-        "rdm_max_offdiagonal": str(offdiag),
+        "rdm_max_offdiagonal": str(offdiag_max),
+        "rdm_nonzero_offdiagonals": [f"rho[{i},{j}] = {e}" for i, j, e in offdiag],
+        "rdm_diagonal": [str(e) for e in diag],
+        "target_lambda": [str(e) for e in TARGET],
         "checks": checks,
-        "all_checks_pass": all(
-            checks[k] for k in checks
-            if k not in ("support_size", "one_rdm_is_diagonal_exact",
-                         "diagonal_equals_lambda_exact")),
-        "caveat": "an upper bound on the minimal support, not a minimality claim; "
-                  "the endpoint is first-order rigid in both fiber senses but that "
-                  "does not prove no sparser state exists",
-        "diagonality_caveat": "one_rdm_is_diagonal_exact is FALSE by design and is "
-                              "reported, not asserted: it is the fact that makes "
-                              "this a free-basis bound rather than a "
-                              "natural-orbital one",
+        "all_checks_pass": all(checks[k] for k in checks if k != "support_size"),
+        "caveat": "an upper bound on s_Q^free, not a minimality claim, and not "
+                  "an attainment claim in the census diagonal convention",
     }
     (ROOT / "results/data/v103_support10_certificate.json").write_text(
         json.dumps(report, indent=2) + "\n")
+    print(f"status: {report['status']}")
     for k, v in checks.items():
         print(f"  {k}: {v}")
-    print(f"all_checks_pass: {report['all_checks_pass']}")
-    print(f"state denominator: {state_den} = {sp.factorint(state_den)}")
+    print(f"  nonzero off-diagonals: {report['rdm_nonzero_offdiagonals']}")
+    print(f"retained: {report['claim_retained']}")
+    print(f"retracted: {report['claim_retracted']}")
 
 
 if __name__ == "__main__":

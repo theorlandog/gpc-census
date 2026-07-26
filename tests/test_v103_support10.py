@@ -1,11 +1,24 @@
-"""The exact support-10 state over v103, verified independently of the script.
+"""The v103 support-10 state: exact on the SPECTRUM locus, not an attainer.
 
-The census library ships a support-14 certified state for
-v103 = (18^4,5^6)/34. The fixed-spectrum cascade reaches support 10, and the
-endpoint's squared weights are exact rationals. This test rebuilds the 1-RDM in
-exact arithmetic with its own fermionic-sign bookkeeping and re-checks the
-characteristic-polynomial identity, so the certified bound s_Q(v103) <= 10 does
-not rest on the script that produced it.
+CORRECTED. An earlier revision of this branch published this state as an exact
+certificate for s_Q(v103) <= 10. That was wrong, and the error is instructive:
+the acceptance criterion was the characteristic-polynomial identity, which is
+invariant under conjugation and therefore blind to the basis. The state is a
+genuine exact solution with the right 1-RDM SPECTRUM, so it bounds
+
+    s_Q^free(v103) <= 10,
+
+the minimum over the whole U(d)-saturated set. It does NOT bound
+
+    s_Q^NO(v103),
+
+the minimum over states whose 1-RDM is diagonal with diagonal equal to lambda,
+which is the census attainment convention and the one the incidence baseline
+s_I speaks about. Its 1-RDM has rho_{3,9} = -5/68 and a diagonal strictly
+majorized by lambda.
+
+The rejection itself is pinned in tests/test_attainment_criterion.py. What is
+tested here is the positive content that survives.
 """
 import pathlib
 import sys
@@ -46,67 +59,41 @@ def _rho_exact():
     return sp.simplify(rho)
 
 
-def test_support10_state_is_normalized_exactly():
+def test_state_is_normalized_exactly():
     assert sum(WEIGHTS) == 1
 
 
-def test_support10_state_attains_v103_exactly():
-    """det(rho - xI) = (x - 9/17)^4 (x - 5/34)^6 in exact arithmetic."""
+def test_state_has_the_vertex_spectrum_exactly():
+    """The positive content: spec(rho) = lambda exactly, so s_Q^free <= 10."""
     x = sp.Symbol("x")
     charpoly = sp.expand(_rho_exact().charpoly(x).as_expr())
     target = sp.expand((x - sp.Rational(9, 17)) ** 4 * (x - sp.Rational(5, 34)) ** 6)
     assert sp.simplify(charpoly - target) == 0
 
 
-def test_support10_state_is_not_a_natural_orbital_representative():
-    """EXACT: its 1-RDM is not diagonal, so it bounds s_Q^free and not s_Q^NO.
-
-    This is the fact that decides which quantity the support-10 bound belongs
-    to. The state's natural occupations are the EIGENVALUES of its 1-RDM, which
-    are lambda exactly (the test above), so it does attain the vertex; but the
-    1-RDM carries rho_{18} = 5/68, so the basis it is written in is not its own
-    natural-orbital basis. A bound proved here therefore may NOT be compared
-    with s_I, which bounds the natural-orbital quantity only.
-    """
+def test_state_bounds_free_support_not_natural_orbital_support():
+    """The whole point of the correction, asserted rather than commented."""
     rho = _rho_exact()
-    off = [(i, j) for i in range(D) for j in range(D)
-           if i != j and sp.simplify(rho[i, j]) != 0]
-    assert off, "a diagonal 1-RDM here would move this bound to s_Q^NO"
-    assert sp.simplify(rho[3, 9] + sp.Rational(5, 68)) == 0
-    assert sp.simplify(rho[1, 6] + sp.sqrt(42) / 221) == 0
-    # and the diagonal is not lambda either: it is not even a permutation of it
-    assert sp.simplify(rho[1, 1] - sp.Rational(233, 442)) == 0
+    lam = [sp.Rational(18, 34)] * 4 + [sp.Rational(5, 34)] * 6
+    offdiag = [sp.simplify(rho[i, j]) for i in range(D) for j in range(D) if i != j]
+    assert any(e != 0 for e in offdiag), "not diagonal, so not an s_Q^NO witness"
+    assert [sp.simplify(rho[i, i]) for i in range(D)] != lam
+    assert len(SUPPORT) < 14  # still strictly better than the library support
 
 
-def test_support10_beats_the_certified_library_support():
-    """The bound this state certifies is strictly better than the library's."""
-    import json
-
-    ledger = ROOT / "results" / "data" / "states.jsonl"
-    if not ledger.exists():
-        import pytest
-        pytest.skip("no states atlas present")
-    rec = next(json.loads(x) for x in ledger.read_text().splitlines()
-               if x.strip() and json.loads(x)["system"] == "(3,10)"
-               and json.loads(x)["index"] == 103)
-    assert len(rec["closed_form"]["support_dets"]) == 14
-    assert len(SUPPORT) < 14
-
-
-def test_support10_state_is_a_new_denominator():
-    """State denominator 46852 = 2^2 * 13 * 17 * 53, a new prime versus 195364."""
+def test_state_denominator_is_recorded_correctly():
+    """46852 = 2^2 * 13 * 17 * 53. Arithmetic stands; its meaning is s_Q^free."""
     den = sp.ilcm(*[w.q for w in WEIGHTS])
     assert den == 46852
     assert sp.factorint(den) == {2: 2, 13: 1, 17: 1, 53: 1}
 
 
-def test_shipped_certified_bounds_reverify_exactly():
-    """Spot-check the shipped exact cascade bounds by rebuilding them here.
+def test_shipped_certified_bounds_are_genuine_attainers():
+    """Every CERTIFIED entry in cascade_exact.json must be diagonal at lambda.
 
-    results/data/cascade_exact.json claims exactly certified improved support
-    bounds. This test re-derives the characteristic-polynomial identity for a
-    sample of them in exact arithmetic, so a corrupted or over-claimed record
-    cannot ship unnoticed.
+    The strengthened checker accepts only states with rho exactly diagonal and
+    diag(rho) = lambda. This re-derives that from scratch for a sample, so a
+    regression to the conjugation-invariant criterion cannot ship.
     """
     import json
     from fractions import Fraction
@@ -119,7 +106,8 @@ def test_shipped_certified_bounds_reverify_exactly():
         pytest.skip("no cascade dataset present")
     report = json.loads(data.read_text())
     certified = [r for r in report["results"] if r["status"] == "CERTIFIED"]
-    assert certified, "no certified bounds shipped"
+    if not certified:
+        pytest.skip("no s_Q^NO bounds certified in the current dataset")
 
     ledger = {}
     for line in states.read_text().splitlines():
@@ -127,16 +115,12 @@ def test_shipped_certified_bounds_reverify_exactly():
             rec = json.loads(line)
             ledger[(rec["system"], rec["index"])] = rec
 
-    # the smallest few, so the exact algebra stays fast
-    sample = sorted(certified, key=lambda r: r["support_upper"])[:4]
-    for r in sample:
+    for r in sorted(certified, key=lambda z: z["support_upper"])[:4]:
         d = int(r["system"].strip("()").split(",")[1])
         dets = [tuple(t) for t in r["support_dets"]]
         weights = [sp.Rational(w) for w in r["squared_weights"]]
-        assert sum(weights) == 1, r["system"]
-        assert len(dets) == r["support_upper"] < r["support_certified"]
+        assert sum(weights) == 1
         amps = [s * sp.sqrt(w) for s, w in zip(r["signs"], weights)]
-
         pos = {t: i for i, t in enumerate(dets)}
         rho = sp.zeros(d, d)
         for col, det in enumerate(dets):
@@ -152,12 +136,13 @@ def test_shipped_certified_bounds_reverify_exactly():
                         continue
                     rho[p, q] += (amps[row] * amps[col] * sign_out
                                   * (-1) ** target.index(p))
-
+        rho = sp.simplify(rho)
         src = ledger[(r["system"], r["index"])]
         den = int(src["denominator"])
-        spectrum = [Fraction(int(x), den) for x in src["integer_form"]]
-        x = sp.Symbol("x")
-        charpoly = sp.expand(sp.simplify(rho).charpoly(x).as_expr())
-        target_poly = sp.expand(sp.prod([(x - sp.Rational(v.numerator, v.denominator))
-                                         for v in spectrum]))
-        assert sp.simplify(charpoly - target_poly) == 0, (r["system"], r["index"])
+        lam = [sp.Rational(int(v), den) for v in src["integer_form"]]
+        offdiag = [sp.simplify(rho[i, j]) for i in range(d) for j in range(d)
+                   if i != j]
+        assert all(e == 0 for e in offdiag), (r["system"], r["index"], "not diagonal")
+        assert [sp.simplify(rho[i, i]) for i in range(d)] == lam, (
+            r["system"], r["index"], "diagonal != lambda")
+        assert isinstance(Fraction(den), Fraction)

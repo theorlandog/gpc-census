@@ -1,14 +1,11 @@
 {
+  "status": "SUPERSEDED",
+  "superseded_reason": "The acceptance criterion used here, the characteristic-polynomial identity, is invariant under conjugation and therefore cannot establish vertex attainment. This state's 1-RDM is NOT diagonal (rho_{3,9} = -5/68, rho_{1,6} = -sqrt(42)/221) and its diagonal is strictly majorized by lambda rather than equal to it. It is an exact state on the spectrum locus, so it bounds s_Q^free, not s_Q^NO. The diagonality-constrained cascade does not sparsify v103 at all (support stays 14).",
   "vertex": "(3,10) index 103, spectrum (18,18,18,18,5,5,5,5,5,5)/34",
-  "claim": "s_Q^free(v103) <= 10: a state of Slater support 10 has spec(rho) = lambda exactly, so it attains this vertex",
-  "quantity_bounded": "s_Q^free, the minimum over ALL states with spec(rho) = lambda. NOT s_Q^NO: this state's 1-RDM is not diagonal (rho_18 = 5/68 exactly), so it is not a natural-orbital representative and s_I does not bound it",
-  "natural_orbital_counterpart": {
-    "library_support": 14,
-    "gauge_lower_bound": 9,
-    "note": "s_Q^NO(v103) is bounded above by 14 (the library state, no gauge sparsification found) and below by 9; the support-10 state does not improve it"
-  },
-  "evidence": "EXACT (rational and radical arithmetic, no floating point)",
-  "provenance": "fixed-spectrum sparsification cascade endpoint (docs/cascade_census.md), weights recognized by high-precision integer relation (scripts/v103_endpoint_precision.py), verified here exactly",
+  "claim_retained": "s_Q^free(v103) <= 10, EXACT: an exact state of Slater support 10 has this 1-RDM spectrum with the correct multiplicities",
+  "claim_retracted": "s_Q^NO(v103) <= 10. Not supported by this state, and not currently supported by anything.",
+  "evidence": "EXACT for the spectrum-locus claim (rational and radical arithmetic, no floating point)",
+  "provenance": "fixed-spectrum sparsification cascade endpoint, weights recognized by high-precision integer relation (scripts/v103_endpoint_precision.py)",
   "certified_library_support": 14,
   "support_dets": [
     [
@@ -91,16 +88,45 @@
   "library_state_denominator": 195364,
   "loop_holonomy": "pi (state is real up to the orbital-phase gauge)",
   "rdm_max_offdiagonal": "5/68",
+  "rdm_nonzero_offdiagonals": [
+    "rho[1,6] = -sqrt(42)/221",
+    "rho[3,9] = -5/68",
+    "rho[6,1] = -sqrt(42)/221",
+    "rho[9,3] = -5/68"
+  ],
+  "rdm_diagonal": [
+    "9/17",
+    "233/442",
+    "9/17",
+    "35/68",
+    "5/34",
+    "5/34",
+    "33/221",
+    "5/34",
+    "5/34",
+    "11/68"
+  ],
+  "target_lambda": [
+    "9/17",
+    "9/17",
+    "9/17",
+    "9/17",
+    "5/34",
+    "5/34",
+    "5/34",
+    "5/34",
+    "5/34",
+    "5/34"
+  ],
   "checks": {
     "support_size": 10,
     "normalization_exact": true,
     "charpoly_identity_exact": true,
     "trace_equals_particle_number": true,
     "hermitian_exact": true,
-    "one_rdm_is_diagonal_exact": false,
-    "diagonal_equals_lambda_exact": false
+    "rdm_is_exactly_diagonal": false,
+    "diag_equals_lambda": false
   },
-  "all_checks_pass": true,
-  "caveat": "an upper bound on the minimal support, not a minimality claim; the endpoint is first-order rigid in both fiber senses but that does not prove no sparser state exists",
-  "diagonality_caveat": "one_rdm_is_diagonal_exact is FALSE by design and is reported, not asserted: it is the fact that makes this a free-basis bound rather than a natural-orbital one"
+  "all_checks_pass": false,
+  "caveat": "an upper bound on s_Q^free, not a minimality claim, and not an attainment claim in the census diagonal convention"
 }
