@@ -222,3 +222,45 @@ def test_the_solved_system_is_the_fixed_rho_fiber(uniqueness):
     records, so the system must target the state's own rho."""
     assert "OWN 1-RDM" in uniqueness["system_solved"]
     assert uniqueness["evidence"].startswith("NUMERICAL")
+
+
+# ------------------------------------------- v103 discreteness confirmations
+
+
+def test_v103_counting_identity_certifies_discreteness(uniqueness):
+    """Distinct cosine values = points x loops exactly. A positive-dimensional
+    set would not give an exact product."""
+    probe = uniqueness["v103_discreteness_probe"]
+    i = probe["counting_identity"]
+    assert i["identity_holds"]
+    assert i["distinct_cosine_values"] == i["distinct_points_mod_gauge"] * i["loops"]
+    assert i["loops"] == 5
+
+
+def test_v103_multiplicity_is_not_a_solver_artifact(uniqueness):
+    """Polished against the EXACT rational target, far below the float64
+    acceptance threshold, and still distinct."""
+    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
+    assert pm["found_holonomy_distinct_pair"]
+    assert pm["target"].startswith("exact rational")
+    for key in ("polished_residual_a", "polished_residual_b"):
+        assert float(pm[key]) < 1e-40, (key, pm[key])
+    assert pm["max_holonomy_difference"] > 0.2
+
+
+def test_v103_midpoint_certifies_the_points_are_isolated(uniqueness):
+    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
+    midpoint = float(pm["midpoint_residual"])
+    endpoint = max(float(pm["polished_residual_a"]), float(pm["polished_residual_b"]))
+    assert midpoint > 1e-3
+    assert midpoint / endpoint > 1e30
+
+
+def test_v103_points_share_one_weight_vector(uniqueness):
+    """Not weight assignment: the weights are identical, so the multiplicity
+    is confined to the phase sector."""
+    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
+    assert pm["weights_identical_across_solutions"]
+    assert pm["weight_vector_spread_over_all_solutions"] < 1e-9
+    assert pm["same_weight_vector"]
+    assert pm["max_weight_difference"] < 1e-9
