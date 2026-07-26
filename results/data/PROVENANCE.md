@@ -290,3 +290,23 @@ earlier naive substitution got wrong. Both roots of 85t^2 - 70t - 119 give
 positive weight vectors attaining the vertex exactly, each by 64 of the 128
 sign patterns modulo global sign. Orbit size 2, weight field degree 2:
 degree equals orbit size. The pre-registered prediction is CONFIRMED.
+
+## uniqueness_census.json (gap b of the Rigidity-Rationality target)
+
+NUMERICAL. scripts/uniqueness_census.py multi-starts the FIXED-RHO
+realization system rho(c) = rho_0 on each state's own support, for twelve
+fixed-rho rigid interference states, and counts converged solutions modulo
+gauge. Targeting diag(lambda) instead would be infeasible for the 154 records
+whose 1-RDM is not diagonal, which is why the system targets the state's own
+rho. Solutions are clustered by distance on a gauge- and
+conjugation-invariant fingerprint, reported three ways: weight vector ordered
+(upper bound on the point count, since it also separates support-preserving
+orbital permutations), weight multiset with holonomies (the point count), and
+weight multiset alone.
+
+Result: eleven of twelve have exactly one solution modulo gauge; v103 has
+several, so the pre-registered uniqueness claim FAILS at one state. All twelve
+have a UNIQUE weight multiset, so the multiplicity at v103 is a discrete phase
+multiplicity and the weight vector is still Galois-fixed. Multi-start finds
+solutions and cannot prove there are no others, so this bounds gap (b)
+empirically rather than closing it; gap (a), isolation itself, is untouched.

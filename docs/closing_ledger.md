@@ -97,6 +97,27 @@ arithmetic arc.
 |---|---|
 | the attaining Galois orbit has size 2 | **CONFIRMED**, both roots attain exactly |
 
+This is the one prediction of the arithmetic arc that was both mechanism-first
+and confirmed on its first correct execution; the earlier naive attempt was a
+method error, not evidence against it.
+
+### Uniqueness modulo gauge (gap b, measured)
+
+`results/data/uniqueness_census.json`, 60 multi-starts on twelve rigid
+interference states.
+
+| prediction | verdict |
+|---|---|
+| every rigid state has one solution modulo gauge | **FAIL**, 1 of 12 (v103) |
+| (separated) every rigid state has one weight multiset | **PASS**, 12 of 12 |
+
+The failure does not damage the Rigidity-Rationality target and the split is
+why: v103's fiber carries several isolated points, consistent with
+first-order rigidity being local, but they share one weight multiset and
+differ only in loop holonomies. Gap (b) feared Galois-conjugate points with
+different weights; what occurs is discrete phase multiplicity with the weight
+vector Galois-fixed.
+
 ## 2. Corrections, with cause
 
 Ten this program, five this month. Each is a case where a claim in the
@@ -130,9 +151,9 @@ A MINED law is a pattern read off the corpus and then promoted. A
 MECHANISM-FIRST prediction is derived from structure and then tested.
 
 **Mined laws** (P2, P3, P4, B3, B5, P-DEN-2, P-INV-1, P-INV-2, P-INV-3,
-P-NSR-1, plus the archive's earlier rounds):
+P-NSR-1, uniqueness-modulo-gauge, plus the archive's earlier rounds):
 
-    10 scored, 10 failed or were downgraded.
+    11 scored, 11 failed or were downgraded.
 
 Every headline law mined from the corpus in these programs died. The archive's
 earlier estimate of "about one in two" was optimistic; over the fiber and

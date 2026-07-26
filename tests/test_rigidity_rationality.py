@@ -190,3 +190,35 @@ def test_both_cancellation_states_are_flat(ratio):
 def test_the_prereg_disclosure_is_recorded(ratio):
     """Not a blind prereg, and the artifact must say so."""
     assert "NOT a blind pre-registration" in ratio["disclosure"]
+
+
+# --------------------------------------------------- gap (b), measured
+
+
+@pytest.fixture(scope="module")
+def uniqueness():
+    return json.loads((DATA / "uniqueness_census.json").read_text())
+
+
+def test_uniqueness_prereg_fails_at_exactly_one_state(uniqueness):
+    assert uniqueness["verdict"] == "FAIL"
+    assert uniqueness["exceptions"] == 1
+    assert uniqueness["exception_labels"] == ["(3,10) v103"]
+    assert uniqueness["sample_size"] == 12
+
+
+def test_weight_multiset_is_unique_everywhere(uniqueness):
+    """The failure is phase multiplicity, not weight multiplicity, so the
+    Rigidity-Rationality target is untouched by it."""
+    assert uniqueness["weights_verdict"] == "PASS"
+    assert uniqueness["weight_exceptions"] == 0
+    for r in uniqueness["records"]:
+        assert r["distinct_weight_multisets"] == 1
+        assert r["converged"] == r["starts"]
+
+
+def test_the_solved_system_is_the_fixed_rho_fiber(uniqueness):
+    """Targeting diag(lambda) would be infeasible for the 154 non-diagonal
+    records, so the system must target the state's own rho."""
+    assert "OWN 1-RDM" in uniqueness["system_solved"]
+    assert uniqueness["evidence"].startswith("NUMERICAL")
