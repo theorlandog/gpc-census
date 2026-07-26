@@ -183,3 +183,38 @@ recorded), P-DEN-3 FAIL as predicted (1 exception, v103, pinned as predicted),
 P-DEN-4 PASS (736 states, 0 exceptions). The (4,9) index 65 record is excluded
 from the ratio predictions: its weights are not rational, so it has no state
 denominator.
+
+## two_block_family.json (the two-block family, and the cross-block rule)
+
+MIXED, labeled per field. Channel splits, block structure and transport
+classes are EXACT combinatorics; tangent dimensions are NUMERICAL, inherited
+from cascade.jsonl. scripts/two_block_family.py assembles the four two-block
+INTERFERENCE vertices in full (channels split into within-block and
+cross-block, both fiber tangents, holonomy fields, denominator arithmetic,
+gauge-minimality status, cascade behaviour) and scores the predictions
+pre-registered in docs/prereg_two_block_inversion.md.
+
+Result: a CROSS-BLOCK one-hop channel is NECESSARY for the fixed-rho and
+fixed-spectrum tangent dimensions to differ, on all 799 states across 403
+transport classes with zero exceptions. The converse is false at 82 states,
+all with incidence kernel 0. The two proposed counting rules (gap = X and
+gap = 2X) are falsified. Independent scope is reported in TRANSPORT CLASSES
+rather than row counts, per standing rule R2 of docs/prereg_template.md,
+because padding and frozen-core siblings carry a state's fiber data unchanged.
+
+The tangent_sector_split block decomposes v103's six fixed-spectrum
+directions as 3 weight plus 3 phase, reproducing the silence-rank lemma's
+formula term by term; at (3,10) v108 the sectors do not decouple, because the
+state is genuinely complex and the lemma's real-state bookkeeping does not
+apply there.
+
+## oos_bracket.json: provenance_independence block (added 2026-07)
+
+The scorecard was scored at 38 rows. A later audit traced every measurement to
+its root origin and found 34 of them are transports or face embeddings of
+rank-10 states drawn from 17 distinct donors, leaving 4 rows resting on 2
+states actually constructed at the new rank. The provenance_independence block
+records this per measurement, and every verdict now carries independent_scope
+and independent_distinct_states beside its row scope, plus a corrected reading
+alongside the original verdict. The original verdicts are unchanged; see the
+PROVENANCE CORRECTION section of docs/prereg_bracket_3_11_3_12.md.

@@ -11,6 +11,43 @@ from oracles, with Schubert (upstream's character-table work) demoted to the
 final validity-proof layer. This is the architecture that makes rank 12+
 tables producible.
 
+## Second motivation, added 2026-07: Stage 1 is the only route to a real
+## out-of-sample test of the first-order fiber theory
+
+Facet enumeration is not the only thing blocked on the generator. The
+(3,11)/(3,12) bracket holdout was the fiber program's one out-of-sample test,
+and a provenance audit showed 34 of its 38 measurements are transports or face
+embeddings of rank-10 states, drawn from 17 distinct donors, with only 2
+states genuinely constructed at the new rank (PROVENANCE CORRECTION in
+`docs/prereg_bracket_3_11_3_12.md`; `provenance_independence` in
+`results/data/oos_bracket.json`).
+
+A transported state's tangent dimensions, channel structure, and cascade
+behaviour are the donor's, so no amount of transporting grows the independent
+sample. Testing the unified dimension formula, the silence-rank lemma's
+genericity, or the cross-block inversion rule against genuinely new data
+requires vertices that are NOT transports, and the only source of those is a
+constraint generator producing rank-11 systems the census does not already
+contain.
+
+Concrete targeting rules, cheap to apply once Stage 1 emits candidate spectra.
+There are two different questions and they want OPPOSITE targets, so do not
+collapse them (`docs/two_block_family.md`).
+
+1. To grow the CANCELLATION-REGIME sample, target TWO-BLOCK spectra. Both
+   known members are two-block and there are only two, so this is where the
+   silence-rank lemma's genericity question lives. If the regime is a
+   two-block phenomenon, two-block rank-11 spectra are the cheapest place to
+   grow that sample; if it is not, that is itself the finding.
+
+2. To grow the TWO-FIBER GAP sample, do NOT target two-block spectra. The gap
+   is governed by cross-block one-hop channels, not by block count, and
+   two-block vertices are the worst source: 3 of 64 carry a cross-block
+   channel against 155 of 799 census-wide, because all 60 two-block DESIGN
+   vertices are one-hop free and contribute nothing. Target spectra with
+   several blocks of unequal size, where cross-block channels are common; the
+   observed gap population peaks at 3 and 4 blocks.
+
 ## Architecture (oracle-driven reconstruction)
 
 Layer 0 -- relation detection (WORKS, validated at (3,6)): sample spectra,
