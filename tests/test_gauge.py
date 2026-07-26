@@ -230,3 +230,37 @@ def test_v103_cascade_endpoint_is_the_library_state_rotated():
     off_block = max(np.max(np.abs(u[np.ix_(blocks[0], blocks[1])])),
                     np.max(np.abs(u[np.ix_(blocks[1], blocks[0])])))
     assert off_block > 1e-3  # the rotation leaves the natural-orbital gauge
+
+
+def test_acceptance_gate_accepts_the_library_state():
+    """The gate must pass a genuine natural-orbital representative."""
+    from gpc_census.validate import check_vertex_attainer
+
+    c, dets, lam = _v103()
+    assert check_vertex_attainer(c, dets, lam, len(lam)) == []
+
+
+def test_acceptance_gate_rejects_a_non_diagonal_attainer():
+    """The v103 support-10 state attains the spectrum but fails the gate.
+
+    Its eigenvalues are lambda, so it is a legitimate attainer; its 1-RDM is not
+    diagonal, so it is not a natural-orbital representative and the gate must
+    say so rather than let its support be quoted against s_I.
+    """
+    from gpc_census.validate import check_vertex_attainer
+
+    c, dets, lam = _v103()
+    end = None
+    for line in (DATA / "cascade.jsonl").read_text().splitlines():
+        r = json.loads(line)
+        if r["system"] == "(3,10)" and r["index"] == 103:
+            end = r
+            break
+    ce = np.array(end["final_amplitudes_real"]) + 1j * np.array(end["final_amplitudes_imag"])
+    de = [tuple(t) for t in end["final_support_dets"]]
+    errs = check_vertex_attainer(ce, de, lam, len(lam))
+    assert any("not diagonal" in e for e in errs)
+    # and claiming it as a NEW attainer must fail on the 2-RDM spectrum too
+    errs_new = check_vertex_attainer(ce, de, lam, len(lam), library=(c, dets),
+                                     claimed_new=True)
+    assert any("SAME state in different orbitals" in e for e in errs_new)

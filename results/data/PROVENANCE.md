@@ -108,3 +108,34 @@ satisfy the exact identity.
 The 60-digit refinement of the v103 support-10 endpoint with its
 integer-relation recognition, kept as the numerical input the exact certificate
 was derived from.
+
+## gauge_min.jsonl, gauge_min_summary.json (natural-orbital gauge minimization)
+
+Produced by scripts/gauge_census.py (engine src/gpc_census/gauge.py). One record
+per vertex: the library support, the exact gauge-invariant lower bound (occupied
+block-profile classes, refined by per-class flattening ranks), the support
+reached by minimizing over the natural-orbital gauge family
+U(m_1) x ... x U(m_k), and the acceptance gate on any state that moved.
+
+The headline is a null result with an exact half: no state of the 799 admits a
+support-reducing rotation in its own gauge family, and for 629 of them the
+library support attains the lower bound, so gauge-minimality is certified by a
+rank computation rather than by a search. The other 170 are open in both
+directions. The bounds are exact (integer ranks of exactly built matrices); the
+absence of a reduction is a search result, whose power is pinned by the
+recovery test in tests/test_gauge.py.
+
+These records bound s_Q^NO, the minimum support over states with rho exactly
+diag(lambda). They are NOT comparable with the cascade's free-basis bounds.
+
+## orbit_check.json (2-RDM gate on the cascade endpoints)
+
+Produced by scripts/orbit_check.py. The 2-RDM spectrum is invariant under every
+one-body unitary, so it decides whether a cascade endpoint is a new state or the
+library state in different orbitals. Over all 71 endpoints: 63 agree with the
+library state to ~1e-16 (same state, rotated), 8 differ by 3.4e-3 to 4.7e-2 (no
+one-body rotation can do that, so they are genuinely different extremal states),
+and ZERO have a diagonal 1-RDM, which is why every cascade bound is a bound on
+s_Q^free and not on the natural-orbital quantity. The v103 entry carries the
+explicit connecting unitary (residual 7.5e-14, off-block entries 0.196, so a
+U(10) rotation and not a gauge one).

@@ -1,15 +1,21 @@
 {
   "note": "Support minimized over the natural-orbital gauge U(m_1) x ... x U(m_k). Bounds s_Q^NO, the census quantity. NOT the free-basis or orbit-minimal support.",
-  "states": 40,
-  "certified_gauge_minimal": 38,
-  "certified_without_search": 38,
+  "states": 799,
+  "certified_gauge_minimal": 629,
+  "certified_without_search": 629,
   "states_that_gauge_sparsify": 0,
   "amplitudes_removed": 0,
   "sparsifying_by_class": {},
   "gate_failures": [],
   "slack_histogram": {
-    "0": 38,
-    "1": 2
+    "0": 629,
+    "1": 106,
+    "2": 24,
+    "3": 9,
+    "4": 17,
+    "5": 3,
+    "6": 2,
+    "7": 9
   },
-  "seconds": 6.2
+  "seconds": 612.6
 }
