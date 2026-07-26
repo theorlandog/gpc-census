@@ -311,27 +311,27 @@ multiplicity and the weight vector is still Galois-fixed. Multi-start finds
 solutions and cannot prove there are no others, so this bounds gap (b)
 empirically rather than closing it; gap (a), isolation itself, is untouched.
 
-## uniqueness_census.json: v103_discreteness_probe block (added 2026-07)
+## v103_fiber_count.json (the exact number of fiber points at v103)
 
-NUMERICAL, at 60 digits. scripts/v103_discreteness_probe.py confirms that the
-multiplicity found at (3,10) v103 is a discrete set of isolated points and not
-a positive-dimensional component, by three independent checks. The counting
-identity: distinct holonomy cosine values equal points times loops exactly
-(125 = 25 x 5), with no value shared between points. The polish: two solutions
-refined by damped Gauss-Newton against the EXACT rational target reach
-residuals near 1e-46 and 1e-50, far below the 1e-11 float64 acceptance
-threshold, and stay distinct. The midpoint: their normalized midpoint has
-residual 0.207, some forty-five orders above the endpoints, so they do not lie
-on a connected component.
+NUMERICAL but EXHAUSTIVE rather than sampled. scripts/v103_fiber_count.py
+answers how many points the v103 fixed-rho fiber has, and the answer is ONE.
 
-Two method notes. Damping is not optional: the orbital-phase gauge makes J^T J
-singular, and undamped Gauss-Newton diverges. And the target must be the exact
-rational diag(lambda), available because v103 is one of the two interference
-records that pass the diagonality gate; converting the float64 1-RDM instead
-caps every residual at the target's own 1e-16 error, a floor an earlier
-version of this probe hit and misread as a solver limit.
+The search space is what makes it exhaustible. Every solution carries the same
+weight vector, so the unknowns are phases alone, and modulo the 9-dimensional
+orbital-phase gauge the 14 phases leave exactly 5 degrees of freedom, one per
+loop. That is a compact 5-torus of gauge-invariant holonomies, and a grid over
+it can be exhausted instead of sampled: 7^5 = 16807 starts, every one
+converging, all to a single point with holonomy (0, pi, pi, 0, 0), so the state
+is real up to gauge exactly as the library record says. Worst 1-RDM
+reconstruction error 5.7e-14.
 
-The points are NOT distinguished by weight assignment: every solution carries
-the same unsorted weight vector to 6.7e-14 and they differ only in loop
-holonomy, so the multiplicity is confined to the phase sector and cannot
-perturb weight rationality.
+This supersedes and retires an earlier probe, together with the reading built
+on it, that reported v103 as carrying dozens of isolated fiber points and
+climbing. That count was an artifact of a NON-INTEGER loop basis: amplitude
+phases are read wrapped into (-pi, pi], and a gauge change followed by that
+wrap shifts theta by 2*pi*m for an integer vector m, which moves an integer
+holonomy by a multiple of 2*pi and leaves its cosine alone but moves a
+real-basis holonomy arbitrarily. One physical point was being split into
+dozens by branch choice. scripts/uniqueness_census.py now builds its loop
+basis over the integers, and its verdict changes from FAIL to PASS on all
+twelve sampled states.

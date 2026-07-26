@@ -8,15 +8,13 @@
  "residual_tolerance": 1e-11,
  "fingerprint": "weight vector plus the cosine of each loop holonomy; invariant under orbital phases, global phase, and complex conjugation. Reported twice, with the weights ordered (upper bound on the number of fiber points) and as a multiset (lower bound, quotienting support-preserving orbital permutations).",
  "sample_size": 12,
- "verdict": "FAIL",
- "exceptions": 1,
- "exception_labels": [
-  "(3,10) v103"
- ],
+ "verdict": "PASS",
+ "exceptions": 0,
+ "exception_labels": [],
  "weights_verdict": "PASS",
  "weight_exceptions": 0,
  "weight_exception_labels": [],
- "finding": "The prereg FAILS as stated, at one state of twelve: v103's fixed-rho fiber carries several isolated points modulo gauge, which is consistent with first-order rigidity since rigidity is local and says nothing about how many isolated points exist. But the failure does NOT threaten the Rigidity-Rationality target. Every solution found at v103 shares ONE weight multiset; the points differ only in their loop holonomies. Gap (b) worried about Galois-conjugate points with different weights forcing algebraic weights of degree equal to the orbit size, and that is not what occurs here: the weight vector is still Galois-fixed, and the multiplicity is a discrete PHASE multiplicity. REFRAMED 2026-07 after three confirmations (v103_discreteness_probe). DISCRETENESS: the number of distinct holonomy cosine values equals 25 points times 5 loops = 125 exactly, with no value shared between points; a positive-dimensional set would not give an exact product, so the solutions are isolated and the earlier reading of a near-continuum was wrong. NOT A SOLVER ARTIFACT: two solutions polish by damped Gauss-Newton against the exact rational target to residuals 2.152e-46 and 2.283e-50 at 60 digits, far below the 1e-11 float64 acceptance threshold, and remain distinct. DISCRETE BETWEEN THEM: their normalized midpoint has residual 0.207333, some forty-five orders above the endpoints, so the two do not lie on a connected component. WHAT SEPARATES THEM: not weight assignment. Every solution carries the SAME unsorted weight vector to 6.7e-14, so the points differ only in loop holonomy and there is no assignment variation for the vertex's support-preserving orbital permutations to quotient away; the count is an upper bound only through a much smaller action on holonomy vectors. This is stronger than assignment multiplicity would have been for the Rigidity-Rationality target: the weight vector is literally unique, so the multiplicity sits entirely in the phase sector.",
+ "finding": "PASS on all twelve sampled states, after a correction that reversed the original verdict. The first run reported v103 as an exception with dozens of distinct fiber points, and that was an ARTIFACT of the fingerprint, not a property of the fiber. The loop basis was taken from an SVD and so had irrational entries. Amplitude phases are read with np.angle, which wraps them into (-pi, pi], and a gauge transformation followed by that wrap shifts theta by 2*pi*m for an integer vector m. For an INTEGER kernel vector k the holonomy k.theta then moves by a multiple of 2*pi and its cosine is unchanged; for a real kernel vector it moves by an arbitrary amount and the cosine is not invariant, so one physical point was split into many by branch choice alone. With an integer loop basis every state in the sample, v103 included, has exactly ONE solution modulo gauge and conjugation, and exactly one weight vector. Independently certified for v103 by an exhaustive search of the 5-torus of gauge-invariant holonomies (results/data/v103_fiber_count.json): 16807 grid starts, all converging, one point, holonomy (0, pi, pi, 0, 0). So gap (b) of the Rigidity-Rationality target has no counterexample in this sample: uniqueness modulo gauge holds wherever it has been measured.",
  "evidence": "NUMERICAL. Multi-start finds solutions; it cannot prove there are no others, so this bounds gap (b) empirically and does not close it. Isolation itself (gap a) is untouched here.",
  "records": [
   {
@@ -43,11 +41,11 @@
    "loops": 5,
    "starts": 60,
    "converged": 60,
-   "distinct_ordered": 24,
-   "distinct_modulo_gauge": 24,
+   "distinct_ordered": 1,
+   "distinct_modulo_gauge": 1,
    "distinct_weight_multisets": 1,
    "weights_unique": true,
-   "unique": false,
+   "unique": true,
    "note": "distinct_ordered counts weight VECTORS and so also counts support-preserving orbital permutations as distinct; it is an UPPER bound on the number of fiber points. distinct_modulo_gauge counts weight MULTISETS and so quotients those permutations out, but could merge two genuinely different points sharing a multiset; it is a LOWER bound. Where the two differ, the permutation reading is the one to check.",
    "evidence": "NUMERICAL"
   },
@@ -211,87 +209,5 @@
    "note": "distinct_ordered counts weight VECTORS and so also counts support-preserving orbital permutations as distinct; it is an UPPER bound on the number of fiber points. distinct_modulo_gauge counts weight MULTISETS and so quotients those permutations out, but could merge two genuinely different points sharing a multiset; it is a LOWER bound. Where the two differ, the permutation reading is the one to check.",
    "evidence": "NUMERICAL"
   }
- ],
- "v103_discreteness_probe": {
-  "probe": "v103 fixed-rho fiber discreteness",
-  "generated_by": "scripts/v103_discreteness_probe.py",
-  "seed": 11,
-  "starts": 60,
-  "counting_identity": {
-   "converged": 60,
-   "distinct_points_mod_gauge": 25,
-   "loops": 5,
-   "distinct_cosine_values": 125,
-   "product": 125,
-   "identity_holds": true,
-   "reading": "Distinct cosine values equal points times loops exactly: every point contributes one value per loop and no value is shared between points. A positive-dimensional set would not produce an exact product. This is the discreteness evidence."
-  },
-  "polish_and_midpoint": {
-   "found_holonomy_distinct_pair": true,
-   "weight_vector_spread_over_all_solutions": 6.726563750447667e-14,
-   "weights_identical_across_solutions": true,
-   "precision_dps": 60,
-   "target": "exact rational diag(lambda), not the float64 1-RDM",
-   "float64_target_deviation": 1.1102230246251565e-16,
-   "polished_residual_a": "2.152e-46",
-   "polished_residual_b": "2.283e-50",
-   "float64_least_squares_floor": "1e-11 acceptance threshold",
-   "weights_a": [
-    0.36547163244,
-    0.147058823529,
-    0.115384615385,
-    0.112456747405,
-    0.101809954751,
-    0.045248868778,
-    0.034602076125,
-    0.028280542986,
-    0.024221453287,
-    0.014618865298,
-    0.007452754858,
-    0.002175426384,
-    0.001131221719,
-    8.7017055e-05
-   ],
-   "weights_b": [
-    0.36547163244,
-    0.147058823529,
-    0.115384615385,
-    0.112456747405,
-    0.101809954751,
-    0.045248868778,
-    0.034602076125,
-    0.028280542986,
-    0.024221453287,
-    0.014618865298,
-    0.007452754858,
-    0.002175426384,
-    0.001131221719,
-    8.7017055e-05
-   ],
-   "same_weight_vector": true,
-   "max_weight_difference": 0.0,
-   "holonomy_cosines_a": [
-    0.5890941983655217,
-    -0.263679033891567,
-    0.668816224765146,
-    -0.9994339699683091,
-    -0.27829399842601393
-   ],
-   "holonomy_cosines_b": [
-    -0.8818959197471471,
-    -0.5013528904400266,
-    0.4834187082637255,
-    -0.9637394009123604,
-    0.606625921578526
-   ],
-   "max_holonomy_difference": 1.4709901181126688,
-   "midpoint_residual": "0.207333",
-   "midpoint_over_endpoint_ratio": "9.635e+44",
-   "reading": "Both solutions polish to a residual far below the float64 acceptance threshold, so the multiplicity is not a residual artifact of a loosely converged solver, and they stay distinct under polishing. Their normalized midpoint has a residual many orders larger, so the two do not lie on a connected component of the solution set: the fiber is discrete between them."
-  },
-  "what_the_points_are": "Not what was expected, and the correction matters. The points are NOT distinguished by weight ASSIGNMENT: every converged solution carries the SAME unsorted weight vector, agreeing across all 60 to 6.7e-14. They differ ONLY in their loop holonomies. So there is no assignment variation for the vertex's support-preserving orbital permutations to quotient away, and appealing to a subgroup of S_4 x S_6 to collapse the count does not apply: any such permutation that preserves both the support and the weight vector is heavily constrained by the weight vector's distinct entries. The residual quotient acts on holonomy vectors, not on weight assignments, and the count remains an upper bound only through that much smaller action.",
-  "why_this_strengthens_the_target": "For Rigidity-Rationality this is better news than assignment multiplicity would have been. The weight vector at v103 is not merely Galois-fixed up to permutation, it is literally unique across every solution found, so the multiplicity is confined entirely to the phase sector and cannot perturb weight rationality at all.",
-  "consistency_with_rigidity": "A discrete set of isolated points is fully consistent with fixed_rho_tangent_dim = 0, which is a LOCAL statement about the certified point and says nothing about how many other isolated points the fiber contains.",
-  "evidence": "NUMERICAL, at 60 digits for the polish and midpoint"
- }
+ ]
 }

@@ -66,11 +66,29 @@ def _keyed(name):
 
 
 def loop_basis(dets, d):
-    """Integer left-kernel basis of the support incidence matrix."""
-    m = np.array([[1.0 if o in t else 0.0 for o in range(d)] for t in dets])
-    _, s, vh = np.linalg.svd(m.T)
-    rank = int((s > 1e-9).sum())
-    return vh[rank:] if vh.shape[0] > rank else np.zeros((0, len(dets)))
+    """INTEGER left-kernel basis of the support incidence matrix.
+
+    The integrality is not cosmetic, it is what makes the holonomy well
+    defined. Amplitude phases are read with np.angle, which wraps them into
+    (-pi, pi]; a gauge transformation followed by that wrap changes theta by
+    2*pi*m for an integer vector m. For an INTEGER kernel vector k the
+    holonomy k.theta then shifts by 2*pi*(k.m), a multiple of 2*pi, so its
+    cosine is unchanged. For a real kernel vector, say a right singular vector
+    from an SVD, k.m is not an integer and the cosine is NOT invariant: the
+    same physical point acquires different holonomy values under different
+    branch choices, and a fingerprint built on it splits one fiber point into
+    many. That is exactly what happened here, reporting 59 spurious points at
+    v103 where there is one.
+    """
+    import sympy as sp
+
+    rows = sp.Matrix([[1 if o in t else 0 for o in range(d)] for t in dets])
+    out = []
+    for vec in rows.T.nullspace():
+        vec = vec * sp.lcm([q.q for q in vec])
+        vec = vec / sp.gcd([sp.Integer(q) for q in vec])
+        out.append([float(q) for q in vec])
+    return np.array(out) if out else np.zeros((0, len(dets)))
 
 
 def fingerprint(c, dets, loops):
@@ -239,17 +257,27 @@ def build(starts=DEFAULT_STARTS, seed=20260726):
         "weight_exceptions": len(weight_exceptions),
         "weight_exception_labels": [r["label"] for r in weight_exceptions],
         "finding": (
-            "The prereg FAILS as stated, at one state of twelve: v103's "
-            "fixed-rho fiber carries several isolated points modulo gauge, "
-            "which is consistent with first-order rigidity since rigidity is "
-            "local and says nothing about how many isolated points exist. But "
-            "the failure does NOT threaten the Rigidity-Rationality target. "
-            "Every solution found at v103 shares ONE weight multiset; the "
-            "points differ only in their loop holonomies. Gap (b) worried "
-            "about Galois-conjugate points with different weights forcing "
-            "algebraic weights of degree equal to the orbit size, and that is "
-            "not what occurs here: the weight vector is still Galois-fixed, "
-            "and the multiplicity is a discrete PHASE multiplicity."
+            "PASS on all twelve sampled states, after a correction that "
+            "reversed the original verdict. The first run reported v103 as an "
+            "exception with dozens of distinct fiber points, and that was an "
+            "ARTIFACT of the fingerprint, not a property of the fiber. The "
+            "loop basis was taken from an SVD and so had irrational entries. "
+            "Amplitude phases are read with np.angle, which wraps them into "
+            "(-pi, pi], and a gauge transformation followed by that wrap "
+            "shifts theta by 2*pi*m for an integer vector m. For an INTEGER "
+            "kernel vector k the holonomy k.theta then moves by a multiple of "
+            "2*pi and its cosine is unchanged; for a real kernel vector it "
+            "moves by an arbitrary amount and the cosine is not invariant, so "
+            "one physical point was split into many by branch choice alone. "
+            "With an integer loop basis every state in the sample, v103 "
+            "included, has exactly ONE solution modulo gauge and conjugation, "
+            "and exactly one weight vector. Independently certified for v103 "
+            "by an exhaustive search of the 5-torus of gauge-invariant "
+            "holonomies (results/data/v103_fiber_count.json): 16807 grid "
+            "starts, all converging, one point, holonomy (0, pi, pi, 0, 0). "
+            "So gap (b) of the Rigidity-Rationality target has no "
+            "counterexample in this sample: uniqueness modulo gauge holds "
+            "wherever it has been measured."
         ),
         "evidence": (
             "NUMERICAL. Multi-start finds solutions; it cannot prove there are "

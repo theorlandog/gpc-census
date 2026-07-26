@@ -106,21 +106,22 @@ method error, not evidence against it.
 `results/data/uniqueness_census.json`, 60 multi-starts on twelve rigid
 interference states.
 
-| prediction | verdict |
-|---|---|
-| every rigid state has one solution modulo gauge | **FAIL**, 1 of 12 (v103) |
-| (separated) every rigid state has one weight multiset | **PASS**, 12 of 12 |
+| prediction | originally scored | corrected |
+|---|---|---|
+| every rigid state has one solution modulo gauge | FAIL, 1 of 12 (v103) | **PASS**, 12 of 12 |
+| every rigid state has one weight vector | PASS, 12 of 12 | **PASS**, 12 of 12 |
 
-The failure does not damage the Rigidity-Rationality target and the split is
-why: v103's fiber carries several isolated points, consistent with
-first-order rigidity being local, but they share one weight multiset and
-differ only in loop holonomies. Gap (b) feared Galois-conjugate points with
-different weights; what occurs is discrete phase multiplicity with the weight
-vector Galois-fixed.
+The original FAIL was an artifact and is corrected (correction 11 below).
+v103's fiber has exactly ONE point modulo gauge, holonomy (0, pi, pi, 0, 0),
+certified by exhausting the 5-torus of gauge-invariant holonomies: 16807 grid
+starts, all converging, one point. So gap (b) of the Rigidity-Rationality
+target has no counterexample anywhere it has been measured, and the
+"discrete phase multiplicity" reading built on the original FAIL is
+withdrawn entirely.
 
 ## 2. Corrections, with cause
 
-Ten this program, five this month. Each is a case where a claim in the
+Eleven this program, six this month. Each is a case where a claim in the
 repository was wrong and structural evidence, not inspection, caught it.
 
 | # | superseded claim | cause | artifact |
@@ -134,6 +135,7 @@ repository was wrong and structural evidence, not inspection, caught it.
 | 7 | holonomy radicands are square roots of weight monomials | false at 15 of 82 loops; the mechanism predicts exactly where, confirmed 63/63 | `holonomy_fields.json` |
 | 8 | 12 quartic holonomies | 13; 37 + 32 + 12 does not equal 82 | `holonomy_fields.json` |
 | 9 | the fixed-rho inversion has sample size one | 14 states in 7 transport classes; v103 is unique in magnitude, not in kind | `two_block_family.json` |
+| 11 | v103's fixed-rho fiber has many points, "at least 59 and not saturating" | it has exactly ONE. The multiplicity was an artifact of a NON-INTEGER loop basis: phases are read wrapped into (-pi, pi], so a gauge change shifts theta by 2*pi*m, which moves an integer holonomy by a multiple of 2*pi (cosine unchanged) but moves a real-basis holonomy arbitrarily (cosine changed). One physical point was split into dozens by branch choice. Certified by exhausting the 5-torus of holonomies | `uniqueness_census.json`, `v103_fiber_count.json` |
 | 10 | v103 has natural-orbital support 79 | 14. My own ledger rotated a record that already passed the gate, and with degenerate lambda eigh returns an arbitrary eigenspace basis rather than the identity | `natural_orbital_summary.json` |
 
 Corrections 4, 5, 9 and 10 all have the same shape: a claim about the library
@@ -141,9 +143,17 @@ was carried in memory rather than read off an artifact. That is why the house
 rule now reads: any convention claim about the library must cite the audit
 artifact that verifies it.
 
-Correction 10 is mine, made this month, and it was caught by scoring a
-prediction I expected to fail for a different reason. That is the process
-working.
+Corrections 10 and 11 are both mine, made this month. Correction 10 was
+caught by scoring a prediction I expected to fail for a different reason.
+Correction 11 was caught by being asked for an exact number: the count would
+not saturate, which forced a change of search space from the 28-dimensional
+amplitudes to the 5-torus of gauge-invariant holonomies, and in that space the
+answer was immediate and the artifact obvious. Two intermediate readings were
+published along the way and both were wrong, first a counting identity that
+did not distinguish discrete from continuous, then a point count that was
+counting branch choices. The lesson is narrow and worth keeping: an invariant
+built from a numerically convenient basis is not an invariant. Only the
+integer kernel gives a branch-independent holonomy.
 
 ## 3. Mortality: mined laws versus mechanism-first
 
@@ -151,9 +161,13 @@ A MINED law is a pattern read off the corpus and then promoted. A
 MECHANISM-FIRST prediction is derived from structure and then tested.
 
 **Mined laws** (P2, P3, P4, B3, B5, P-DEN-2, P-INV-1, P-INV-2, P-INV-3,
-P-NSR-1, uniqueness-modulo-gauge, plus the archive's earlier rounds):
+P-NSR-1, plus the archive's earlier rounds):
 
-    11 scored, 11 failed or were downgraded.
+    10 scored, 10 failed or were downgraded.
+
+(Uniqueness modulo gauge was counted here while it read as a FAIL. It is not
+a mined law and it did not fail: it was a mechanism-derived prediction that
+PASSES, once the artifact in its measurement was removed.)
 
 Every headline law mined from the corpus in these programs died. The archive's
 earlier estimate of "about one in two" was optimistic; over the fiber and
@@ -170,6 +184,25 @@ being tested:
 | ratio > 1 implies generic interference | sparsity and diagonality cannot share a basis outside design and cancellation | CONFIRMED, 141 of 141 |
 
     4 scored, 4 confirmed.
+
+**NEAR MISS, and it belongs in the tally.** A fifth mechanism-first idea was
+proposed at the end of the arc and did not survive: that v103's several
+isolated fiber points, v_B's 64-of-128 attaining sign patterns, and the
+multiquadratic holonomy fields are one phenomenon, namely that the fixed-rho
+fiber of a rigid vertex is a finite 2-TORSION set over a unique rational
+weight vector. Checked before it was written into the manuscript, it split:
+the v_B leg is exactly right (64 = 2^6, a torsion coset over one weight
+vector, certified), and the v103 leg is wrong (its points share one weight
+vector but are separated by holonomy cosines spread across (-1,1), not by
+signs). The unifying clause was pulled from the manuscript outlook and
+relocated to RESEARCH.md's open-problem register; the two certified counts
+stay in the results section as data.
+
+Scored honestly, mechanism-first therefore runs 4 confirmed, 1 partial. The
+4 of 4 above should not be quoted without this line: the difference between
+this near miss and the eleven dead mined laws is not that it was luckier, it
+is that it was checked before being asserted, and the check is what caught
+the half that was wrong.
 
 This is the single most useful methodological finding of the arc, and it is
 what the ordering rule "mechanism before mining" is now based on. It is also

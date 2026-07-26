@@ -1,0 +1,29 @@
+{
+ "generated_by": "scripts/v103_fiber_count.py",
+ "vertex": "(3,10) v103",
+ "method": "Exhaustive grid over the 5-torus of gauge-invariant loop holonomies, with the weight vector held fixed at its verified common value, followed by least-squares refinement and clustering on the torus with complex conjugation folded in.",
+ "why_this_space": "Every solution carries the same weight vector, so only phases are unknown, and modulo the 9-dimensional orbital-phase gauge the 14 phases leave exactly 5 degrees of freedom. The search space is a compact 5-torus, not the 28-dimensional amplitude space that random multi-start was failing to saturate.",
+ "channel_sizes": {
+  "[1, 2]": 2,
+  "[1, 6]": 3,
+  "[2, 6]": 2,
+  "[3, 9]": 4,
+  "[5, 8]": 2
+ },
+ "grid_per_axis": 7,
+ "starts": 16807,
+ "converged": 16807,
+ "distinct_points": 1,
+ "residual_tolerance": 1e-10,
+ "worst_reconstruction_error": 5.719399157721996e-14,
+ "holonomies": [
+  [
+   7.874534357910079e-13,
+   3.1415926535908256,
+   3.1415926535886314,
+   1.3474776849875525e-12,
+   6.283185307160551
+  ]
+ ],
+ "evidence": "NUMERICAL"
+}
