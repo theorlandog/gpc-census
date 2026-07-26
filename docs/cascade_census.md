@@ -65,8 +65,9 @@ Two additions to the method as handed over, both load bearing:
 
 71 of the 799 certified states sparsify, removing 89 amplitudes in total. All 71
 are INTERFERENCE vertices; no DESIGN-INT or DESIGN-REAL state moves. 69 of the
-71 improved bounds are then certified in EXACT arithmetic (see below), so this
-is not only a numerical result.
+71 endpoints are then EXACTLY RECOGNIZABLE, but see the correction below: what
+that certifies is membership of the SPECTRUM locus, not vertex attainment, so
+the exact bounds are on s_Q^free and none of them is an s_Q^NO bound.
 
 The census support column is therefore an UPPER BOUND on the minimal support
 s_Q, and it is now known STRICT at 71 vertices, not just at v103. The new column
@@ -202,7 +203,28 @@ the first attempt, and the recognized values verify exactly. The remaining
 exactification targets are the other 70 sparsified states, none of which have
 been refined or recognized.
 
-## 69 of the 71 improved bounds are CERTIFIED, not numerical
+## 69 of the 71 endpoints are exactly recognizable, on the SPECTRUM locus only
+
+CORRECTION (2026-07). The acceptance criterion used below was the
+characteristic-polynomial identity, which is INVARIANT UNDER CONJUGATION and so
+is satisfied by every state in the U(d) orbit, including states whose 1-RDM is
+rotated off the diagonal. All 71 endpoints are in fact non-diagonal, so not one
+of them attains its vertex in the census convention. Re-run under the
+strengthened criterion (rho exactly diagonal AND diag(rho) = lambda, in exact
+arithmetic, scripts/exactify_cascade.py):
+
+    certified s_Q^NO attainers                     0 of 71
+    exact but spectrum-only (rho not diagonal)    69 of 71
+    weights not rational (numerical only)          2 of 71
+
+Cross-referenced against the 2-RDM orbit gate (results/data/orbit_check.json),
+63 of those 69 are the library state written in different orbitals, a GAUGE
+statement about that state, and only 6 are genuinely new states giving
+vertex-level s_Q^free bounds. The text below is kept for its arithmetic, which
+is correct; every occurrence of "certified" in it means "exact on the spectrum
+locus".
+
+## Superseded: 69 of the 71 improved bounds are CERTIFIED, not numerical
 
 The v103 recipe generalizes. `scripts/exactify_cascade.py` runs it on every
 cascade endpoint: refine to 40 digits by Gauss-Newton, recognize the squared

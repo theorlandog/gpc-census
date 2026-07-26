@@ -48,27 +48,55 @@ def test_distinct_eigenvalues_dedups():
     assert distinct_eigenvalues(spec) == [18 / 34, 5 / 34]
 
 
-def test_v103_sparsifies_below_its_certified_support():
-    """v103's certified support 14 is not minimal: the fiber reaches sparser."""
+def test_v103_sparsifies_on_the_spectrum_locus_only():
+    """v103 reaches support 10 on the SPECTRUM locus, and its endpoint is not diagonal.
+
+    This bounds s_Q^free, not s_Q^NO. The endpoint's 1-RDM has off-diagonal
+    5/68, so it does not attain the vertex in the census diagonal convention.
+    """
     from gpc_census.cascade import cascade
 
-    out = cascade(*_case("(3,10)", 103, 10))
+    out = cascade(*_case("(3,10)", 103, 10), locus="fixed_spectrum")
     assert out["support_start"] == 14
     assert out["support_upper"] <= 12, out["support_upper"]
     assert out["final_residual"] < 1e-10
     assert out["final_spectrum_error"] < 1e-8
-    assert out["fiber"] == "fixed_spectrum"
-    assert out["evidence"] == "numerical"
+    assert out["locus"] == "fixed_spectrum"
+    assert out["bounds"] == "s_Q_free"
+    # the whole point of the correction: the endpoint left the diagonal locus
+    assert out["final_diagonality_error"] > 1e-3
     for rnd in out["rounds"]:
         assert rnd["certificate_residual"] < 1e-10
         assert rnd["spectrum_error"] < 1e-8
+
+
+def test_v103_does_not_sparsify_on_the_natural_orbital_locus():
+    """Holding rho = diag(lambda), v103 does not sparsify at all.
+
+    Guards the corrected claim: s_Q^NO(v103) <= 10 is NOT established.
+    """
+    from gpc_census.cascade import cascade
+
+    out = cascade(*_case("(3,10)", 103, 10), locus="natural_orbital")
+    assert out["support_upper"] == out["support_start"] == 14
+    assert out["bounds"] == "s_Q_NO"
+    assert out["final_diagonality_error"] < 1e-9
+
+
+def test_off_locus_state_refuses_the_natural_orbital_cascade():
+    """A library state with a non-diagonal 1-RDM cannot start on that locus."""
+    from gpc_census.cascade import cascade
+
+    out = cascade(*_case("(4,9)", 65, 9), locus="natural_orbital")
+    assert out["blocked_reason"] == "start_off_locus"
+    assert out["support_upper"] == out["support_start"]
 
 
 def test_v89_does_not_sparsify_on_this_path():
     """v89 floors; the result must be a recorded floor, never a claimed drop."""
     from gpc_census.cascade import cascade
 
-    out = cascade(*_case("(3,10)", 89, 10))
+    out = cascade(*_case("(3,10)", 89, 10), locus="fixed_spectrum")
     assert out["support_upper"] == out["support_start"] == 10
     assert out["blocked_on_path"] is True
     assert out["blocked_reason"] in ("certificate_floor", "multiplicity_drift")
@@ -97,11 +125,14 @@ def test_spectrum_error_catches_multiplicity_drift():
     assert spectrum_error(c, dets, wrong, 10) > 0.5
 
 
-def test_cascade_reports_its_fiber_and_evidence_level():
-    """Rules 2 and 4: every result names its fiber and its evidence level."""
+def test_cascade_reports_its_locus_and_evidence_level():
+    """Every result names WHICH minimum it bounds and its evidence level."""
     from gpc_census.cascade import cascade
 
-    out = cascade(*_case("(3,10)", 89, 10))
-    assert out["fiber"] == "fixed_spectrum"
-    assert out["evidence"] == "numerical"
-    assert "method" in out and out["method"]
+    for locus, bounds in (("natural_orbital", "s_Q_NO"),
+                          ("fixed_spectrum", "s_Q_free")):
+        out = cascade(*_case("(3,10)", 89, 10), locus=locus)
+        assert out["locus"] == locus
+        assert out["bounds"] == bounds
+        assert out["evidence"] == "numerical"
+        assert "method" in out and out["method"]

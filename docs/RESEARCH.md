@@ -492,7 +492,11 @@ into the project.
 - Census-wide sparsification: the support column is an UPPER BOUND on
   s_Q^free, and it is STRICT at 71 of the 799 certified states,
   all INTERFERENCE. The cascade removes 89 amplitudes in total: 55 states
-  drop one, 15 drop two, v103 drops four. 69 of the 71 improved bounds are
+  drop one, 15 drop two, v103 drops four. 69 of the 71 endpoints are exactly
+  recognizable, but on the SPECTRUM locus only: under the strengthened
+  criterion (rho diagonal AND diag = lambda) 0 of 71 certify as attainers, 63
+  are the library state in rotated orbitals and 6 are new states bounding
+  s_Q^free. Superseded text follows. 69 of the 71 improved bounds are
   then EXACT (high-precision refine, integer relation detection on the
   squared weights, gauge-fix, exact characteristic-polynomial identity);
   the two holdouts, (5,10) v144 and v256, have partly irrational weights,
@@ -787,7 +791,8 @@ Priority:
 1. Formalize the theorem-candidate proofs (the two Hardt-dependent ones
    together).
 2. Alpha-certify what exact recognition could not reach. MOSTLY OVERTAKEN:
-   69 of the 71 cascade endpoints were certified outright by high-precision
+   69 of the 71 cascade endpoints were exactly recognized (spectrum locus
+   only, not attainment) by high-precision
    refinement plus integer relation detection plus an exact
    characteristic-polynomial check, which is stronger than an alpha
    certificate and needs no external tool. What remains for alphaCertified
