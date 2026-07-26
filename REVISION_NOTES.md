@@ -63,6 +63,32 @@ changed; SHA256SUMS untouched and re-verified.
   manuscript/data/checksum drift. Full suite green (78 passed); the
   standalone checker re-passes all 799 certificates.
 
+### Addendum 3 (same cycle): consistency pass over the merged fiber-program results
+
+- Reviewed the merged research (complete 82-loop holonomy tally, gauge
+  minimization, sparsification cascade, v103 support-10 certificate,
+  denominator-arithmetic pre-registration) against the manuscript. The
+  upstream manuscript edits were verified correct against the shipped
+  artifacts: 82 loops with cosine degrees 37/32/13 and exp degrees
+  8/29/32/13, all 2-elementary; 15 of 82 non-monomial radicands; 629
+  gauge-minimality certificates with 170 open; 71 cascade drops, all
+  interference, 89 amplitudes removed, 33 multiplicity-drift exclusions;
+  69 of 71 endpoints exactly certified; 63 same-state / 8 new endpoints
+  with 2-RDM deviations 3.4e-3 to 4.7e-2; v103 support 14 -> 10 with the
+  ten quoted rational weights and denominator 46852.
+- One wording fix: the cascade residual bound is machine epsilon
+  (2.2204e-16), so "below 2.2e-16" became "at or below machine epsilon
+  (2.3e-16)".
+- The consistency test now covers the companion artifacts: 
+  check_manuscript_counts.py re-reads holonomy_fields.json,
+  gauge_min_summary.json, cascade_summary.json, cascade_exact.json,
+  orbit_check.json, and v103_support10_certificate.json and fails on any
+  drift from the manuscript's quoted numbers, keeping the certificate
+  table's "every census count" row true.
+- Certificate table gains three rows: the complete Galois tally, the 629
+  gauge-minimality certificates, and the exact free-basis support bounds
+  including s_Q^free <= 10 at the denominator-34 vertex.
+
 ### Addendum 2 (same cycle): the library now ships a REAL v_B state
 
 - The (4,9) index 65 record (v_B) in states.jsonl now ships the real
