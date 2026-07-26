@@ -58,6 +58,26 @@ def test_support10_state_attains_v103_exactly():
     assert sp.simplify(charpoly - target) == 0
 
 
+def test_support10_state_is_not_a_natural_orbital_representative():
+    """EXACT: its 1-RDM is not diagonal, so it bounds s_Q^free and not s_Q^NO.
+
+    This is the fact that decides which quantity the support-10 bound belongs
+    to. The state's natural occupations are the EIGENVALUES of its 1-RDM, which
+    are lambda exactly (the test above), so it does attain the vertex; but the
+    1-RDM carries rho_{18} = 5/68, so the basis it is written in is not its own
+    natural-orbital basis. A bound proved here therefore may NOT be compared
+    with s_I, which bounds the natural-orbital quantity only.
+    """
+    rho = _rho_exact()
+    off = [(i, j) for i in range(D) for j in range(D)
+           if i != j and sp.simplify(rho[i, j]) != 0]
+    assert off, "a diagonal 1-RDM here would move this bound to s_Q^NO"
+    assert sp.simplify(rho[3, 9] + sp.Rational(5, 68)) == 0
+    assert sp.simplify(rho[1, 6] + sp.sqrt(42) / 221) == 0
+    # and the diagonal is not lambda either: it is not even a permutation of it
+    assert sp.simplify(rho[1, 1] - sp.Rational(233, 442)) == 0
+
+
 def test_support10_beats_the_certified_library_support():
     """The bound this state certifies is strictly better than the library's."""
     import json

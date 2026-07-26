@@ -72,8 +72,31 @@ made and caught once; see tests pinning v_A and v_B).
   state-den/spectrum-den ratio 2 (the archive's mined "9 of 12" figure is a
   stale snapshot; the ratio is representative-dependent, exactly as the
   P2/P3/P4 caveat predicts). The census min-support column (support of the
-  certified state) is an UPPER bound on the true minimal quantum support
-  s_Q, now known strict at v103; treat it as such wherever quoted.
+  certified state) is an UPPER bound on s_Q^NO, the NATURAL-ORBITAL minimal
+  support; see the support taxonomy below before quoting it. It is NOT known
+  strict at v103.
+
+## The support taxonomy (adopted 2026-07; do not collapse these)
+
+Four different minima, with different lower bounds. Conflating them produced a
+wrong reinstatement of a retracted bound, so every support claim in this
+project must name which one it is about.
+
+- s_M(lambda): least |S| with A_S q majorized by lambda. The airtight
+  a-priori baseline.
+- s_I(lambda): least |S| with the diagonal incidence system A_S p = lambda,
+  p >= 0, sum p = 1 feasible. A DIAGONAL notion. s_M <= s_I.
+- s_Q^NO(lambda): least support of a state whose 1-RDM is EXACTLY
+  diag(lambda). The census quantity, the one the library column bounds.
+  s_I <= s_Q^NO.
+- s_Q^free(lambda): least support of any state with spec(rho) = lambda.
+  s_M <= s_Q^free <= s_Q^NO. **s_I does NOT bound s_Q^free**, so the two must
+  never appear in one inequality.
+
+Per-STATE (not per-vertex) there is a fifth: the ORBIT-MINIMAL support of psi,
+the least support over the full U(d) orbit of that one state. It is a
+basis-free complexity measure of the state, bounded below by s_M, and it upper
+bounds s_Q^free for the vertex psi attains.
 
 ## The validation law (non-negotiable)
 
@@ -86,6 +109,18 @@ gate; RESEARCH_ARCHIVE "BUGS FIXED IN src/gpc_census/levi.py").
 Consequences:
 
 - No result ships without passing gpc_census.validate and the test suite.
+- THE ATTAINER GATE (added 2026-07, enforced by
+  gpc_census.validate.check_vertex_attainer). A state offered as attaining a
+  vertex must have (1) a diagonal 1-RDM, (2) diagonal exactly lambda, (3) unit
+  norm, and, if it is claimed to be a NEW attainer, (4) a 2-RDM spectrum
+  DIFFERENT from the library representative's. Conditions 1 and 2 are what make
+  its support comparable with s_I at all; a state passing only
+  spec(rho) = lambda attains the vertex in some other basis and bounds
+  s_Q^free instead. Condition 4 is basis-free and cheap: the 2-RDM spectrum is
+  invariant under every one-body unitary, so a match means the state is the
+  library one in rotated orbitals, which is a gauge statement and must be
+  reported as one. This gate would have caught the mislabelled v103 support-10
+  bound immediately.
 - The preflight gate: any state-solving change must reconstruct v_B and
   certify its closed form end to end (scripts/solve_all.py --preflight)
   before campaigns run. The gate uses the weights-first solver
@@ -157,6 +192,10 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- HANDOFF.md: the note to the next agent from the 2026-07 gauge session, which
+  supersedes two instructions of the handoff that preceded it (the v103
+  endpoint is not diagonal, and 8 of the 71 cascade endpoints are new states).
+  Read it before acting on any support claim.
 - RESEARCH_ARCHIVE.md: the frozen census-era evidence log (this file's
   status tags point into it).
 - THEOREMS.md: numbered theorem statements (T1 Jacobian program, T4
@@ -178,7 +217,13 @@ plethysm criterion feed Problem 7 below.
 - unified_fiber_dimension.md: the unified first-order fiber-dimension
   formula (both regimes), its corpus verification over all 156 interference
   states, the v103 sparsification cascade, and merge notes. Its s_Q(v103)
-  <= 12 is superseded by <= 10, certified exactly; see cascade_census.md.
+  <= 12 is superseded by s_Q^free(v103) <= 10, certified exactly; see
+  cascade_census.md.
+- gauge_minimization.md: minimization of every certified state's support over
+  its natural-orbital gauge family, the exact profile-class/flattening lower
+  bound (629 of 799 certified gauge-minimal), the null result on the other 170,
+  the power calibration of the search, and the scored pre-registration.
+- prereg_gauge_minimization.md: that pre-registration, committed before the run.
 - cascade_census.md: the census-wide sparsification cascade, the exact
   certification of 69 of the 71 improved support bounds, the v103
   support-10 state, the cancellation-regime census, and the
@@ -401,15 +446,51 @@ into the project.
   5/68, 35/901, 1/34, 18/901, 84/11713), the single loop holonomy is pi so
   the state is real up to gauge, and det(rho - xI) = (x - 9/17)^4
   (x - 5/34)^6 holds in exact rational and radical arithmetic. So
-  s_Q(v103) <= 10, certified. Its state denominator 46852 = 2^2*13*17*53
+  s_Q^free(v103) <= 10, certified. Its state denominator 46852 = 2^2*13*17*53
   carries a prime found in neither the spectrum denominator nor the
   library state, which is why no grid search over multiples of the natural
   denominator could reach it. Upper bound only, not a minimality claim.
   [docs/cascade_census.md; scripts/v103_endpoint_precision.py;
   scripts/v103_support10_certificate.py; tests/test_v103_support10.py;
   results/data/v103_support10_certificate.json]
-- Census-wide sparsification: the support column is an UPPER BOUND on the
-  minimal support s_Q, and it is STRICT at 71 of the 799 certified states,
+- The natural-orbital GAUGE was never explored before 2026-07, and exploring
+  it does not move the library column. Every vertex has a degenerate spectrum,
+  so every certified state carries a gauge freedom U(m_1) x ... x U(m_k) whose
+  every point has 1-RDM identically diag(lambda) and is an equally legitimate
+  natural-orbital representative. Minimizing support over that family:
+  0 of 799 states sparsify, and 629 of 799 are EXACTLY gauge-minimal, certified
+  by a gauge-invariant lower bound (a block-diagonal unitary preserves each
+  determinant's block profile, hence each profile class's flattening rank). The
+  other 170 are open in both directions, 51 of them because the bound falls
+  back to a trivial value on a Lambda^a factor with 3 <= a <= m-3. The search's
+  power is pinned by a recovery test (a provably rank-1 class must collapse to
+  one determinant; it does, at residual 4e-16), and two earlier search methods
+  that failed that test were removed rather than shipped.
+  [docs/gauge_minimization.md; docs/prereg_gauge_minimization.md;
+  src/gpc_census/gauge.py; results/data/gauge_min.jsonl]
+- NONE of the 71 cascade endpoints is in a natural-orbital basis: 0 of 71 have
+  a diagonal 1-RDM. The fixed-spectrum continuation preserves spec(rho), which
+  is all it promises, and not diagonality. So every improved cascade bound is a
+  bound on s_Q^free and NEVER on s_Q^NO, and none of them may be quoted beside
+  s_I. At v103 the exact certificate is arithmetically sound but was labelled
+  with the wrong quantity: its state carries rho_39 = -5/68 exactly, so it
+  certifies s_Q^free(v103) <= 10 while s_Q^NO(v103) stays bounded by the
+  library support 14. [results/data/orbit_check.json;
+  scripts/v103_support10_certificate.py; tests/test_v103_support10.py]
+- The cascade is mostly an ORBITAL ROTATION ENGINE, but not entirely. By the
+  2-RDM spectrum (invariant under every one-body unitary), 63 of the 71
+  endpoints ARE the certified library state in different orbitals (agreement
+  ~1e-16), so their supports describe the STATE, not the vertex: the
+  natural-orbital basis is not the sparsest basis for those states. The other
+  8 differ by 3.4e-3 to 4.7e-2, which no one-body rotation can produce, so
+  those are genuinely NEW extremal states over their vertices ((4,10) v93,
+  (5,10) v65, v256, v144, v140, v230, v263, and (4,9) v65 = v_B). The split is
+  bimodal with nothing between 1e-12 and 1e-3. At v103 the connecting unitary
+  is exhibited explicitly (residual 7.5e-14) and its off-block entries reach
+  0.196, so it is a U(10) rotation and not a gauge one.
+  [results/data/orbit_check.json; scripts/orbit_check.py]
+- Census-wide sparsification: the support column is an UPPER BOUND on
+  s_Q^free, and it is STRICT at 71 of the 799 certified states,
   all INTERFERENCE. The cascade removes 89 amplitudes in total: 55 states
   drop one, 15 drop two, v103 drops four. 69 of the 71 improved bounds are
   then EXACT (high-precision refine, integer relation detection on the
@@ -452,9 +533,13 @@ into the project.
   content of "positive realization defect"), with in-repo certificates
   (scripts/reproduce_next_claims.py). DEFINITION (adopted): for a vertex
   spectrum lambda, s_I(lambda) = min |S| such that the diagonal incidence
-  system A_S p = lambda, p >= 0, sum p = 1 is feasible; s_Q(lambda) = min
-  support of a pure state with spec(rho) = lambda; realization defect =
-  s_Q - s_I. CERTIFIED: s_I(v89) = 7 and s_I(v103) = 6, exact (MILP optimum
+  system A_S p = lambda, p >= 0, sum p = 1 is feasible; s_Q^NO(lambda) = min
+  support of a pure state whose 1-RDM is EXACTLY diag(lambda); realization
+  defect = s_Q^NO - s_I. (The defect is against the NATURAL-ORBITAL minimum.
+  Taking it against s_Q^free instead, the minimum over all states with
+  spec(rho) = lambda, is not meaningful: s_I does not bound s_Q^free. The
+  original wording defined s_Q by the spectrum and then subtracted s_I from
+  it, which is the conflation the support taxonomy above exists to stop.) CERTIFIED: s_I(v89) = 7 and s_I(v103) = 6, exact (MILP optimum
   + exact rational witness weights); AND both minimal incidence witnesses
   are PROVED quantum-infeasible in exact arithmetic: v89's by a
   projector-algebra contradiction ((P^2)_04 = P_08 P_84 with both factors
@@ -463,13 +548,17 @@ into the project.
   multiplicity kill; and the surviving rank-one branch's necessary
   magnitude system has zero nonnegative real solutions, exact solve). The
   defect hierarchy at the closures now reads
-      v89 :  s_M = 4 < s_I = 7 <= s_Q <= 10
-      v103:  s_M = 4 < s_I = 6 <= s_Q <= 12
-  with s_M the (weak) majorization baseline and only s_M <= s_Q guaranteed
-  a priori. [docs/unified_fiber_dimension.md section 3.]
+      v89 :  s_M = 4 <= s_Q^free <= 10;  s_I = 7 <= s_Q^NO <= 10
+      v103:  s_M = 4 <= s_Q^free <= 10;  s_I = 6 <= s_Q^NO <= 14
+  with s_M the (weak) majorization baseline. Only s_M <= s_Q^free and
+  s_I <= s_Q^NO hold a priori. v89's upper bound serves both columns because
+  its certified state is diagonal and did not sparsify; v103's support-10
+  state serves only the free-basis column (its 1-RDM is not diagonal), and no
+  gauge rotation improves its natural-orbital column.
+  [docs/unified_fiber_dimension.md section 3; docs/gauge_minimization.md.]
 
-🔬 STILL OPEN, do not overclaim: the GLOBAL statement s_Q > s_I (defect > 0)
-requires killing every support of size s_I..s_Q-1, not just the minimal
+🔬 STILL OPEN, do not overclaim: the GLOBAL statement s_Q^NO > s_I (defect > 0)
+requires killing every support of size s_I..s_Q^NO-1, not just the minimal
 witnesses. Ladder status for v89 at size 7: 41 supports enumerated
 (incomplete), 34 killed exactly by the projector-pattern argument, 6
 distinct survivors all floor numerically (1.5e-2..6e-2 over 24
@@ -593,7 +682,7 @@ and names the tools to import.)
 4. Graph-theoretic coupled-phase realizability criterion. [Groundwork:
    one-hop class combinatorics in classify.py; loop census in the archive.]
 5. Infinite positive-defect family. [The defect definition is now fixed and
-   witnessed (s_I / s_Q / s_M above); still BLOCKED on the global defect
+   witnessed (s_I / s_Q^NO / s_M above); still BLOCKED on the global defect
    inequality at one instance (the 🔬 ladder above) before hunting a
    family. Crystallographic sparse phase retrieval is the template
    (prior_art_roadmap section 1).]
@@ -636,7 +725,14 @@ Future agents should NOT assume:
   projective-stabilizer demotion are all representative-dependent);
 - fixed-rho rigidity implies fixed-spectrum rigidity (v103; name the fiber
   in every rigidity claim);
-- the certified ledger support is the minimal support s_Q (strict at v103);
+- the certified ledger support is the minimal support (it bounds s_Q^NO from
+  above; the natural-orbital gauge does not improve it anywhere in the census,
+  and it is NOT known strict at v103, whose support-10 witness is a
+  free-basis one);
+- that a support bound may be compared with s_I without naming which minimum
+  it is (s_I bounds s_Q^NO only, never s_Q^free);
+- that a sparser state reached by continuation is a NEW state (63 of 71
+  cascade endpoints are the library state rotated; check the 2-RDM spectrum);
 - toric-orbit descriptions;
 - denominator preservation;
 - two-channel universality;
@@ -660,6 +756,13 @@ the improved support bounds (scripts/exactify_cascade.py); the scored
 out-of-sample bracket pre-registration (docs/prereg_bracket_3_11_3_12.md);
 and the reconciliation artifact (scripts/reconcile_claims.py).
 
+Also done and landed (2026-07, gauge session): the natural-orbital gauge
+minimization and its exact lower bound (src/gpc_census/gauge.py,
+scripts/gauge_census.py, docs/gauge_minimization.md); the 2-RDM acceptance gate
+and the census-wide orbit check of the cascade endpoints
+(scripts/orbit_check.py); the support taxonomy above; and the relabelling of
+every cascade bound from s_Q to s_Q^free.
+
 Also done and landed (2026-07, arithmetic session): the census-wide holonomy
 field scan (scripts/holonomy_field_scan.py,
 results/data/holonomy_fields.json, tests/test_holonomy_fields.py); the
@@ -673,6 +776,14 @@ full 82-loop result.
 
 Priority:
 
+0. Sharpen the gauge lower bound on the 170 open rows, 51 of which are open
+   only because no invariant is implemented for a Lambda^a factor with
+   3 <= a <= m-3. A Lambda^3 normal-form invariant would close most of them and
+   is a finite, classical computation.
+0b. The 8 genuinely new extremal states found by the orbit check deserve exact
+   recognition of their own: they are new attainers, not rotations, and two of
+   them ((5,10) v144 and v256) are exactly the endpoints that resisted rational
+   recognition, which is now explained rather than mysterious.
 1. Formalize the theorem-candidate proofs (the two Hardt-dependent ones
    together).
 2. Alpha-certify what exact recognition could not reach. MOSTLY OVERTAKEN:
@@ -710,7 +821,10 @@ this table.
 |---|---|
 | v103 is first-order rigid | rigid for the FIXED-RHO fiber, deformable (tangent 6) for the FIXED-SPECTRUM fiber; v89 rigid in both |
 | v103 is an isolated support-14 point | true of the route-B search landscape and gauge slice, false of the fiber: support 10 is reached and certified exactly |
-| the census support column is the minimal support | it is the certified support, an upper bound on s_Q, strict at 71 of 799 vertices |
+| the census support column is the minimal support | it is the certified support, an upper bound on s_Q^NO; the cascade's 71 improvements are improvements of s_Q^free, a different quantity |
+| the certified support column was never minimized over the natural-orbital gauge, so it is loose | it was never minimized, and minimizing it changes nothing: 0 of 799 sparsify, 629 of 799 are certified gauge-minimal |
+| s_Q^NO(v103) <= 10 (the support-10 endpoint read as a natural-orbital state) | FALSE. That endpoint's 1-RDM carries rho_39 = -5/68 exactly, so it certifies s_Q^free(v103) <= 10 only; s_Q^NO(v103) stays bounded by the library support 14 |
+| the cascade endpoints are all the library state in another basis | 63 of 71 are; the other 8 have 2-RDM spectra no one-body rotation can reach, so they are genuinely new extremal states |
 | 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
 | the trisected states are a cube-root phase-complexity tier | a printing artifact: (pi + 3*atan(t))/3 is pi/3 + atan(t), and no cubic subextension exists in any of the 13, invariant or representative |
 | holonomy radicands are square roots of weight monomials | true only for channel classes of size at most 2 (proved); false at 15 of 82 loops, all at classes of size 3 or more, exactly as the mechanism predicts |

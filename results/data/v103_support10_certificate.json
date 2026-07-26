@@ -1,6 +1,12 @@
 {
   "vertex": "(3,10) index 103, spectrum (18,18,18,18,5,5,5,5,5,5)/34",
-  "claim": "s_Q(v103) <= 10: an extremal state of Slater support 10 attains this vertex exactly",
+  "claim": "s_Q^free(v103) <= 10: a state of Slater support 10 has spec(rho) = lambda exactly, so it attains this vertex",
+  "quantity_bounded": "s_Q^free, the minimum over ALL states with spec(rho) = lambda. NOT s_Q^NO: this state's 1-RDM is not diagonal (rho_18 = 5/68 exactly), so it is not a natural-orbital representative and s_I does not bound it",
+  "natural_orbital_counterpart": {
+    "library_support": 14,
+    "gauge_lower_bound": 9,
+    "note": "s_Q^NO(v103) is bounded above by 14 (the library state, no gauge sparsification found) and below by 9; the support-10 state does not improve it"
+  },
   "evidence": "EXACT (rational and radical arithmetic, no floating point)",
   "provenance": "fixed-spectrum sparsification cascade endpoint (docs/cascade_census.md), weights recognized by high-precision integer relation (scripts/v103_endpoint_precision.py), verified here exactly",
   "certified_library_support": 14,
@@ -90,8 +96,11 @@
     "normalization_exact": true,
     "charpoly_identity_exact": true,
     "trace_equals_particle_number": true,
-    "hermitian_exact": true
+    "hermitian_exact": true,
+    "one_rdm_is_diagonal_exact": false,
+    "diagonal_equals_lambda_exact": false
   },
   "all_checks_pass": true,
-  "caveat": "an upper bound on the minimal support, not a minimality claim; the endpoint is first-order rigid in both fiber senses but that does not prove no sparser state exists"
+  "caveat": "an upper bound on the minimal support, not a minimality claim; the endpoint is first-order rigid in both fiber senses but that does not prove no sparser state exists",
+  "diagonality_caveat": "one_rdm_is_diagonal_exact is FALSE by design and is reported, not asserted: it is the fact that makes this a free-basis bound rather than a natural-orbital one"
 }

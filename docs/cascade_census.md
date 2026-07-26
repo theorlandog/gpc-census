@@ -4,6 +4,33 @@ Artifacts: `results/data/cascade.jsonl` (one record per vertex),
 `results/data/cascade_summary.json`. Engine: `src/gpc_census/cascade.py`.
 Driver: `scripts/census_cascade.py`. Tests: `tests/test_cascade.py`.
 
+> **RELABELLED 2026-07 (read this before quoting any number below).** Every
+> improved support bound in this file was originally written as a bound on
+> `s_Q`, tacitly the natural-orbital quantity the census library column
+> reports. It is not that quantity. Running the 2-RDM gate and an exact
+> diagonality test on all 71 endpoints (`scripts/orbit_check.py`,
+> `results/data/orbit_check.json`) establishes two things:
+>
+> - **NOT ONE of the 71 endpoints has a diagonal 1-RDM.** Zero of 71. The
+>   cascade preserves the SPECTRUM of rho, which is all the fixed-spectrum
+>   fiber asks, and it does not preserve diagonality. So every endpoint attains
+>   its vertex in a basis that is not its own natural-orbital basis, and every
+>   bound below is a bound on **s_Q^free** (the minimum over all states with
+>   spec(rho) = lambda), never on **s_Q^NO** (the minimum over states with rho
+>   exactly diag(lambda)). Since `s_I` bounds only s_Q^NO from below, no number
+>   in this file may be quoted in a sentence with s_I.
+> - **63 of the 71 endpoints are the certified library state in different
+>   orbitals**, agreeing with it in 2-RDM spectrum to ~1e-16. For those, the
+>   endpoint support bounds the ORBIT-MINIMAL support of that one state, a
+>   basis-free property of the state rather than of the vertex. The remaining
+>   **8 are genuinely different states** (2-RDM spectra differing by 3.4e-3 to
+>   4.7e-2, far outside numerical doubt, with certificate residuals ~1e-17):
+>   those ARE new extremal states over their vertices. The split is bimodal
+>   with nothing in between, so it is not a tolerance artifact.
+>
+> The natural-orbital quantity is computed separately in
+> `docs/gauge_minimization.md`.
+
 EVIDENCE LEVEL: everything here is NUMERICAL. A landed round is a continuation
 endpoint whose minimal-polynomial certificate and eigenvalue multiplicities hold
 to the residuals quoted, not a proof that an exact state exists there. Task 3
@@ -96,7 +123,24 @@ superseding the <= 12 in `docs/unified_fiber_dimension.md` section 3. The
 earlier floor at (2,3,6) was a property of that continuation path, exactly as
 the handoff's warning said, and not a property of the fiber.
 
-### s_Q(v103) <= 10 is CERTIFIED, not numerical
+### s_Q^free(v103) <= 10 is CERTIFIED, not numerical (and it is NOT s_Q^NO)
+
+The exact arithmetic below is sound and stands. What changed in the 2026-07
+relabelling is which quantity it bounds. The support-10 endpoint's 1-RDM is not
+diagonal: exactly, rho_{39} = -5/68 and rho_{16} = -sqrt(42)/221, and its
+diagonal is not lambda (it reads 9/17, 233/442, 9/17, 35/68, ... against
+lambda = (18^4, 5^6)/34). Its EIGENVALUES are lambda exactly, which is why it
+attains the vertex; but it is not a natural-orbital representative. The exact
+non-diagonality is checked in `tests/test_v103_support10.py` so the label cannot
+silently revert.
+
+Solving for the connecting one-body unitary makes the relation exact rather than
+inferred: there is a U with Gamma(U) psi_library = psi_endpoint at residual
+7.5e-14, and its off-block entries reach 0.196, so U is a genuine U(10) rotation
+and NOT an element of the U(4) x U(6) natural-orbital gauge. The support-10
+state is therefore the certified library state seen in other orbitals, and 10
+bounds that state's orbit-minimal support. For v103 the natural-orbital minimum
+is bounded by 9 <= s_Q^NO <= 14 (`docs/gauge_minimization.md`).
 
 The endpoint turned out to be exactly recognizable, so this one bound does not
 stay at [N]. Refining it by Gauss-Newton in 60-digit arithmetic

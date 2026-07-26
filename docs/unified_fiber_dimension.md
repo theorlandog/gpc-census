@@ -3,10 +3,28 @@
 Companion to docs/silence_rank_lemma.md. Everything below is verified against
 the shipped ledger with independent code; numerical claims carry residuals.
 
+## 0. Scope remark: SUPPORT-RESTRICTED (added 2026-07)
+
+The formula below, its corpus verification, and every tangent dimension quoted
+in this file are SUPPORT-RESTRICTED: they describe deformations of the
+amplitudes on a fixed support S.
+
+The unrestricted fixed-ρ fiber over a DEGENERATE spectrum always contains the
+natural-orbital gauge orbit U(m_1) × ... × U(m_k) · ψ, since a block-diagonal
+rotation preserves ρ = diag(λ) identically. Every census vertex has a
+degenerate spectrum, so the unrestricted fixed-ρ fiber is never a point here,
+and a tangent dimension of 0 below never means the unrestricted fiber is
+zero-dimensional. It means the fiber leaves the support, which is precisely
+what the gauge orbit does: at v103 all 42 off-diagonal U(4) × U(6) generators
+move the certified state off its support at first order. Gauge sparsification
+is therefore invisible to everything in this file, and is searched for by
+finite rotations instead (`src/gpc_census/gauge.py`,
+`docs/gauge_minimization.md`).
+
 ## 1. The unified formula (T1's first-order form, both regimes)
 
 Object: at a certified state ψ over vertex λ with support S, the non-gauge
-first-order fixed-spectrum tangent dimension
+first-order SUPPORT-RESTRICTED fixed-spectrum tangent dimension
 
     dim_1 = 2|S| − g − rank(D),   D(δc) = ⊕_i P_i δρ(δc) P_i ⊕ (norm),
 
@@ -60,28 +78,36 @@ floored before) → 10 (det (1,2,9)), every round at certificate residual below
 1e-16 with the eigenvalue multiplicities (4,6) verified at each step. The
 endpoint is EXACTLY recognizable: all ten squared weights are rationals, its
 loop holonomy is π so it is real up to gauge, and the characteristic-polynomial
-identity holds in exact arithmetic, so s_Q(v103) ≤ 10 is CERTIFIED, not
+identity holds in exact arithmetic, so s_Q^free(v103) ≤ 10 is CERTIFIED, not
 numerical [scripts/v103_support10_certificate.py,
 results/data/v103_support10_certificate.json]. The endpoint is first-order RIGID in both
 fiber senses and sits in the MAGNITUDE regime (1-RDM off-diagonal 7.4e-2), so
 the cascade carries v103 out of the cancellation regime it started in. Details,
 artifacts, and the census-wide run in docs/cascade_census.md.
 
-Consequences (with ≤ 12 now read as ≤ 10):
-- s_Q(v103) ≤ 10 (was: certified support 14). The route-B "isolated
-  support-14 point, dropping any amplitude breaks feasibility" is a statement
-  about that search's landscape/gauge slice, NOT about the fiber: the fiber
-  is a 6-manifold whose boundary strata contain strictly sparser states.
-- The defect hierarchy at the closures now reads
-      v89 :  s_M = 4 < s_I = 7 ≤ s_Q ≤ 10
-      v103:  s_M = 4 < s_I = 6 ≤ s_Q ≤ 10   (was ≤ 12; the ≤ 10 is EXACT)
-  with s_M the (weak) majorization baseline, s_I the diagonal-incidence
-  baseline (exact MILP + rational certificates), and only s_M ≤ s_Q
-  guaranteed a priori. Ladder status for v89 at size 7: 41 supports
-  enumerated (incomplete), 34 killed exactly by the projector-pattern
-  argument, 6 distinct survivors all floor at 1.5e-2..6e-2 over 24
-  multi-starts (strong numerical evidence, exactifiable by the same branch
-  analysis that killed the v103 witness).
+Consequences (with ≤ 12 now read as ≤ 10, and the quantity NAMED; 2026-07):
+- s_Q^free(v103) ≤ 10 (was written "s_Q ≤ 10"). The endpoint's 1-RDM is NOT
+  diagonal, so this bounds the FREE-BASIS minimum over states with
+  spec(ρ) = λ, not the natural-orbital minimum the library column reports.
+  The route-B "isolated support-14 point, dropping any amplitude breaks
+  feasibility" is a statement about that search's landscape/gauge slice, NOT
+  about the fiber: the fiber is a 6-manifold whose boundary strata contain
+  strictly sparser states.
+- The defect hierarchy at the closures, with the two minima separated:
+      v89 :  s_M = 4 ≤ s_Q^free ≤ 10;  s_I = 7 ≤ s_Q^NO ≤ 10
+      v103:  s_M = 4 ≤ s_Q^free ≤ 10;  s_I = 6 ≤ s_Q^NO ≤ 14
+  s_M is the (weak) majorization baseline and s_I the diagonal-incidence
+  baseline (exact MILP + rational certificates). Only s_M ≤ s_Q^free and
+  s_I ≤ s_Q^NO hold a priori; s_I does NOT bound s_Q^free. v89's upper bound
+  serves both because its certified library state is diagonal and did not
+  sparsify; v103's support-10 state serves only the free-basis column, and its
+  natural-orbital column stays at the library support 14 (no gauge
+  sparsification found; the library state's own gauge family cannot go below
+  9). This is why the two columns must never be mixed in one inequality.
+- Ladder status for v89 at size 7: 41 supports enumerated (incomplete), 34
+  killed exactly by the projector-pattern argument, 6 distinct survivors all
+  floor at 1.5e-2..6e-2 over 24 multi-starts (strong numerical evidence,
+  exactifiable by the same branch analysis that killed the v103 witness).
 
 ## 4. Exactification leads for the v103 fiber (Problem 2 input)
 
@@ -106,5 +132,7 @@ Consequences (with ≤ 12 now read as ≤ 10):
 - "Isolated support-14" for v103 → landscape statement; fiber statement is
   FALSE (support 12 reached on-fiber).
 - The census min-support ledger column (support of the certified state) is
-  an UPPER bound on s_Q, now known strict at v103; treat it as such wherever
-  quoted.
+  an UPPER bound on s_Q^NO, and was never minimized over the natural-orbital
+  gauge family it belongs to; treat it as such wherever quoted. It is NOT
+  known strict at v103: the support-10 state is a free-basis witness, not a
+  natural-orbital one.

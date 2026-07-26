@@ -24,14 +24,38 @@ changes only bookkeeping). Write:
   sums with respect to weight deformations δp at fixed phases
   (δc_t = δp_t / (2 c_t)).
 
+## Scope: every statement here is SUPPORT-RESTRICTED
+
+Added 2026-07. All three parts of the lemma, and every fiber dimension derived
+from them anywhere in this project, describe deformations of the amplitudes on
+a FIXED support S. They say nothing about the unrestricted fiber, and the gap
+is not a technicality:
+
+At a degenerate spectrum the unrestricted fixed-ρ fiber always contains the
+whole natural-orbital gauge orbit of ψ, the U(m_1) × ... × U(m_k) orbit of
+dimension Σ m_i² − (gauge already quotiented), because a block-diagonal
+rotation leaves ρ = diag(λ) identically unchanged. Since every census vertex
+has a degenerate spectrum, **the unrestricted fixed-ρ fiber is never a point at
+a census vertex**, and no "rigid" verdict below should be read as saying it is.
+
+The two are consistent because that orbit generically LEAVES any fixed support:
+at the v103 support-14 state all 42 off-diagonal U(4) × U(6) generators move
+the state off its support, which is exactly why a support-restricted
+first-order computation sees none of it. The practical consequence is that
+support-restricted first-order analysis is structurally blind to gauge
+sparsification, and a separate finite-rotation search is required
+(`src/gpc_census/gauge.py`, `docs/gauge_minimization.md`).
+
 ## Lemma
 
-(i) [Fixed spectrum, weight sector] The first-order deformations of the
-weights preserving spec(ρ) = λ are exactly K ∩ ker J_within^Re.
+(i) [Fixed spectrum, weight sector, SUPPORT-RESTRICTED] The first-order
+deformations of the weights preserving spec(ρ) = λ are exactly
+K ∩ ker J_within^Re.
 Cross-block silence imposes no first-order fixed-spectrum condition.
 
-(ii) [Fixed ρ, weight sector] The first-order deformations preserving
-ρ itself are exactly K ∩ ker J_all^Re.
+(ii) [Fixed ρ, weight sector, SUPPORT-RESTRICTED] The first-order
+deformations preserving ρ itself are exactly K ∩ ker J_all^Re. (Unrestricted,
+this fiber also contains the gauge orbit above; see Scope.)
 
 (iii) [Dimension formula, full tangent] The first-order fixed-spectrum
 tangent space of the support-restricted fiber, modulo the U(1)^d × U(1)
