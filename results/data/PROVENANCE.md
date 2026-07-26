@@ -98,6 +98,16 @@ reason it fell short and its bound stays numerical.
 exactly certified support bound strictly better than the library state's. The
 two exceptions, (5,10) index 144 and index 256, have partly irrational weights.
 
+v103_sqfree_certificate.json (CURRENT) certifies the support-10 state over
+(3,10) index 103 under the claim that actually holds, s_Q^free <= 10: exact
+rational weights summing to 1, the characteristic-polynomial identity
+det(rho - xI) = (x - 9/17)^4 (x - 5/34)^6 in exact arithmetic, the single loop
+holonomy equal to pi so the state is real up to gauge, and BOTH nonzero
+off-diagonal 1-RDM entries reported exactly, rho[3,9] = -5/68 and
+rho[1,6] = -sqrt(42)/221. Those two entries are the reason the bound is
+s_Q^free rather than s_Q^NO, and both are pinned by
+scripts/check_manuscript_counts.py because the manuscript names both.
+
 v103_support10_certificate.json is the same result for (3,10) index 103 by an
 independent standalone route, kept separate because it is the instance that
 changes a published claim: support 14 in the library, support 10 certified here,
