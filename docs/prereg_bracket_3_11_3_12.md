@@ -165,6 +165,70 @@ as out-of-sample confirmation of the unified formula in its interesting
 regimes: the 36 states it scored are channel-free, which is the formula's
 easiest branch.
 
+## PROVENANCE CORRECTION (2026-07, after a later audit)
+
+The scoring above is arithmetically correct and is left unedited. What it got
+wrong is what the row counts mean. A provenance audit of the same artifact
+shows the holdout was not merely weak, as the power caveat said: it was mostly
+not out of sample at all.
+
+    STATE-TRANSPORT   17     face embeddings 19,  explicit states 2
+    derived from rank <= 10  34 of 38 rows, from 17 distinct donors
+    independent of rank <= 10  4 rows, resting on 2 distinct new states
+
+34 of the 38 measurements are transports or face embeddings of rank-10 states.
+Their structural fields are the donor's fields, so they cannot be independent
+evidence about rank 11. This is visible in the record for the headline
+anomaly: `(3,11) v43` agrees with its donor `(3,10) v108` on every structural
+field, including `rdm_max_offdiagonal` at 0.19999999999999996 to the last
+digit and the same start and final residuals. It is the donor padded with an
+empty orbital.
+
+The corrected readings are carried in the artifact itself, per prediction,
+alongside the original verdicts (`scorecard[*].original_verdict` and
+`scorecard[*].corrected_reading`), with `independent_scope` and
+`independent_distinct_states` beside every `scope`.
+
+| prediction | original | corrected reading | scope | independent |
+|---|---|---|---|---|
+| B1 unified dimension formula | PASS | PASS, SCOPE OVERSTATED | 36 | 4 rows / 2 states |
+| B2 padding invariance | PASS | PASS | 19 | 2 rows / 2 states |
+| B3 the two fibers agree | FAIL | ALREADY FALSIFIED AT RANK 10 | 38 | 4 rows / 2 states |
+| B4 no cancellation-regime member | PASS | UNINFORMATIVE | 0 | 4 rows / 2 states |
+| B5 no sparsification | FAIL | INHERITED | 38 | 4 rows / 2 states |
+| B6 numerics at new rank | PASS | PASS | 38 | 4 rows / 2 states |
+
+B1's PASS is real, but the effective independent sample size is about 2, not
+36. For the derived rows the formula's agreement follows from padding
+invariance, which B2 tests separately and which holds by construction; B2 is
+doing most of the work behind B1's number rather than sitting beside it.
+
+B3's FAIL was not a rank-11 discovery. Census-wide, 73 of the 799 certified
+states have `fixed_rho_tangent_dim != fixed_spectrum_tangent_dim`, all of them
+INTERFERENCE, in the patterns (0,1) x 11, (0,2) x 2, (0,6) x 1, (1,2) x 44 and
+(2,4) x 15, which is one extra free phase per loop
+(`results/data/cascade.jsonl`). v108 is an ordinary member of that population.
+The prediction should not have been written in a form that a rank-10 fact
+already refutes. The scoped finding it was credited with, that the two-fiber
+gap is not confined to the cancellation regime, stands and is unaffected.
+
+B4 is uninformative rather than confirmed. None of the 17 donors is a
+cancellation state, so none could transport in and the antecedent was empty by
+construction. The silence-rank lemma's genericity question remains at sample
+size two.
+
+B5's single drop is v108's, already known from the census-wide cascade.
+
+B6 is untouched: it is a claim about solver behaviour in a larger ambient
+space, which the padded rows genuinely exercise.
+
+WHAT SURVIVES. The first-order theory did not fail here. It was tested more
+weakly than the row count implied. It did survive contact with two genuinely
+new states constructed at rank 11 and with padding at two new ranks, and that
+is worth stating accurately rather than deleting. A real out-of-sample test of
+the first-order theory now requires vertices that are not transports, which
+means Stage 1 (`docs/GENERATOR_PLAN.md`).
+
 ## Scoring rules
 
 PASS / FAIL / NOT-TESTED per prediction, decided by
@@ -172,3 +236,8 @@ PASS / FAIL / NOT-TESTED per prediction, decided by
 (B4 if no cancellation states exist) are NOT-TESTED, never PASS. Any
 disagreement between a prediction and a measurement is a FAIL and gets written
 up with the measured numbers, not explained away.
+
+STANDING RULE (added 2026-07, see `docs/prereg_template.md`): a measurement
+derived from a lower-rank state by transport, padding, or face embedding is
+NOT an independent out-of-sample observation. Every scorecard must report
+independent sample size separately from total row count.

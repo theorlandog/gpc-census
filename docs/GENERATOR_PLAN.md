@@ -11,6 +11,32 @@ from oracles, with Schubert (upstream's character-table work) demoted to the
 final validity-proof layer. This is the architecture that makes rank 12+
 tables producible.
 
+## Second motivation, added 2026-07: Stage 1 is the only route to a real
+## out-of-sample test of the first-order fiber theory
+
+Facet enumeration is not the only thing blocked on the generator. The
+(3,11)/(3,12) bracket holdout was the fiber program's one out-of-sample test,
+and a provenance audit showed 34 of its 38 measurements are transports or face
+embeddings of rank-10 states, drawn from 17 distinct donors, with only 2
+states genuinely constructed at the new rank (PROVENANCE CORRECTION in
+`docs/prereg_bracket_3_11_3_12.md`; `provenance_independence` in
+`results/data/oos_bracket.json`).
+
+A transported state's tangent dimensions, channel structure, and cascade
+behaviour are the donor's, so no amount of transporting grows the independent
+sample. Testing the unified dimension formula, the silence-rank lemma's
+genericity, or the cross-block inversion rule against genuinely new data
+requires vertices that are NOT transports, and the only source of those is a
+constraint generator producing rank-11 systems the census does not already
+contain.
+
+Concrete targeting rule, cheap to apply once Stage 1 emits candidate spectra:
+prioritize TWO-BLOCK spectra. Both known cancellation-regime states in the
+entire census are two-block (`docs/two_block_family.md`), which is where the
+silence-rank lemma's genericity question lives at sample size two. If the
+regime is a two-block phenomenon, two-block rank-11 spectra are the cheapest
+place to grow that sample; if it is not, that is itself the finding.
+
 ## Architecture (oracle-driven reconstruction)
 
 Layer 0 -- relation detection (WORKS, validated at (3,6)): sample spectra,

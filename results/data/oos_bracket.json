@@ -2,16 +2,328 @@
   "preregistration": "docs/prereg_bracket_3_11_3_12.md",
   "holdout": "19 certified (3,11) true vertices + 19 (3,12) face embeddings",
   "evidence": "numerical",
+  "provenance_independence": {
+    "rule": "A measurement derived from a lower-rank state by transport, padding, or face embedding is NOT an independent out-of-sample observation. Independent sample size is reported separately from the total row count.",
+    "total_rows": 38,
+    "independent_rows": 4,
+    "independent_row_labels": [
+      "(3,11) v22",
+      "(3,11) v49",
+      "(3,12) from (3,11) v22",
+      "(3,12) from (3,11) v49"
+    ],
+    "derived_rows": 34,
+    "distinct_rank10_donors": 17,
+    "distinct_independent_states": 2,
+    "distinct_independent_state_labels": [
+      "(3,11) v22",
+      "(3,11) v49"
+    ],
+    "certificate_counts": {
+      "EXPLICIT-STATE": 2,
+      "FACE-EMBEDDING": 19,
+      "STATE-TRANSPORT": 17
+    },
+    "reading": "34 of 38 measurements are transports or face embeddings of rank <= 10 states, drawn from 17 distinct donors. Only 2 distinct states were constructed at the new rank, supporting 4 rows. Any scorecard scope counted in rows overstates the evidence by roughly that factor.",
+    "per_measurement": [
+      {
+        "label": "(3,11) v0",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v0",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v7",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v1",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v14",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v2",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v20",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v3",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v22",
+        "certificate": "EXPLICIT-STATE",
+        "independent_of_rank10_corpus": true,
+        "root_origin": "(3,11) v22",
+        "root_kind": "new"
+      },
+      {
+        "label": "(3,11) v29",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v29",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v32",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v41",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v33",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v64",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v38",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v85",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v39",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v104",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v40",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v105",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v41",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v106",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v42",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v107",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v43",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v108",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v45",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v109",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v46",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v110",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v47",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v111",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v48",
+        "certificate": "STATE-TRANSPORT",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v112",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,11) v49",
+        "certificate": "EXPLICIT-STATE",
+        "independent_of_rank10_corpus": true,
+        "root_origin": "(3,11) v49",
+        "root_kind": "new"
+      },
+      {
+        "label": "(3,12) from (3,11) v0",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v0",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v7",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v1",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v14",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v2",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v20",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v3",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v22",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": true,
+        "root_origin": "(3,11) v22",
+        "root_kind": "new"
+      },
+      {
+        "label": "(3,12) from (3,11) v29",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v29",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v32",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v41",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v33",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v64",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v38",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v85",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v39",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v104",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v40",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v105",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v41",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v106",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v42",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v107",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v43",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v108",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v45",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v109",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v46",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v110",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v47",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v111",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v48",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": false,
+        "root_origin": "(3,10) v112",
+        "root_kind": "census"
+      },
+      {
+        "label": "(3,12) from (3,11) v49",
+        "certificate": "FACE-EMBEDDING",
+        "independent_of_rank10_corpus": true,
+        "root_origin": "(3,11) v49",
+        "root_kind": "new"
+      }
+    ]
+  },
   "scorecard": {
     "B1_unified_dimension_formula": {
       "verdict": "PASS",
       "scope": 36,
-      "mismatches": []
+      "mismatches": [],
+      "independent_scope": 4,
+      "independent_scope_labels": [
+        "(3,11) v22",
+        "(3,11) v49",
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "PASS",
+      "corrected_reading": "PASS, SCOPE OVERSTATED",
+      "correction_note": "The PASS is real but its 36-state scope is not 36 independent tests. For transported and face-embedded rows the formula's agreement follows from padding invariance, which B2 tests separately and which holds by construction. Report the independent count instead."
     },
     "B2_padding_invariance": {
       "verdict": "PASS",
       "scope": 19,
-      "mismatches": []
+      "mismatches": [],
+      "independent_scope": 2,
+      "independent_scope_labels": [
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "PASS",
+      "corrected_reading": "PASS",
+      "correction_note": "Stands, and is now understood to be doing most of the work behind B1's number rather than sitting beside it."
     },
     "B3_two_fibers_agree": {
       "verdict": "FAIL",
@@ -27,12 +339,34 @@
           "fixed_rho": 1,
           "fixed_spectrum": 2
         }
-      ]
+      ],
+      "independent_scope": 4,
+      "independent_scope_labels": [
+        "(3,11) v22",
+        "(3,11) v49",
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "FAIL",
+      "corrected_reading": "ALREADY FALSIFIED AT RANK 10",
+      "correction_note": "Not a rank-11 discovery. Census-wide, 73 of 799 states have fixed_rho_tangent_dim != fixed_spectrum_tangent_dim, all INTERFERENCE, mostly the pattern (1,2) or (2,4), one extra free phase per loop. The lone disagreeing vertex here is the transport of (3,10) v108, an ordinary member of that population. The prediction should not have been written in a form that a rank-10 fact refutes."
     },
     "B4_no_cancellation_regime": {
       "verdict": "PASS",
       "members": [],
-      "silence_rank_lemma": "NOT-TESTED"
+      "silence_rank_lemma": "NOT-TESTED",
+      "independent_scope": 4,
+      "independent_scope_labels": [
+        "(3,11) v22",
+        "(3,11) v49",
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "PASS",
+      "corrected_reading": "UNINFORMATIVE",
+      "correction_note": "None of the 17 donors is a cancellation state, so none could transport in and the antecedent was empty by construction. The PASS carries no information about whether the regime exists at rank 11. The silence-rank lemma's genericity question remains at sample size two."
     },
     "B5_no_sparsification": {
       "verdict": "FAIL",
@@ -48,12 +382,34 @@
           "certified": 8,
           "upper": 7
         }
-      ]
+      ],
+      "independent_scope": 4,
+      "independent_scope_labels": [
+        "(3,11) v22",
+        "(3,11) v49",
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "FAIL",
+      "corrected_reading": "INHERITED",
+      "correction_note": "The single drop is the transport of (3,10) v108, whose drop was already known from the census-wide cascade. Not a new-rank event."
     },
     "B6_numerics_at_new_rank": {
       "verdict": "PASS",
       "scope": 38,
-      "failures": []
+      "failures": [],
+      "independent_scope": 4,
+      "independent_scope_labels": [
+        "(3,11) v22",
+        "(3,11) v49",
+        "(3,12) from (3,11) v22",
+        "(3,12) from (3,11) v49"
+      ],
+      "independent_distinct_states": 2,
+      "original_verdict": "PASS",
+      "corrected_reading": "PASS",
+      "correction_note": "Stands. Padding does not weaken it: it is a claim about solver behaviour in a larger ambient space, which is exactly what the padded rows exercise."
     }
   },
   "measurements": [
