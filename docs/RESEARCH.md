@@ -192,6 +192,10 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- HANDOFF.md: the note to the next agent from the 2026-07 gauge session, which
+  supersedes two instructions of the handoff that preceded it (the v103
+  endpoint is not diagonal, and 8 of the 71 cascade endpoints are new states).
+  Read it before acting on any support claim.
 - RESEARCH_ARCHIVE.md: the frozen census-era evidence log (this file's
   status tags point into it).
 - THEOREMS.md: numbered theorem statements (T1 Jacobian program, T4
