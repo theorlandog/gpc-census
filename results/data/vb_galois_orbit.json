@@ -1,0 +1,74 @@
+{
+ "generated_by": "scripts/vb_galois_orbit.py",
+ "vertex": "(4,9) v65 (v_B)",
+ "prereg": "docs/rigidity_rationality.md, PREREG-PENDING item",
+ "prediction": "the attaining Galois orbit has size 2",
+ "wall_polynomial": "85*t**2 - 70*t - 119",
+ "weight_field": "Q(sqrt(35)), degree 2",
+ "embeddings": [
+  {
+   "root": "7/17 - 18*sqrt(35)/85",
+   "root_numeric": -0.8410521893622717,
+   "is_shipped_root": true,
+   "weights": [
+    "24/391 - 18*sqrt(35)/1955",
+    "18*sqrt(35)/1955 + 129/391",
+    "4/23",
+    "3/23",
+    "18*sqrt(35)/1955 + 27/391",
+    "41/391 - 18*sqrt(35)/1955",
+    "1/23",
+    "2/23"
+   ],
+   "all_weights_positive": true,
+   "attaining_sign_patterns": 64,
+   "sign_patterns_searched": 128,
+   "attains": true,
+   "attains_exactly": true,
+   "example_sign_pattern": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    -1,
+    1,
+    1
+   ]
+  },
+  {
+   "root": "7/17 + 18*sqrt(35)/85",
+   "root_numeric": 1.6645816011269776,
+   "is_shipped_root": false,
+   "weights": [
+    "18*sqrt(35)/1955 + 24/391",
+    "129/391 - 18*sqrt(35)/1955",
+    "4/23",
+    "3/23",
+    "27/391 - 18*sqrt(35)/1955",
+    "18*sqrt(35)/1955 + 41/391",
+    "1/23",
+    "2/23"
+   ],
+   "all_weights_positive": true,
+   "attaining_sign_patterns": 64,
+   "sign_patterns_searched": 128,
+   "attains": true,
+   "attains_exactly": true,
+   "example_sign_pattern": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  }
+ ],
+ "orbit_size": 2,
+ "verdict": "CONFIRMED",
+ "evidence": "Sign search is NUMERICAL at 1e-12; the attaining pattern of each embedding is then re-verified in EXACT radical arithmetic with independent fermionic-sign bookkeeping.",
+ "reading": "Both roots of the wall polynomial give positive weight vectors that attain the vertex exactly, so the Galois conjugate of the shipped extremal state is another extremal state over the same vertex. The orbit has size 2 and the weight field has degree 2: degree equals orbit size, which is the mechanism gap (b) of the Rigidity-Rationality target predicts. The earlier naive substitution failed only because it kept the shipped sign pattern; an embedding chooses the square-root branches itself, and 64 of the 128 patterns modulo global sign attain for each root, the multiplicity being orbital-phase gauge."
+}

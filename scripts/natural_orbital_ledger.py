@@ -17,11 +17,21 @@ convention still appears to work on the real records and fails only on the
 complex ones.
 
 THE COST, stated plainly. Rotating into natural orbitals destroys sparsity.
-Support grows on 142 of the 156 records and is unchanged on 14, never
-shrinking; the mean goes from 6.8 to 12.1 and the maximum from 14 to 79. And
+Support grows on 141 of the 156 records and is unchanged on 15, never
+shrinking; the mean goes from 6.8 to 11.7 and the maximum from 14 to 57. And
 the rotated amplitudes are NUMERICAL: the shipped library's exact symbolic
 closed forms do not survive the rotation, and re-recognizing them is a
 research task, not a mechanical one.
+
+NON-UNIQUENESS, which bounds what these numbers mean. When lambda is
+degenerate the natural-orbital basis is not unique: any unitary acting within
+an eigenspace of rho preserves diagonality. The support recorded here comes
+from numpy eigh's arbitrary choice of eigenbasis, so it is an UPPER bound on
+s_Q^NO for that choice and is NOT minimized over the eigenspace freedom. The
+two records that already satisfy the gate (v89 and v103) are passed through
+unrotated for exactly this reason: rotating them by an arbitrary basis of
+their own degenerate eigenspaces scrambles them for nothing, which is how an
+earlier version of this ledger reported v103 at support 79 instead of 14.
 
 So this ledger does NOT replace states.jsonl. It is an additional artifact,
 and the two answer different questions:
@@ -76,12 +86,26 @@ def to_natural_orbitals(rec):
 
     rho = one_rdm(c, dets, d)
     before_off = float(np.max(np.abs(rho - np.diag(np.diag(rho)))))
+    before_diag_err = float(np.max(np.abs(np.real(np.diag(rho)) - lam)))
 
-    w, u = np.linalg.eigh(rho)
-    u = u[:, np.argsort(w)[::-1]]  # eigenvectors ordered to match lambda
-
+    # A record that already IS a natural-orbital representative must be left
+    # alone. Rotating it is not a no-op: when lambda is degenerate, eigh
+    # returns an arbitrary orthonormal basis of each eigenspace rather than
+    # the identity, so "rotating" an already-diagonal rho scrambles the state
+    # inside its degenerate blocks and destroys sparsity for nothing. This is
+    # how v103 was blown from support 14 to 79 in the first version of this
+    # ledger, despite already passing the gate.
+    already_natural = before_off < 1e-9 and before_diag_err < 1e-9
     full = list(combinations(range(d), n))
-    rotated = compound_matrix(u.T, full, dets) @ c
+    if already_natural:
+        index = {t: i for i, t in enumerate(full)}
+        rotated = np.zeros(len(full), dtype=complex)
+        for amp, t in zip(c, dets):
+            rotated[index[t]] = amp
+    else:
+        w, u = np.linalg.eigh(rho)
+        u = u[:, np.argsort(w)[::-1]]  # eigenvectors ordered to match lambda
+        rotated = compound_matrix(u.T, full, dets) @ c
 
     keep = [i for i, a in enumerate(rotated) if abs(a) > AMP_TOL]
     support = [list(full[i]) for i in keep]
@@ -109,6 +133,7 @@ def to_natural_orbitals(rec):
         "support": len(support),
         "support_in_states_jsonl": len(dets),
         "max_offdiagonal_before": before_off,
+        "already_natural_orbital": bool(already_natural),
         "max_offdiagonal_after": off,
         "diagonal_error_after": diag_err,
         "truncation_norm_loss": truncation,
@@ -142,6 +167,7 @@ def build():
         "worst_diagonal_error_after": max(r["diagonal_error_after"] for r in rows),
         "worst_truncation_norm_loss": max(abs(r["truncation_norm_loss"]) for r in rows),
         "worst_two_rdm_deviation": max(r["two_rdm_spectrum_deviation"] for r in rows),
+        "already_natural_orbital": sum(1 for r in rows if r["already_natural_orbital"]),
         "support_grew": grew,
         "support_unchanged": same,
         "support_shrank": len(rows) - grew - same,
@@ -164,7 +190,15 @@ def build():
             "and the rotated amplitudes are numerical because the exact closed "
             "forms do not survive the rotation. states.jsonl is therefore NOT "
             "replaced; it remains the exact, sparse, spectrum-attaining "
-            "library, and the two ledgers bound different quantities."
+            "library, and the two ledgers bound different quantities. "
+            "CAVEAT on s_Q^NO: when lambda is degenerate the natural-orbital "
+            "basis is NOT unique, since any unitary within an eigenspace of "
+            "rho preserves diagonality. The support here is the one produced "
+            "by numpy eigh's arbitrary choice of eigenbasis, so it is an "
+            "UPPER bound on s_Q^NO that depends on that choice and is not "
+            "minimized over the eigenspace freedom. Records that already "
+            "satisfied the gate are passed through unrotated rather than "
+            "scrambled by an arbitrary basis of their own eigenspaces."
         ),
     }
     return rows, summary

@@ -269,3 +269,44 @@ The two ledgers bound different quantities. states.jsonl keeps EXACT closed
 forms on sparse supports whose 1-RDM is not diagonal for these records, so its
 support column bounds s_Q^free; this ledger has diagonal 1-RDMs, so its
 support column bounds s_Q^NO. Quote the right one.
+
+## no_support_ratio.json (the trichotomy diagnostic)
+
+NUMERICAL. scripts/no_support_ratio.py divides the natural-orbital support by
+the sparse support for every record and scores the predictions of
+docs/prereg_no_support_ratio.md, which carries an explicit disclosure that it
+is NOT a blind pre-registration. P-NSR-1 FAILED as disclosed: 13 generic
+INTERFERENCE records sit at ratio exactly 1. P-NSR-2 PASSED: no record has
+ratio below 1. What survives is one-directional and clean: ratio > 1 implies
+generic INTERFERENCE, 141 records with zero exceptions; the converse fails.
+
+## vb_galois_orbit.json (the v_B Galois orbit test)
+
+MIXED: the sign search is NUMERICAL at 1e-12, and the attaining pattern of
+each embedding is re-verified in EXACT radical arithmetic with independent
+fermionic-sign bookkeeping. scripts/vb_galois_orbit.py resolves the Galois
+action on the wall parameter t rather than on nested surds, which is what the
+earlier naive substitution got wrong. Both roots of 85t^2 - 70t - 119 give
+positive weight vectors attaining the vertex exactly, each by 64 of the 128
+sign patterns modulo global sign. Orbit size 2, weight field degree 2:
+degree equals orbit size. The pre-registered prediction is CONFIRMED.
+
+## uniqueness_census.json (gap b of the Rigidity-Rationality target)
+
+NUMERICAL. scripts/uniqueness_census.py multi-starts the FIXED-RHO
+realization system rho(c) = rho_0 on each state's own support, for twelve
+fixed-rho rigid interference states, and counts converged solutions modulo
+gauge. Targeting diag(lambda) instead would be infeasible for the 154 records
+whose 1-RDM is not diagonal, which is why the system targets the state's own
+rho. Solutions are clustered by distance on a gauge- and
+conjugation-invariant fingerprint, reported three ways: weight vector ordered
+(upper bound on the point count, since it also separates support-preserving
+orbital permutations), weight multiset with holonomies (the point count), and
+weight multiset alone.
+
+Result: eleven of twelve have exactly one solution modulo gauge; v103 has
+several, so the pre-registered uniqueness claim FAILS at one state. All twelve
+have a UNIQUE weight multiset, so the multiplicity at v103 is a discrete phase
+multiplicity and the weight vector is still Galois-fixed. Multi-start finds
+solutions and cannot prove there are no others, so this bounds gap (b)
+empirically rather than closing it; gap (a), isolation itself, is untouched.

@@ -116,3 +116,109 @@ def test_weight_field_is_recomputed_not_read_off_the_encoding(census):
         else:
             assert r["weight_field_degree"] > 1
             assert r["weight_field_generators"]
+
+
+# ------------------------------------------------- the v_B Galois orbit test
+
+
+@pytest.fixture(scope="module")
+def orbit():
+    return json.loads((DATA / "vb_galois_orbit.json").read_text())
+
+
+def test_vb_galois_orbit_has_size_two(orbit):
+    """Both roots of the wall polynomial attain, exactly. Degree = orbit size."""
+    assert orbit["orbit_size"] == 2
+    assert orbit["verdict"] == "CONFIRMED"
+    assert len(orbit["embeddings"]) == 2
+    for e in orbit["embeddings"]:
+        assert e["attains"]
+        assert e["attains_exactly"]
+        assert e["all_weights_positive"]
+        assert e["attaining_sign_patterns"] == 64
+
+
+def test_exactly_one_embedding_is_the_shipped_root(orbit):
+    shipped = [e for e in orbit["embeddings"] if e["is_shipped_root"]]
+    assert len(shipped) == 1
+    assert shipped[0]["root"] == "7/17 - 18*sqrt(35)/85"
+
+
+# ------------------------------------------------ the support-ratio scorecard
+
+
+@pytest.fixture(scope="module")
+def ratio():
+    return json.loads((DATA / "no_support_ratio.json").read_text())
+
+
+def test_ratio_above_one_implies_generic_interference(ratio):
+    """The surviving one-directional diagnostic, zero exceptions."""
+    above = [r for r in ratio["records"] if r["no_support_ratio"] > 1]
+    assert len(above) == 141
+    assert all(r["regime"] == "INTERFERENCE-GENERIC" for r in above)
+
+
+def test_the_converse_fails_with_thirteen_flat_generics(ratio):
+    assert ratio["P_NSR_1"]["verdict"] == "FAIL"
+    assert ratio["P_NSR_1"]["exceptions"] == 13
+    assert ratio["P_NSR_2"]["verdict"] == "PASS"
+    flat = [
+        r
+        for r in ratio["records"]
+        if r["regime"] == "INTERFERENCE-GENERIC" and r["no_support_ratio"] == 1
+    ]
+    assert len(flat) == 13
+    # kernel freedom is necessary but not sufficient for staying flat
+    assert all(r["incidence_kernel_dim"] >= 1 for r in flat)
+    grew_with_kernel = [
+        r
+        for r in ratio["records"]
+        if r["regime"] == "INTERFERENCE-GENERIC"
+        and r["no_support_ratio"] > 1
+        and r["incidence_kernel_dim"] >= 1
+    ]
+    assert grew_with_kernel  # so it is not sufficient
+
+
+def test_both_cancellation_states_are_flat(ratio):
+    cancel = [r for r in ratio["records"] if r["regime"] == "CANCELLATION"]
+    assert len(cancel) == 2
+    assert all(r["no_support_ratio"] == 1 for r in cancel)
+
+
+def test_the_prereg_disclosure_is_recorded(ratio):
+    """Not a blind prereg, and the artifact must say so."""
+    assert "NOT a blind pre-registration" in ratio["disclosure"]
+
+
+# --------------------------------------------------- gap (b), measured
+
+
+@pytest.fixture(scope="module")
+def uniqueness():
+    return json.loads((DATA / "uniqueness_census.json").read_text())
+
+
+def test_uniqueness_prereg_fails_at_exactly_one_state(uniqueness):
+    assert uniqueness["verdict"] == "FAIL"
+    assert uniqueness["exceptions"] == 1
+    assert uniqueness["exception_labels"] == ["(3,10) v103"]
+    assert uniqueness["sample_size"] == 12
+
+
+def test_weight_multiset_is_unique_everywhere(uniqueness):
+    """The failure is phase multiplicity, not weight multiplicity, so the
+    Rigidity-Rationality target is untouched by it."""
+    assert uniqueness["weights_verdict"] == "PASS"
+    assert uniqueness["weight_exceptions"] == 0
+    for r in uniqueness["records"]:
+        assert r["distinct_weight_multisets"] == 1
+        assert r["converged"] == r["starts"]
+
+
+def test_the_solved_system_is_the_fixed_rho_fiber(uniqueness):
+    """Targeting diag(lambda) would be infeasible for the 154 non-diagonal
+    records, so the system must target the state's own rho."""
+    assert "OWN 1-RDM" in uniqueness["system_solved"]
+    assert uniqueness["evidence"].startswith("NUMERICAL")

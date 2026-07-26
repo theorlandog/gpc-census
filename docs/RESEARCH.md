@@ -928,7 +928,15 @@ assume gets its grounding.
   [scripts/natural_orbital_ledger.py;
   results/data/states_natural_orbital.jsonl;
   tests/test_natural_orbital_ledger.py]
-- 🔬 PREREG-PENDING: the v_B Galois embedding test. The naive substitution
+- 🟦 CLOSED, PREDICTION CONFIRMED: the v_B Galois embedding test. Both roots
+  of the wall polynomial 85t^2 - 70t - 119 give positive weight vectors that
+  attain the vertex EXACTLY, each by 64 of 128 sign patterns modulo global
+  sign. Orbit size 2, weight field degree 2: degree equals orbit size, which
+  instantiates gap (b) of the Rigidity-Rationality target. The test resolves
+  the Galois action on the wall parameter t rather than on nested surds,
+  which is precisely what the naive attempt got wrong.
+  [scripts/vb_galois_orbit.py; results/data/vb_galois_orbit.json]
+- (superseded, kept for the record) PREREG-PENDING: the v_B embedding test. The naive substitution
   sqrt(35) -> -sqrt(35) fails attainment (spectrum error 0.068), and that
   failure is DIAGNOSTIC, not refuting: the amplitudes carry nested surds like
   sqrt(120 - 18 sqrt(35)) and independent principal-branch substitutions are

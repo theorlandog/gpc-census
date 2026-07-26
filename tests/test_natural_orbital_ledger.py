@@ -78,11 +78,26 @@ def test_rotation_preserved_the_state(rows, summary):
 
 def test_the_sparsity_cost_is_recorded(summary):
     """The repair is not free; pinned so the tradeoff is not lost."""
-    assert summary["support_grew"] == 142
+    assert summary["support_grew"] == 141
     assert summary["support_shrank"] == 0
     assert summary["support_after"]["mean"] > summary["support_before"]["mean"]
-    assert summary["support_after"]["max"] == 79
+    assert summary["support_after"]["max"] == 57
     assert summary["evidence"] == "NUMERICAL"
+
+
+def test_already_natural_records_are_not_rotated(rows, summary):
+    """Regression: an earlier version rotated v89 and v103 even though they
+    already satisfied the gate. With a degenerate lambda, eigh returns an
+    arbitrary basis of each eigenspace rather than the identity, so that
+    rotation scrambled v103 inside its blocks and reported support 79 for a
+    state whose support is 14."""
+    assert summary["already_natural_orbital"] == 2
+    by_label = {f"{r['system']} v{r['index']}": r for r in rows}
+    for label, support in (("(3,10) v89", 10), ("(3,10) v103", 14)):
+        rec = by_label[label]
+        assert rec["already_natural_orbital"]
+        assert rec["support"] == support
+        assert rec["support"] == rec["support_in_states_jsonl"]
 
 
 def test_the_exact_library_is_not_replaced(rows):

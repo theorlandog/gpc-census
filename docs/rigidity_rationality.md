@@ -4,7 +4,8 @@ Status: the design case is PROVED below and covers 643 of 799 states. The
 implication "fixed-rho rigid implies rational weights" is CONFIRMED BY CENSUS
 at 740 of 740 with a power warning that materially limits how it may be
 quoted. The general theorem is a TARGET with two stated gaps. The v_B Galois
-embedding test is PREREG-PENDING and its earlier naive form is retracted.
+embedding test is CLOSED, its prediction CONFIRMED, and its earlier naive
+form is retracted.
 
 Certifying artifacts: `scripts/attainer_gate_audit.py`,
 `results/data/attainer_gate_audit.json`,
@@ -85,12 +86,18 @@ replacement.**
 | | states.jsonl | states_natural_orbital.jsonl |
 |---|---|---|
 | amplitudes | EXACT symbolic closed forms | NUMERICAL |
-| support, mean / max | 6.8 / 14 | 12.1 / 79 |
+| support, mean / max | 6.8 / 14 | 11.7 / 57 |
 | 1-RDM | not diagonal on 154 records | diag(lambda) on all 156 |
 | support bounds | s_Q^free | s_Q^NO |
 
-Rotating into natural orbitals destroys sparsity: support grows on 142 of the
-156 records, is unchanged on 14, and never shrinks. The exact closed forms do
+Rotating into natural orbitals destroys sparsity: support grows on 141 of the
+156 records, is unchanged on 15, and never shrinks. (Records that already pass
+the gate are passed through unrotated: with a degenerate lambda, eigh returns
+an arbitrary basis of each eigenspace rather than the identity, so rotating an
+already-diagonal record scrambles it for nothing. An earlier version of this
+ledger did exactly that and reported v103 at support 79 instead of 14. The
+same non-uniqueness means every s_Q^NO number here is an upper bound for ONE
+choice of eigenbasis, not a minimum over the eigenspace freedom.) The exact closed forms do
 not survive the rotation, and re-recognizing them is a research task rather
 than a mechanical one, so the new ledger is numerical.
 
@@ -191,7 +198,26 @@ rigidity-theory entries in `docs/prior_art_roadmap.md`, or exact isolation
 certificates on the polynomial system for a sample and then census-wide.
 Until then every "rigid" in the table above means first-order rigid.
 
-**(b) Isolation gives finiteness, not uniqueness.** Galois may permute several
+**(b) Isolation gives finiteness, not uniqueness.** MEASURED 2026-07,
+`results/data/uniqueness_census.json`. Multi-starting the fixed-rho
+realization system from 60 random starts on twelve rigid interference states
+(both cancellation states plus ten spanning distinct spectra): eleven have
+exactly ONE solution modulo gauge, and v103 has several. The pre-registered
+uniqueness claim therefore FAILS at one state of twelve, which is consistent
+with first-order rigidity, since rigidity is local and says nothing about how
+many isolated points exist globally.
+
+The failure does not threaten this theorem, and the reason is the point of
+measuring separately: every solution found at v103 shares ONE weight
+multiset, and the points differ only in their loop holonomies. Gap (b)'s
+concern was Galois-conjugate points with DIFFERENT weights forcing algebraic
+weights of degree equal to the orbit size. What occurs at v103 is a discrete
+PHASE multiplicity with the weight vector still Galois-fixed. Across all
+twelve sampled states the weight multiset is unique, 12 of 12. This is
+numerical: multi-start finds solutions and cannot prove there are no others,
+so it bounds gap (b) empirically rather than closing it.
+
+The theoretical statement of the gap is unchanged: Galois may permute several
 conjugate isolated points, giving weights algebraic of degree equal to the
 orbit size. So the honest statement is:
 
