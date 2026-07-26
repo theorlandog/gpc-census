@@ -69,6 +69,8 @@ from sympy.matrices.normalforms import invariant_factors
 from sympy.polys.numberfields.galoisgroups import galois_group
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
 LEDGER = ROOT / "results" / "data" / "states.jsonl"
 OUT = ROOT / "results" / "data" / "holonomy_fields.json"
 
@@ -479,6 +481,154 @@ def precision_lesson(system="(5,10)", index=144, loop=1):
 
 
 # --------------------------------------------------------------------------
+# the hypotheses of the Holonomy Rationality theorem
+
+
+def channel_hypotheses(digits: int = 60):
+    """Verify hypotheses (H2) and (H3) of docs/holonomy_rationality.md.
+
+    (H2) every one-hop channel of every loopy state has rational |rho_AB|^2;
+    (H3) the within-channel difference vectors w_ab of Lemma 1 generate the
+         loop lattice L, so no gauge-invariant holonomy escapes the channel
+         bookkeeping the proof runs on.
+
+    (H3) is checked twice: rank over Q against the loop dimension, and
+    saturation over Z via the invariant factors, since spanning a
+    finite-index sublattice would leave holonomies outside the induction.
+    Lemma 2's expansion is also re-checked numerically per channel; it is an
+    algebraic identity, so this only guards the sign and orientation
+    bookkeeping.
+    """
+    from gpc_census.states import one_hop_classes
+
+    tol = sp.Float(10) ** (-(digits - 15))
+    states = 0
+    span_ok = sat_ok = 0
+    channels = 0
+    rational_targets = 0
+    identity_ok = 0
+    class_sizes: dict[str, int] = {}
+    failures = []
+
+    for rec in load_states():
+        if rec["classified"] != "INTERFERENCE":
+            continue
+        cf = rec["closed_form"]
+        dets = [tuple(t) for t in cf["support_dets"]]
+        M, _ = incidence(dets)
+        basis, _ = loop_basis(M)
+        if not basis:
+            continue
+        states += 1
+        amps = [sp.sympify(p) for p in cf["pretty"]]
+        phases = [sp.arg(a) for a in amps]
+        weights2 = [sp.Abs(a) ** 2 for a in amps]
+        n = len(dets)
+        vectors = []
+
+        for (a_mode, b_mode), pairs in sorted(one_hop_classes(dets).items()):
+            channels += 1
+            class_sizes[str(len(pairs))] = class_sizes.get(str(len(pairs)), 0) + 1
+            oriented = []
+            for i, j in pairs:
+                u, v = (i, j) if a_mode in dets[i] else (j, i)
+                sign = ((-1) ** dets[v].index(b_mode)) * ((-1) ** dets[u].index(a_mode))
+                oriented.append((u, v, sign))
+
+            rho = sum(s * sp.conjugate(amps[u]) * amps[v] for u, v, s in oriented)
+            mod2 = sp.Abs(rho) ** 2
+            approx = sp.nsimplify(sp.N(mod2, digits), rational=True, tolerance=float(tol))
+            if abs(sp.N(mod2 - approx, digits)) < tol:
+                rational_targets += 1
+            else:
+                failures.append(
+                    {
+                        "system": rec["system"],
+                        "index": rec["index"],
+                        "channel": [a_mode, b_mode],
+                        "hypothesis": "H2",
+                        "value": str(sp.N(mod2, 20)),
+                    }
+                )
+
+            rhs = sum(weights2[u] * weights2[v] for u, v, _ in oriented)
+            for a in range(len(oriented)):
+                for b in range(a + 1, len(oriented)):
+                    ua, va, sa = oriented[a]
+                    ub, vb, sb = oriented[b]
+                    rhs += (
+                        2
+                        * sa
+                        * sb
+                        * sp.sqrt(weights2[ua] * weights2[va] * weights2[ub] * weights2[vb])
+                        * sp.cos((phases[va] - phases[ua]) - (phases[vb] - phases[ub]))
+                    )
+                    w = [0] * n
+                    w[va] += 1
+                    w[ua] -= 1
+                    w[vb] -= 1
+                    w[ub] += 1
+                    vectors.append(w)
+            if abs(sp.N(mod2 - rhs, digits)) < tol:
+                identity_ok += 1
+            else:
+                failures.append(
+                    {
+                        "system": rec["system"],
+                        "index": rec["index"],
+                        "channel": [a_mode, b_mode],
+                        "hypothesis": "Lemma 2",
+                    }
+                )
+
+        # every w_ab must be a loop, and together they must generate L
+        assert all((sp.Matrix([w]) * M).is_zero_matrix for w in vectors)
+        rank = sp.Matrix(vectors).rank() if vectors else 0
+        if rank == len(basis):
+            span_ok += 1
+            nonzero = [f for f in invariant_factors(sp.Matrix(vectors)) if f != 0]
+            if all(f == 1 for f in nonzero):
+                sat_ok += 1
+            else:
+                failures.append(
+                    {
+                        "system": rec["system"],
+                        "index": rec["index"],
+                        "hypothesis": "H3 saturation",
+                        "invariant_factors": [int(f) for f in nonzero],
+                    }
+                )
+        else:
+            failures.append(
+                {
+                    "system": rec["system"],
+                    "index": rec["index"],
+                    "hypothesis": "H3 span",
+                    "rank": int(rank),
+                    "loop_dim": len(basis),
+                }
+            )
+
+    return {
+        "digits": digits,
+        "loopy_states": states,
+        "channels": channels,
+        "channel_class_sizes": dict(sorted(class_sizes.items(), key=lambda kv: int(kv[0]))),
+        "H2_rational_targets": f"{rational_targets} of {channels}",
+        "H2_holds": rational_targets == channels,
+        "H3_span_over_Q": f"{span_ok} of {states}",
+        "H3_saturated_over_Z": f"{sat_ok} of {states}",
+        "H3_holds": span_ok == states and sat_ok == states,
+        "lemma_2_identity": f"{identity_ok} of {channels}",
+        "failures": failures,
+        "note": (
+            "H3 is a hypothesis, not a theorem: a support could carry a loop "
+            "with no one-hop structure. No census state does."
+        ),
+    }
+
+
+# --------------------------------------------------------------------------
 # the trisection audit
 
 
@@ -627,6 +777,7 @@ def build(working=WORKING_DIGITS, verify=VERIFY_DIGITS, only=None):
             "evidence": "see --precision-lesson and the precision_lesson block",
         },
         "summary": summary,
+        "channel_hypotheses": channel_hypotheses(),
         "trisection_audit": trisection_audit(rows),
         "precision_lesson": precision_lesson(),
         "loops": rows,

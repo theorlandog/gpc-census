@@ -1,0 +1,298 @@
+# Holonomy Rationality: the arithmetic of loop holonomies (2026-07)
+
+Status: Theorem A PROVED below. Proposition B PROVED below as a reduction
+step. The full multiquadratic statement is a CONJECTURE with 82 of 82
+certified verifications and no proof; the gap is stated precisely in
+"What is not proved".
+
+Certifying artifacts: `scripts/holonomy_field_scan.py`,
+`results/data/holonomy_fields.json` (82 loops, 63 states),
+`scripts/denominator_arithmetic.py`,
+`results/data/denominator_arithmetic.json`.
+
+Weight rationality is a HYPOTHESIS throughout, never a claim. The one record
+in the shipped ledger that violates it is discussed at the end.
+
+## Setting
+
+Fix a system (N, d) and a state
+
+    psi = sum_{t in S} c_t |t>,   c_t = sqrt(p_t) exp(i theta_t),  p_t > 0,
+
+with determinant support S. Let M be the support incidence matrix,
+`M[t, m] = 1` iff mode m lies in determinant t.
+
+**Gauge.** The single-particle gauge group U(1)^d acts by
+`theta_t -> theta_t + sum_{m in t} phi_m`. In the notation of RESEARCH.md's
+gauge convention this is the U(1)^d and global-phase quotient only, not the
+degeneracy stabilizer.
+
+**Loop lattice.** `L = {k in Z^S : k^T M = 0}`, the integer left kernel of M.
+For k in L the loop holonomy
+
+    Phi(k) = sum_t k_t theta_t
+
+is gauge invariant, since the gauge shift contributes
+`sum_t k_t sum_{m in t} phi_m = sum_m phi_m (k^T M)_m = 0`. A state is
+"loopy" when L is nonzero. In the census, L is nonzero for exactly 63 states,
+all INTERFERENCE, carrying 82 independent loops in total.
+
+**Channels.** For an ordered mode pair (A, B), the one-hop class is the set of
+ordered pairs (u, v) of support determinants with A in u, B in v and
+`v = u - {A} + {B}` (`gpc_census.states.one_hop_classes`, oriented so that u
+is always the A-side). The 1-RDM off-diagonal is
+
+    rho_AB = sum_a s_a conj(c_{u_a}) c_{v_a},
+    s_a = (-1)^{pos of B in v_a} (-1)^{pos of A in u_a},
+
+the fermionic sign convention of `gpc_census.fiber._sesquilinear_rdm`. A
+channel is SILENT when `rho_AB = 0` and PINNED when `rho_AB` equals a
+prescribed off-diagonal target.
+
+## Lemma 1 (within-channel differences are loops)
+
+For two pairs a, b of the same one-hop class (A, B), the vector
+
+    w_ab = e_{v_a} - e_{u_a} - e_{v_b} + e_{u_b}
+
+lies in L, and `Phi(w_ab) = (theta_{v_a} - theta_{u_a}) - (theta_{v_b} - theta_{u_b})`.
+
+*Proof.* Row-wise, `M[v_a] - M[u_a] = e_B - e_A` because v_a is u_a with A
+replaced by B, and likewise for b. The difference of the two is zero, so
+`w_ab^T M = 0`. The holonomy formula is immediate. ∎
+
+The individual phase difference `theta_{v_a} - theta_{u_a}` is NOT gauge
+invariant: it shifts by `phi_B - phi_A`. All pairs of one class shift by the
+same amount, which is exactly why their differences are.
+
+## Lemma 2 (the channel equation)
+
+For a one-hop class (A, B) of size m, writing `r_a = sqrt(p_{u_a} p_{v_a})`
+and `Phi_ab = Phi(w_ab)`,
+
+    |rho_AB|^2 = sum_a r_a^2 + 2 sum_{a<b} s_a s_b r_a r_b cos(Phi_ab).
+
+*Proof.* Expand `|sum_a z_a|^2 = sum_a |z_a|^2 + 2 sum_{a<b} Re(z_a conj(z_b))`
+for `z_a = s_a r_a exp(i(theta_{v_a} - theta_{u_a}))`, and apply Lemma 1. ∎
+
+The content is not the algebra, which is the expansion of a modulus, but the
+bookkeeping: the left side is gauge invariant and, at a certified state, has a
+known value; the right side is an expression in the loop holonomies alone,
+with coefficients
+
+    r_a^2 = p_{u_a} p_{v_a}  and  r_a r_b = sqrt(p_{u_a} p_{v_a} p_{u_b} p_{v_b}),
+
+a rational number and the square root of a rational MONOMIAL in the weights.
+
+## Hypotheses
+
+- **(H1) Rational weights.** Every `p_t` is rational.
+- **(H2) Rational channel targets.** `|rho_AB|^2` is rational for every
+  channel. Silence gives 0; the census pinning targets are rational.
+- **(H3) Channel-generated loops.** The vectors `w_ab` of Lemma 1 generate L.
+
+(H2) and (H3) are verified across the census, not assumed: all 84 one-hop
+classes of the 63 loopy states have rational `|rho_AB|^2`, and for all 63
+states the `w_ab` span L over Q and generate it saturated over Z (so no
+holonomy escapes the channel bookkeeping). (H3) is a real hypothesis, not a
+theorem: a support could carry a loop with no one-hop structure at all. No
+census state does.
+
+## Theorem A (classes of size at most two)
+
+Assume (H1) and (H2). Let (A, B) be a one-hop class of size exactly 2. Then
+
+    cos(Phi_12) = (|rho_AB|^2 - p_{u_1} p_{v_1} - p_{u_2} p_{v_2})
+                  / (2 s_1 s_2 sqrt(p_{u_1} p_{v_1} p_{u_2} p_{v_2})),
+
+so `cos(Phi_12)` lies in `Q(sqrt(N))` with
+`N = p_{u_1} p_{v_1} p_{u_2} p_{v_2}` a rational monomial in the weights. Its
+minimal polynomial has degree 1 or 2 and its Galois group is C1 or C2.
+
+*Proof.* Lemma 2 with m = 2, solved for the single cosine. Every other term
+is rational by (H1) and (H2). ∎
+
+If in addition every one-hop class of S has size at most 2, then under (H3)
+every generator of L is of this form, and each generator's holonomy cosine
+lies in a quadratic extension of Q generated by the square root of a weight
+monomial.
+
+This is the v_B mechanism in one line: `cos(gamma) = 3/(4 sqrt(14))` is
+exactly the displayed formula, with 14 a weight monomial.
+
+## Proposition B (the reduction step at larger classes)
+
+Assume (H1) and (H2). Let (A, B) be a class of size 3 and suppose the
+holonomy `psi = Phi_23` is already known to lie in a field F containing all
+the `r_a r_b` and both `cos psi` and `sin psi`. Then `cos(Phi_12)` satisfies
+
+    alpha cos(Phi_12) + beta sin(Phi_12) + gamma = 0,
+    alpha = 2 s_1 s_2 r_1 r_2 + 2 s_1 s_3 r_1 r_3 cos psi,
+    beta  = -2 s_1 s_3 r_1 r_3 sin psi,
+    gamma = sum_a r_a^2 + 2 s_2 s_3 r_2 r_3 cos psi - |rho_AB|^2,
+
+all of alpha, beta, gamma in F, and therefore
+
+    cos(Phi_12) = (-alpha gamma +/- beta sqrt(alpha^2 + beta^2 - gamma^2))
+                  / (alpha^2 + beta^2),
+
+which lies in the quadratic extension `F(sqrt(alpha^2 + beta^2 - gamma^2))`.
+
+*Proof.* The three within-class holonomies satisfy `Phi_13 = Phi_12 + Phi_23`
+by Lemma 1, so `cos(Phi_13) = cos(Phi_12) cos psi - sin(Phi_12) sin psi`.
+Substituting into Lemma 2 and collecting gives the displayed linear relation.
+Eliminating `sin(Phi_12)` against `cos^2 + sin^2 = 1` yields the quadratic
+`(alpha^2 + beta^2) c^2 + 2 alpha gamma c + (gamma^2 - beta^2) = 0`, whose
+discriminant is `4 beta^2 (alpha^2 + beta^2 - gamma^2)`. ∎
+
+**Corollary (2-tower).** Under (H1), (H2), (H3), ordering the loops so that
+each channel condition is used once, every loop holonomy cosine lies in a
+tower of quadratic extensions of Q. In particular its degree over Q is a power
+of 2 and it is constructible.
+
+**Corollary (where the extra primes come from).** The square root adjoined at
+a size-3 class is of `alpha^2 + beta^2 - gamma^2`, a POLYNOMIAL and not a
+monomial in the weight data, and it involves `sin psi`, which brings
+`sqrt(1 - cos^2 psi)` from an earlier loop. So beyond size-2 classes there is
+no reason for the radicands to be weight monomials, and they are not.
+
+## What is not proved
+
+A tower of quadratic extensions is NOT in general multiquadratic. The standard
+counterexample is `sqrt(1 + sqrt 2)`, whose minimal polynomial
+`x^4 - 2 x^2 - 1` is an even quartic with Galois group D4, not V4. So
+Proposition B's corollary delivers 2-power degree and constructibility, but it
+does NOT deliver a 2-elementary Galois group.
+
+The conjecture therefore stands as follows.
+
+> **Holonomy Rationality (conjecture).** For an extremal state over a census
+> vertex satisfying (H1), (H2), (H3), every gauge-invariant loop holonomy
+> cosine generates a multiquadratic extension of Q, that is, its Galois group
+> is isomorphic to (Z/2)^k.
+
+Theorem A proves the conjecture when every one-hop class has size at most 2.
+The open case is classes of size 3 or more, where the census evidence is
+82 of 82 with 13 quartics, all V4 and none D4 or C4.
+
+The conjecture as originally sketched carried a stronger sub-clause, that the
+adjoined square roots are of rational MONOMIALS in the weights. That
+sub-clause is FALSE: 15 of the 82 loops adjoin a square root outside the group
+generated by the weights and the denominator in Q*/(Q*)^2. The mechanism is
+Proposition B's second corollary, and it makes a sharp prediction, which was
+then checked.
+
+> **Prediction (from the mechanism).** A loop whose state has all one-hop
+> classes of size at most 2 cannot have a non-monomial radicand.
+>
+> **Result: confirmed, 63 of 63 states, 0 violations.** Every one of the 15
+> non-monomial radicands occurs in a state carrying a class of size 3 or 4,
+> and no state whose classes are all of size at most 2 has one
+> (`results/data/holonomy_fields.json`, `radicand_weight_group`).
+
+## Census verification (corollary evidence)
+
+`results/data/holonomy_fields.json`, 63 states and 82 independent loops, at
+120 working digits with re-verification at 240.
+
+| degree | loops | Galois group | 2-elementary |
+|---|---|---|---|
+| 1 | 37 | C1 | yes |
+| 2 | 32 | C2 | yes |
+| 4 | 13 | V4 (Klein four) | yes |
+
+All 82: degree in {1, 2, 4}; Galois group computed with sympy
+`galois_group` rather than inferred from evenness of the polynomial; kernel
+basis certified saturated, so no loop is missed; symbolic value cross-checked
+numerically; PSLQ recognition independently reproducing the exact minimal
+polynomial on every loop; worst re-verification residual 10^-251.
+
+Note on counts: the exploratory session reported 12 quartics. The correct
+figure is 13, and 37 + 32 + 13 = 82.
+
+Only 30 distinct minimal polynomials occur over the 82 loops. The holonomy
+field is a transport-class invariant: `4x - 3` occurs at 15 loops and
+`64x^4 - 88x^2 + 25` at 9, across five different systems, matching the
+verdict-transport structure of `scripts/transport_states.py`.
+
+## Corollary: the trisected phase class dissolves
+
+The pipeline's TRISECTED phase tier is assigned syntactically, by the printed
+closed form containing both `atan` and `/3`
+(`scripts/reproduce_next_claims.py::two_block_phase_census`). It is not a
+phase-complexity tier:
+
+- the written phase `(pi + 3 atan(t))/3` equals `pi/3 + atan(t)`; the division
+  by three cancels and no cube root survives;
+- across all 13 states in the tier, every representative amplitude has
+  2-power degree over Q (degrees 1, 2, 4, 8 occur; none divisible by 3);
+- every gauge-invariant loop holonomy of those states has degree 1, 2 or 4
+  with 2-elementary Galois group.
+
+So there is no cubic subextension anywhere in the class, in the invariant
+algebra or in the representative. This is stronger than "the cube roots are a
+gauge artifact": they are an artifact of notation, and the tier should be
+folded into the ordinary complex tier.
+(`results/data/holonomy_fields.json`, `trisection_audit`.)
+
+## The one non-rational record
+
+Hypothesis (H1) is not vacuous. Of the 799 certified states, 798 carry integer
+weights over an integer denominator. The exception is the shipped v_B record,
+`(4,9)` index 65, whose closed form carries a `family` field and whose squared
+weights are quadratic irrationals in `Q(sqrt 35)`:
+
+    k(t) = (1+t, 8-t, 4, 3, 2-t, 2+t, 1, 2)/23,
+    t0 = 7/17 - 18 sqrt(35)/85, the root of 85 t^2 - 70 t - 119.
+
+This is a genuinely non-rational-weight state, not a formatting
+inconsistency. It is also consistent with the mechanism rather than a
+counterexample to it: v_B's certified state is the endpoint of a
+one-parameter wall family, and the endpoint is cut out by a QUADRATIC wall
+polynomial with two conjugate roots, only one of which is physical. The
+Galois orbit of the distinguished point has size 2, so the weights are
+quadratic rather than rational. Its own loop holonomy is unaffected and
+remains gauge-removable (minimal polynomial `x + 1`, a sign), consistent with
+the record being real up to gauge.
+
+For denominator arithmetic this record has no state denominator at all, so it
+is excluded from those predictions and reported separately
+(`docs/prereg_denominator_arithmetic.md`).
+
+Nothing here should be read as support for the distinguished-points working
+hypothesis about weight rationality. That remains a research direction with no
+proof and is deliberately absent from the manuscript.
+
+## The precision protocol (mandatory)
+
+An exploratory scan at 60 digits produced a false counterexample: a spurious
+degree-7 PSLQ relation. The protocol that prevents it, now enforced in
+`scripts/holonomy_field_scan.py` and recorded in the artifact:
+
+> Every PSLQ-recognized relation is re-verified at at least double the working
+> precision and the verification residual is recorded in the artifact. A
+> relation that fails re-verification is DELETED, not downgraded.
+
+The discriminating signal is reproduced in the artifact's `precision_lesson`
+block, at `(5,10)` v144 loop 1 with a degree-7 search: at 20, 30 and 40
+working digits PSLQ returns relations with large structureless coefficients
+whose residuals stall at the working precision (10^-20, 10^-30, 10^-41); at 60
+digits the true relation appears and its residual falls to 10^-159. Genuine
+relations improve with precision, spurious ones do not.
+
+The specific degree-7 relation reported in the exploratory session at 60
+digits does not reproduce under the scan's parameters, which search increasing
+degree with a tolerance tied to the working precision; that search finds the
+true degree-4 relation first. The failure mode is real and reproducible, the
+particular instance was parameter-dependent.
+
+## Open
+
+1. The conjecture at classes of size 3 or more. Proposition B gives a 2-tower;
+   proving 2-elementarity needs an argument that the discriminants
+   `alpha^2 + beta^2 - gamma^2` are always squares times elements already in
+   the field, or a structural reason the towers cannot go dihedral. A single
+   D4 or C4 holonomy anywhere would settle it the other way.
+2. Hypothesis (H3) at supports outside the census: is a loop with no one-hop
+   structure possible at a vertex?
+3. Weight rationality itself, hypothesis (H1). Untouched here.
