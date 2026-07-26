@@ -156,6 +156,31 @@ monomial in the weight data, and it involves `sin psi`, which brings
 `sqrt(1 - cos^2 psi)` from an earlier loop. So beyond size-2 classes there is
 no reason for the radicands to be weight monomials, and they are not.
 
+## Scope decision (2026-07): ship the theorem scoped
+
+Census-wide one-hop class-size distribution, over all 799 records:
+
+    size 1  123 classes      size 2   65      size 3   16      size 4    1
+
+So the maximum class size anywhere in the census is 4, and Theorem A's
+hypothesis (size at most 2) covers 188 of the 205 classes. Seventeen classes
+sit above it.
+
+The decision, taken rather than drifted: SHIP THE SCOPED THEOREM. Extending
+the proof to sizes 3 and 4 is not a matter of more bookkeeping, it is the open
+problem itself. Proposition B already gives the reduction step at size 3, and
+what it yields is a 2-TOWER, which is strictly weaker than multiquadratic; a
+quadratic tower can have dihedral closure. Closing sizes 3 and 4 in general
+therefore requires exactly the argument that is missing, so there is nothing
+to gain by attempting it as an extension exercise.
+
+What stands in its place is instance-level certification, which is already
+complete and stronger than a partial proof would be: all 82 loops, including
+every loop arising from the 17 large classes, are certified 2-elementary with
+explicit radicands and double-precision-re-verified minimal polynomials
+(`results/data/holonomy_fields.json`). The manuscript states the theorem at
+its proved range and quotes the 82/82 certification as evidence beyond it.
+
 ## What is not proved
 
 A tower of quadratic extensions is NOT in general multiquadratic. The standard

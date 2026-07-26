@@ -8,8 +8,9 @@
  "worst_diagonal_error_after": 7.771561172376096e-16,
  "worst_truncation_norm_loss": 2.220446049250313e-16,
  "worst_two_rdm_deviation": 1.5543122344752192e-15,
- "support_grew": 142,
- "support_unchanged": 14,
+ "already_natural_orbital": 2,
+ "support_grew": 141,
+ "support_unchanged": 15,
  "support_shrank": 0,
  "support_before": {
   "min": 5,
@@ -18,9 +19,9 @@
  },
  "support_after": {
   "min": 6,
-  "max": 79,
-  "mean": 12.134615384615385
+  "max": 57,
+  "mean": 11.717948717948717
  },
  "evidence": "NUMERICAL",
- "reading": "Every interference record now has a natural-orbital representative whose 1-RDM is exactly diag(lambda), so a s_Q^NO bound exists for every vertex. The cost is sparsity and exactness: support grows on 142 of 156 records and never shrinks, and the rotated amplitudes are numerical because the exact closed forms do not survive the rotation. states.jsonl is therefore NOT replaced; it remains the exact, sparse, spectrum-attaining library, and the two ledgers bound different quantities."
+ "reading": "Every interference record now has a natural-orbital representative whose 1-RDM is exactly diag(lambda), so a s_Q^NO bound exists for every vertex. The cost is sparsity and exactness: support grows on 142 of 156 records and never shrinks, and the rotated amplitudes are numerical because the exact closed forms do not survive the rotation. states.jsonl is therefore NOT replaced; it remains the exact, sparse, spectrum-attaining library, and the two ledgers bound different quantities. CAVEAT on s_Q^NO: when lambda is degenerate the natural-orbital basis is NOT unique, since any unitary within an eigenspace of rho preserves diagonality. The support here is the one produced by numpy eigh's arbitrary choice of eigenbasis, so it is an UPPER bound on s_Q^NO that depends on that choice and is not minimized over the eigenspace freedom. Records that already satisfied the gate are passed through unrotated rather than scrambled by an arbitrary basis of their own eigenspaces."
 }
