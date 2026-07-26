@@ -14,6 +14,24 @@ Verdicts in results/data/census were produced by census_engine.py under the
 pinned ortools version. See results/data/PROVENANCE.md for the full
 certification chain.
 
+## Arithmetic-layer artifacts
+
+Two scripts regenerate the arithmetic artifacts in place and support `--check`
+to fail if the committed copy is stale. Both need only sympy (mpmath comes
+with it) and read `results/data/states.jsonl`.
+
+- `holonomy_field_scan.py` -> `results/data/holonomy_fields.json`. Every
+  gauge-invariant loop holonomy of the census, with its minimal polynomial,
+  Galois group, and a PSLQ recognition re-verified at double precision.
+  `--precision-lesson` reproduces the low-precision failure mode that makes
+  the re-verification mandatory.
+- `denominator_arithmetic.py` -> `results/data/denominator_arithmetic.json`.
+  The two-stage derivation of the state denominator, with `--v89` and
+  `--v103` for the worked examples and `--census` for the scored
+  pre-registration of docs/prereg_denominator_arithmetic.md.
+
+The theory these certify is docs/holonomy_rationality.md.
+
 ## Checkpointing (spot-resilient runs)
 
 The long campaigns (`solve_all.py`, plus `census_engine.py file` and

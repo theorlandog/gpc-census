@@ -58,8 +58,10 @@ round gated on the eigenvalue multiplicities as well as the certificate.
 
 The field support_upper is the smallest support reached. Read it alongside
 support_certified: the certified support is an UPPER BOUND on the minimal
-support s_Q of the vertex, and support_upper is a better upper bound where the
-cascade landed a drop. Neither is a minimality claim, and support_upper is not
+support, and support_upper is a better upper bound where the cascade landed a
+drop. The two bound DIFFERENT quantities: support_certified bounds s_Q^NO (its
+state has rho = diag(lambda)) while support_upper bounds only s_Q^free, since
+no cascade endpoint has a diagonal 1-RDM. See orbit_check.json. Neither is a minimality claim, and support_upper is not
 certified: support_upper_evidence records "numerical" on every record, and the
 endpoint amplitudes are shipped (final_amplitudes_real, final_amplitudes_imag,
 final_support_dets) so the endpoint can be rechecked without rerunning the
@@ -137,5 +139,47 @@ library state to ~1e-16 (same state, rotated), 8 differ by 3.4e-3 to 4.7e-2 (no
 one-body rotation can do that, so they are genuinely different extremal states),
 and ZERO have a diagonal 1-RDM, which is why every cascade bound is a bound on
 s_Q^free and not on the natural-orbital quantity. The v103 entry carries the
-explicit connecting unitary (residual 7.5e-14, off-block entries 0.196, so a
-U(10) rotation and not a gauge one).
+explicit connecting unitary (residual 7.2e-16, off-block entries 0.196, so a
+U(10) rotation and not a gauge one). Every one of the 63 same-state endpoints
+ships its rotation matrix, all verified, worst residual 1.7e-15.
+
+## holonomy_fields.json (gauge-invariant loop holonomy fields)
+
+EXACT, with an independent numerical cross-check. scripts/holonomy_field_scan.py
+walks every certified INTERFERENCE state whose support carries loops (63 states,
+82 independent loops) and records, per loop: the integer kernel vector, the
+exact holonomy cosine, its minimal polynomial, its degree, its Galois group
+computed with sympy galois_group rather than inferred from the shape of the
+polynomial, the extracted square-root radicands, and a PSLQ integer-relation
+recognition performed at 120 digits and RE-VERIFIED at 240, with the
+verification residual recorded on every row. A relation that fails
+re-verification is deleted, not downgraded; the discriminating evidence for that
+protocol is reproduced in the precision_lesson block.
+
+Result: all 82 degrees lie in {1, 2, 4} (37 / 32 / 13) and all 82 Galois groups
+are 2-elementary (C1 / C2 / V4). The loop-kernel bases are certified saturated,
+so no holonomy relation is missed. The channel_hypotheses block verifies the
+hypotheses the theorem of docs/holonomy_rationality.md runs on: all 84 one-hop
+channels have rational |rho_AB|^2, and for all 63 states the within-channel
+difference vectors generate the loop lattice, saturated over Z. The
+trisection_audit block shows the pipeline's TRISECTED phase tier is a property
+of how the amplitude phase is printed, not of the state: no cubic subextension
+occurs anywhere in those 13 states.
+
+## denominator_arithmetic.json (where a state denominator comes from)
+
+EXACT. scripts/denominator_arithmetic.py splits the state denominator into an
+incidence stage (solve A_S p = lambda, sum p = 1 over Q, with the Smith
+invariant factors of A_S recorded) and a pinning stage (the one-hop channel
+conditions restricted to the incidence solution space). Worked examples at v89,
+where the silence condition on the incidence line loses its quadratic terms and
+the surviving linear equation 130 p9 - 1 = 0 mints the prime 5, and at v103,
+where two channel equations have identical quadratic parts and their difference
+13 p12 = p9 + p13 carries the minted prime 13.
+
+The census block scores the predictions pre-registered in
+docs/prereg_denominator_arithmetic.md: P-DEN-2 FAIL (18 exceptions, mechanism
+recorded), P-DEN-3 FAIL as predicted (1 exception, v103, pinned as predicted),
+P-DEN-4 PASS (736 states, 0 exceptions). The (4,9) index 65 record is excluded
+from the ratio predictions: its weights are not rational, so it has no state
+denominator.

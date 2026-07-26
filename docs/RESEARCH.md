@@ -200,6 +200,16 @@ plethysm criterion feed Problem 7 below.
   status tags point into it).
 - THEOREMS.md: numbered theorem statements (T1 Jacobian program, T4
   endpoint theorem, T7 stratification reduction, v_B anomaly resolution).
+- holonomy_rationality.md: the arithmetic of loop holonomies. Theorem A
+  (PROVED) settles the Holonomy Rationality conjecture for one-hop channel
+  classes of size at most 2, with the adjoined radicand a weight monomial;
+  Proposition B (PROVED) is the reduction step at larger classes and yields
+  only a 2-tower, which is weaker than multiquadratic, so the conjecture
+  stays open there on 82/82 evidence. Also carries the trisection
+  dissolution and the analysis of the one non-rational-weight ledger record.
+- prereg_denominator_arithmetic.md: the pre-registered denominator-arithmetic
+  predictions, committed before the census run, scored FAIL/FAIL/PASS in
+  results/data/denominator_arithmetic.json with mechanisms for both FAILs.
 - silence_rank_lemma.md: the silence-rank lemma, PROVED (first-order
   statements, degenerate perturbation theory), with verified census
   corollaries: v89 fixed-spectrum rigid, v103 fixed-rho rigid but
@@ -207,7 +217,8 @@ plethysm criterion feed Problem 7 below.
 - unified_fiber_dimension.md: the unified first-order fiber-dimension
   formula (both regimes), its corpus verification over all 156 interference
   states, the v103 sparsification cascade, and merge notes. Its s_Q(v103)
-  <= 12 is superseded by <= 10, certified exactly; see cascade_census.md.
+  <= 12 is superseded by s_Q^free(v103) <= 10, certified exactly; see
+  cascade_census.md.
 - gauge_minimization.md: minimization of every certified state's support over
   its natural-orbital gauge family, the exact profile-class/flattening lower
   bound (629 of 799 certified gauge-minimal), the null result on the other 170,
@@ -307,6 +318,14 @@ Working philosophy:
   v103 fixed-rho rigid (all-channel silence rank 5 = kernel dim 5) but
   fixed-spectrum DEFORMABLE (formula and direct tangent both give 6).
 
+- Holonomy quadraticity at small channel classes (Theorem A,
+  docs/holonomy_rationality.md). If a state has rational squared weights and
+  rational channel targets, every one-hop class of size 2 gives a loop
+  holonomy whose cosine lies in Q(sqrt(N)) for N a rational MONOMIAL in the
+  weights. Proof by expanding the channel modulus; the v_B phase
+  cos(gamma) = 3/(4*sqrt(14)) is exactly this formula.
+  [docs/holonomy_rationality.md; results/data/holonomy_fields.json]
+
 ### 🟨 Theorem candidates
 
 - Compact semialgebraic support layers Delta^(k). (Route: Delta^(k) is the
@@ -343,6 +362,55 @@ into the project.
 
 ### 🟦 Confirmed by project evidence
 
+- Holonomy fields are 2-elementary, census-wide. All 82 gauge-invariant loop
+  holonomies of all 63 loopy interference states have cosine of degree 1 (37),
+  2 (32) or 4 (13) over Q, with Galois group C1, C2, V4 respectively; no C4,
+  D4 or Q8 anywhere. Groups computed with sympy galois_group, not inferred
+  from the polynomial having only even terms; loop-kernel bases certified
+  saturated so nothing is missed; every PSLQ relation recognized at 120 digits
+  and re-verified at 240 with the residual recorded (worst 1e-251).
+  PRECISION PROTOCOL, now mandatory for this area: a recognized integer
+  relation must be re-verified at at least double the working precision and
+  the residual recorded; a relation that fails re-verification is DELETED, not
+  downgraded. An exploratory scan at 60 digits produced a false counterexample
+  without it. [scripts/holonomy_field_scan.py;
+  results/data/holonomy_fields.json; tests/test_holonomy_fields.py]
+- The theorem's hypotheses hold census-wide, checked rather than assumed: all
+  84 one-hop channels of the loopy states have rational |rho_AB|^2, and for
+  all 63 states the within-channel difference vectors generate the loop
+  lattice, saturated over Z. The latter is a HYPOTHESIS, not a theorem: a
+  support could carry a loop with no one-hop structure, and none does here.
+  [results/data/holonomy_fields.json, channel_hypotheses]
+- The TRISECTED phase tier is a printing artifact, not a phase-complexity
+  tier. The tier is assigned syntactically ("atan" and "/3" both present in
+  the printed closed form); the written phase (pi + 3*atan(t))/3 equals
+  pi/3 + atan(t), and across all 13 states every representative amplitude has
+  2-power degree over Q while every loop holonomy has degree 1, 2 or 4 with
+  2-elementary group. No cubic subextension exists anywhere in the class.
+  This is stronger than "the cube roots are a gauge artifact"; there was never
+  any cubic algebra to be a gauge artifact of.
+  [results/data/holonomy_fields.json, trisection_audit]
+- Denominator minting is a two-stage arithmetic. The incidence solve
+  A_S p = lambda, sum p = 1 and then the pinning solve by the channel
+  conditions; the state denominator's new primes come from the second stage.
+  At v89 the single silence condition restricted to the incidence line loses
+  its quadratic terms and the surviving linear equation is literally
+  130*p9 - 1 = 0, minting the prime 5. At v103 the same cancellation happens
+  BETWEEN two channel equations, whose difference is 13*p12 = p9 + p13,
+  minting 13; the incidence solve there is unimodular over the spectrum
+  denominator 34 and mints nothing.
+  [scripts/denominator_arithmetic.py; results/data/denominator_arithmetic.json]
+- Exactly ONE of the 799 certified records has non-rational squared weights:
+  the shipped v_B record at (4,9) index 65, whose weights are quadratic
+  irrationals in Q(sqrt 35). It is a genuine non-rational-weight state, not a
+  formatting inconsistency: it is the endpoint of a wall family cut out by the
+  quadratic 85t^2 - 70t - 119, whose two roots are a Galois conjugate pair
+  with only one physical, so the distinguished point has orbit size 2. Its own
+  loop holonomy is a sign (minimal polynomial x + 1), consistent with the
+  record being real up to gauge. It is excluded from denominator predictions,
+  having no state denominator. [docs/holonomy_rationality.md;
+  tests/test_holonomy_fields.py]
+
 - Positive-dimensional REDUCED vertex fibers exist (v_B). [THEOREMS.md
   "v_B ANOMALY RESOLVED" (reduced spectrum-fiber is a surface);
   RESEARCH_ARCHIVE "THE FIBER IS THE 1-RDM -> 2-RDM INFORMATION GAP";
@@ -378,7 +446,7 @@ into the project.
   5/68, 35/901, 1/34, 18/901, 84/11713), the single loop holonomy is pi so
   the state is real up to gauge, and det(rho - xI) = (x - 9/17)^4
   (x - 5/34)^6 holds in exact rational and radical arithmetic. So
-  s_Q(v103) <= 10, certified. Its state denominator 46852 = 2^2*13*17*53
+  s_Q^free(v103) <= 10, certified. Its state denominator 46852 = 2^2*13*17*53
   carries a prime found in neither the spectrum denominator nor the
   library state, which is why no grid search over multiples of the natural
   denominator could reach it. Upper bound only, not a minimality claim.
@@ -465,9 +533,13 @@ into the project.
   content of "positive realization defect"), with in-repo certificates
   (scripts/reproduce_next_claims.py). DEFINITION (adopted): for a vertex
   spectrum lambda, s_I(lambda) = min |S| such that the diagonal incidence
-  system A_S p = lambda, p >= 0, sum p = 1 is feasible; s_Q(lambda) = min
-  support of a pure state with spec(rho) = lambda; realization defect =
-  s_Q - s_I. CERTIFIED: s_I(v89) = 7 and s_I(v103) = 6, exact (MILP optimum
+  system A_S p = lambda, p >= 0, sum p = 1 is feasible; s_Q^NO(lambda) = min
+  support of a pure state whose 1-RDM is EXACTLY diag(lambda); realization
+  defect = s_Q^NO - s_I. (The defect is against the NATURAL-ORBITAL minimum.
+  Taking it against s_Q^free instead, the minimum over all states with
+  spec(rho) = lambda, is not meaningful: s_I does not bound s_Q^free. The
+  original wording defined s_Q by the spectrum and then subtracted s_I from
+  it, which is the conflation the support taxonomy above exists to stop.) CERTIFIED: s_I(v89) = 7 and s_I(v103) = 6, exact (MILP optimum
   + exact rational witness weights); AND both minimal incidence witnesses
   are PROVED quantum-infeasible in exact arithmetic: v89's by a
   projector-algebra contradiction ((P^2)_04 = P_08 P_84 with both factors
@@ -486,7 +558,7 @@ into the project.
   [docs/unified_fiber_dimension.md section 3; docs/gauge_minimization.md.]
 
 🔬 STILL OPEN, do not overclaim: the GLOBAL statement s_Q^NO > s_I (defect > 0)
-requires killing every support of size s_I..s_Q-1, not just the minimal
+requires killing every support of size s_I..s_Q^NO-1, not just the minimal
 witnesses. Ladder status for v89 at size 7: 41 supports enumerated
 (incomplete), 34 killed exactly by the projector-pattern argument, 6
 distinct survivors all floor numerically (1.5e-2..6e-2 over 24
@@ -502,6 +574,28 @@ and untested.
 
 ### ❌ Disproved
 
+- Holonomy radicands are square roots of rational MONOMIALS in the weights.
+  This was the stronger sub-clause of the Holonomy Rationality sketch; it
+  fails on 15 of the 82 loops, whose radicands (42, 235, 517, 3266, 4899,
+  5538) lie outside the group generated by the weights and the denominator in
+  Q*/(Q*)^2. Mechanism: at a channel class of size 3 or more the elimination
+  adjoins sqrt(alpha^2 + beta^2 - delta^2), a POLYNOMIAL and not a monomial in
+  the weight data, and later loops see the sines of earlier ones. The
+  mechanism predicted exactly where the failures must live (only at states
+  with a class of size >= 3) and that prediction is confirmed 63 of 63. The
+  conjecture's actual conclusion, that the field is multiquadratic, is
+  untouched. [docs/holonomy_rationality.md;
+  results/data/holonomy_fields.json, radicand_weight_group]
+- Ratio-1 states have unimodular incidence solves (P-DEN-2, pre-registered).
+  FAIL, 18 exceptions. Unimodularity of A_S is SUFFICIENT for the incidence
+  solve to stay over the spectrum denominator but not NECESSARY: an invariant
+  factor f > 1 obstructs only right-hand sides outside the image sublattice,
+  and (lambda, 1) can lie inside it anyway. P-DEN-3 (the converse) also
+  failed, as pre-registered, with its predicted shape: the single exception
+  v103 is pinned. P-DEN-4, the version with the escape route named in advance,
+  PASSED on 736 states with 0 exceptions.
+  [docs/prereg_denominator_arithmetic.md;
+  results/data/denominator_arithmetic.json]
 - Fiber dimension = incidence-kernel dimension, AS A UNIVERSAL LAW. [P4,
   both closures.] SCOPE NOTE: the law was fit on magnitude-target states
   and fails in the cancellation regime; the scoped (magnitude-sector)
@@ -588,7 +682,7 @@ and names the tools to import.)
 4. Graph-theoretic coupled-phase realizability criterion. [Groundwork:
    one-hop class combinatorics in classify.py; loop census in the archive.]
 5. Infinite positive-defect family. [The defect definition is now fixed and
-   witnessed (s_I / s_Q / s_M above); still BLOCKED on the global defect
+   witnessed (s_I / s_Q^NO / s_M above); still BLOCKED on the global defect
    inequality at one instance (the 🔬 ladder above) before hunting a
    family. Crystallographic sparse phase retrieval is the template
    (prior_art_roadmap section 1).]
@@ -597,7 +691,16 @@ and names the tools to import.)
 7. Levi-theoretic lower bounds. [Groundwork: levi.py post-audit, the
    rank_deficiency == stab - 1 identity (799/799), the hard/soft plethysm
    criterion.]
-8. Complexity classification. [BLOCKED on choosing the complexity measure:
+8. Holonomy Rationality at channel classes of size 3 or more. [Theorem A
+   settles size <= 2; Proposition B gives only a 2-tower, and a 2-tower can be
+   dihedral (sqrt(1 + sqrt 2) has D4 closure). What is needed: an argument
+   that the eliminated discriminants alpha^2 + beta^2 - delta^2 are always
+   squares times elements already in the field, or a structural reason the
+   towers cannot go dihedral. A single C4 or D4 holonomy anywhere settles it
+   the other way; none occurs in 82 loops. Second open piece: is hypothesis
+   (H3) forced, i.e. can a vertex support carry a loop with no one-hop
+   structure? docs/holonomy_rationality.md.]
+9. Complexity classification. [BLOCKED on choosing the complexity measure:
    support size, state-denominator, phase field degree, and clique budget
    are all in play and provably non-equivalent (den-ratio falsification).
    Define the measure first.]
@@ -660,6 +763,17 @@ and the census-wide orbit check of the cascade endpoints
 (scripts/orbit_check.py); the support taxonomy above; and the relabelling of
 every cascade bound from s_Q to s_Q^free.
 
+Also done and landed (2026-07, arithmetic session): the census-wide holonomy
+field scan (scripts/holonomy_field_scan.py,
+results/data/holonomy_fields.json, tests/test_holonomy_fields.py); the
+Holonomy Rationality theorem note with Theorem A proved and the conjecture
+scoped (docs/holonomy_rationality.md); the two-stage denominator derivation
+with its pre-registered census test (scripts/denominator_arithmetic.py,
+docs/prereg_denominator_arithmetic.md,
+results/data/denominator_arithmetic.json); the trisection dissolution; and
+the manuscript's Galois section updated from the stale 142-state tally to the
+full 82-loop result.
+
 Priority:
 
 0. Sharpen the gauge lower bound on the 170 open rows, 51 of which are open
@@ -712,6 +826,9 @@ this table.
 | s_Q^NO(v103) <= 10 (the support-10 endpoint read as a natural-orbital state) | FALSE. That endpoint's 1-RDM carries rho_39 = -5/68 exactly, so it certifies s_Q^free(v103) <= 10 only; s_Q^NO(v103) stays bounded by the library support 14 |
 | the cascade endpoints are all the library state in another basis | 63 of 71 are; the other 8 have 2-RDM spectra no one-body rotation can reach, so they are genuinely new extremal states |
 | 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
+| the trisected states are a cube-root phase-complexity tier | a printing artifact: (pi + 3*atan(t))/3 is pi/3 + atan(t), and no cubic subextension exists in any of the 13, invariant or representative |
+| holonomy radicands are square roots of weight monomials | true only for channel classes of size at most 2 (proved); false at 15 of 82 loops, all at classes of size 3 or more, exactly as the mechanism predicts |
+| the manuscript's Galois tally covers 142 states / 62 holonomies | superseded by the full corpus: 63 states, 82 loops, all 2-elementary |
 
 REPRESENTATIVE-SWAP CHECK (v0.12, the real v_B record). Shipping the real
 theta=0 endpoint in place of the phase-carrying fiber point over
