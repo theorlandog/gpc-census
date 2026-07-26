@@ -311,43 +311,27 @@ multiplicity and the weight vector is still Galois-fixed. Multi-start finds
 solutions and cannot prove there are no others, so this bounds gap (b)
 empirically rather than closing it; gap (a), isolation itself, is untouched.
 
-## uniqueness_census.json: v103_discreteness_probe block (added 2026-07)
+## v103_fiber_count.json (the exact number of fiber points at v103)
 
-NUMERICAL, at 60 digits for the polish. scripts/v103_discreteness_probe.py
-establishes that the multiplicity found at (3,10) v103 is a discrete set of
-isolated points. The TANGENT RANK is what carries it: the fixed-rho tangent
-dimension is 0 at the certified representative and at every solution reached
-from a random start, so the fiber is 0-dimensional where sampled. The POLISH
-corroborates: two solutions refined by damped Gauss-Newton against the exact
-rational target reach 2.15e-46 and 2.28e-50, far below the 1e-11 float64
-acceptance threshold, and stay distinct. The MIDPOINT of those two sits at
-residual 0.207, which shows they are not joined by a straight segment in the
-fiber; on a curved component a chord midpoint would also miss, so this is
-corroboration and not proof.
+NUMERICAL but EXHAUSTIVE rather than sampled. scripts/v103_fiber_count.py
+answers how many points the v103 fixed-rho fiber has, and the answer is ONE.
 
-RETRACTED: an earlier version of this block argued discreteness from a
-counting identity, distinct holonomy cosine values equalling points times
-loops (125 = 25 x 5). That is not evidence. Random samples from a CONTINUUM
-also have pairwise distinct coordinates almost surely, so the identity holds
-for a positive-dimensional fiber too and distinguishes nothing.
+The search space is what makes it exhaustible. Every solution carries the same
+weight vector, so the unknowns are phases alone, and modulo the 9-dimensional
+orbital-phase gauge the 14 phases leave exactly 5 degrees of freedom, one per
+loop. That is a compact 5-torus of gauge-invariant holonomies, and a grid over
+it can be exhausted instead of sampled: 7^5 = 16807 starts, every one
+converging, all to a single point with holonomy (0, pi, pi, 0, 0), so the state
+is real up to gauge exactly as the library record says. Worst 1-RDM
+reconstruction error 5.7e-14.
 
-THE NUMBER OF POINTS IS OPEN. The support-preserving orbital permutations are
-TRIVIAL (1 of |S_4 x S_6| = 17280), so no symmetry quotient collapses the
-count and the raw number is the number. But it does not saturate: 800 random
-starts give 18 / 26 / 35 / 47 / 59 distinct points at 50 / 100 / 200 / 400 /
-800, still climbing by about ten per doubling. So the fiber has AT LEAST 59
-isolated points. Basins are very unequal, so no coupon-collector
-extrapolation is offered; a certified root count (homotopy continuation with a
-trace test or monodromy) is what would settle it.
-
-Two method notes. Damping is not optional: the orbital-phase gauge makes J^T J
-singular, and undamped Gauss-Newton diverges. And the target must be the exact
-rational diag(lambda), available because v103 is one of the two interference
-records that pass the diagonality gate; converting the float64 1-RDM instead
-caps every residual at the target's own 1e-16 error, a floor an earlier
-version of this probe hit and misread as a solver limit.
-
-The points are NOT distinguished by weight assignment: every solution carries
-the same unsorted weight vector to 6.7e-14 and they differ only in loop
-holonomy, so the multiplicity is confined to the phase sector and cannot
-perturb weight rationality.
+This supersedes and retires an earlier probe, together with the reading built
+on it, that reported v103 as carrying dozens of isolated fiber points and
+climbing. That count was an artifact of a NON-INTEGER loop basis: amplitude
+phases are read wrapped into (-pi, pi], and a gauge change followed by that
+wrap shifts theta by 2*pi*m for an integer vector m, which moves an integer
+holonomy by a multiple of 2*pi and leaves its cosine alone but moves a
+real-basis holonomy arbitrarily. One physical point was being split into
+dozens by branch choice. scripts/uniqueness_census.py now builds its loop
+basis over the integers, and its verdict changes from FAIL to PASS on all
+twelve sampled states.

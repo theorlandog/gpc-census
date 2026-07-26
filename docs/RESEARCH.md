@@ -729,15 +729,16 @@ and names the tools to import.)
    > are separated by holonomies taking values across (-1,1) rather than by
    > signs, so it does not fit the picture as stated.
 
-   Status: the v_B leg is certified, the v103 leg REFUTES the general form.
-   v103's fiber points are isolated (fixed-rho tangent 0 at the certified
-   representative AND at every solution from a random start) and share one
-   weight vector to 6.7e-14, but their holonomy cosines are spread across
-   (-1,1), not confined to signs. HOW MANY of them is OPEN: the
-   support-preserving orbital permutations are trivial (1 of 17280) so no
-   quotient collapses the count, and multi-start does not saturate, reaching
-   at least 59 distinct points at 800 starts and still climbing. A certified
-   root count is what would settle it. So whatever unifies the two vertices is not
+   Status: the v_B leg is certified. The v103 leg no longer refutes anything,
+   because v103's fiber has exactly ONE point modulo gauge, holonomy
+   (0, pi, pi, 0, 0), certified by exhausting the 5-torus of gauge-invariant
+   holonomies (16807 grid starts, all converging, one point). The earlier
+   report of dozens of points at v103 was an artifact of a non-integer loop
+   basis and is withdrawn; see correction 11 in docs/closing_ledger.md. So the
+   open question is not whether v103 fits the 2-torsion picture, it is whether
+   the picture says anything at all beyond v_B, where it is a single certified
+   data point. Attack it as a mechanism, not by mining two vertices.
+   [results/data/vb_galois_orbit.json; results/data/v103_fiber_count.json] So whatever unifies the two vertices is not
    2-torsion in the holonomy. This is arc two's first question, and it should
    be attacked as a mechanism, not mined from the two data points.
    [results/data/vb_galois_orbit.json;

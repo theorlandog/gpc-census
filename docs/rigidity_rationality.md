@@ -199,23 +199,27 @@ certificates on the polynomial system for a sample and then census-wide.
 Until then every "rigid" in the table above means first-order rigid.
 
 **(b) Isolation gives finiteness, not uniqueness.** MEASURED 2026-07,
-`results/data/uniqueness_census.json`. Multi-starting the fixed-rho
-realization system from 60 random starts on twelve rigid interference states
-(both cancellation states plus ten spanning distinct spectra): eleven have
-exactly ONE solution modulo gauge, and v103 has several. The pre-registered
-uniqueness claim therefore FAILS at one state of twelve, which is consistent
-with first-order rigidity, since rigidity is local and says nothing about how
-many isolated points exist globally.
+`results/data/uniqueness_census.json` and `results/data/v103_fiber_count.json`.
+Multi-starting the fixed-rho realization system on twelve rigid interference
+states: every one has exactly ONE solution modulo gauge and conjugation, and
+exactly one weight vector. The pre-registered uniqueness claim PASSES 12 of 12.
 
-The failure does not threaten this theorem, and the reason is the point of
-measuring separately: every solution found at v103 shares ONE weight
-multiset, and the points differ only in their loop holonomies. Gap (b)'s
-concern was Galois-conjugate points with DIFFERENT weights forcing algebraic
-weights of degree equal to the orbit size. What occurs at v103 is a discrete
-PHASE multiplicity with the weight vector still Galois-fixed. Across all
-twelve sampled states the weight multiset is unique, 12 of 12. This is
-numerical: multi-start finds solutions and cannot prove there are no others,
-so it bounds gap (b) empirically rather than closing it.
+At v103 this is certified rather than sampled. Once the weight vector is known
+to be common to every solution, the unknowns are phases alone, and modulo the
+9-dimensional orbital-phase gauge they leave exactly 5 degrees of freedom, one
+per loop. That search space is a compact 5-torus and can be exhausted: 16807
+grid starts, all converging, yield ONE point, with holonomy (0, pi, pi, 0, 0),
+so the state is real up to gauge exactly as the library record says.
+
+CORRECTION, recorded because it was published in the other direction first.
+This census originally scored v103 as an exception with dozens of points, and
+that was an artifact of the measurement. The loop basis had been taken from an
+SVD, so its vectors had irrational entries. Amplitude phases are read wrapped
+into (-pi, pi], and a gauge change followed by that wrap shifts theta by
+2*pi*m for an integer m; for an INTEGER kernel vector the holonomy then moves
+by a multiple of 2*pi and its cosine is unchanged, but for a real one it moves
+arbitrarily. One physical point was being split into dozens by branch choice.
+So gap (b) has no counterexample anywhere it has been measured.
 
 The theoretical statement of the gap is unchanged: Galois may permute several
 conjugate isolated points, giving weights algebraic of degree equal to the

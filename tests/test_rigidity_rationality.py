@@ -200,11 +200,18 @@ def uniqueness():
     return json.loads((DATA / "uniqueness_census.json").read_text())
 
 
-def test_uniqueness_prereg_fails_at_exactly_one_state(uniqueness):
-    assert uniqueness["verdict"] == "FAIL"
-    assert uniqueness["exceptions"] == 1
-    assert uniqueness["exception_labels"] == ["(3,10) v103"]
+def test_uniqueness_prereg_passes_after_the_loop_basis_fix(uniqueness):
+    """Originally scored FAIL at v103. The exception was an artifact of a
+    non-integer loop basis, which makes holonomy cosines depend on the phase
+    branch; with an integer basis every state has one solution modulo gauge."""
+    assert uniqueness["verdict"] == "PASS"
+    assert uniqueness["exceptions"] == 0
+    assert uniqueness["exception_labels"] == []
     assert uniqueness["sample_size"] == 12
+    assert "ARTIFACT" in uniqueness["finding"]
+    for r in uniqueness["records"]:
+        assert r["distinct_modulo_gauge"] == 1
+        assert r["distinct_weight_multisets"] == 1
 
 
 def test_weight_multiset_is_unique_everywhere(uniqueness):
@@ -224,63 +231,29 @@ def test_the_solved_system_is_the_fixed_rho_fiber(uniqueness):
     assert uniqueness["evidence"].startswith("NUMERICAL")
 
 
-# ------------------------------------------- v103 discreteness confirmations
+# ------------------------------------------------- v103, the real number
 
 
-def test_v103_points_are_isolated_by_tangent_rank(uniqueness):
-    """What actually certifies discreteness: the fixed-rho tangent vanishes at
-    random solutions, not only at the certified representative."""
-    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
-    assert i["tangent_dim_at_certified_point"] == 0
-    assert i["tangent_dim_at_random_solutions"]
-    assert all(v == 0 for v in i["tangent_dim_at_random_solutions"])
-    assert i["all_sampled_points_isolated"]
+@pytest.fixture(scope="module")
+def fiber_count():
+    return json.loads((DATA / "v103_fiber_count.json").read_text())
 
 
-def test_the_counting_identity_argument_is_retracted(uniqueness):
-    """Pinned so the retracted argument is not quietly reinstated: random
-    samples from a continuum also have pairwise distinct coordinates."""
-    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
-    assert "retracted_counting_identity" in i
-    assert "not evidence" in i["retracted_counting_identity"]
+def test_v103_fiber_has_exactly_one_point(fiber_count):
+    """Exhaustive search of the 5-torus of gauge-invariant holonomies, which is
+    the right space once the weight vector is known to be common to every
+    solution."""
+    assert fiber_count["distinct_points"] == 1
+    assert fiber_count["converged"] == fiber_count["starts"]
+    assert fiber_count["starts"] >= 16807
+    assert fiber_count["worst_reconstruction_error"] < 1e-9
 
 
-def test_v103_point_count_is_open_with_no_symmetry_to_quotient(uniqueness):
-    """The support-preserving permutations are trivial, so nothing collapses
-    the count, and the count has not saturated."""
-    i = uniqueness["v103_discreteness_probe"]["discreteness_and_count"]
-    assert i["support_preserving_orbital_permutations"] == 1
-    assert i["full_block_permutation_group_order"] == 17280
-    assert i["symmetry_quotient_is_trivial"]
-    assert i["count_saturated"] is False
-    curve = i["saturation_curve"]
-    assert curve[-1]["distinct_points"] >= curve[0]["distinct_points"]
+def test_v103_single_holonomy_is_all_signs(fiber_count):
+    """The one point has holonomy (0, pi, pi, 0, 0): the state is real up to
+    gauge, as the library record says."""
+    import math
 
-
-def test_v103_multiplicity_is_not_a_solver_artifact(uniqueness):
-    """Polished against the EXACT rational target, far below the float64
-    acceptance threshold, and still distinct."""
-    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
-    assert pm["found_holonomy_distinct_pair"]
-    assert pm["target"].startswith("exact rational")
-    for key in ("polished_residual_a", "polished_residual_b"):
-        assert float(pm[key]) < 1e-40, (key, pm[key])
-    assert pm["max_holonomy_difference"] > 0.2
-
-
-def test_v103_midpoint_certifies_the_points_are_isolated(uniqueness):
-    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
-    midpoint = float(pm["midpoint_residual"])
-    endpoint = max(float(pm["polished_residual_a"]), float(pm["polished_residual_b"]))
-    assert midpoint > 1e-3
-    assert midpoint / endpoint > 1e30
-
-
-def test_v103_points_share_one_weight_vector(uniqueness):
-    """Not weight assignment: the weights are identical, so the multiplicity
-    is confined to the phase sector."""
-    pm = uniqueness["v103_discreteness_probe"]["polish_and_midpoint"]
-    assert pm["weights_identical_across_solutions"]
-    assert pm["weight_vector_spread_over_all_solutions"] < 1e-9
-    assert pm["same_weight_vector"]
-    assert pm["max_weight_difference"] < 1e-9
+    (holonomy,) = fiber_count["holonomies"]
+    for value in holonomy:
+        assert min(abs(value), abs(value - math.pi), abs(value - 2 * math.pi)) < 1e-6
