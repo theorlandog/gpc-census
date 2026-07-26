@@ -53,7 +53,6 @@ from __future__ import annotations
 from itertools import combinations
 
 import numpy as np
-from scipy.optimize import least_squares
 
 # an amplitude below this (in a unit-norm state) is a candidate zero
 ZERO_TOL = 1e-7
@@ -188,13 +187,15 @@ def _one_body_action(dets, d):
     return a
 
 
-def block_generators(blocks):
-    """Hermitian generators of the gauge algebra that can change |c_T|.
+def block_generators(blocks, include_diagonal=False):
+    """Hermitian generators of the gauge algebra.
 
-    Off-diagonal only: the diagonal generators are the U(1)^d orbital-phase
-    gauge and act by phases alone, so they cannot move any modulus and are
-    useless to a sparsity objective (they are carried separately by the exact
-    closure solve, which does need them).
+    Off-diagonal by default: the diagonal generators are the U(1)^d
+    orbital-phase gauge and act by phases alone, so they cannot move any
+    modulus and are useless to a sparsity objective. Matching one state to
+    another DOES need them (phases are part of the target), so
+    include_diagonal=True adds them, and with them the global phase, which is
+    their sum divided by the particle number.
     """
     gens = []
     for b in blocks:
@@ -202,13 +203,19 @@ def block_generators(blocks):
             for j in range(i + 1, len(b)):
                 gens.append((b[i], b[j], "re"))
                 gens.append((b[i], b[j], "im"))
+    if include_diagonal:
+        for b in blocks:
+            for i in b:
+                gens.append((i, i, "diag"))
     return gens
 
 
 def _generator_matrix(gen, d):
     p, q, kind = gen
     h = np.zeros((d, d), dtype=complex)
-    if kind == "re":
+    if kind == "diag":
+        h[p, p] = 1.0
+    elif kind == "re":
         h[p, q] = h[q, p] = 1.0
     else:
         h[p, q], h[q, p] = 1j, -1j
@@ -224,7 +231,8 @@ class GaugeOrbit:
     full gradient costs one compound evaluation, not one per parameter.
     """
 
-    def __init__(self, amplitudes, support_dets, blocks, d, target=None):
+    def __init__(self, amplitudes, support_dets, blocks, d, target=None,
+                 include_diagonal=False):
         self.d = d
         self.blocks = [list(b) for b in blocks]
         self.dets = [tuple(int(o) for o in t) for t in support_dets]
@@ -235,7 +243,7 @@ class GaugeOrbit:
         self.c0 = np.zeros(len(self.target), dtype=complex)
         for t, amp in zip(self.dets, np.asarray(amplitudes, dtype=complex)):
             self.c0[pos[t]] = amp
-        self.gens = block_generators(self.blocks)
+        self.gens = block_generators(self.blocks, include_diagonal)
         a = _one_body_action(self.target, d)
         # y_a = dGamma(i E_a) psi_0, one fixed vector per generator
         self.y = np.array([1j * np.einsum("pq,pqij,j->i",
@@ -623,22 +631,55 @@ def solve_orbital_rotation(a_amps, a_dets, b_amps, b_dets, d, blocks=None,
     goal = np.zeros(len(target), dtype=complex)
     for t, amp in zip(b_dets, np.asarray(b_amps, dtype=complex)):
         goal[tpos[t]] = amp
-    ca = np.asarray(a_amps, dtype=complex)
-    n_par = parameter_count(blocks) + 1  # + global phase
-
-    def resid(params):
-        u = block_diagonal(params[:-1], blocks, d)
-        v = np.exp(1j * params[-1]) * (compound_matrix(u, target, a_dets) @ ca)
-        return np.concatenate([(v - goal).real, (v - goal).imag])
+    # the diagonal generators carry the phases, the global phase among them
+    orbit = GaugeOrbit(a_amps, a_dets, blocks, d, target=target,
+                       include_diagonal=True)
 
     best = (None, float("inf"))
     for k in range(tries):
-        p0 = np.zeros(n_par) if k == 0 else rng.normal(scale=1.0, size=n_par)
-        sol = least_squares(resid, p0, method="lm", xtol=3e-16, ftol=3e-16,
-                            gtol=3e-16, max_nfev=6000)
-        r = float(np.max(np.abs(resid(sol.x))))
+        u0 = (np.eye(d, dtype=complex) if k == 0
+              else random_block_unitary(blocks, d, rng))
+        u, r = _gauss_newton_match(orbit, goal, u0)
         if r < best[1]:
-            best = (block_diagonal(sol.x[:-1], blocks, d), r)
+            best = (u, r)
         if best[1] < 1e-12:
             break
     return best
+
+
+def _gauss_newton_match(orbit, goal, u, iters=120, lam0=1e-6):
+    """Damped Gauss-Newton for "rotate this state onto that one".
+
+    Same re-anchored exact Jacobian as _gauss_newton_close, with the full
+    complex residual Gamma(U) psi_a - psi_b instead of a set of amplitudes to
+    annihilate.
+    """
+    lam = lam0
+    best = float(np.max(np.abs(orbit.amplitudes(u) - goal)))
+    for _ in range(iters):
+        m = compound_matrix(u, orbit.target, orbit.target)
+        r = m @ orbit.c0 - goal
+        if float(np.max(np.abs(r))) < 1e-15:
+            break
+        j = m @ orbit.y.T
+        jr = np.vstack([j.real, j.imag])
+        rr = np.concatenate([r.real, r.imag])
+        step = None
+        for _ in range(14):
+            a = jr.T @ jr + lam * np.eye(jr.shape[1])
+            try:
+                delta = -np.linalg.solve(a, jr.T @ rr)
+            except np.linalg.LinAlgError:
+                lam *= 10.0
+                continue
+            cand = orbit.step_unitary(u, delta, 1.0)
+            val = float(np.max(np.abs(orbit.amplitudes(cand) - goal)))
+            if val < best:
+                step, best = cand, val
+                lam = max(lam * 0.3, 1e-12)
+                break
+            lam *= 10.0
+        if step is None:
+            break
+        u = step
+    return u, float(np.max(np.abs(orbit.amplitudes(u) - goal)))

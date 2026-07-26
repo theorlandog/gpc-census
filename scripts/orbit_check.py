@@ -66,7 +66,22 @@ def main():
         rho = one_rdm(ce, de, d)
         diag_err = float(np.max(np.abs(rho - np.diag(lam))))
         offdiag = float(np.max(np.abs(rho - np.diag(np.diag(rho)))))
+        rotation = None
+        if same:
+            # exhibit the rotation, not just the invariant agreeing: this is
+            # what a reader needs to reproduce the sparser expansion
+            u, resid = solve_orbital_rotation(c, dets, ce, de, d, blocks=None,
+                                              tries=12)
+            rotation = {
+                "residual": resid,
+                "verified": bool(resid < 1e-9),
+                "unitarity_error": float(np.max(np.abs(
+                    u.conj().T @ u - np.eye(d)))) if u is not None else None,
+                "matrix_real": [[float(x) for x in row] for row in np.real(u)],
+                "matrix_imag": [[float(x) for x in row] for row in np.imag(u)],
+            }
         rows.append({
+            "orbital_rotation": rotation,
             "system": cas["system"],
             "index": cas["index"],
             "support_library": cas["support_certified"],
