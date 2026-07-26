@@ -218,3 +218,34 @@ records this per measurement, and every verdict now carries independent_scope
 and independent_distinct_states beside its row scope, plus a corrected reading
 alongside the original verdict. The original verdicts are unchanged; see the
 PROVENANCE CORRECTION section of docs/prereg_bracket_3_11_3_12.md.
+
+## attainer_gate_audit.json (diagonality gate over the whole library)
+
+NUMERICAL, cross-checked in exact arithmetic at (3,10) v17.
+scripts/attainer_gate_audit.py runs gpc_census.validate.check_vertex_attainer
+over all 799 records. 645 pass (all 631 DESIGN-INT, all 12 DESIGN-REAL, and
+the two cancellation-regime states v89 and v103); 154 fail, and they are
+exactly the remaining INTERFERENCE records.
+
+Every failing record still attains the spectrum (worst error 1.1e-15) at unit
+norm, and none is a merely permuted relabelling: the failures are a basis
+statement, not a wrong-state statement. The shipped certificate is the
+characteristic-polynomial identity, which certifies spec(rho) = lambda and
+asserts diagonality only for design states, where one-hop freedom gives it by
+inspection. The operative consequence is that the support column of those 154
+records bounds s_Q^free and not s_Q^NO.
+
+## rigidity_rationality.json (does rigidity imply rational weights)
+
+MIXED. Rigidity is NUMERICAL, inherited from cascade.jsonl; the weight field
+is EXACT, recomputed from the closed form rather than read off the
+integer-versus-string encoding. scripts/rigidity_rationality_census.py joins
+the two per record and tallies the implication "fixed-rho first-order rigid
+implies rational squared weights": 740 of 740 with zero counterexamples, the
+single irrational record ((4,9) v65, weights in Q(sqrt 35)) being deformable.
+
+The artifact carries a power_warning block that must travel with the number:
+all 645 natural-orbital representatives are rigid and all 59 deformable
+records fail the diagonality gate, so the implication has no
+rigid-versus-deformable contrast among gate-passing records and its
+discriminating power lies entirely in the non-natural-orbital population.

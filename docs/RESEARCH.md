@@ -87,8 +87,13 @@ project must name which one it is about.
 - s_I(lambda): least |S| with the diagonal incidence system A_S p = lambda,
   p >= 0, sum p = 1 feasible. A DIAGONAL notion. s_M <= s_I.
 - s_Q^NO(lambda): least support of a state whose 1-RDM is EXACTLY
-  diag(lambda). The census quantity, the one the library column bounds.
-  s_I <= s_Q^NO.
+  diag(lambda). s_I <= s_Q^NO. CORRECTION 2026-07: this is NOT what the
+  library column bounds for every record. Only the 645 records that pass the
+  diagonality gate (all 643 design states plus v89 and v103) have an exactly
+  diagonal 1-RDM; the other 154 INTERFERENCE records attain the spectrum in
+  another basis, so their support column bounds s_Q^free instead. Check
+  results/data/attainer_gate_audit.json before quoting a support against
+  s_Q^NO or s_I. [scripts/attainer_gate_audit.py; docs/rigidity_rationality.md]
 - s_Q^free(lambda): least support of any state with spec(rho) = lambda.
   s_M <= s_Q^free <= s_Q^NO. **s_I does NOT bound s_Q^free**, so the two must
   never appear in one inequality.
@@ -860,6 +865,63 @@ Priority:
    validated pipeline; isospectral-flow explorers are the principled
    replacement for ad-hoc continuation; productionize
    scripts/repro_and_sparsify.py-class tooling out of scratch).
+
+## Rigidity and rationality (2026-07)
+
+Full write-up: docs/rigidity_rationality.md. This is where the weight-rationality
+hypothesis that docs/holonomy_rationality.md and the denominator arithmetic both
+assume gets its grounding.
+
+- ✅ DESIGN CASE PROVED. On a one-hop-free support every off-diagonal 1-RDM
+  entry vanishes termwise, so rho = diag(lambda) is exactly the rational
+  linear system A_S p = lambda with sum p = 1; when its solution is unique the
+  weights are rational by linear algebra alone. All 643 design states have
+  incidence kernel 0, so the hypothesis holds throughout and the theorem
+  covers every one of them. No rigidity input and no Galois argument needed.
+  The 156 interference states are not reachable this way, because phases make
+  the system nonlinear in p. [docs/rigidity_rationality.md]
+- 🟦 FIXED-RHO RIGID IMPLIES RATIONAL WEIGHTS, 740 of 740, zero
+  counterexamples. The single irrational record (v_B, weights in Q(sqrt 35))
+  is deformable. Deformability does not force irrationality: 58 of the 59
+  deformable records are rational anyway.
+  POWER WARNING, not optional when quoting this: all 645 natural-orbital
+  representatives are rigid and all 59 deformable records are among the 154
+  that fail the diagonality gate, so the discriminating power lives entirely
+  in the non-natural-orbital population and there is no rigid-versus-
+  deformable contrast among gate-passing records. The count is right and the
+  independent content is smaller, exactly as with the bracket holdout.
+  [scripts/rigidity_rationality_census.py;
+  results/data/rigidity_rationality.json; tests/test_rigidity_rationality.py]
+- 🎯 TARGET, not proved: if the support-restricted fixed-rho fiber modulo
+  gauge is a single point (true isolation, not first-order rigidity), that
+  point is defined over Q. Two open gaps, both stated in the write-up:
+  (a) first-order rigidity is not isolation, needing stress-matrix or exact
+  isolation certificates; (b) isolation gives finiteness, not uniqueness, so
+  the honest form is "algebraic of degree at most the number of isolated
+  fiber points modulo gauge, rational when unique". v_B instantiates (b):
+  degree 2 over Q, orbit size 2, from the quadratic wall 85t^2 - 70t - 119.
+- ❌ CORRECTION: the diagonality gate fails on 154 records, not one. The
+  handoff that opened this line expected exactly one violation (v_B) and
+  instructed that the expectation be verified; it is wrong. Every
+  INTERFERENCE record except v89 and v103 has a non-diagonal 1-RDM. All 154
+  still attain the spectrum exactly at unit norm, the library certificate
+  never asserted diagonality for them (it is the characteristic-polynomial
+  identity), and RESEARCH.md already recorded the same fact from the other
+  side in the cancellation-regime count. So this is how the interference
+  library was built, not a regression. What genuinely needed repair was the
+  support-taxonomy claim, corrected above. Whether to rotate the 154 records
+  into natural orbitals is DEFERRED, not decided.
+  [scripts/attainer_gate_audit.py; results/data/attainer_gate_audit.json]
+- 🔬 PREREG-PENDING: the v_B Galois embedding test. The naive substitution
+  sqrt(35) -> -sqrt(35) fails attainment (spectrum error 0.068), and that
+  failure is DIAGNOSTIC, not refuting: the amplitudes carry nested surds like
+  sqrt(120 - 18 sqrt(35)) and independent principal-branch substitutions are
+  not a field embedding. Since the fiber equations are polynomial over Q, a
+  genuine embedding carries exact solutions to exact solutions, so a
+  substitution that breaks attainment proves only that it was not an
+  embedding. The proper test (build the field, take its real embeddings,
+  apply each consistently, test attainment, orbit size pre-registered) is
+  specified and NOT YET RUN.
 
 ## Reconciliation ledger (2026-07 fiber session)
 
