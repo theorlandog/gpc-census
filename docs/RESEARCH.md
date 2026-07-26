@@ -230,7 +230,22 @@ plethysm criterion feed Problem 7 below.
   representative-swap check against the v0.12 real v_B record.
 - prereg_bracket_3_11_3_12.md: the scored out-of-sample pre-registration on
   the (3,11) and (3,12) bracket holdout (4 PASS, 2 FAIL), including the
-  power caveat stated before scoring.
+  power caveat stated before scoring, AND the 2026-07 PROVENANCE CORRECTION:
+  34 of the 38 rows are transports or face embeddings of 17 rank-10 donors,
+  so the effective independent sample is 2 states, not 38 rows. Read the
+  corrected readings, not the original verdicts.
+- prereg_template.md: the standing rules for every pre-registration in this
+  project. R2 is the one added by that correction: a measurement derived by
+  transport, padding, or face embedding is NOT an independent out-of-sample
+  observation, and every scorecard must report independent sample size
+  separately from row count.
+- two_block_family.md: the four two-block interference vertices in full, and
+  the census-wide result that a CROSS-BLOCK one-hop channel is NECESSARY for
+  the two fibers to disagree (799/799, zero exceptions). Also kills the
+  proposed cross-block counting rules and shows two-block is not the
+  operative invariant.
+- prereg_two_block_inversion.md: that study's pre-registration, committed
+  before the cross-block counts were computed.
 - prior_art_roadmap.md: the outside-GPC prior-art map (phase retrieval,
   rigidity theory, structured inverse eigenvalue problems, numerical
   algebraic geometry, tensor rank, ED degrees, SOS) with an ordered action
@@ -513,11 +528,41 @@ into the project.
   out-of-sample test before it is believed. [docs/cascade_census.md]
 - The fixed-rho / fixed-spectrum gap is NOT confined to the cancellation
   regime where it was discovered. It occurs in the magnitude regime at v_B
-  itself (fixed-rho 1, fixed-spectrum 2) and, out of sample, at (3,11) v43
-  (same 1 vs 2). Any text presenting the two-fiber distinction as a
-  cancellation-regime phenomenon is too narrow.
-  [docs/prereg_bracket_3_11_3_12.md B3, scored FAIL;
-  results/data/oos_bracket.json; results/data/cascade.jsonl]
+  itself (fixed-rho 1, fixed-spectrum 2) and at 73 of the 799 census states
+  (41 transport classes), all INTERFERENCE. Any text presenting the two-fiber
+  distinction as a cancellation-regime phenomenon is too narrow.
+  PROVENANCE NOTE (2026-07): the (3,11) v43 instance once cited here as
+  out-of-sample evidence is NOT independent; it is (3,10) v108 padded with an
+  empty orbital, identical on every structural field. The claim stands on the
+  census, not on the bracket.
+  [results/data/cascade.jsonl; results/data/two_block_family.json;
+  docs/prereg_bracket_3_11_3_12.md PROVENANCE CORRECTION]
+- A CROSS-BLOCK one-hop channel is NECESSARY for the two fibers to disagree:
+  gap > 0 implies X > 0, on all 799 states across 403 transport classes with
+  ZERO exceptions. This promotes the silence-rank lemma's cross-block clause
+  from a dimension formula verified at two states to a census-wide necessary
+  condition. The CONVERSE IS FALSE: 82 states have a cross-block channel and
+  no gap, every one of them with incidence kernel 0 and rigid in both fibers,
+  so the condition exists but has no weight freedom to cut. The counting
+  rules (gap == X, gap == 2X) are both FALSIFIED.
+  [docs/two_block_family.md; docs/prereg_two_block_inversion.md;
+  results/data/two_block_family.json; tests/test_two_block_family.py]
+- The v103 inversion is not unique. 14 states are fixed-rho rigid with
+  positive fixed-spectrum tangent, in 7 transport classes, patterns
+  (0,1) x 11, (0,2) x 2, (0,6) x 1. v103 is the unique inversion of
+  MAGNITUDE 6, not the unique inversion. Its six directions decompose as
+  3 weight + 3 phase, reproducing the lemma's formula
+  (5-2) + (14-9-2) term by term, with the sectors decoupling exactly as the
+  proof's real-state hypothesis requires.
+  [results/data/two_block_family.json, tangent_sector_split]
+- Two blocks is NOT the operative invariant for fiber behaviour. The gap
+  population spans block counts 2 through 6 and peaks at 4; two-block
+  vertices are UNDER-represented (3 of 64 carry a cross-block channel against
+  155 of 799 census-wide), and all 60 two-block DESIGN vertices have zero
+  channels because design supports are one-hop free by definition. The four
+  two-block interference vertices span the known behaviours because they span
+  (X, dim K), not because two blocks causes anything.
+  [docs/two_block_family.md]
 - The cancellation regime (exactly diagonal 1-RDM with silent channels) has
   exactly TWO members across all 799 certified representatives, v89 and
   v103; the census-wide cascade adds none, so the silence-rank lemma's

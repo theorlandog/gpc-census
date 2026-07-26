@@ -30,12 +30,23 @@ requires vertices that are NOT transports, and the only source of those is a
 constraint generator producing rank-11 systems the census does not already
 contain.
 
-Concrete targeting rule, cheap to apply once Stage 1 emits candidate spectra:
-prioritize TWO-BLOCK spectra. Both known cancellation-regime states in the
-entire census are two-block (`docs/two_block_family.md`), which is where the
-silence-rank lemma's genericity question lives at sample size two. If the
-regime is a two-block phenomenon, two-block rank-11 spectra are the cheapest
-place to grow that sample; if it is not, that is itself the finding.
+Concrete targeting rules, cheap to apply once Stage 1 emits candidate spectra.
+There are two different questions and they want OPPOSITE targets, so do not
+collapse them (`docs/two_block_family.md`).
+
+1. To grow the CANCELLATION-REGIME sample, target TWO-BLOCK spectra. Both
+   known members are two-block and there are only two, so this is where the
+   silence-rank lemma's genericity question lives. If the regime is a
+   two-block phenomenon, two-block rank-11 spectra are the cheapest place to
+   grow that sample; if it is not, that is itself the finding.
+
+2. To grow the TWO-FIBER GAP sample, do NOT target two-block spectra. The gap
+   is governed by cross-block one-hop channels, not by block count, and
+   two-block vertices are the worst source: 3 of 64 carry a cross-block
+   channel against 155 of 799 census-wide, because all 60 two-block DESIGN
+   vertices are one-hop free and contribute nothing. Target spectra with
+   several blocks of unequal size, where cross-block channels are common; the
+   observed gap population peaks at 3 and 4 blocks.
 
 ## Architecture (oracle-driven reconstruction)
 
