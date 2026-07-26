@@ -195,11 +195,20 @@ then checked.
 `results/data/holonomy_fields.json`, 63 states and 82 independent loops, at
 120 working digits with re-verification at 240.
 
-| degree | loops | Galois group | 2-elementary |
-|---|---|---|---|
-| 1 | 37 | C1 | yes |
-| 2 | 32 | C2 | yes |
-| 4 | 13 | V4 (Klein four) | yes |
+| cos degree | loops | Galois group | deg of exp(i Phi) | 2-elementary |
+|---|---|---|---|---|
+| 1 | 37 | C1 | 1 (8 loops), 2 (29) | yes |
+| 2 | 32 | C2 | 4 | yes |
+| 4 | 13 | V4 (Klein four) | 8 | yes |
+
+Both normalizations are recorded because the manuscript's earlier tally was
+stated for `exp(i Phi)`. At degree 8, where sympy's `galois_group` does not
+reach, 2-elementarity is CERTIFIED rather than computed: `cos(Phi)` and
+`sin(Phi)` are both exhibited as explicit Q-combinations of square roots of
+rationals, so `Q(exp(i Phi))` is a subfield of a multiquadratic field, and
+every subfield of a multiquadratic field is Galois over Q with group a
+quotient of (Z/2)^k. This holds on all 82 loops
+(`all_exp_two_elementary_certified`).
 
 All 82: degree in {1, 2, 4}; Galois group computed with sympy
 `galois_group` rather than inferred from evenness of the polynomial; kernel

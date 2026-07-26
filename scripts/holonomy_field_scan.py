@@ -367,6 +367,26 @@ def analyze_state(rec, working=WORKING_DIGITS, verify=VERIFY_DIGITS):
             G, _ = galois_group(mpoly)
             gname, two_elem, gorder = group_name(G), is_two_elementary(G), int(G.order())
 
+        # The same holonomy as a point on the unit circle. The manuscript's
+        # earlier tally was stated for exp(i Phi), so both are recorded.
+        # sympy's galois_group covers degree <= 6, and these reach 8, so
+        # 2-elementarity of Q(exp(i Phi)) is CERTIFIED rather than computed:
+        # if cos(Phi) and sin(Phi) both lie in a multiquadratic field K, then
+        # Q(exp(i Phi)) is a subfield of K(i), which is multiquadratic, and
+        # every subfield of a multiquadratic field is Galois over Q with group
+        # a quotient of (Z/2)^k, hence 2-elementary.
+        sin_exact = sp.sqrtdenest(sp.radsimp(sp.simplify(sp.sqrt(1 - cos_exact**2))))
+        exp_poly = sp.Poly(sp.minimal_polynomial(sp.simplify(cos_exact + sp.I * sin_exact), x), x)
+        sin_rads = radicands(sin_exact)
+        cos_rads_for_exp = radicands(cos_exact)
+        exp_certified = sin_rads is not None and cos_rads_for_exp is not None
+        exp_group = None
+        if exp_poly.degree() <= 6:
+            g, _ = galois_group(exp_poly)
+            exp_group = group_name(g)
+            if exp_certified:
+                assert is_two_elementary(g), (rec["system"], rec["index"], li)
+
         rads = radicands(cos_exact)
         memberships = []
         if rads is not None and rational_weights:
@@ -394,6 +414,12 @@ def analyze_state(rec, working=WORKING_DIGITS, verify=VERIFY_DIGITS):
                 "galois_group": gname,
                 "galois_order": gorder,
                 "two_elementary": bool(two_elem),
+                "sin_exact": str(sin_exact),
+                "sin_radicands": sin_rads,
+                "exp_min_poly": str(exp_poly.as_expr()),
+                "exp_degree": int(exp_poly.degree()),
+                "exp_galois_group": exp_group,
+                "exp_two_elementary_certified": bool(exp_certified),
                 "pslq": pslq,
                 "pslq_confirms_exact": pslq_agrees,
                 "radicands": rads,
@@ -743,6 +769,20 @@ def build(working=WORKING_DIGITS, verify=VERIFY_DIGITS, only=None):
         "worst_pslq_residual_log10": max(
             (r["pslq"]["residual_log10"] for r in rows if r["pslq"]), default=None
         ),
+        "exp_degree_counts": dict(
+            sorted(
+                {
+                    str(r["exp_degree"]): sum(
+                        1 for q in rows if q["exp_degree"] == r["exp_degree"]
+                    )
+                    for r in rows
+                }.items(),
+                key=lambda kv: int(kv[0]),
+            )
+        ),
+        "all_exp_two_elementary_certified": all(
+            r["exp_two_elementary_certified"] for r in rows
+        ),
     }
     summary["weight_group_note"] = (
         "all_radicands_in_weight_group tests the STRONGER sub-clause of the "
@@ -825,6 +865,7 @@ def main():
     print(f"  states {s['loopy_states']}  loops {s['loops']}")
     print(f"  degrees {s['degree_counts']}")
     print(f"  galois  {s['galois_group_counts']}")
+    print(f"  exp deg {s['exp_degree_counts']}")
     for key in (
         "all_degrees_in_1_2_4",
         "all_two_elementary",
@@ -833,6 +874,7 @@ def main():
         "all_pslq_reverified",
         "all_pslq_confirm_exact",
         "all_multiquadratic_witnessed",
+        "all_exp_two_elementary_certified",
         "all_radicands_in_weight_group",
     ):
         print(f"  {key}: {s[key]}")

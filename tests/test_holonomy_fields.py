@@ -71,6 +71,21 @@ def test_every_galois_group_is_two_elementary(artifact):
         assert row["two_elementary"], (row["system"], row["index"], row["loop"])
 
 
+def test_exp_i_phi_fields_are_certified_two_elementary(artifact):
+    """The manuscript's normalization: Q(exp(i Phi)) reaches degree 8, past
+    sympy's galois_group, so 2-elementarity is certified structurally instead:
+    cos and sin both multiquadratic puts Q(exp(i Phi)) inside a multiquadratic
+    field, whose every subfield has 2-elementary group."""
+    assert artifact["summary"]["all_exp_two_elementary_certified"]
+    assert artifact["summary"]["exp_degree_counts"] == {"1": 8, "2": 29, "4": 32, "8": 13}
+    for row in artifact["loops"]:
+        assert row["exp_two_elementary_certified"]
+        assert row["radicands"] is not None
+        assert row["sin_radicands"] is not None
+        # cos degree n corresponds to exp degree 2n, except at the sign loops
+        assert row["exp_degree"] in (row["degree"], 2 * row["degree"])
+
+
 def test_every_relation_survived_double_precision_reverification(artifact):
     """The precision protocol: no loop ships without a re-verified relation."""
     s = artifact["summary"]
