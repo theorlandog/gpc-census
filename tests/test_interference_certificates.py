@@ -2,9 +2,14 @@ import copy
 import json
 import subprocess
 import sys
+from fractions import Fraction
 from pathlib import Path
 
-from gpc_census.certify import verify_global_interference_certificate
+from gpc_census.certify import (
+    _system,
+    farkas_interference,
+    verify_global_interference_certificate,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +46,33 @@ def test_exact_certificate_scope_and_summary():
         "maximum_proof_depth": 8,
         "proof_nodes": 226,
     }
+
+
+def test_fixed_support_farkas_certificate_is_exact():
+    """The single-support Farkas search must rationalize to an exact vector.
+
+    v_B on the lone determinant (0,1,2,3): the only normalized weighting is
+    w = 1, whose marginals are the indicator of that determinant, so the
+    restricted system is infeasible and a certificate must exist.
+    """
+    spectrum = [Fraction(value, 23) for value in (20, 14, 14, 14, 14, 4, 4, 4, 4)]
+    support = [(0, 1, 2, 3)]
+    y = farkas_interference(4, 9, spectrum, support=support)
+    assert y is not None
+
+    dets, a, b = _system(4, 9, spectrum)
+    keep = [j for j, det in enumerate(dets) if det in set(support)]
+    assert sum(value * target for value, target in zip(y, b)) > 0
+    assert all(
+        sum(y[i] * a[i][j] for i in range(len(a))) <= 0
+        for j in keep
+    )
+
+
+def test_farkas_search_reports_no_certificate_on_a_feasible_support():
+    """POWER TEST. A support carrying a design must not yield a certificate."""
+    spectrum = [Fraction(1, 2)] * 4
+    assert farkas_interference(2, 4, spectrum, support=[(0, 1), (2, 3)]) is None
 
 
 def test_library_verifies_every_global_certificate():

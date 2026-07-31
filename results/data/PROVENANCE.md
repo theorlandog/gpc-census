@@ -36,6 +36,12 @@ incidence system, exact rational pairings, symmetry action, one-hop conflict
 graph, and every branch. Solver runs remain discovery and cross-check evidence
 only; the verifier does not invoke a solver.
 
+Which vectors enter the artifact depends on the floating HiGHS solutions the
+generator discovers, so `generate_interference_certificates.py --check` is a
+same-toolchain reproducibility check, not a portable one. The artifact's
+validity does not depend on it: the test suite runs the verifier, never the
+generator, and any exact certificate set that verifies proves the same claim.
+
 ## states.jsonl (constructed extremal states)
 
 Per-vertex extremal states, produced by the routed state pipeline
@@ -161,8 +167,11 @@ The headline is a null result with an exact majority: no state of the 799 admits
 a support-reducing rotation in its own gauge family, and for 670 of them the
 library support attains the lower bound, so gauge-minimality is certified by a
 rank computation rather than by a search. Exterior/Koszul contraction maps
-strictly strengthen 82 records and newly close 41. Those 82 ranks are rerun by
-exact sparse symbolic elimination before publication. The other 129 are open
+strictly strengthen 82 records and newly close 41. Floating ranks only select
+the contraction map: all 799 published bounds are rerun by exact sparse
+symbolic elimination before publication (exterior_certificates_exact in the
+summary, arithmetic: exact on every per-class certificate), and a disagreement
+between the two is a hard error rather than a downgrade. The other 129 are open
 in both directions. The absence of a reduction is a search result, whose power
 is pinned by the recovery test in tests/test_gauge.py.
 

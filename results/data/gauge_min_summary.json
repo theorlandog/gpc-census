@@ -3,6 +3,7 @@
   "states": 799,
   "certified_gauge_minimal": 670,
   "certified_without_search": 670,
+  "exterior_certificates_exact": 799,
   "strictly_improved_by_exterior_contractions": 82,
   "newly_certified_by_exterior_contractions": 41,
   "new_exterior_certificates_by_class": {
@@ -32,5 +33,5 @@
     "4": 4,
     "5": 8
   },
-  "seconds": 2.3
+  "seconds": 9.0
 }

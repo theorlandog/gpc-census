@@ -563,28 +563,10 @@ def flattening_ranks(amplitudes, support_dets, blocks):
     return {profile: cert["lower_bound"] for profile, cert in certs.items()}
 
 
-def _pfaffian_support(dets, c, idxs, block, direct):
-    """Minimal support of an antisymmetric form under U(m): half its rank.
-
-    A class whose single active factor sits in Lambda^2 (or, dually,
-    Lambda^{m-2}) is an antisymmetric matrix; Youla's normal form makes it
-    block-diagonal with rank/2 nonzero 2 x 2 blocks, which is exactly rank/2
-    occupied determinants, and the rank is a unitary invariant. Equality, not
-    just a bound.
-    """
-    pos = {o: i for i, o in enumerate(block)}
-    m = len(block)
-    a = np.zeros((m, m), dtype=complex)
-    for i in idxs:
-        occ = [o for o in dets[i] if o in pos]
-        if direct:
-            p, q = pos[occ[0]], pos[occ[1]]
-        else:  # Lambda^{m-2}: index by the complementary pair
-            missing = [o for o in block if o not in occ]
-            p, q = pos[missing[0]], pos[missing[1]]
-        a[p, q] += c[i]
-        a[q, p] -= c[i]
-    return max(1, int(np.linalg.matrix_rank(a, tol=1e-9)) // 2)
+# The Pfaffian bound that used to live here (a class whose single active
+# factor sits in Lambda^2 is an antisymmetric form, and Youla's normal form
+# gives exactly rank/2 occupied determinants) is the k=2, q=1 member of the
+# exterior family above, which reproduces it as ceil(rank/2).
 
 
 def flattening_lower_bound(amplitudes, support_dets, blocks):

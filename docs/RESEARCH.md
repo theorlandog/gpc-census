@@ -501,8 +501,9 @@ into the project.
   determinant's block profile. Within a profile class, exterior/Koszul
   contraction maps give support at least
   ceil(rank(C_q)/product_i binom(k_i,q_i)). The symbolic rank certificates
-  strictly strengthen 82 records and newly close 41. The other 129 are open in
-  both directions. The search's power is pinned by a recovery test (a provably
+  strictly strengthen 82 records and newly close 41, and all 799 shipped bounds
+  are exact (floating ranks only select the contraction map). The other 129 are
+  open in both directions. The search's power is pinned by a recovery test (a provably
   rank-1 class must collapse to one determinant; it does, at residual 4e-16),
   and two earlier search methods that failed that test were removed rather than
   shipped.

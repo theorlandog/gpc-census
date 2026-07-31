@@ -57,8 +57,10 @@ rank is gauge invariant. One Slater monomial contributes rank
       ceil(rank(C_q) / product_i binom(k_i,q_i)).
 
 Ordinary tensor flattenings and the antisymmetric-form rank bound are boundary
-cases of this family. Every newly improved rank is recomputed from the symbolic
-closed-form amplitudes by exact sparse elimination before publication. Where
+cases of this family. Every published rank, not only the improved ones, is
+recomputed from the symbolic closed-form amplitudes by exact sparse elimination
+before publication; the floating rank only picks which contraction map to
+certify with, and the two disagreeing is a hard error. Where
 the library support attains the bound, that state is gauge-minimal with no
 optimization at all, and the certificate is a rank computation rather than a
 search.

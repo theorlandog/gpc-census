@@ -6,8 +6,9 @@ family U(m_1) x ... x U(m_k), never minimized over that family. This driver
 does the minimization and reports, per vertex:
 
   - the gauge-invariant lower bound (profile classes, refined by per-class
-    flattening ranks), which certifies gauge-minimality outright when it is
-    attained,
+    exterior-contraction ranks), which certifies gauge-minimality outright when
+    it is attained. Floating ranks only select the contraction map; every
+    shipped bound is recomputed exactly from the symbolic amplitudes,
   - the best support the search reached, closed EXACTLY on the orbit rather
     than by truncation, so the 1-RDM stays diag(lambda) identically,
   - the acceptance gate: 1-RDM exactly diagonal and equal to lambda, unit norm,
@@ -34,6 +35,7 @@ import time
 from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
+import sympy as sp
 
 from gpc_census.fiber import amplitudes_from_record, one_rdm
 from gpc_census.gauge import (
@@ -119,6 +121,18 @@ def run_one(record, tries=6, search=True):
     return out
 
 
+def baseline_bound(prior):
+    """The pre-exterior lower bound of a row, invariant under reruns.
+
+    A row improved by the exterior family carries the bound it improved on in
+    ``gauge_lower_bound_previous``, so rereading an artifact this script wrote
+    reproduces the same baseline instead of comparing the run against itself.
+    """
+    if "gauge_lower_bound_previous" in prior:
+        return prior["gauge_lower_bound_previous"]
+    return prior.get("gauge_lower_bound", 1)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--jobs", type=int, default=4)
@@ -179,20 +193,16 @@ def main():
         with ProcessPoolExecutor(max_workers=args.jobs) as pool:
             rows = list(pool.map(run_one, records, chunksize=4))
 
-    # Numerical ranks select the useful contraction map cheaply. Every improved
+    # Numerical ranks select the useful contraction map cheaply. Every
     # published lower bound is then recomputed from the exact closed-form
-    # amplitudes by sparse symbolic elimination. A floating rank never upgrades
-    # a census claim on its own.
+    # amplitudes by sparse symbolic elimination, so no shipped bound rests on a
+    # floating rank; a disagreement is a hard error rather than a downgrade.
     record_map = {(row["system"], row["index"]): row for row in records}
     improved = []
     newly_minimal = []
     for row in rows:
         key = (row["system"], row["index"])
-        old_bound = previous.get(key, {}).get("gauge_lower_bound", 1)
-        if row["gauge_lower_bound"] <= old_bound:
-            continue
-        import sympy as sp
-
+        old_bound = baseline_bound(previous.get(key, {}))
         record = record_map[key]
         c_exact = [sp.sympify(value) for value in record["closed_form"]["pretty"]]
         dets = [tuple(t) for t in record["closed_form"]["support_dets"]]
@@ -215,17 +225,20 @@ def main():
             for profile, certificate in exact.items()
         }
         row["exterior_certificate_exact"] = True
-        row["gauge_lower_bound_previous"] = old_bound
         row["evidence"] = (
             "EXACT exterior-contraction lower bound from symbolic amplitudes; "
             "upper bound from an exactly closed gauge rotation (residual "
             "reported), not a truncation"
         )
+        if row["gauge_lower_bound"] <= old_bound:
+            continue
+        row["gauge_lower_bound_previous"] = old_bound
         improved.append(row)
-        if (
-            row["minimal_certified"]
-            and not previous.get(key, {}).get("minimal_certified", False)
-        ):
+        # An improved row has baseline bound < new bound = support whenever it
+        # certifies, so it cannot have been certified at its baseline. Reading
+        # the state instead of the prior artifact's flag keeps the count stable
+        # when this script is rerun on an artifact it already wrote.
+        if row["minimal_certified"]:
             newly_minimal.append(row)
 
     out = ROOT / "results/data/gauge_min.jsonl"
@@ -241,6 +254,9 @@ def main():
         "certified_gauge_minimal": sum(1 for r in rows if r["minimal_certified"]),
         "certified_without_search": sum(1 for r in rows
                                         if r["support_library"] == r["gauge_lower_bound"]),
+        "exterior_certificates_exact": sum(
+            1 for r in rows if r.get("exterior_certificate_exact")
+        ),
         "strictly_improved_by_exterior_contractions": len(improved),
         "newly_certified_by_exterior_contractions": len(newly_minimal),
         "new_exterior_certificates_by_class": dict(

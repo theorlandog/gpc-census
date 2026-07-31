@@ -52,6 +52,7 @@ EXPECT_HOLONOMY = dict(loopy_states=63, loops=82,
                        loops_with_radicand_outside_weight_group=15)
 GAUGE = "results/data/gauge_min_summary.json"
 EXPECT_GAUGE = dict(states=799, certified_gauge_minimal=670,
+                    exterior_certificates_exact=799,
                     strictly_improved_by_exterior_contractions=82,
                     newly_certified_by_exterior_contractions=41,
                     states_that_gauge_sparsify=0)
