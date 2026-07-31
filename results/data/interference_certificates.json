@@ -1,0 +1,9619 @@
+{
+  "method": {
+    "arithmetic": "exact rational verification",
+    "determinant_order": "lexicographic combinations",
+    "standalone_verifier": "scripts/verify_interference_certificates_standalone.py",
+    "symmetry": "all permutations inside equal-spectrum blocks"
+  },
+  "record_count": 12,
+  "records": [
+    {
+      "claim": "Proposition 1",
+      "denominator": 12,
+      "expanded_clause_count": 325,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          3,
+          3
+        ],
+        [
+          0,
+          -1,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          -1,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          -1,
+          -1,
+          1,
+          0,
+          2,
+          -2,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          -1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          -1,
+          1,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "id": "3-8-v10",
+      "integer_form": [
+        9,
+        5,
+        5,
+        5,
+        3,
+        3,
+        3,
+        3
+      ],
+      "proof": {
+        "max_depth": 5,
+        "node_count": 21,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 2,
+                "node": 16
+              },
+              {
+                "determinant": 3,
+                "node": 16
+              },
+              {
+                "determinant": 4,
+                "node": 16
+              },
+              {
+                "determinant": 5,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 18,
+                "node": 3
+              },
+              {
+                "determinant": 23,
+                "node": 9
+              },
+              {
+                "determinant": 24,
+                "node": 9
+              },
+              {
+                "determinant": 33,
+                "node": 11
+              },
+              {
+                "determinant": 43,
+                "node": 13
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 4
+              },
+              {
+                "determinant": 32,
+                "node": 6
+              },
+              {
+                "determinant": 42,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              15
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 46,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              18,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              18,
+              30,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 43,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              16,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              18,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 43,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              10,
+              16,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 16,
+                "node": 10
+              },
+              {
+                "determinant": 20,
+                "node": 4
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              6,
+              15,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 17,
+                "node": 6
+              },
+              {
+                "determinant": 42,
+                "node": 12
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 36,
+                "node": 14
+              },
+              {
+                "determinant": 37,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              9,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 17,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              9,
+              30,
+              36
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              16,
+              30,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 6,
+                "node": 2
+              },
+              {
+                "determinant": 8,
+                "node": 17
+              },
+              {
+                "determinant": 9,
+                "node": 17
+              },
+              {
+                "determinant": 10,
+                "node": 17
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              2
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 18
+              },
+              {
+                "determinant": 14,
+                "node": 18
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 19
+              },
+              {
+                "determinant": 29,
+                "node": 19
+              },
+              {
+                "determinant": 39,
+                "node": 19
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 20
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              12,
+              30,
+              36
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "3/4",
+        "5/12",
+        "5/12",
+        "5/12",
+        "1/4",
+        "1/4",
+        "1/4",
+        "1/4"
+      ],
+      "symmetry_blocks": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 10
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 10,
+      "expanded_clause_count": 120,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          -1,
+          -1,
+          0,
+          -1,
+          0,
+          0
+        ],
+        [
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v14",
+      "integer_form": [
+        7,
+        7,
+        4,
+        4,
+        4,
+        2,
+        1,
+        1
+      ],
+      "proof": {
+        "max_depth": 6,
+        "node_count": 18,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 16
+              },
+              {
+                "determinant": 21,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 26,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                4,
+                2,
+                5,
+                6,
+                7
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 40,
+                "node": 7
+              },
+              {
+                "determinant": 46,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 20,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              8,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                4,
+                3,
+                5,
+                7,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              2,
+              9,
+              12,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 49,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              8,
+              20,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "dead",
+            "selected": [
+              2,
+              12,
+              20,
+              21,
+              43
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 18,
+                "node": 8
+              },
+              {
+                "determinant": 24,
+                "node": 13
+              },
+              {
+                "determinant": 33,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 9
+              },
+              {
+                "determinant": 34,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              18,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 30,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              19,
+              24,
+              37
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              7,
+              19,
+              24,
+              30,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 12
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              19,
+              33,
+              37
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              9,
+              19,
+              22,
+              33,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 19,
+                "node": 14
+              },
+              {
+                "determinant": 34,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              9,
+              22,
+              37
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              18,
+              22,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              18,
+              22,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 2,
+                "node": 2
+              },
+              {
+                "determinant": 22,
+                "node": 17
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              6
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                4,
+                2,
+                5,
+                6,
+                7
+              ],
+              "vector": 18
+            },
+            "kind": "dead",
+            "selected": [
+              7,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "7/10",
+        "7/10",
+        "2/5",
+        "2/5",
+        "2/5",
+        "1/5",
+        "1/10",
+        "1/10"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 14
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 10,
+      "expanded_clause_count": 185,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          0,
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          -1,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "id": "3-8-v15",
+      "integer_form": [
+        7,
+        5,
+        5,
+        5,
+        2,
+        2,
+        2,
+        2
+      ],
+      "proof": {
+        "max_depth": 6,
+        "node_count": 17,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 2,
+                "node": 8
+              },
+              {
+                "determinant": 3,
+                "node": 8
+              },
+              {
+                "determinant": 4,
+                "node": 8
+              },
+              {
+                "determinant": 5,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 33,
+                "node": 7
+              },
+              {
+                "determinant": 34,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 4
+              },
+              {
+                "determinant": 35,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              6,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 7
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              24,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 7
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              27,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 5
+              },
+              {
+                "determinant": 29,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 6,
+                "node": 2
+              },
+              {
+                "determinant": 8,
+                "node": 9
+              },
+              {
+                "determinant": 9,
+                "node": 9
+              },
+              {
+                "determinant": 10,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              2
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 10
+              },
+              {
+                "determinant": 14,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 21,
+                "node": 11
+              },
+              {
+                "determinant": 22,
+                "node": 12
+              },
+              {
+                "determinant": 25,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 27,
+                "node": 13
+              },
+              {
+                "determinant": 29,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              7,
+              12,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 39,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              23,
+              26
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              8,
+              13,
+              24,
+              27,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              22
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "7/10",
+        "1/2",
+        "1/2",
+        "1/2",
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "symmetry_blocks": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 15
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 9,
+      "expanded_clause_count": 198,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          1,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v19",
+      "integer_form": [
+        6,
+        6,
+        4,
+        4,
+        4,
+        1,
+        1,
+        1
+      ],
+      "proof": {
+        "max_depth": 6,
+        "node_count": 16,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 14
+              },
+              {
+                "determinant": 21,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 26,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                4,
+                2,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 40,
+                "node": 7
+              },
+              {
+                "determinant": 46,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                7,
+                5
+              ],
+              "vector": 7
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 20,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              8,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              2,
+              9,
+              12,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 46,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              10,
+              18,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              17,
+              18,
+              22,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 24,
+                "node": 8
+              },
+              {
+                "determinant": 31,
+                "node": 12
+              },
+              {
+                "determinant": 47,
+                "node": 13
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 7
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 17,
+                "node": 9
+              },
+              {
+                "determinant": 48,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 7
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              9,
+              22,
+              37
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              16,
+              22,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 18,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                4,
+                2,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              0,
+              14,
+              26,
+              38,
+              40
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              0,
+              14,
+              18,
+              26,
+              38,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 19,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              16,
+              22,
+              37
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 29,
+                "node": 10
+              },
+              {
+                "determinant": 32,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 7
+            },
+            "kind": "branch",
+            "selected": [
+              0,
+              11,
+              38,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 2,
+                "node": 2
+              },
+              {
+                "determinant": 22,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": [
+              6
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                4,
+                2,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "dead",
+            "selected": [
+              7,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "2/3",
+        "2/3",
+        "4/9",
+        "4/9",
+        "4/9",
+        "1/9",
+        "1/9",
+        "1/9"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 19
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 18,
+      "expanded_clause_count": 296,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          -1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          1,
+          -1,
+          -1,
+          1,
+          0,
+          2,
+          -2,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          -1,
+          1,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          -1,
+          0,
+          -1,
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ]
+      ],
+      "id": "3-8-v20",
+      "integer_form": [
+        12,
+        12,
+        7,
+        7,
+        4,
+        4,
+        4,
+        4
+      ],
+      "proof": {
+        "max_depth": 5,
+        "node_count": 45,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 2,
+                "node": 18
+              },
+              {
+                "determinant": 3,
+                "node": 18
+              },
+              {
+                "determinant": 4,
+                "node": 18
+              },
+              {
+                "determinant": 5,
+                "node": 18
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              },
+              {
+                "determinant": 15,
+                "node": 11
+              },
+              {
+                "determinant": 26,
+                "node": 2
+              },
+              {
+                "determinant": 27,
+                "node": 2
+              },
+              {
+                "determinant": 46,
+                "node": 12
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 30,
+                "node": 7
+              },
+              {
+                "determinant": 33,
+                "node": 10
+              },
+              {
+                "determinant": 34,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 16,
+                "node": 4
+              },
+              {
+                "determinant": 20,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              8,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              9,
+              15,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 34,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                5,
+                7,
+                4,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              10,
+              18,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              16,
+              24,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 9,
+                "node": 4
+              },
+              {
+                "determinant": 20,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              15,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 44,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                7,
+                6
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              17,
+              18,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                7,
+                6
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              17,
+              18,
+              24,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 5
+              },
+              {
+                "determinant": 17,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              18,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 26,
+                "node": 7
+              },
+              {
+                "determinant": 27,
+                "node": 7
+              },
+              {
+                "determinant": 28,
+                "node": 10
+              },
+              {
+                "determinant": 29,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                3,
+                2,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              0,
+              15
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 9,
+                "node": 13
+              },
+              {
+                "determinant": 10,
+                "node": 13
+              },
+              {
+                "determinant": 16,
+                "node": 17
+              },
+              {
+                "determinant": 24,
+                "node": 13
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 31,
+                "node": 14
+              },
+              {
+                "determinant": 32,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              9,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              16,
+              24,
+              40
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              16,
+              24,
+              40
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                7,
+                6
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              17,
+              24,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 24,
+                "node": 14
+              },
+              {
+                "determinant": 25,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              16,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 6,
+                "node": 19
+              },
+              {
+                "determinant": 8,
+                "node": 32
+              },
+              {
+                "determinant": 9,
+                "node": 32
+              },
+              {
+                "determinant": 10,
+                "node": 32
+              },
+              {
+                "determinant": 12,
+                "node": 32
+              },
+              {
+                "determinant": 21,
+                "node": 19
+              },
+              {
+                "determinant": 23,
+                "node": 32
+              },
+              {
+                "determinant": 37,
+                "node": 41
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              2
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 18,
+                "node": 20
+              },
+              {
+                "determinant": 19,
+                "node": 20
+              },
+              {
+                "determinant": 23,
+                "node": 24
+              },
+              {
+                "determinant": 33,
+                "node": 25
+              },
+              {
+                "determinant": 43,
+                "node": 29
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 22,
+                "node": 21
+              },
+              {
+                "determinant": 23,
+                "node": 21
+              },
+              {
+                "determinant": 25,
+                "node": 22
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              15
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              6,
+              15,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 46,
+                "node": 23
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              18,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              18,
+              26,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 31,
+                "node": 21
+              },
+              {
+                "determinant": 35,
+                "node": 22
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 26
+              },
+              {
+                "determinant": 42,
+                "node": 28
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              15,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 31,
+                "node": 27
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              15,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                6,
+                5,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              8,
+              16,
+              21,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              16,
+              21,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 17,
+                "node": 30
+              },
+              {
+                "determinant": 32,
+                "node": 28
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 24,
+                "node": 31
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              16,
+              40
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                6,
+                4,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              16,
+              24,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 21,
+                "node": 24
+              },
+              {
+                "determinant": 26,
+                "node": 33
+              },
+              {
+                "determinant": 28,
+                "node": 37
+              },
+              {
+                "determinant": 29,
+                "node": 37
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 9,
+                "node": 34
+              },
+              {
+                "determinant": 20,
+                "node": 35
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              11,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 37,
+                "node": 36
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              11,
+              18,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              12,
+              16,
+              23,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 38
+              },
+              {
+                "determinant": 39,
+                "node": 40
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              12,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 39
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                3,
+                2,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              12,
+              23,
+              26
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              13,
+              23,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 9,
+                "node": 42
+              },
+              {
+                "determinant": 10,
+                "node": 42
+              },
+              {
+                "determinant": 13,
+                "node": 42
+              },
+              {
+                "determinant": 24,
+                "node": 42
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 27,
+                "node": 43
+              },
+              {
+                "determinant": 29,
+                "node": 40
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                3,
+                2,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 10,
+                "node": 44
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              12,
+              23,
+              36
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              12,
+              23,
+              36
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "2/3",
+        "2/3",
+        "7/18",
+        "7/18",
+        "2/9",
+        "2/9",
+        "2/9",
+        "2/9"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 20
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 9,
+      "expanded_clause_count": 103,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          -1,
+          0,
+          -1,
+          0,
+          -1,
+          0
+        ],
+        [
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1,
+          -1,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "id": "3-8-v24",
+      "integer_form": [
+        6,
+        5,
+        5,
+        5,
+        2,
+        2,
+        1,
+        1
+      ],
+      "proof": {
+        "max_depth": 6,
+        "node_count": 33,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 25
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 17
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 16
+              },
+              {
+                "determinant": 14,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 40,
+                "node": 7
+              },
+              {
+                "determinant": 46,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 4
+              },
+              {
+                "determinant": 35,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              3,
+              6,
+              24,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              22,
+              35
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              3,
+              6,
+              26,
+              35,
+              41
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 18,
+                "node": 8
+              },
+              {
+                "determinant": 24,
+                "node": 13
+              },
+              {
+                "determinant": 43,
+                "node": 15
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                7,
+                6
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 9
+              },
+              {
+                "determinant": 42,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              8,
+              16,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 36,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              8,
+              17,
+              24,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              8,
+              17,
+              24,
+              30,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 12
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              17,
+              31,
+              40
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              3,
+              6,
+              17,
+              25,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 19,
+                "node": 9
+              },
+              {
+                "determinant": 44,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 6
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              7,
+              24,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "dead",
+            "selected": [
+              3,
+              6,
+              25,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 22,
+                "node": 17
+              },
+              {
+                "determinant": 26,
+                "node": 17
+              },
+              {
+                "determinant": 30,
+                "node": 21
+              },
+              {
+                "determinant": 32,
+                "node": 24
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 27,
+                "node": 18
+              },
+              {
+                "determinant": 34,
+                "node": 19
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              6,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 46,
+                "node": 20
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 15
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              23,
+              31
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              27,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 22
+              },
+              {
+                "determinant": 29,
+                "node": 22
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 23
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              24,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              31,
+              38,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 19
+              },
+              {
+                "determinant": 27,
+                "node": 19
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              31
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 2,
+                "node": 26
+              },
+              {
+                "determinant": 3,
+                "node": 26
+              },
+              {
+                "determinant": 4,
+                "node": 31
+              },
+              {
+                "determinant": 5,
+                "node": 31
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 8,
+                "node": 27
+              },
+              {
+                "determinant": 9,
+                "node": 29
+              },
+              {
+                "determinant": 10,
+                "node": 29
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 28
+              },
+              {
+                "determinant": 14,
+                "node": 28
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 18
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 12,
+                "node": 28
+              },
+              {
+                "determinant": 14,
+                "node": 30
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 19
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 7,
+                "node": 29
+              },
+              {
+                "determinant": 8,
+                "node": 29
+              },
+              {
+                "determinant": 10,
+                "node": 32
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 30
+              },
+              {
+                "determinant": 12,
+                "node": 30
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "2/3",
+        "5/9",
+        "5/9",
+        "5/9",
+        "2/9",
+        "2/9",
+        "1/9",
+        "1/9"
+      ],
+      "symmetry_blocks": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 24
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 15,
+      "expanded_clause_count": 298,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          3,
+          3
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          0,
+          1,
+          -1,
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          1,
+          -1,
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          -1,
+          1,
+          -2,
+          2,
+          -1,
+          -2,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1,
+          -1,
+          0,
+          -1,
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "id": "3-8-v28",
+      "integer_form": [
+        9,
+        8,
+        8,
+        8,
+        3,
+        3,
+        3,
+        3
+      ],
+      "proof": {
+        "max_depth": 5,
+        "node_count": 12,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 33,
+                "node": 7
+              },
+              {
+                "determinant": 34,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 4
+              },
+              {
+                "determinant": 35,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                6,
+                4,
+                5,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              6,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              6,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              24,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                4,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              27,
+              31,
+              40
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 25,
+                "node": 5
+              },
+              {
+                "determinant": 29,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 2,
+                "node": 9
+              },
+              {
+                "determinant": 3,
+                "node": 9
+              },
+              {
+                "determinant": 4,
+                "node": 9
+              },
+              {
+                "determinant": 5,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 8,
+                "node": 10
+              },
+              {
+                "determinant": 9,
+                "node": 10
+              },
+              {
+                "determinant": 10,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 11
+              },
+              {
+                "determinant": 14,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 15
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "3/5",
+        "8/15",
+        "8/15",
+        "8/15",
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "symmetry_blocks": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 28
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 7,
+      "expanded_clause_count": 180,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          -1,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v29",
+      "integer_form": [
+        4,
+        4,
+        4,
+        4,
+        2,
+        1,
+        1,
+        1
+      ],
+      "proof": {
+        "max_depth": 6,
+        "node_count": 19,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 1
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 26,
+                "node": 2
+              },
+              {
+                "determinant": 36,
+                "node": 2
+              },
+              {
+                "determinant": 46,
+                "node": 14
+              },
+              {
+                "determinant": 47,
+                "node": 14
+              },
+              {
+                "determinant": 48,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 27,
+                "node": 3
+              },
+              {
+                "determinant": 40,
+                "node": 7
+              },
+              {
+                "determinant": 46,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                7,
+                5
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 20,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 46,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              7,
+              18,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              10,
+              11,
+              18,
+              21,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 9,
+                "node": 8
+              },
+              {
+                "determinant": 38,
+                "node": 12
+              },
+              {
+                "determinant": 47,
+                "node": 13
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              15,
+              22
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 29,
+                "node": 9
+              },
+              {
+                "determinant": 48,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                2,
+                0,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6,
+              15,
+              22
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              16,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 24,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                6,
+                5,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              1,
+              10,
+              16,
+              30,
+              36
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              1,
+              10,
+              16,
+              24,
+              30,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 5,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              6,
+              16,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 14,
+                "node": 10
+              },
+              {
+                "determinant": 29,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                2,
+                0,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              0,
+              16,
+              30,
+              36
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 4,
+                "node": 15
+              },
+              {
+                "determinant": 9,
+                "node": 15
+              },
+              {
+                "determinant": 31,
+                "node": 18
+              },
+              {
+                "determinant": 41,
+                "node": 18
+              }
+            ],
+            "clause": {
+              "permutation": [
+                3,
+                0,
+                1,
+                2,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              15,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 41,
+                "node": 16
+              },
+              {
+                "determinant": 47,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              15,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 5,
+                "node": 17
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                7,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "branch",
+            "selected": [
+              8,
+              16,
+              21,
+              30
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              8,
+              16,
+              21,
+              30
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 24,
+                "node": 16
+              },
+              {
+                "determinant": 28,
+                "node": 16
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 5
+            },
+            "kind": "branch",
+            "selected": [
+              6,
+              16,
+              30
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "4/7",
+        "4/7",
+        "4/7",
+        "4/7",
+        "2/7",
+        "1/7",
+        "1/7",
+        "1/7"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 29
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 16,
+      "expanded_clause_count": 140,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          0,
+          0,
+          0,
+          -1,
+          1,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v30",
+      "integer_form": [
+        9,
+        9,
+        9,
+        9,
+        4,
+        4,
+        2,
+        2
+      ],
+      "proof": {
+        "max_depth": 4,
+        "node_count": 9,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 1
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 14
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 7
+              },
+              {
+                "determinant": 14,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 24,
+                "node": 5
+              },
+              {
+                "determinant": 25,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 4
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 11
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 12,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 22,
+                "node": 5
+              },
+              {
+                "determinant": 23,
+                "node": 5
+              },
+              {
+                "determinant": 25,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 6
+              },
+              {
+                "determinant": 12,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 13
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "9/16",
+        "9/16",
+        "9/16",
+        "9/16",
+        "1/4",
+        "1/4",
+        "1/8",
+        "1/8"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 30
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 18,
+      "expanded_clause_count": 234,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          3,
+          3
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          -1,
+          1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          1,
+          -1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          1,
+          -1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          -3,
+          -3,
+          3,
+          1,
+          1,
+          -1,
+          -1,
+          3
+        ],
+        [
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1,
+          1,
+          -1,
+          -2,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          -1,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v31",
+      "integer_form": [
+        10,
+        10,
+        10,
+        10,
+        4,
+        4,
+        3,
+        3
+      ],
+      "proof": {
+        "max_depth": 4,
+        "node_count": 9,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 1
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 7
+              },
+              {
+                "determinant": 14,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 24,
+                "node": 5
+              },
+              {
+                "determinant": 25,
+                "node": 5
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 4
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                3,
+                0,
+                4,
+                5,
+                7,
+                6
+              ],
+              "vector": 15
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 12,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 8
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              9,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 22,
+                "node": 5
+              },
+              {
+                "determinant": 23,
+                "node": 5
+              },
+              {
+                "determinant": 25,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 6
+              },
+              {
+                "determinant": 12,
+                "node": 6
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 12
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "5/9",
+        "5/9",
+        "5/9",
+        "5/9",
+        "2/9",
+        "2/9",
+        "1/6",
+        "1/6"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 31
+    },
+    {
+      "claim": "Proposition 1",
+      "denominator": 28,
+      "expanded_clause_count": 326,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          3,
+          3
+        ],
+        [
+          -1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          0,
+          0,
+          1,
+          -1,
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "id": "3-8-v32",
+      "integer_form": [
+        15,
+        15,
+        15,
+        15,
+        6,
+        6,
+        6,
+        6
+      ],
+      "proof": {
+        "max_depth": 4,
+        "node_count": 5,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 1
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 11
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 24,
+                "node": 3
+              },
+              {
+                "determinant": 25,
+                "node": 3
+              }
+            ],
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                0,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 4
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "vector": 10
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                1,
+                2,
+                3,
+                0,
+                7,
+                4,
+                5,
+                6
+              ],
+              "vector": 9
+            },
+            "kind": "dead",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "15/28",
+        "15/28",
+        "15/28",
+        "15/28",
+        "3/14",
+        "3/14",
+        "3/14",
+        "3/14"
+      ],
+      "symmetry_blocks": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "system": [
+        3,
+        8
+      ],
+      "vertex_index": 32
+    },
+    {
+      "claim": "Theorem 2",
+      "denominator": 23,
+      "expanded_clause_count": 2736,
+      "farkas_vectors": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          -1,
+          -1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1,
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          1,
+          -1,
+          1,
+          -1,
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1,
+          0,
+          1,
+          -1,
+          1,
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          -1,
+          1,
+          -1,
+          0
+        ],
+        [
+          -2,
+          -2,
+          -2,
+          -2,
+          3,
+          3,
+          -2,
+          3,
+          3,
+          3
+        ],
+        [
+          0,
+          -1,
+          0,
+          0,
+          1,
+          1,
+          -1,
+          0,
+          1,
+          0
+        ],
+        [
+          -2,
+          -1,
+          -1,
+          0,
+          2,
+          0,
+          -2,
+          1,
+          1,
+          2
+        ],
+        [
+          4,
+          -1,
+          -1,
+          4,
+          4,
+          4,
+          -1,
+          -1,
+          -6,
+          -6
+        ],
+        [
+          -7,
+          1,
+          -5,
+          3,
+          7,
+          -3,
+          -1,
+          -7,
+          5,
+          4
+        ],
+        [
+          -3,
+          -3,
+          1,
+          3,
+          5,
+          -1,
+          3,
+          -1,
+          -5,
+          0
+        ],
+        [
+          11,
+          1,
+          11,
+          6,
+          -4,
+          6,
+          -4,
+          -14,
+          -9,
+          -14
+        ],
+        [
+          4,
+          3,
+          1,
+          -1,
+          0,
+          2,
+          -2,
+          -4,
+          -3,
+          -4
+        ],
+        [
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          0
+        ],
+        [
+          2,
+          2,
+          2,
+          2,
+          2,
+          -3,
+          -3,
+          -3,
+          -3,
+          -3
+        ]
+      ],
+      "id": "4-9-v65",
+      "integer_form": [
+        20,
+        14,
+        14,
+        14,
+        14,
+        4,
+        4,
+        4,
+        4
+      ],
+      "proof": {
+        "max_depth": 8,
+        "node_count": 22,
+        "nodes": [
+          {
+            "children": [
+              {
+                "determinant": 0,
+                "node": 1
+              },
+              {
+                "determinant": 1,
+                "node": 1
+              },
+              {
+                "determinant": 6,
+                "node": 1
+              },
+              {
+                "determinant": 21,
+                "node": 1
+              },
+              {
+                "determinant": 56,
+                "node": 11
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 19
+            },
+            "kind": "branch",
+            "selected": []
+          },
+          {
+            "children": [
+              {
+                "determinant": 11,
+                "node": 2
+              },
+              {
+                "determinant": 12,
+                "node": 2
+              },
+              {
+                "determinant": 13,
+                "node": 2
+              },
+              {
+                "determinant": 14,
+                "node": 2
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              0
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 23,
+                "node": 3
+              },
+              {
+                "determinant": 24,
+                "node": 3
+              },
+              {
+                "determinant": 25,
+                "node": 3
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              6
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 4
+              },
+              {
+                "determinant": 14,
+                "node": 4
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 32,
+                "node": 5
+              },
+              {
+                "determinant": 60,
+                "node": 9
+              },
+              {
+                "determinant": 64,
+                "node": 9
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                4,
+                3,
+                8,
+                5,
+                7,
+                6
+              ],
+              "vector": 17
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11,
+              21
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 59,
+                "node": 6
+              },
+              {
+                "determinant": 63,
+                "node": 8
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                1,
+                3,
+                4,
+                7,
+                6,
+                8,
+                5
+              ],
+              "vector": 17
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              16,
+              23,
+              26
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 7
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                4,
+                3,
+                1,
+                5,
+                7,
+                6,
+                8
+              ],
+              "vector": 17
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              6,
+              15,
+              24,
+              27,
+              57
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                4,
+                1,
+                3,
+                5,
+                8,
+                7,
+                6
+              ],
+              "vector": 17
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              16,
+              23,
+              28,
+              46,
+              57
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                4,
+                3,
+                1,
+                5,
+                7,
+                6,
+                8
+              ],
+              "vector": 17
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              6,
+              16,
+              24,
+              27,
+              57
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 47,
+                "node": 10
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                3,
+                2,
+                5,
+                7,
+                6,
+                8
+              ],
+              "vector": 17
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              21,
+              57
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                8,
+                7,
+                6
+              ],
+              "vector": 17
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              8,
+              13,
+              21,
+              46,
+              57
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 2,
+                "node": 12
+              },
+              {
+                "determinant": 3,
+                "node": 12
+              },
+              {
+                "determinant": 4,
+                "node": 12
+              },
+              {
+                "determinant": 5,
+                "node": 12
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 8,
+                "node": 13
+              },
+              {
+                "determinant": 9,
+                "node": 13
+              },
+              {
+                "determinant": 10,
+                "node": 13
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              2,
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 13,
+                "node": 14
+              },
+              {
+                "determinant": 14,
+                "node": 14
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                1,
+                4,
+                2,
+                3,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              3,
+              7,
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 22,
+                "node": 15
+              },
+              {
+                "determinant": 25,
+                "node": 21
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                3,
+                1,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11,
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 27,
+                "node": 16
+              },
+              {
+                "determinant": 29,
+                "node": 18
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                4,
+                1,
+                3,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              8,
+              11,
+              22,
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 67,
+                "node": 17
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                4,
+                1,
+                2,
+                3,
+                8,
+                5,
+                7,
+                6
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              4,
+              7,
+              12,
+              23,
+              26,
+              56
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                6,
+                7,
+                8,
+                5
+              ],
+              "vector": 16
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              7,
+              13,
+              24,
+              26,
+              56,
+              65
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 39,
+                "node": 19
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                4,
+                1,
+                2,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              23,
+              26,
+              56
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 65,
+                "node": 20
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                4,
+                1,
+                2,
+                3,
+                5,
+                6,
+                8,
+                7
+              ],
+              "vector": 16
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              8,
+              13,
+              24,
+              27,
+              36,
+              56
+            ]
+          },
+          {
+            "clause": {
+              "permutation": [
+                0,
+                3,
+                1,
+                2,
+                4,
+                5,
+                7,
+                8,
+                6
+              ],
+              "vector": 16
+            },
+            "kind": "dead",
+            "selected": [
+              5,
+              8,
+              13,
+              24,
+              27,
+              36,
+              56,
+              65
+            ]
+          },
+          {
+            "children": [
+              {
+                "determinant": 28,
+                "node": 18
+              }
+            ],
+            "clause": {
+              "permutation": [
+                0,
+                2,
+                4,
+                1,
+                3,
+                5,
+                6,
+                7,
+                8
+              ],
+              "vector": 18
+            },
+            "kind": "branch",
+            "selected": [
+              5,
+              9,
+              12,
+              22,
+              56
+            ]
+          }
+        ],
+        "root": 0
+      },
+      "spectrum": [
+        "20/23",
+        "14/23",
+        "14/23",
+        "14/23",
+        "14/23",
+        "4/23",
+        "4/23",
+        "4/23",
+        "4/23"
+      ],
+      "symmetry_blocks": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "system": [
+        4,
+        9
+      ],
+      "vertex_index": 65
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "claims": [
+      "Proposition 1 negative cases",
+      "Theorem 2"
+    ],
+    "description": "Exact disjunctive Farkas and branch certificates for every no-weighted-design claim carrying a numbered theorem or proposition in the paper."
+  },
+  "summary": {
+    "expanded_clauses": 5141,
+    "farkas_vectors": 192,
+    "maximum_proof_depth": 8,
+    "proof_nodes": 226
+  }
+}

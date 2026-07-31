@@ -11,6 +11,15 @@ from oracles, with Schubert (upstream's character-table work) demoted to the
 final validity-proof layer. This is the architecture that makes rank 12+
 tables producible.
 
+Normalization correction. The original contraction objective omitted unit
+normalization, so its positive floors were distances to an unnormalized cone.
+scripts/contraction_attack.py now normalizes inside the objective and carries
+scale-invariance and finite-difference gradient tests. The corrected (3,11)
+artifact is results/data/rank11_contraction.json. Candidate 44 has numerical
+floor 11/4320 and reaches the exact fixed-trace projection
+(37/72,(29/60)^4,(7/72)^5,1/15) onto the claimed level-5 hyperplane. This is an
+oracle calibration point, not a proof of the hyperplane.
+
 ## Second motivation, added 2026-07: Stage 1 is the only route to a real
 ## out-of-sample test of the first-order fiber theory
 

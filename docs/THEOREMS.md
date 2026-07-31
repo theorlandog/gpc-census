@@ -77,11 +77,31 @@ disk -- making it an honest geometric invariant of the embedded circle.
 Statement (target): every positive-dimensional reduced fiber contains states
 with distinct two-body cumulants; concretely, along any kernel deformation
 some pair occupation varies linearly with nonzero slope.
-STATUS: reduces to "no deforming family kernel is annihilated by the
-pair-incidence map" -- an exact rational rank check per family, queued
-corpus-wide (verified at v_B: 8 varying pairs). If a counterexample family
-exists, the theorem gains an interesting exceptional class; either outcome
-is a result.
+STATUS: the support-restricted weight-sector statement is now proved
+conditionally and certified over the full atlas. If A_S is the singleton
+incidence matrix and B_S the pair-incidence matrix, then
+sum_{j != i}(B_S w)_{ij} = (N-1)(A_S w)_i, hence
+ker B_S is contained in ker A_S. Full column rank of B_S therefore makes
+pair occupations injective on every incidence-kernel deformation. Exact
+integer maximal minors certify this rank for all 799 shipped supports,
+including all 63 positive-kernel records in 39 transport classes.
+
+At v_B the fixed-frame result has been strengthened to a full U(9)-invariant:
+on the exact fixed-spectrum family,
+tr(Gamma_2^3) = 6(2899-8t)/12167, so the cubic 2-RDM moment recovers t.
+Distinct t-values are distinct reduced points, and the two Galois real walls
+are not one-body-unitarily equivalent. At t=0, the differentials of
+tr(Gamma_2^3) and tr(Gamma_2^4) exactly form a basis of the two-dimensional
+support-restricted cotangent modulo orbital-phase gauge, certified by a
+nonzero algebraic 9 by 9 minor. Since both moments are full U(9) invariants,
+no additional one-body-orbit direction lies inside that support tangent.
+This is a first-order statement, not a proof that the second direction
+integrates. The global target remains OPEN outside the shipped supports and
+outside known support slices. Pair-incidence rank is not
+universal because signed combinatorial 2-trades give counterexamples, and
+fixed-frame pair occupations do not by themselves descend through the full
+degeneracy stabilizer. [docs/fiber_symmetries.md;
+results/data/fiber_symmetries.json]
 
 ## T4 -- Reality Selection (per-family: PROVED; global: conjecture)
 Per-family endpoint theorem proved (tau > 0 forces |cos|=1 walls interior).

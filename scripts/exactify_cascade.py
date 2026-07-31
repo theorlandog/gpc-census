@@ -7,11 +7,11 @@ the phases, substitute back, and verify the characteristic-polynomial identity
 in exact arithmetic. This script runs that recipe on every state the cascade
 sparsified, so improved support bounds can be certified rather than left at [N].
 
-A state is reported CERTIFIED only when all three hold in exact arithmetic:
-the squared weights are rationals summing to 1, the gauge-fixed phases are
-multiples of pi (the state is real up to gauge, so amplitudes are +-sqrt of a
-rational), and det(rho - x I) equals the target characteristic polynomial.
-Anything else is reported with the reason it fell short, never as a bound.
+A state is reported exact only when all three hold in exact arithmetic: the
+squared weights are algebraic of degree at most two and sum to 1, the
+gauge-fixed phases are multiples of pi (the state is real up to gauge), and
+det(rho - x I) equals the target characteristic polynomial. Anything else is
+reported with the reason it fell short, never as a bound.
 
   python scripts/exactify_cascade.py [--digits 50] [--jobs 4]
 
@@ -120,6 +120,56 @@ def as_rational(x, maxcoeff=10 ** 9):
     return None
 
 
+def as_quadratic(x, maxcoeff=10 ** 9):
+    """Recognize a real degree-two algebraic number by PSLQ and select its root."""
+    relation = mp.pslq(
+        [x * x, x, mp.mpf(1)],
+        maxcoeff=maxcoeff,
+        maxsteps=20000,
+    )
+    if not relation or relation[0] == 0:
+        return None
+    a, b, c = (int(value) for value in relation)
+    common = abs(int(sp.gcd(a, sp.gcd(b, c))))
+    if common:
+        a, b, c = a // common, b // common, c // common
+    if a < 0:
+        a, b, c = -a, -b, -c
+    discriminant = sp.Integer(b * b - 4 * a * c)
+    if discriminant < 0:
+        return None
+    roots = [
+        sp.radsimp((-sp.Integer(b) + sign * sp.sqrt(discriminant)) / (2 * a))
+        for sign in (1, -1)
+    ]
+    tolerance = mp.mpf(10) ** (-mp.dps + 10)
+    matches = [
+        root
+        for root in roots
+        if abs(mp.mpf(str(sp.N(root, mp.dps))) - x) < tolerance
+    ]
+    if len(matches) != 1:
+        return None
+    return matches[0]
+
+
+def recognize_weight(x):
+    """Return an exact rational or quadratic expression, or None."""
+    rational = as_rational(x)
+    return rational if rational is not None else as_quadratic(x)
+
+
+def squarefree_part(value):
+    """Signed square-free part of a nonzero integer."""
+    value = int(value)
+    sign = -1 if value < 0 else 1
+    out = sign
+    for prime, exponent in sp.factorint(abs(value)).items():
+        if exponent % 2:
+            out *= int(prime)
+    return out
+
+
 def exact_rho(amps, dets, d):
     idx = {t: i for i, t in enumerate(dets)}
     rho = sp.zeros(d, d)
@@ -178,15 +228,38 @@ def process(args):
             return out
 
         weights = [v[i] ** 2 + v[i + m] ** 2 for i in range(m)]
-        rats = [as_rational(w) for w in weights]
-        if any(r is None for r in rats):
-            out["status"] = "WEIGHTS-NOT-RATIONAL"
-            out["recognized"] = [str(r) if r else None for r in rats]
+        exact_weights = [recognize_weight(w) for w in weights]
+        if any(weight is None for weight in exact_weights):
+            out["status"] = "WEIGHTS-NOT-DEGREE-TWO"
+            out["recognized"] = [
+                str(weight) if weight is not None else None
+                for weight in exact_weights
+            ]
             return out
-        out["squared_weights"] = [str(r) for r in rats]
-        if sum(rats) != 1:
+        out["squared_weights"] = [str(weight) for weight in exact_weights]
+        out["squared_weight_minpolynomials"] = [
+            str(sp.minpoly(weight)) for weight in exact_weights
+        ]
+        out["squared_weight_max_degree"] = max(
+            int(sp.Poly(sp.minpoly(weight)).degree()) for weight in exact_weights
+        )
+        if sp.simplify(sum(exact_weights) - 1) != 0:
             out["status"] = "WEIGHTS-DO-NOT-SUM-TO-ONE"
             return out
+        irrational = [
+            weight for weight in exact_weights if not bool(weight.is_Rational)
+        ]
+        if irrational:
+            primitive = sp.to_number_field(irrational)
+            polynomial = primitive.minpoly
+            discriminant = sp.discriminant(polynomial.as_expr())
+            out["squared_weight_field"] = (
+                f"Q(sqrt({squarefree_part(discriminant)}))"
+            )
+            out["squared_weight_field_generator"] = str(primitive.as_expr())
+            out["squared_weight_field_minpoly"] = str(polynomial.as_expr())
+        else:
+            out["squared_weight_field"] = "Q"
 
         # Gauge-fix: is the state real up to the orbital-phase gauge? The gauge
         # acts by theta -> theta + A phi, so the question is whether theta lies
@@ -212,7 +285,10 @@ def process(args):
         signs = [1 if int(x) % 2 == 0 else -1 for x in k]
         out["signs"] = signs
 
-        amps = [s * sp.sqrt(w) for s, w in zip(signs, rats)]
+        amps = [
+            sign * sp.sqrt(weight)
+            for sign, weight in zip(signs, exact_weights)
+        ]
         rho = exact_rho(amps, dets, d)
         x = sp.Symbol("x")
         charpoly = sp.expand(rho.charpoly(x).as_expr())
@@ -233,7 +309,10 @@ def process(args):
         lam = [sp.Rational(v.numerator, v.denominator) for v in spectrum]
         out["rdm_diagonal"] = [str(e) for e in diag]
         out["diag_equals_lambda"] = bool(all(a == b for a, b in zip(diag, lam)))
-        out["state_denominator"] = int(sp.ilcm(*[r.q for r in rats]))
+        if not irrational:
+            out["state_denominator"] = int(
+                sp.ilcm(*[weight.q for weight in exact_weights])
+            )
 
         if not out["charpoly_identity_exact"]:
             out["status"] = "CHARPOLY-MISMATCH"
@@ -275,8 +354,11 @@ def main():
           f"({sum(1 for x in todo if x[2] == 'no')} natural-orbital, "
           f"{sum(1 for x in todo if x[2] == 'free')} free-basis)", flush=True)
 
-    with mp_pool.Pool(args.jobs) as pool:
-        results = pool.map(process, todo)
+    if args.jobs == 1:
+        results = [process(item) for item in todo]
+    else:
+        with mp_pool.Pool(args.jobs) as pool:
+            results = pool.map(process, todo)
 
     results.sort(key=lambda r: (r["locus"], r["system"], r["index"]))
     certified = [r for r in results if r["status"] == "CERTIFIED"]
@@ -286,9 +368,10 @@ def main():
         key = r["status"].split(":")[0]
         tally[key] = tally.get(key, 0) + 1
     report = {
-        "note": "Exact certification of fixed-spectrum cascade endpoints. A "
-                "CERTIFIED entry means the improved support bound holds in exact "
-                "arithmetic; every other status is reported as not certified.",
+        "note": "Exact certification of cascade endpoints with separate "
+                "natural-orbital and fixed-spectrum statuses. CERTIFIED bounds "
+                "s_Q_NO; SPECTRUM-ONLY-NOT-DIAGONAL bounds s_Q_free. Every "
+                "other status is reported without an exact support claim.",
         "digits": args.digits,
         "endpoints_attempted": len(results),
         "certified_s_Q_NO": len(certified),
@@ -302,13 +385,15 @@ def main():
             {"system": r["system"], "index": r["index"],
              "support_certified_library": r["support_certified"],
              "support_certified_exact": r["support_upper"],
-             "state_denominator": r["state_denominator"]}
+             "state_denominator": r.get("state_denominator"),
+             "squared_weight_field": r["squared_weight_field"]}
             for r in certified],
         "exact_s_Q_free_bounds": [
             {"system": r["system"], "index": r["index"],
              "support_certified_library": r["support_certified"],
              "support_exact_free": r["support_upper"],
-             "state_denominator": r["state_denominator"],
+             "state_denominator": r.get("state_denominator"),
+             "squared_weight_field": r["squared_weight_field"],
              "rdm_offdiagonal_nonzero": r["rdm_offdiagonal_nonzero"]}
             for r in spectrum_only],
         "results": results,

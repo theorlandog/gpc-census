@@ -30,10 +30,13 @@ can be attained. Exactly one of three things is true:
   v_B = (20:14:14:14:14:4:4:4:4)/23 of wedge^4 H_9, whose extremal state
   requires cos(gamma) = 3/(4*sqrt(14)).
 
-Verdicts are solver certificates (integer stage plus real stage, each a
-feasibility proof), and the repository ships the complete census: every
-vertex of every determinate system, ranks 6 through 10, with duality
-transporting the classification to the complement systems. Highlights:
+Feasible verdicts carry exact design witnesses. The 11 negative verdicts in
+Proposition 1 and the v_B verdict in Theorem 2 also carry exact global
+disjunctive Farkas/branch certificates with a standalone verifier. The other
+144 INTERFERENCE verdicts retain pinned solver certificates at the
+classification layer. The repository ships the complete census: every vertex
+of every determinate system, ranks 6 through 10, with duality transporting the
+classification to the complement systems. Highlights:
 interference is absent in the N=4 series at rank 8 and first appears at
 rank 9; interference fractions stabilize across ranks within each
 particle-number series; padding and frozen-core lifts generate most of
@@ -208,6 +211,7 @@ make sync     # create .venv and install dev dependencies
 make test     # run pytest
 make lint     # run ruff
 make upgrade  # upgrade locked dependencies (14-day release cooldown)
+python3 scripts/verify_interference_certificates_standalone.py  # exact no-design proofs
 ```
 
 ## Versioning

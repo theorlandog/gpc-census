@@ -409,6 +409,17 @@ closed form are low given the density.
 ## RANK-11 FORK: contraction attack floors on all four open (3,11) candidates
 (verified here) -- strong evidence for the refutation branch, NOT proof (2026-07)
 
+CORRECTION (2026-07, normalized objective). The historical run below omitted
+||Psi||=1 from the objective and normalized only after optimization. Its
+positive numbers are therefore distances to the cone of unnormalized 1-RDMs,
+not to the moment polytope. Zero-residual attainability conclusions are
+unaffected because trace matching forces unit norm. With normalization inside
+the objective, the four complex floors are 0.112244897959183,
+0.013928458372903, 0.035134415757253, and 0.002546296296296 for candidates
+23, 26, 34, and 44. The uniform candidate 49 remains a machine-zero control.
+The corrected artifact is results/data/rank11_contraction.json. The paragraph
+below is retained as the historical record of the unnormalized run.
+
 VERIFIED (ran the same scripts/contraction_attack.py on the (3,11) settlement
 candidates). The attack that reaches ~1e-16 on true vertices FLOORS 11-14 orders
 higher on every open candidate. Controls (TRUE-VERTEX): idx0 7.1e-17, idx7 4.1e-16,
@@ -624,12 +635,17 @@ TARGET DATUM (for the reduced solve to reproduce). By orbital-rotation invarianc
 the pure-1-RDM set, min_Psi ||gamma(Psi) - diag(g0)||^2 = squared Euclidean distance
 from g0's spectrum to the (N,d) moment polytope (Hoffman-Wielandt: the nearest pure
 1-RDM aligns eigenbases). So a positive delta certifies the spectrum is OUTSIDE the
-polytope, and delta equals dist^2 to it. For cand 44 the contraction floor is
-~2.155e-3 (~1/464 to 7 figures, real and complex agree); that is the number the
-symmetry-reduced certificate must lower-bound. NOTE this reduction also means any
-single violated GPC facet inequality gives delta >= ((a.g0 - b)/||a||)^2 by exact
-rational arithmetic -- but the (3,11) level-5 facet is precisely the open Schubert
-object, which is why the ansatz-free SOS route (no facet list needed) is the target.
+polytope, and delta equals dist^2 to it. For cand 44 the corrected normalized
+contraction floor is 11/4320 = 0.002546296296296..., with real and complex runs
+agreeing. The numerical nearest spectrum is exactly recognized as
+(37/72,(29/60)^4,(7/72)^5,1/15), the fixed-trace orthogonal projection onto the
+claimed hyperplane lambda_2+lambda_3+lambda_4+lambda_5+lambda_11=2. This exact
+projection is conditional on that hyperplane; it does not prove the inequality
+or exact attainment of the projected spectrum. The symmetry-reduced certificate
+must lower-bound 11/4320. NOTE this reduction also means any single violated GPC
+facet inequality gives delta >= ((a.g0 - b)/||a||)^2 by exact rational
+arithmetic, but the (3,11) level-5 facet is precisely the open Schubert object,
+which is why the ansatz-free SOS route (no facet list needed) is the target.
 
 ## RANK-11 CERTIFICATE PATH: cand 44 symmetry-reduction analysis (2026-07)
 

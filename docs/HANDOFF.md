@@ -14,7 +14,7 @@ HANDOFF 3 was right that the natural-orbital gauge had never been explored, and
 right that the cascade is mostly an orbital rotation engine. It was wrong that
 the v103 support-10 endpoint is diagonal, and therefore wrong to reinstate
 s_Q^NO(v103) <= 10. Exploring the gauge properly, the library support column
-does not move anywhere in the census: 0 of 799 states sparsify and 629 of 799
+does not move anywhere in the census: 0 of 799 states sparsify and 670 of 799
 are certified gauge-minimal outright.
 
 ## Correction A: the v103 endpoint is NOT diagonal, and the bound does not stand
@@ -66,9 +66,9 @@ v_B. The split is bimodal with nothing between 1e-12 and 1e-3, and all 8 have
 certificate residuals ~1e-17, so this is not a tolerance artifact.
 
 Worth noticing: two of the 8 are (5,10) v144 and v256, exactly the endpoints
-that resisted rational recognition in the earlier session. That is now explained
-rather than mysterious. They are different states, so there was no reason for
-them to sit at the library state's weights.
+that resisted rational recognition in the earlier session. They are now exact
+over Q(sqrt(1065)), with exact characteristic-polynomial and non-diagonality
+checks, and form a particle-hole/Hodge pair.
 
 ## Confirmed: the cascade is mostly an orbital rotation engine, and now provably
 
@@ -86,19 +86,21 @@ minimization". There are none.
 
     states searched                        799
     states whose support the gauge reduces   0
-    certified gauge-minimal                629
-    open in both directions                170
+    certified gauge-minimal                670
+    open in both directions                129
 
 The certification is exact and needs no search. A block-diagonal unitary
 preserves each determinant's BLOCK PROFILE (|T n B_1|, ..., |T n B_k|), so its
-compound preserves the profile-class decomposition and each class's flattening
-ranks. Hence
+compound preserves the profile-class decomposition. Exterior/Koszul
+contractions refine each class: one monomial contributes rank
+product_i binom(k_i,q_i), hence
 
-    support of any gauge representative >= sum over classes of flattening rank,
+    support >= sum over classes
+      ceil(rank(C_q) / product_i binom(k_i,q_i)),
 
 and where the library support attains this, the state is gauge-minimal by an
-integer rank computation. That bound is the most reusable thing this session
-produced.
+exact symbolic rank computation. The exterior family improves 82 records and
+newly certifies 41.
 
 Read the null result at its real strength. The search's power is pinned by a
 recovery test rather than asserted: a provably rank-1 class must collapse to one
@@ -112,7 +114,7 @@ null result from the sweep before testing it, and it would have been worthless.
 
 Limits: multi-start greedy over a 27-to-100-dimensional curved group is not
 exhaustive, and a reduction needing two simultaneous cancellations would be
-missed. The 629 certificates do not depend on the search; the 170 open rows do.
+missed. The 670 certificates do not depend on the search; the 129 open rows do.
 
 ## The taxonomy, which is what actually prevents a repeat
 
@@ -139,9 +141,9 @@ caught the mislabelled v103 bound immediately.
 `docs/prereg_gauge_minimization.md` was committed before the run (check the git
 history; that was the point). Because DROP came out identically zero, P-G1 and
 P-G2 are NOT SCOREABLE for want of positives, which the pre-registration named
-in advance as the mooting outcome. P-G4 FAILED: 170 states have slack between
-support and lower bound and not one sparsifies, so the slack predicts nothing
-except that the bound is loose there.
+in advance as the mooting outcome. P-G4 FAILED: its original bound left 170
+states with slack and not one sparsified. The stronger exterior bound leaves
+129 with slack and the verdict is unchanged.
 
 So HANDOFF 3's open question, whether the support-restricted fixed-rho tangent
 predicts gauge sparsifiability, is still open and now looks unaskable in this
@@ -149,15 +151,13 @@ corpus: there is no variation in the outcome variable to predict.
 
 ## What I would do next, in order
 
-1. **Sharpen the lower bound on the 170 open rows.** 51 of them are open only
-   because no invariant is implemented for a Lambda^a factor with
-   3 <= a <= m-3, where I fall back to the trivial value 1. A Lambda^3
-   normal-form invariant is a finite classical computation and would likely
-   close most of them. This is the highest value per unit effort in the repo
-   right now.
-2. **Exactly recognize the 8 new states.** They are new attainers, never
-   analyzed, and two of them are the pair that defeated the earlier recognition
-   pipeline. Their 2-RDM spectra are new data about those vertices.
+1. **Continue the lower-bound campaign on the 129 open rows.** The
+   exterior/Koszul family closed the former Lambda^a fallback and 41 records.
+   Remaining slack needs a different invariant rather than more of the same
+   contraction family.
+2. **Exactly recognize the other 6 new states.** v144 and v256 are now exact
+   over Q(sqrt(1065)); the remaining new attainers still supply independent
+   arithmetic data.
 3. **Decide whether s_Q^NO can beat the library support at a DIFFERENT fiber
    component.** Everything I certified is minimality within one state's gauge
    family. s_Q^NO is a vertex-level quantity and nothing here bounds it below
@@ -175,3 +175,26 @@ corpus: there is no variation in the outcome variable to predict.
   moved.
 - I did not attempt the second-order structure at v103, or anything else in the
   fiber program proper.
+
+## Addendum: exact no-design proof objects
+
+The solver-only status of the paper's numbered no-design claims is closed.
+`results/data/interference_certificates.json` contains exact global
+certificates for the 11 negative cases in Proposition 1 and for v_B in
+Theorem 2. The artifact has 192 primitive integer Farkas vectors, 5141
+symmetry-orbit hitting clauses, and 12 finite branch DAGs with 226 nodes.
+
+The proof is disjunctive. Each vector gives a determinant set that every
+nonnegative incidence realization must hit. The branch DAG then proves that
+no one-hop-free support can hit all required sets. The verifier in
+`scripts/verify_interference_certificates_standalone.py` uses only the Python
+standard library, reconstructs every exact inequality and branch, and rejects
+tampered vectors or omitted children.
+
+Scope boundary: this upgrades Proposition 1 and Theorem 2 from [CA] to [E].
+The other 144 INTERFERENCE verdicts in the full rank-9/10 census still carry
+solver-level [CA] evidence at the classification layer, even though their
+shipped extremal states remain [E]. The same exact architecture scales to most
+of those rows. A highly symmetric rank-10 case produces a raw orbit of more
+than 300,000 clauses, so the census-wide extension needs symbolic orbit
+compression rather than storing that expansion.

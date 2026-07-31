@@ -276,8 +276,10 @@ re-verified computationally against the released artifacts; scripts are included
 3. Decide the Thm 5 hypothesis question: if AK2008's derivation establishes
    validity of each listed rank-10 inequality (as opposed to completeness),
    say so with a pinpoint citation and the theorem becomes unconditional.
-4. Produce the exportable MILP proof object for Theorem 2, or keep the
-   planned-work language.
+4. DONE: Theorem 2 and the 11 negative cases in Proposition 1 now carry
+   exportable exact disjunctive Farkas/branch proof objects, independently
+   checked by a standard-library-only verifier. The other 144 INTERFERENCE
+   verdicts remain [CA] at the classification layer.
 5. Release the holonomy minimal-polynomial table (24 polynomials) in
    machine-readable form and extend the Galois tally to the 12 audit-recovered
    states, or keep the stated scope.

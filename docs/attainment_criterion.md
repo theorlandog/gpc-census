@@ -60,12 +60,12 @@ so long.
 Re-running the exact checker under the corrected criterion:
 
     certified s_Q^NO attainers                     0 of 71
-    exact but spectrum-only (rho not diagonal)    69 of 71
-    weights not rational (numerical only)          2 of 71
+    exact but spectrum-only (rho not diagonal)    71 of 71
+    recognition failures                           0 of 71
 
-Cross-referenced with the orbit gate: of those 69, 63 are the library state in
-rotated orbitals and 6 are genuinely new states giving vertex-level s_Q^free
-bounds.
+Cross-referenced with the orbit gate: 63 are the library state in rotated
+orbitals and 8 are genuinely new states giving vertex-level s_Q^free bounds.
+The last two exactifications use quadratic squared weights in Q(sqrt(1065)).
 
 ## Verification record
 

@@ -42,9 +42,15 @@ Every polytope vertex is exactly one of:
 - DESIGN-REAL: a real nonnegative design exists but no integer one.
 - INTERFERENCE: neither exists; complex phase cancellation is forced.
 
-Verdicts are solver certificates. The one-hop exclusion is essential; a
-degree-sums-only model is strictly weaker and misclassifies (this bug was
-made and caught once; see tests pinning v_A and v_B).
+Feasible design verdicts carry exact witnesses. The 11 negative verdicts in
+Proposition 1 and the v_B verdict in Theorem 2 now carry exact global
+disjunctive Farkas/branch certificates: 192 primitive integer vectors, 5141
+symmetry-orbit hitting clauses, and 12 branch DAGs verified without a solver.
+The other 144 INTERFERENCE verdicts still rest on the pinned two-solver census
+and structural transport checks, so their verdict-level status remains
+computer-assisted. The one-hop exclusion is essential; a degree-sums-only
+model is strictly weaker and misclassifies (this bug was made and caught once;
+see tests pinning v_A and v_B).
 
 ## Key results encoded in results/data
 
@@ -185,6 +191,13 @@ stands.
    idx 44, which would FALSIFY a published Klyachko inequality, itself a
    citable result. Either branch is a win; until then the four stay OPEN
    (validation law: a claim is not a certificate).
+   The normalized contraction audit in
+   results/data/rank11_contraction.json leaves positive real and complex
+   numerical floors on all four while retaining the uniform (3,11) vertex as a
+   zero-distance control. Candidate 44 reaches 11/4320 and the spectrum
+   (37/72,(29/60)^4,(7/72)^5,1/15), the exact fixed-trace projection onto the
+   claimed level-5 hyperplane. This is a sharp target datum and numerical
+   evidence only. It does not change any OPEN verdict.
 4. The (3,12) footholds: 19 certified true vertices by face embedding of the
    (3,11) settlement (docs/bracket_3_12_true_vertices.json), and the exact
    plethysm Stage-0 inner cloud (docs/bracket_3_12_stage0_inner.json,
@@ -227,12 +240,12 @@ plethysm criterion feed Problem 7 below.
   <= 12 is superseded by s_Q^free(v103) <= 10, certified exactly; see
   cascade_census.md.
 - gauge_minimization.md: minimization of every certified state's support over
-  its natural-orbital gauge family, the exact profile-class/flattening lower
-  bound (629 of 799 certified gauge-minimal), the null result on the other 170,
-  the power calibration of the search, and the scored pre-registration.
+  its natural-orbital gauge family, the exact profile-class/exterior-contraction
+  lower bound (670 of 799 certified gauge-minimal), the null result on the other
+  129, the power calibration of the search, and the scored pre-registration.
 - prereg_gauge_minimization.md: that pre-registration, committed before the run.
 - cascade_census.md: the census-wide sparsification cascade, the exact
-  certification of 69 of the 71 improved support bounds, the v103
+  certification of all 71 improved support bounds, the v103
   support-10 state, the cancellation-regime census, and the
   representative-swap check against the v0.12 real v_B record.
 - prereg_bracket_3_11_3_12.md: the scored out-of-sample pre-registration on
@@ -251,6 +264,10 @@ plethysm criterion feed Problem 7 below.
   the two fibers to disagree (799/799, zero exceptions). Also kills the
   proposed cross-block counting rules and shows two-block is not the
   operative invariant.
+- fiber_symmetries.md: the pair-incidence separation proposition, exact
+  nonzero-minor certificates for all 799 shipped supports, the time-reversal
+  involution on the exact v_B slice, and the cubic 2-RDM moment that recovers
+  its family parameter modulo every one-body unitary.
 - prereg_two_block_inversion.md: that study's pre-registration, committed
   before the cross-block counts were computed.
 - prior_art_roadmap.md: the outside-GPC prior-art map (phase retrieval,
@@ -265,6 +282,9 @@ plethysm criterion feed Problem 7 below.
 - bracket_3_11.json / bracket_3_11_settlement.json: the (3,11) Stage-0
   bracket and its 46/50 settlement (19 true, 27 refuted, 4 open);
   reproducible via scripts/settle_bracket_3_11.py.
+- prereg_rank11_candidate44.md: the frozen theorem/falsification fork for the
+  normalized candidate-44 floor, exact projected spectrum, and required proof
+  objects. The numerical audit is results/data/rank11_contraction.json.
 - partial_families_3_11_3_12.json: the published stable Grassmann families
   for N=3 at ranks 11 and 12, tagged PROVED / WEAK / CLAIMED. NECESSARY
   conditions, an outer bound only; use as a Farkas-style acceptance oracle
@@ -427,7 +447,8 @@ into the project.
   irrationals in Q(sqrt 35). It is a genuine non-rational-weight state, not a
   formatting inconsistency: it is the endpoint of a wall family cut out by the
   quadratic 85t^2 - 70t - 119, whose two roots are a Galois conjugate pair
-  with only one physical, so the distinguished point has orbit size 2. Its own
+  with both physical and one shipped, so the distinguished point has orbit
+  size 2. Its own
   loop holonomy is a sign (minimal polynomial x + 1), consistent with the
   record being real up to gauge. It is excluded from denominator predictions,
   having no state denominator. [docs/holonomy_rationality.md;
@@ -437,6 +458,44 @@ into the project.
   "v_B ANOMALY RESOLVED" (reduced spectrum-fiber is a surface);
   RESEARCH_ARCHIVE "THE FIBER IS THE 1-RDM -> 2-RDM INFORMATION GAP";
   scripts/fiber_sampler.py, scripts/vb_fiber_ideal.py.]
+- Pair occupations separate every weight-sector direction on every shipped
+  support. For a support S, let B_S be its pair-by-determinant incidence
+  matrix. The identity sum_{j != i} (B_S w)_{ij} = (N-1)(A_S w)_i gives
+  ker B_S contained in ker A_S, so full column rank of B_S makes pair
+  occupations injective on all squared amplitudes and, in particular, on the
+  incidence kernel. Exact nonzero maximal minors certify full column rank for
+  799 of 799 supports, spanning 403 transport classes. The positive-kernel
+  population is 63 records in 39 transport classes, with zero failures. This
+  is a support-restricted fixed-frame statement, not a universal theorem:
+  signed combinatorial 2-trades are abstract counterexamples, and pair
+  occupations are not invariants of the full degeneracy-stabilizer quotient.
+  [docs/fiber_symmetries.md; scripts/fiber_symmetries.py;
+  results/data/fiber_symmetries.json;
+  scripts/verify_fiber_symmetries_standalone.py]
+- The first exact full-one-body-unitary invariant on the v_B family is now
+  explicit. On its known one-parameter fixed-spectrum slice, with parameter t,
+  tr(Gamma_2^2) = 1438/529 is constant but
+  tr(Gamma_2^3) = 6(2899-8t)/12167. The cubic moment therefore recovers t and
+  proves that distinct t-values survive as distinct points of the reduced
+  fiber. It also separates the two Q(sqrt(35)) Galois wall states by
+  1728*sqrt(35)/1034195, so Galois conjugacy is not one-body-unitary
+  equivalence. Complex conjugation acts by theta -> -theta and fixes the two
+  real walls modulo orbital-phase gauge. Whether the two interior conjugate
+  sheets at fixed t are equivalent under the full U(1) x U(4) x U(4)
+  stabilizer remains OPEN. At the exact interior point t=0, the full
+  support-restricted fixed-spectrum constraint differential has rank 7 in 16
+  real amplitude coordinates, its orbital-phase gauge has rank 7, and the
+  support tangent modulo that phase gauge has dimension 2. Appending
+  d tr(Gamma_2^3) and
+  d tr(Gamma_2^4) raises the exact rank from 7 to 9; a nonzero 9 by 9 minor is
+  299925504*sqrt(8211)/1035662780341225. Thus the cubic and quartic moments
+  form a basis of the phase-gauge-quotient cotangent at t=0. Since both are
+  full U(9) invariants, no additional one-body-orbit direction lies inside
+  this support tangent. This is FIRST ORDER only:
+  it does not prove integrability, germ smoothness, or global injectivity on
+  the second surface direction.
+  [docs/fiber_symmetries.md; results/data/fiber_symmetries.json;
+  tests/test_fiber_symmetries.py]
 - Cancellation rigidity exists (v89): the certified state is first-order
   fixed-SPECTRUM rigid with no touched 1-term class; its single silent
   channel is within-block and has full rank on the 1-dim incidence kernel;
@@ -480,14 +539,17 @@ into the project.
   so every certified state carries a gauge freedom U(m_1) x ... x U(m_k) whose
   every point has 1-RDM identically diag(lambda) and is an equally legitimate
   natural-orbital representative. Minimizing support over that family:
-  0 of 799 states sparsify, and 629 of 799 are EXACTLY gauge-minimal, certified
-  by a gauge-invariant lower bound (a block-diagonal unitary preserves each
-  determinant's block profile, hence each profile class's flattening rank). The
-  other 170 are open in both directions, 51 of them because the bound falls
-  back to a trivial value on a Lambda^a factor with 3 <= a <= m-3. The search's
-  power is pinned by a recovery test (a provably rank-1 class must collapse to
-  one determinant; it does, at residual 4e-16), and two earlier search methods
-  that failed that test were removed rather than shipped.
+  0 of 799 states sparsify, and 670 of 799 are EXACTLY gauge-minimal, certified
+  by a gauge-invariant lower bound. A block-diagonal unitary preserves each
+  determinant's block profile. Within a profile class, exterior/Koszul
+  contraction maps give support at least
+  ceil(rank(C_q)/product_i binom(k_i,q_i)). The symbolic rank certificates
+  strictly strengthen 82 records and newly close 41, and all 799 shipped bounds
+  are exact (floating ranks only select the contraction map). The other 129 are
+  open in both directions. The search's power is pinned by a recovery test (a provably
+  rank-1 class must collapse to one determinant; it does, at residual 4e-16),
+  and two earlier search methods that failed that test were removed rather than
+  shipped.
   [docs/gauge_minimization.md; docs/prereg_gauge_minimization.md;
   src/gpc_census/gauge.py; results/data/gauge_min.jsonl]
 - NONE of the 71 cascade endpoints is in a natural-orbital basis: 0 of 71 have
@@ -514,17 +576,14 @@ into the project.
 - Census-wide sparsification: the support column is an UPPER BOUND on
   s_Q^free, and it is STRICT at 71 of the 799 certified states,
   all INTERFERENCE. The cascade removes 89 amplitudes in total: 55 states
-  drop one, 15 drop two, v103 drops four. 69 of the 71 endpoints are exactly
+  drop one, 15 drop two, v103 drops four. All 71 endpoints are exactly
   recognizable, but on the SPECTRUM locus only: under the strengthened
   criterion (rho diagonal AND diag = lambda) 0 of 71 certify as attainers, 63
-  are the library state in rotated orbitals and 6 are new states bounding
-  s_Q^free. Superseded text follows. 69 of the 71 improved bounds are
-  then EXACT (high-precision refine, integer relation detection on the
-  squared weights, gauge-fix, exact characteristic-polynomial identity);
-  the two holdouts, (5,10) v144 and v256, have partly irrational weights,
-  the signature of a stratum whose distinguished point the cascade missed,
-  as v_B's real states sit at quadratic surds. Quadratic-surd recognition
-  is the open piece. [docs/cascade_census.md; src/gpc_census/cascade.py;
+  are the library state in rotated orbitals and 8 are new states bounding
+  s_Q^free. The final two exactifications, (5,10) v144 and v256, share
+  Q(sqrt(1065)); their exact characteristic polynomials and nonzero
+  off-diagonal 1-RDM entries are verified symbolically. [docs/cascade_census.md;
+  src/gpc_census/cascade.py;
   scripts/census_cascade.py; scripts/exactify_cascade.py;
   results/data/cascade.jsonl; results/data/cascade_exact.json]
 - Rigidity predicts sparsifiability across the census: every state with
@@ -752,8 +811,17 @@ and names the tools to import.)
    (silence-rank lemma); remaining: the magnitude-regime proof and the
    second-order/integrability structure.]
 2. Explicit reduced-fiber invariant for v_B, and exactification of the v103
-   fiber. [Groundwork: v_B anomaly resolution, holonomy/wall data,
-   vb_holonomy.py, vb_fiber_ideal.py. New v103 lead: the (0,2,7) weight
+   fiber. [PROGRESS: on the known fixed-spectrum v_B slice,
+   tr(Gamma_2^3) = 6(2899-8t)/12167 exactly recovers the family parameter and
+   separates the two Galois walls under the full one-body group. This gives
+   one exact reduced coordinate. At t=0 its differential together with
+   d tr(Gamma_2^4) exactly separates the complete two-dimensional support
+   tangent modulo orbital-phase gauge. Global integration and separation of
+   the second surface direction,
+   and the full-stabilizer status of the conjugate phase sheets, remain open.
+   Groundwork: docs/fiber_symmetries.md, the v_B anomaly resolution,
+   holonomy/wall data, vb_holonomy.py, vb_fiber_ideal.py. New v103 lead: the
+   (0,2,7) weight
    equals 5/34 (the small spectrum value itself) at the certified point and
    at every cascade point to err < 3e-17, a candidate exact invariant and a
    coordinate to quotient out before computing the fiber ideal; PSLQ over
@@ -869,24 +937,24 @@ full 82-loop result.
 
 Priority:
 
-0. Sharpen the gauge lower bound on the 170 open rows, 51 of which are open
-   only because no invariant is implemented for a Lambda^a factor with
-   3 <= a <= m-3. A Lambda^3 normal-form invariant would close most of them and
-   is a finite, classical computation.
-0b. The 8 genuinely new extremal states found by the orbit check deserve exact
-   recognition of their own: they are new attainers, not rotations, and two of
-   them ((5,10) v144 and v256) are exactly the endpoints that resisted rational
-   recognition, which is now explained rather than mysterious.
+0c. Extend the exact global no-design certificate atlas from the 12 numbered
+   theorem/proposition cases to the other 144 INTERFERENCE verdicts. The
+   disjunctive Farkas method is complete and fast on all 12 published targets;
+   a highly symmetric rank-10 two-block case shows that orbit clauses must be
+   stored and verified symbolically rather than expanded naively.
+0. Continue the gauge lower-bound campaign on the 129 open rows. The
+   exterior/Koszul contraction family removed the former Lambda^a fallback,
+   improved 82 records, and certified 41 more; the remaining slack needs a
+   different invariant.
+0b. Exactly recognize the remaining 6 genuinely new extremal states found by
+   the orbit check. The v144/v256 Hodge pair is now exact over Q(sqrt(1065)).
 1. Formalize the theorem-candidate proofs (the two Hardt-dependent ones
    together).
-2. Alpha-certify what exact recognition could not reach. MOSTLY OVERTAKEN:
-   69 of the 71 cascade endpoints were exactly recognized (spectrum locus
-   only, not attainment) by high-precision
-   refinement plus integer relation detection plus an exact
-   characteristic-polynomial check, which is stronger than an alpha
-   certificate and needs no external tool. What remains for alphaCertified
-   or for quadratic-surd recognition: the two endpoints with irrational
-   weights ((5,10) v144 and v256) and the v89 (0,3,6) family points.
+2. Alpha-certify what exact recognition could not reach. OVERTAKEN for the
+   cascade: all 71 endpoints are exactly recognized on the spectrum locus by
+   high-precision refinement, degree-at-most-two integer relation detection,
+   and an exact characteristic-polynomial check. The v89 (0,3,6) family points
+   remain candidates for alpha theory.
    [results/data/cascade_exact.json]
 3. Witness set + numerical irreducible decomposition of the v103 fiber and
    the v_B surface; monodromy Galois groups feed the holonomy program
@@ -896,8 +964,10 @@ Priority:
 5. Complete the v89 defect ladder (sizes 7..9) with the automated
    projector-pattern + branch-analysis + SOS pipeline; then the global
    defect theorem.
-6. Produce the stabilizer-invariant for v_B and exactify the v103 fiber
-   (Problem 2; the 5/34 invariant coordinate is the seed).
+6. Integrate the exact cubic-quartic tangent coordinates over the second
+   direction of the v_B reduced surface, test global injectivity, decide the
+   full-stabilizer status of the conjugate sheets, and exactify the v103 fiber
+   (Problem 2; the 5/34 invariant coordinate is the v103 seed).
 7. Search for interior inverse walls.
 8. Develop practical realization algorithms from the corrected theory
    (reweighted-L1 full-fiber continuation -> PSLQ exactification is the
@@ -995,7 +1065,7 @@ this table.
 | v103 is first-order rigid | rigid for the FIXED-RHO fiber, deformable (tangent 6) for the FIXED-SPECTRUM fiber; v89 rigid in both |
 | v103 is an isolated support-14 point | true of the route-B search landscape and gauge slice, false of the fiber: support 10 is reached and certified exactly |
 | the census support column is the minimal support | it is the certified support, an upper bound on s_Q^NO; the cascade's 71 improvements are improvements of s_Q^free, a different quantity |
-| the certified support column was never minimized over the natural-orbital gauge, so it is loose | it was never minimized, and minimizing it changes nothing: 0 of 799 sparsify, 629 of 799 are certified gauge-minimal |
+| the certified support column was never minimized over the natural-orbital gauge, so it is loose | it was never minimized, and minimizing it changes nothing: 0 of 799 sparsify, 670 of 799 are certified gauge-minimal |
 | s_Q^NO(v103) <= 10 (the support-10 endpoint read as a natural-orbital state) | FALSE. That endpoint's 1-RDM carries rho_39 = -5/68 exactly, so it certifies s_Q^free(v103) <= 10 only; s_Q^NO(v103) stays bounded by the library support 14 |
 | the cascade endpoints are all the library state in another basis | 63 of 71 are; the other 8 have 2-RDM spectra no one-body rotation can reach, so they are genuinely new extremal states |
 | 9 of 12 DESIGN-REAL states at denominator ratio 2 | the shipped ledger has 12 of 12; the mined figure is representative dependent |
@@ -1009,7 +1079,8 @@ theta=0 endpoint in place of the phase-carrying fiber point over
 ledger: identical census totals (71 sparsifying states, 89 amplitudes, 33
 multiplicity-drift stops, 2 cancellation-regime members), identical per-vertex
 verdicts and tangent dimensions for all 799 records, and identical exact
-certification (69 of 71, same weights throughout). v_B's own numbers are
+certification (all 71 after quadratic recognition, same numerical endpoints
+throughout). v_B's own numbers are
 stable too: incidence kernel 1, fixed-spectrum tangent 2, fixed-rho tangent 1
 for BOTH representatives, and both cascade to the same support-7 point,
 dropping determinant (0,1,2,4) and certifying at the same squared weights

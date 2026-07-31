@@ -855,6 +855,7 @@ def min_support_cardinality(n: int, d: int, spectrum, nv=None, support_filter=No
     m.Minimize(sum(y))
     s = cp_model.CpSolver()
     s.parameters.max_time_in_seconds = time_cap
+    s.parameters.num_workers = 1
     st = s.Solve(m)
     if st == cp_model.OPTIMAL:
         return int(sum(s.Value(x) for x in y))

@@ -14,8 +14,8 @@ N-representable 1-RDM. delta > 0 is a rigorous certificate that diag(g0) is
 OUTSIDE the (N,d) polytope (non-attainable). By orbital-rotation invariance
 (Hoffman-Wielandt) min f equals the squared Euclidean distance from g0's spectrum
 to the moment polytope, so a positive delta both proves non-attainability and
-quantifies the gap. The contraction attack only produces an UNCONSTRAINED floor
-(evidence, not proof).
+quantifies the gap. The normalized contraction attack only produces a numerical
+local floor (evidence, not proof).
 
 FORMULATION (gauge-reduced, exact cone). f is U(1)-gauge invariant, so every
 monomial has charge |holo| - |anti| = 0, and f squares the SESQUILINEAR forms

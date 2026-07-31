@@ -51,7 +51,10 @@ EXPECT_HOLONOMY = dict(loopy_states=63, loops=82,
                        all_two_elementary=True, all_kernels_saturated=True,
                        loops_with_radicand_outside_weight_group=15)
 GAUGE = "results/data/gauge_min_summary.json"
-EXPECT_GAUGE = dict(states=799, certified_gauge_minimal=629,
+EXPECT_GAUGE = dict(states=799, certified_gauge_minimal=670,
+                    exterior_certificates_exact=799,
+                    strictly_improved_by_exterior_contractions=82,
+                    newly_certified_by_exterior_contractions=41,
                     states_that_gauge_sparsify=0)
 CASCADE = "results/data/cascade_summary.json"
 EXPECT_CASCADE = dict(states_with_support_drop=71,
@@ -61,9 +64,9 @@ EXPECT_CASCADE = dict(states_with_support_drop=71,
 CASCADE_EXACT = "results/data/cascade_exact.json"
 # CORRECTED: the characteristic-polynomial identity is conjugation invariant,
 # so "exactly recognized" is not "attains the vertex". Zero endpoints are
-# attainers; 69 are exact on the spectrum locus only.
+# attainers; all 71 are exact on the spectrum locus only.
 EXPECT_CASCADE_EXACT = dict(endpoints_attempted=71, certified_s_Q_NO=0,
-                            exact_spectrum_only_s_Q_free=69)
+                            exact_spectrum_only_s_Q_free=71)
 ORBIT = "results/data/orbit_check.json"
 EXPECT_ORBIT = dict(endpoints_tested=71, same_state_as_library=63,
                     new_states_found=8, endpoints_in_natural_orbital_basis=0)
@@ -71,6 +74,14 @@ V103_S10 = "results/data/v103_support10_certificate.json"
 V103_FREE = "results/data/v103_sqfree_certificate.json"
 NO_LEDGER = "results/data/natural_orbital_summary.json"
 NO_RATIO = "results/data/no_support_ratio.json"
+INTERFERENCE_CERTS = "results/data/interference_certificates.json"
+EXPECT_INTERFERENCE_CERTS = {
+    "record_count": 12,
+    "farkas_vectors": 192,
+    "expanded_clauses": 5141,
+    "proof_nodes": 226,
+    "maximum_proof_depth": 8,
+}
 EXPECT_V103_S10 = dict(
     state_denominator=46852,
     squared_weights=["13/34", "5/34", "53/442", "195/1802", "5/68", "5/68",
@@ -115,6 +126,40 @@ def main():
     d = EXPECT_INTERFERENCE_DECOMP
     if sum(d.values()) != EXPECT_TOTALS["interference"]:
         errors.append("interference decomposition does not sum to 156")
+
+    # Exact global no-design certificates for the 11 Proposition 1 negatives
+    # and Theorem 2. The standalone verifier checks their logical content;
+    # this consistency gate pins the manuscript's scope and headline counts.
+    interference_certs = json.load(open(INTERFERENCE_CERTS))
+    if interference_certs.get("record_count") != EXPECT_INTERFERENCE_CERTS["record_count"]:
+        errors.append("global interference certificate record count disagrees")
+    for key in (
+        "farkas_vectors",
+        "expanded_clauses",
+        "proof_nodes",
+        "maximum_proof_depth",
+    ):
+        got = interference_certs.get("summary", {}).get(key)
+        if got != EXPECT_INTERFERENCE_CERTS[key]:
+            errors.append(
+                f"global interference certificates {key}: manuscript "
+                f"{EXPECT_INTERFERENCE_CERTS[key]} vs data {got}"
+            )
+    certificate_targets = {
+        (f"({row['system'][0]},{row['system'][1]})", row["vertex_index"])
+        for row in interference_certs.get("records", [])
+    }
+    expected_targets = {
+        (record["system"], record["index"])
+        for record in recs
+        if record["classified"] == "INTERFERENCE"
+        and (
+            record["system"] == "(3,8)"
+            or (record["system"] == "(4,9)" and record["index"] == 65)
+        )
+    }
+    if certificate_targets != expected_targets:
+        errors.append("global interference certificate target set disagrees")
 
     # rank-10 vertex total (the conditional-completeness theorem count)
     r10 = sum(1 for r in recs if r["system"] in ("(3,10)", "(4,10)", "(5,10)"))
@@ -163,8 +208,8 @@ def main():
     for k, want in EXPECT_GAUGE.items():
         if g.get(k) != want:
             errors.append(f"gauge {k}: manuscript {want} vs data {g.get(k)}")
-    if g.get("states", 0) - g.get("certified_gauge_minimal", 0) != 170:
-        errors.append("gauge: manuscript quotes 170 open, data disagrees")
+    if g.get("states", 0) - g.get("certified_gauge_minimal", 0) != 129:
+        errors.append("gauge: manuscript quotes 129 open, data disagrees")
 
     # sparsification-cascade numbers, from cascade_summary.json
     c = json.load(open(CASCADE))
