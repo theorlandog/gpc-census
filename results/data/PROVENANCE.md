@@ -42,6 +42,52 @@ same-toolchain reproducibility check, not a portable one. The artifact's
 validity does not depend on it: the test suite runs the verifier, never the
 generator, and any exact certificate set that verifies proves the same claim.
 
+## fiber_symmetries.json (pair coordinates and exact v_B invariants)
+
+EXACT. `scripts/fiber_symmetries.py` constructs the pair-by-determinant
+incidence matrix for every shipped support and records one nonzero integer
+maximal minor for each. The identity
+
+    sum_{j != i} (B_S w)_{ij} = (N-1)(A_S w)_i
+
+shows that full column rank of B_S makes pair occupations injective on every
+incidence-kernel weight deformation. All 799 supports pass, spanning 403
+transport classes. The positive-kernel population is 63 records in 39
+transport classes, with zero pair-map failures. This is a certified atlas
+fact, not a theorem for arbitrary supports; signed combinatorial 2-trades are
+abstract counterexamples.
+
+The same generator expands the v_B 2-RDM Gram matrix symbolically on its exact
+fixed-spectrum family. Fixed-spectrum, not fixed-diagonal: every member has
+1-RDM spectrum exactly lambda_vB, but in the frame the support is written in
+rho keeps an off-diagonal entry that moves along the family (at t=0,
+rho_48 = -5/92 - sqrt(119)*i/92). The natural-orbital frame is the separate
+states_natural_orbital.jsonl ledger. It proves
+
+    tr(Gamma_2^2) = 1438/529,
+    tr(Gamma_2^3) = 6(2899-8t)/12167.
+
+The cubic moment recovers the family parameter under the full one-body group
+and separates the two Q(sqrt(35)) Galois walls. At t=0, exact spectral
+projectors give fixed-spectrum constraint rank 7 and orbital-phase gauge rank
+7 in 16 real amplitude coordinates. Appending the cubic and quartic 2-RDM
+moment differentials raises the rank to 9; the artifact records the nonzero
+9 by 9 minor
+
+    299925504*sqrt(8211)/1035662780341225.
+
+Thus those two moment differentials form a basis of the two-dimensional
+quotient cotangent at that point. This last conclusion is first order only:
+global integrability and injectivity on the second surface direction remain
+open. `scripts/verify_fiber_symmetries_standalone.py` re-derives all 799
+integer minors from states.jsonl with standard-library Bareiss elimination;
+for v_B it only checks the recorded constants, so it is a second derivation of
+the pair layer and a consistency check on the moment layer. The v_B moment
+identities get their second derivation in `tests/test_fiber_symmetries.py`,
+which rebuilds the family from the published weights and coherence equation,
+contracts it with the repository's own pair-vector code, and reproduces both
+trace formulas numerically without touching the generator's symbolic path.
+
 ## states.jsonl (constructed extremal states)
 
 Per-vertex extremal states, produced by the routed state pipeline

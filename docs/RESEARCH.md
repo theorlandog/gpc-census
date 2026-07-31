@@ -264,6 +264,10 @@ plethysm criterion feed Problem 7 below.
   the two fibers to disagree (799/799, zero exceptions). Also kills the
   proposed cross-block counting rules and shows two-block is not the
   operative invariant.
+- fiber_symmetries.md: the pair-incidence separation proposition, exact
+  nonzero-minor certificates for all 799 shipped supports, the time-reversal
+  involution on the exact v_B slice, and the cubic 2-RDM moment that recovers
+  its family parameter modulo every one-body unitary.
 - prereg_two_block_inversion.md: that study's pre-registration, committed
   before the cross-block counts were computed.
 - prior_art_roadmap.md: the outside-GPC prior-art map (phase retrieval,
@@ -443,7 +447,8 @@ into the project.
   irrationals in Q(sqrt 35). It is a genuine non-rational-weight state, not a
   formatting inconsistency: it is the endpoint of a wall family cut out by the
   quadratic 85t^2 - 70t - 119, whose two roots are a Galois conjugate pair
-  with only one physical, so the distinguished point has orbit size 2. Its own
+  with both physical and one shipped, so the distinguished point has orbit
+  size 2. Its own
   loop holonomy is a sign (minimal polynomial x + 1), consistent with the
   record being real up to gauge. It is excluded from denominator predictions,
   having no state denominator. [docs/holonomy_rationality.md;
@@ -453,6 +458,44 @@ into the project.
   "v_B ANOMALY RESOLVED" (reduced spectrum-fiber is a surface);
   RESEARCH_ARCHIVE "THE FIBER IS THE 1-RDM -> 2-RDM INFORMATION GAP";
   scripts/fiber_sampler.py, scripts/vb_fiber_ideal.py.]
+- Pair occupations separate every weight-sector direction on every shipped
+  support. For a support S, let B_S be its pair-by-determinant incidence
+  matrix. The identity sum_{j != i} (B_S w)_{ij} = (N-1)(A_S w)_i gives
+  ker B_S contained in ker A_S, so full column rank of B_S makes pair
+  occupations injective on all squared amplitudes and, in particular, on the
+  incidence kernel. Exact nonzero maximal minors certify full column rank for
+  799 of 799 supports, spanning 403 transport classes. The positive-kernel
+  population is 63 records in 39 transport classes, with zero failures. This
+  is a support-restricted fixed-frame statement, not a universal theorem:
+  signed combinatorial 2-trades are abstract counterexamples, and pair
+  occupations are not invariants of the full degeneracy-stabilizer quotient.
+  [docs/fiber_symmetries.md; scripts/fiber_symmetries.py;
+  results/data/fiber_symmetries.json;
+  scripts/verify_fiber_symmetries_standalone.py]
+- The first exact full-one-body-unitary invariant on the v_B family is now
+  explicit. On its known one-parameter fixed-spectrum slice, with parameter t,
+  tr(Gamma_2^2) = 1438/529 is constant but
+  tr(Gamma_2^3) = 6(2899-8t)/12167. The cubic moment therefore recovers t and
+  proves that distinct t-values survive as distinct points of the reduced
+  fiber. It also separates the two Q(sqrt(35)) Galois wall states by
+  1728*sqrt(35)/1034195, so Galois conjugacy is not one-body-unitary
+  equivalence. Complex conjugation acts by theta -> -theta and fixes the two
+  real walls modulo orbital-phase gauge. Whether the two interior conjugate
+  sheets at fixed t are equivalent under the full U(1) x U(4) x U(4)
+  stabilizer remains OPEN. At the exact interior point t=0, the full
+  support-restricted fixed-spectrum constraint differential has rank 7 in 16
+  real amplitude coordinates, its orbital-phase gauge has rank 7, and the
+  support tangent modulo that phase gauge has dimension 2. Appending
+  d tr(Gamma_2^3) and
+  d tr(Gamma_2^4) raises the exact rank from 7 to 9; a nonzero 9 by 9 minor is
+  299925504*sqrt(8211)/1035662780341225. Thus the cubic and quartic moments
+  form a basis of the phase-gauge-quotient cotangent at t=0. Since both are
+  full U(9) invariants, no additional one-body-orbit direction lies inside
+  this support tangent. This is FIRST ORDER only:
+  it does not prove integrability, germ smoothness, or global injectivity on
+  the second surface direction.
+  [docs/fiber_symmetries.md; results/data/fiber_symmetries.json;
+  tests/test_fiber_symmetries.py]
 - Cancellation rigidity exists (v89): the certified state is first-order
   fixed-SPECTRUM rigid with no touched 1-term class; its single silent
   channel is within-block and has full rank on the 1-dim incidence kernel;
@@ -768,8 +811,17 @@ and names the tools to import.)
    (silence-rank lemma); remaining: the magnitude-regime proof and the
    second-order/integrability structure.]
 2. Explicit reduced-fiber invariant for v_B, and exactification of the v103
-   fiber. [Groundwork: v_B anomaly resolution, holonomy/wall data,
-   vb_holonomy.py, vb_fiber_ideal.py. New v103 lead: the (0,2,7) weight
+   fiber. [PROGRESS: on the known fixed-spectrum v_B slice,
+   tr(Gamma_2^3) = 6(2899-8t)/12167 exactly recovers the family parameter and
+   separates the two Galois walls under the full one-body group. This gives
+   one exact reduced coordinate. At t=0 its differential together with
+   d tr(Gamma_2^4) exactly separates the complete two-dimensional support
+   tangent modulo orbital-phase gauge. Global integration and separation of
+   the second surface direction,
+   and the full-stabilizer status of the conjugate phase sheets, remain open.
+   Groundwork: docs/fiber_symmetries.md, the v_B anomaly resolution,
+   holonomy/wall data, vb_holonomy.py, vb_fiber_ideal.py. New v103 lead: the
+   (0,2,7) weight
    equals 5/34 (the small spectrum value itself) at the certified point and
    at every cascade point to err < 3e-17, a candidate exact invariant and a
    coordinate to quotient out before computing the fiber ideal; PSLQ over
@@ -912,8 +964,10 @@ Priority:
 5. Complete the v89 defect ladder (sizes 7..9) with the automated
    projector-pattern + branch-analysis + SOS pipeline; then the global
    defect theorem.
-6. Produce the stabilizer-invariant for v_B and exactify the v103 fiber
-   (Problem 2; the 5/34 invariant coordinate is the seed).
+6. Integrate the exact cubic-quartic tangent coordinates over the second
+   direction of the v_B reduced surface, test global injectivity, decide the
+   full-stabilizer status of the conjugate sheets, and exactify the v103 fiber
+   (Problem 2; the 5/34 invariant coordinate is the v103 seed).
 7. Search for interior inverse walls.
 8. Develop practical realization algorithms from the corrected theory
    (reweighted-L1 full-fiber continuation -> PSLQ exactification is the
