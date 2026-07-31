@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Ansatz-free numerical attainment of a GPC vertex via the contraction map.
 
-Minimize ||gamma(Psi) - gamma_0||^2 over the FULL Lambda^N C^d tensor (every
-determinant amplitude free -- no support, sparsity, rationality, or block
-restriction), with an analytic Wirtinger gradient. gamma(Psi) is the 1-RDM,
+Minimize ||gamma(Psi / ||Psi||) - gamma_0||^2 over the FULL Lambda^N C^d tensor
+(every determinant amplitude free -- no support, sparsity, rationality, or block
+restriction), with an analytic Wirtinger gradient. gamma(Psi / ||Psi||) is the 1-RDM,
 assembled from the diagonal occupations and the one-hop (share N-1 orbitals)
 off-diagonal contractions; gamma_0 = diag(spectrum). The analytic gradient is what
 makes this converge to machine precision in seconds where support-restricted and
@@ -55,51 +55,103 @@ def build(d, n):
     return dets, (np.array(idx), np.array(aa), np.array(bb), np.array(sg))
 
 
-def attack(ints, den, n=3, real=False, tries=25, seed=0):
-    """Return (best_residual, sorted_eigenvalues, support_size) for the attainment."""
-    d = len(ints)
-    dets, (idx, aa, bb, sg) = build(d, n)
-    nd = len(dets)
-    g0 = np.diag(np.array(ints) / den).flatten()
+def normalized_objective_gradient(x, g0, contraction, real=False):
+    """Scale-invariant distance and analytic gradient for a normalized state.
 
+    ``contraction`` is the sparse tuple returned by :func:`build`. The input may
+    have any nonzero norm. Normalizing inside the objective is load bearing:
+    without it, a positive optimum is a distance to the cone of unnormalized
+    1-RDMs rather than to the moment polytope.
+    """
+    idx, aa, bb, sg = contraction
+    d2 = len(g0)
+    nd = len(x) if real else len(x) // 2
     if real:
-        def objgrad(x):
-            e = np.zeros(d * d)
-            np.add.at(e, idx, sg * x[aa] * x[bb])
-            e -= g0
-            g = np.zeros(nd)
-            np.add.at(g, bb, 2 * e[idx] * sg * x[aa])
-            np.add.at(g, aa, 2 * e[idx] * sg * x[bb])
-            return float(np.sum(e ** 2)), g
-        dim = nd
-    else:
-        def objgrad(x):
-            c = x[:nd] + 1j * x[nd:]
-            e = np.zeros(d * d, complex)
-            np.add.at(e, idx, sg * c[aa] * np.conj(c[bb]))
-            e -= g0
-            gz = np.zeros(nd, complex)
-            np.add.at(gz, bb, 2 * np.conj(e[idx]) * sg * c[aa])
-            return float(np.sum(np.abs(e) ** 2)), np.concatenate([2 * np.real(gz), 2 * np.imag(gz)])
-        dim = 2 * nd
+        c = np.asarray(x, dtype=float)
+        norm2 = float(c @ c)
+        if norm2 <= np.finfo(float).tiny:
+            return float("inf"), np.zeros_like(c)
+        raw = np.zeros(d2)
+        np.add.at(raw, idx, sg * c[aa] * c[bb])
+        rho = raw / norm2
+        error = rho - g0
+        grad = np.zeros(nd)
+        np.add.at(grad, bb, 2 * error[idx] * sg * c[aa] / norm2)
+        np.add.at(grad, aa, 2 * error[idx] * sg * c[bb] / norm2)
+        overlap = float(error @ raw)
+        grad -= 4 * overlap * c / norm2 ** 2
+        return float(error @ error), grad
+
+    c = np.asarray(x[:nd]) + 1j * np.asarray(x[nd:])
+    norm2 = float(np.vdot(c, c).real)
+    if norm2 <= np.finfo(float).tiny:
+        return float("inf"), np.zeros_like(x)
+    raw = np.zeros(d2, complex)
+    np.add.at(raw, idx, sg * c[aa] * np.conj(c[bb]))
+    rho = raw / norm2
+    error = rho - g0
+    wirtinger = np.zeros(nd, complex)
+    np.add.at(
+        wirtinger,
+        bb,
+        2 * np.conj(error[idx]) * sg * c[aa] / norm2,
+    )
+    overlap = float(np.vdot(error, raw).real)
+    wirtinger -= 2 * overlap * c / norm2 ** 2
+    grad = np.concatenate([2 * np.real(wirtinger), 2 * np.imag(wirtinger)])
+    return float(np.vdot(error, error).real), grad
+
+
+def attack_state(ints, den, n=3, real=False, tries=25, seed=0):
+    """Return the best normalized contraction result, including its state."""
+    d = len(ints)
+    dets, contraction = build(d, n)
+    nd = len(dets)
+    g0 = np.diag(np.array(ints, dtype=float) / den).flatten()
+    dim = nd if real else 2 * nd
+
+    def objgrad(x):
+        return normalized_objective_gradient(x, g0, contraction, real=real)
 
     best = (1e9, None)
     for k in range(tries):
         rng = np.random.default_rng(seed + k)
-        r = minimize(objgrad, rng.standard_normal(dim) * 0.25, jac=True, method="L-BFGS-B",
-                     options={"maxiter": 20000, "ftol": 1e-20, "gtol": 1e-16})
+        x0 = rng.standard_normal(dim)
+        x0 /= np.linalg.norm(x0)
+        r = minimize(
+            objgrad,
+            x0,
+            jac=True,
+            method="L-BFGS-B",
+            options={"maxiter": 20000, "ftol": 1e-20, "gtol": 1e-16},
+        )
         if r.fun < best[0]:
             best = (r.fun, r.x)
         if best[0] < 1e-19:
             break
     x = best[1]
     c = x if real else x[:nd] + 1j * x[nd:]
+    c = c / np.linalg.norm(c)
+    idx, aa, bb, sg = contraction
     e = np.zeros(d * d, complex)
     np.add.at(e, idx, sg * (c[aa] * c[bb] if real else c[aa] * np.conj(c[bb])))
-    rho = e.reshape(d, d) / np.sum(np.abs(c) ** 2)
+    rho = e.reshape(d, d)
     ev = np.sort(np.linalg.eigvalsh((rho + rho.conj().T) / 2))[::-1]
     supp = int(np.sum(np.abs(c) ** 2 > 1e-6 * np.max(np.abs(c) ** 2)))
-    return best[0], ev, supp
+    return {
+        "residual": float(best[0]),
+        "eigenvalues": ev,
+        "support_size": supp,
+        "amplitudes": c,
+        "determinants": dets,
+        "one_rdm": rho,
+    }
+
+
+def attack(ints, den, n=3, real=False, tries=25, seed=0):
+    """Return (best_residual, sorted_eigenvalues, support_size) for the attainment."""
+    result = attack_state(ints, den, n=n, real=real, tries=tries, seed=seed)
+    return result["residual"], result["eigenvalues"], result["support_size"]
 
 
 if __name__ == "__main__":

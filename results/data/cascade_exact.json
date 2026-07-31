@@ -1,13 +1,12 @@
 {
-  "note": "Exact certification of fixed-spectrum cascade endpoints. A CERTIFIED entry means the improved support bound holds in exact arithmetic; every other status is reported as not certified.",
-  "digits": 40,
+  "note": "Exact certification of cascade endpoints with separate natural-orbital and fixed-spectrum statuses. CERTIFIED bounds s_Q_NO; SPECTRUM-ONLY-NOT-DIAGONAL bounds s_Q_free. Every other status is reported without an exact support claim.",
+  "digits": 80,
   "endpoints_attempted": 71,
   "certified_s_Q_NO": 0,
-  "exact_spectrum_only_s_Q_free": 69,
+  "exact_spectrum_only_s_Q_free": 71,
   "acceptance_criterion": "rho exactly diagonal AND diag(rho) = lambda, in exact arithmetic. The characteristic-polynomial identity is conjugation invariant and is recorded as a consistency check only.",
   "status_tally": {
-    "SPECTRUM-ONLY-NOT-DIAGONAL": 69,
-    "WEIGHTS-NOT-RATIONAL": 2
+    "SPECTRUM-ONLY-NOT-DIAGONAL": 71
   },
   "certified_s_Q_NO_bounds": [],
   "exact_s_Q_free_bounds": [
@@ -17,6 +16,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 170,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(6)/85",
         "sqrt(3)/34",
@@ -30,6 +30,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 30,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/30",
         "-sqrt(3)/30"
@@ -41,6 +42,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -52,6 +54,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/21",
         "-sqrt(3)/21"
@@ -63,6 +66,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 26,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/26",
         "sqrt(15)/26"
@@ -74,6 +78,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 28,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(6)/28",
         "sqrt(6)/28"
@@ -85,6 +90,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 18,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(3)/18",
         "sqrt(3)/18"
@@ -96,6 +102,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "sqrt(15)/36"
@@ -107,6 +114,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -118,6 +126,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 42,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(5)/21",
         "sqrt(5)/21"
@@ -129,6 +138,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 28,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(6)/14",
         "-3/28",
@@ -142,6 +152,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 55,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(6)/55",
         "2*sqrt(6)/55"
@@ -153,6 +164,7 @@
       "support_certified_library": 9,
       "support_exact_free": 8,
       "state_denominator": 120,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(6)/60",
         "sqrt(6)/60"
@@ -164,6 +176,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -175,6 +188,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 189,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-2*sqrt(35)/189",
         "-2*sqrt(35)/189"
@@ -186,6 +200,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -197,6 +212,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(15)/36",
         "-sqrt(15)/36"
@@ -208,6 +224,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 440,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-3*sqrt(10)/110",
         "-3*sqrt(5)/40",
@@ -221,6 +238,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 60,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(35)/30",
         "sqrt(35)/30"
@@ -232,6 +250,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 120,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(6)/30",
         "-sqrt(6)/30"
@@ -243,6 +262,7 @@
       "support_certified_library": 14,
       "support_exact_free": 10,
       "state_denominator": 46852,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(42)/221",
         "-5/68",
@@ -256,6 +276,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 30,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(5)/15",
         "sqrt(5)/15"
@@ -267,6 +288,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -278,6 +300,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "sqrt(15)/36"
@@ -289,6 +312,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -300,6 +324,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -311,6 +336,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -322,6 +348,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 18,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(3)/18",
         "sqrt(3)/18"
@@ -333,6 +360,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "sqrt(15)/36"
@@ -344,6 +372,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -355,6 +384,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -366,6 +396,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -377,6 +408,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -388,6 +420,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 18,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(3)/18",
         "sqrt(3)/18"
@@ -399,6 +432,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "sqrt(15)/36"
@@ -410,6 +444,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -421,6 +456,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -432,6 +468,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -443,6 +480,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 30,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/30",
         "sqrt(15)/30"
@@ -454,6 +492,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 60,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(6)/30",
         "-sqrt(6)/30"
@@ -465,6 +504,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 184,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(231)/184",
         "-sqrt(231)/184"
@@ -476,6 +516,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -487,6 +528,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "sqrt(15)/36"
@@ -498,6 +540,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -509,6 +552,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 36,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(5)/12",
         "sqrt(5)/12"
@@ -520,6 +564,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 30,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/30",
         "sqrt(15)/30"
@@ -531,6 +576,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -542,6 +588,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 60,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(6)/30",
         "-sqrt(6)/30"
@@ -553,6 +600,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 115,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-4*sqrt(6)/115",
         "-4*sqrt(6)/115"
@@ -564,6 +612,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -575,6 +624,7 @@
       "support_certified_library": 6,
       "support_exact_free": 5,
       "state_denominator": 18,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/18",
         "sqrt(15)/18"
@@ -586,6 +636,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "2*sqrt(14)/45",
         "2*sqrt(14)/45"
@@ -597,6 +648,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -608,6 +660,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 60,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(15)/60",
         "-sqrt(15)/60"
@@ -619,6 +672,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -630,6 +684,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 12,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(6)/12",
         "sqrt(6)/12"
@@ -641,6 +696,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 115,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "6*sqrt(14)/115",
         "6*sqrt(14)/115"
@@ -652,6 +708,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 108,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(15)/36",
         "-sqrt(35)/54",
@@ -665,9 +722,24 @@
       "support_certified_library": 9,
       "support_exact_free": 8,
       "state_denominator": 351,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-2*sqrt(35)/351",
         "-2*sqrt(35)/351"
+      ]
+    },
+    {
+      "system": "(5,10)",
+      "index": 144,
+      "support_certified_library": 10,
+      "support_exact_free": 8,
+      "state_denominator": null,
+      "squared_weight_field": "Q(sqrt(1065))",
+      "rdm_offdiagonal_nonzero": [
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37",
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37"
       ]
     },
     {
@@ -676,6 +748,7 @@
       "support_certified_library": 9,
       "support_exact_free": 8,
       "state_denominator": 168,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(5)/42",
         "sqrt(5)/42"
@@ -687,6 +760,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 60,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(15)/60",
         "-sqrt(15)/60"
@@ -698,6 +772,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "4*sqrt(5)/45",
         "4*sqrt(5)/45"
@@ -709,6 +784,7 @@
       "support_certified_library": 9,
       "support_exact_free": 8,
       "state_denominator": 392,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "3*sqrt(5)/98",
         "3*sqrt(5)/98"
@@ -720,6 +796,7 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 126,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(5)/21",
         "-sqrt(5)/21"
@@ -731,6 +808,7 @@
       "support_certified_library": 8,
       "support_exact_free": 7,
       "state_denominator": 184,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "sqrt(231)/184",
         "sqrt(231)/184"
@@ -742,9 +820,24 @@
       "support_certified_library": 7,
       "support_exact_free": 6,
       "state_denominator": 45,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-2*sqrt(14)/45",
         "-2*sqrt(14)/45"
+      ]
+    },
+    {
+      "system": "(5,10)",
+      "index": 256,
+      "support_certified_library": 10,
+      "support_exact_free": 8,
+      "state_denominator": null,
+      "squared_weight_field": "Q(sqrt(1065))",
+      "rdm_offdiagonal_nonzero": [
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37",
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37"
       ]
     },
     {
@@ -753,6 +846,7 @@
       "support_certified_library": 9,
       "support_exact_free": 7,
       "state_denominator": 108,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(15)/36",
         "sqrt(35)/54",
@@ -766,6 +860,7 @@
       "support_certified_library": 9,
       "support_exact_free": 8,
       "state_denominator": 351,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-2*sqrt(35)/351",
         "-2*sqrt(35)/351"
@@ -777,6 +872,7 @@
       "support_certified_library": 8,
       "support_exact_free": 6,
       "state_denominator": 24,
+      "squared_weight_field": "Q",
       "rdm_offdiagonal_nonzero": [
         "-sqrt(3)/24",
         "-sqrt(3)/24"
@@ -827,7 +923,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.00315e-82",
       "squared_weights": [
         "5/17",
         "3/17",
@@ -837,6 +933,17 @@
         "2/17",
         "1/17"
       ],
+      "squared_weight_minpolynomials": [
+        "17*_x - 5",
+        "17*_x - 3",
+        "34*_x - 5",
+        "170*_x - 3",
+        "85*_x - 16",
+        "17*_x - 2",
+        "17*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -915,7 +1022,7 @@
           8
         ]
       ],
-      "refined_residual": "1.24429e-42",
+      "refined_residual": "2.95182e-82",
       "squared_weights": [
         "1/5",
         "2/15",
@@ -925,6 +1032,17 @@
         "1/10",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "5*_x - 1",
+        "15*_x - 2",
+        "15*_x - 4",
+        "5*_x - 1",
+        "30*_x - 1",
+        "10*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -996,7 +1114,7 @@
           6
         ]
       ],
-      "refined_residual": "5.74656e-43",
+      "refined_residual": "2.92355e-83",
       "squared_weights": [
         "1/4",
         "1/6",
@@ -1005,6 +1123,16 @@
         "1/24",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "6*_x - 1",
+        "3*_x - 1",
+        "8*_x - 1",
+        "24*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1080,7 +1208,7 @@
           9
         ]
       ],
-      "refined_residual": "2.51949e-43",
+      "refined_residual": "6.94136e-83",
       "squared_weights": [
         "7/18",
         "5/18",
@@ -1090,6 +1218,17 @@
         "1/14",
         "2/21"
       ],
+      "squared_weight_minpolynomials": [
+        "18*_x - 7",
+        "18*_x - 5",
+        "18*_x - 1",
+        "18*_x - 1",
+        "18*_x - 1",
+        "14*_x - 1",
+        "21*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1161,7 +1300,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "5/13",
         "1/13",
@@ -1170,6 +1309,16 @@
         "3/26",
         "5/26"
       ],
+      "squared_weight_minpolynomials": [
+        "13*_x - 5",
+        "13*_x - 1",
+        "13*_x - 2",
+        "13*_x - 1",
+        "26*_x - 3",
+        "26*_x - 5"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1245,7 +1394,7 @@
           9
         ]
       ],
-      "refined_residual": "8.47152e-44",
+      "refined_residual": "7.77987e-84",
       "squared_weights": [
         "5/14",
         "3/14",
@@ -1255,6 +1404,17 @@
         "1/14",
         "3/28"
       ],
+      "squared_weight_minpolynomials": [
+        "14*_x - 5",
+        "14*_x - 3",
+        "28*_x - 1",
+        "14*_x - 1",
+        "7*_x - 1",
+        "14*_x - 1",
+        "28*_x - 3"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1326,7 +1486,7 @@
           7
         ]
       ],
-      "refined_residual": "1.41721e-42",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "1/3",
         "1/9",
@@ -1335,6 +1495,16 @@
         "1/18",
         "1/9"
       ],
+      "squared_weight_minpolynomials": [
+        "3*_x - 1",
+        "9*_x - 1",
+        "9*_x - 2",
+        "6*_x - 1",
+        "18*_x - 1",
+        "9*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1400,7 +1570,7 @@
           6
         ]
       ],
-      "refined_residual": "2.09958e-43",
+      "refined_residual": "1.6068e-84",
       "squared_weights": [
         "5/36",
         "1/12",
@@ -1408,6 +1578,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1477,7 +1656,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.1986e-82",
       "squared_weights": [
         "8/45",
         "2/9",
@@ -1486,6 +1665,16 @@
         "1/15",
         "1/5"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 8",
+        "9*_x - 2",
+        "15*_x - 4",
+        "15*_x - 1",
+        "15*_x - 1",
+        "5*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1561,7 +1750,7 @@
           7
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "5/14",
         "3/14",
@@ -1571,6 +1760,17 @@
         "2/21",
         "1/14"
       ],
+      "squared_weight_minpolynomials": [
+        "14*_x - 5",
+        "14*_x - 3",
+        "14*_x - 1",
+        "14*_x - 1",
+        "42*_x - 5",
+        "21*_x - 2",
+        "14*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1647,7 +1847,7 @@
           8
         ]
       ],
-      "refined_residual": "8.1996e-43",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "1/7",
         "2/7",
@@ -1657,6 +1857,17 @@
         "1/7",
         "1/7"
       ],
+      "squared_weight_minpolynomials": [
+        "7*_x - 1",
+        "7*_x - 2",
+        "28*_x - 3",
+        "28*_x - 3",
+        "14*_x - 1",
+        "7*_x - 1",
+        "7*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1730,7 +1941,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.5841e-83",
       "squared_weights": [
         "6/55",
         "4/55",
@@ -1739,6 +1950,16 @@
         "2/11",
         "1/11"
       ],
+      "squared_weight_minpolynomials": [
+        "55*_x - 6",
+        "55*_x - 4",
+        "11*_x - 5",
+        "11*_x - 1",
+        "11*_x - 2",
+        "11*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1819,7 +2040,7 @@
           9
         ]
       ],
-      "refined_residual": "1.97303e-42",
+      "refined_residual": "8.68683e-83",
       "squared_weights": [
         "1/4",
         "5/24",
@@ -1830,6 +2051,18 @@
         "1/5",
         "1/120"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "24*_x - 5",
+        "8*_x - 1",
+        "24*_x - 1",
+        "24*_x - 1",
+        "8*_x - 1",
+        "5*_x - 1",
+        "120*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1902,7 +2135,7 @@
           7
         ]
       ],
-      "refined_residual": "3.24987e-43",
+      "refined_residual": "1.40563e-83",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -1911,6 +2144,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -1986,7 +2229,7 @@
           9
         ]
       ],
-      "refined_residual": "4.68548e-43",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "3/7",
         "1/7",
@@ -1996,6 +2239,17 @@
         "1/27",
         "1/21"
       ],
+      "squared_weight_minpolynomials": [
+        "7*_x - 3",
+        "7*_x - 1",
+        "21*_x - 2",
+        "189*_x - 20",
+        "7*_x - 1",
+        "27*_x - 1",
+        "21*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2067,7 +2321,7 @@
           7
         ]
       ],
-      "refined_residual": "8.26708e-43",
+      "refined_residual": "6.31209e-83",
       "squared_weights": [
         "1/6",
         "7/18",
@@ -2076,6 +2330,16 @@
         "5/63",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "18*_x - 7",
+        "6*_x - 1",
+        "7*_x - 1",
+        "63*_x - 5",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2146,7 +2410,7 @@
           7
         ]
       ],
-      "refined_residual": "2.30934e-42",
+      "refined_residual": "1.38244e-82",
       "squared_weights": [
         "4/9",
         "1/9",
@@ -2155,6 +2419,16 @@
         "1/12",
         "1/9"
       ],
+      "squared_weight_minpolynomials": [
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 1",
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2230,7 +2504,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.04579e-82",
       "squared_weights": [
         "1/10",
         "3/20",
@@ -2240,6 +2514,17 @@
         "9/88",
         "11/40"
       ],
+      "squared_weight_minpolynomials": [
+        "10*_x - 1",
+        "20*_x - 3",
+        "5*_x - 1",
+        "10*_x - 1",
+        "55*_x - 4",
+        "88*_x - 9",
+        "40*_x - 11"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2318,7 +2603,7 @@
           9
         ]
       ],
-      "refined_residual": "2.0663e-42",
+      "refined_residual": "1.8976e-82",
       "squared_weights": [
         "1/6",
         "7/30",
@@ -2328,6 +2613,17 @@
         "1/10",
         "1/20"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "30*_x - 7",
+        "20*_x - 3",
+        "20*_x - 3",
+        "20*_x - 3",
+        "10*_x - 1",
+        "20*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2404,7 +2700,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "1/8",
         "5/12",
@@ -2414,6 +2710,17 @@
         "1/8",
         "1/24"
       ],
+      "squared_weight_minpolynomials": [
+        "8*_x - 1",
+        "12*_x - 5",
+        "8*_x - 1",
+        "10*_x - 1",
+        "15*_x - 1",
+        "8*_x - 1",
+        "24*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2505,7 +2812,7 @@
           5
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.72958e-82",
       "squared_weights": [
         "13/34",
         "5/34",
@@ -2518,6 +2825,20 @@
         "18/901",
         "84/11713"
       ],
+      "squared_weight_minpolynomials": [
+        "34*_x - 13",
+        "34*_x - 5",
+        "442*_x - 53",
+        "1802*_x - 195",
+        "68*_x - 5",
+        "68*_x - 5",
+        "901*_x - 35",
+        "34*_x - 1",
+        "901*_x - 18",
+        "11713*_x - 84"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2599,7 +2920,7 @@
           6
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.05422e-82",
       "squared_weights": [
         "1/10",
         "3/10",
@@ -2609,6 +2930,17 @@
         "2/15",
         "1/10"
       ],
+      "squared_weight_minpolynomials": [
+        "10*_x - 1",
+        "10*_x - 3",
+        "10*_x - 1",
+        "10*_x - 1",
+        "6*_x - 1",
+        "15*_x - 2",
+        "10*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2680,7 +3012,7 @@
           7
         ]
       ],
-      "refined_residual": "9.90459e-43",
+      "refined_residual": "3.16266e-81",
       "squared_weights": [
         "1/4",
         "1/3",
@@ -2689,6 +3021,16 @@
         "1/8",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "3*_x - 1",
+        "6*_x - 1",
+        "24*_x - 1",
+        "8*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2752,7 +3094,7 @@
           6
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "2.89224e-83",
       "squared_weights": [
         "5/36",
         "1/12",
@@ -2760,6 +3102,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2827,7 +3178,7 @@
           7
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -2836,6 +3187,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2904,7 +3265,7 @@
           7
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "3.16266e-81",
       "squared_weights": [
         "1/6",
         "7/18",
@@ -2913,6 +3274,16 @@
         "5/63",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "18*_x - 7",
+        "6*_x - 1",
+        "7*_x - 1",
+        "63*_x - 5",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -2981,7 +3352,7 @@
           7
         ]
       ],
-      "refined_residual": "9.97082e-43",
+      "refined_residual": "1.31777e-82",
       "squared_weights": [
         "1/4",
         "1/3",
@@ -2990,6 +3361,16 @@
         "1/8",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "3*_x - 1",
+        "6*_x - 1",
+        "24*_x - 1",
+        "8*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3059,7 +3440,7 @@
           7
         ]
       ],
-      "refined_residual": "1.84873e-43",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "1/3",
         "1/9",
@@ -3068,6 +3449,16 @@
         "1/18",
         "1/9"
       ],
+      "squared_weight_minpolynomials": [
+        "3*_x - 1",
+        "9*_x - 1",
+        "9*_x - 2",
+        "6*_x - 1",
+        "18*_x - 1",
+        "9*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3132,7 +3523,7 @@
           6
         ]
       ],
-      "refined_residual": "1.04979e-43",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "5/36",
         "1/12",
@@ -3140,6 +3531,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3208,7 +3608,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.08566e-82",
       "squared_weights": [
         "8/45",
         "2/9",
@@ -3217,6 +3617,16 @@
         "1/15",
         "1/5"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 8",
+        "9*_x - 2",
+        "15*_x - 4",
+        "15*_x - 1",
+        "15*_x - 1",
+        "5*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3286,7 +3696,7 @@
           7
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -3295,6 +3705,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3364,7 +3784,7 @@
           7
         ]
       ],
-      "refined_residual": "8.26708e-43",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "1/6",
         "7/18",
@@ -3373,6 +3793,16 @@
         "5/63",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "18*_x - 7",
+        "6*_x - 1",
+        "7*_x - 1",
+        "63*_x - 5",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3448,7 +3878,7 @@
           8
         ]
       ],
-      "refined_residual": "4.31573e-43",
+      "refined_residual": "3.47008e-83",
       "squared_weights": [
         "1/4",
         "1/6",
@@ -3457,6 +3887,16 @@
         "1/24",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "6*_x - 1",
+        "3*_x - 1",
+        "8*_x - 1",
+        "24*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3533,7 +3973,7 @@
           7
         ]
       ],
-      "refined_residual": "3.87406e-43",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "1/3",
         "1/9",
@@ -3542,6 +3982,16 @@
         "1/18",
         "1/9"
       ],
+      "squared_weight_minpolynomials": [
+        "3*_x - 1",
+        "9*_x - 1",
+        "9*_x - 2",
+        "6*_x - 1",
+        "18*_x - 1",
+        "9*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3612,7 +4062,7 @@
           7
         ]
       ],
-      "refined_residual": "1.13962e-43",
+      "refined_residual": "4.34683e-84",
       "squared_weights": [
         "5/36",
         "1/12",
@@ -3620,6 +4070,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3695,7 +4154,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "8.96967e-83",
       "squared_weights": [
         "4/15",
         "8/45",
@@ -3704,6 +4163,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 4",
+        "45*_x - 8",
+        "9*_x - 2",
+        "15*_x - 1",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3780,7 +4249,7 @@
           8
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "5.16865e-83",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -3789,6 +4258,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3865,7 +4344,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.65864e-82",
       "squared_weights": [
         "1/6",
         "7/18",
@@ -3874,6 +4353,16 @@
         "5/63",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "18*_x - 7",
+        "6*_x - 1",
+        "7*_x - 1",
+        "63*_x - 5",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -3950,7 +4439,7 @@
           8
         ]
       ],
-      "refined_residual": "9.14273e-43",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "2/5",
         "2/15",
@@ -3959,6 +4448,16 @@
         "1/6",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "5*_x - 2",
+        "15*_x - 2",
+        "15*_x - 2",
+        "10*_x - 1",
+        "6*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4035,7 +4534,7 @@
           5
         ]
       ],
-      "refined_residual": "7.97183e-44",
+      "refined_residual": "1.46419e-83",
       "squared_weights": [
         "1/10",
         "5/12",
@@ -4044,6 +4543,16 @@
         "1/15",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "10*_x - 1",
+        "12*_x - 5",
+        "6*_x - 1",
+        "6*_x - 1",
+        "15*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4126,7 +4635,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "9/23",
         "4/23",
@@ -4136,6 +4645,17 @@
         "1/23",
         "2/23"
       ],
+      "squared_weight_minpolynomials": [
+        "23*_x - 9",
+        "23*_x - 4",
+        "23*_x - 3",
+        "184*_x - 11",
+        "184*_x - 21",
+        "23*_x - 1",
+        "23*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4213,7 +4733,7 @@
           8
         ]
       ],
-      "refined_residual": "4.35786e-43",
+      "refined_residual": "4.75081e-83",
       "squared_weights": [
         "1/4",
         "1/6",
@@ -4222,6 +4742,16 @@
         "1/24",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "6*_x - 1",
+        "3*_x - 1",
+        "8*_x - 1",
+        "24*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4291,7 +4821,7 @@
           7
         ]
       ],
-      "refined_residual": "1.12104e-43",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "5/36",
         "1/12",
@@ -4299,6 +4829,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "36*_x - 5",
+        "12*_x - 1",
+        "9*_x - 4",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4373,7 +4912,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "3.97777e-83",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -4382,6 +4921,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4457,7 +5006,7 @@
           8
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "1/4",
         "5/36",
@@ -4466,6 +5015,16 @@
         "2/9",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "36*_x - 5",
+        "6*_x - 1",
+        "6*_x - 1",
+        "9*_x - 2",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4541,7 +5100,7 @@
           8
         ]
       ],
-      "refined_residual": "9.79579e-43",
+      "refined_residual": "3.29444e-83",
       "squared_weights": [
         "2/5",
         "2/15",
@@ -4550,6 +5109,16 @@
         "1/6",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "5*_x - 2",
+        "15*_x - 2",
+        "15*_x - 2",
+        "10*_x - 1",
+        "6*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4625,7 +5194,7 @@
           8
         ]
       ],
-      "refined_residual": "1.79366e-43",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "2/15",
         "8/45",
@@ -4634,6 +5203,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 2",
+        "45*_x - 8",
+        "9*_x - 2",
+        "5*_x - 1",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4709,7 +5288,7 @@
           5
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "6.58887e-83",
       "squared_weights": [
         "1/10",
         "5/12",
@@ -4718,6 +5297,16 @@
         "1/15",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "10*_x - 1",
+        "12*_x - 5",
+        "6*_x - 1",
+        "6*_x - 1",
+        "15*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4799,7 +5388,7 @@
           8
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "2.39142e-82",
       "squared_weights": [
         "9/23",
         "4/23",
@@ -4809,6 +5398,17 @@
         "1/23",
         "2/23"
       ],
+      "squared_weight_minpolynomials": [
+        "23*_x - 9",
+        "23*_x - 4",
+        "23*_x - 3",
+        "115*_x - 12",
+        "115*_x - 8",
+        "23*_x - 1",
+        "23*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4891,7 +5491,7 @@
           9
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.20392e-82",
       "squared_weights": [
         "1/4",
         "1/3",
@@ -4900,6 +5500,16 @@
         "1/8",
         "1/12"
       ],
+      "squared_weight_minpolynomials": [
+        "4*_x - 1",
+        "3*_x - 1",
+        "6*_x - 1",
+        "24*_x - 1",
+        "8*_x - 1",
+        "12*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -4975,7 +5585,7 @@
           8
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.23541e-83",
       "squared_weights": [
         "5/18",
         "2/9",
@@ -4983,6 +5593,15 @@
         "1/9",
         "2/9"
       ],
+      "squared_weight_minpolynomials": [
+        "18*_x - 5",
+        "9*_x - 2",
+        "6*_x - 1",
+        "9*_x - 1",
+        "9*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5064,7 +5683,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -5073,6 +5692,16 @@
         "1/5",
         "1/15"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "5*_x - 1",
+        "15*_x - 2",
+        "5*_x - 1",
+        "15*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5155,7 +5784,7 @@
           9
         ]
       ],
-      "refined_residual": "6.61367e-42",
+      "refined_residual": "9.47404e-83",
       "squared_weights": [
         "1/6",
         "7/18",
@@ -5164,6 +5793,16 @@
         "5/63",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "18*_x - 7",
+        "6*_x - 1",
+        "7*_x - 1",
+        "63*_x - 5",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5246,7 +5885,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "3.71377e-83",
       "squared_weights": [
         "1/15",
         "2/5",
@@ -5255,6 +5894,16 @@
         "1/20",
         "2/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 1",
+        "5*_x - 2",
+        "15*_x - 4",
+        "12*_x - 1",
+        "20*_x - 1",
+        "15*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5337,7 +5986,7 @@
           7
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "1/15",
         "1/5",
@@ -5346,6 +5995,16 @@
         "1/5",
         "2/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 1",
+        "5*_x - 1",
+        "9*_x - 2",
+        "45*_x - 8",
+        "5*_x - 1",
+        "15*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5428,7 +6087,7 @@
           6
         ]
       ],
-      "refined_residual": "1.79366e-43",
+      "refined_residual": "3.43171e-83",
       "squared_weights": [
         "1/12",
         "1/6",
@@ -5437,6 +6096,16 @@
         "1/4",
         "1/6"
       ],
+      "squared_weight_minpolynomials": [
+        "12*_x - 1",
+        "6*_x - 1",
+        "6*_x - 1",
+        "6*_x - 1",
+        "4*_x - 1",
+        "6*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5526,7 +6195,7 @@
           9
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "24/115",
         "21/115",
@@ -5536,6 +6205,17 @@
         "2/23",
         "1/23"
       ],
+      "squared_weight_minpolynomials": [
+        "115*_x - 24",
+        "115*_x - 21",
+        "23*_x - 3",
+        "23*_x - 4",
+        "23*_x - 4",
+        "23*_x - 2",
+        "23*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5626,7 +6306,7 @@
           6
         ]
       ],
-      "refined_residual": "1.14794e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "2/9",
         "1/4",
@@ -5636,6 +6316,17 @@
         "1/18",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "9*_x - 2",
+        "4*_x - 1",
+        "27*_x - 7",
+        "108*_x - 5",
+        "9*_x - 1",
+        "18*_x - 1",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5735,7 +6426,7 @@
           9
         ]
       ],
-      "refined_residual": "3.87176e-42",
+      "refined_residual": "1.12284e-82",
       "squared_weights": [
         "2/13",
         "5/13",
@@ -5746,6 +6437,18 @@
         "2/39",
         "3/13"
       ],
+      "squared_weight_minpolynomials": [
+        "13*_x - 2",
+        "13*_x - 5",
+        "351*_x - 20",
+        "13*_x - 1",
+        "39*_x - 1",
+        "351*_x - 7",
+        "39*_x - 2",
+        "13*_x - 3"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -5844,18 +6547,65 @@
           8
         ]
       ],
-      "refined_residual": "2.29589e-41",
-      "status": "WEIGHTS-NOT-RATIONAL",
-      "recognized": [
+      "refined_residual": "3.40369e-82",
+      "squared_weights": [
         "8/37",
-        null,
-        null,
-        null,
+        "-15/74 + sqrt(1065)/74",
+        "24/37 - 2*sqrt(1065)/111",
+        "7/74 + sqrt(1065)/222",
         "3/37",
         "1/37",
         "2/37",
         "3/37"
-      ]
+      ],
+      "squared_weight_minpolynomials": [
+        "37*_x - 8",
+        "1369*_x**2 + 555*_x - 210",
+        "4107*_x**2 - 5328*_x + 308",
+        "4107*_x**2 - 777*_x - 52",
+        "37*_x - 3",
+        "37*_x - 1",
+        "37*_x - 2",
+        "37*_x - 3"
+      ],
+      "squared_weight_max_degree": 2,
+      "squared_weight_field": "Q(sqrt(1065))",
+      "squared_weight_field_generator": "-15/74 + sqrt(1065)/74",
+      "squared_weight_field_minpoly": "1369*_x**2 + 555*_x - 210",
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "charpoly_identity_exact": true,
+      "rdm_offdiagonal_nonzero": [
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37",
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37"
+      ],
+      "rdm_is_exactly_diagonal": false,
+      "rdm_diagonal": [
+        "34/37",
+        "34/37",
+        "34/37",
+        "17/37",
+        "35/74 - sqrt(1065)/222",
+        "-9/74 + sqrt(1065)/74",
+        "8/37",
+        "8/37",
+        "sqrt(1065)/222 + 15/74",
+        "59/74 - sqrt(1065)/74"
+      ],
+      "diag_equals_lambda": false,
+      "status": "SPECTRUM-ONLY-NOT-DIAGONAL",
+      "bounds": "s_Q_free",
+      "evidence": "EXACT for the spectrum locus only"
     },
     {
       "system": "(5,10)",
@@ -5921,7 +6671,7 @@
           9
         ]
       ],
-      "refined_residual": "4.20229e-42",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "5/14",
         "5/168",
@@ -5932,6 +6682,18 @@
         "1/28",
         "1/14"
       ],
+      "squared_weight_minpolynomials": [
+        "14*_x - 5",
+        "168*_x - 5",
+        "56*_x - 9",
+        "56*_x - 5",
+        "56*_x - 9",
+        "21*_x - 2",
+        "28*_x - 1",
+        "14*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6016,7 +6778,7 @@
           8
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.05422e-81",
       "squared_weights": [
         "1/15",
         "2/5",
@@ -6025,6 +6787,16 @@
         "1/20",
         "2/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 1",
+        "5*_x - 2",
+        "15*_x - 4",
+        "12*_x - 1",
+        "20*_x - 1",
+        "15*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6107,7 +6879,7 @@
           9
         ]
       ],
-      "refined_residual": "7.60779e-43",
+      "refined_residual": "4.54798e-83",
       "squared_weights": [
         "1/15",
         "1/5",
@@ -6116,6 +6888,16 @@
         "1/5",
         "2/15"
       ],
+      "squared_weight_minpolynomials": [
+        "15*_x - 1",
+        "5*_x - 1",
+        "9*_x - 2",
+        "45*_x - 8",
+        "5*_x - 1",
+        "15*_x - 2"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6212,7 +6994,7 @@
           9
         ]
       ],
-      "refined_residual": "2.76736e-42",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "5/14",
         "1/8",
@@ -6223,6 +7005,18 @@
         "1/14",
         "5/56"
       ],
+      "squared_weight_minpolynomials": [
+        "14*_x - 5",
+        "8*_x - 1",
+        "28*_x - 1",
+        "56*_x - 9",
+        "392*_x - 15",
+        "49*_x - 6",
+        "14*_x - 1",
+        "56*_x - 5"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6307,7 +7101,7 @@
           7
         ]
       ],
-      "refined_residual": "1.66281e-42",
+      "refined_residual": "1.39505e-82",
       "squared_weights": [
         "1/6",
         "1/7",
@@ -6316,6 +7110,16 @@
         "5/63",
         "1/6"
       ],
+      "squared_weight_minpolynomials": [
+        "6*_x - 1",
+        "7*_x - 1",
+        "18*_x - 7",
+        "18*_x - 1",
+        "63*_x - 5",
+        "6*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6405,7 +7209,7 @@
           7
         ]
       ],
-      "refined_residual": "2.29589e-41",
+      "refined_residual": "1.53846e-82",
       "squared_weights": [
         "2/23",
         "9/23",
@@ -6415,6 +7219,17 @@
         "11/184",
         "21/184"
       ],
+      "squared_weight_minpolynomials": [
+        "23*_x - 2",
+        "23*_x - 9",
+        "23*_x - 4",
+        "23*_x - 3",
+        "23*_x - 1",
+        "184*_x - 11",
+        "184*_x - 21"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6498,7 +7313,7 @@
           6
         ]
       ],
-      "refined_residual": "1.22447e-42",
+      "refined_residual": "1.6399e-83",
       "squared_weights": [
         "14/45",
         "4/45",
@@ -6507,6 +7322,16 @@
         "1/5",
         "1/5"
       ],
+      "squared_weight_minpolynomials": [
+        "45*_x - 14",
+        "45*_x - 4",
+        "15*_x - 2",
+        "15*_x - 1",
+        "5*_x - 1",
+        "5*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6603,18 +7428,65 @@
           9
         ]
       ],
-      "refined_residual": "8.07329e-43",
-      "status": "WEIGHTS-NOT-RATIONAL",
-      "recognized": [
-        null,
-        null,
+      "refined_residual": "1.80195e-82",
+      "squared_weights": [
+        "7/74 + sqrt(1065)/222",
+        "24/37 - 2*sqrt(1065)/111",
         "1/37",
-        null,
+        "-15/74 + sqrt(1065)/74",
         "8/37",
         "2/37",
         "3/37",
         "3/37"
-      ]
+      ],
+      "squared_weight_minpolynomials": [
+        "4107*_x**2 - 777*_x - 52",
+        "4107*_x**2 - 5328*_x + 308",
+        "37*_x - 1",
+        "1369*_x**2 + 555*_x - 210",
+        "37*_x - 8",
+        "37*_x - 2",
+        "37*_x - 3",
+        "37*_x - 3"
+      ],
+      "squared_weight_max_degree": 2,
+      "squared_weight_field": "Q(sqrt(1065))",
+      "squared_weight_field_generator": "7/74 + sqrt(1065)/222",
+      "squared_weight_field_minpoly": "4107*_x**2 - 777*_x - 52",
+      "signs": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "charpoly_identity_exact": true,
+      "rdm_offdiagonal_nonzero": [
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37",
+        "sqrt(-309 + 15*sqrt(1065))/111",
+        "sqrt(-535 + 17*sqrt(1065))/37"
+      ],
+      "rdm_is_exactly_diagonal": false,
+      "rdm_diagonal": [
+        "29/37",
+        "29/37",
+        "sqrt(1065)/222 + 39/74",
+        "83/74 - sqrt(1065)/74",
+        "20/37",
+        "59/74 - sqrt(1065)/222",
+        "15/74 + sqrt(1065)/74",
+        "3/37",
+        "3/37",
+        "3/37"
+      ],
+      "diag_equals_lambda": false,
+      "status": "SPECTRUM-ONLY-NOT-DIAGONAL",
+      "bounds": "s_Q_free",
+      "evidence": "EXACT for the spectrum locus only"
     },
     {
       "system": "(5,10)",
@@ -6673,7 +7545,7 @@
           9
         ]
       ],
-      "refined_residual": "7.11157e-43",
+      "refined_residual": "1.36399e-82",
       "squared_weights": [
         "2/9",
         "1/4",
@@ -6683,6 +7555,17 @@
         "1/18",
         "1/18"
       ],
+      "squared_weight_minpolynomials": [
+        "9*_x - 2",
+        "4*_x - 1",
+        "27*_x - 7",
+        "108*_x - 5",
+        "9*_x - 1",
+        "18*_x - 1",
+        "18*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6782,7 +7665,7 @@
           6
         ]
       ],
-      "refined_residual": "1.63022e-42",
+      "refined_residual": "2.10844e-81",
       "squared_weights": [
         "2/13",
         "5/13",
@@ -6793,6 +7676,18 @@
         "2/39",
         "3/13"
       ],
+      "squared_weight_minpolynomials": [
+        "13*_x - 2",
+        "13*_x - 5",
+        "351*_x - 20",
+        "13*_x - 1",
+        "39*_x - 1",
+        "351*_x - 7",
+        "39*_x - 2",
+        "13*_x - 3"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,
@@ -6877,7 +7772,7 @@
           6
         ]
       ],
-      "refined_residual": "5.37123e-43",
+      "refined_residual": "1.31777e-82",
       "squared_weights": [
         "1/3",
         "1/6",
@@ -6886,6 +7781,16 @@
         "1/12",
         "1/4"
       ],
+      "squared_weight_minpolynomials": [
+        "3*_x - 1",
+        "6*_x - 1",
+        "24*_x - 1",
+        "8*_x - 1",
+        "12*_x - 1",
+        "4*_x - 1"
+      ],
+      "squared_weight_max_degree": 1,
+      "squared_weight_field": "Q",
       "signs": [
         1,
         1,

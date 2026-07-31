@@ -50,7 +50,8 @@ exactly gauge-minimal with no computation at all.
 """
 from __future__ import annotations
 
-from itertools import combinations
+from itertools import combinations, product
+from math import comb
 
 import numpy as np
 
@@ -410,59 +411,156 @@ def _gauss_newton_close(orbit, drop, u, iters=80, lam0=1e-6):
     return c, float(np.max(np.abs(c[drop])))
 
 
-def flattening_ranks(amplitudes, support_dets, blocks):
-    """Per profile class, the rank of the class tensor's coarsest flattening.
+def _shuffle_sign(left, right):
+    """Sign taking the concatenated increasing tuples ``left, right`` to order."""
+    inversions = sum(a > b for a in left for b in right)
+    return -1 if inversions % 2 else 1
 
-    Inside a profile class the gauge acts as a TENSOR PRODUCT of exterior powers,
-    one factor per block, so every flattening rank of the class tensor is a gauge
-    invariant. The support of a tensor is at least the rank of any flattening, so
 
-        min support over the gauge family >= sum over classes of (best rank),
+def _small_exterior_terms(amplitudes, dets, idxs, blocks, profile):
+    """Hodge-dual each profile factor to degree min(a, m-a).
 
-    which refines the profile-class count (that is the special case of a rank-1
-    flattening per occupied class). Returns {profile: rank}, the bound being the
-    sum of the values.
+    The determinant character introduced by Hodge duality is one dimensional,
+    so it cannot affect a contraction-map rank. The basis sign is retained so
+    cancellations in the class tensor remain exact.
+    """
+    positions = [{o: i for i, o in enumerate(block)} for block in blocks]
+    terms = []
+    for i in idxs:
+        factors = []
+        sign = 1
+        for block, pos, degree in zip(blocks, positions, profile):
+            occupied = tuple(pos[o] for o in dets[i] if o in pos)
+            if degree > len(block) - degree:
+                complement = tuple(j for j in range(len(block)) if j not in occupied)
+                sign *= _shuffle_sign(occupied, complement)
+                occupied = complement
+            factors.append(occupied)
+        terms.append((tuple(factors), sign * amplitudes[i]))
+    return terms
+
+
+def _contraction_matrix(terms, block_sizes, degrees, q, exact):
+    """Tensor-product exterior contraction matrix for one profile class."""
+    active = [i for i, degree in enumerate(degrees) if degree]
+    domain_factors = [
+        list(combinations(range(block_sizes[i]), q[i])) for i in active
+    ]
+    range_factors = [
+        list(combinations(range(block_sizes[i]), degrees[i] - q[i]))
+        for i in active
+    ]
+    domain = list(product(*domain_factors)) if active else [()]
+    target = list(product(*range_factors)) if active else [()]
+    domain_pos = {basis: i for i, basis in enumerate(domain)}
+    target_pos = {basis: i for i, basis in enumerate(target)}
+    if exact:
+        import sympy as sp
+
+        matrix = sp.MutableSparseMatrix(len(target), len(domain), {})
+    else:
+        matrix = np.zeros((len(target), len(domain)), dtype=complex)
+    for factors, amplitude in terms:
+        choices = [
+            list(combinations(factors[i], q[i])) for i in active
+        ]
+        for selected in product(*choices) if active else [()]:
+            selected = tuple(selected)
+            remainder = tuple(
+                tuple(x for x in factors[i] if x not in chosen)
+                for i, chosen in zip(active, selected)
+            )
+            sign = 1
+            for chosen, rest in zip(selected, remainder):
+                sign *= _shuffle_sign(chosen, rest)
+            row = target_pos[remainder]
+            col = domain_pos[selected]
+            matrix[row, col] += sign * amplitude
+    return matrix
+
+
+def exterior_flattening_certificates(
+    amplitudes,
+    support_dets,
+    blocks,
+    *,
+    exact=False,
+):
+    """Best exterior-contraction support certificate in every profile class.
+
+    For a class tensor in ``tensor_i Lambda^{k_i} V_i`` and a tuple ``q_i``,
+    contraction gives
+
+        C_q(T): tensor_i Lambda^{q_i} V_i^*
+                -> tensor_i Lambda^{k_i-q_i} V_i.
+
+    A single Slater monomial has rank ``product_i binom(k_i, q_i)``. Therefore
+    a class supported on ``s`` monomials obeys
+
+        s >= ceil(rank(C_q(T)) / product_i binom(k_i, q_i)).
+
+    The map changes by invertible left and right factors under the gauge group,
+    so its rank is gauge invariant. Hodge duality first replaces degree ``a_i``
+    by ``k_i=min(a_i,m_i-a_i)``. Setting every ``q_i`` to either zero or
+    ``k_i`` recovers ordinary tensor flattenings; ``k=2,q=1`` recovers the
+    antisymmetric-form rank bound.
+
+    With ``exact=True``, amplitudes may be SymPy expressions and every matrix
+    rank is computed by exact sparse elimination. The result maps each profile
+    to a small, JSON-ready proof descriptor.
     """
     blocks = [list(b) for b in blocks]
     dets = [tuple(int(o) for o in t) for t in support_dets]
-    c = np.asarray(amplitudes, dtype=complex)
+    c = list(amplitudes) if exact else np.asarray(amplitudes, dtype=complex)
     out = {}
     for prof, idxs in profile_classes(dets, blocks).items():
-        active = [k for k, b in enumerate(blocks) if 0 < prof[k] < len(b)]
-        if not active:
-            out[prof] = 1  # the class is one-dimensional
-            continue
-        if len(active) == 1:
-            k = active[0]
-            a, m = prof[k], len(blocks[k])
-            if a in (1, m - 1):
-                # Lambda^a(C^m) = C^m up to duality and U(m) is transitive on
-                # its rays, so one determinant suffices for this class
-                out[prof] = 1
-            elif a == 2 or a == m - 2:
-                # an antisymmetric form: Youla normal form gives exactly
-                # rank/2 nonzero entries, an equality not just a bound
-                out[prof] = _pfaffian_support(dets, c, idxs, blocks[k], a == 2)
-            else:
-                out[prof] = 1  # no cheap invariant for 3 <= a <= m-3
-            continue
-        # several active factors: the best single-factor-versus-rest flattening
-        best = 1
-        for k in active:
-            rows, cols, ent = {}, {}, []
-            for i in idxs:
-                t = dets[i]
-                key_a = tuple(o for o in t if o in blocks[k])
-                key_b = tuple(o for o in t if o not in blocks[k])
-                rows.setdefault(key_a, len(rows))
-                cols.setdefault(key_b, len(cols))
-                ent.append((rows[key_a], cols[key_b], c[i]))
-            m = np.zeros((len(rows), len(cols)), dtype=complex)
-            for r, s, v in ent:
-                m[r, s] = v
-            best = max(best, int(np.linalg.matrix_rank(m, tol=1e-9)))
-        out[prof] = best
+        block_sizes = [len(block) for block in blocks]
+        degrees = [min(a, m - a) for a, m in zip(prof, block_sizes)]
+        terms = _small_exterior_terms(c, dets, idxs, blocks, prof)
+        best = None
+        for q_active in product(*(range(k + 1) for k in degrees if k)):
+            q = [0] * len(degrees)
+            for i, value in zip((i for i, k in enumerate(degrees) if k), q_active):
+                q[i] = value
+            # q and k-q give transpose maps with the same rank and denominator.
+            dual = tuple(k - value for k, value in zip(degrees, q))
+            if tuple(q) > dual:
+                continue
+            matrix = _contraction_matrix(terms, block_sizes, degrees, q, exact)
+            rank = int(matrix.rank()) if exact else int(
+                np.linalg.matrix_rank(matrix, tol=1e-9)
+            )
+            monomial_rank = int(
+                np.prod([comb(k, value) for k, value in zip(degrees, q)])
+            )
+            lower_bound = (rank + monomial_rank - 1) // monomial_rank
+            candidate = {
+                "lower_bound": int(lower_bound),
+                "rank": rank,
+                "monomial_rank": monomial_rank,
+                "q": list(q),
+                "shape": list(matrix.shape),
+                "arithmetic": "exact" if exact else "floating",
+            }
+            score = (
+                candidate["lower_bound"],
+                -candidate["rank"],
+                -candidate["shape"][0] * candidate["shape"][1],
+            )
+            if best is None or score > best[0]:
+                best = (score, candidate)
+        out[prof] = best[1]
     return out
+
+
+def flattening_ranks(amplitudes, support_dets, blocks):
+    """Per-profile exterior-contraction lower bounds.
+
+    Kept under the historical public name because ordinary flattenings are the
+    boundary cases of the exterior family.
+    """
+    certs = exterior_flattening_certificates(amplitudes, support_dets, blocks)
+    return {profile: cert["lower_bound"] for profile, cert in certs.items()}
 
 
 def _pfaffian_support(dets, c, idxs, block, direct):
@@ -490,7 +588,7 @@ def _pfaffian_support(dets, c, idxs, block, direct):
 
 
 def flattening_lower_bound(amplitudes, support_dets, blocks):
-    """Sum of per-class flattening ranks: a gauge-invariant support lower bound."""
+    """Sum of per-class exterior-contraction support lower bounds."""
     return int(sum(flattening_ranks(amplitudes, support_dets, blocks).values()))
 
 

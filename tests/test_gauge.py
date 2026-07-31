@@ -19,6 +19,7 @@ from gpc_census.gauge import (
     compound_matrix,
     degenerate_blocks,
     descend,
+    exterior_flattening_certificates,
     flattening_lower_bound,
     greedy_gauge_drop,
     profile_lower_bound,
@@ -134,6 +135,35 @@ def test_flattening_rank_is_a_gauge_invariant():
     live = [i for i in range(len(target)) if abs(rotated[i]) > 1e-12]
     after = flattening_lower_bound(rotated[live], [target[i] for i in live], blocks)
     assert before == after
+
+
+def test_exterior_contraction_closes_v158_exactly():
+    """The new interior flattening has exact rank 21, forcing support four."""
+    import sympy as sp
+
+    record = next(
+        json.loads(line)
+        for line in (DATA / "states.jsonl").read_text().splitlines()
+        if (row := json.loads(line))["system"] == "(4,10)" and row["index"] == 158
+    )
+    amplitudes = [sp.sympify(value) for value in record["closed_form"]["pretty"]]
+    dets = [tuple(t) for t in record["closed_form"]["support_dets"]]
+    spectrum = [v / record["denominator"] for v in record["integer_form"]]
+    certs = exterior_flattening_certificates(
+        amplitudes,
+        dets,
+        degenerate_blocks(spectrum),
+        exact=True,
+    )
+    certificate = certs[(4,)]
+    assert certificate == {
+        "lower_bound": 4,
+        "rank": 21,
+        "monomial_rank": 6,
+        "q": [2],
+        "shape": [45, 45],
+        "arithmetic": "exact",
+    }
 
 
 def test_greedy_gauge_drop_recovers_a_known_reduction():

@@ -64,10 +64,10 @@ Two additions to the method as handed over, both load bearing:
 ## Headline result
 
 71 of the 799 certified states sparsify, removing 89 amplitudes in total. All 71
-are INTERFERENCE vertices; no DESIGN-INT or DESIGN-REAL state moves. 69 of the
-71 endpoints are then EXACTLY RECOGNIZABLE, but see the correction below: what
-that certifies is membership of the SPECTRUM locus, not vertex attainment, so
-the exact bounds are on s_Q^free and none of them is an s_Q^NO bound.
+are INTERFERENCE vertices; no DESIGN-INT or DESIGN-REAL state moves. All 71
+endpoints are EXACTLY RECOGNIZABLE, but see the correction below: what that
+certifies is membership of the SPECTRUM locus, not vertex attainment, so the
+exact bounds are on s_Q^free and none of them is an s_Q^NO bound.
 
 The census support column is therefore an UPPER BOUND on the minimal support
 s_Q, and it is now known STRICT at 71 vertices, not just at v103. The new column
@@ -203,7 +203,7 @@ the first attempt, and the recognized values verify exactly. The remaining
 exactification targets are the other 70 sparsified states, none of which have
 been refined or recognized.
 
-## 69 of the 71 endpoints are exactly recognizable, on the SPECTRUM locus only
+## All 71 endpoints are exactly recognizable, on the SPECTRUM locus only
 
 CORRECTION (2026-07). The acceptance criterion used below was the
 characteristic-polynomial identity, which is INVARIANT UNDER CONJUGATION and so
@@ -214,15 +214,16 @@ strengthened criterion (rho exactly diagonal AND diag(rho) = lambda, in exact
 arithmetic, scripts/exactify_cascade.py):
 
     certified s_Q^NO attainers                     0 of 71
-    exact but spectrum-only (rho not diagonal)    69 of 71
-    weights not rational (numerical only)          2 of 71
+    exact but spectrum-only (rho not diagonal)    71 of 71
+    recognition failures                           0 of 71
 
 Cross-referenced against the 2-RDM orbit gate (results/data/orbit_check.json),
-63 of those 69 are the library state written in different orbitals, a GAUGE
-statement about that state, and only 6 are genuinely new states giving
-vertex-level s_Q^free bounds. The text below is kept for its arithmetic, which
-is correct; every occurrence of "certified" in it means "exact on the spectrum
-locus".
+63 are the library state written in different orbitals, a gauge statement about
+that state, and 8 are genuinely new states giving vertex-level s_Q^free bounds.
+The final pair, (5,10) v144 and v256, has squared weights in Q(sqrt(1065)) and
+is related by particle-hole/Hodge duality. Their exact 1-RDMs have the target
+characteristic polynomials and nonzero off-diagonal entries. The text below is
+kept as the superseded rational-only recognition record.
 
 ## Superseded: 69 of the 71 improved bounds are CERTIFIED, not numerical
 
@@ -291,8 +292,8 @@ v0.12 ledger that ships the real theta=0 endpoint of the same wall family.
 Nothing moved: the same 71 states sparsify, the same 89 amplitudes come out,
 the same 33 states stop on multiplicity drift, the cancellation regime still
 has two members, and all 799 per-vertex verdicts and tangent dimensions are
-identical. Exact certification is identical too, 69 of 71 with the same
-weights.
+identical. The later quadratic extension exactifies all 71 with the same
+numerical endpoints.
 
 v_B itself is a useful check on representative dependence. Both
 representatives give incidence kernel 1, fixed-spectrum tangent 2 and

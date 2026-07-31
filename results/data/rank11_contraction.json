@@ -1,0 +1,335 @@
+{
+  "note": "Normalized ansatz-free contraction audit for the four OPEN (3,11) bracket candidates. Positive floors are numerical evidence, not proof. The candidate-44 exact projection is conditional on the CLAIMED level-5 inequality.",
+  "objective": "min over nonzero c of ||gamma(c)/||c||^2-diag(target)||_F^2",
+  "tries_per_real_or_complex_run": 20,
+  "seed": 0,
+  "attainable_control": {
+    "index": 49,
+    "verdict": "TRUE-VERTEX",
+    "integer_form": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "denominator": 11,
+    "runs": {
+      "real": {
+        "normalized_residual": 4.4918090747025056e-21,
+        "eigenvalues": [
+          0.2727272727599959,
+          0.27272727275752273,
+          0.27272727274497444,
+          0.27272727273415476,
+          0.27272727273198205,
+          0.2727272727286424,
+          0.27272727272087854,
+          0.2727272727163571,
+          0.27272727270538266,
+          0.27272727270042796,
+          0.2727272726996805
+        ],
+        "support_threshold_count": 165,
+        "state_norm_error": 0.0,
+        "one_rdm_trace_error": 4.440892098500626e-16
+      },
+      "complex": {
+        "normalized_residual": 3.029413628536602e-21,
+        "eigenvalues": [
+          0.2727272727527323,
+          0.272727272749057,
+          0.2727272727430051,
+          0.27272727273732106,
+          0.27272727273322606,
+          0.2727272727249218,
+          0.27272727272299563,
+          0.27272727272008634,
+          0.2727272727099359,
+          0.27272727270458974,
+          0.27272727270212915
+        ],
+        "support_threshold_count": 165,
+        "state_norm_error": 2.220446049250313e-16,
+        "one_rdm_trace_error": 8.881784197001252e-16
+      }
+    }
+  },
+  "open_candidates": [
+    {
+      "index": 23,
+      "verdict": "OPEN",
+      "integer_form": [
+        6,
+        6,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "denominator": 7,
+      "runs": {
+        "real": {
+          "normalized_residual": 0.11224489795918338,
+          "eigenvalues": [
+            0.6785714288654348,
+            0.6785714281005507,
+            0.3571428569659855,
+            0.16071428620227587,
+            0.16071428615045763,
+            0.16071428589125744,
+            0.16071428581886513,
+            0.1607142857937573,
+            0.16071428554366143,
+            0.1607142854006512,
+            0.16071428526710288
+          ],
+          "support_threshold_count": 81,
+          "state_norm_error": 0.0,
+          "one_rdm_trace_error": 4.440892098500626e-16
+        },
+        "complex": {
+          "normalized_residual": 0.11224489795918335,
+          "eigenvalues": [
+            0.6785714290130486,
+            0.6785714281272488,
+            0.35714285714029786,
+            0.16071428762158274,
+            0.16071428739897256,
+            0.16071428666367538,
+            0.16071428595780868,
+            0.16071428585728562,
+            0.16071428492639322,
+            0.16071428386238423,
+            0.160714283431302
+          ],
+          "support_threshold_count": 81,
+          "state_norm_error": 0.0,
+          "one_rdm_trace_error": 4.440892098500626e-16
+        }
+      }
+    },
+    {
+      "index": 26,
+      "verdict": "OPEN",
+      "integer_form": [
+        21,
+        21,
+        11,
+        11,
+        11,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "denominator": 27,
+      "runs": {
+        "real": {
+          "normalized_residual": 0.013928458372902706,
+          "eigenvalues": [
+            0.7549857550068714,
+            0.6923076922455232,
+            0.44729344725239434,
+            0.38461538461448636,
+            0.3846153844801559,
+            0.07692307686000924,
+            0.07692307672567911,
+            0.04558404602278009,
+            0.045584046022779996,
+            0.04558404538465974,
+            0.0455840453846597
+          ],
+          "support_threshold_count": 75,
+          "state_norm_error": 0.0,
+          "one_rdm_trace_error": 0.0
+        },
+        "complex": {
+          "normalized_residual": 0.013928458372902703,
+          "eigenvalues": [
+            0.7549857549632429,
+            0.6923076924162873,
+            0.4472934473795298,
+            0.3846153846454117,
+            0.3846153845726322,
+            0.07692307706169875,
+            0.07692307698891941,
+            0.04558404559712271,
+            0.04558404559712267,
+            0.04558404538901643,
+            0.04558404538901638
+          ],
+          "support_threshold_count": 75,
+          "state_norm_error": 0.0,
+          "one_rdm_trace_error": 0.0
+        }
+      }
+    },
+    {
+      "index": 34,
+      "verdict": "OPEN",
+      "integer_form": [
+        11,
+        11,
+        11,
+        11,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "denominator": 17,
+      "runs": {
+        "real": {
+          "normalized_residual": 0.035134415757253,
+          "eigenvalues": [
+            0.6108597288486822,
+            0.6108597287362403,
+            0.6108597287024098,
+            0.5113122166602114,
+            0.12217194550889396,
+            0.12217194539645172,
+            0.12217194536262148,
+            0.07239819036897793,
+            0.07239819036897772,
+            0.07239819002326675,
+            0.07239819002326671
+          ],
+          "support_threshold_count": 129,
+          "state_norm_error": 0.0,
+          "one_rdm_trace_error": 0.0
+        },
+        "complex": {
+          "normalized_residual": 0.035134415757253006,
+          "eigenvalues": [
+            0.6108597286335209,
+            0.6108597285681252,
+            0.6108597285052445,
+            0.5113122171550604,
+            0.12217194578858064,
+            0.12217194572318515,
+            0.1221719456603045,
+            0.07239819001711192,
+            0.0723981900171119,
+            0.07239818996587755,
+            0.07239818996587748
+          ],
+          "support_threshold_count": 130,
+          "state_norm_error": 1.1102230246251565e-16,
+          "one_rdm_trace_error": 0.0
+        }
+      }
+    },
+    {
+      "index": 44,
+      "verdict": "OPEN",
+      "integer_form": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "denominator": 12,
+      "runs": {
+        "real": {
+          "normalized_residual": 0.002546296296296281,
+          "eigenvalues": [
+            0.513888888837329,
+            0.48333333371633624,
+            0.48333333354538555,
+            0.4833333331674471,
+            0.48333333276274226,
+            0.09722222287919129,
+            0.09722222259947502,
+            0.09722222226580851,
+            0.0972222219154919,
+            0.09722222150270413,
+            0.06666666680808835
+          ],
+          "support_threshold_count": 145,
+          "state_norm_error": 2.220446049250313e-16,
+          "one_rdm_trace_error": 8.881784197001252e-16,
+          "projection_spectrum_max_error": 7.195180978802895e-10,
+          "projection_distance_squared_error": 1.5612511283791264e-17
+        },
+        "complex": {
+          "normalized_residual": 0.002546296296296288,
+          "eigenvalues": [
+            0.5138888889681517,
+            0.4833333340104103,
+            0.4833333336107241,
+            0.4833333328995975,
+            0.4833333322951938,
+            0.09722222337738105,
+            0.09722222274189884,
+            0.09722222208705085,
+            0.09722222156456113,
+            0.09722222126095582,
+            0.06666666718407388
+          ],
+          "support_threshold_count": 145,
+          "state_norm_error": 1.1102230246251565e-16,
+          "one_rdm_trace_error": 0.0,
+          "projection_spectrum_max_error": 1.1551588297020743e-09,
+          "projection_distance_squared_error": 8.673617379884035e-18
+        }
+      }
+    }
+  ],
+  "candidate44_claimed_facet_geometry": {
+    "inequality": "lambda_2+lambda_3+lambda_4+lambda_5+lambda_11<=2",
+    "status": "CLAIMED-NOT-PROVED",
+    "indices_one_based": [
+      2,
+      3,
+      4,
+      5,
+      11
+    ],
+    "rhs": "2",
+    "target_violation": "1/12",
+    "trace_hyperplane_normal_squared": "30/11",
+    "distance_squared": "11/4320",
+    "projection_spectrum": [
+      "37/72",
+      "29/60",
+      "29/60",
+      "29/60",
+      "29/60",
+      "7/72",
+      "7/72",
+      "7/72",
+      "7/72",
+      "7/72",
+      "1/15"
+    ],
+    "projection_design_classification": {
+      "verdict": "INTERFERENCE",
+      "backend": "cpsat"
+    },
+    "projection_attainment_status": "NUMERICAL-ONLY"
+  }
+}

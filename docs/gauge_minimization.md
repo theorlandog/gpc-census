@@ -38,7 +38,7 @@ own natural-orbital gauge family, under a multi-start exact-closure search. The
 library column is therefore not the loose upper bound it was expected to be. It
 was never minimized over the gauge, and now that it has been, it is unchanged.
 
-## Result 2: 629 of the 799 are EXACTLY gauge-minimal, certified, with no search
+## Result 2: 670 of the 799 are EXACTLY gauge-minimal, certified, with no search
 
 A block-diagonal unitary preserves each determinant's BLOCK PROFILE
 (|T ∩ B_1|, ..., |T ∩ B_k|). Its compound therefore preserves the decomposition
@@ -47,27 +47,36 @@ representative
 
     support >= number of occupied profile classes,
 
-refined, since the gauge acts inside a class as a TENSOR PRODUCT of exterior
-powers, to
+refined, since the gauge acts inside a class as a tensor product of exterior
+powers, by exterior/Koszul contraction maps. For a profile-class tensor in
+`tensor_i Lambda^{k_i} V_i`, contraction at degrees `q_i` gives a matrix whose
+rank is gauge invariant. One Slater monomial contributes rank
+`product_i binom(k_i,q_i)`, hence
 
-    support >= sum over occupied classes of (best flattening rank of the class).
+    support >= sum over occupied classes of
+      ceil(rank(C_q) / product_i binom(k_i,q_i)).
 
-Both are gauge invariants and both are computed exactly. Where the library
-support attains the bound, that state is gauge-minimal with no optimization at
-all, and the certificate is a rank computation rather than a search.
+Ordinary tensor flattenings and the antisymmetric-form rank bound are boundary
+cases of this family. Every newly improved rank is recomputed from the symbolic
+closed-form amplitudes by exact sparse elimination before publication. Where
+the library support attains the bound, that state is gauge-minimal with no
+optimization at all, and the certificate is a rank computation rather than a
+search.
 
-    certified gauge-minimal          629 of 799
-      DESIGN-INT                     510
-      INTERFERENCE                   114
+    certified gauge-minimal          670 of 799
+      DESIGN-INT                     540
+      INTERFERENCE                   125
       DESIGN-REAL                      5
-    bound not attained (open)        170
+    bound not attained (open)        129
+    records with a stronger bound     82
+    newly certified records           41
 
-For the remaining 170 the search found no reduction but the lower bound is not
-attained, so minimality there is UNPROVEN, not proved. Of those 170, 51 have a
-class where the bound falls back to the trivial value 1 because the single
-active factor sits in Lambda^a with 3 <= a <= m-3, where no cheap invariant is
-implemented; those are the weakest rows in the table and the obvious place to
-sharpen the bound.
+For the remaining 129 the search found no reduction but the lower bound is not
+attained, so minimality there is UNPROVEN, not proved. The former fallback on a
+single active factor in Lambda^a with 3 <= a <= m-3 is now covered. For example,
+(4,10) v158 has a q=2 contraction matrix of exact rank 21; one decomposable
+four-form contributes rank 6, forcing support at least ceil(21/6)=4 and closing
+the library support exactly.
 
 ## Why the null result is worth believing (and how far)
 
@@ -91,13 +100,13 @@ re-anchored Gauss-Newton whose Jacobian is the EXACT derivative of the compound
 action (columns Gamma(U) dGamma(iE_a) psi_0). Success lands on the orbit itself,
 not on a truncation of it, so an accepted drop keeps rho = diag(lambda)
 identically rather than to a tolerance. The gauge groups involved are not small:
-median dimension 27, maximum 100, and 162 of the 170 open cases carry dimension
+median dimension 27, maximum 100, and 122 of the 129 open cases carry dimension
 at least 25.
 
 Limits, stated plainly: multi-start greedy over a curved 27-to-100-dimensional
 group is not exhaustive, the drop order is greedy, and a reduction requiring two
 simultaneous cancellations that no single-determinant step reaches would be
-missed. The 629 certified rows do not depend on the search at all; the 170 open
+missed. The 670 certified rows do not depend on the search at all; the 129 open
 rows do.
 
 ## Scoring the pre-registration
@@ -111,12 +120,12 @@ make any of this moot". Consequently:
 | P-G1 fixed-rho tangent does not predict gauge sparsifiability | NOT SCORED (no positives) |
 | P-G2 same for fixed-spectrum tangent | NOT SCORED (no positives) |
 | P-G3 cascade drop count differs from gauge drop count | PASS, degenerately: 71 states have cascade drops and 0 have gauge drops, so the two counts agree nowhere they could disagree; this is not evidence about the mechanism |
-| P-G4 EXCESS > 0 predicts DROP > 0 for a majority | FAIL. 170 states have EXCESS > 0 and none sparsifies |
+| P-G4 EXCESS > 0 predicts DROP > 0 for a majority | FAIL. The preregistered bound left 170 positive-EXCESS states and none sparsified; the strengthened exterior bound leaves 129 and still none sparsify |
 | P-G5 cancellation-regime membership does not predict | consistent, uninformative: v89 and v103 both DROP 0, like every other state |
 
 P-G4 is a real, if unglamorous, falsification: the slack between the support and
-the profile/flattening bound predicts nothing about reducibility, which says the
-bound is loose on those 170 rather than that they are reducible. The
+the profile/exterior bound predicts nothing about reducibility, which says the
+bound is loose on those 129 rather than that they are reducible. The
 pre-registration called P-G4 the weakest of the five before the run, for the
 reason that turned out to matter.
 
@@ -145,10 +154,10 @@ fact about degenerate spectra, recorded now in `docs/silence_rank_lemma.md` and
 
 ## Caveats
 
-- The 629 certifications are minimality within the state's OWN gauge family.
+- The 670 certifications are minimality within the state's OWN gauge family.
   s_Q^NO(lambda) is a vertex-level quantity and could still be smaller at a
   different fiber component; nothing here bounds that below except s_I.
-- The 170 open rows are open in both directions.
-- Everything is at double precision except the lower bounds, which are integer
-  ranks of exactly-built matrices, and the v103 diagonality facts, which are
-  exact rationals.
+- The 129 open rows are open in both directions.
+- Search upper bounds are at double precision. Every newly strengthened lower
+  bound is an exact symbolic matrix-rank certificate, and the v103 diagonality
+  facts are exact rationals.
