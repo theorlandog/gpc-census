@@ -14,7 +14,7 @@ import pytest
 REPO = pathlib.Path(__file__).resolve().parents[1]
 SCRIPT = REPO / "scripts" / "make_anonymized_report.py"
 ANON = REPO / "results" / "report" / "anonymized"
-SHIPPED = ("main.md", "references.bib", "institute-of-physics-numeric.csl")
+SHIPPED = ("main.md", "references.bib", "physics-numeric.csl")
 
 
 def test_anonymized_copy_is_current(tmp_path):
@@ -33,6 +33,6 @@ def test_anonymized_copy_is_current(tmp_path):
 def test_anonymized_copy_has_no_identifying_strings():
     if not ANON.exists():
         pytest.skip("no anonymized copy present (sdist build)")
-    text = (ANON / "main.md").read_text().lower()
+    text = "\n".join((ANON / name).read_text() for name in SHIPPED).lower()
     for leak in ("orlando", "jamie", "orcid", "zenodo", "derry", "we thank"):
         assert leak not in text, leak

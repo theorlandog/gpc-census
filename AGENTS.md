@@ -47,16 +47,14 @@ lives in `results/report/main.md`; computed data results live under
   itself is not shipped, so the data-reading tests fall back to `results/data/`
   when `tests/data/` is absent.
 - `gpc-census.spec`: RPM spec. `Makefile`: build entry points.
-- `results/report/main.md`: the paper. The markdown is the master document,
-  in pandoc-crossref syntax; `make report` renders `main.pdf` with pandoc in
-  the pinned `pandoc/extra` container image, which bundles pandoc, a matched
-  pandoc-crossref, and a TeX engine (podman by default; `CONTAINER=docker`
-  to override).
-  Section, equation, and table refs are live crossref citations
-  (`[-@sec:x]`); theorem-family numbering is literal text since crossref has
-  no theorem type, so renumber by hand when inserting theorems. Citations
-  resolve via citeproc against `results/report/references.bib` (IOP numeric
-  style, vendored CSL, per the J. Phys. A target journal); every bib entry
+- `results/report/main.md`: the paper. The markdown is the master document;
+  `make report` renders `main.pdf` with pandoc in the pinned `pandoc/extra`
+  container image, which bundles pandoc and a TeX engine (podman by default;
+  `CONTAINER=docker` to override).
+  Theorem-family numbering is literal text, so renumber by hand when inserting
+  theorems. Internal theorem links use ordinary Markdown anchors. Citations
+  resolve via citeproc against `results/report/references.bib` (vendored AIP
+  fourth-edition numeric CSL, for the Journal of Mathematical Physics draft); every bib entry
   is cited in the text (no `nocite`). The build
   fails if any reference or citation does not resolve. `results/report` is
   excluded from the sdist and RPM; the PDF ships in the release
@@ -75,6 +73,8 @@ lives in `results/report/main.md`; computed data results live under
 ```sh
 make sync     # uv sync (create .venv, install dev deps)
 make test     # uv run pytest
+make verify-paper # run the Paper 1 object and manuscript checks
+make paper1-supplement # build and extract-test the minimal supplement
 make lint     # uv run ruff check
 make build    # uv build -> dist/ (wheel + sdist)
 make rpm      # sdist + rpmbuild into build/rpm/ (needs rpm-build etc.)
@@ -105,9 +105,11 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
   artifacts): wheel and sdist with uv, and the paper inside the pandoc
   container driven by the runner's podman, then publishes with the `gh`
   CLI. It also attaches
-  `data-output.zip`: the paper PDF plus `results/data/`, with a signed
-  provenance attestation (`actions/attest-build-provenance`) and SHA256SUMS
-  of those files inside the zip.
+  `data-output.zip`: the paper PDF, anonymous review files, Supplementary
+  Material PDF, and the Paper 1 data archive with its five checking programs
+  and symbolic environment, with a signed provenance attestation
+  (`actions/attest-build-provenance`) and SHA256SUMS of those files inside the
+  zip.
 
 ## Gotchas
 

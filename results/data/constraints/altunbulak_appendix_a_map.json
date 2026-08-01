@@ -1,0 +1,9760 @@
+{
+  "schema_version": 1,
+  "source": {
+    "appendix_pdf_pages": [
+      93,
+      118
+    ],
+    "author": "Murat Altunbulak",
+    "bitstream_url": "https://repository.bilkent.edu.tr/bitstreams/4c5aaf14-4dbc-438e-8ef9-47e051dece53/download",
+    "method": "Fresh pdftotext -layout extraction followed by ordered coefficient comparison",
+    "note": "Appendix A states that (3,9) has 52 independent inequalities but prints 51. Supplementary table row 52 equals printed (3,10) row 82 restricted to lambda_10=0; the identity does not establish historical intent.",
+    "pdf_sha256": "42b29e4b27cbf3d38d66d08661be2dd1fef301d97f19a628cda27d31eea0e31d",
+    "pdftotext_version": "pdftotext version 24.02.0",
+    "repository_url": "https://repository.bilkent.edu.tr/items/dc2cf80a-82c0-4902-93a7-e83189a0d431",
+    "title": "The Pauli Principle, Representation Theory, and Geometry of Flag Varieties",
+    "year": 2008
+  },
+  "systems": {
+    "(3,10)": {
+      "printed_rows": 93,
+      "rows": [
+        {
+          "coeffs": [
+            1,
+            1,
+            -1,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 1,
+          "row": 1,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 98,
+          "rhs": 1,
+          "row": 2,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 3,
+          "row": 3,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 3,
+          "row": 4,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 3,
+          "row": 5,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 3,
+          "row": 6,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 7,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 8,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 9,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 10,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            2,
+            -1,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 11,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            0,
+            2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 12,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            2,
+            2,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 13,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 14,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 15,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 16,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 17,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            0,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 18,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            1,
+            2,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 19,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 20,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 21,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 22,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            0,
+            -1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 23,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 24,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            0,
+            -1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 25,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 26,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 27,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 28,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 29,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 30,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 31,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 3,
+          "row": 32,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 33,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 34,
+          "row_on_page": 28,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            -1,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 35,
+          "row_on_page": 29,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 99,
+          "rhs": 2,
+          "row": 36,
+          "row_on_page": 30,
+          "source_kind": "printed",
+          "thesis_page": 90
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 37,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 38,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 39,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 40,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 41,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 42,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 100,
+          "rhs": 1,
+          "row": 43,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            2,
+            -1,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 3,
+          "row": 44,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 3,
+          "row": 45,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 3,
+          "row": 46,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 3,
+          "row": 47,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 3,
+          "row": 48,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 2,
+          "row": 49,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 2,
+          "row": 50,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 100,
+          "rhs": 2,
+          "row": 51,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 91
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            0,
+            -1,
+            0,
+            1,
+            2,
+            -2,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 52,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -1,
+            0,
+            2,
+            -2,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 53,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            1,
+            2,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 54,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            -1,
+            2,
+            3,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 55,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 56,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2,
+            -2,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 57,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            -1,
+            1,
+            2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 58,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            -1,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 59,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            -1,
+            3,
+            1,
+            2,
+            2,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 60,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            -1,
+            2,
+            2,
+            3,
+            1,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 61,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            1,
+            0,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 62,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -2,
+            -1,
+            1,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 63,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            2,
+            -2,
+            -1,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 64,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            3,
+            -2,
+            -2,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 65,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -1,
+            -2,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 66,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 67,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            3,
+            -2,
+            -2,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 68,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -1,
+            -2,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 69,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            4,
+            3,
+            -4,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 70,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            4,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            3,
+            -4,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 3,
+          "row": 71,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 4,
+          "row": 72,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 4,
+          "row": 73,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 4,
+          "row": 74,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            3,
+            -1,
+            0,
+            0,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 4,
+          "row": 75,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            2
+          ],
+          "pdf_page": 101,
+          "rhs": 4,
+          "row": 76,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 92
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            1,
+            0,
+            0,
+            1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 77,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            3,
+            -1,
+            0,
+            0,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 78,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            -1,
+            2,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 79,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 80,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            2,
+            3,
+            -1,
+            1,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 81,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 82,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 83,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 84,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            2,
+            1,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 85,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            1,
+            2,
+            2,
+            -1,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 86,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            2,
+            3,
+            1,
+            -1,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 87,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            2,
+            -1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 88,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 89,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            0,
+            3,
+            -1,
+            -1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 90,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            2,
+            0,
+            -1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 91,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            4,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            2,
+            -3,
+            3
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 92,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            4,
+            2,
+            -3,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            3
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 93,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 93
+        }
+      ],
+      "table_rows": 93
+    },
+    "(3,9)": {
+      "printed_rows": 51,
+      "rows": [
+        {
+          "coeffs": [
+            1,
+            1,
+            -1,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 93,
+          "rhs": 1,
+          "row": 1,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 84
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 2,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 3,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 4,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 5,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 6,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 7,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 8,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            2,
+            -1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 9,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 10,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            0,
+            -1,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 11,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 12,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 13,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 14,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 2,
+          "row": 15,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 2,
+          "row": 16,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 2,
+          "row": 17,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 2,
+          "row": 18,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 19,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 20,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2,
+            -2
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 21,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 22,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            2,
+            -1,
+            -2,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 23,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -2,
+            0,
+            -1,
+            0,
+            1,
+            2,
+            -2
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 24,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            -1,
+            3,
+            -2,
+            -2,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 25,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -1,
+            0,
+            2,
+            -2
+          ],
+          "pdf_page": 94,
+          "rhs": 3,
+          "row": 26,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 85
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 27,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 28,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 29,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 30,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 31,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 32,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 1,
+          "row": 33,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            2,
+            0,
+            1,
+            1,
+            2,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 5,
+          "row": 34,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 5,
+          "row": 35,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            2,
+            3,
+            0,
+            0,
+            1,
+            2,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 5,
+          "row": 36,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            2,
+            3,
+            0,
+            1,
+            0,
+            2,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 5,
+          "row": 37,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 38,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 39,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            2,
+            -1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 40,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            -1,
+            2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 41,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            2,
+            -1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 42,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            2,
+            0,
+            -1,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 43,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            2,
+            -1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 44,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            1,
+            0,
+            0,
+            1,
+            2,
+            -1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 45,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            2,
+            1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 46,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            2,
+            3,
+            -1,
+            1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 47,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            0,
+            3,
+            -1,
+            -1,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 48,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            3,
+            -1,
+            0,
+            0,
+            2,
+            -1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 49,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            1,
+            2,
+            2,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 50,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            2,
+            3,
+            1,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 95,
+          "rhs": 4,
+          "row": 51,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 86
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1
+          ],
+          "pdf_page": 102,
+          "rhs": 4,
+          "row": 52,
+          "row_on_page": 6,
+          "source_kind": "restriction",
+          "source_row": 82,
+          "source_system": "(3,10)",
+          "thesis_page": 93
+        }
+      ],
+      "table_rows": 52
+    },
+    "(4,10)": {
+      "printed_rows": 125,
+      "rows": [
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 1,
+          "row": 1,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 2,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            -1,
+            2,
+            -2,
+            -1,
+            -2,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 3,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            -1,
+            2,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 4,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            2,
+            -2,
+            1,
+            -2,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 5,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            2,
+            -2,
+            1,
+            -1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 102,
+          "rhs": 3,
+          "row": 6,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 93
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            2,
+            -1,
+            3,
+            -3,
+            -2,
+            -2,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 7,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            -3,
+            1,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 8,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 9,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            1,
+            3,
+            -1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 10,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 11,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 12,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 13,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 14,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 15,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            -1,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 16,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            -1,
+            1,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 17,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 5,
+          "row": 18,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 19,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 20,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 21,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 22,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 23,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 24,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 25,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 2,
+          "row": 26,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 27,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 28,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 29,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 30,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 31,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 32,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 103,
+          "rhs": 4,
+          "row": 33,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 94
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 5,
+          "row": 34,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 5,
+          "row": 35,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 5,
+          "row": 36,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            -1,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 3,
+          "row": 37,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            2,
+            -1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 3,
+          "row": 38,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            -1,
+            1,
+            -1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 3,
+          "row": 39,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            -1,
+            1,
+            0,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 3,
+          "row": 40,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            4,
+            -1,
+            5,
+            -4,
+            -2,
+            -3,
+            0,
+            1
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 41,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            4,
+            -1,
+            5,
+            -4,
+            -3,
+            -2,
+            1,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 42,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            -4,
+            2,
+            -2,
+            -3,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 43,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            4,
+            3,
+            5,
+            -4,
+            2,
+            -3,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 44,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            -4,
+            2,
+            -3,
+            -2,
+            -1,
+            1,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 45,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            4,
+            3,
+            -1,
+            5,
+            -4,
+            -3,
+            -2,
+            0,
+            1
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 46,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            2,
+            3,
+            0,
+            0,
+            1,
+            2,
+            0
+          ],
+          "pdf_page": 104,
+          "rhs": 8,
+          "row": 47,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 95
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 48,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            0,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 49,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            1,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 50,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            2,
+            -1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 51,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 52,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            0,
+            2,
+            0,
+            -1,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 53,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            0,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 54,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            2,
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 55,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            2,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 56,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            0,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 57,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 58,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            2,
+            3,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 59,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            2,
+            3,
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 60,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            2,
+            -1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 61,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            2,
+            1,
+            3,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 62,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            2,
+            1,
+            3,
+            -1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 63,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            2,
+            1,
+            3,
+            -1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 6,
+          "row": 64,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            1,
+            5,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 65,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            2,
+            5,
+            -2,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 66,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -1,
+            0,
+            2,
+            -2
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 67,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            2,
+            3,
+            -2,
+            0,
+            -1,
+            0,
+            1,
+            2,
+            -2
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 68,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            3,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2,
+            -2
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 69,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 70,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            2,
+            3,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 71,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            2,
+            2,
+            -1,
+            3,
+            -2,
+            -2,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 72,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            2,
+            3,
+            -2,
+            2,
+            -1,
+            -2,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 73,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            5,
+            3,
+            2,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 105,
+          "rhs": 8,
+          "row": 74,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 96
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            1,
+            -2,
+            0,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 75,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 76,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            1,
+            -1,
+            2,
+            -2,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 77,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            3,
+            -1,
+            1,
+            1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 78,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            -2,
+            0,
+            1,
+            -1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 79,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            3,
+            -1,
+            2,
+            0,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 80,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            -2,
+            1,
+            0,
+            -1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 81,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 82,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            2,
+            -2,
+            1,
+            -1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 83,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            -1,
+            1,
+            2,
+            -2,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 84,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            -1,
+            1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 85,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 86,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 87,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            1,
+            1,
+            2,
+            0,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 88,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            -1,
+            2,
+            0,
+            1,
+            1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 89,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            -2,
+            1,
+            0,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 90,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            1,
+            -1,
+            -2,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 91,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            1,
+            -1,
+            2,
+            -2,
+            -2,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 92,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 93,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            3,
+            -2,
+            -1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 94,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            3,
+            -2,
+            -1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 95,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            3,
+            -1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 96,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            3,
+            -1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 97,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            0,
+            3,
+            -2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 106,
+          "rhs": 4,
+          "row": 98,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 97
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 99,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            -2,
+            1,
+            -1,
+            0,
+            -2,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 100,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -1,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 101,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 102,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 103,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            0,
+            -1,
+            1,
+            -2,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 104,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            0,
+            -1,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 105,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 106,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 107,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            -1,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 108,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 109,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 110,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 111,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            3,
+            -2,
+            -2,
+            -1,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 112,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 113,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            3,
+            -2,
+            -1,
+            -2,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 114,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            -2,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 115,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 116,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1,
+            -2
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 117,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            3,
+            -2,
+            -2,
+            -1,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 118,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            3,
+            -2,
+            -1,
+            -2,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 119,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            -2,
+            1,
+            0,
+            -2,
+            -1,
+            0,
+            -1
+          ],
+          "pdf_page": 107,
+          "rhs": 4,
+          "row": 120,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            4,
+            -2,
+            2,
+            0,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 107,
+          "rhs": 7,
+          "row": 121,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            0,
+            4,
+            -2,
+            -1,
+            -2,
+            0,
+            1
+          ],
+          "pdf_page": 107,
+          "rhs": 7,
+          "row": 122,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            0,
+            4,
+            -2,
+            -2,
+            -1,
+            1,
+            0
+          ],
+          "pdf_page": 107,
+          "rhs": 7,
+          "row": 123,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            4,
+            2,
+            3,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 107,
+          "rhs": 7,
+          "row": 124,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 98
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            2,
+            0,
+            4,
+            -2,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 107,
+          "rhs": 7,
+          "row": 125,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 98
+        }
+      ],
+      "table_rows": 125
+    },
+    "(4,9)": {
+      "printed_rows": 60,
+      "rows": [
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 1,
+          "row": 1,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 2,
+          "row": 2,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 2,
+          "row": 3,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 2,
+          "row": 4,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            0,
+            2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 2,
+          "row": 5,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 2,
+          "row": 6,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 7,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 8,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 9,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 10,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 11,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 12,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 96,
+          "rhs": 4,
+          "row": 13,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 3,
+          "row": 14,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 15,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 16,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 17,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 18,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 19,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 20,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "pdf_page": 96,
+          "rhs": 5,
+          "row": 21,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 87
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 22,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 23,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 24,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 25,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            3,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 26,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 27,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 28,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 29,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            -1,
+            -1,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 30,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 31,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            0,
+            -1,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 32,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 33,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 34,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 35,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 36,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 37,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 38,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 39,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 5,
+          "row": 40,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 5,
+          "row": 41,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 5,
+          "row": 42,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            -1,
+            -1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 43,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 2,
+          "row": 44,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 97,
+          "rhs": 4,
+          "row": 45,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 88
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 46,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 47,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 48,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 49,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            3,
+            -2,
+            0,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 50,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            1,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 51,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            3,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 52,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            -2,
+            1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 53,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            -2,
+            1,
+            -1,
+            0,
+            -2,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 54,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 55,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            3,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 98,
+          "rhs": 4,
+          "row": 56,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            5,
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 8,
+          "row": 57,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            5,
+            3,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 8,
+          "row": 58,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            5,
+            2,
+            3,
+            -2,
+            0,
+            -1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 8,
+          "row": 59,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 89
+        },
+        {
+          "coeffs": [
+            5,
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -1,
+            0,
+            2
+          ],
+          "pdf_page": 98,
+          "rhs": 8,
+          "row": 60,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 89
+        }
+      ],
+      "table_rows": 60
+    },
+    "(5,10)": {
+      "printed_rows": 161,
+      "rows": [
+        {
+          "coeffs": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 108,
+          "rhs": 1,
+          "row": 1,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 108,
+          "rhs": 4,
+          "row": 2,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 3,
+          "row": 3,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 4,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 5,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 6,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 7,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 8,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 2,
+          "row": 9,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 10,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 11,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 12,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 13,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            1,
+            2,
+            1,
+            2,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 14,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            1,
+            1,
+            2,
+            2,
+            -1,
+            -2,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 15,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            1,
+            2,
+            3,
+            0,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 16,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            2,
+            1,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 17,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            2,
+            3,
+            0,
+            -1,
+            -2,
+            -1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 18,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            2,
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 108,
+          "rhs": 6,
+          "row": 19,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 99
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            3,
+            0,
+            3,
+            0,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 20,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            0,
+            3,
+            0,
+            2,
+            1,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 21,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            3,
+            -1,
+            1,
+            1,
+            -2,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 22,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            3,
+            -2,
+            1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 23,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            0,
+            2,
+            1,
+            3,
+            0,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 24,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 25,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            1,
+            -2,
+            1,
+            -2,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 26,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            3,
+            -2,
+            0,
+            1,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 27,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            0,
+            1,
+            3,
+            -2,
+            0,
+            -1,
+            -2
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 28,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            2,
+            0,
+            1,
+            3,
+            -2,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 29,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            1,
+            0,
+            3,
+            -2,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 30,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            1,
+            1,
+            3,
+            -1,
+            -2,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 31,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            1,
+            0,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 32,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 33,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            3,
+            0,
+            0,
+            2,
+            -2,
+            1,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 34,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            3,
+            -2,
+            0,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 35,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            3,
+            2,
+            -2,
+            0,
+            0,
+            1,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 36,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            3,
+            -2,
+            1,
+            0,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 37,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            1,
+            0,
+            1,
+            3,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 38,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            2,
+            3,
+            -2,
+            0,
+            1,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 39,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 40,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            0,
+            3,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 41,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            0,
+            1,
+            1,
+            3,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 109,
+          "rhs": 7,
+          "row": 42,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 100
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            2,
+            3,
+            -2,
+            0,
+            0,
+            1,
+            -1,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 43,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            3,
+            -2,
+            0,
+            1,
+            0,
+            -1,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 44,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            1,
+            0,
+            1,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 45,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            3,
+            -2,
+            1,
+            -1,
+            0,
+            -2,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 46,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            1,
+            2,
+            0,
+            3,
+            -2,
+            -1,
+            0,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 47,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            3,
+            -2,
+            1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 48,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            1,
+            0,
+            3,
+            -2,
+            -1,
+            0,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 49,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            2,
+            3,
+            -2,
+            1,
+            -1,
+            0,
+            0,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 50,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            1,
+            2,
+            0,
+            3,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 51,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            1,
+            2,
+            1,
+            0,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 52,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            3,
+            -2,
+            1,
+            0,
+            -1,
+            0,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 53,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 54,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            3,
+            0,
+            1,
+            2,
+            3,
+            0,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 55,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            3,
+            0,
+            3,
+            0,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 56,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            1,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 57,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            3,
+            0,
+            3,
+            -1,
+            0,
+            -2,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 58,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            1,
+            2,
+            -2,
+            1,
+            -2,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 110,
+          "rhs": 7,
+          "row": 59,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            1,
+            -4,
+            -3,
+            -2,
+            -1,
+            0,
+            2
+          ],
+          "pdf_page": 110,
+          "rhs": 9,
+          "row": 60,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            -3,
+            -2,
+            -1,
+            0,
+            1,
+            -4,
+            2
+          ],
+          "pdf_page": 110,
+          "rhs": 9,
+          "row": 61,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            -1,
+            5,
+            0,
+            1,
+            2,
+            3,
+            4,
+            -4,
+            -3,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 9,
+          "row": 62,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            -1,
+            1,
+            2,
+            3,
+            4,
+            5,
+            0,
+            -4,
+            -3,
+            -2
+          ],
+          "pdf_page": 110,
+          "rhs": 9,
+          "row": 63,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 101
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 64,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 65,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 66,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            -2
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 67,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            2,
+            0,
+            1,
+            1,
+            0,
+            2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 68,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            -1,
+            0,
+            1,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 69,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 70,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 71,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            1,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 72,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            0,
+            2,
+            -1,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 73,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            0,
+            2,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 74,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            0,
+            1,
+            2,
+            -1,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 75,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            0,
+            1,
+            1,
+            2,
+            0,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 76,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            0,
+            2,
+            0,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 77,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            0,
+            2,
+            0,
+            1,
+            1,
+            -2,
+            -1,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 4,
+          "row": 78,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            -1,
+            -2,
+            -2
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 79,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 80,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 81,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 82,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            -2
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 83,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            -1,
+            0,
+            1,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 84,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            -1,
+            -2,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 85,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            -1,
+            -2
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 86,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            -2,
+            0,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 87,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            -2,
+            0,
+            -1,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 88,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -2,
+            -1
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 89,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            -1,
+            -1,
+            0,
+            -2,
+            0,
+            -2,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 90,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            2,
+            -1,
+            -1,
+            -2,
+            -2
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 91,
+          "row_on_page": 28,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            -2,
+            0,
+            -2,
+            -1,
+            -1,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 92,
+          "row_on_page": 29,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            0,
+            -2,
+            -1,
+            -1,
+            0,
+            -2,
+            0
+          ],
+          "pdf_page": 111,
+          "rhs": 2,
+          "row": 93,
+          "row_on_page": 30,
+          "source_kind": "printed",
+          "thesis_page": 102
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 94,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 95,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 96,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 97,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 98,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 99,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 100,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 3,
+          "row": 101,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 102,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            2,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 103,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 104,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 105,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 106,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 107,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 108,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            1,
+            1,
+            1,
+            2,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 5,
+          "row": 109,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            2,
+            1,
+            3,
+            0,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 110,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            2,
+            1,
+            2,
+            1,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 111,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            3,
+            0,
+            2,
+            1,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 112,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            1,
+            2,
+            1,
+            2,
+            -1,
+            -2,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 113,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3,
+            -1,
+            0,
+            -2,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 114,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            1,
+            2,
+            3,
+            0,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 115,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            3,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 116,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            1,
+            2,
+            3,
+            0,
+            -1,
+            -2,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 117,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            0,
+            1,
+            2,
+            -1,
+            -2,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 118,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            0,
+            2,
+            1,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 119,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            2,
+            1,
+            1,
+            2,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 120,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            3,
+            0,
+            1,
+            2,
+            2,
+            1,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 121,
+          "row_on_page": 28,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            2,
+            3,
+            -1,
+            0,
+            1,
+            1,
+            -2,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 122,
+          "row_on_page": 29,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3,
+            0,
+            -2,
+            -1,
+            -2
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 123,
+          "row_on_page": 30,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            0,
+            1,
+            1,
+            3,
+            -2,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 112,
+          "rhs": 6,
+          "row": 124,
+          "row_on_page": 31,
+          "source_kind": "printed",
+          "thesis_page": 103
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            -1,
+            0,
+            0,
+            -1,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 125,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            0,
+            -1,
+            -1,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 126,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            2,
+            -1,
+            0,
+            -1,
+            0,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 127,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            1,
+            2,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 128,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            1,
+            -2,
+            -1,
+            0,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 129,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            -1,
+            0,
+            1,
+            -2,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 130,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            2,
+            1,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 131,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            2,
+            -1,
+            0,
+            1,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 132,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 133,
+          "row_on_page": 9,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            3,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            -1,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 134,
+          "row_on_page": 10,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            3,
+            2,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 135,
+          "row_on_page": 11,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            0,
+            -1,
+            1,
+            -2,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 136,
+          "row_on_page": 12,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            1,
+            -2,
+            0,
+            -1,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 137,
+          "row_on_page": 13,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            3,
+            0,
+            -1,
+            0,
+            -1,
+            1,
+            -2,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 138,
+          "row_on_page": 14,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            3,
+            -2,
+            0,
+            0,
+            1,
+            -1,
+            -1
+          ],
+          "pdf_page": 113,
+          "rhs": 7,
+          "row": 139,
+          "row_on_page": 15,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            4,
+            5,
+            -2,
+            0,
+            1,
+            2,
+            -1,
+            0
+          ],
+          "pdf_page": 113,
+          "rhs": 12,
+          "row": 140,
+          "row_on_page": 16,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -1,
+            0,
+            2
+          ],
+          "pdf_page": 113,
+          "rhs": 12,
+          "row": 141,
+          "row_on_page": 17,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            4,
+            5,
+            3,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2
+          ],
+          "pdf_page": 113,
+          "rhs": 12,
+          "row": 142,
+          "row_on_page": 18,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            4,
+            5,
+            3,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 113,
+          "rhs": 12,
+          "row": 143,
+          "row_on_page": 19,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            4,
+            5,
+            2,
+            3,
+            -2,
+            0,
+            -1,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 113,
+          "rhs": 12,
+          "row": 144,
+          "row_on_page": 20,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            3,
+            0,
+            1,
+            2,
+            4,
+            -3,
+            -2,
+            -1,
+            0
+          ],
+          "pdf_page": 113,
+          "rhs": 8,
+          "row": 145,
+          "row_on_page": 21,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            3,
+            4,
+            -1,
+            0,
+            1,
+            2,
+            -3,
+            -2
+          ],
+          "pdf_page": 113,
+          "rhs": 8,
+          "row": 146,
+          "row_on_page": 22,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            3,
+            2,
+            4,
+            -1,
+            0,
+            -3,
+            -2
+          ],
+          "pdf_page": 113,
+          "rhs": 8,
+          "row": 147,
+          "row_on_page": 23,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            4,
+            0,
+            1,
+            2,
+            2,
+            3,
+            -1,
+            -3,
+            -2
+          ],
+          "pdf_page": 113,
+          "rhs": 8,
+          "row": 148,
+          "row_on_page": 24,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            3,
+            4,
+            0,
+            -1,
+            -3,
+            -2
+          ],
+          "pdf_page": 113,
+          "rhs": 8,
+          "row": 149,
+          "row_on_page": 25,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            0,
+            -1,
+            -1,
+            -1,
+            0,
+            0,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 4,
+          "row": 150,
+          "row_on_page": 26,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            2,
+            2,
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            -1,
+            1
+          ],
+          "pdf_page": 113,
+          "rhs": 4,
+          "row": 151,
+          "row_on_page": 27,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            2,
+            1,
+            1,
+            1,
+            2,
+            2,
+            0,
+            -1,
+            -1
+          ],
+          "pdf_page": 113,
+          "rhs": 6,
+          "row": 152,
+          "row_on_page": 28,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            1,
+            2,
+            2,
+            2,
+            1,
+            0,
+            -1,
+            -1
+          ],
+          "pdf_page": 113,
+          "rhs": 6,
+          "row": 153,
+          "row_on_page": 29,
+          "source_kind": "printed",
+          "thesis_page": 104
+        },
+        {
+          "coeffs": [
+            1,
+            7,
+            0,
+            2,
+            3,
+            4,
+            5,
+            -3,
+            -2,
+            -1
+          ],
+          "pdf_page": 114,
+          "rhs": 15,
+          "row": 154,
+          "row_on_page": 1,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            7,
+            0,
+            -3,
+            -2,
+            -1
+          ],
+          "pdf_page": 114,
+          "rhs": 15,
+          "row": 155,
+          "row_on_page": 2,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            -3,
+            -2,
+            -1,
+            0,
+            2,
+            -5,
+            1
+          ],
+          "pdf_page": 114,
+          "rhs": 9,
+          "row": 156,
+          "row_on_page": 3,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            5,
+            2,
+            -5,
+            -3,
+            -2,
+            -1,
+            0,
+            1
+          ],
+          "pdf_page": 114,
+          "rhs": 9,
+          "row": 157,
+          "row_on_page": 4,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            0,
+            1,
+            2,
+            2,
+            3,
+            4,
+            0,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 114,
+          "rhs": 8,
+          "row": 158,
+          "row_on_page": 5,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            0,
+            4,
+            0,
+            1,
+            2,
+            2,
+            3,
+            -2,
+            -2,
+            -1
+          ],
+          "pdf_page": 114,
+          "rhs": 8,
+          "row": 159,
+          "row_on_page": 6,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            4,
+            2,
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            2
+          ],
+          "pdf_page": 114,
+          "rhs": 11,
+          "row": 160,
+          "row_on_page": 7,
+          "source_kind": "printed",
+          "thesis_page": 105
+        },
+        {
+          "coeffs": [
+            3,
+            4,
+            4,
+            -1,
+            0,
+            0,
+            1,
+            2,
+            -2,
+            2
+          ],
+          "pdf_page": 114,
+          "rhs": 11,
+          "row": 161,
+          "row_on_page": 8,
+          "source_kind": "printed",
+          "thesis_page": 105
+        }
+      ],
+      "table_rows": 161
+    }
+  }
+}

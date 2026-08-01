@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent exact verification of every closed-form state in states.jsonl.
+"""Separately implemented exact verification of the state atlas.
 
 This checker is deliberately minimal and shares no code with the gpc-census
 pipeline. For each record it:
@@ -8,19 +8,49 @@ pipeline. For each record it:
   3. verifies, in exact arithmetic, the characteristic-polynomial identity
          det(rho - lam I) == prod_m (n_m / D - lam)
      against the record's integer_form / denominator,
-  4. additionally checks normalization and, for DESIGN records, that the
-     support is one-hop independent (so the 1-RDM is diagonal by inspection).
+  4. checks normalization, support structure, and agreement among the three
+     serialized amplitude representations,
+  5. for design records, checks one-hop independence and the advertised
+     integer-grid or rational off-grid arithmetic of the displayed witness.
 
 Usage: python3 scripts/verify_states_standalone.py [states.jsonl]
-Exit code 0 iff all 799 records pass.
+By default the command also requires exactly 799 unique records.  Use
+``--allow-subset`` only for focused debugging.
 """
+import argparse
 import bisect
 import json
-import sys
+import re
 import time
 from itertools import combinations
+from pathlib import Path
 
 import sympy as sp
+
+
+ALLOWED_EXPRESSION = re.compile(r"^[0-9A-Za-z_+*/().\- ]+$")
+ALLOWED_NAMES = {
+    "sqrt": sp.sqrt,
+    "exp": sp.exp,
+    "acos": sp.acos,
+    "atan": sp.atan,
+    "I": sp.I,
+    "pi": sp.pi,
+}
+
+
+def parse_exact_expression(text):
+    value = str(text)
+    if not ALLOWED_EXPRESSION.fullmatch(value):
+        raise ValueError(f"expression contains unsupported characters: {value!r}")
+    names = set(re.findall(r"[A-Za-z_][A-Za-z_0-9]*", value))
+    unknown = names - set(ALLOWED_NAMES)
+    if unknown:
+        raise ValueError(f"expression contains unsupported names: {sorted(unknown)}")
+    expression = sp.sympify(value, locals=ALLOWED_NAMES)
+    if expression.free_symbols:
+        raise ValueError(f"expression contains free symbols: {expression.free_symbols}")
+    return expression
 
 
 def build_rdm(dets, amps, d):
@@ -53,16 +83,66 @@ def one_hop_free(dets):
 def verify(rec):
     cf = rec["closed_form"]
     dets = [tuple(t) for t in cf["support_dets"]]
-    amps = [sp.expand_complex(sp.sympify(p).rewrite(sp.cos)) for p in cf["pretty"]]
+    try:
+        amps = [
+            sp.expand_complex(parse_exact_expression(p).rewrite(sp.cos))
+            for p in cf["pretty"]
+        ]
+        weight_numerators = [parse_exact_expression(value) for value in cf["weights"]]
+    except (TypeError, ValueError, sp.SympifyError) as error:
+        return False, f"closed-form expression grammar: {error}"
     d = len(rec["integer_form"])
     D = rec["denominator"] or 1
+    try:
+        n = int(rec["system"].strip("()").split(",")[0])
+    except (AttributeError, ValueError):
+        return False, "malformed system key"
+
+    if not dets or not (len(dets) == len(amps) == len(weight_numerators)):
+        return False, "closed-form array lengths"
+    if cf.get("den", 0) <= 0:
+        return False, "closed-form denominator"
+    if len(set(dets)) != len(dets):
+        return False, "duplicate support determinant"
+    if any(
+        len(det) != n
+        or tuple(sorted(det)) != det
+        or len(set(det)) != n
+        or any(index < 0 or index >= d for index in det)
+        for det in dets
+    ):
+        return False, "malformed support determinant"
+    top_support = rec.get("support")
+    if top_support is not None and [tuple(item[0]) for item in top_support] != dets:
+        return False, "top-level and closed-form supports disagree"
+
+    weights = [sp.simplify(value / cf["den"]) for value in weight_numerators]
+    for amp, weight in zip(amps, weights):
+        amp_weight = sp.simplify(sp.expand_complex(amp * sp.conjugate(amp)))
+        if sp.simplify(amp_weight - weight) != 0:
+            return False, "pretty/weights/den disagreement"
+        if weight.is_positive is not True:
+            return False, "nonpositive serialized weight"
 
     norm = sp.simplify(sp.expand_complex(sum(a * sp.conjugate(a) for a in amps)))
     if sp.simplify(norm - 1) != 0:
         return False, "normalization"
 
-    if rec["classified"].startswith("DESIGN") and not one_hop_free(dets):
-        return False, "design support not one-hop independent"
+    classification = rec["classified"]
+    if classification.startswith("DESIGN"):
+        if not one_hop_free(dets):
+            return False, "design support not one-hop independent"
+        scaled = [sp.simplify(weight * D) for weight in weights]
+        if classification == "DESIGN-INT":
+            if any(value.is_integer is not True or value.is_positive is not True for value in scaled):
+                return False, "DESIGN-INT witness is not on the spectrum-denominator grid"
+        elif classification == "DESIGN-REAL":
+            if any(weight.is_rational is not True for weight in weights):
+                return False, "DESIGN-REAL witness is not rational"
+            if all(value.is_integer is True for value in scaled):
+                return False, "DESIGN-REAL witness is not off the spectrum-denominator grid"
+        else:
+            return False, f"unknown design classification {classification!r}"
 
     rho = build_rdm(dets, amps, d)
     # lam is the eigenvalue variable of a Hermitian matrix, hence real; a
@@ -88,8 +168,24 @@ def verify(rec):
 
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else "results/data/states.jsonl"
-    records = [json.loads(line) for line in open(path)]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("states", nargs="?", type=Path,
+                        default=Path("results/data/states.jsonl"))
+    parser.add_argument("--allow-subset", action="store_true",
+                        help="do not require the complete 799-record atlas")
+    args = parser.parse_args()
+    records = [
+        json.loads(line)
+        for line in args.states.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    if not args.allow_subset and len(records) != 799:
+        print(f"FAIL: expected 799 records, found {len(records)}")
+        return 1
+    keys = [(record.get("system"), record.get("index")) for record in records]
+    if len(set(keys)) != len(keys):
+        print("FAIL: duplicate system/index keys")
+        return 1
     t0 = time.time()
     failures = []
     for k, rec in enumerate(records):
@@ -105,9 +201,9 @@ def main():
         for f in failures:
             print("  ", f)
         return 1
-    print("all records PASS")
+    print(f"all {len(records)} records PASS")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
