@@ -1,5 +1,58 @@
 # Revision notes, main paper
 
+## v0.12 to JMP submission draft (August 2026)
+
+The previous Journal of Physics A submission was rejected outright. Paper 1
+has therefore been rebuilt for a new submission to the Journal of Mathematical
+Physics, not prepared for resubmission to J. Phys. A.
+
+- Replaced the broad 11,000-word manuscript with a theorem-led paper centered
+  on the two exact `(4,9)` preimages and the 799-state atlas.
+- Removed fiber dynamics, Hamiltonian control, TD-2RDM results, arithmetic and
+  holonomy surveys, support-minimality claims, and rank-11/12 speculation.
+- Corrected the interpretation of the `v_B` construction: the two exchange
+  channels add coherently to a nonzero principal block. Defined its algebraic
+  unit phase and block variable explicitly.
+- Aligned the paper's 1-RDM convention with the exact verifier,
+  `rho_ij = <a_i^dagger a_j>`, and added a regression test for the displayed
+  `v_B` off-diagonal entry.
+- Corrected the conditional rank-10 polytope definition to include both Pauli
+  bounds. Added a dependency-free exact H-to-V verifier that reconstructs all
+  nine tabulated vertex sets, removing vertex exhaustion as an assumption; the
+  ten-orbital corollary is now conditional only on inequality validity.
+- Added the unconditional exact `27/38` root-distinct split for `(3,8)` and
+  the unconditional completeness corollary for the published `(4,9)`
+  description.
+- Distinguished exact state attainment for all 799 records, exact global
+  no-design certificates for 12 records, and computer-assisted negative
+  classification for the remaining 144 records.
+- Scoped the DESIGN-INT/DESIGN-REAL split: all 643 positive design witnesses
+  are exact, while grid nonexistence for the 12 off-grid records is
+  computer-assisted.
+- Added current prior art on explicit non-free tensors and general
+  moment-polytope algorithms, corrected the Borland-Dennis DOI, and added
+  citations for the symbolic, optimization, and polyhedral software.
+- Added a row-by-row source concordance for all printed rank-9 and rank-10
+  constraints. All 60 `(4,9)` and all 379 rank-10 rows match; the supplied
+  final `(3,9)` row equals the restriction of printed `(3,10)` row 82, without
+  claiming that this proves the historical intent of the omitted source row.
+- Added a self-contained computational appendix covering state signs and
+  schema, finite certificate completeness, branch semantics, and rational
+  H-to-V reconstruction.
+- Quantified construction provenance: 70 source formulas, 235 padding
+  descendants, 161 frozen-core descendants, and 403 primitive records.
+- Repaired three stale numerical support arrays whose exact transported state
+  objects were already correct, and strengthened the state verifier to reject
+  incomplete atlases and serialization drift.
+- Replaced the full research-data copy with an allowlisted Paper 1 supplement.
+  Its builder runs the state, no-design, H-to-V, and cross-link checks before
+  packaging and again after ZIP extraction; it contains no exploratory
+  fiber, dynamics, or higher-rank data and no verifier logs.
+- Added AIP declarations, a separate Supplementary Material PDF, and a concise
+  JMP cover letter.
+- Replaced the IOP-targeted bibliography style with an AIP fourth-edition
+  numeric CSL adapted to display DOI and research-data fields.
+
 ## v0.11 → v0.12 (July 2026): J. Phys. A submission pass
 
 Scope: journal-style conversion, bibliography audit against publisher

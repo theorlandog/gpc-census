@@ -8,27 +8,62 @@ REPORT_MD := results/report/main.md
 REPORT_PDF := results/report/main.pdf
 REPORT_TEX := results/report/main.tex
 REPORT_BIB := results/report/references.bib
-REPORT_CSL := results/report/institute-of-physics-numeric.csl
+REPORT_CSL := results/report/physics-numeric.csl
 ANON_DIR := results/report/anonymized
 ANON_MD := $(ANON_DIR)/main.md
 ANON_PDF := $(ANON_DIR)/main.pdf
 ANON_TEX := $(ANON_DIR)/main.tex
+STATE_VERIFIER := scripts/verify_states_standalone.py
+NO_DESIGN_VERIFIER := scripts/verify_interference_certificates_standalone.py
+VERTEX_VERIFIER := scripts/verify_vertex_exhaustion_standalone.py
+SUPPLEMENT_BUILDER := scripts/build_paper1_supplement.py
+SUPPLEMENT_ZIP := build/gpc-census-paper1-supplement.zip
+SUPPLEMENT_PYTHON := 3.12.13
+SUPPLEMENTARY_MD := results/report/supplementary_material.md
+SUPPLEMENTARY_PDF := results/report/supplementary_material.pdf
 
-# pandoc/extra bundles pandoc, a matched pandoc-crossref, and a TeX
-# engine, so one pinned image covers the whole markdown-to-PDF build.
+# pandoc/extra bundles pandoc, citeproc support, and a TeX engine, so one
+# pinned image covers the whole markdown-to-PDF build.
 # CI runs the same recipe inside the image with PANDOC_RUN=pandoc.
 CONTAINER ?= podman
 PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546f57a80464a4a3991c15cd1a373133b97e7a7
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
-PANDOC_FLAGS := -F pandoc-crossref --citeproc --number-sections
+PANDOC_FLAGS := --citeproc --number-sections
 
-.PHONY: sync test lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
+.PHONY: sync test verify-paper verify-data paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
 
 sync:
 	$(UV) sync
 
 test:
 	$(UV) run pytest
+
+verify-paper:
+	$(UV) run python $(STATE_VERIFIER) results/data/states.jsonl
+	python3 $(NO_DESIGN_VERIFIER) results/data/interference_certificates.json
+	python3 $(VERTEX_VERIFIER)
+	python3 scripts/check_manuscript_counts.py
+
+# The manuscript checker is scoped to Paper 1, so the gauge, cascade, orbit,
+# holonomy, natural-orbital, v103 and fiber-symmetry artifacts it released
+# keep their own gate here.
+verify-data:
+	$(UV) run python scripts/check_data_consistency.py
+
+paper1-supplement:
+	$(UV) run --python $(SUPPLEMENT_PYTHON) python $(SUPPLEMENT_BUILDER) --output $(SUPPLEMENT_ZIP)
+
+paper1-supplement-locked:
+	$(UV) run --python $(SUPPLEMENT_PYTHON) python $(SUPPLEMENT_BUILDER) \
+	  --output $(SUPPLEMENT_ZIP) --test-locked-environment
+
+supplementary-material: $(SUPPLEMENTARY_PDF)
+
+$(SUPPLEMENTARY_PDF): $(SUPPLEMENTARY_MD)
+	mkdir -p build
+	$(PANDOC_RUN) $(SUPPLEMENTARY_MD) --number-sections -o $(SUPPLEMENTARY_PDF) \
+	  2> build/supplementary-material.log \
+	  || { cat build/supplementary-material.log; exit 1; }
 
 lint:
 	$(UV) run ruff check
@@ -64,12 +99,9 @@ rpm: sdist $(GEN_SPEC)
 
 report: $(REPORT_PDF)
 
-# pandoc-crossref runs before citeproc so it consumes the [-@sec:x]
-# style citations that are cross-references, not bibliography keys;
-# anything either filter leaves unresolved surfaces as a citeproc
-# "not found" warning or a LaTeX "Reference undefined" warning, and
-# pandoc-crossref renders missing targets as literal ?id? marks in the
-# PDF, so the guard checks all three and fails the build on any.
+# Citeproc resolves the bibliography. Internal theorem links are ordinary
+# Markdown anchors, while the two tables are referred to by their stable order.
+# Any unresolved citation surfaces as a citeproc warning and fails the build.
 $(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	mkdir -p build
 	$(PANDOC_RUN) $(REPORT_MD) $(PANDOC_FLAGS) -o $(REPORT_PDF) 2> build/report.log \
@@ -84,14 +116,13 @@ $(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 report-tex: $(REPORT_TEX)
 
 # Standalone LaTeX for journal upload, from the same pinned image and
-# filter chain as the PDF so both outputs stay in lockstep. citeproc
+# citation chain as the PDF so both outputs stay in lockstep. citeproc
 # bakes the formatted bibliography into the .tex, so the file is
 # self-contained (no .bbl/.bib needed at submission). For journals that
 # require natbib \citep markup and a .bib instead, swap --citeproc for
 # --natbib in PANDOC_FLAGS for this target and upload $(REPORT_BIB)
 # alongside. Unlike PDF output, .tex is not standalone by default,
-# hence -s. The guard mirrors the PDF one: pandoc-crossref renders
-# missing targets as literal ?id? marks in LaTeX output.
+# hence -s. The guard mirrors the PDF one and rejects unresolved markers.
 $(REPORT_TEX): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	mkdir -p build
 	$(PANDOC_RUN) $(REPORT_MD) $(PANDOC_FLAGS) -s -o $(REPORT_TEX) 2> build/report-tex.log \
@@ -122,7 +153,7 @@ report-anon: anonymize
 	@echo "==> $(ANON_PDF)"
 
 # Standalone LaTeX of the anonymized copy, for journals that ask for
-# source at submission. Same filter chain and guards as report-tex;
+# source at submission. Same citation chain and guards as report-tex;
 # citeproc bakes the formatted bibliography into the .tex, and the
 # folder's references.bib ships alongside for editors who want the raw
 # database.
@@ -138,4 +169,4 @@ report-anon-tex: anonymize
 
 clean:
 	rm -rf dist build data-output data-output.zip
-	rm -f $(REPORT_PDF) $(REPORT_TEX) $(ANON_PDF) $(ANON_TEX)
+	rm -f $(REPORT_PDF) $(REPORT_TEX) $(ANON_PDF) $(ANON_TEX) $(SUPPLEMENTARY_PDF)

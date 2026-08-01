@@ -1,305 +1,389 @@
 ---
 bibliography: results/report/references.bib
-csl: results/report/institute-of-physics-numeric.csl
+csl: results/report/physics-numeric.csl
 link-citations: true
 abstract: |
-  The generalized Pauli constraints (GPCs) confine the natural occupation numbers of an $N$-fermion pure state to a moment polytope $\Pi_{N,d}$. For $\wedge^4\mathcal{H}_9$, two vertices of the polytope of Altunbulak and Klyachko \[Commun. Math. Phys. 282, 287 (2008)\] were verified only numerically, and the completeness argument for the published $\wedge^4\mathcal{H}_{10}$ constraint list depends on them. We give explicit closed-form extremal states for both, with standalone-checkable exact proofs: $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$ is attained by a seven-determinant state whose supporting determinants are pairwise one-hop independent, while for $v_B = \tfrac1{23}(20,14,14,14,14,4,4,4,4)$ an exact disjunctive Farkas certificate and finite branch proof show that no one-hop-independent extremal state exists in any orbital basis; an eight-determinant state with a single interference phase, $\cos\gamma = 3/(4\sqrt{14})$, and exact real extremal states at quadratic-irrational weights attain it. Classifying every vertex as *design* (attained by a state whose off-diagonal 1-RDM contributions vanish termwise) or *interference* (requiring coherent cancellation), we then construct and certify, in exact arithmetic, closed-form extremal states for all $799$ vertices of every published fermionic moment polytope through rank $d = 10$ ($631$ integer designs, $12$ rational designs, $156$ interference states), and release them as a machine-readable library with a per-state certificate. Under the explicit hypothesis that each published rank-$10$ inequality is valid, certified attainment of all $564$ rank-$10$ vertices closes the completeness of those constraint lists by convexity. Code, data, an automated manuscript--dataset consistency test, and independent verification scripts accompany the paper.
-
-  Keywords: generalized Pauli constraints, quantum marginal problem, pure-state $N$-representability, moment polytope, extremal states, natural occupation numbers
+  The pure-state one-body fermionic marginal problem asks which ordered spectra occur as one-body reduced density matrices of states in an exterior power. A facet description of the resulting moment polytope does not itself provide pure-state preimages of its vertices. We give symbolic preimages for all 799 spectra appearing as vertices of nine tabulated rational descriptions with 6 through 10 orbitals. Two constructions replace numerical attainability checks left open for four fermions in nine orbitals. The first is root-distinct. The second uses two coherent exchange channels, and a finite rational certificate proves that no root-distinct preimage of that spectrum exists in any orthonormal orbital basis. The atlas contains 643 positive root-distinct witnesses, and 12 negative cases have finite no-root-distinct proofs. A separately implemented rational half-space calculation recovers all 799 tabulated vertices. Together with a row-by-row source concordance, these results complete the published four-fermion, nine-orbital description. The corresponding ten-orbital conclusion is conditional on validity of the tabulated inequalities.
+keywords:
+  - generalized Pauli constraints
+  - quantum marginal problem
+  - pure-state N-representability
+  - moment polytopes
+  - symbolic state preimages
 author:
-  - James Orlando[^1]
-date: |
-  July 2026 --- DRAFT v0.12, prepared for J. Phys. A: Math. Theor.\
-  Preprint: [doi:10.5281/zenodo.21313736](https://doi.org/10.5281/zenodo.21313736)
+  - |
+    James Orlando\
+    Independent researcher, Derry, New Hampshire, USA\
+    `jamie@orlandonh.com`
 title: |
-  Algorithmic construction of exact extremal states for fermionic moment\
-  polytopes: a certified census through rank 10
+  Symbolic pure-state preimages for tabulated vertex spectra of fermionic one-body marginals through ten orbitals
 ---
 
 # Introduction
 
-The Pauli exclusion principle bounds fermionic natural occupation numbers (NONs) by $0 \le \lambda_i \le 1$. Klyachko's solution of the one-body pure $N$-representability problem [@Klyachko2006; @AK2008] showed that the antisymmetry of $N$-fermion wave functions imposes far stronger conditions: the achievable ordered spectra $\lambda_1 \ge \cdots \ge \lambda_d$ of the one-body reduced density matrix (1-RDM) of a pure state in $\wedge^{N}\mathcal{H}_{d}$ form a convex polytope $\Pi_{N,d}$, cut out by finitely many _generalized Pauli constraints_ (GPCs). These constraints have measurable consequences: (quasi-)pinning of occupation spectra to facets of $\Pi_{N,d}$ constrains the structure of the wave function itself [@SGC2013; @Liebert2025], and the polytopes govern applications from reduced-density-matrix functional theory to quantum information [@Castillo2021; @Liebert2025].
+For a normalized state $\psi\in\wedge^N\mathcal H_d$, define the one-body reduced density matrix (1-RDM) by
+$$
+\rho^{(1)}_{ij}(\psi)=\langle\psi|a_i^\dagger a_j|\psi\rangle,
+\qquad \operatorname{Tr}\rho^{(1)}=N.\tag{1}
+$$
+Its ordered eigenvalues $\lambda_1\ge\cdots\ge\lambda_d$ are the natural occupation numbers. They obey Pauli's bounds $0\le\lambda_i\le1$, while antisymmetry imposes further linear inequalities. The three-fermion, six-orbital case was identified by Borland and Dennis [@BD1972]. Klyachko's general solution of the pure-state one-body $N$-representability problem identifies the attainable spectra with a rational moment polytope $\Pi_{N,d}$ [@Klyachko2006; @AK2008]. The additional facets are commonly called generalized Pauli constraints. They underlie work on pinning and quasipinning [@SGC2013; @Schilling2018; @Liebert2025], large-system structure [@Reuvers2021], and effective algorithms for moment polytopes [@Castillo2021; @vdBergSTOC2025].
 
-_Terminology._ Throughout, the *rank* of a system means the one-particle dimension $d$ of $\wedge^N\mathcal{H}_d$ (not Slater, matrix, or Lie rank); a *published system* is one whose complete GPC list appears in Refs. [@AK2008; @Klyachko2009] (coefficient tables in Ref. [@TVS2017]); the *natural denominator* $D$ of a vertex $v = n/D$ is $\tfrac1N\sum_m n_m$ for the primitive integer numerator vector $n$. Claims below carry one of three certificate classes, fixed here once: **\[E\]** exact, verified in exact (rational or algebraic) arithmetic with an archived symbolic certificate; **\[CA\]** computer-assisted, resting on a solver result reproduced independently but lacking a standalone proof object; **\[N\]** numerical evidence, not a proof. The numbered no-design claims that formerly carried \[CA\] now carry exact Farkas/branch objects and are tagged \[E\]. Section [-@sec:certs] tabulates which class supports which claim.
+An inequality description answers a membership question. It does not automatically provide a state with a prescribed admissible spectrum. At a vertex this distinction is especially useful: a pure-state preimage is a direct sufficiency witness, while a vertex obtained from a candidate outer description still requires an attainability argument. In this paper an *extremal state* means a normalized pure fermionic state whose 1-RDM spectrum is a vertex of the relevant polytope. It does not mean an extreme point of the convex set of many-body density operators.
 
-Altunbulak and Klyachko computed $\Pi_{N,d}$ completely for all systems with $d \le 8$ (and for $\wedge^3\mathcal{H}_9$, $\wedge^3\mathcal{H}_{10}$, $\wedge^4\mathcal{H}_9$, $\wedge^4\mathcal{H}_{10}$, $\wedge^5\mathcal{H}_{10}$), supplying for each vertex of the small systems an explicit extremal state "for those who don't trust computer assisted proofs" [@AK2008]. For $\wedge^4\mathcal{H}_9$, however, two vertices resisted their representation-theoretic constructions:
-$$v_A = \tfrac{1}{21}(16,16,16,6,6,6,6,6,6), \qquad v_B = \tfrac{1}{23}(20,14,14,14,14,4,4,4,4),$$
-{#eq:AB} which were, in their words, "checked only numerically"---and on which the completeness of the published $\wedge^4\mathcal{H}_{10}$ constraint list depends [@AK2008]. To our knowledge these verifications have remained numerical for the intervening eighteen years.
+Altunbulak and Klyachko supplied explicit states for the small systems in their Tables 5 and 6. In Sec. 6.2.2 of Ref. [@AK2008], however, two vertices of the 103-vertex description for $\wedge^4\mathcal H_9$ were checked only numerically:
+$$
+v_A=\frac1{21}(16,16,16,6,6,6,6,6,6),\qquad
+v_B=\frac1{23}(20,14,14,14,14,4,4,4,4).\tag{2}
+$$
+The same source observed that attaining these spectra would finish the vertex argument for its published four-fermion, nine-orbital inequalities. Our first result replaces both numerical checks by short symbolic constructions.
 
-#### Contributions.
+The two states exhibit different mechanisms. If no two determinants in a support differ by one orbital, every off-diagonal 1-RDM contribution vanishes termwise. Such supports are root-distinct in moment-map language [@W92; @S98; @MT17]. They are also the fermionic analogue of free tensor supports, for which reduced density matrices are diagonal [@vdBergNonFree2025]. The state for $v_A$ has this form. The spectrum $v_B$ admits no root-distinct preimage after any unitary change of orbitals, but it has a sparse preimage with two coherently contributing exchange channels. Here and below, orbital bases are orthonormal and basis changes lie in $U(d)$; no claim is made about arbitrary $\mathrm{GL}(d)$ tensor transformations.
 
-1.  **An explicit extremal state for $v_A$** (Theorem [1](#thm:psiA)) **\[E\]**, with an elementary proof: seven Slater determinants, pairwise sharing at most two orbitals, with squared amplitudes $k_T/21$ for integer weights $k_T$ summing to $21$. The state would occupy a single line of Table 6 of Ref. [@AK2008].
+The second contribution is a uniform state atlas. It contains one symbolic determinant expansion for each of 799 tabulated vertices in nine systems with $6\le d\le10$, together with finite data that permit the states, classifications, and H-to-V calculations to be checked separately. A published algorithm computes moment polytopes from representation-theoretic input [@vdBergSTOC2025], while its expanded account develops the tensor and representation-theoretic setting in greater detail [@vdBergMomentPolytopes2025]. Our task is different: the rational H-descriptions are inputs, and the output is a preimage for each of their vertices.
 
-2.  **A design/interference dichotomy.** Abstracting the structure of $\psi_A$, we define _weighted-design_ states (Definition [1](#def:design)) and show that design-attainability of a vertex is a pure integer-programming question. An exhaustive census (Section [-@sec:census]) over all vertices of $\Pi_{3,6}$, $\Pi_{3,7}$, $\Pi_{3,8}$ finds designs for $4/4$, $10/10$, and $27/38$ vertices respectively; for $v_B$ an exact disjunctive Farkas/branch certificate **\[E\]** proves that _no_ design exists, so every extremal state of $v_B$ requires coherent cancellation between one-hop-connected configurations. Of the two vertices left numerical in Ref. [@AK2008], $v_A$ is design-attainable and $v_B$ provably is not.
+The main conclusions are as follows.
 
-3.  **A complete certified library of closed-form extremal states \[E\].** Beyond $v_A$ and $v_B$, we construct and certify explicit closed-form extremal states across the published rank-$6$--$10$ systems: every design vertex directly from its witness (exact by construction), and every interference vertex by an exact phase solve, exactification, transport, or fiber sparsification, each accepted only after an exact 1-RDM characteristic-polynomial identity. This certifies all $799$ census vertices. The audit behind the final closures is itself a result: it exposed and repaired a soundness bug in our own attainability preflight, recovered twelve vertices previously mislabeled as failures, and closed the last two rank-$10$ corners with real states at denominators outside every natural-grid search (Section [-@sec:scaling]). The library is machine-readable with a per-state certificate; to our knowledge it is the first systematic library of exact extremal states for the higher-rank generalized Pauli polytopes.
+1. Theorems [1](#thm:psiA) and [3](#thm:psiB) give hand-checkable states for $v_A$ and $v_B$.
+2. Theorem [2](#thm:no-design) gives a finite proof that $v_B$ has no root-distinct preimage in any orthonormal orbital basis.
+3. Theorem [4](#thm:atlas) gives symbolic preimages for all 799 tabulated vertices; Corollary [1](#cor:38) determines the root-distinct split for $\Pi_{3,8}$.
+4. Proposition [3](#prop:exhaustion) reconstructs all nine tabulated V-representations from their rational H-representations.
+5. Corollary [2](#cor:49complete) completes the published four-fermion, nine-orbital description. Corollary [3](#cor:complete) states the precise conditional result at ten orbitals.
 
-4.  **Conditional completeness at rank 10** (Theorem [5](#thm:complete)). Under the explicit hypothesis that each inequality in the published rank-$10$ lists is valid, certified attainment of all $564$ rank-$10$ vertices proves those lists complete, by convexity. For $\wedge^4\mathcal{H}_9$ the corresponding argument closes unconditionally on this paper's certificates, with no recourse to unpublished constructions.
+Constraint generation beyond ten orbitals and fixed-spectrum fiber geometry are not addressed here.
 
-5.  **The vertex-level reach of the Borland--Dennis/Dadok--Kac construction.** The disconnected-support construction behind the classical results [@BD1972; @DadokKac1985] (one-hop-free support $\Rightarrow$ every off-diagonal 1-RDM contribution vanishes termwise) is precisely the design mechanism, so the census answers, with per-vertex certificates and within the systems covered here, the question raised in Ref. [@AltunbulakThesis], Sec. 3.6 ("It is not known when this approach gives the whole moment polytope"): through rank $10$ it reaches exactly the DESIGN-INT and DESIGN-REAL classes, provably misses every INTERFERENCE vertex, and first fails at $\wedge^3\mathcal{H}_8$; the failure fraction across ranks $9$--$10$ is $34$--$37\%$ ($N{=}3$), $16\%$ ($N{=}4$), $14\%$ ($N{=}5$). This determines the construction's exact vertex-level reach within the census, not its general mathematical domain.
+# Root-distinct preimages and finite obstruction certificates {#sec:design}
 
-6.  **Arithmetic structure of the census, with named conjectures.** From the certified data we extract, in exact arithmetic, the lattice geometry of vertex tangent cones (Proposition [2](#prop:toric): the cone at $v_B$ has ray-lattice quotient $(\mathbb{Z}/23)^7$) and the Galois theory of interference holonomies (all $82$ loop holonomies of the census generate $2$-elementary abelian extensions of $\mathbb{Q}$), and we record the laws they suggest as Conjectures [1](#conj:den) and [2](#conj:norm). The data are certified **\[E\]**; the general laws are open.
+Write $|T\rangle=|i_1\cdots i_N\rangle$ for the Slater determinant indexed by the $N$-subset $T=\{i_1<\cdots<i_N\}\subseteq[d]$. Two determinants are *one-hop connected* when $|T\cap U|=N-1$. A support is *one-hop independent* when it contains no connected pair. This is the root-distinct condition for the weights of the exterior-power representation.
 
-7.  **Methods and reproducibility.** A routed state-construction engine (Section [-@sec:methods]); an alternating-projection solver for "pure state with prescribed occupation spectrum" immune to second-order degeneracy flatness; a sparsifying concentration flow, deployed as a jittered multi-start swarm, which discovered $\psi_A$; and a verification architecture (Section [-@sec:certs]) comprising a standalone certificate checker, an automated manuscript--dataset consistency test, and a constructive re-verification of all $38$ published extremal states of $\Pi_{3,8}$.
+::: {#lem:incidence .lemma}
+**Lemma 1** (Incidence construction). *Let $S$ be a one-hop-independent family of $N$-subsets of $[d]$, and let $p_T>0$ with $\sum_{T\in S}p_T=1$. Then*
+$$
+\psi=\sum_{T\in S}\sqrt{p_T}e^{i\theta_T}|T\rangle,\tag{3}
+$$
+*has diagonal 1-RDM in the displayed orbital basis, with*
+$$
+\rho^{(1)}_{ii}=\sum_{T\in S:i\in T}p_T.\tag{4}
+$$
+*Consequently, any nonnegative solution of these incidence equations gives a pure-state preimage of the resulting occupation vector.*
+:::
 
-Conjectural extensions of this work---fiber geometry, Hamiltonian realizability, and scaling---are collected, with explicit per-item status, in Section [-@sec:outlook]; a companion research-agenda note with the detailed pilot computations is in preparation and will be deposited with a versioned DOI.
+::: proof
+*Proof.* A matrix element $\langle T|a_i^\dagger a_j|U\rangle$ with $i\ne j$ can be nonzero only when $T$ and $U$ differ by the exchange $j\leftrightarrow i$. This is excluded by the hypothesis. The diagonal formula follows from $a_i^\dagger a_i|T\rangle=\mathbf 1_{i\in T}|T\rangle$. $\square$
+:::
 
-# An explicit extremal state for $v_A$ {#sec:theorem}
+For a rational target $v$, let $D$ be the least positive integer such that $Dv\in\mathbb Z^d$. A *weighted design* is a one-hop-independent support with positive rational weights whose incidence vector equals $v$. Requiring rational weights loses no real solution: a nonempty feasible set on a fixed support is a rational polyhedron and contains a rational point, after which zero weights may be removed. Designs related by a permutation preserving $v$ are identified.
 
-We write $|i_1 i_2 i_3 i_4\rangle$, $i_1<i_2<i_3<i_4$, for Slater determinants in $\wedge^{4}\mathcal{H}_{9}$ over an orthonormal basis of $\mathcal{H}_9$, and call two determinants _one-hop connected_ if they share exactly three orbitals.
+Root-distinct attainability is a finite problem. Let $G_{N,d}$ be the graph whose vertices are the $N$-subsets of $[d]$ and whose edges join one-hop-connected determinants. Set
+$$
+a_T=(\mathbf 1_T,1)\in\mathbb Z^{d+1},\qquad
+b=(v,1)\in\mathbb Q^{d+1}.\tag{5}
+$$
+A weighted design exists if and only if some independent set $S$ of $G_{N,d}$ supports a nonnegative solution of $\sum_{T\in S}p_Ta_T=b$.
+
+For $y\in\mathbb Z^{d+1}$ with $y\mathbin{\cdot}b>0$, define
+$$
+P_y=\{T:y\mathbin{\cdot}a_T>0\}.\tag{6}
+$$
+Any nonnegative incidence solution must use a determinant in $P_y$. Thus each $y$ gives a hitting clause, and a finite branch proof may show that no independent set hits all clauses.
+
+::: {#prop:certificate .proposition}
+**Proposition 1** (Soundness of a no-design certificate). *Suppose a finite set $Y\subset\mathbb Z^{d+1}$ satisfies $y\mathbin{\cdot}b>0$ for all $y\in Y$, and a complete branch proof shows that no independent set of $G_{N,d}$ intersects every $P_y$. Then $v$ has no one-hop-independent pure-state preimage in any orthonormal orbital basis.*
+:::
+
+::: proof
+*Proof.* If such a preimage existed, Lemma [1](#lem:incidence) would make its 1-RDM diagonal in that basis. Its diagonal is a permutation of $v$, and its squared coefficients give a nonnegative incidence solution on an independent support. After the corresponding orbital permutation, that support must hit every $P_y$, contrary to the branch proof. $\square$
+:::
+
+::: {#prop:certificate-complete .proposition}
+**Proposition 2** (Existence of a finite certificate). *If no weighted design for $v$ exists, then there is a finite certificate of the form in Proposition [1](#prop:certificate).*
+:::
+
+::: proof
+*Proof.* There are finitely many independent sets $S$ in $G_{N,d}$. For each $S$, infeasibility of $\sum_{T\in S}p_Ta_T=b$ with $p_T\ge0$ gives, by the rational Farkas lemma, a rational vector $y_S$ such that $y_S\mathbin{\cdot}b>0$ and $y_S\mathbin{\cdot}a_T\le0$ for every $T\in S$. Clearing denominators makes $y_S$ integral, and $S$ misses $P_{y_S}$. Taking these clauses over the finite family of independent sets gives a finite obstruction. A finite search tree that branches on an unhit clause supplies the branch proof. $\square$
+:::
+
+The supplementary certificates store integral Farkas vectors and a branch directed acyclic graph. At a node, the selected determinants are independent and a cited clause remains unhit. Its children cover the members of that clause that are not forbidden by one-hop conflicts, modulo permutations within equal-eigenvalue blocks. A dead leaf has no allowable member. Appendix [B](#app:no-design) gives the node invariant and a worked separator.
+
+# The two four-fermion vertices {#sec:targets}
+
+## A root-distinct state for $v_A$
 
 ::: {#thm:psiA .theorem}
-**Theorem 1** \[E\]. *The normalized state*
-$$\psi_A \;=\; \frac{1}{\sqrt{21}}\Bigl(\sqrt{2}\,|1257\rangle + \sqrt{3}\,|1347\rangle + \sqrt{2}\,|1369\rangle + \sqrt{3}\,|1459\rangle + \sqrt{6}\,|1789\rangle + 2\,|2679\rangle + |3579\rangle \Bigr)$$ {#eq:psiA}
-*has natural occupation numbers exactly $v_A = \tfrac1{21}(16,16,16,6,6,6,6,6,6)$, with the three heavy natural orbitals being the basis orbitals $\{1,7,9\}$. Hence the vertex $v_A$ of $\Pi_{4,9}$ is attained.*
+**Theorem 1**. *The normalized state*
+$$
+\begin{aligned}
+\psi_A=\frac1{\sqrt{21}}(&\sqrt2|1257\rangle+\sqrt3|1347\rangle
++\sqrt2|1369\rangle+\sqrt3|1459\rangle\\
+&+\sqrt6|1789\rangle+2|2679\rangle+|3579\rangle)
+\end{aligned},\tag{7}
+$$
+*has 1-RDM spectrum $v_A$.*
 :::
 
 ::: proof
-_Proof._ No two of the seven determinants in [@eq:psiA] are one-hop connected (each pair shares at most two orbitals), so every off-diagonal matrix element $\langle a_i^\dagger a_j\rangle_{\psi_A}$, $i\neq j$, vanishes identically: the 1-RDM is diagonal in the given basis, and the amplitudes' phases are pure gauge. The diagonal entries are the incidence sums $\lambda_m = \sum_{T \ni m} k_T/21$ with squared weights $k = (2,3,2,3,6,4,1)$ on the respective determinants. Orbital $1$ lies in the determinants of weight $2,3,2,3,6$, giving $16/21$; likewise orbitals $7$ and $9$; each remaining orbital collects weight $6$. Since $\sum_T k_T = 21$, the state is normalized, and its ordered spectrum is exactly $v_A$. $\square$
+*Proof.* Every pair of supporting determinants shares at most two orbitals, so Lemma [1](#lem:incidence) makes the 1-RDM diagonal. The squared weights are $(2,3,2,3,6,4,1)/21$. Orbitals 1, 7, and 9 each collect weight $16/21$; every other orbital collects $6/21$. The weights sum to one, and sorting the diagonal gives $v_A$. $\square$
 :::
 
-::: remark
-**Remark 1**. *Relabeling orbitals so that the heavy modes are $\{1,2,3\}$ gives the equivalent canonical form*
-$$\psi_A = \tfrac1{\sqrt{21}}(\sqrt6|1239\rangle + \sqrt2|1247\rangle + \sqrt3|1256\rangle + \sqrt2|1358\rangle + \sqrt3|1367\rangle + 2|2348\rangle + |2357\rangle)$$
-:::
+## An obstruction for $v_B$
 
-::: remark
-**Remark 2**. _The proof is checkable by hand in minutes; the discovery was not. The state was found by the numerical pipeline of Section [-@sec:methods] and only then recognized to have exact structure. We regard the division of labor---stochastic geometric search for discovery, elementary combinatorics for proof---as a portable pattern for moment-polytope problems._
-:::
-
-# Weighted designs and the dichotomy {#sec:census}
-
-_Terminology and prior art._ The notion below is not new. A support in which no two determinants differ by a single orbital is, in representation-theoretic language, a _root-distinct_ set of weights: the weights of the supporting basis vectors differ pairwise by no root of the acting group. The idea is due to Wildberger [@W92] and was developed by Sjamaar [@S98]; in the quantum-marginal setting it appears as Definitions 3--4 of Maciazek and Tsanov [@MT17], stated there for spinful and spinless fermions, bosons and distinguishable particles alike, with applications to qubit systems [@M15] and to pinned fermionic occupations [@MS20]. Ref. [@MT17] further records that maximal root-distinct supports were already used to determine the $\wedge^3\mathcal{H}_6$ and $\wedge^3\mathcal{H}_7$ polytopes---with the support $\{123,145,246,356\}$ that our census recovers---so our rank-6 and rank-7 results are a rediscovery, reported here only for completeness. We retain the term _one-hop independent_ for the same condition, since our arguments are phrased in terms of single-orbital exchanges rather than roots. What is new here is the algorithmic layer: the exhaustive vertex-by-vertex decision procedure with certificates, the exact repair step for vertices admitting no such state, and the resulting classification.
-
-::: {#def:design .definition}
-**Definition 1**. *Let $v = n/D$ be a vertex of $\Pi_{N,d}$ with integer numerator vector $n$ and $D = \tfrac1N\sum_m n_m$. A *weighted design* for $v$ is a family of $N$-subsets $\{T\}$ of $\{1,\dots,d\}$, pairwise sharing at most $N-2$ elements, together with positive real weights $w_T$ with $\sum_{T\ni m} w_T = n_{\sigma(m)}/D$ for some permutation $\sigma$. The associated state $\psi = \sum_T \sqrt{w_T}\,|T\rangle$ has exactly diagonal 1-RDM and ordered spectrum $v$; the design is *integer* if $w_T = k_T/D$ with $k_T \in \mathbb{Z}_{>0}$.*
-:::
-
-A note on the class labels used throughout and in the released dataset: DESIGN-INT means an integer design at the natural denominator exists; DESIGN-REAL means a design exists with rational weights off the natural-denominator grid but no integer one at $D$; INTERFERENCE means no design exists with any positive real weights. Both design classes carry real nonnegative amplitudes---the INT/REAL split records integrality at $D$, not real-versus-complex amplitudes, a distinction that matters in Sections [-@sec:theoremB] and [-@sec:galois].
-
-The classification admits a sharper reading, which the support audit of Section [-@sec:outlook] supplies and which we state here because it organizes everything that follows. The classes differ in whether *sparsity* and *diagonality of the $1$-RDM* can be achieved in the **same** orbital basis. For a DESIGN vertex they coexist: one-hop freedom makes every off-diagonal entry vanish termwise, so the sparse representative is already a natural-orbital one. For a generic INTERFERENCE vertex the two provably split: the sparse representative has active channels and a non-diagonal $1$-RDM, while its natural-orbital rotation is diagonal but support-bloated with no surviving closed form, and neither representative has both properties. The two cancellation vertices are exactly where the virtues rejoin---sparse, diagonal, and interfering at once, with phases present but every channel exactly silent---which is the structural reason those two were the hard closures of the census. The split is measurable: writing $s_{\mathrm{NO}}$ for the natural-orbital support and $s_{\mathrm{sparse}}$ for the library support, the ratio $s_{\mathrm{NO}}/s_{\mathrm{sparse}}$ exceeds $1$ on $141$ records and every one of them is a generic interference vertex **\[E\]**, so a ratio above $1$ certifies generic interference. The converse fails: $13$ generic interference records sit at ratio exactly $1$, so a ratio of $1$ certifies nothing. The support blowup measures interference where it occurs, and its absence measures nothing.
-
-Design-attainability is thus a feasibility question for a system of integer incidence equations under an independence (anti-adjacency) condition; no quantum mechanics remains. We decided it exactly for every vertex of the rigorously solved small systems by depth-first search with exact-cover pivoting and, for every negative case, an exported exact disjunctive Farkas/branch certificate. Mixed-integer solvers were retained as discovery tools and independent cross-checks, not as the final proof objects.
-
-::: {#prop:census .proposition}
-**Proposition 1** (Census) \[E\]. _All $4$ vertices of $\Pi_{3,6}$ and all $10$ vertices of $\Pi_{3,7}$ admit integer weighted designs (reproducing, in the latter case, the extremal states of Ref. [@AK2008]). Of the $38$ vertices of $\Pi_{3,8}$, exactly $27$ admit weighted designs: $26$ of them integer at the natural denominator, and one, $(3,3,3,3,3,1,1,1)/6$, admitting a rational design at denominator $12$ but no integer design at $6$. The remaining $11$, comprising the exotic vertex $(15,15,15,15,6,6,6,6)/28$ and its relatives, admit no weighted design with any positive real weights. Their 172 primitive integer Farkas vectors expand to $2405$ exact hitting clauses under equal-eigenvalue symmetries, and 11 finite branch DAGs with 204 nodes prove that no one-hop-free support hits every required clause. The vertex $v_A$ of $\Pi_{4,9}$ admits the integer design of Theorem [1](#thm:psiA)._
-:::
-
-_Provenance note._ An earlier iteration of this census reported $22$ integer designs for $\Pi_{3,8}$; a subsequent longer search produced integer witnesses at the natural denominator for four further vertices. Every count in this paper is regenerated from the released dataset by the automated consistency test `scripts/check_manuscript_counts.py` (Section [-@sec:certs]), which fails if any number in the manuscript disagrees with `states.jsonl`.
-
-::: {#thm:B .theorem}
-**Theorem 2** ($v_B$ is interference-type) \[E\]. *No weighted design with any positive real weights exists for $v_B = (20,14,14,14,14,4,4,4,4)/23$. Since the family of Slater determinants and its one-hop structure are identical in every orthonormal orbital basis, the statement is basis-free: no extremal state of $v_B$ is one-hop independent in *any* orbital basis. Equivalently, in any basis in which the 1-RDM of an extremal state is diagonal, the supporting determinants necessarily fail one-hop independence; the vertex is attained through interference. (We thank T. Maciazek for prompting this basis-free formulation: a $2\times2$ rotation inside the mixing block of the state of Theorem [3](#thm:psiB) diagonalizes its 1-RDM while destroying independence, illustrating both halves of the statement.)*
+::: {#thm:no-design .theorem}
+**Theorem 2**. *No normalized pure state with 1-RDM spectrum*
+$$
+v_B=\frac1{23}(20,14,14,14,14,4,4,4,4),\tag{8}
+$$
+*has one-hop-independent support in any orthonormal orbital basis.*
 :::
 
 ::: proof
-_Proof._ A state with one-hop-independent support has exactly diagonal 1-RDM, so its squared amplitudes would give nonnegative real weights solving the incidence system on an independent support. Let $a_T\in\{0,1\}^9\times\{1\}$ be the augmented incidence column of determinant $T$, and let $b=(v_B,1)$. For any integer vector $y$ with $y\mathbin{\cdot}b>0$, every nonnegative solution of $\sum_Tp_Ta_T=b$ must use some determinant in the exact hitting set $P_y=\{T:y\mathbin{\cdot}a_T>0\}$; otherwise pairing the equation with $y$ gives the contradiction $y\mathbin{\cdot}b\le0$. The released certificate contains 20 primitive integer vectors $y$. Closing their hitting sets under the $S_4\times S_4$ symmetry of the two fourfold-degenerate spectral blocks gives 2736 distinct exact clauses. A 22-node branch DAG, of maximum depth 8, then proves that no support obeying the 1260 one-hop exclusions can hit all clauses. A standard-library-only verifier reconstructs the incidence columns, symmetry actions, clauses, and every branch, and rejects any omitted child or altered Farkas vector. Thus no nonnegative weighted design exists. The historical HiGHS and COIN-OR CBC infeasibility runs remain independent cross-checks but are not used in the proof. $\square$
+*Proof.* The certificate for $v_B$ contains 20 primitive integral separators. Closing their hitting sets under the $S_4\times S_4$ symmetry of the two fourfold-degenerate spectral blocks gives 2736 clauses. A 22-node branch directed acyclic graph of maximum depth 8 proves that no support can obey the 1260 one-hop exclusions while hitting every clause. Proposition [1](#prop:certificate) then applies. The finite objects are checked by direct integer arithmetic according to Appendix [B](#app:no-design). $\square$
 :::
 
-::: remark
-**Remark 3** (What "interference" does and does not mean; relation to the superselection rule of Ref. [@Liebert2025]). *Liebert *et al.* prove that saturation of a (spin-adapted) GPC restricts which configurations may contribute to the wave function. A vertex saturates many GPCs at once; the dichotomy sharpens the picture at this extreme point. A design vertex admits an extremal state whose supporting determinants are pairwise one-hop independent, so every off-diagonal contribution to the 1-RDM vanishes *termwise*: the intersected selection rules admit an effectively classical weighted configuration mixture. An interference vertex admits no such state: in every orbital basis in which an extremal state's 1-RDM is diagonal---and in a natural-orbital basis the 1-RDM of *any* state is diagonal by definition---at least one one-hop channel receives nonzero contributions that cancel only after coherent summation. Interference thus names termwise-versus-coherent cancellation on the support, never an "off-diagonal 1-RDM," which would be a contradiction in terms in a natural-orbital basis. Nor does interference say anything about the field of the amplitudes: interference names the cancellation geometry, and $v_B$ admits real extremal states on its fiber (Remark [4](#rem:orbit)). The amplitude field is a property of the individual extremal state, whereas design-versus-interference is a property of the vertex.*
-:::
+The theorem excludes a root-distinct expansion, not a sparse expansion of another kind. It does not say that complex phases or exactly two exchange channels are unavoidable.
 
-# An explicit extremal state for $v_B$ {#sec:theoremB}
+## A coherent two-channel state for $v_B$
+
+Define the algebraic unit phase
+$$
+\eta=\frac{3+i\sqrt{215}}{4\sqrt{14}},\qquad |\eta|=1.\tag{9}
+$$
 
 ::: {#thm:psiB .theorem}
-**Theorem 3** (Explicit extremal state for $v_B$) \[E\]. *Let $\gamma = \arccos\bigl(3/(4\sqrt{14})\bigr)$. The normalized state*
+**Theorem 3**. *The normalized state*
 $$
-\psi_B = \tfrac{1}{\sqrt{23}}\Bigl(
-2|1236\rangle + \sqrt2\,|1248\rangle + \sqrt7\,e^{i\gamma}|1249\rangle
-- \sqrt3\,|1345\rangle + \sqrt2\,|1378\rangle + \sqrt2\,|1379\rangle
-- |2358\rangle + \sqrt2\,|3489\rangle\Bigr)
-$$ {#eq:psiB}
-*has natural occupation numbers exactly $v_B = \tfrac1{23}(20,14,14,14,14,4,4,4,4)$. Hence both numerically-verified vertices of Ref. [@AK2008] are attained exactly, completing the verification of the $\wedge^4\mathcal{H}_9$ moment polytope.*
+\begin{aligned}
+\psi_B=\frac1{\sqrt{23}}(&2|1236\rangle+\sqrt2|1248\rangle
++\sqrt7\eta|1249\rangle-\sqrt3|1345\rangle\\
+&+\sqrt2|1378\rangle+\sqrt2|1379\rangle
+-|2358\rangle+\sqrt2|3489\rangle)
+\end{aligned},\tag{10}
+$$
+*has 1-RDM spectrum $v_B$.*
 :::
 
 ::: proof
-_Proof._ The eight determinants pairwise share at most two orbitals except the two pairs $\{1248,1249\}$ and $\{1378,1379\}$, each differing by the exchange $8 \leftrightarrow 9$; hence every off-diagonal 1-RDM element vanishes identically except $\rho_{89}$. The diagonal entries are integer incidence sums of the squared weights $(4,2,7,3,2,2,1,2)$: orbitals $1$--$7$ receive $20,14,14,14,4,4,4$ respectively, and orbitals $8,9$ receive $7$ and $11$ (all divided by $23$). The exchange pairs contribute $\rho_{89} = \bigl(\sqrt{14}\,e^{i\gamma} + 2\bigr)/23 = (11 + i\sqrt{215})/92$ (both fermionic signs are $+1$), so $|\rho_{89}|^2 = (121+215)/92^2 = 21/23^2$. The remaining $2\times2$ block $\bigl(\begin{smallmatrix} 7 & z \\ \bar z & 11\end{smallmatrix}\bigr)/23$ has characteristic polynomial $\lambda^2 - 18\lambda + (77 - 21) = (\lambda-14)(\lambda-4)$, giving eigenvalues $14/23$ and $4/23$ exactly. The ordered spectrum is $v_B$. $\square$
+*Proof.* All pairs of supporting determinants share at most two orbitals except $\{1248,1249\}$ and $\{1378,1379\}$, both associated with the exchange $8\leftrightarrow9$. With the convention $\rho^{(1)}_{ij}=\langle a_i^\dagger a_j\rangle$, their two contributions have the same sign and
+$$
+\rho^{(1)}_{89}=\frac{\sqrt{14}\eta+2}{23}
+=\frac{11+i\sqrt{215}}{92}.\tag{11}
+$$
+The diagonal numerator is $(20,14,14,14,4,4,4,7,11)$. Put
+$$
+z=\sqrt{14}\eta+2=\frac{11+i\sqrt{215}}4,
+\qquad |z|^2=21.\tag{12}
+$$
+The principal block on orbitals 8 and 9 is
+$$
+B=\frac1{23}\begin{pmatrix}7&z\\\bar z&11\end{pmatrix},\tag{13}
+$$
+and
+$$
+\det(xI-B)=\left(x-\frac{14}{23}\right)
+\left(x-\frac4{23}\right).\tag{14}
+$$
+The other seven eigenvalues are the displayed diagonal entries, so the ordered spectrum is $v_B$. The squared amplitudes sum to $23/23$. $\square$
 :::
 
-::: {#thm:realexclusion .theorem}
-**Theorem 4** (Real single-block exclusion) \[E\]. _No state of the form $\psi = \sum_T \varepsilon_T\sqrt{k_T/23}\,|T\rangle$ with $\varepsilon_T \in \{\pm1\}$, positive integers $k_T$, and one-hop connections confined to a single orbital pair attains $v_B$. (Exhaustive enumeration: $16$ ansatz equivalence classes, over $4.5\times10^6$ weighted supports, certified optimal terminations.) The scope is exactly the conjunction of the three stated restrictions---integer weights at the natural denominator, signs $\pm1$, and a single orbital-pair block---and the phase in Theorem [3](#thm:psiB) is forced only within that class: as Remark [4](#rem:orbit) shows, $v_B$ itself admits real extremal states at irrational weights._
-:::
+The two exchange channels therefore add coherently to produce the required nonzero principal block. Theorem [2](#thm:no-design) explains why termwise diagonality cannot attain the same spectrum.
 
-::: {#rem:orbit .remark}
-**Remark 4** (Real extremal states and the fiber families) \[E\]. _$v_B$ admits real extremal states, reached along explicit one-parameter families of extremal states, of which we record two. (i) On the eight-determinant support of Theorem [3](#thm:psiB), the incidence kernel is one-dimensional, spanned by $(0,1,-1,0,-1,1,0,0)$; displacing the squared weights along it, $k(t) = (4,\,2{+}t,\,7{-}t,\,3,\,2{-}t,\,2{+}t,\,1,\,2)$, fixes $|\rho_{89}|^2 = 21/23^2$ and (both exchange-pair fermionic signs being $+1$) forces $\cos\theta(t) = (21 - k_2 k_3 - k_5 k_6)/(2\sqrt{k_2 k_3 k_5 k_6})$, which equals $\cos\gamma = 3/(4\sqrt{14})$ at $t=0$. The reality locus $\cos^2\theta = 1$ of this family is the vanishing of the wall polynomial $109t^2 - 110t - 215$, whose two roots $t = \tfrac{55 \pm 42\sqrt{15}}{109}$ both lie strictly inside the positivity range $-2 < t < 2$ and both give $\theta = 0$: two real extremal states with all weights in $\mathbb{Q}(\sqrt{15})$, each attaining $v_B$ exactly (verified by the characteristic-polynomial identity), with the phase-carrying states filling the interval between them. (ii) A second family lives on the support $\{1235,1239,1246,1347,1458,1489,2479,3459\}$, with rational anchor at squared weights $(1,8,4,3,2,2,1,2)/23$ and mixing modes $\{5,9\}$; its incidence kernel is spanned by $(1,-1,0,0,-1,1,0,0)$, and the family $k(t)=(1{+}t,\,8{-}t,\,4,\,3,\,2{-}t,\,2{+}t,\,1,\,2)$ has wall polynomial $85t^2-70t-119$, with roots $t = \tfrac{7}{17} \pm \tfrac{18\sqrt{35}}{85}$, both interior to positivity, giving one $\theta=0$ and one $\theta=\pi$ real endpoint with weights in $\mathbb{Q}(\sqrt{35})$. The released library state for $v_B$ (Section [-@sec:census910]) is the $\theta=0$ endpoint of this family, at $t_0 = \tfrac{7}{17} - \tfrac{18\sqrt{35}}{85}$: a real extremal state with squared weights in $\mathbb{Q}(\sqrt{35})$, certified by the same characteristic-polynomial identity as every library entry. So the phase of Theorem [3](#thm:psiB) is forced only within the rational- and integer-weight classes actually searched---every exhaustive sweep ran on rational grids, and the real attainers live off them at quadratic-irrational weights. The phase is a coordinate on the fiber, not an obstruction attached to the vertex._
-:::
+# State atlas through ten orbitals {#sec:atlas}
 
-# The census at ranks 9 and 10 {#sec:census910}
+The census covers the nine systems in Table I. Particle-hole dual systems follow by the Hodge-star map and are not counted again. Each rational H-representation includes Pauli bounds, ordering, normalization, and its tabulated inequalities.
 
-| polytope | $\dim$ | vertices | constraints | design (int) | design (real) | interference |
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| $\Pi_{3,6}$ | 3 | 4 | $1{+}3$eq | all design (doubly-excited regime [@MT17]) | | |
-| $\Pi_{3,7}$ | 6 | 10 | 4 | all design (doubly-excited regime [@MT17]) | | |
-| $\Pi_{3,8}$ | 7 | 38 | 31 | 26 | 1 | 11 |
-| $\Pi_{4,8}$ | 7 | 22 | 15 | 22 | 0 | 0 |
-| $\Pi_{3,9}$ | 8 | 58 | 52 | 37 | 1 | 20 |
-| $\Pi_{4,9}$ | 8 | 103 | 60 | 85 | 2 | 16 |
-| $\Pi_{3,10}$ | 9 | 113 | 93 | 69 | 2 | 42 |
-| $\Pi_{4,10}$ | 9 | 159 | 125 | 132 | 2 | 25 |
-| $\Pi_{5,10}$ | 9 | 292 | 161 | 246 | 4 | 42 |
+The rank-9 and rank-10 rows were transcribed from Appendix A of Ref. [@AltunbulakThesis]. A fresh ordered extraction matches all 60 rows at $(4,9)$ and all 379 rows at $d=10$ coefficient by coefficient. The appendix states that $(3,9)$ has 52 independent inequalities but prints 51. The final row in our normalized $(3,9)$ table equals printed $(3,10)$ row 82 restricted to $\lambda_{10}=0$; this identity does not establish that it was the source's intended omitted row. Appendix [D](#app:source-map) and the supplementary concordance give the page-level details.
 
-: Every published fermionic moment polytope, with the design/interference census. Ranks $\le 8$ are rigorously complete; the rank-$10$ rows are conditional on the validity hypothesis of Theorem [5](#thm:complete). Verdicts transport under particle--hole duality, extending the classification to all $(N,d)$ with $d\le 10$. For $\Pi_{4,8}$ (half filling) the particle--hole involution maps vertex and facet sets to themselves; by uniqueness of the canonical form, $\Omega$ is exactly PH-invariant. Interference is absent at rank $8$ in the $N{=}4$ series and first appears at rank $9$---the system of this paper. The $16$ interference vertices of $\wedge^4\mathcal{H}_9$ (integer forms at natural denominator): $(12{,}9{,}5{,}5{,}5{,}3{,}3{,}3{,}3)$, $(10{,}7{,}7{,}4{,}4{,}4{,}2{,}1{,}1)$, $(10{,}7{,}5{,}5{,}5{,}2{,}2{,}2{,}2)$, $(9{,}6{,}6{,}4{,}4{,}4{,}1{,}1{,}1)$, $(18{,}12{,}12{,}7{,}7{,}4{,}4{,}4{,}4)$, $(9{,}6{,}5{,}5{,}5{,}2{,}2{,}1{,}1)$, $(15{,}9{,}8{,}8{,}8{,}3{,}3{,}3{,}3)$, $(7{,}4{,}4{,}4{,}4{,}2{,}1{,}1{,}1)$, $(16{,}9{,}9{,}9{,}9{,}4{,}4{,}2{,}2)$, $(18{,}10{,}10{,}10{,}10{,}4{,}4{,}3{,}3)$, $(28{,}15{,}15{,}15{,}15{,}6{,}6{,}6{,}6)$, $(20{,}12{,}12{,}12{,}12{,}4{,}4{,}4{,}4)$, $(14{,}11{,}11{,}6{,}6{,}6{,}2{,}2{,}2)$, $(14{,}9{,}9{,}9{,}9{,}3{,}3{,}2{,}2)$, $(11{,}8{,}7{,}7{,}7{,}2{,}2{,}2{,}2)$, and $v_B=(20{,}14{,}14{,}14{,}14{,}4{,}4{,}4{,}4)$. Real-not-integer vertices: $(6{,}3{,}3{,}3{,}3{,}3{,}1{,}1{,}1)$ and $(10{,}10{,}10{,}7{,}7{,}2{,}2{,}2{,}2)$. Full lists, verdicts, and validation code accompany the data bundle. {#tbl:census}
+Write $P^{\mathrm{tab}}_{N,d}$ for the rational polytope defined by the corresponding tabulated rows together with ordering, normalization, and Pauli bounds. This notation does not assume that a tabulated description equals $\Pi_{N,d}$.
 
-After the results above were obtained, we carried out the program proposed in the Discussion: extending the design/interference census to every rank-$9$ and rank-$10$ system. The machine-readable constraint data of Ref. [@AK2008] (hosted at Bilkent) is no longer accessible; we recovered the complete inequality lists for $\wedge^3\mathcal{H}_9$, $\wedge^4\mathcal{H}_9$, $\wedge^3\mathcal{H}_{10}$, $\wedge^4\mathcal{H}_{10}$ and $\wedge^5\mathcal{H}_{10}$ from the text of Altunbulak's thesis [@AltunbulakThesis], with parsed counts matching the published totals ($52$, $60$, $93$, $125$, $161$). Exact vertex enumeration (lrs, rational arithmetic) and the MILP census of Section [-@sec:census] were then applied to all five systems, with every step cross-validated by independent structural invariants: embedding coherence ($\Delta(N,d)$ is the face $\{\lambda_{d+1}=0\}$ of $\Delta(N,d+1)$), frozen-core lifts $\lambda \mapsto (1,\lambda)$, particle--hole self-duality of $\wedge^5\mathcal{H}_{10}$ at the level of inequalities, vertices, and verdicts, and agreement with the published vertex tables at rank $8$.
+\newpage
 
-**The census.** Table [-@tbl:census] summarizes the classification. For the system of this paper, $\wedge^4\mathcal{H}_9$: of $103$ vertices (matching the count of Ref. [@AK2008]), $85$ admit integer weighted designs at the natural denominator, $2$ admit real but not integer designs, and $16$ require interference. The vertex $v_A$ is classified DESIGN-INT (consistent with Theorem [1](#thm:psiA)) and $v_B$ INTERFERENCE (consistent with Theorem [2](#thm:B)), each verdict landing blind inside a uniform sweep. Notably, $v_B$ is not isolated: the vertex $(20{:}12{:}12{:}12{:}12{:}4{:}4{:}4{:}4)/21$ shares its architecture (head $20$, degenerate quadruple, tail $4^4$) at the neighboring natural denominator and likewise requires interference, so $v_B$ is the first-found member of a family. Across ranks $9\to 10$ the interference fraction is stable within each particle-number series ($34\to 37\%$ at $N{=}3$, $16\%$ at $N{=}4$, $14\%$ at $N{=}5$; the rank-$8$ systems sit lower, $29\%$ and $0\%$) while padding and frozen-core lifting generate the majority of each rank's interference vertices from lower-rank originals; at $\wedge^4\mathcal{H}_{10}$ they generate _all_ of them.
+**Table I.** Census counts. A positive witness is a rational weighted design; a solver-negative label has no finite global obstruction in the supplement.
 
-**The library of states.** Beyond the verdicts, we release explicit extremal states across the census. Of the $799$ vertices spanning ranks $6$--$10$, **all $799$ carry a certified closed-form extremal state \[E\]**, and the final decomposition, regenerated from the released dataset, is:
+<!-- Alt text: Nine fermionic systems are compared by number of tabulated vertices, inequality rows, positive root-distinct witnesses, finite negative proofs, and solver-only negative labels. The totals are 799 vertices, 643 positive witnesses, 12 finite negative proofs, and 144 solver-only labels. -->
 
-> Of the $799$ vertices, $643$ are design vertices ($631$ DESIGN-INT, $12$ DESIGN-REAL) and $156$ are interference vertices. The interference states comprise $142$ certified by the original routed engine, $12$ recovered during the attainability audit, and $2$ closed by fiber sparsification (Section [-@sec:scaling]).
+| system | vertices | tabulated rows | positive witness | finite no-root proof | solver-negative only |
+|:---|---:|---:|---:|---:|---:|
+| $P^{\mathrm{tab}}_{3,6}$ | 4 | 1 ineq. + 3 eqs. | 4 | 0 | 0 |
+| $P^{\mathrm{tab}}_{3,7}$ | 10 | 4 | 10 | 0 | 0 |
+| $P^{\mathrm{tab}}_{3,8}$ | 38 | 31 | 27 | 11 | 0 |
+| $P^{\mathrm{tab}}_{4,8}$ | 22 | 15 | 22 | 0 | 0 |
+| $P^{\mathrm{tab}}_{3,9}$ | 58 | 52 | 38 | 0 | 20 |
+| $P^{\mathrm{tab}}_{4,9}$ | 103 | 60 | 87 | 1 | 15 |
+| $P^{\mathrm{tab}}_{3,10}$ | 113 | 93 | 71 | 0 | 42 |
+| $P^{\mathrm{tab}}_{4,10}$ | 159 | 125 | 134 | 0 | 25 |
+| $P^{\mathrm{tab}}_{5,10}$ | 292 | 161 | 250 | 0 | 42 |
+| **total** | **799** |  | **643** | **12** | **144** |
 
-Every design vertex is exact by construction: the $631$ integer designs directly from their witnesses ($\psi = \sum_T \sqrt{k_T/D}\,|T\rangle$, diagonal 1-RDM equal to the spectrum) and the $12$ real designs from a rational weighted design on a one-hop-free support (weights solved exactly in rational arithmetic; their amplitudes are $\sqrt{\text{rational}}$ off the natural-denominator grid, which is what the DESIGN-REAL label records). The interference vertices are solved by the engine of Section [-@sec:methods] (the $2\times2$ block mechanism of $\psi_B$, its $k$-clique generalization, and the constructive off-diagonal-target exactifier) or transported along the padding, frozen-core, and particle--hole face maps from a certified sibling; every interference state, however produced, is accepted only through the exact 1-RDM characteristic-polynomial identity, and $v_A$ and $v_B$ are the flagship hand-checked instances (Theorems [1](#thm:psiA), [3](#thm:psiB)). The accompanying machine-readable bundle records, for every vertex, its classification and closed-form state (denominator, integer weights, symbolic amplitudes) with its certificate. Before this work, explicit states were published only for the small ($d\le 8$) systems; to our knowledge this is the first systematic library of exact extremal states across the higher-rank generalized Pauli polytopes.
+The 643 positive records comprise 631 witnesses on the target's least-denominator grid and 12 rational witnesses off that grid. Both types give symbolic incidence proofs. The assertion that an off-grid record has no on-grid witness is based on a finite integer search and is not used as a theorem. The search reported no weighted design for 156 targets. Twelve have the finite certificates of Proposition [1](#prop:certificate); the other 144 are solver classifications and are not rerun by the proof supplement. Symbolic 1-RDM reconstruction verifies the preimage in all 799 records, including the 156 states outside the positive design class.
 
-**Completeness.** Two consequences follow from convexity. For $\wedge^4\mathcal{H}_9$ the census certifies all $103$ vertices, so the completeness argument for the published list closes on this paper's certificates alone, with no recourse to unpublished constructions. At rank $10$ the statement is conditional, and we state the condition explicitly:
-
-::: {#thm:complete .theorem}
-**Theorem 5** (Conditional completeness of the rank-$10$ constraint lists). *Let $\mathcal{S}$ be the recovered rank-$10$ inequality lists ($93$, $125$, $161$ inequalities for $\wedge^3\mathcal{H}_{10}$, $\wedge^4\mathcal{H}_{10}$, $\wedge^5\mathcal{H}_{10}$, as parsed from Ref. [@AltunbulakThesis] and matching the coefficient tables of Ref. [@TVS2017]), and let $P_\mathcal{S}$ be the polytope cut out by $\mathcal{S}$ together with the ordering and normalization constraints. **Hypothesis:** every inequality in $\mathcal{S}$ is valid for $\Pi_{N,10}$. **Conclusion:** $P_\mathcal{S} = \Pi_{N,10}$, i.e. the lists are complete.*
+::: {#cor:38 .theorem}
+**Corollary 1** (Root-distinct split for three fermions in eight orbitals). *Exactly 27 of the 38 vertices of $\Pi_{3,8}$ admit a root-distinct preimage; the other 11 do not.*
 :::
 
 ::: proof
-_Proof._ Validity gives $\Pi_{N,10} \subseteq P_\mathcal{S}$. The census certifies, in exact arithmetic, an extremal state at each of the $564$ vertices of $P_\mathcal{S}$ (exact vertex enumeration by lrs from $\mathcal{S}$), so every vertex of $P_\mathcal{S}$ lies in $\Pi_{N,10}$; since $\Pi_{N,10}$ is convex, $P_\mathcal{S} \subseteq \Pi_{N,10}$. $\square$
+*Proof.* The 27 positive records contain weighted-design witnesses, so Lemma [1](#lem:incidence) gives root-distinct preimages. The other 11 targets carry finite certificates satisfying Proposition [1](#prop:certificate). $\square$
 :::
 
-The hypothesis is not vacuous bookkeeping. Ref. [@AK2008] derived the listed inequalities representation-theoretically and qualified the rank-$10$ lists as complete "beyond a reasonable doubt"; to the extent that the qualification concerned only completeness and each listed inequality is individually established there, the hypothesis discharges and Theorem [5](#thm:complete) closes the question unconditionally. We retain the hypothesis explicitly because we have not independently re-derived the inequalities, and we do not use the phrase "conjecturally complete" for the rank-$10$ lists anywhere else in this paper: given the hypothesis, completeness is a theorem; absent it, every rank-$10$ statement here is conditional on $\mathcal{S}$ exactly as stated.
+Altunbulak and Klyachko printed extremal-state formulas covering 70 system-vertex records represented in the present atlas: all 10 records at $(3,7)$, all 38 at $(3,8)$, and all 22 at $(4,8)$ [@AK2008]. The atlas supplies a common encoding and verification route for those states. With padding assigned before frozen-core descent to make the categories disjoint, 235 records descend by padding, 161 by a frozen-core lift, and 403 are primitive relative to those two operations. The novelty claim is restricted to exactifying the two cases reported numerically in the source; the other records are presented as a uniform symbolic atlas.
 
-# Certificate architecture and reproducibility {#sec:certs}
-
-"Certified" covers logically different objects, and a computational paper should say which is which. Table [-@tbl:certs] is the certificate matrix for every claim class in this paper.
-
-| Claim | Class | Certificate object | Independent check |
-|:---|:---:|:---|:---|
-| State attains its spectrum (all $799$) | \[E\] | symbolic 1-RDM characteristic-polynomial identity, archived per state | standalone checker `scripts/verify_states_standalone.py` (shares no code with the pipeline; separate sign bookkeeping) |
-| Hand-checkable flagships ($v_A$, $v_B$) | \[E\] | Theorems [1](#thm:psiA), [3](#thm:psiB) | elementary, by hand |
-| Vertex enumeration | \[E\] | lrs rational output from recovered H-representations | published vertex counts at rank $\le 8$; embedding, lifting, and PH-duality invariants |
-| No design exists (Prop. [1](#prop:census) negatives, Thm. [2](#thm:B)) | \[E\] | 192 primitive integer Farkas vectors, 5141 exact symmetry-orbit hitting clauses, and 12 finite branch DAGs with 226 nodes | standard-library-only checker `scripts/verify_interference_certificates_standalone.py`; solver runs retained as cross-checks |
-| Remaining $144$ INTERFERENCE verdicts in the rank-$9/10$ census | \[CA\] | pinned CP-SAT/CBC infeasibility verdicts and structural transport checks | census-wide expansion of the exact Farkas/branch atlas: ongoing |
-| Validity of published constraints | cited | Refs. [@AK2008; @Klyachko2009; @TVS2017] | hypothesis of Theorem [5](#thm:complete) |
-| Loop-holonomy Galois tally (all $82$ loops) | \[E\] | exact minimal polynomials and groups, saturated kernel bases, per-loop residuals | integer relations recognized at $120$ digits, re-verified at $240$ |
-| Gauge minimality of the library support ($670$ vertices) | \[E\] | exact profile-class exterior-contraction rank bound attained by the shipped support | search-power calibration and an exact rank-21 regression in the test suite |
-| Sparser free-basis supports (all $71$ endpoints; $s_Q^{\mathrm{free}}\le10$ at the denominator-$34$ vertex) | \[E\] | exact rational or quadratic-algebraic weights, characteristic-polynomial identity, and nonzero $1$-RDM off-diagonal entries reported exactly, which is what makes the claim $s_Q^{\mathrm{free}}$ and not $s_Q^{\mathrm{NO}}$ | independent standalone certificate for the denominator-$34$ vertex, released under the $s_Q^{\mathrm{free}}$ claim it proves; the earlier artifact asserting an $s_Q^{\mathrm{NO}}$ bound for the same state is retained, marked superseded, as documented history |
-| Every census count in this manuscript | \[E\] | regenerated from `states.jsonl` and the companion data artifacts | `scripts/check_manuscript_counts.py`, run in CI |
-
-: Certificate classes for the claims of this paper. {#tbl:certs}
-
-The library's per-state certificate is the exact identity $\det(\rho_\psi - \lambda I) = \prod_m (n_m/D - \lambda)$ evaluated in exact arithmetic on the symbolic closed form; the standalone checker re-parses every closed form from the released JSON, rebuilds each 1-RDM with independent fermionic-sign bookkeeping, and re-verifies the identity, normalization, and (for design states) one-hop independence of the support. The automated consistency test regenerates every number in Table [-@tbl:census], the global decomposition, the rank-$10$ vertex total, and the loop census of Section [-@sec:galois] directly from the dataset, so manuscript and data cannot drift apart. All claims additionally passed: (i) independent re-derivation of the 1-RDM with separate fermionic-sign bookkeeping; (ii) exact rational arithmetic for the final proofs (no floating point); (iii) constructive re-verification of all $38$ published extremal states of $\Pi_{3,8}$ from Table 6 of Ref. [@AK2008]; and (iv) calibration of every attainability method on vertices with known extremal states before its application to open ones.
-
-# Methods {#sec:methods}
-
-The explicit states of this paper began as the output of crude, single-purpose scripts: the alternating-projection solver and swarm search below found $\psi_A$ and $\psi_B$ and, with them, the design/interference distinction. Turning that proof of concept into the census required consolidating the scripts into one routed engine (`gpc-census`), which produced the atlas of Section [-@sec:census910] and is the artifact we release.
-
-#### The routed construction engine.
-
-The engine routes each vertex by its classification and does the least work that suffices. A design vertex is built directly from its integer witness: the one-hop-free support gives a diagonal 1-RDM equal to the spectrum, so $\psi = \sum_T \sqrt{k_T/D}\,|T\rangle$ is exact by construction with no iterative solve. An interference vertex is repaired by a sparse block ansatz that fixes the squared amplitudes to the natural grid and solves only the relative phases: first as $2\times2$ natural-orbital blocks (the mechanism of $\psi_B$), then, when those do not suffice, as $k$-mode cliques whose realizable integer diagonals are exactly those majorized by the block eigenvalues (Schur--Horn), matched by their characteristic-polynomial coefficients so the phase objective stays smooth and needs no eigendecomposition. A feasibility preflight (integer programming, no phase solve) predicts the block or clique budget and fails fast on vertices outside the current ansatz family, and the phase search is bounded so every vertex terminates. Each numerically attained state is then exactified: its squared amplitudes snap to the natural denominator, its phases are recognized on a small algebraic lattice, and the symbolic state is accepted only if it passes the exact 1-RDM characteristic-polynomial identity in exact arithmetic.
-
-#### Alternating projections for prescribed spectra.
-
-Optimizing any functional of the eigenvalues of the 1-RDM stalls near degenerate targets: eigenvalues respond only at second order to intra-cluster perturbations, so matching moments to machine precision $\varepsilon$ constrains the spectrum only to $O(\sqrt{\varepsilon})$---which quantitatively reproduces the $\sim\!10^{-8}$ floors we observed for gradient, moment-matching (L-BFGS with verified analytic gradients), and support-function methods. The cure is to keep eigenvalues out of the inner loop: alternately (i) fix the natural orbitals $U$ of the current state and set the target matrix $T = U\,\mathrm{diag}(v)\,U^\dagger$, then (ii) minimize the smooth quartic $\|\rho(\psi) - T\|_F^2$ by L-BFGS with exact gradients. The resulting solver reaches prescribed spectra to $10^{-9}$ from random initializations, and its calibration on vertices with known extremal states gated every claim in this paper.
-
-#### Concentration flow and swarm discovery.
-
-On the solution manifold $\{\psi : \operatorname{spec}\rho(\psi) = v\}$ (dimension $\approx 242$ for $v_A$) we ran a sparsifying flow: ascent of the inverse participation ratio $\sum_T |c_T|^4$, alternated with full-power reprojection, guarded by rejecting any step whose reprojected spectral distance exceeds $10^{-8}$, with hard removal of sub-threshold amplitudes under the same guard. Deployed as a multi-start swarm (12 jittered walkers, consumer hardware), one walker cascaded from $126$ to $7$ determinants at spectral distance $2.3\times10^{-14}$ within minutes; the resulting support and rational squared amplitudes were then recognized and proved exactly (Theorem [1](#thm:psiA)). We note for honesty that single-trajectory runs of the same flow plateau near support $120$: conclusions about $242$-dimensional solution manifolds require swarm-scale exploration, and an early version of this project wrongly concluded from local searches that the extremal states were irreducibly dense.
-
-#### The constructive off-diagonal-target exactifier.
-
-For interference corners whose phases are neither rational multiples of $\pi$ nor on the $p\sqrt{q}/r$ lattice, the exactifier stops guessing and solves the pinned variables: exactly rational moduli force, via Schur--Horn, each off-diagonal 1-RDM magnitude to an exact algebraic number; each off-diagonal is a closed polygon whose relative phase is then an exact arccosine, propagated across edges and gated by the same characteristic-polynomial certificate. The $\cos\gamma = 3/(4\sqrt{14})$ of Theorem [3](#thm:psiB) is the $k{=}2$ instance of this general rule.
-
-#### Fiber sparsification for the final corners.
-
-For vertices whose extremal fibers appeared irreducibly dense, the closing instrument abandons ansatz families entirely: starting from any numerically attained fiber point, an iteratively reweighted least-squares ($\ell_1$-like) continuation over the full fiber---reprojecting to the prescribed-spectrum manifold after each reweighting, with no gauge-orbit restriction---drives the support down to a sparse fiber point when one exists. The sparse point's rational squared weights are then recognized exactly, its signs reconstructed by an independent integer-relation pipeline, and the symbolic state accepted only through the same characteristic-polynomial certificate as every other entry. This route closed the last two census vertices (Section [-@sec:scaling]) after every grid-based search had failed, and its lesson generalizes the swarm-discovery remark above: conclusions about fiber sparsity drawn from single-basin searches are unreliable in both directions.
-
-#### State transport along face maps.
-
-The functorial maps that transport verdicts transport states: padding leaves a state untouched (one more empty orbital, eigenvalue $0$); a frozen-core lift prepends an always-occupied orbital ($1\oplus\rho$, eigenvalue $1$); particle--hole duality acts by the Hodge star. A failing vertex whose pad, lift, or dual sibling is certified inherits that state, re-verified by the exact characteristic-polynomial identity against its own spectrum. Transport certified $14$ vertices the direct solver had missed, in several cases importing a state from a _higher_ rank whose campaign run had succeeded where the lower-rank run had not.
-
-#### The audit and the final closures. {#sec:scaling}
-
-Reaching completeness required two self-corrections, each of which is itself a finding. First, an audit corrected the census: fourteen vertices originally recorded as solver failures were re-examined. Some were false negatives of a support-filter soundness bug (the selection-rule signature closure is valid only when the 1-RDM is diagonal in the canonical basis; applied to block ansatze, whose 1-RDM is not, it silently excluded true-solution determinants); the rest were merely compute-bound. Removing the filter and running a longer full-block search certified twelve of the fourteen---seven from the filter-free production solver, the two $\wedge^4\mathcal{H}_9$ vertices from the block/exactifier engine, and three by functorial transport---each state verified by the exact characteristic-polynomial identity and independently reproduced, closing $\wedge^4\mathcal{H}_9$ completely. The bug affects only failure labels, never certified states, each of which carries its own filter-independent certificate. Second, the two remaining vertices ($\wedge^3\mathcal{H}_{10}$, $(15,15,6^8)/26$ and $(18^4,5^6)/34$) overturned their own diagnosis: they had been judged compute-bound, with dense extremal states, because gradient flow over the full amplitude tensor lands on generic fiber points of support $100$--$120$---which says nothing about whether the fiber contains sparse points. It does. The reweighted-$\ell_1$ continuation collapsed the support immediately: the denominator-$26$ vertex to an $11$-determinant one-parameter family, certified at its sparse support-$10$ endpoint, and the denominator-$34$ vertex to a $14$-determinant point isolated within that search's landscape and gauge slice. That isolation is a property of the search rather than of the extremal fiber: continuing along the fiber itself reaches strictly sparser states over the same vertex, down to a support-$10$ state whose squared weights are rational and which satisfies the characteristic-polynomial identity in exact arithmetic **\[E\]** (Section [-@sec:outlook]). Both certified states are real with entirely rational squared weights, at state denominators $130$ and $195364 = 442^2$---outside every multiple of the natural denominator any grid search had covered, which is why the searches missed them---and their interference is pure cancellation: every one-hop channel is exactly silent (off-diagonal 1-RDM entry pinned to zero), including three- and four-term silent polygons, and at the denominator-$34$ vertex the five silence conditions have full rank on the five-dimensional incidence kernel of the support, so the state admits no first-order weight deformation preserving its 1-RDM. (Preserving only the spectrum is a weaker condition: by first-order degenerate perturbation theory the cross-block channels impose no constraint there, so the fixed-spectrum fiber through the state remains positive-dimensional; the rigidity is a fixed-1-RDM statement.) Each state passed the exact characteristic-polynomial identity and an independent from-scratch 1-RDM rebuild with separate sign conventions. The last two vertices were never hard, and the census's final correction was to its own instruments.
-
-# Arithmetic structure of the census {#sec:posgeo}
-
-This section records exact structures computed from the certified data, with named conjectures where the data suggest laws. Everything asserted about the census itself is **\[E\]**; every generalization beyond the census is labeled a conjecture or observation.
-
-#### Canonical-form invariants.
-
-Every convex polytope carries a canonical form in the sense of Arkani-Hamed--Bai--Lam [@ABL2018]: a rational top-form with simple poles exactly on facets, whose numerator is the adjoint polynomial [@KohnRanestad]. A connection between $N$-representability and positive geometry was observed at the level of the hypersimplex [@Castillo2021; @LPW2020]; the pure-state GPC polytopes themselves appear not to have been examined in this light. For the rigorously solved systems the invariants are: $\Pi_{3,6}$ ($4$ vertices, $4$ facets, adjoint degree $0$; a simplex), $\Pi_{3,7}$ ($10$, $10$, $3$), $\Pi_{3,8}$ ($38$, $39$, $31$), and $\Pi_{4,8}$ ($22$, $23$, $15$), computed from exact rational vertex/facet enumeration (dual-volume evaluations of the canonical forms and numerical residue tests on facets are described in the repository). In every computed case the adjoint degree equals $F-\dim-1$; we record this as an observation on these polytopes and make no general claim, since the general statement requires hypotheses (and a precise definition of the adjoint hypersurface for non-simple polytopes) that we have not established. Two further structural observations from the same computations: positivity of the smallest occupation number is _implied_ by the GPCs at ranks $6$ and $7$ and returns as a genuine facet at rank $8$; and both rank-$8$ systems satisfy $F = V+1$, which we flag without explanation.
-
-#### Amplitude feasibility as spectrahedral geometry.
-
-The interference vertices carry a second feasibility structure, on the amplitudes rather than the spectrum, and it is where reality lives. Fixing the natural occupations pins each interference off-diagonal to a Schur--Horn magnitude $\sqrt{\tau_e}$ (Section [-@sec:methods]), and the amplitudes of the one-hop-connected determinants feeding that entry are vectors summing to it---a closed polygon, a triangle with sides $A,B,\sqrt{\tau}$ for a single two-mode exchange. A pure state with the prescribed spectrum exists iff the polygon closes, i.e.\ iff the amplitude Gram matrix is positive semidefinite (the triangle inequality $|A-B|\le\sqrt{\tau}\le A+B$); the state is real, time-reversal symmetric, iff the polygon degenerates to a segment, i.e.\ iff its Cayley--Menger determinant vanishes. Reality is thus a positivity boundary---a face of a spectrahedron on the amplitudes---exactly as the moment polytope is the positivity boundary of the $1$-RDM, but spectrahedral rather than polyhedral; for a $k$-mode exchange the same statement reads: reality is the collinearity locus of $k$ amplitude vectors, where the Gram matrix drops to rank one, the deepest determinantal stratum. On the two computed one-parameter families over $v_B$ (Remark [4](#rem:orbit)) the Cayley--Menger determinant is, up to a positive factor, the respective wall polynomial ($109t^2-110t-215$ for the Theorem-[3](#thm:psiB) family; $85t^2-70t-119$ for the library-state family), whose roots are the families' real extremal states, the interior of each family carrying a nontrivial relative phase. We deliberately describe this as spectrahedral feasibility geometry: we construct no canonical form on the amplitude region and make no claim that it is a positive geometry in the sense of Ref. [@ABL2018].
-
-#### Lattice arithmetic of vertex cones. {#sec:vertexcones}
-
-Each vertex carries exact lattice invariants of its tangent cone, computed for every system from the full H-representation (published GPCs plus ordering walls) in exact rational arithmetic. Across the nine systems, $183$ vertices are simple (e.g. $25$ of $103$ at $\wedge^4\mathcal{H}_9$), of which $179$ carry a well-defined normal-cone index (the four simple vertices of the Borland--Dennis simplex $\wedge^3\mathcal{H}_6$ are facet-degenerate); simpliciality does not correlate with the design/interference dichotomy, so local canonical-form degeneracy is not an interference detector. Both $v_A$ and $v_B$ are simple, and $v_B$ is arithmetically extremal:
-
-::: {#prop:toric .proposition}
-**Proposition 2** (Tangent-cone lattice data at $v_B$) \[E\]. *Work in the direction lattice $L = \{u \in \mathbb{Z}^9 : \sum_m u_m = 0\}$ of the affine hyperplane $\sum_m \lambda_m = 4$ containing $\Pi_{4,9}$. Exactly eight constraints of the H-representation are active at $v_B$, and the tangent cone $\sigma$ is simplicial with eight primitive edge rays (archived with the data; one is $(20,-9,-9,-9,-9,4,4,4,4)$). The Smith normal form of the ray matrix over $L$ is $\mathrm{diag}(1,23,\dots,23)$, so the sublattice $L' \subseteq L$ generated by the primitive rays has index $23^7$ with quotient $G = L/L' \cong (\mathbb{Z}/23)^7$; by the standard description of a simplicial affine toric variety as a finite abelian quotient [@CLS2011], $U_\sigma \cong \mathbb{C}^8/G$ with $G$ acting diagonally through the characters of $L/L'$, canonically up to lattice equivalence. Dually, the primitive normals of the eight active facets generate a sublattice of $L^\ast$ of index exactly $23$ with cyclic quotient, and every nonzero pairing $\langle W_j, r_k\rangle$ equals $23$. Consequently, in lattice-normalized facet coordinates the local canonical form is $\Omega = 23\,\mathrm{d}^8 y/\prod_j\langle W_j,y\rangle$, with no adjoint numerator.*
+::: {#thm:atlas .theorem}
+**Theorem 4** (Symbolic state atlas). *For every one of the 799 spectra in the nine supplementary vertex tables, the atlas contains a normalized symbolic state $\psi\in\wedge^N\mathcal H_d$ satisfying*
+$$
+\det(xI-\rho^{(1)}_\psi)=\prod_{i=1}^d(x-\lambda_i),\tag{15}
+$$
+*as an algebraic identity. The state records and vertex rows are in bijection.*
 :::
 
-The proof is a finite exact computation (active-set extraction, ray enumeration, Smith normal form), archived and re-runnable from the released H-representation; we have not determined whether the $G$-action contains pseudoreflections, so the presentation of the quotient group is asserted only up to the stated lattice equivalence. Two exact regularities emerge at census scale, the first of which we promote to a conjecture.
-
-::: {#conj:den .conjecture}
-**Conjecture 1** (Denominator = normal-cone index at interference). _For every simple interference vertex of a published GPC polytope, the natural denominator equals the lattice index of the normal cone. Verified exactly for all $51$ simple interference vertices across ranks $6$--$10$; it fails only at design vertices ($68$ of the $128$ simple design vertices with a computable index violate it, typically by a factor of $2$ or $3$)._
+::: proof
+*Proof.* Each record specifies a determinant support and symbolic amplitudes built from rational numbers, radicals, and algebraic phases. Appendix [A](#app:state-check) gives the record convention and the direct reconstruction of every matrix element $\langle T|a_i^\dagger a_j|U\rangle$. Applied to each record, that calculation proves normalization and the displayed characteristic-polynomial identity. For every positive weighted-design record it also checks one-hop independence and the incidence weights. Matching the system, vertex index, canonical integer spectrum, and denominator establishes a bijection between the 799 records and the nine vertex tables. $\square$
 :::
 
-Second, exactly $23$ vertices are _isotypically pure_ (all pairings equal to the denominator; edge quotient $(\mathbb{Z}/\mathrm{den})^{\dim-1}$), and every one has prime denominator ($7,11,13,17,23,37$); all pure interference vertices have prime denominator $\ge 11$, while all pure design vertices descend from the $(3,3,3,3,3,3,3)/7$ vertex by padding and lifting. The converse fails (prime denominator does not imply purity). We also record that $\mathrm{rad}(\mathrm{den})$ divides the edge-cone index at every simple vertex checked, and that the geometric prime of $v_B$ ($23$) is disjoint from the primes of its phase fields (below), so the local toric arithmetic and the phase arithmetic are decoupled.
-
-#### Holonomy Galois groups of interference states. {#sec:galois}
-
-Amplitude phases are gauge quantities: a diagonal $U(1)^d$ rotation shifts $\theta_T \mapsto \theta_T + \sum_{i\in T}\varphi_i$. The gauge-invariant content of an individual interference state, in the natural-orbital basis the census fixes, is its _loop holonomy_: for support incidence matrix $M$ (determinants $\times$ orbitals), each integer vector $v$ in the left kernel of $M$ yields the gauge-invariant phase $v\cdot\theta$. We stress that the holonomy is an invariant of the individual extremal state, not of the vertex: it varies along the extremal fiber, as the wall families of Remark [4](#rem:orbit) show explicitly.
-
-The explicit states over $v_B$ illustrate this. The state $\psi_B$ of Theorem [3](#thm:psiB) has one-dimensional incidence kernel spanned by $(0,1,-1,0,-1,1,0,0)$; its holonomy is $-\gamma$ with cosine $3/(4\sqrt{14})$, the minimal polynomial of $e^{i\,\mathrm{hol}}$ is $56x^4+103x^2+56$, and the splitting field is $\mathbb{Q}(\sqrt{14},\sqrt{-215})$ with Galois group the Klein four group $V_4$ ($215 = 5\cdot43$). The rational anchor ($t=0$) of the second family over $v_B$ (support and weights in Remark [4](#rem:orbit)) has kernel spanned by $(1,-1,0,0,-1,1,0,0)$ on its own eight support determinants; its holonomy has cosine $3\sqrt2/16$, equivalently $\arctan(\sqrt{119}/3)$, with minimal polynomial $32x^4+55x^2+32$ and splitting field $\mathbb{Q}(\sqrt{2},\sqrt{-119})$, likewise $V_4$ ($119 = 7\cdot 17$). And the released library state for $v_B$, the real endpoint of that same family, has trivial holonomy (cosine $-1$: its one loop is a sign, not a phase). Three fiber points, three holonomies, two phase fields and a trivial one---the holonomy is per-state data, exhausted nowhere by the vertex.
-
-Two further measurements at $v_B$ are recorded here as data. Its squared weights lie in $\mathbb{Q}(\sqrt{35})$, generated by the wall polynomial $85t^2-70t-119$, and *both* roots of that polynomial give positive weight vectors attaining the vertex in exact arithmetic, so the attaining Galois orbit has size $2$ **\[E\]**. Within each of the two embeddings, exactly $64$ of the $128$ amplitude sign patterns modulo global sign attain **\[E\]**. Both counts are released with the dataset.
-
-Across the full corpus of $156$ interference supports, $93$ are loop-free (kernel dimension $0$: signed real amplitudes suffice and no complex invariant exists) and $63$ carry $82$ independent loops in total; these numbers are regenerated from the released dataset by the consistency test. The Galois tally is now complete over that corpus---all $82$ loops of all $63$ loop-carrying states---superseding an earlier partial tally over the $142$ states certified by the original engine, which covered $62$ holonomies. In the minimal polynomial of $e^{i\Phi}$ the degrees are $1$ ($8$ loops), $2$ ($29$), $4$ ($32$) and $8$ ($13$); equivalently the holonomy cosine has degree $1$ ($37$), $2$ ($32$) or $4$ ($13$), with Galois group $C_1$, $C_2$ and the Klein four group $V_4$ respectively. **Every one of the $82$ generates a $2$-elementary abelian extension: no $\mathbb{Z}/4$, no $D_4$, no $Q_8$ occurs anywhere in the census \[E\].** The quartic case is forced: an irreducible even reciprocal quartic $ax^4+bx^2+a$ with unit-circle roots always splits over $\mathbb{Q}(\sqrt{a(2a-b)},\sqrt{-a(2a+b)})$. The degree-$8$ case is _not_ forced---unit-circle reciprocal octics generically have dihedral closure---and remains the contentful finding, now on $13$ instances rather than five.
-
-Four methodological points make the tally checkable rather than merely reported. The cosine groups are computed from the minimal polynomial directly rather than inferred from the polynomial having only even terms. At degree $8$, where a direct group computation is awkward, $2$-elementarity is *certified rather than computed*: both $\cos\Phi$ and $\sin\Phi$ are exhibited as explicit $\mathbb{Q}$-combinations of square roots of rationals, so $\mathbb{Q}(e^{i\Phi})$ is a subfield of a multiquadratic field, and every subfield of a multiquadratic field is Galois over $\mathbb{Q}$ with group a quotient of $(\mathbb{Z}/2)^k$. The loop-kernel bases are certified saturated, so no gauge-invariant holonomy is missed. And every integer relation is recognized at $120$ digits and re-verified at $240$, with the verification residual recorded per loop (worst case $10^{-251}$): an exploratory scan at lower precision produced a spurious high-degree relation that this protocol deletes, and relations failing re-verification are deleted rather than downgraded. The exact polynomials, kernel vectors, groups, radicands and residuals are released in machine-readable form. The $v_B$ entry of the earlier tally was the $t=0$ anchor of Remark [4](#rem:orbit)'s second family; the library now ships that family's real endpoint, whose holonomy is trivial, as are those of the two fiber-sparsification closures (cosine $\pm1$: one loop at the denominator-$26$ vertex, five at the denominator-$34$ vertex).
-
-One consequence is a simplification. Thirteen released states carry an amplitude phase printed in the trisected form $(\pi + 3\arctan t)/3$, which invites reading them as a separate, cubic tier of phase complexity. They are not: the expression equals $\pi/3 + \arctan t$, the division by three cancelling, and across all thirteen every representative amplitude has $2$-power degree over $\mathbb{Q}$ while every gauge-invariant loop holonomy has degree $1$, $2$, or $4$ with $2$-elementary group. No cubic subextension occurs anywhere in the class, in the invariant algebra or in the representative, so the apparent tier is an artifact of notation and the phase taxonomy has only the real and complex levels. The mechanism behind the abelian pattern is a norm identity, which we promote to a conjecture.
-
-::: {#conj:norm .conjecture}
-**Conjecture 2** (Norm-square law; abelian holonomies of exponent two). _Every nested radical $\sqrt{a+b\sqrt{d}}$ occurring in a certified interference holonomy cosine satisfies $a^2-b^2d\in(\mathbb{Q}^\times)^2$; consequently every certified interference holonomy generates a $2$-elementary abelian extension of $\mathbb{Q}$. Verified in all occurrences analyzed: $11^2-21=10^2$, $817^2-1633=816^2$, $2651^2-48^2\cdot 2769=805^2$, and the abelian conclusion now for all $82$ holonomies of the full corpus._
-
-_Mechanism, and what it does and does not deliver. The conjecture is not a pattern read off the table; it is what the channel bookkeeping predicts. Write the one-hop class of an orbital pair $(A,B)$ as the pairs $(u_a,v_a)$ of support determinants differing by $A \mapsto B$, with signs $s_a$ from the fermionic ordering and $r_a = \sqrt{p_{u_a}p_{v_a}}$. Expanding the modulus of the corresponding 1-RDM entry gives_
-$$|\rho_{AB}|^2 = \sum_a r_a^2 + 2\sum_{a<b} s_a s_b\, r_a r_b \cos\Phi_{ab},$$
-_where the $\Phi_{ab}$ are exactly the gauge-invariant loop holonomies and the coefficients are rational numbers and square roots of rational monomials in the squared weights. Each channel condition is therefore one linear relation among holonomy cosines, and solving it adjoins only a square root. When every class has size at most two this is a theorem: the cosine is rational over a single such square root, so the extension is quadratic with a monomial radicand, and $\cos\gamma = 3/(4\sqrt{14})$ at $v_B$ is precisely that formula. At larger classes the angle-addition relation $\Phi_{13}=\Phi_{12}+\Phi_{23}$ enters, an elimination adjoins $\sqrt{\alpha^2+\beta^2-\delta^2}$ for coefficients $\alpha,\beta,\delta$ in the field built so far, and the result is a tower of quadratic extensions. That is strictly weaker than the conjecture: a quadratic tower need not be multiquadratic, as $\sqrt{1+\sqrt2}$ with its dihedral closure shows. So the mechanism explains why the holonomy fields are towers of norm equations rather than free octics, and it proves the conclusion outright for classes of size at most two; at classes of size three or more it delivers only $2$-power degree, and there the $2$-elementary conclusion rests on the census verifications alone. The mechanism also makes a falsifiable side prediction, that a non-monomial radicand can arise only from a class of size three or more; this is confirmed on all $63$ states, and it correspondingly refutes the stronger reading in which every adjoined square root is of a monomial in the weights, which fails on $15$ of the $82$ loops._
+::: {#prop:exhaustion .proposition}
+**Proposition 3** (Vertex exhaustion of the tabulated H-polytopes). *For each of the nine supplementary rational H-representations, the corresponding vertex table is exactly its vertex set. The nine sets contain 799 vertices in total.*
 :::
 
-# Consequences, conjectures, and future directions {#sec:outlook}
+::: proof
+*Proof.* Start from the ordered Pauli simplex subject to the trace condition and any further affine equalities. Add the tabulated half-spaces one at a time. When a polytope $Q$ is cut by a closed half-space $H$, every vertex of $Q\cap H$ is either a retained vertex of $Q$ or the intersection of $\partial H$ with an edge of $Q$ that crosses $\partial H$. Two vertices of $Q$ form an edge precisely when the affine equalities and their common active inequality normals have rank $d-1$. The calculation in Appendix [C](#app:vertex-check) implements this induction with rational arithmetic. A final feasibility and active-rank check removes no point, and comparison with the nine tables has empty set difference in both directions. $\square$
+:::
 
-The census supports a set of extensions at very different levels of rigor. We collect them here with explicit per-item status---*proved here*, *verified on the census*, *verified only at $v_B$*, *numerical*, or *conjecture/program*---and defer the detailed pilot computations to a companion research-agenda note (in preparation, to be deposited with a versioned DOI alongside the dataset).
+Theorem [4](#thm:atlas) and Proposition [3](#prop:exhaustion) are statements about the supplied algebraic states and rational coefficient tables. Identifying an H-representation with the true fermionic moment polytope additionally requires validity of its tabulated inequalities. That distinction matters at ten orbitals.
 
-**Fibers over vertices (proved: existence; program: computation).** Over a vertex $v$ the extremal states form the fiber $\gamma^{-1}(v)$ of the occupation map arising from the moment map of $U(d)$ on $\mathbb{P}(\wedge^N\mathcal{H}_d)$ [@Kirwan1984; @Klyachko2006; @AK2008]; quotienting by the residual gauge gives the reduced fiber. Because the occupation map is semialgebraic [@BCR98], Hardt's trivialization theorem [@Hardt1980] guarantees a finite semialgebraic partition of $\Pi_{N,d}$ over which fibers are locally trivial; the existence of a decomposition by fiber type is therefore classical. What the census supplies is a *semialgebraically definable invariant* of each vertex fiber: DESIGN means the fiber contains a one-hop-independent (root-distinct) representative, INTERFERENCE that it does not, certified per vertex. We do **not** claim that this invariant coincides with the canonical orbit-type, symplectic [@SL91; @S98; @W92], or Hardt stratifications, nor that it determines fiber topology, dimension, or homeomorphism type; establishing any such statement requires computing reduced-fiber invariants, which is the subject of the companion program. The invariant is strictly finer than the local convex geometry---simple vertices occur in both classes (Section [-@sec:posgeo])---and the two explicit one-parameter families over $v_B$ (Remark [4](#rem:orbit)) are its first exactly worked fiber germs.
+::: {#cor:49complete .theorem}
+**Corollary 2** (Four fermions in nine orbitals). *The rational H-description published for $\wedge^4\mathcal H_9$ equals the pure-state moment polytope $\Pi_{4,9}$.*
+:::
 
-**Two different minimal supports, and the library column bounds only one of them (census-wide; $670$ minimality certificates \[E\] and $71$ exact free-basis improvements \[E\]).** Every support recorded in the library is the support of the certified representative. Two distinct minima sit behind it and must be separated, because they have different lower bounds. And which of them the library column bounds is *not uniform across the census*, which we determine by audit rather than by assumption: running the diagonality test over all $799$ records, $645$ have a $1$-RDM that is exactly $\mathrm{diag}(\lambda)$---all $643$ design states, where one-hop freedom gives it termwise, together with the two cancellation-regime states---while the remaining $154$ interference records attain the spectrum in a rotated basis, with off-diagonal entries up to $0.22$ **\[E, verified in exact arithmetic at one instance\]**. All $154$ attain the spectrum exactly and at unit norm; what they lack is diagonality. So the library column bounds $s_Q^{\mathrm{NO}}$ on the $645$ and $s_Q^{\mathrm{free}}$ on the $154$, and no sentence may quote it against $s_I$ without saying which. Rotating each of the $154$ into its natural orbitals restores diagonality and supplies an $s_Q^{\mathrm{NO}}$ bound for every vertex, at a cost: support grows on $141$ of $156$ interference records and never shrinks (mean $6.8$ to $11.7$, maximum $14$ to $57$), and the exact closed forms do not survive the rotation, so that ledger is numerical and is published alongside the exact one rather than replacing it. Write $s_Q^{\mathrm{NO}}(v)$ for the least Slater support of a state whose $1$-RDM is *exactly* $\mathrm{diag}(\lambda)$, and $s_Q^{\mathrm{free}}(v)$ for the least support of any state with $\mathrm{spec}(\rho)=\lambda$. Only the first is bounded below by the incidence baseline $s_I$; the second is bounded below only by the majorization baseline $s_M$, and the two may not be compared. Natural orbitals are unique only up to rotation *within* degenerate occupation eigenspaces, and every vertex of every system here has a degenerate spectrum, so each certified state carries a gauge freedom $U(m_1)\times\cdots\times U(m_k)$ under which $\rho$ is identically unchanged; the library support is the support of one point of that family. Minimizing over the family moves it for **no** vertex: none of the $799$ states admits a support-reducing rotation in its own gauge, and for $670$ of them minimality is certified outright. A block-diagonal rotation preserves each determinant's block profile; within each profile class, the rank of every exterior contraction map is invariant, and a support of size $s$ has contraction rank at most $s\prod_i\binom{k_i}{q_i}$. Symbolic rank certificates strengthen $82$ records and newly close $41$ \[E\], leaving $129$ open in both directions. The complementary quantity behaves entirely differently. Continuing along the fixed-spectrum fiber---driving the smallest surviving amplitude's squared modulus to zero against the smooth certificate $\prod_i (\rho - \lambda_i I) = 0$ taken over *distinct* eigenvalues, with the orbital-phase gauge pinned---sparsifies $71$ of the $799$ states, all in the interference class, removing $89$ amplitudes at certificate residuals at or below machine epsilon ($2.3\times10^{-16}$) with the eigenvalue multiplicities re-verified at every step. That continuation preserves the *spectrum* of $\rho$ and not its diagonality: not one of the $71$ endpoints has a diagonal $1$-RDM, so every one of these improvements is an improvement of $s_Q^{\mathrm{free}}$, never of the library column. The denominator-$34$ vertex falls furthest, from support $14$ to support $10$, and that endpoint is not merely numerical: refining it in $60$-digit arithmetic recognizes all ten squared weights as rationals ($13/34$, $5/34$, $53/442$, $195/1802$, $5/68$, $5/68$, $35/901$, $1/34$, $18/901$, $84/11713$), its single loop holonomy is $\pi$ so it is real up to gauge, and substituting the exact values back reproduces $\det(\rho - xI) = (x-9/17)^4(x-5/34)^6$ in exact arithmetic **\[E\]**. Its $1$-RDM is not diagonal---exactly, it has two nonzero off-diagonal entries, $\rho_{39} = -5/68$ and $\rho_{16} = -\sqrt{42}/221$---so the bound it certifies is $s_Q^{\mathrm{free}}\le 10$, while $s_Q^{\mathrm{NO}}$ for that vertex stays at the library value $14$. Its state denominator is $46852 = 2^2\cdot13\cdot17\cdot53$, against $195364 = 442^2$ for the support-$14$ state; the prime $53$ occurs in neither the spectrum denominator nor the library state, a further reason no search over multiples of the natural denominator could have found it. Three cautions belong with these numbers. The eigenvalue multiplicities must be checked separately, because the minimal polynomial constrains only the eigenvalue *set*: $33$ further states admit an amplitude-zeroing continuation that satisfies the certificate while landing on a different multiplicity pattern, and those are not sparsifications. The continuation is numerical, each endpoint being a limit meeting the stated residuals; that caution is removable here, since high-precision refinement and degree-at-most-two integer relation detection recover exact squared weights for all $71$, all real up to the orbital-phase gauge, and reproduce every target characteristic polynomial exactly. The final pair, $(5,10)$ v144 and v256, lies in $\mathbb{Q}(\sqrt{1065})$ and is related by particle--hole duality. And the endpoints are mostly not new states: the $2$-RDM spectrum is invariant under every one-body rotation, and it identifies $63$ of the $71$ endpoints with the certified library state in different orbitals---for the denominator-$34$ vertex we exhibit the connecting one-body unitary explicitly---so for those the sparser support is a statement about the *state*, saying that its natural-orbital basis is not its sparsest basis. The other $8$ endpoints have $2$-RDM spectra differing from the library state's by $3.4\times10^{-3}$ to $4.7\times10^{-2}$, which no one-body rotation can produce, and those are genuinely distinct extremal states over their vertices.
+::: proof
+*Proof.* The source inequalities are valid on $\Pi_{4,9}$ [@AK2008; @AltunbulakThesis], and the row concordance identifies all 60 tabulated rows in the supplementary table with the source. Let $P$ be their intersection with the Pauli, ordering, and trace conditions. Proposition [3](#prop:exhaustion) gives the complete 103-vertex set of $P$. Theorem [4](#thm:atlas), including the two formerly numerical cases proved in Theorems [1](#thm:psiA) and [3](#thm:psiB), gives a pure-state preimage for every vertex. Thus $V(P)\subseteq\Pi_{4,9}$, and convexity gives $P=\operatorname{conv}V(P)\subseteq\Pi_{4,9}$. The source inequalities give the reverse inclusion. $\square$
+:::
 
-**A two-body observable separates fiber points (verified at $v_B$ \[E\]).** Along both computed families over $v_B$ the natural occupations are frozen while the pair occupations $\langle n_i n_j\rangle$ vary linearly in the family parameter: the fiber coordinate is a two-body observable, invisible to occupation spectroscopy but read by pair correlations. Consequently any density--density interaction $H=\sum_{i<j}J_{ij}\,n_i n_j$ has $\langle H\rangle$ linear along these families and is minimized at an endpoint of the physical range, which for both families is a real, time-reversal-symmetric extremal state; we verify further **\[N\]** that a sufficiently strong genuine-exchange term moves the minimizer to a phase-carrying interior state, with a discontinuous jump between the regimes. We conjecture, and do not prove, the general statements: that every interference family's physical range is bounded by real endpoints reached strictly before support degeneration, and that density--density interactions always pin maximally pinned states to reality. Neither claim is obvious for multi-channel cancellation, supports with several null directions, simultaneous weight degenerations, or fibers with empty or disconnected real locus, and both are stated here only as the pattern the $v_B$ data exhibit.
+::: {#cor:complete .theorem}
+**Corollary 3** (Conditional ten-orbital conclusion). *Let $\mathcal S_{N,10}$ be one of the supplementary lists of 93, 125, or 161 tabulated inequalities, and define*
+$$
+P_{\mathcal S}=\left\{\lambda\in\mathbb R^{10}:
+1\ge\lambda_1\ge\cdots\ge\lambda_{10}\ge0,
+\ \sum_i\lambda_i=N,
+\ A_{\mathcal S}\lambda\le b_{\mathcal S}\right\}.\tag{16}
+$$
+*If every inequality in $\mathcal S_{N,10}$ is valid on $\Pi_{N,10}$, then $P_{\mathcal S}=\Pi_{N,10}$.*
+:::
 
-**Hamiltonian realizability (numerical pilot \[N\]).** Pilot computations at $v_B$ indicate that its real, time-reversal-symmetric extremal states arise as unique gapped ground states of symmetric two-body Hamiltonians while the phase-carrying fiber points do not. This is pilot-grade numerical evidence for a finer fiber invariant, recorded as a question, not a result.
+::: proof
+*Proof.* The hypothesis gives $\Pi_{N,10}\subseteq P_{\mathcal S}$. Proposition [3](#prop:exhaustion) lists every vertex of $P_{\mathcal S}$, and Theorem [4](#thm:atlas) supplies a pure-state preimage for each of the 564 listed vertices. Hence $V(P_{\mathcal S})\subseteq\Pi_{N,10}$. Convexity gives the reverse inclusion $P_{\mathcal S}=\operatorname{conv}V(P_{\mathcal S})\subseteq\Pi_{N,10}$. $\square$
+:::
 
-**Rigidity and rationality (design case proved here; the rest census-confirmed with scope, or open).** Every arithmetic statement above takes rationality of the squared weights as a hypothesis, so it is worth saying where that hypothesis comes from. For design vertices it is a theorem, and an easy one: on a one-hop-free support every off-diagonal $1$-RDM entry vanishes termwise, so $\rho = \mathrm{diag}(\lambda)$ is *exactly* the rational linear system $A_S p = \lambda$ with $\sum_t p_t = 1$, and a unique solution of a rational linear system is rational. All $643$ design states have trivial incidence kernel, so the hypothesis holds throughout and the theorem covers every one of them **\[E\]**. The interference case is not reachable this way, because the phases make the defining system nonlinear in $p$. What the census shows there is an implication rather than a proof: of the $799$ certified records, $740$ are first-order rigid in the fixed-$\rho$ fiber and every one of those $740$ has rational squared weights, with no counterexample; the single record with irrational weights, $v_B$ at squared weights in $\mathbb{Q}(\sqrt{35})$, is deformable. One caveat must travel with that count. All $645$ natural-orbital representatives are rigid, and all $59$ deformable records sit among the $154$ that are not, so the implication's discriminating power lies entirely in the non-natural-orbital population and the tally has no rigid-versus-deformable contrast within the diagonal class. The mechanism we expect behind it is that an isolated fiber point is cut out by equations over $\mathbb{Q}$ and a Galois-stable singleton is Galois-fixed; two gaps separate that from a theorem, namely that first-order rigidity is not isolation, and that isolation gives finiteness rather than uniqueness, so the honest conclusion is weights algebraic of degree at most the number of isolated fiber points modulo gauge, rational when that number is one. $v_B$ instantiates the second gap exactly: its weights have degree $2$, and both roots of its wall polynomial $85t^2-70t-119$ give positive weight vectors attaining the vertex in exact arithmetic, so the Galois orbit has size $2$ and degree equals orbit size **\[E\]**. A naive substitution $\sqrt{35}\mapsto-\sqrt{35}$ on the published amplitudes does *not* attain, and that failure is diagnostic rather than refuting: the amplitudes carry nested surds, and a field embedding chooses the square-root branches itself rather than inheriting them.
+The source concordance verifies transcription, not representation-theoretic validity. No independent derivation of every ten-orbital inequality is claimed.
 
-**A necessary condition for the two fibers to differ (census-wide; \[E\] for the channel structure, \[N\] for the tangent dimensions).** The fixed-$\rho$ and fixed-spectrum fibers differ at first order exactly by the cross-block channel conditions, and that is not only a mechanism but a classification: across all $799$ states in $403$ transport classes, a state whose two tangent dimensions differ has at least one *cross-block* one-hop channel, with zero exceptions. The converse is false, and instructively so: $82$ states have a cross-block channel and no gap, and every one of them has trivial incidence kernel, so the condition exists but has no first-order weight freedom to act on. Counting rules relating the gap to the number of cross-block channels fail in both the obvious normalizations.
+# Construction and verification {#sec:methods}
 
-**Toric-like fibers (conjecture).** The certified regularities point one way: toric quotients at simple vertices are $p$-elementary (Proposition [2](#prop:toric)) and the analyzed holonomy Galois groups are $2$-elementary (Section [-@sec:galois]). We conjecture the extremal-state fiber over a vertex is cut out by binomial equations after the Schur--Horn substitution, which would force monomial amplitude relations, hence square-root phase solutions, hence Conjecture [2](#conj:norm) and the elementary quotients in one stroke; its first test is binomiality of the polygon-closure equations at $v_B$.
+## State construction
 
-**Beyond rank 10 (mixed status).** The one genuinely missing piece beyond rank $10$ is the constraint list itself; supplying a generator for it is forthcoming work, and constructing states does not address it. The functorial maps already do concrete work at rank $11$: transporting certified states along padding and frozen-core lifts, combined with two elementary exact reductions (a spectrum with $\lambda_1=1$ pins a frozen core, reducing attainability to the residual $(N{-}1)$-particle spectrum; trailing zeros restrict to the known lower-rank system), settles $46$ of the $50$ candidate vertices of a rank-$11$ Stage-0 bracket for $N=3$ **\[E\]**: $19$ certified true (including the uniform spectrum $(3/11)^{11}$ via an explicit $\mathbb{Z}_{11}$ difference design) and $27$ refuted with exact witnesses. Each of the four remaining candidates violates only an inequality that is claimed but not proved in Refs. [@AK2008; @Klyachko2009] (the level-$5$ second-kind series), so either a Schubert-coefficient computation proves the series and refutes all four, or an exact attainment falsifies a published inequality---a decisive fork either way. A corrected normalized ansatz-free contraction audit leaves positive real and complex floors on all four **\[N\]**. For the nearest, candidate 44, the floor is $11/4320$ and the numerical state has spectrum $(37/72,(29/60)^4,(7/72)^5,1/15)$, exactly the trace-hyperplane projection onto $\lambda_2+\lambda_3+\lambda_4+\lambda_5+\lambda_{11}=2$. This identifies a sharp proof and construction target but does not prove the claimed inequality or exact attainment of the projected spectrum. At rank $12$, face embedding supplies $19$ certified true vertices complementing the numerically computed systems of Ref. [@Schilling2018]; the refuted and certified points together form an acceptance oracle for any proposed constraint generator. Independently, Klyachko's inner approximation is now automated by exact plethysm ($\langle s_\lambda, h_m[e_N]\rangle$ via Murnaghan--Nakayama), validated to reproduce the $\wedge^3\mathcal{H}_6$ vertex set exactly, with one warning apparently unremarked in this setting: the plethysm cone is not saturated, and the certified-true uniform vertex $(3/11)^{11}$ has vanishing multiplicity at its primitive lattice point, so the convergence cost of the inner approximation is governed by saturation stretch, not denominator. Root-distinct enumeration and the exchange-block repair step scale as MILP feasibility in $\binom{d}{N}$ and produce exact inner polytope points at chemically relevant $d$; membership oracles from tensor scaling [@BCMW17; @BFGOWW18] supply pointwise boundary location; and the algorithmic moment-polytope line of Ref. [@vdBerg25] scales along a different complexity axis than the classical route and, to our knowledge, has not been applied to $\Lambda^N\mathbb{C}^d$---validating it against the known fermionic tables and attempting $(3,13)$ is a concrete experiment we highlight. We defer all resource estimates to the companion note, where they can be stated with hardware, solver versions, and an extrapolation model; here we say only that the state-construction component scales to larger orbital dimensions once candidate spectra are supplied, while generating complete outer constraint systems remains unresolved. The binding constraint throughout is machine-readable vertex/facet data for the known systems (ranks $9$--$12$), for validation; we would welcome pointers to surviving copies of the original datasets.
+For a positive weighted-design record, the state is built directly from its incidence witness,
+$$
+\psi=\sum_{T\in S}\sqrt{p_T}\,|T\rangle.\tag{17}
+$$
+Lemma [1](#lem:incidence) then proves the target spectrum without numerical optimization. Padding adds an empty orbital and occupation number 0; a frozen-core lift adds an always-occupied orbital and occupation number 1; particle-hole duality acts by the Hodge star. Transported states are checked again at their destination.
+
+For targets not reached by a root-distinct support, sparse numerical states served as discovery data. Their amplitudes were subsequently recognized as rational or algebraic expressions, and only the symbolic expressions enter Theorem [4](#thm:atlas). Discovery convergence is therefore not a premise of the theorem.
+
+The least-denominator integer search used OR-Tools CP-SAT [@PerronDidierGay2023], and the real-weight feasibility search used COIN-OR CBC [@ForrestLougeeHeimer2005]. SymPy performs algebraic simplification and characteristic-polynomial calculations [@Meurer2017]. The original vertex tables were generated with `lrs` [@Avis2000LRS]; Proposition [3](#prop:exhaustion) uses a separate implementation of incremental double description [@FukudaProdon1996].
+
+## Computer-assisted components
+
+\newpage
+
+**Table II.** Computer-assisted components and their mathematical status.
+
+<!-- Alt text: Nine claim classes are distinguished as symbolic identities, direct constructions, finite computer-assisted proofs, source concordances, solver-only classifications, or conditional theorems. -->
+
+| Claim | Status | Basis |
+|:---|:---:|:---|
+| all 799 preimages | symbolic, computer-checked | determinant expansions and characteristic polynomials |
+| all 643 root-distinct witnesses | direct | rational incidence weights |
+| 12 negative labels | finite computer-assisted proof | branch certificates |
+| 144 negative labels | solver classification | exploratory CP-SAT and CBC outcomes; not used in formal results |
+| 490 printed rank-9 and rank-10 rows | source-checked | ordered Appendix A concordance |
+| final $(3,9)$ table row | derived identity | restriction of printed $(3,10)$ row 82 |
+| all 799 tabulated vertices | finite computer-assisted proof | rational H-to-V reconstruction |
+| completeness at $(4,9)$ | theorem | Corollary [2](#cor:49complete) |
+| completeness at $d=10$ | conditional theorem | Corollary [3](#cor:complete) |
+
+The proof supplement supports the symbolic preimages, 12 no-design certificates, source concordance, and rational H-to-V calculation. The 144 solver classifications record exploratory CP-SAT and CBC outcomes and are not part of that proof supplement. None enters Theorem [4](#thm:atlas), Proposition [3](#prop:exhaustion), or Corollaries [2](#cor:49complete) and [3](#cor:complete).
+
+**Generative-AI assistance.** OpenAI Codex in ChatGPT Work (GPT-5.6, OpenAI, accessed July--August 2026) and Anthropic Claude (Claude Opus 5, Anthropic, accessed July 2026) assisted with exploratory-code development and inspection, test-case generation, and language editing because the computational study contains 799 state records. The author reviewed the code, proofs, data, and text and is responsible for the work.
 
 # Discussion
 
-With every census vertex carrying a certified extremal state, the open problems are theoretical rather than computational. The dichotomy itself invites theory: which incidence data of moment-polytope vertices are weighted-independent-set realizable is a clean combinatorial question---approachable through the facet conditions of Ressayre-type inequalities [@Ressayre]---and the census suggests the answer encodes the boundary of "classically representable" vertices. The toolkit transfers to other pure-state quantum marginal settings---most directly the entanglement polytopes of Ref. [@WDGC2013]---where the same questions (explicit vertex states, design versus interference) appear open.
+The two historical gaps in $\wedge^4\mathcal H_9$ have different resolutions. The first required a missing combinatorial construction: $v_A$ has a seven-term root-distinct preimage. The second lies outside that mechanism: no unitary orbital basis makes a $v_B$ preimage root-distinct, while an eight-determinant state attains it through a nonzero coherence built from two exchange channels. This is a unitary-basis obstruction attached to a marginal-polytope vertex. It is distinct from non-freeness under general local $\mathrm{GL}$ transformations [@vdBergNonFree2025].
 
-## Significance and applications {#significance .unnumbered}
+The atlas turns isolated existence checks into a common algebraic test set. It can be used to test symbolic 1-RDM calculations, state-construction heuristics, and methods designed for pinned occupations. These are prospective uses; no many-body solver, density-matrix functional, or state-preparation protocol is benchmarked here.
 
-The immediate consumers of an explicit atlas of extremal states are the methods that live on the polytope boundary. Reduced-density-matrix functional theory needs pure-state $N$-representable 1-RDMs, and its functionals are least controlled exactly at the vertices; the certified states here are exact boundary data for constructing and benchmarking them. The pinning and quasipinning program [@SGC2013; @Liebert2025] studies wave functions whose occupations saturate GPCs, and vertices are the maximally pinned states, so closed forms make the mechanism analytically accessible rather than only numerical. Variational two-body-RDM and other $N$-representability solvers gain exact extremal references precisely where they are least reliable. For fermionic many-body numerics (DMRG, tensor networks, coupled cluster, and variational quantum eigensolvers) an exact state with a prescribed occupation spectrum is a clean, arbitrary-precision benchmark and, for state preparation, an exact target. The interference class is itself a physics result: at an interference vertex every extremal state carries coherent cancellation between one-hop-connected configurations, the exact cancellation data (channel magnitudes and relative phases) ship with each state, and the library state shipped for $v_B$ is itself real, with squared weights in $\mathbb{Q}(\sqrt{35})$ (Remark [4](#rem:orbit)). Which extremal state a vertex realizes is interaction-selected along the computed families by the elementary rule of Section [-@sec:outlook]. Four literature threads consume the census directly. The doubly-excited inner bounds of Maciazek--Tsanov [@MT17] were known to be exact for $(3,d\le 7)$, with the domain of exactness left open; within the systems covered here, the census answers it: they are exact precisely on the interference-free systems, and the exceptional vertices per system read off the trichotomy. The Slater-sparsity program at the polytope boundary [@CM2018] gains, per vertex, the exact support, weights, and phase type. Proposed quantum-simulator probes of the GPCs [@Hackl2023] acquire certified closed-form target states with bounded Slater rank. And the exact polytope invariants of interest in the large-system limit [@Reuvers2021]---volumes, $f$-vectors, facet incidence---become finite computations from the exact $V$-representations shipped here.
+The principal limitation concerns the negative root-distinct classification. State verification covers all 799 records, but global no-design certificates cover 12 of the 156 negative labels. The other 144 remain solver classifications. Extending the finite certificate collection would strengthen that taxonomy but is not needed for the preimage theorem or for the four-fermion, nine-orbital completion. At ten orbitals, the remaining limitation is different: the coefficient tables agree with their source, but completeness remains conditional on the mathematical validity of those inequalities.
 
-## Three questions this raises {#three-questions-this-raises .unnumbered}
+# Conclusion
 
-\(i\) _Does every interference vertex admit a real extremal state?_ For every vertex where the question has been settled here the answer is yes: $v_B$ admits real extremal states at quadratic-irrational weights, off every rational search grid---the released library state is one of them (Remark [4](#rem:orbit))---and the two $\wedge^3\mathcal{H}_{10}$ closure vertices are attained by real states outright. The question stands open for the remaining rank-$9$ and rank-$10$ interference vertices, as does whether the field of definition is decidable vertex-by-vertex the way design-attainability is. We note that numerical verification cannot settle it: real-restricted optimization approaches $v_B$ to working precision, which we now know reflects a genuine real attainer, so only exact arithmetic reveals whether a limit is attained and over which field. (ii) _Is the design-int / design-real / interference trichotomy an instance of a broader hierarchy?_ The classes are reminiscent of the positive / signed gradation familiar from classical simulability and sign-problem considerations, but the correspondence is looser than it first appears: both design classes carry all-positive amplitudes, and interference is where signs and phases enter, with the finer field-of-definition question a property of the individual extremal state rather than of the vertex (Remark [4](#rem:orbit)). Whether the resemblance is otherwise structural or superficial we leave open. (iii) _What is the physics of a pinned phase?_ Occupation spectra are phase-blind, yet within its ansatz class pinning to $v_B$ forces the relative phase $\cos\gamma = 3/(4\sqrt{14})$ exactly; the dynamical and metrological consequences of a geometrically pinned algebraic phase appear unexplored.
+We have replaced two numerical preimages in the four-fermion, nine-orbital analysis by symbolic states. One is root-distinct; the other has a finite obstruction to every root-distinct realization and is attained by two coherent exchange channels. The accompanying atlas supplies symbolic preimages for all 799 vertices of nine tabulated rational H-descriptions, while a rational half-space calculation reconstructs the complete vertex lists. A source concordance closes the provenance of the four-fermion, nine-orbital rows, yielding an unconditional completion of that published description. The ten-orbital implication is stated with its remaining validity hypothesis.
+
+# Supplementary Material {.unnumbered}
+
+See the Supplementary Material for the state-record schema, proof-object formats, source-concordance metadata, archive manifest, and reproduction instructions. The accompanying machine-readable research-data archive contains the 799 symbolic states, nine rational H- and V-tables, 12 no-design certificates, source concordance, and checking programs.
+
+# Author declarations {.unnumbered}
+
+## Conflict of interest {.unnumbered}
+
+The author has no conflicts to disclose.
+
+## Author contributions {.unnumbered}
+
+James Orlando: Conceptualization; Methodology; Software; Validation; Formal analysis; Investigation; Data curation; Writing - original draft; Writing - review and editing; Project administration.
+
+## Data availability {.unnumbered}
+
+The Supplementary Material and machine-readable research-data archive are submitted with this manuscript. Versioned project materials are also available from Zenodo [@OrlandoZenodo2026] and the [public source repository](https://github.com/theorlandog/gpc-census).
+
+# Appendix A: State records and 1-RDM reconstruction {#app:state-check .unnumbered}
+
+Formulas in the manuscript number orbitals from 1; the supplementary determinant arrays number them from 0. Each state record is keyed by its system and vertex index and stores the canonical integer spectrum $n$, its least denominator $D$, determinant arrays, and symbolic amplitudes. The Supplementary Material gives the complete schema.
+
+For a sorted determinant $U=(u_1<\cdots<u_N)$, the action of $a_j$ is zero unless $j=u_p$, in which case removal contributes $(-1)^{p-1}$. If $i$ is absent from the remaining determinant, inserting it in sorted position $q$ contributes $(-1)^{q-1}$. Thus the verifier evaluates
+$$
+\rho^{(1)}_{ij}=\sum_{T,U}\overline{c_T}c_U
+\langle T|a_i^\dagger a_j|U\rangle,\tag{A1}
+$$
+directly from the serialized determinant arrays. It checks $\sum_T|c_T|^2=1$ and compares every coefficient of
+$$
+\det(xI-\rho^{(1)})-\prod_{k=1}^d\left(x-\frac{n_k}{D}\right),\tag{A2}
+$$
+as an algebraic number. The cross-link checker separately confirms that each `(system, index, n, D)` agrees with exactly one vertex-table row. Positive weighted-design records receive the additional one-hop and incidence checks of Lemma [1](#lem:incidence).
+
+# Appendix B: No-design certificates {#app:no-design .unnumbered}
+
+For each integral separator $y$, the checker recomputes $y\mathbin{\cdot}b$ and the clause $P_y$ from the determinant incidence columns. As a simple example from the $v_B$ certificate, take
+$$
+y=(2,2,2,2,2,-3,-3,-3,-3;-3).\tag{B1}
+$$
+The last entry pairs with the normalization coordinate. Direct calculation gives $y\mathbin{\cdot}(v_B,1)=35/23>0$. For a four-subset $T$, the inequality $y\mathbin{\cdot}a_T>0$ holds precisely when all four orbitals of $T$ lie among the first five. Hence $P_y$ is the five-element family of four-subsets of $\{1,2,3,4,5\}$. Any weighted design must select at least one of them.
+
+At every branch node the certificate records an independent selected set $S$ and an unhit clause $P_y$. For every $T\in P_y$ that is compatible with $S$, a child records $S\cup\{T\}$, with orbit-equivalent children represented once under permutations inside equal-eigenvalue blocks. The checker expands those orbits, verifies that their union is exactly the compatible part of $P_y$, and verifies the child invariant. A leaf is valid only when that compatible part is empty. Acyclicity, reachability, and complete child coverage prove that no independent support hits all clauses.
+
+# Appendix C: Rational H-to-V reconstruction {#app:vertex-check .unnumbered}
+
+Let $E$ contain the affine equalities and let $R$ be the inequalities already imposed. For a vertex $u$, write $A(u)\subseteq R$ for its active inequalities. The update used in Proposition [3](#prop:exhaustion) is:
+
+1. Start with the vertices of the ordered Pauli simplex in the affine space $E$.
+2. For the next half-space $h(x)\le c$, retain every old vertex satisfying it.
+3. For each pair $u,v$ on opposite sides, test
+   $$
+   \operatorname{rank}\bigl(E\cup A(u)\cap A(v)\bigr)=d-1.\tag{C1}
+   $$
+   If the equality holds, add the unique intersection of the segment $[u,v]$ with $h(x)=c$.
+4. Merge coincident points, recompute their complete active sets, and continue.
+
+The rank condition is the standard adjacency criterion in the affine hull. The vertices of a half-space cut are exactly the retained vertices and intersections of the cutting hyperplane with crossed edges, so induction proves that every intermediate vertex set is complete. The implementation uses `Fraction` arithmetic for solves, slacks, intersections, and ranks. After the final cut it verifies every inequality and checks that the equality normals plus active inequality normals have full rank $d$ at each point. Exact set comparison with the nine supplied tables then proves Proposition [3](#prop:exhaustion).
+
+# Appendix D: Constraint-source concordance {#app:source-map .unnumbered}
+
+The source checker identifies the dissertation PDF by SHA-256, extracts Appendix A with layout-preserving text conversion, and parses each displayed $\lambda_i$ coefficient and right-hand side. It compares the rows in order with both the transcription and the normalized H-table. All 490 printed rows match: 51 at $(3,9)$, 60 at $(4,9)$, and 93, 125, and 161 at $(3,10)$, $(4,10)$, and $(5,10)$. The unprinted 52nd row in our $(3,9)$ table equals the restriction of printed $(3,10)$ row 82. This establishes the algebraic identity but not the historical intent of the omitted source row. The PDF itself is not redistributed.
 
 # References {.unnumbered}
 
 ::: {#refs}
 :::
-
-[^1]: Independent researcher, Derry, NH, USA. `jamie@orlandonh.com`. ORCID: 0009-0008-3158-771X.

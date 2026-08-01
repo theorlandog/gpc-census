@@ -87,9 +87,11 @@ jobs:
       - name: Stamp version
         run: uv version "${{ needs.version.outputs.version }}"
       - name: Build report
-        run: make report
+        run: make report supplementary-material
       - name: Build anonymized review copy (PDF and TeX)
         run: make report-anon report-anon-tex
+      - name: Build and locked-environment test Paper 1 supplement
+        run: make paper1-supplement-locked
 
   release:
     if: >-
@@ -117,16 +119,18 @@ jobs:
         run: uv version "${{ needs.version.outputs.version }}"
       - name: Build wheel and sdist
         run: uv build
-      - name: Build report and assemble data output
+      - name: Build report and assemble Paper 1 output
         run: |
-          make report
+          make report supplementary-material
           make report-anon report-anon-tex
+          make paper1-supplement-locked
           mkdir -p data-output/anonymized
           cp results/report/main.pdf data-output/
+          cp results/report/supplementary_material.pdf data-output/
           cp results/report/anonymized/main.pdf data-output/anonymized/
           cp results/report/anonymized/main.tex data-output/anonymized/
           cp results/report/anonymized/references.bib data-output/anonymized/
-          cp -r results/data data-output/data
+          cp build/gpc-census-paper1-supplement.zip data-output/
       - name: Attest data output files
         id: attest
         uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1

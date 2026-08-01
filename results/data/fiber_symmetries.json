@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/fiber_symmetries.py",
- "states_sha256": "a6817b19891d80717b9e17f7bf1a024bdc0898c2cbf23cafb342fe7724254f76",
+ "states_sha256": "bf544c999959d2dc997d16969680bb34ff20ea1b1be136e62d9c43352ee670ff",
  "transport_metadata_sha256": "0472364c2800026d22d874501175f6a52bdffdd692f7c512f98a8a5f9f848a0f",
  "conditional_theorem": "For a fixed support S, full column rank of the pair-incidence matrix B_S makes the diagonal pair occupations an injective coordinate on squared amplitudes. Since sum_{j != i} (B_S w)_{ij} = (N-1)(A_S w)_i, ker(B_S) is contained in ker(A_S), so every nonzero incidence-kernel deformation changes a pair occupation.",
  "scope_limit": "The rank hypothesis is not universal. Signed combinatorial 2-trades give supports with a nonzero pair-incidence kernel. The artifact certifies the hypothesis only for the shipped supports. Pair occupations use a fixed orbital frame and are not invariants of the full degeneracy-stabilizer quotient.",

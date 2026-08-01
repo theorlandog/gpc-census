@@ -1,339 +1,321 @@
 #!/usr/bin/env python3
-"""Manuscript-consistency test.
+"""Check every structured census claim retained in Paper 1.
 
-Regenerates, from the canonical released artifact results/data/states.jsonl,
-every census count that appears in results/report/main.md, and fails if any
-number the manuscript asserts disagrees with the data. Run in CI so the paper
-can never drift from the dataset again.
-
-Usage: python3 scripts/check_manuscript_counts.py
+The checker reads the manuscript itself, the exact state atlas, the nine vertex
+files, and the exact global no-design artifact. It fails if the Markdown table,
+headline totals, evidence scope, or atlas-to-vertex bijection drifts.
 """
+
+from __future__ import annotations
+
 import json
+import pathlib
+import re
 import sys
 from collections import Counter, defaultdict
+from fractions import Fraction
 
-from sympy import Matrix
 
-STATES = "results/data/states.jsonl"
-MANUSCRIPT = "results/report/main.md"
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+STATES = ROOT / "results/data/states.jsonl"
+VERTICES = ROOT / "results/data/vertices"
+CERTS = ROOT / "results/data/interference_certificates.json"
+SOURCE_MAP = ROOT / "results/data/constraints/altunbulak_appendix_a_map.json"
+CONSTRAINTS = ROOT / "src/gpc_census/data/constraints.json"
+MANUSCRIPT = ROOT / "results/report/main.md"
 
-# ---- expected values asserted by the manuscript (single source of truth is
-# the dataset; these constants mirror what the paper text claims so that any
-# edit to either side trips the test) ----
-EXPECT_TABLE = {
-    "(3,6)":  dict(total=4,   int_=4,   real=0, intf=0),
-    "(3,7)":  dict(total=10,  int_=10,  real=0, intf=0),
-    "(3,8)":  dict(total=38,  int_=26,  real=1, intf=11),
-    "(4,8)":  dict(total=22,  int_=22,  real=0, intf=0),
-    "(3,9)":  dict(total=58,  int_=37,  real=1, intf=20),
-    "(4,9)":  dict(total=103, int_=85,  real=2, intf=16),
-    "(3,10)": dict(total=113, int_=69,  real=2, intf=42),
-    "(4,10)": dict(total=159, int_=132, real=2, intf=25),
-    "(5,10)": dict(total=292, int_=246, real=4, intf=42),
+EXPECTED = {
+    "(3,6)": dict(total=4, int_=4, real=0, interference=0),
+    "(3,7)": dict(total=10, int_=10, real=0, interference=0),
+    "(3,8)": dict(total=38, int_=26, real=1, interference=11),
+    "(4,8)": dict(total=22, int_=22, real=0, interference=0),
+    "(3,9)": dict(total=58, int_=37, real=1, interference=20),
+    "(4,9)": dict(total=103, int_=85, real=2, interference=16),
+    "(3,10)": dict(total=113, int_=69, real=2, interference=42),
+    "(4,10)": dict(total=159, int_=132, real=2, interference=25),
+    "(5,10)": dict(total=292, int_=246, real=4, interference=42),
 }
-EXPECT_TOTALS = dict(all=799, design=643, design_int=631, design_real=12,
-                     interference=156)
-EXPECT_RANK10_TOTAL = 564
-EXPECT_INTERFERENCE_DECOMP = dict(engine=142, audit_recovered=12,
-                                  fiber_sparsified=2)   # 142+12+2 == 156
-EXPECT_LOOPFREE_INTERFERENCE = 93   # kernel-dim 0 supports among the 156
-EXPECT_LOOP_CARRYING = 63
-EXPECT_CLOSURE_KERNELS = {"(15,15,6,6,6,6,6,6,6,6)": 1,
-                          "(18,18,18,18,5,5,5,5,5,5)": 5}
-
-# ---- claims sourced from the companion data artifacts (galois tally,
-# gauge minimization, sparsification cascade, v103 support-10 certificate);
-# each block below re-reads the artifact the manuscript quotes ----
-HOLONOMY = "results/data/holonomy_fields.json"
-EXPECT_HOLONOMY = dict(loopy_states=63, loops=82,
-                       degree_counts={"1": 37, "2": 32, "4": 13},
-                       exp_degree_counts={"1": 8, "2": 29, "4": 32, "8": 13},
-                       all_two_elementary=True, all_kernels_saturated=True,
-                       loops_with_radicand_outside_weight_group=15)
-GAUGE = "results/data/gauge_min_summary.json"
-EXPECT_GAUGE = dict(states=799, certified_gauge_minimal=670,
-                    exterior_certificates_exact=799,
-                    strictly_improved_by_exterior_contractions=82,
-                    newly_certified_by_exterior_contractions=41,
-                    states_that_gauge_sparsify=0)
-CASCADE = "results/data/cascade_summary.json"
-EXPECT_CASCADE = dict(states_with_support_drop=71,
-                      total_amplitudes_removed=89,
-                      multiplicity_drift_blocked=33,
-                      drops_by_class={"INTERFERENCE": 71})
-CASCADE_EXACT = "results/data/cascade_exact.json"
-# CORRECTED: the characteristic-polynomial identity is conjugation invariant,
-# so "exactly recognized" is not "attains the vertex". Zero endpoints are
-# attainers; all 71 are exact on the spectrum locus only.
-EXPECT_CASCADE_EXACT = dict(endpoints_attempted=71, certified_s_Q_NO=0,
-                            exact_spectrum_only_s_Q_free=71)
-ORBIT = "results/data/orbit_check.json"
-EXPECT_ORBIT = dict(endpoints_tested=71, same_state_as_library=63,
-                    new_states_found=8, endpoints_in_natural_orbital_basis=0)
-V103_S10 = "results/data/v103_support10_certificate.json"
-V103_FREE = "results/data/v103_sqfree_certificate.json"
-NO_LEDGER = "results/data/natural_orbital_summary.json"
-NO_RATIO = "results/data/no_support_ratio.json"
-INTERFERENCE_CERTS = "results/data/interference_certificates.json"
-EXPECT_INTERFERENCE_CERTS = {
+EXPECTED_TOTALS = dict(total=799, int_=631, real=12, interference=156)
+EXPECTED_TABLE = {
+    "(3,6)": dict(total=4, positive=4, proved_negative=0, solver_negative=0),
+    "(3,7)": dict(total=10, positive=10, proved_negative=0, solver_negative=0),
+    "(3,8)": dict(total=38, positive=27, proved_negative=11, solver_negative=0),
+    "(4,8)": dict(total=22, positive=22, proved_negative=0, solver_negative=0),
+    "(3,9)": dict(total=58, positive=38, proved_negative=0, solver_negative=20),
+    "(4,9)": dict(total=103, positive=87, proved_negative=1, solver_negative=15),
+    "(3,10)": dict(total=113, positive=71, proved_negative=0, solver_negative=42),
+    "(4,10)": dict(total=159, positive=134, proved_negative=0, solver_negative=25),
+    "(5,10)": dict(total=292, positive=250, proved_negative=0, solver_negative=42),
+}
+EXPECTED_RANK10 = 564
+EXPECTED_DESCENT = dict(padding=235, core=161, primitive=403)
+EXPECTED_CERTS = {
     "record_count": 12,
     "farkas_vectors": 192,
     "expanded_clauses": 5141,
     "proof_nodes": 226,
     "maximum_proof_depth": 8,
 }
-EXPECT_V103_S10 = dict(
-    state_denominator=46852,
-    squared_weights=["13/34", "5/34", "53/442", "195/1802", "5/68", "5/68",
-                     "35/901", "1/34", "18/901", "84/11713"],
-    support=10, certified_library_support=14)
 
 
-def kernel_dim(support_dets):
-    orbs = sorted({m for T in support_dets for m in T})
-    M = Matrix([[1 if m in T else 0 for m in orbs] for T in support_dets])
-    return len(M.T.nullspace())
+def vertex_path(system: str) -> pathlib.Path:
+    n, d = system.strip("()").split(",")
+    return VERTICES / f"vertices_{n}_{d}.json"
 
 
-def main():
-    recs = [json.loads(line) for line in open(STATES)]
-    errors = []
+def parse_table(text: str) -> dict[str, dict[str, int]]:
+    """Parse the five numeric columns of the census Markdown table."""
+    found: dict[str, dict[str, int]] = {}
+    pattern = re.compile(
+        r"^\| \$P\^\{\\mathrm\{tab\}\}_\{(\d+),(\d+)\}\$ \| (\d+) \| [^|]+ "
+        r"\| (\d+) \| (\d+) \| (\d+) \|$"
+    )
+    for line in text.splitlines():
+        match = pattern.match(line)
+        if not match:
+            continue
+        n, d, total, positive, proved_negative, solver_negative = map(
+            int, match.groups()
+        )
+        found[f"({n},{d})"] = dict(
+            total=total,
+            positive=positive,
+            proved_negative=proved_negative,
+            solver_negative=solver_negative,
+        )
+    return found
 
-    by_sys = defaultdict(Counter)
-    for r in recs:
-        by_sys[r["system"]][r["classified"]] += 1
 
-    # per-system table
-    for sysname, exp in EXPECT_TABLE.items():
-        c = by_sys[sysname]
-        got = dict(total=sum(c.values()), int_=c["DESIGN-INT"],
-                   real=c["DESIGN-REAL"], intf=c["INTERFERENCE"])
-        if got != exp:
-            errors.append(f"{sysname}: manuscript {exp} vs data {got}")
+def require(text: str, needle: str, errors: list[str]) -> None:
+    if needle not in text:
+        errors.append(f"manuscript is missing required scoped claim: {needle!r}")
 
-    # global totals
-    tot = Counter()
-    for r in recs:
-        tot[r["classified"]] += 1
-    got = dict(all=len(recs),
-               design=tot["DESIGN-INT"] + tot["DESIGN-REAL"],
-               design_int=tot["DESIGN-INT"], design_real=tot["DESIGN-REAL"],
-               interference=tot["INTERFERENCE"])
-    if got != EXPECT_TOTALS:
-        errors.append(f"totals: manuscript {EXPECT_TOTALS} vs data {got}")
 
-    # interference decomposition arithmetic
-    d = EXPECT_INTERFERENCE_DECOMP
-    if sum(d.values()) != EXPECT_TOTALS["interference"]:
-        errors.append("interference decomposition does not sum to 156")
+def main() -> int:
+    manuscript = MANUSCRIPT.read_text()
+    records = [json.loads(line) for line in STATES.read_text().splitlines()]
+    errors: list[str] = []
 
-    # Exact global no-design certificates for the 11 Proposition 1 negatives
-    # and Theorem 2. The standalone verifier checks their logical content;
-    # this consistency gate pins the manuscript's scope and headline counts.
-    interference_certs = json.load(open(INTERFERENCE_CERTS))
-    if interference_certs.get("record_count") != EXPECT_INTERFERENCE_CERTS["record_count"]:
-        errors.append("global interference certificate record count disagrees")
+    by_system: dict[str, Counter[str]] = defaultdict(Counter)
+    for record in records:
+        by_system[record["system"]][record["classified"]] += 1
+
+    data_counts: dict[str, dict[str, int]] = {}
+    for system in EXPECTED:
+        counts = by_system[system]
+        data_counts[system] = dict(
+            total=sum(counts.values()),
+            int_=counts["DESIGN-INT"],
+            real=counts["DESIGN-REAL"],
+            interference=counts["INTERFERENCE"],
+        )
+    if data_counts != EXPECTED:
+        errors.append(f"state-atlas system counts drifted: {data_counts}")
+
+    table_counts = parse_table(manuscript)
+    if table_counts != EXPECTED_TABLE:
+        errors.append(f"manuscript census table disagrees: {table_counts}")
+
+    totals = dict(
+        total=len(records),
+        int_=sum(row["int_"] for row in data_counts.values()),
+        real=sum(row["real"] for row in data_counts.values()),
+        interference=sum(row["interference"] for row in data_counts.values()),
+    )
+    if totals != EXPECTED_TOTALS:
+        errors.append(f"state-atlas totals drifted: {totals}")
+
+    # Each record must be exact and match the same indexed vertex exactly.
+    seen: set[tuple[str, int]] = set()
+    for record in records:
+        key = (record["system"], record["index"])
+        if key in seen:
+            errors.append(f"duplicate state key: {key}")
+        seen.add(key)
+        if record.get("status") != "OK" or not record.get("closed_form"):
+            errors.append(f"state lacks an exact closed form: {key}")
+
+    vertex_keys: set[tuple[str, int]] = set()
+    for system in EXPECTED:
+        vertices = json.loads(vertex_path(system).read_text())
+        if len(vertices) != EXPECTED[system]["total"]:
+            errors.append(f"vertex file count drifted for {system}")
+        state_rows = {r["index"]: r for r in records if r["system"] == system}
+        for index, vertex in enumerate(vertices):
+            key = (system, index)
+            vertex_keys.add(key)
+            record = state_rows.get(index)
+            if record is None:
+                errors.append(f"missing state record for vertex {key}")
+                continue
+            if record["integer_form"] != vertex["integer_form"]:
+                errors.append(f"integer form disagrees at {key}")
+            if record["denominator"] != vertex["denominator"]:
+                errors.append(f"denominator disagrees at {key}")
+    if seen != vertex_keys:
+        errors.append("state records and vertex files are not in exact bijection")
+
+    rank10 = sum(
+        1 for record in records if record["system"] in {"(3,10)", "(4,10)", "(5,10)"}
+    )
+    if rank10 != EXPECTED_RANK10:
+        errors.append(f"ten-orbital count drifted: {rank10}")
+
+    # The novelty paragraph uses a disjoint, reproducible descent convention:
+    # test empty-orbital padding first, then a frozen occupied orbital.
+    vertex_spectra: dict[tuple[int, int], set[tuple[Fraction, ...]]] = {}
+    all_spectra: list[tuple[int, int, tuple[Fraction, ...]]] = []
+    for system in EXPECTED:
+        n, d = map(int, system.strip("()").split(","))
+        rows = json.loads(vertex_path(system).read_text())
+        spectra = {
+            tuple(Fraction(value) for value in row["spectrum"]) for row in rows
+        }
+        vertex_spectra[n, d] = spectra
+        all_spectra.extend((n, d, spectrum) for spectrum in spectra)
+    descent = Counter()
+    for n, d, spectrum in all_spectra:
+        if (
+            spectrum[-1] == 0
+            and (n, d - 1) in vertex_spectra
+            and spectrum[:-1] in vertex_spectra[n, d - 1]
+        ):
+            descent["padding"] += 1
+        elif (
+            spectrum[0] == 1
+            and (n - 1, d - 1) in vertex_spectra
+            and spectrum[1:] in vertex_spectra[n - 1, d - 1]
+        ):
+            descent["core"] += 1
+        else:
+            descent["primitive"] += 1
+    if dict(descent) != EXPECTED_DESCENT:
+        errors.append(f"descent counts drifted: {dict(descent)}")
+
+    certs = json.loads(CERTS.read_text())
+    if certs.get("record_count") != EXPECTED_CERTS["record_count"]:
+        errors.append("global no-design record count drifted")
     for key in (
         "farkas_vectors",
         "expanded_clauses",
         "proof_nodes",
         "maximum_proof_depth",
     ):
-        got = interference_certs.get("summary", {}).get(key)
-        if got != EXPECT_INTERFERENCE_CERTS[key]:
-            errors.append(
-                f"global interference certificates {key}: manuscript "
-                f"{EXPECT_INTERFERENCE_CERTS[key]} vs data {got}"
-            )
-    certificate_targets = {
+        if certs.get("summary", {}).get(key) != EXPECTED_CERTS[key]:
+            errors.append(f"global no-design certificate {key} drifted")
+
+    cert_targets = {
         (f"({row['system'][0]},{row['system'][1]})", row["vertex_index"])
-        for row in interference_certs.get("records", [])
+        for row in certs.get("records", [])
     }
     expected_targets = {
         (record["system"], record["index"])
-        for record in recs
+        for record in records
         if record["classified"] == "INTERFERENCE"
         and (
             record["system"] == "(3,8)"
             or (record["system"] == "(4,9)" and record["index"] == 65)
         )
     }
-    if certificate_targets != expected_targets:
-        errors.append("global interference certificate target set disagrees")
+    if cert_targets != expected_targets:
+        errors.append("global no-design certificate target set drifted")
 
-    # rank-10 vertex total (the conditional-completeness theorem count)
-    r10 = sum(1 for r in recs if r["system"] in ("(3,10)", "(4,10)", "(5,10)"))
-    if r10 != EXPECT_RANK10_TOTAL:
-        errors.append(f"rank-10 total: manuscript {EXPECT_RANK10_TOTAL} vs data {r10}")
-
-    # certification status
-    uncert = [r for r in recs if r.get("status") != "OK" or not r.get("closed_form")]
-    if uncert:
-        errors.append(f"{len(uncert)} records lack certified closed forms")
-
-    # loop census over interference supports
-    kd = Counter()
-    for r in recs:
-        if r["classified"] != "INTERFERENCE":
+    source_map = json.loads(SOURCE_MAP.read_text())
+    constraints = json.loads(CONSTRAINTS.read_text())
+    if source_map.get("source", {}).get("pdf_sha256") != (
+        "42b29e4b27cbf3d38d66d08661be2dd1fef301d97f19a628cda27d31eea0e31d"
+    ):
+        errors.append("constraint source identity drifted")
+    for system in ("(3,9)", "(4,9)", "(3,10)", "(4,10)", "(5,10)"):
+        mapped = source_map["systems"][system]
+        rows = constraints[system.strip("()")]["inequalities"]
+        if len(mapped["rows"]) != len(rows):
+            errors.append(f"constraint source-map count drifted for {system}")
             continue
-        dets = [tuple(t) for t in r["closed_form"]["support_dets"]]
-        kd[kernel_dim(dets)] += 1
-    loopfree = kd[0]
-    loopy = sum(v for k, v in kd.items() if k > 0)
-    if loopfree != EXPECT_LOOPFREE_INTERFERENCE:
-        errors.append(f"loop-free interference supports: manuscript "
-                      f"{EXPECT_LOOPFREE_INTERFERENCE} vs data {loopfree}")
-    if loopy != EXPECT_LOOP_CARRYING:
-        errors.append(f"loop-carrying interference supports: manuscript "
-                      f"{EXPECT_LOOP_CARRYING} vs data {loopy}")
+        for mapping, row in zip(mapped["rows"], rows):
+            if mapping["coeffs"] != row["coeffs"] or mapping["rhs"] != row["rhs"]:
+                errors.append(f"constraint source-map row drifted for {system}")
+                break
+    if sum(
+        source_map["systems"][system]["printed_rows"]
+        for system in ("(3,9)", "(4,9)", "(3,10)", "(4,10)", "(5,10)")
+    ) != 490:
+        errors.append("printed source-row total drifted")
 
-    # closure-vertex kernel dimensions quoted in the manuscript
-    for r in recs:
-        key = "(" + ",".join(map(str, r["integer_form"])) + ")"
-        if key in EXPECT_CLOSURE_KERNELS:
-            dets = [tuple(t) for t in r["closed_form"]["support_dets"]]
-            k = kernel_dim(dets)
-            if k != EXPECT_CLOSURE_KERNELS[key]:
-                errors.append(f"closure vertex {key}: manuscript kernel dim "
-                              f"{EXPECT_CLOSURE_KERNELS[key]} vs data {k}")
+    equation_tags = re.findall(r"\\tag\{([^}]+)\}", manuscript)
+    expected_equation_tags = [
+        *(str(index) for index in range(1, 18)),
+        "A1",
+        "A2",
+        "B1",
+        "C1",
+    ]
+    if equation_tags != expected_equation_tags:
+        errors.append(f"displayed-equation numbering drifted: {equation_tags}")
+    if manuscript.count("<!-- Alt text:") != 2:
+        errors.append("both manuscript tables must carry source alt text")
 
-    # galois tally quoted in the manuscript, from holonomy_fields.json
-    h = json.load(open(HOLONOMY))["summary"]
-    for k, want in EXPECT_HOLONOMY.items():
-        if h.get(k) != want:
-            errors.append(f"holonomy {k}: manuscript {want} vs data {h.get(k)}")
+    # These are the claim boundaries a referee must see in the prose.
+    for claim in (
+        "Symbolic 1-RDM reconstruction verifies the preimage in all 799 records",
+        "The 144 solver classifications record exploratory CP-SAT and CBC outcomes",
+        "**Proposition 2** (Existence of a finite certificate)",
+        "**Proposition 3** (Vertex exhaustion of the tabulated H-polytopes)",
+        "**Corollary 2** (Four fermions in nine orbitals)",
+        "*If every inequality",
+        "1\\ge\\lambda_1\\ge\\cdots\\ge\\lambda_{10}\\ge0",
+        "235 records descend by padding, 161 by a frozen-core lift, and 403",
+        "all 60 rows at $(4,9)$ and all 379 rows at $d=10$",
+        "All 490 printed rows match",
+        "does not establish that it was the source's intended omitted row",
+        "This notation does not assume that a tabulated description equals $\\Pi_{N,d}$",
+        "z=\\sqrt{14}\\eta+2",
+    ):
+        require(manuscript, claim, errors)
 
-    # gauge-minimality numbers, from gauge_min_summary.json
-    g = json.load(open(GAUGE))
-    for k, want in EXPECT_GAUGE.items():
-        if g.get(k) != want:
-            errors.append(f"gauge {k}: manuscript {want} vs data {g.get(k)}")
-    if g.get("states", 0) - g.get("certified_gauge_minimal", 0) != 129:
-        errors.append("gauge: manuscript quotes 129 open, data disagrees")
+    for unbecoming in (
+        "claims retained in Paper 1",
+        "production pipeline",
+        "shipped weights",
+        "does not trust the discovery solver",
+        "PASS logs",
+        "locked environment",
+        "current release supplies",
+        "The scope is deliberately narrow",
+        "Every retained claim",
+        "coherent-cancellation",
+        "two exchange channels cancel",
+        "normalized block",
+        "GPC rows",
+        "non-Pauli rows",
+        "generalized Pauli half-spaces",
+        "| $\\Pi_",
+    ):
+        if unbecoming in manuscript:
+            errors.append(f"internal or misleading wording returned: {unbecoming}")
 
-    # sparsification-cascade numbers, from cascade_summary.json
-    c = json.load(open(CASCADE))
-    if c.get("states_with_support_drop") != EXPECT_CASCADE["states_with_support_drop"]:
-        errors.append(f"cascade drops: manuscript "
-                      f"{EXPECT_CASCADE['states_with_support_drop']} vs data "
-                      f"{c.get('states_with_support_drop')}")
-    if c.get("total_amplitudes_removed") != EXPECT_CASCADE["total_amplitudes_removed"]:
-        errors.append(f"cascade amplitudes removed: manuscript "
-                      f"{EXPECT_CASCADE['total_amplitudes_removed']} vs data "
-                      f"{c.get('total_amplitudes_removed')}")
-    if c.get("drops_by_class") != EXPECT_CASCADE["drops_by_class"]:
-        errors.append(f"cascade drops by class: manuscript all-interference "
-                      f"vs data {c.get('drops_by_class')}")
-    if c.get("blocked_reasons", {}).get("multiplicity_drift") != \
-            EXPECT_CASCADE["multiplicity_drift_blocked"]:
-        errors.append(f"cascade multiplicity-drift count: manuscript "
-                      f"{EXPECT_CASCADE['multiplicity_drift_blocked']} vs data "
-                      f"{c.get('blocked_reasons', {}).get('multiplicity_drift')}")
-    if not c.get("worst_residual_among_drops", 1) <= 2.3e-16:
-        errors.append("cascade worst residual exceeds the manuscript bound")
-    v103row = [m for m in c.get("cancellation_regime_members", [])
-               if m.get("index") == 103]
-    if not (v103row and v103row[0].get("support_certified") == 14
-            and v103row[0].get("support_upper") == 10):
-        errors.append("cascade v103 support 14 -> 10: data disagrees")
-
-    # exact certification of the cascade bounds, from cascade_exact.json
-    ce = json.load(open(CASCADE_EXACT))
-    for k, want in EXPECT_CASCADE_EXACT.items():
-        if ce.get(k) != want:
-            errors.append(f"cascade_exact {k}: manuscript {want} vs data {ce.get(k)}")
-
-    # 2-RDM orbit gate, from orbit_check.json
-    o = json.load(open(ORBIT))
-    for k, want in EXPECT_ORBIT.items():
-        if o.get(k) != want:
-            errors.append(f"orbit_check {k}: manuscript {want} vs data {o.get(k)}")
-
-    # the v103 support-10 certificate the manuscript quotes verbatim
-    v = json.load(open(V103_S10))
-    if v.get("state_denominator") != EXPECT_V103_S10["state_denominator"]:
-        errors.append(f"v103 support-10 denominator: manuscript "
-                      f"{EXPECT_V103_S10['state_denominator']} vs data "
-                      f"{v.get('state_denominator')}")
-    if sorted(v.get("squared_weights", [])) != sorted(EXPECT_V103_S10["squared_weights"]):
-        errors.append("v103 support-10 squared weights: manuscript list "
-                      "disagrees with the certificate")
-    if len(v.get("support_dets", [])) != EXPECT_V103_S10["support"]:
-        errors.append("v103 support-10 support size: data disagrees")
-    if v.get("certified_library_support") != EXPECT_V103_S10["certified_library_support"]:
-        errors.append("v103 library support 14: data disagrees")
-    # The v103 support-10 certificate is SUPERSEDED by design: the state is not
-    # diagonal, so its diagonality checks are EXPECTED to fail. What must hold is
-    # that it is marked superseded and still carries the exact spectrum-locus
-    # content the manuscript quotes.
-    if v.get("status") != "SUPERSEDED":
-        errors.append("v103 support-10 certificate should be marked SUPERSEDED")
-    if v.get("checks", {}).get("charpoly_identity_exact") is not True:
-        errors.append("v103 support-10 certificate lost its exact charpoly identity")
-    if v.get("checks", {}).get("rdm_is_exactly_diagonal") is not False:
-        errors.append("v103 support-10 certificate should record a NON-diagonal 1-RDM")
-
-    # ---- the s_Q^free certificate that carries the CURRENT claim for the same
-    # state. The manuscript names both nonzero off-diagonal entries, so both are
-    # pinned here: quoting only one of them was a review finding.
-    free = json.load(open(V103_FREE))
-    if free.get("status") != "CURRENT":
-        errors.append("v103 s_Q^free certificate should be marked CURRENT")
-    if free.get("claim") != "s_Q^free(v103) <= 10":
-        errors.append("v103 s_Q^free certificate carries the wrong claim")
-    for key in ("spectrum_equals_lambda", "weights_all_rational",
-                "weights_sum_to_one", "real_up_to_gauge"):
-        if free.get(key) is not True:
-            errors.append(f"v103 s_Q^free certificate lost check {key}")
-    if free.get("rdm_is_diagonal") is not False:
-        errors.append("v103 s_Q^free certificate should record a NON-diagonal 1-RDM")
-    offdiag = free.get("rdm_nonzero_offdiagonals", {})
-    for entry, value in (("rho[3,9]", "-5/68"), ("rho[1,6]", "-sqrt(42)/221")):
-        if offdiag.get(entry) != value:
-            errors.append(
-                f"v103 off-diagonal {entry} should be {value}; the manuscript "
-                "names both entries and a referee recomputes them"
-            )
-
-    # ---- the natural-orbital ledger aggregates the manuscript quotes. These
-    # moved once already, when an eigh-basis bug rotated records that were
-    # already diagonal, so they are pinned rather than trusted.
-    no = json.load(open(NO_LEDGER))
-    expect_no = {"records": 156, "support_grew": 141, "support_unchanged": 15,
-                 "support_shrank": 0, "already_natural_orbital": 2}
-    for key, want in expect_no.items():
-        if no.get(key) != want:
-            errors.append(f"natural-orbital ledger {key}: manuscript {want} "
-                          f"vs data {no.get(key)}")
-    if abs(no.get("support_after", {}).get("mean", 0) - 11.7) > 0.05:
-        errors.append("natural-orbital mean support: manuscript 11.7 vs data "
-                      f"{no.get('support_after', {}).get('mean')}")
-    if no.get("support_after", {}).get("max") != 57:
-        errors.append("natural-orbital max support: manuscript 57 vs data "
-                      f"{no.get('support_after', {}).get('max')}")
-    if abs(no.get("support_before", {}).get("mean", 0) - 6.8) > 0.05:
-        errors.append("sparse mean support: manuscript 6.8 vs data "
-                      f"{no.get('support_before', {}).get('mean')}")
-
-    # ---- the support-ratio diagnostic quoted in the taxonomy paragraph
-    ratio = json.load(open(NO_RATIO))
-    above = [r for r in ratio["records"] if r["no_support_ratio"] > 1]
-    if len(above) != 141:
-        errors.append(f"ratio > 1 count: manuscript 141 vs data {len(above)}")
-    if any(r["regime"] != "INTERFERENCE-GENERIC" for r in above):
-        errors.append("ratio > 1 should hold only on generic INTERFERENCE records")
-    flat = [r for r in ratio["records"]
-            if r["regime"] == "INTERFERENCE-GENERIC" and r["no_support_ratio"] == 1]
-    if len(flat) != 13:
-        errors.append(f"flat generic count: manuscript 13 vs data {len(flat)}")
+    # Paper 2 and generator material must not leak back into Paper 1.
+    for forbidden in (
+        "TD-2RDM",
+        "rank-11",
+        "rank-12",
+        "Hamiltonian control",
+        "holonomy Galois",
+    ):
+        if forbidden in manuscript:
+            errors.append(f"out-of-scope Paper 2 material returned: {forbidden}")
 
     if errors:
-        print("MANUSCRIPT/DATA INCONSISTENCIES:")
-        for e in errors:
-            print("  -", e)
+        print("manuscript consistency FAILED")
+        for error in errors:
+            print(f"  - {error}")
         return 1
-    print("manuscript counts consistent with states.jsonl "
-          f"({len(recs)} records).")
+
+    print(
+        "manuscript consistency PASS: 799 state records, nine vertex "
+        "bijections, scoped 12/144 no-design evidence, 235/161/403 descent "
+        "counts, source concordance, and 564 ten-orbital records"
+    )
     return 0
 
 

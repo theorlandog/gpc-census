@@ -3,10 +3,9 @@
 
 Reads results/report/main.md (the master document) and writes a
 self-contained results/report/anonymized/ folder with author-identifying
-material removed per the IOP double-anonymous peer-review guidelines:
-the author list, the affiliation/email/ORCID footnote, the preprint DOI
-(it resolves to the author's record), and the personal acknowledgment in
-Theorem 2. The bibliography and CSL are copied alongside so the folder
+material removed for double-anonymous peer review: the author list, the
+affiliation/email/ORCID footnote, author contribution name, repository URL,
+and archival DOI. The bibliography and CSL are copied alongside so the folder
 renders standalone. The script fails if any identifying string survives,
 and it is drift-proof: rerunning it always reproduces the anonymized copy
 from the master, so edit main.md only.
@@ -15,41 +14,50 @@ Usage: python3 scripts/make_anonymized_report.py [--out DIR]
 """
 import argparse
 import pathlib
-import shutil
+import re
 import sys
 
 REPORT = pathlib.Path("results/report")
 MASTER = REPORT / "main.md"
 BIB = REPORT / "references.bib"
-CSL = REPORT / "institute-of-physics-numeric.csl"
+CSL = REPORT / "physics-numeric.csl"
 
 # Exact-match replacements; each must occur exactly once in the master so
 # a silent drift in main.md fails loudly here instead of shipping a
 # half-anonymized manuscript.
 REPLACEMENTS = [
-    # author list (also removes the footnote reference)
-    ("  - James Orlando[^1]",
+    # author and affiliation block
+    ("  - |\n"
+     "    James Orlando\\\n"
+     "    Independent researcher, Derry, New Hampshire, USA\\\n"
+     "    `jamie@orlandonh.com`",
      "  - Anonymized for double-anonymous review"),
-    # the preprint DOI resolves to the author's record
-    ("  Preprint: [doi:10.5281/zenodo.21313736]"
-     "(https://doi.org/10.5281/zenodo.21313736)",
-     "  Preprint DOI withheld for double-anonymous review"),
-    # personal acknowledgment inside Theorem 2 (restore on acceptance)
-    ("(We thank T. Maciazek for prompting this basis-free formulation: a",
-     "(A"),
+    # named CRediT statement
+    ("James Orlando: Conceptualization; Methodology; Software; Validation; "
+     "Formal analysis; Investigation; Data curation; Writing - original "
+     "draft; Writing - review and editing; Project administration.",
+     "The author: Conceptualization; Methodology; Software; Validation; "
+     "Formal analysis; Investigation; Data curation; Writing - original "
+     "draft; Writing - review and editing; Project administration."),
+    # public artifacts resolve to the author
+    ("The Supplementary Material and machine-readable research-data archive "
+     "are submitted with this manuscript. Versioned project materials are "
+     "also available from Zenodo [@OrlandoZenodo2026] and the [public source "
+     "repository](https://github.com/theorlandog/gpc-census).",
+     "The Supplementary Material and machine-readable research-data archive "
+     "are submitted with this manuscript. Identifying links to the versioned "
+     "archival record and source repository are withheld for "
+     "double-anonymous review."),
     # self-contained asset paths
     ("bibliography: results/report/references.bib",
      "bibliography: results/report/anonymized/references.bib"),
-    ("csl: results/report/institute-of-physics-numeric.csl",
-     "csl: results/report/anonymized/institute-of-physics-numeric.csl"),
+    ("csl: results/report/physics-numeric.csl",
+     "csl: results/report/anonymized/physics-numeric.csl"),
 ]
-
-# the affiliation footnote definition is dropped entirely
-FOOTNOTE_PREFIX = "[^1]:"
 
 # nothing on this list may survive in the anonymized output
 FORBIDDEN = ["orlando", "jamie", "orcid", "zenodo", "derry",
-             "we thank", "[^1]"]
+             "we thank"]
 
 
 def main() -> int:
@@ -67,10 +75,6 @@ def main() -> int:
             return 1
         text = text.replace(old, new)
 
-    lines = [ln for ln in text.splitlines()
-             if not ln.startswith(FOOTNOTE_PREFIX)]
-    text = "\n".join(lines) + "\n"
-
     lowered = text.lower()
     leaks = [s for s in FORBIDDEN if s in lowered]
     if leaks:
@@ -79,8 +83,26 @@ def main() -> int:
 
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "main.md").write_text(text)
-    shutil.copy2(BIB, args.out / BIB.name)
-    shutil.copy2(CSL, args.out / CSL.name)
+    bibliography = BIB.read_text()
+    bibliography, count = re.subn(
+        r"\n?@\w+\{OrlandoZenodo2026,.*?\n\}\n?",
+        "\n",
+        bibliography,
+        flags=re.DOTALL,
+    )
+    if count != 1:
+        print(
+            "anonymize: expected exactly one OrlandoZenodo2026 bibliography "
+            f"entry, found {count}"
+        )
+        return 1
+    bibliography = bibliography.strip() + "\n"
+    (args.out / BIB.name).write_text(bibliography)
+    csl = CSL.read_text().replace(
+        "https://github.com/theorlandog/gpc-census/styles/physics-numeric",
+        "https://example.org/styles/physics-numeric",
+    )
+    (args.out / CSL.name).write_text(csl)
     print(f"anonymized manuscript written to {args.out}/")
     return 0
 
