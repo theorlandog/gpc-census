@@ -74,6 +74,7 @@ lives in `results/report/main.md`; computed data results live under
 make sync     # uv sync (create .venv, install dev deps)
 make test     # uv run pytest
 make verify-paper # run the Paper 1 object and manuscript checks
+make verify-data  # pin the campaign artifacts Paper 1 no longer quotes
 make paper1-supplement # build and extract-test the minimal supplement
 make lint     # uv run ruff check
 make build    # uv build -> dist/ (wheel + sdist)

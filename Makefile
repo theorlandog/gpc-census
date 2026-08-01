@@ -30,7 +30,7 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := --citeproc --number-sections
 
-.PHONY: sync test verify-paper paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
+.PHONY: sync test verify-paper verify-data paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
 
 sync:
 	$(UV) sync
@@ -43,6 +43,12 @@ verify-paper:
 	python3 $(NO_DESIGN_VERIFIER) results/data/interference_certificates.json
 	python3 $(VERTEX_VERIFIER)
 	python3 scripts/check_manuscript_counts.py
+
+# The manuscript checker is scoped to Paper 1, so the gauge, cascade, orbit,
+# holonomy, natural-orbital, v103 and fiber-symmetry artifacts it released
+# keep their own gate here.
+verify-data:
+	$(UV) run python scripts/check_data_consistency.py
 
 paper1-supplement:
 	$(UV) run --python $(SUPPLEMENT_PYTHON) python $(SUPPLEMENT_BUILDER) --output $(SUPPLEMENT_ZIP)
