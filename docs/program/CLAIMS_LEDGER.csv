@@ -18,3 +18,7 @@ Compiled kernel is faster than the reference kernel,"Benchmark, host dependent",
 Exact observable propagator beats the ODE methods,"Benchmark, unlike work",exact_observable_benchmark.json,One analytic call against 314 RHS evaluations over 26 steps
 Exact observable propagator beats a specialized carrier update,Refuted by its own control,exact_observable_benchmark_with_control.json,Loses by 450x to 568x across hosts
 Any benchmark factor quoted without a host,Forbidden claim,None,Factors moved on every benchmark across two machines; only the ordering held
+Full pair-incidence rank implies 2-RDM reconstruction,Refuted by counterexample,adversarial_observable_audit.json,"{012,345} in wedge^3 C^6 is pair-rigid with coherence rank 0"
+Collision-free certificate equals linear 2-RDM identifiability,Refuted by counterexample,adversarial_observable_audit.json,"180 of 1140 carriers at d=6,N=3,m=3 are connected but linearly rank deficient"
+Failure of the collision-free certificate proves non-injectivity,Forbidden claim,None,"Three distinct notions: tree certificate, linear identifiability, nonlinear pure-state injectivity"
+Fermionic sign convention,Verified by three implementations,adversarial_observable_audit.json,"8,186,968 cases through d=7, zero mismatches; software check, not a proof"

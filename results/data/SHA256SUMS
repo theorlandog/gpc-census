@@ -1,4 +1,5 @@
 d3e89e424f3c4b641a079dc434a65cd94d253efc138b7a3282b3ad0b29a893bf  ./PROVENANCE.md
+d08c89f8e236c794a190abf8726e8d4e5bd4d4ab62e37a102b1792d870bd58ff  ./adversarial_observable_audit.json
 149323cc8756a16d3efe502198c0d08f1700acfdf9cc020e3e115ef6caf09cb8  ./attainer_gate_audit.json
 85db6cb41c61244f2d0d6bd452b405d4651f00b7813102fde8bbeaffd8a7003e  ./cascade.jsonl
 9c88d6654d89577264cbdc815731692a6e04cfc1bd19836c4981c667ce698a7a  ./cascade_exact.json

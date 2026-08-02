@@ -1,0 +1,261 @@
+{
+  "audit_scope": {
+    "exhaustive_carrier_ranges": [
+      {
+        "orbitals": 4,
+        "particles": 2,
+        "support_sizes": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "orbitals": 5,
+        "particles": 2,
+        "support_sizes": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "orbitals": 5,
+        "particles": 3,
+        "support_sizes": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "orbitals": 6,
+        "particles": 2,
+        "support_sizes": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "orbitals": 6,
+        "particles": 3,
+        "support_sizes": [
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "independent_sign_cases": 8186968,
+    "sign_audit_max_orbitals": 7,
+    "sign_mismatches": 0
+  },
+  "census_28": {
+    "collided_gamma2_channels_across_unresolved_records": 0,
+    "first_connected_unique_channel_order": {
+      "3": 22,
+      "4": 5,
+      "5": 1
+    },
+    "newly_resolved_by_linear_determinacy_closure": 0,
+    "simple_certificate_unresolved": 28,
+    "status": "Order-two injectivity remains unresolved; non-injectivity is not proved."
+  },
+  "counterexamples": {
+    "chart_failure_not_complete_2rdm_failure": {
+      "interpretation": "A denominator pole or disconnected chosen tree is a chart failure only; complete-2RDM injectivity must be tested using the full surviving channel system.",
+      "mechanism": "Delete multiple amplitudes that disconnect one selected tree while alternate measured coherence edges connect the surviving support."
+    },
+    "full_pair_rank_but_no_2rdm_coherence": {
+      "carrier_size": 2,
+      "coherence_rank": 0,
+      "interpretation": "Relative phase is invisible to the complete 2-RDM. A two-body operator moves at most two orbitals, and these determinants differ in 3.",
+      "orbitals": 6,
+      "orbitals_changed_between_determinants": 3,
+      "pair_incidence_rank": 2,
+      "particles": 3,
+      "support": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          3,
+          4,
+          5
+        ]
+      ]
+    }
+  },
+  "schema_version": 1,
+  "small_carrier_summary": [
+    {
+      "N": 2,
+      "d": 4,
+      "full_pair_carriers": 15,
+      "full_real_linear_coherence_rank": 15,
+      "m": 2,
+      "unique_graph_connected": 15
+    },
+    {
+      "N": 2,
+      "d": 4,
+      "full_pair_carriers": 20,
+      "full_real_linear_coherence_rank": 20,
+      "m": 3,
+      "unique_graph_connected": 20
+    },
+    {
+      "N": 2,
+      "d": 4,
+      "full_pair_carriers": 15,
+      "full_real_linear_coherence_rank": 15,
+      "m": 4,
+      "unique_graph_connected": 15
+    },
+    {
+      "N": 2,
+      "d": 4,
+      "full_pair_carriers": 6,
+      "full_real_linear_coherence_rank": 6,
+      "m": 5,
+      "unique_graph_connected": 6
+    },
+    {
+      "N": 2,
+      "d": 5,
+      "full_pair_carriers": 45,
+      "full_real_linear_coherence_rank": 45,
+      "m": 2,
+      "unique_graph_connected": 45
+    },
+    {
+      "N": 2,
+      "d": 5,
+      "full_pair_carriers": 120,
+      "full_real_linear_coherence_rank": 120,
+      "m": 3,
+      "unique_graph_connected": 120
+    },
+    {
+      "N": 2,
+      "d": 5,
+      "full_pair_carriers": 210,
+      "full_real_linear_coherence_rank": 210,
+      "m": 4,
+      "unique_graph_connected": 210
+    },
+    {
+      "N": 2,
+      "d": 5,
+      "full_pair_carriers": 252,
+      "full_real_linear_coherence_rank": 252,
+      "m": 5,
+      "unique_graph_connected": 252
+    },
+    {
+      "N": 3,
+      "d": 5,
+      "full_pair_carriers": 45,
+      "full_real_linear_coherence_rank": 45,
+      "m": 2,
+      "unique_graph_connected": 45
+    },
+    {
+      "N": 3,
+      "d": 5,
+      "full_pair_carriers": 120,
+      "full_real_linear_coherence_rank": 120,
+      "m": 3,
+      "unique_graph_connected": 120
+    },
+    {
+      "N": 3,
+      "d": 5,
+      "full_pair_carriers": 210,
+      "full_real_linear_coherence_rank": 210,
+      "m": 4,
+      "unique_graph_connected": 210
+    },
+    {
+      "N": 3,
+      "d": 5,
+      "full_pair_carriers": 252,
+      "full_real_linear_coherence_rank": 252,
+      "m": 5,
+      "unique_graph_connected": 252
+    },
+    {
+      "N": 2,
+      "d": 6,
+      "full_pair_carriers": 105,
+      "full_real_linear_coherence_rank": 105,
+      "m": 2,
+      "unique_graph_connected": 105
+    },
+    {
+      "N": 2,
+      "d": 6,
+      "full_pair_carriers": 455,
+      "full_real_linear_coherence_rank": 455,
+      "m": 3,
+      "unique_graph_connected": 455
+    },
+    {
+      "N": 2,
+      "d": 6,
+      "full_pair_carriers": 1365,
+      "full_real_linear_coherence_rank": 1365,
+      "m": 4,
+      "unique_graph_connected": 1365
+    },
+    {
+      "N": 2,
+      "d": 6,
+      "full_pair_carriers": 3003,
+      "full_real_linear_coherence_rank": 3003,
+      "m": 5,
+      "unique_graph_connected": 3003
+    },
+    {
+      "N": 3,
+      "d": 6,
+      "full_pair_carriers": 190,
+      "full_real_linear_coherence_rank": 180,
+      "m": 2,
+      "unique_graph_connected": 180
+    },
+    {
+      "N": 3,
+      "d": 6,
+      "full_pair_carriers": 1140,
+      "full_real_linear_coherence_rank": 960,
+      "m": 3,
+      "unique_graph_connected": 1140
+    },
+    {
+      "N": 3,
+      "d": 6,
+      "full_pair_carriers": 4845,
+      "full_real_linear_coherence_rank": 3360,
+      "m": 4,
+      "unique_graph_connected": 4800
+    }
+  ],
+  "theorem_verdicts": {
+    "T1_collision_free_reconstruction": "SURVIVES",
+    "T2_simplex_torus_topology": "SURVIVES_BUT_STANDARD",
+    "T3_symplectic_action_angle_form": "SURVIVES_BUT_STANDARD_SPECIALIZATION",
+    "T4_boundary_component_formula": "SURVIVES_FOR_SPECIFIED_MEASURED_GRAPH_ONLY",
+    "T5_exact_carrier_conditional_BBGKY_closure": "SURVIVES",
+    "T6_general_multichart_zero_crossing_theorem": "NOT_YET_PROVED",
+    "T7_cyclic_window_family": "SURVIVES_SMALL_EXACT_TESTS_PROOF_STILL_REQUIRED",
+    "T8_gluing": "SURVIVES_WITH_GRAPH_CONTAINMENT_WORDING"
+  }
+}

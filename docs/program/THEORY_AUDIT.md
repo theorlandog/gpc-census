@@ -209,6 +209,28 @@ corrected. They are recorded because the mistake is easy to repeat:
   ordering was stable; the factors were not. Quote the ordering, the variable
   counts, and the accuracy, which do reproduce.
 
+## Adversarial audit outcome
+
+`docs/adversarial_observable_audit.md` runs items 2 and 3 of the list below
+and reports verdicts on T1 to T8. Two of its findings change what may be
+written about T1, and both are recorded in the ledger.
+
+Full pair-incidence rank does not imply order-two reconstruction. The carrier
+`{{0,1,2},{3,4,5}}` in `wedge^3 C^6` is pair-rigid and its complete 2-RDM is
+independent of the relative phase, because a two-body operator moves at most
+two orbitals and these determinants differ in three. Weight recovery is not
+half of the theorem; the coherence graph is doing separate work.
+
+A connected collision-free graph does not imply linear identifiability from
+all 2-RDM channels. At `d=6`, `N=3`, `m=3` all 1140 pair-rigid carriers have a
+connected graph but only 960 have a full-rank real-linear channel matrix. The
+tree certificate, linear identifiability, and nonlinear pure-state injectivity
+are three separate statements and none implies the next.
+
+The fermionic sign convention is now checked by three independent
+implementations across 8,186,968 cases with zero mismatches. That is software
+corroboration, not the written proof item 2 asks for.
+
 ## Required scrutiny before submission
 
 1. Independent proof review of T1--T8.
