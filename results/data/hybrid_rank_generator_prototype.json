@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "system": "wedge^3 C^6",
+  "prototype_scope": "exact V-to-H regression plus GPC-selected-carrier 2-RDM audit",
+  "vertices_reduced": [
+    [
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "1/2",
+      "1/2",
+      "0"
+    ],
+    [
+      "1/2",
+      "1/4",
+      "1/4"
+    ],
+    [
+      "1/2",
+      "1/2",
+      "1/2"
+    ]
+  ],
+  "vertices_lambda": [
+    [
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "1",
+      "1/2",
+      "1/2",
+      "1/2",
+      "1/2",
+      "0"
+    ],
+    [
+      "3/4",
+      "3/4",
+      "1/2",
+      "1/2",
+      "1/4",
+      "1/4"
+    ],
+    [
+      "1/2",
+      "1/2",
+      "1/2",
+      "1/2",
+      "1/2",
+      "1/2"
+    ]
+  ],
+  "recovered_facets": [
+    {
+      "a": [
+        -1,
+        1,
+        0
+      ],
+      "b": 0,
+      "face": [
+        0,
+        1,
+        3
+      ],
+      "meaning": "lambda5 <= lambda4 (Weyl chamber)"
+    },
+    {
+      "a": [
+        0,
+        -1,
+        1
+      ],
+      "b": 0,
+      "face": [
+        0,
+        2,
+        3
+      ],
+      "meaning": "lambda6 <= lambda5 (Weyl chamber)"
+    },
+    {
+      "a": [
+        1,
+        -1,
+        -1
+      ],
+      "b": 0,
+      "face": [
+        0,
+        1,
+        2
+      ],
+      "meaning": "lambda4 <= lambda5 + lambda6 (Borland-Dennis GPC)"
+    },
+    {
+      "a": [
+        2,
+        0,
+        0
+      ],
+      "b": 1,
+      "face": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "2 lambda4 <= 1, i.e. lambda4 <= 1/2 (ordering plus pair equalities)"
+    }
+  ],
+  "nontrivial_gpc_recovered": true,
+  "pinned_carrier": {
+    "constraint": "2-(lambda1+lambda2+lambda4)>=0",
+    "support": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        0,
+        1,
+        5
+      ],
+      [
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        0,
+        3,
+        5
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "size": 9,
+    "singleton_rank": 5,
+    "non_toric_phase_complexity": 4,
+    "pair_incidence_rank": 9,
+    "gamma2_graph": {
+      "edge_count": 27,
+      "connected": true,
+      "collided_oriented_channel_count": 24
+    },
+    "pure_full_support_gamma2_certified": true
+  },
+  "limitations": [
+    "This phase-0 prototype starts from a certified exact vertex oracle.",
+    "It does not yet enumerate all Ressayre elements from representation weights.",
+    "Bruhat and Schubert modules are next-stage candidate and cross-certificate engines."
+  ]
+}
