@@ -1,0 +1,3309 @@
+{
+  "schema_version": 1,
+  "cyclic_windows": [
+    {
+      "d": 3,
+      "N": 1,
+      "carrier_size": 3,
+      "singleton_rank": 3,
+      "support_polytope_affine_dimension": 2,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 3,
+      "N": 2,
+      "carrier_size": 3,
+      "singleton_rank": 3,
+      "support_polytope_affine_dimension": 2,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 4,
+      "N": 1,
+      "carrier_size": 4,
+      "singleton_rank": 4,
+      "support_polytope_affine_dimension": 3,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 4,
+      "N": 2,
+      "carrier_size": 4,
+      "singleton_rank": 3,
+      "support_polytope_affine_dimension": 2,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 4,
+      "N": 3,
+      "carrier_size": 4,
+      "singleton_rank": 4,
+      "support_polytope_affine_dimension": 3,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 5,
+      "N": 1,
+      "carrier_size": 5,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 5,
+      "N": 2,
+      "carrier_size": 5,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 5,
+      "N": 3,
+      "carrier_size": 5,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          3,
+          4
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          4
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 5,
+      "N": 4,
+      "carrier_size": 5,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 6,
+      "N": 1,
+      "carrier_size": 6,
+      "singleton_rank": 6,
+      "support_polytope_affine_dimension": 5,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 6,
+      "N": 2,
+      "carrier_size": 6,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 6,
+      "N": 3,
+      "carrier_size": 6,
+      "singleton_rank": 4,
+      "support_polytope_affine_dimension": 3,
+      "non_toric_phase_complexity": 2,
+      "predicted_complexity_gcd_minus_one": 2,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          4,
+          5
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 6,
+      "N": 4,
+      "carrier_size": 6,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 6,
+      "N": 5,
+      "carrier_size": 6,
+      "singleton_rank": 6,
+      "support_polytope_affine_dimension": 5,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 7,
+      "N": 1,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 7,
+      "N": 2,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 7,
+      "N": 3,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          5,
+          6
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 7,
+      "N": 4,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          5,
+          6
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 7,
+      "N": 5,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 7,
+      "N": 6,
+      "carrier_size": 7,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 8,
+      "N": 1,
+      "carrier_size": 8,
+      "singleton_rank": 8,
+      "support_polytope_affine_dimension": 7,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 8,
+      "N": 2,
+      "carrier_size": 8,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          7
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 8,
+      "N": 3,
+      "carrier_size": 8,
+      "singleton_rank": 8,
+      "support_polytope_affine_dimension": 7,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          6,
+          7
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 8,
+      "N": 4,
+      "carrier_size": 8,
+      "singleton_rank": 5,
+      "support_polytope_affine_dimension": 4,
+      "non_toric_phase_complexity": 3,
+      "predicted_complexity_gcd_minus_one": 3,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          6,
+          7
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 8,
+      "N": 5,
+      "carrier_size": 8,
+      "singleton_rank": 8,
+      "support_polytope_affine_dimension": 7,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          6,
+          7
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 8,
+      "N": 6,
+      "carrier_size": 8,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 8,
+      "N": 7,
+      "carrier_size": 8,
+      "singleton_rank": 8,
+      "support_polytope_affine_dimension": 7,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 9,
+      "N": 1,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 9,
+      "N": 2,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 3,
+      "carrier_size": 9,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 2,
+      "predicted_complexity_gcd_minus_one": 2,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          7,
+          8
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 4,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          7,
+          8
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 5,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          7,
+          8
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 6,
+      "carrier_size": 9,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 2,
+      "predicted_complexity_gcd_minus_one": 2,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          7,
+          8
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          6,
+          7,
+          8
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 7,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7,
+          8
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 9,
+      "N": 8,
+      "carrier_size": 9,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 10,
+      "N": 1,
+      "carrier_size": 10,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 10,
+      "N": 2,
+      "carrier_size": 10,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 3,
+      "carrier_size": 10,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          8,
+          9
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 4,
+      "carrier_size": 10,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          8,
+          9
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 5,
+      "carrier_size": 10,
+      "singleton_rank": 6,
+      "support_polytope_affine_dimension": 5,
+      "non_toric_phase_complexity": 4,
+      "predicted_complexity_gcd_minus_one": 4,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          8,
+          9
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 6,
+      "carrier_size": 10,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          8,
+          9
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          8,
+          9
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 7,
+      "carrier_size": 10,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          8,
+          9
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 8,
+      "carrier_size": 10,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "exchange_element": 6
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "d": 10,
+      "N": 9,
+      "carrier_size": 10,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 11,
+      "N": 1,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 11,
+      "N": 2,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 3,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          9,
+          10
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          10
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 4,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          9,
+          10
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 5,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          9,
+          10
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 6,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          9,
+          10
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 7,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          9,
+          10
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          7,
+          8,
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 8,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          10
+        ],
+        "exchange_element": 6
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 9,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          9,
+          10
+        ],
+        "exchange_element": 7
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      }
+    },
+    {
+      "d": 11,
+      "N": 10,
+      "carrier_size": 11,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 12,
+      "N": 1,
+      "carrier_size": 12,
+      "singleton_rank": 12,
+      "support_polytope_affine_dimension": 11,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 12,
+      "N": 2,
+      "carrier_size": 12,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 3,
+      "carrier_size": 12,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 2,
+      "predicted_complexity_gcd_minus_one": 2,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          10,
+          11
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          10,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 4,
+      "carrier_size": 12,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 3,
+      "predicted_complexity_gcd_minus_one": 3,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          10,
+          11
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 5,
+      "carrier_size": 12,
+      "singleton_rank": 12,
+      "support_polytope_affine_dimension": 11,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          10,
+          11
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 6,
+      "carrier_size": 12,
+      "singleton_rank": 7,
+      "support_polytope_affine_dimension": 6,
+      "non_toric_phase_complexity": 5,
+      "predicted_complexity_gcd_minus_one": 5,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          10,
+          11
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 7,
+      "carrier_size": 12,
+      "singleton_rank": 12,
+      "support_polytope_affine_dimension": 11,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          10,
+          11
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          9,
+          10,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 8,
+      "carrier_size": 12,
+      "singleton_rank": 9,
+      "support_polytope_affine_dimension": 8,
+      "non_toric_phase_complexity": 3,
+      "predicted_complexity_gcd_minus_one": 3,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "exchange_element": 6
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 9,
+      "carrier_size": 12,
+      "singleton_rank": 10,
+      "support_polytope_affine_dimension": 9,
+      "non_toric_phase_complexity": 2,
+      "predicted_complexity_gcd_minus_one": 2,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          10,
+          11
+        ],
+        "exchange_element": 7
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 10,
+      "carrier_size": 12,
+      "singleton_rank": 11,
+      "support_polytope_affine_dimension": 10,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          10,
+          11
+        ],
+        "exchange_element": 8
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10
+        ]
+      }
+    },
+    {
+      "d": 12,
+      "N": 11,
+      "carrier_size": 12,
+      "singleton_rank": 12,
+      "support_polytope_affine_dimension": 11,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 13,
+      "N": 1,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 13,
+      "N": 2,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 3,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          11,
+          12
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 4,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          11,
+          12
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 5,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          11,
+          12
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 6,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          11,
+          12
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 7,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 8,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12
+        ],
+        "exchange_element": 6
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 9,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12
+        ],
+        "exchange_element": 7
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 10,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          11,
+          12
+        ],
+        "exchange_element": 8
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 11,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          11,
+          12
+        ],
+        "exchange_element": 9
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11,
+          12
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11
+        ]
+      }
+    },
+    {
+      "d": 13,
+      "N": 12,
+      "carrier_size": 13,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 14,
+      "N": 1,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    },
+    {
+      "d": 14,
+      "N": 2,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1
+        ],
+        "B": [
+          2,
+          3
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          9,
+          10
+        ],
+        "missing_lower": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 3,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2
+        ],
+        "B": [
+          0,
+          12,
+          13
+        ],
+        "exchange_element": 1
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 4,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "B": [
+          0,
+          1,
+          12,
+          13
+        ],
+        "exchange_element": 2
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 5,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          12,
+          13
+        ],
+        "exchange_element": 3
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 6,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          12,
+          13
+        ],
+        "exchange_element": 4
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 7,
+      "carrier_size": 14,
+      "singleton_rank": 8,
+      "support_polytope_affine_dimension": 7,
+      "non_toric_phase_complexity": 6,
+      "predicted_complexity_gcd_minus_one": 6,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          12,
+          13
+        ],
+        "exchange_element": 5
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 8,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          12,
+          13
+        ],
+        "exchange_element": 6
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 9,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          12,
+          13
+        ],
+        "exchange_element": 7
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 10,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          12,
+          13
+        ],
+        "exchange_element": 8
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 11,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          12,
+          13
+        ],
+        "exchange_element": 9
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          0,
+          1,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 12,
+      "carrier_size": 14,
+      "singleton_rank": 13,
+      "support_polytope_affine_dimension": 12,
+      "non_toric_phase_complexity": 1,
+      "predicted_complexity_gcd_minus_one": 1,
+      "matroid_basis_set": false,
+      "matroid_failure_witness": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "B": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          12,
+          13
+        ],
+        "exchange_element": 10
+      },
+      "gale_order_ideal": false,
+      "gale_failure_witness": {
+        "included": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "missing_lower": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12
+        ]
+      }
+    },
+    {
+      "d": 14,
+      "N": 13,
+      "carrier_size": 14,
+      "singleton_rank": 14,
+      "support_polytope_affine_dimension": 13,
+      "non_toric_phase_complexity": 0,
+      "predicted_complexity_gcd_minus_one": 0,
+      "matroid_basis_set": true,
+      "matroid_failure_witness": null,
+      "gale_order_ideal": true,
+      "gale_failure_witness": null
+    }
+  ],
+  "summary": {
+    "all_complexities_match_gcd_minus_one": true,
+    "nontrivial_matroid_cases": [
+      [
+        4,
+        2
+      ]
+    ],
+    "nontrivial_gale_order_ideal_cases": []
+  }
+}
