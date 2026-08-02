@@ -1,0 +1,94 @@
+{
+  "family": "q copies of S(5,2)",
+  "rows": [
+    {
+      "block_sector_dimension": 10,
+      "carrier_dimension": 5,
+      "checksum": 0.8,
+      "coordinate_count": 9,
+      "elapsed_seconds": 4.767099994751334e-05,
+      "factors": 1,
+      "full_fci_dimension": 10,
+      "full_fci_to_carrier_ratio": 2.0,
+      "peak_bytes": 1456
+    },
+    {
+      "block_sector_dimension": 100,
+      "carrier_dimension": 25,
+      "checksum": 0.903154970309069,
+      "coordinate_count": 49,
+      "elapsed_seconds": 0.00010985400001572998,
+      "factors": 2,
+      "full_fci_dimension": 210,
+      "full_fci_to_carrier_ratio": 8.4,
+      "peak_bytes": 3760
+    },
+    {
+      "block_sector_dimension": 1000,
+      "carrier_dimension": 125,
+      "checksum": 0.935154970309069,
+      "coordinate_count": 249,
+      "elapsed_seconds": 0.0003516330000365997,
+      "factors": 3,
+      "full_fci_dimension": 5005,
+      "full_fci_to_carrier_ratio": 40.04,
+      "peak_bytes": 13560
+    },
+    {
+      "block_sector_dimension": 10000,
+      "carrier_dimension": 625,
+      "checksum": 0.941554970309069,
+      "coordinate_count": 1249,
+      "elapsed_seconds": 0.0017790760000480077,
+      "factors": 4,
+      "full_fci_dimension": 125970,
+      "full_fci_to_carrier_ratio": 201.552,
+      "peak_bytes": 64120
+    },
+    {
+      "block_sector_dimension": 100000,
+      "carrier_dimension": 3125,
+      "checksum": 0.31089718171029657,
+      "coordinate_count": 6249,
+      "elapsed_seconds": 0.010751055000014276,
+      "factors": 5,
+      "full_fci_dimension": 3268760,
+      "full_fci_to_carrier_ratio": 1046.0032,
+      "peak_bytes": 324240
+    },
+    {
+      "block_sector_dimension": 1000000,
+      "carrier_dimension": 15625,
+      "checksum": 0.06380358004751448,
+      "coordinate_count": 31249,
+      "elapsed_seconds": 0.06501552800000354,
+      "factors": 6,
+      "full_fci_dimension": 86493225,
+      "full_fci_to_carrier_ratio": 5535.5664,
+      "peak_bytes": 1634816
+    },
+    {
+      "block_sector_dimension": 10000000,
+      "carrier_dimension": 78125,
+      "checksum": 0.0131072,
+      "coordinate_count": 156249,
+      "elapsed_seconds": 0.3638420339999584,
+      "factors": 7,
+      "full_fci_dimension": 2319959400,
+      "full_fci_to_carrier_ratio": 29695.48032,
+      "peak_bytes": 8130992
+    },
+    {
+      "block_sector_dimension": 100000000,
+      "carrier_dimension": 390625,
+      "checksum": 0.00262144,
+      "coordinate_count": 781249,
+      "elapsed_seconds": 1.8301298139999744,
+      "factors": 8,
+      "full_fci_dimension": 62852101650,
+      "full_fci_to_carrier_ratio": 160901.380224,
+      "peak_bytes": 40790808
+    }
+  ],
+  "schema_version": 1
+}

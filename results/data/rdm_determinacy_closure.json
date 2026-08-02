@@ -1,0 +1,433 @@
+{
+  "baseline_unresolved": 28,
+  "method": "exact full-channel linear identifiability followed by pure-state path closure",
+  "newly_resolved": 0,
+  "nonclaim": "Failure of this certificate is not non-injectivity; nonlinear rank-one equations may still resolve additional coherences.",
+  "records": [
+    {
+      "channel_equations": 3,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 6,
+      "identifiable_graph_component_sizes": [
+        3,
+        1
+      ],
+      "index": 36,
+      "linear_rank": 3,
+      "linearly_identifiable_coherences": 3,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 4,
+      "system": "(3,10)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 72,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(3,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 104,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(3,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        1,
+        1,
+        1
+      ],
+      "index": 111,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(3,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 3,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(3,6)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 7,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(3,7)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 25,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(3,8)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 33,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(3,8)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 38,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(3,9)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 51,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(3,9)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        1,
+        1,
+        1
+      ],
+      "index": 57,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(3,9)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 38,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 51,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        1,
+        1,
+        1
+      ],
+      "index": 57,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 156,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 8,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 15,
+      "identifiable_graph_component_sizes": [
+        5,
+        1
+      ],
+      "index": 157,
+      "linear_rank": 8,
+      "linearly_identifiable_coherences": 8,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 6,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 3,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 6,
+      "identifiable_graph_component_sizes": [
+        3,
+        1
+      ],
+      "index": 158,
+      "linear_rank": 3,
+      "linearly_identifiable_coherences": 3,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 4,
+      "system": "(4,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 7,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,8)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 21,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,8)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 25,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(4,9)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 33,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,9)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 101,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(4,9)"
+    },
+    {
+      "channel_equations": 8,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 15,
+      "identifiable_graph_component_sizes": [
+        5,
+        1
+      ],
+      "index": 102,
+      "linear_rank": 8,
+      "linearly_identifiable_coherences": 8,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 6,
+      "system": "(4,9)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 25,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(5,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 33,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(5,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 101,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(5,10)"
+    },
+    {
+      "channel_equations": 1,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 3,
+      "identifiable_graph_component_sizes": [
+        2,
+        1
+      ],
+      "index": 286,
+      "linear_rank": 1,
+      "linearly_identifiable_coherences": 1,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 3,
+      "system": "(5,10)"
+    },
+    {
+      "channel_equations": 0,
+      "classified": "DESIGN-INT",
+      "coherence_variables": 1,
+      "identifiable_graph_component_sizes": [
+        1,
+        1
+      ],
+      "index": 291,
+      "linear_rank": 0,
+      "linearly_identifiable_coherences": 0,
+      "resolved_by_linear_plus_purity_path_closure": false,
+      "support_size": 2,
+      "system": "(5,10)"
+    }
+  ],
+  "remaining_unresolved": 28,
+  "schema_version": 1
+}
