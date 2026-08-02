@@ -1,0 +1,362 @@
+{
+  "ambient_fci_dimension": 210,
+  "carrier_dimension": 29,
+  "certified_spanning_trees": 108,
+  "chart_switch_count": 9,
+  "chart_switches": [
+    {
+      "from": 30,
+      "minimum_weight": 0.02651306082912752,
+      "t": 0.1,
+      "to": 48
+    },
+    {
+      "from": 48,
+      "minimum_weight": 0.025766285422267176,
+      "t": 0.125,
+      "to": 67
+    },
+    {
+      "from": 67,
+      "minimum_weight": 0.02249690634557349,
+      "t": 0.17500000000000002,
+      "to": 77
+    },
+    {
+      "from": 77,
+      "minimum_weight": 0.004538970210797798,
+      "t": 0.525,
+      "to": 35
+    },
+    {
+      "from": 35,
+      "minimum_weight": 0.022947312630509618,
+      "t": 1.425,
+      "to": 47
+    },
+    {
+      "from": 47,
+      "minimum_weight": 0.024441718397468563,
+      "t": 1.4500000000000002,
+      "to": 67
+    },
+    {
+      "from": 67,
+      "minimum_weight": 0.025965919044440348,
+      "t": 1.475,
+      "to": 48
+    },
+    {
+      "from": 48,
+      "minimum_weight": 0.02651306082912752,
+      "t": 1.625,
+      "to": 30
+    },
+    {
+      "from": 30,
+      "minimum_weight": 0.019086171860425317,
+      "t": 1.8,
+      "to": 77
+    }
+  ],
+  "collision_free_edge_bank_size": 69,
+  "designed_coupled_pair": [
+    6,
+    15
+  ],
+  "direct_unitary_projective_symplectic_form_max_error": 7.105427357601002e-15,
+  "integration": {
+    "atol": 2e-14,
+    "method": "DOP853",
+    "rtol": 2e-12,
+    "samples": 123,
+    "t_final": 3.0
+  },
+  "max_Gamma2_error": 2.166712304438792e-13,
+  "max_Gamma3_error": 1.3464721566864448e-13,
+  "max_X_error": 1.14750015094686e-13,
+  "method": "multi-chart Cartesian collision-free 2-RDM propagator",
+  "minimum_direct_weight": 7.703719777548943e-34,
+  "near_zero_samples": [
+    {
+      "chart": 35,
+      "minimum_weight": 7.403166259052982e-06,
+      "t": 0.775,
+      "vertices": [
+        6
+      ]
+    },
+    {
+      "chart": 35,
+      "minimum_weight": 7.703719777548943e-34,
+      "t": 0.7853981633974483,
+      "vertices": [
+        6
+      ]
+    },
+    {
+      "chart": 35,
+      "minimum_weight": 1.4598357074642427e-05,
+      "t": 0.8,
+      "vertices": [
+        6
+      ]
+    },
+    {
+      "chart": 77,
+      "minimum_weight": 2.6273955752118956e-06,
+      "t": 2.35,
+      "vertices": [
+        15
+      ]
+    },
+    {
+      "chart": 77,
+      "minimum_weight": 7.703719777548943e-34,
+      "t": 2.356194490192345,
+      "vertices": [
+        15
+      ]
+    }
+  ],
+  "observable_initialization_max_error": 9.71445146547012e-17,
+  "physical_projective_dimension": 56,
+  "reduced_flow_projective_symplectic_form_max_error": 2.5518054336259866e-10,
+  "reduced_real_variables": 167,
+  "samples": [
+    {
+      "chart": 30,
+      "max_Gamma2_error": 5.721958498152797e-17,
+      "max_Gamma3_error": 4.654751537338637e-17,
+      "max_X_error": 2.7769124835677133e-17,
+      "minimum_weight": 0.02651306082912752,
+      "t": 0.0
+    },
+    {
+      "chart": 67,
+      "max_Gamma2_error": 2.6752473280684547e-15,
+      "max_Gamma3_error": 2.6209645312153695e-15,
+      "max_X_error": 2.1236026805101216e-15,
+      "minimum_weight": 0.025766285422267176,
+      "t": 0.125
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 5.717648605580544e-15,
+      "max_Gamma3_error": 5.689893003938548e-15,
+      "max_X_error": 3.053113320422552e-15,
+      "minimum_weight": 0.017822669041124273,
+      "t": 0.25
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 4.996003774277505e-15,
+      "max_Gamma3_error": 4.996003619001902e-15,
+      "max_X_error": 3.0483785824054746e-15,
+      "minimum_weight": 0.010899587737002014,
+      "t": 0.375
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 5.7348027114623875e-15,
+      "max_Gamma3_error": 4.901850949123015e-15,
+      "max_X_error": 3.4607298575217865e-15,
+      "minimum_weight": 0.005427485173991354,
+      "t": 0.5
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 6.406723108947533e-14,
+      "max_Gamma3_error": 5.0179000836732125e-14,
+      "max_X_error": 4.8069592557700705e-14,
+      "minimum_weight": 0.0017465901857622395,
+      "t": 0.625
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 6.94758327509228e-14,
+      "max_Gamma3_error": 4.653203678534277e-14,
+      "max_X_error": 4.7918455949832264e-14,
+      "minimum_weight": 8.576299455761471e-05,
+      "t": 0.75
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.031664671206216e-14,
+      "max_Gamma3_error": 4.643548861311171e-14,
+      "max_X_error": 4.785393327559087e-14,
+      "minimum_weight": 7.403166259052982e-06,
+      "t": 0.775
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.067991838953758e-14,
+      "max_Gamma3_error": 4.6430860247502295e-14,
+      "max_X_error": 4.7827981144087155e-14,
+      "minimum_weight": 7.703719777548943e-34,
+      "t": 0.7853981633974483
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.106894195790847e-14,
+      "max_Gamma3_error": 4.6368214496977424e-14,
+      "max_X_error": 4.777029084410529e-14,
+      "minimum_weight": 1.4598357074642427e-05,
+      "t": 0.8
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.222037026803675e-14,
+      "max_Gamma3_error": 4.634029133461597e-14,
+      "max_X_error": 4.756986082143238e-14,
+      "minimum_weight": 0.0002853680610884648,
+      "t": 0.8500000000000001
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.322796582146988e-14,
+      "max_Gamma3_error": 4.630918720906506e-14,
+      "max_X_error": 4.6849451298981036e-14,
+      "minimum_weight": 0.0024321736503906915,
+      "t": 0.9750000000000001
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 7.231536600525662e-14,
+      "max_Gamma3_error": 4.863098100212301e-14,
+      "max_X_error": 4.591441924849917e-14,
+      "minimum_weight": 0.0065564207774563635,
+      "t": 1.1
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 6.996831629379754e-14,
+      "max_Gamma3_error": 5.176887461499442e-14,
+      "max_X_error": 4.5487055652604486e-14,
+      "minimum_weight": 0.012401683731390847,
+      "t": 1.225
+    },
+    {
+      "chart": 35,
+      "max_Gamma2_error": 6.649823139175619e-14,
+      "max_Gamma3_error": 5.4311737324253854e-14,
+      "max_X_error": 4.5717209257222926e-14,
+      "minimum_weight": 0.01867978880535877,
+      "t": 1.35
+    },
+    {
+      "chart": 48,
+      "max_Gamma2_error": 9.575292569169859e-14,
+      "max_Gamma3_error": 7.851265470005539e-14,
+      "max_X_error": 6.682665976898331e-14,
+      "minimum_weight": 0.025965919044440348,
+      "t": 1.475
+    },
+    {
+      "chart": 48,
+      "max_Gamma2_error": 9.902360150581838e-14,
+      "max_Gamma3_error": 8.033009548816794e-14,
+      "max_X_error": 6.328502722804055e-14,
+      "minimum_weight": 0.02651306082912752,
+      "t": 1.6
+    },
+    {
+      "chart": 30,
+      "max_Gamma2_error": 1.4819587550726498e-13,
+      "max_Gamma3_error": 1.1195634528247295e-13,
+      "max_X_error": 9.563110253228158e-14,
+      "minimum_weight": 0.023844329755627815,
+      "t": 1.725
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.9970880197850337e-13,
+      "max_Gamma3_error": 1.1916036252482196e-13,
+      "max_X_error": 8.041684847369411e-14,
+      "minimum_weight": 0.01609678437397385,
+      "t": 1.85
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.79353748465311e-13,
+      "max_Gamma3_error": 1.0669932897351518e-13,
+      "max_X_error": 7.726487808232957e-14,
+      "minimum_weight": 0.009477081218757384,
+      "t": 1.975
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.6745706365734672e-13,
+      "max_Gamma3_error": 9.670631238387258e-14,
+      "max_X_error": 7.636757349016208e-14,
+      "minimum_weight": 0.004396801370158647,
+      "t": 2.1
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.6244337139512588e-13,
+      "max_Gamma3_error": 8.820718471297535e-14,
+      "max_X_error": 7.450435177777119e-14,
+      "minimum_weight": 0.0011718120232278918,
+      "t": 2.225
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.6366119349852656e-13,
+      "max_Gamma3_error": 9.096535943447254e-14,
+      "max_X_error": 7.515504938081428e-14,
+      "minimum_weight": 2.6273955752118956e-06,
+      "t": 2.35
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.6375707287154244e-13,
+      "max_Gamma3_error": 9.168547652870382e-14,
+      "max_X_error": 7.526760686802309e-14,
+      "minimum_weight": 7.703719777548943e-34,
+      "t": 2.356194490192345
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.66440588291901e-13,
+      "max_Gamma3_error": 1.0210902063560128e-13,
+      "max_X_error": 8.443279690377374e-14,
+      "minimum_weight": 0.000600761852385885,
+      "t": 2.45
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.6962348619871856e-13,
+      "max_Gamma3_error": 1.1123800094940112e-13,
+      "max_X_error": 9.171112211620076e-14,
+      "minimum_weight": 0.003226224270076048,
+      "t": 2.575
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.756080244188488e-13,
+      "max_Gamma3_error": 1.1696798613237614e-13,
+      "max_X_error": 9.318487536451316e-14,
+      "minimum_weight": 0.007779758003919272,
+      "t": 2.7
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 1.8711556085060865e-13,
+      "max_Gamma3_error": 1.2280578638981775e-13,
+      "max_X_error": 9.453140760261598e-14,
+      "minimum_weight": 0.01381842205209312,
+      "t": 2.825
+    },
+    {
+      "chart": 77,
+      "max_Gamma2_error": 2.0630277046046175e-13,
+      "max_Gamma3_error": 1.3067070039426149e-13,
+      "max_X_error": 1.086040279113338e-13,
+      "minimum_weight": 0.020299379120343963,
+      "t": 2.95
+    }
+  ],
+  "schema_version": 1,
+  "wavefunction_use_boundary": "Wavefunction amplitudes are used only to initialize a test case and for independent direct-validation comparisons. The reduced RHS reads only 2-RDM-derived weights and collision-free coherences."
+}
