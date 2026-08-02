@@ -1,0 +1,49 @@
+{
+  "baseline_medians": {
+    "carrier": 0.004391346000033991,
+    "dense2rdm": 0.6832584200000156,
+    "fci": 0.006973822999952972,
+    "sparse2rdm": 0.6202301330000637
+  },
+  "compiled_sparse_median": 0.41816342099991743,
+  "method": {
+    "blocks": [
+      [
+        5,
+        14,
+        -1.0
+      ],
+      [
+        6,
+        15,
+        1.0
+      ],
+      [
+        7,
+        17,
+        -1.0
+      ],
+      [
+        8,
+        18,
+        1.0
+      ]
+    ],
+    "max_reference_error": 6.869154506741516e-17,
+    "median_elapsed_seconds": 0.001919329,
+    "method": "exact_observable",
+    "minimum_elapsed_seconds": 0.00185646,
+    "p95_elapsed_seconds": 0.0020636395999999997,
+    "real_variables": 167,
+    "repeats": 3000
+  },
+  "schema_version": 1,
+  "scope": "Specialized exact propagator for the fixed four-block hopping Hamiltonian; not a generic arbitrary-H integrator.",
+  "speedups": {
+    "vs_carrier": 2.2879589690115614,
+    "vs_compiled_sparse2rdm": 217.86958931997455,
+    "vs_dense2rdm": 355.9881708659722,
+    "vs_fci": 3.6334693009655834,
+    "vs_original_sparse2rdm": 323.14946160875166
+  }
+}
