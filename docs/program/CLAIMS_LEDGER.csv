@@ -1,0 +1,20 @@
+Claim,Status,Required evidence,Scope / caveat
+Pure reconstruction on certified carrier,Theorem,T1 proof + exact certificate,"Fixed carrier/frame, pure, full support"
+Simplex–torus chart,Theorem / standard topology,T2 proof,Novelty is low-order observable realization
+Canonical symplectic form,Standard fact specialized,T3 derivation,Do not claim geometric QM itself
+Boundary phase defect c(A)-1,Theorem,T4 proof + exhaustive graph audit,For selected measured graph
+Exact BBGKY closure,Theorem,T5 proof,Carrier-preserving pure trajectory
+Multi-chart zero crossing,Corollary of T4 as tested; T6 untested,multichart_symplectic_propagator.json + leaf-survival test,Recorded crossings have the zero at a leaf so c(A)=1; fallback only forced in a unit test
+771/799 census supports,Exact computational result,Independent verifier,Input/provenance dependent
+Cyclic infinite family,Theorem candidate,T7 proof + verifier,Channel-label proof required
+Gluing construction,Theorem candidate,T8 proof + verifier,"Graph containment, not equality"
+29-state transport,Exact finite construction,Leakage/rank certificates,Not generic transport
+Exponential product-cell scaling,Family-specific theorem/benchmark,Scaling proof + generalized_observable_benchmark.json,No inter-cell coupling and Schmidt rank 1; margin over the factorized O(q) control is a constant near 1.3
+Universal speedup over wavefunctions,Forbidden claim,None,False without algorithm/model restrictions
+Determinacy closure on the unresolved 28,Exact negative result,rdm_determinacy_closure.json,Resolves 0 of 28; failure is not non-injectivity
+Sparse observable beats dense 2-RDM on runtime,Not supported,rdm_method_benchmark.json,Dense baseline wraps the sparse RHS; compare the 24x variable count instead
+Sparse observable uses 24x fewer variables than dense 2-RDM,Exact arithmetic,4050/167 from the representations,Host independent
+Compiled kernel is faster than the reference kernel,"Benchmark, host dependent",compiled_sparse_benchmark.json,1.44x and 1.17x on two hosts; equivalence to 4e-18 is the exact part
+Exact observable propagator beats the ODE methods,"Benchmark, unlike work",exact_observable_benchmark.json,One analytic call against 314 RHS evaluations over 26 steps
+Exact observable propagator beats a specialized carrier update,Refuted by its own control,exact_observable_benchmark_with_control.json,Loses by 450x to 568x across hosts
+Any benchmark factor quoted without a host,Forbidden claim,None,Factors moved on every benchmark across two machines; only the ordering held
