@@ -1,0 +1,263 @@
+{
+  "claims": {
+    "not_proved": [
+      "A finite-time scheduled transport trajectory on S(5,2)^2.",
+      "A general minimal-closure theorem for arbitrary hops.",
+      "Novelty of standard active-space normalizer families."
+    ],
+    "proved": [
+      "A nonprojective Hermitian cross-hopping tangent exists at the uniform S(5,2)^2 state.",
+      "The selected hopping closure has 29 determinants and remains 2-RDM observable.",
+      "Fixed-core CAS(1,a) and CAS(2,a) carriers provide infinite observable families with nontrivial one-body normalizers."
+    ]
+  },
+  "different_factor_families": {
+    "novelty_boundary": "These are exact control families closely related to standard complete-active-space constructions; their role is to show transport and observability are compatible, not to claim the active-space idea itself as new.",
+    "records": [
+      {
+        "active_orbitals": 5,
+        "active_particles": 1,
+        "carrier_dimension": 5,
+        "collision_free_gamma2_channels": 20,
+        "collision_free_gamma2_connected": true,
+        "core_particles": 2,
+        "guaranteed_active_offdiagonal_normalizer_dimension": 20,
+        "leakage_constraints": 40,
+        "off_diagonal_one_body_terms": 42,
+        "one_body_leakage_kernel_dimension": 32,
+        "one_body_leakage_rank": 10,
+        "pair_incidence_full_column_rank": true,
+        "pair_incidence_rank": 5
+      },
+      {
+        "active_orbitals": 5,
+        "active_particles": 2,
+        "carrier_dimension": 10,
+        "collision_free_gamma2_channels": 45,
+        "collision_free_gamma2_connected": true,
+        "core_particles": 2,
+        "guaranteed_active_offdiagonal_normalizer_dimension": 20,
+        "leakage_constraints": 60,
+        "off_diagonal_one_body_terms": 42,
+        "one_body_leakage_kernel_dimension": 32,
+        "one_body_leakage_rank": 10,
+        "pair_incidence_full_column_rank": true,
+        "pair_incidence_rank": 10
+      },
+      {
+        "active_orbitals": 6,
+        "active_particles": 2,
+        "carrier_dimension": 15,
+        "collision_free_gamma2_channels": 105,
+        "collision_free_gamma2_connected": true,
+        "core_particles": 3,
+        "guaranteed_active_offdiagonal_normalizer_dimension": 30,
+        "leakage_constraints": 180,
+        "off_diagonal_one_body_terms": 72,
+        "one_body_leakage_kernel_dimension": 54,
+        "one_body_leakage_rank": 18,
+        "pair_incidence_full_column_rank": true,
+        "pair_incidence_rank": 15
+      }
+    ],
+    "theorem": "A fixed core tensored with a one- or two-electron complete active space is pair-incidence full rank, has connected collision-free 2-RDM channels, and is normalized by the full active one-body algebra."
+  },
+  "evidence": "exact integer/rational linear algebra",
+  "hopping_closure_enlargement": {
+    "added_determinants": [
+      [
+        0,
+        2,
+        5,
+        6
+      ],
+      [
+        0,
+        2,
+        5,
+        8
+      ],
+      [
+        1,
+        4,
+        6,
+        7
+      ],
+      [
+        1,
+        4,
+        7,
+        9
+      ]
+    ],
+    "base_carrier_dimension": 25,
+    "collision_free_gamma2_channels": 75,
+    "collision_free_gamma2_connected": true,
+    "enlarged_carrier_dimension": 29,
+    "hop": {
+      "adjoint": [
+        1,
+        0,
+        7,
+        5
+      ],
+      "forward": [
+        0,
+        1,
+        5,
+        7
+      ]
+    },
+    "interpretation": "Adding the four leakage images of one desired Hermitian hop produces a 29-state invariant carrier that remains exactly reconstructible from its fixed-frame pure-state 2-RDM.",
+    "invariant_under_selected_hermitian_hop": true,
+    "pair_incidence_full_column_rank": true,
+    "pair_incidence_rank": 29
+  },
+  "scheduled_tangent_transport": {
+    "carrier": "S(5,2) x S(5,2)",
+    "carrier_dimension": 25,
+    "exact_checks": {
+      "leakage_zero": true,
+      "tangent_nonprojective": true
+    },
+    "hermitian_cross_hopping_basis_dimension": 200,
+    "inside_tangent_rank": 25,
+    "interpretation": "An exact Hermitian scheduled cross-hop is tangent at the uniform state although no nonzero cross-hop preserves the entire carrier. This is a first-order local certificate, not yet a finite-time schedule.",
+    "selected_kernel_terms": [
+      {
+        "adjoint": [
+          1,
+          0,
+          6,
+          5
+        ],
+        "coefficient": "-1",
+        "forward": [
+          0,
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "adjoint": [
+          1,
+          0,
+          8,
+          5
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          1,
+          5,
+          8
+        ]
+      },
+      {
+        "adjoint": [
+          1,
+          0,
+          6,
+          7
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          1,
+          7,
+          6
+        ]
+      },
+      {
+        "adjoint": [
+          1,
+          0,
+          9,
+          7
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          1,
+          7,
+          9
+        ]
+      },
+      {
+        "adjoint": [
+          3,
+          0,
+          6,
+          5
+        ],
+        "coefficient": "-1",
+        "forward": [
+          0,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "adjoint": [
+          3,
+          0,
+          8,
+          5
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          3,
+          5,
+          8
+        ]
+      },
+      {
+        "adjoint": [
+          3,
+          0,
+          6,
+          7
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          3,
+          7,
+          6
+        ]
+      },
+      {
+        "adjoint": [
+          3,
+          0,
+          9,
+          7
+        ],
+        "coefficient": "1",
+        "forward": [
+          0,
+          3,
+          7,
+          9
+        ]
+      }
+    ],
+    "selected_tangent_nonzero_entries": [
+      [
+        22,
+        "-1"
+      ],
+      [
+        24,
+        "1"
+      ]
+    ],
+    "state_leakage_rank": 75,
+    "state_tangent_kernel_dimension": 125,
+    "uniform_state_leakage_rows": 75
+  },
+  "schema_version": 1
+}

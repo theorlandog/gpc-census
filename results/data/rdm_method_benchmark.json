@@ -1,0 +1,256 @@
+{
+  "benchmark": "29-state invariant transport carrier, identical DOP853 integration",
+  "integration": {
+    "atol": 2e-12,
+    "fresh_process_per_run": true,
+    "max_step": 0.04,
+    "repeats": 3,
+    "rtol": 2e-10,
+    "t_final": 1.0
+  },
+  "interpretation_boundary": [
+    "This is a fixed small physical system; it does not establish asymptotic superiority.",
+    "Carrier-wavefunction propagation is expected to be fastest because it uses the known invariant basis and minimal coordinates.",
+    "The relevant reduced-method comparison is dense 2-RDM versus sparse observable coordinates.",
+    "Peak RSS includes Python, NumPy, SciPy, and imported module overhead in each fresh process."
+  ],
+  "ratios": {
+    "dense_vs_sparse_runtime": 1.1016208075784435,
+    "dense_vs_sparse_variable_count": 24.251497005988025,
+    "fci_vs_sparse_variable_count": 2.5149700598802394,
+    "sparse_vs_carrier_runtime": 0.007080188088884001,
+    "sparse_vs_fci_runtime": 0.011243928066217086
+  },
+  "raw_runs": {
+    "carrier": [
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 29,
+        "elapsed_seconds": 0.004362584000091374,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "carrier",
+        "nfev": 314,
+        "peak_rss_mib": 177.8671875,
+        "real_ode_variables": 58,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 29,
+        "elapsed_seconds": 0.004391346000033991,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "carrier",
+        "nfev": 314,
+        "peak_rss_mib": 177.96484375,
+        "real_ode_variables": 58,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 29,
+        "elapsed_seconds": 0.004598633000000518,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "carrier",
+        "nfev": 314,
+        "peak_rss_mib": 177.59765625,
+        "real_ode_variables": 58,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      }
+    ],
+    "dense2rdm": [
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 2025,
+        "elapsed_seconds": 0.7116299360000085,
+        "max_reference_error": 2.1392126949422733e-12,
+        "max_step": 0.04,
+        "method": "dense2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 180.953125,
+        "real_ode_variables": 4050,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 2025,
+        "elapsed_seconds": 0.6832584200000156,
+        "max_reference_error": 2.1392126949422733e-12,
+        "max_step": 0.04,
+        "method": "dense2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 180.82421875,
+        "real_ode_variables": 4050,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 2025,
+        "elapsed_seconds": 0.6825113490000376,
+        "max_reference_error": 2.1392126949422733e-12,
+        "max_step": 0.04,
+        "method": "dense2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 180.7265625,
+        "real_ode_variables": 4050,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      }
+    ],
+    "fci": [
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 210,
+        "elapsed_seconds": 0.007729132000008576,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "fci",
+        "nfev": 314,
+        "peak_rss_mib": 178.1875,
+        "real_ode_variables": 420,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 210,
+        "elapsed_seconds": 0.006886333000011291,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "fci",
+        "nfev": 314,
+        "peak_rss_mib": 178.1171875,
+        "real_ode_variables": 420,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 210,
+        "elapsed_seconds": 0.006973822999952972,
+        "max_reference_error": 5.551115123125783e-17,
+        "max_step": 0.04,
+        "method": "fci",
+        "nfev": 314,
+        "peak_rss_mib": 178.15234375,
+        "real_ode_variables": 420,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      }
+    ],
+    "sparse2rdm": [
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 0,
+        "elapsed_seconds": 0.686581101999991,
+        "max_reference_error": 1.3971983649743783e-12,
+        "max_step": 0.04,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 178.12890625,
+        "real_ode_variables": 167,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 0,
+        "elapsed_seconds": 0.6202301330000637,
+        "max_reference_error": 1.3971983649743783e-12,
+        "max_step": 0.04,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 178.1328125,
+        "real_ode_variables": 167,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      },
+      {
+        "accepted_steps": 26,
+        "atol": 2e-12,
+        "complex_state_entries": 0,
+        "elapsed_seconds": 0.6159161819999781,
+        "max_reference_error": 1.3971983649743783e-12,
+        "max_step": 0.04,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "peak_rss_mib": 177.87890625,
+        "real_ode_variables": 167,
+        "rtol": 2e-10,
+        "t_final": 1.0
+      }
+    ]
+  },
+  "schema_version": 1,
+  "summary": [
+    {
+      "complex_state_entries": 210,
+      "max_reference_error": 5.551115123125783e-17,
+      "median_accepted_steps": 26,
+      "median_elapsed_seconds": 0.006973822999952972,
+      "median_nfev": 314,
+      "median_peak_rss_mib": 178.15234375,
+      "method": "fci",
+      "min_elapsed_seconds": 0.006886333000011291,
+      "real_ode_variables": 420
+    },
+    {
+      "complex_state_entries": 29,
+      "max_reference_error": 5.551115123125783e-17,
+      "median_accepted_steps": 26,
+      "median_elapsed_seconds": 0.004391346000033991,
+      "median_nfev": 314,
+      "median_peak_rss_mib": 177.8671875,
+      "method": "carrier",
+      "min_elapsed_seconds": 0.004362584000091374,
+      "real_ode_variables": 58
+    },
+    {
+      "complex_state_entries": 2025,
+      "max_reference_error": 2.1392126949422733e-12,
+      "median_accepted_steps": 26,
+      "median_elapsed_seconds": 0.6832584200000156,
+      "median_nfev": 314,
+      "median_peak_rss_mib": 180.82421875,
+      "method": "dense2rdm",
+      "min_elapsed_seconds": 0.6825113490000376,
+      "real_ode_variables": 4050
+    },
+    {
+      "complex_state_entries": 0,
+      "max_reference_error": 1.3971983649743783e-12,
+      "median_accepted_steps": 26,
+      "median_elapsed_seconds": 0.6202301330000637,
+      "median_nfev": 314,
+      "median_peak_rss_mib": 178.12890625,
+      "method": "sparse2rdm",
+      "min_elapsed_seconds": 0.6159161819999781,
+      "real_ode_variables": 167
+    }
+  ],
+  "system": {
+    "ambient_fci_dimension": 210,
+    "carrier_dimension": 29,
+    "orbitals": 10,
+    "pair_space_dimension": 45,
+    "particles": 4
+  }
+}

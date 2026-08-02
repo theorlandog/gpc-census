@@ -1,0 +1,17 @@
+{
+  "conclusion": "The exact observable propagator beats every prior generic ODE implementation but not an equally specialized exact carrier propagator.",
+  "exact_observable_error": 6.869154506741516e-17,
+  "exact_observable_median_seconds": 0.001919329,
+  "previous_ode_speedups": {
+    "carrier": 2.2879589690115614,
+    "compiled_sparse_2rdm": 217.86958931997455,
+    "dense_2rdm": 355.9881708659722,
+    "full_fci": 3.6334693009655834,
+    "original_sparse_2rdm": 323.14946160875166
+  },
+  "schema_version": 1,
+  "specialized_carrier_speedup_over_observable": 449.80501523318594,
+  "specialized_exact_carrier_error": 5.551115123125783e-17,
+  "specialized_exact_carrier_median_seconds": 4.267e-06,
+  "work_accounting": "The observable propagator is evaluated once per call; the ODE baselines it is compared against take 314 right-hand-side evaluations across 26 adaptive steps. The comparison is an analytic solution against numerical integration of the same trajectory, not a per-evaluation comparison."
+}

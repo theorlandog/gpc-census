@@ -1,0 +1,28 @@
+{
+  "energy_is_additively_separable": false,
+  "energy_minor_cross_difference": "1",
+  "exceptional_times": "coupling*t in 2*pi*Z",
+  "factors": [
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      2
+    ]
+  ],
+  "generic_schmidt_rank_lower_bound": 2,
+  "orbitals": [
+    0,
+    0
+  ],
+  "selected_columns": [
+    1,
+    0
+  ],
+  "selected_rows": [
+    1,
+    0
+  ]
+}

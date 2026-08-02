@@ -1,0 +1,168 @@
+{
+  "context": {
+    "carrier_wavefunction_seconds": 0.004391346000033991,
+    "dense2rdm_seconds": 0.6832584200000156,
+    "full_fci_seconds": 0.006973822999952972
+  },
+  "ratios": {
+    "compiled_vs_carrier": 95.2244302764302,
+    "compiled_vs_fci": 59.96186324240482,
+    "dense_vs_compiled": 1.6339507132551188
+  },
+  "raw": {
+    "compiled_sparse2rdm": [
+      {
+        "elapsed_seconds": 0.41816342099991743,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.4351204740000867,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.43332919999988917,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.4125840940000671,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.4308803020001051,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.41150931300012417,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.41712808700003734,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": 0,
+        "method": "compiled_sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      }
+    ],
+    "sparse2rdm": [
+      {
+        "elapsed_seconds": 0.6044238789997962,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.6060313460000089,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.596778071000017,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.5981828469998618,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.6440986919999432,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.6011540489998879,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      },
+      {
+        "elapsed_seconds": 0.5972656290000486,
+        "error": 1.3971983649743783e-12,
+        "fallbacks": null,
+        "method": "sparse2rdm",
+        "nfev": 314,
+        "steps": 26,
+        "variables": 167
+      }
+    ]
+  },
+  "schema_version": 1,
+  "speedup_compiled_over_original": 1.437605536042347,
+  "summary": [
+    {
+      "fallbacks": null,
+      "max_error": 1.3971983649743783e-12,
+      "median_seconds": 0.6011540489998879,
+      "method": "sparse2rdm",
+      "min_seconds": 0.596778071000017,
+      "nfev": 314,
+      "steps": 26,
+      "variables": 167
+    },
+    {
+      "fallbacks": 0,
+      "max_error": 1.3971983649743783e-12,
+      "median_seconds": 0.41816342099991743,
+      "method": "compiled_sparse2rdm",
+      "min_seconds": 0.41150931300012417,
+      "nfev": 314,
+      "steps": 26,
+      "variables": 167
+    }
+  ]
+}
