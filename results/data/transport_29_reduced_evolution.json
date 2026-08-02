@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "carrier_dimension": 29,
+  "ambient_fci_dimension": 210,
+  "pair_basis_dimension": 45,
+  "three_body_basis_dimension": 120,
+  "pair_incidence_rank": 29,
+  "tree_edges": 28,
+  "times": 17,
+  "max_X_error": 3.773507608770602e-14,
+  "max_Gamma2_error": 4.672981085896491e-14,
+  "max_Gamma3_error": 3.773507608770602e-14,
+  "minimum_weight_over_trajectory": 5.709014906525462e-05,
+  "elapsed_seconds": 0.3630761710001025,
+  "coordinate_counts": {
+    "carrier_wavefunction_complex": 29,
+    "full_Gamma2_complex_entries": 2025,
+    "certificate_chart_real": 85,
+    "physical_pure_state_real_dimension": 56,
+    "ambient_fci_wavefunction_complex": 210
+  },
+  "samples": [
+    {
+      "t": 0.0,
+      "max_X_error": 2.1802548189670858e-16,
+      "max_Gamma2_error": 4.710277376051326e-16,
+      "max_Gamma3_error": 3.0126308872686096e-16,
+      "min_weight": 0.024562818768452375
+    },
+    {
+      "t": 0.25,
+      "max_X_error": 1.9498669986643655e-16,
+      "max_Gamma2_error": 4.695944831791985e-16,
+      "max_Gamma3_error": 2.68024601344063e-16,
+      "min_weight": 0.011272042471549788
+    },
+    {
+      "t": 0.5,
+      "max_X_error": 1.8203854565891502e-16,
+      "max_Gamma2_error": 4.034117999026819e-16,
+      "max_Gamma3_error": 2.3592239273284576e-16,
+      "min_weight": 0.0018085611723082503
+    },
+    {
+      "t": 0.75,
+      "max_X_error": 5.874363855355923e-15,
+      "max_Gamma2_error": 1.4484476900534084e-14,
+      "max_Gamma3_error": 8.862736023196292e-15,
+      "min_weight": 0.00018355274784336172
+    },
+    {
+      "t": 1.0,
+      "max_X_error": 7.228199518039053e-16,
+      "max_Gamma2_error": 1.6884340827910922e-15,
+      "max_Gamma3_error": 1.0308170053734308e-15,
+      "min_weight": 0.0017083718461896455
+    },
+    {
+      "t": 1.25,
+      "max_X_error": 1.3256738189514616e-16,
+      "max_Gamma2_error": 2.0313308213704758e-16,
+      "max_Gamma3_error": 1.530715316316868e-16,
+      "min_weight": 0.010797969541057675
+    },
+    {
+      "t": 1.5,
+      "max_X_error": 7.742873670860063e-17,
+      "max_Gamma2_error": 1.6184142622847341e-16,
+      "max_Gamma3_error": 9.714480455993662e-17,
+      "min_weight": 0.024562818768452375
+    },
+    {
+      "t": 1.75,
+      "max_X_error": 2.834773834533496e-16,
+      "max_Gamma2_error": 3.972175860834013e-16,
+      "max_Gamma3_error": 3.687419884875315e-16,
+      "min_weight": 0.015177372752579778
+    },
+    {
+      "t": 2.0,
+      "max_X_error": 4.1867704727033224e-16,
+      "max_Gamma2_error": 7.757919228897728e-16,
+      "max_Gamma3_error": 4.673848563465896e-16,
+      "min_weight": 0.0037148939242559976
+    },
+    {
+      "t": 2.25,
+      "max_X_error": 3.773507608770602e-14,
+      "max_Gamma2_error": 4.672981085896491e-14,
+      "max_Gamma3_error": 3.773507608770602e-14,
+      "min_weight": 5.709014906525462e-05
+    },
+    {
+      "t": 2.5,
+      "max_X_error": 1.1602966921361424e-14,
+      "max_Gamma2_error": 1.1637223419157449e-14,
+      "max_Gamma3_error": 1.1698491529528975e-14,
+      "min_weight": 0.0006431609112730742
+    },
+    {
+      "t": 2.75,
+      "max_X_error": 2.8637127028464116e-16,
+      "max_Gamma2_error": 4.4256872386577647e-16,
+      "max_Gamma3_error": 3.818283603795215e-16,
+      "min_weight": 0.007448702377728529
+    },
+    {
+      "t": 3.0,
+      "max_X_error": 1.04372128693154e-16,
+      "max_Gamma2_error": 1.539536543720218e-16,
+      "max_Gamma3_error": 1.340123006720315e-16,
+      "min_weight": 0.02141210484538489
+    },
+    {
+      "t": 3.25,
+      "max_X_error": 1.8213770420226047e-16,
+      "max_Gamma2_error": 5.209256464834128e-16,
+      "max_Gamma3_error": 3.6188843062238402e-16,
+      "min_weight": 0.01949130583888102
+    },
+    {
+      "t": 3.5,
+      "max_X_error": 3.5950234537557046e-16,
+      "max_Gamma2_error": 7.621420282514214e-16,
+      "max_Gamma3_error": 5.072991117858816e-16,
+      "min_weight": 0.006259251073158541
+    },
+    {
+      "t": 3.75,
+      "max_X_error": 6.50704002042045e-16,
+      "max_Gamma2_error": 1.3009639638081844e-15,
+      "max_Gamma3_error": 8.257575290666751e-16,
+      "min_weight": 0.0002089239929599779
+    },
+    {
+      "t": 4.0,
+      "max_X_error": 2.5731814722961633e-15,
+      "max_Gamma2_error": 4.980637314208429e-15,
+      "max_Gamma3_error": 3.3538625255358412e-15,
+      "min_weight": 0.00029931092877363315
+    }
+  ]
+}
