@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "scope": "exact integer leakage-rank audit",
+  "records": [
+    {
+      "factors": [
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "carrier_dimension": 16,
+      "pair_incidence_rank": 11,
+      "pair_incidence_full_column_rank": false,
+      "cross_hopping_terms": 144,
+      "leakage_constraints": 192,
+      "leakage_rank": 128,
+      "carrier_preserving_hopping_dimension": 16
+    },
+    {
+      "factors": [
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "carrier_dimension": 20,
+      "pair_incidence_rank": 16,
+      "pair_incidence_full_column_rank": false,
+      "cross_hopping_terms": 240,
+      "leakage_constraints": 400,
+      "leakage_rank": 240,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "carrier_dimension": 25,
+      "pair_incidence_rank": 25,
+      "pair_incidence_full_column_rank": true,
+      "cross_hopping_terms": 400,
+      "leakage_constraints": 800,
+      "leakage_rank": 400,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "carrier_dimension": 25,
+      "pair_incidence_rank": 25,
+      "pair_incidence_full_column_rank": true,
+      "cross_hopping_terms": 400,
+      "leakage_constraints": 800,
+      "leakage_rank": 400,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "carrier_dimension": 36,
+      "pair_incidence_rank": 27,
+      "pair_incidence_full_column_rank": false,
+      "cross_hopping_terms": 900,
+      "leakage_constraints": 2160,
+      "leakage_rank": 900,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "carrier_dimension": 36,
+      "pair_incidence_rank": 20,
+      "pair_incidence_full_column_rank": false,
+      "cross_hopping_terms": 900,
+      "leakage_constraints": 2772,
+      "leakage_rank": 900,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      "carrier_dimension": 49,
+      "pair_incidence_rank": 49,
+      "pair_incidence_full_column_rank": true,
+      "cross_hopping_terms": 1764,
+      "leakage_constraints": 4704,
+      "leakage_rank": 1764,
+      "carrier_preserving_hopping_dimension": 0
+    },
+    {
+      "factors": [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "carrier_dimension": 49,
+      "pair_incidence_rank": 49,
+      "pair_incidence_full_column_rank": true,
+      "cross_hopping_terms": 1764,
+      "leakage_constraints": 6860,
+      "leakage_rank": 1764,
+      "carrier_preserving_hopping_dimension": 0
+    }
+  ],
+  "claims": {
+    "proved_by_certificate": [
+      "For S(5,2) x S(5,2), every cross-block pair-hopping kernel preserving the full carrier is zero.",
+      "S(4,2) x S(4,2) has a 16-dimensional preserving hopping space but pair incidence rank 11<16."
+    ],
+    "nonclaim": "The finite scan is not a general no-go theorem for all cyclic parameters."
+  }
+}
