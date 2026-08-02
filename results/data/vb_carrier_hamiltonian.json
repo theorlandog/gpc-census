@@ -1,0 +1,393 @@
+{
+  "carrier": {
+    "phase_carrier": 0,
+    "support": [
+      [
+        0,
+        1,
+        2,
+        4
+      ],
+      [
+        0,
+        1,
+        2,
+        8
+      ],
+      [
+        0,
+        1,
+        3,
+        5
+      ],
+      [
+        0,
+        2,
+        3,
+        6
+      ],
+      [
+        0,
+        3,
+        4,
+        7
+      ],
+      [
+        0,
+        3,
+        7,
+        8
+      ],
+      [
+        1,
+        3,
+        6,
+        8
+      ],
+      [
+        2,
+        3,
+        4,
+        8
+      ]
+    ],
+    "weights": [
+      "(1+t)/23",
+      "(8-t)/23",
+      "4/23",
+      "3/23",
+      "(2-t)/23",
+      "(2+t)/23",
+      "1/23",
+      "2/23"
+    ]
+  },
+  "carrier_hamiltonian": {
+    "carrier_action": {
+      "D0_to_D1": "alpha_0+alpha_1=A",
+      "D4_to_D5": "-(alpha_0+alpha_3)=-B",
+      "sole_leakage_channel": "(1,3,4,6) to D6 has coefficient -(alpha_1+alpha_3)=0"
+    },
+    "definitions": {
+      "A": "-I*a*conjugate(e)",
+      "B": "I*b",
+      "a": "-s/(2*sqrt(85)*sqrt((1+t)*(8-t)))",
+      "alpha_0": "(A+B)/2",
+      "alpha_1": "(A-B)/2",
+      "alpha_3": "-alpha_1",
+      "b": "s/(2*sqrt(85)*sqrt((2-t)*(2+t)))"
+    },
+    "exact_statement": "H_car preserves the complete carrier and satisfies I*d psi/d phi=H_car*psi exactly.",
+    "operator": "H_car=-omega*n_1*n_4+T+T^dagger, T=a_8^dagger*a_4*(alpha_0*n_0+alpha_1*n_1+alpha_3*n_3)",
+    "pair_kernel_symbolic_support": [
+      {
+        "coefficient": "-omega",
+        "left": [
+          1,
+          4
+        ],
+        "right": [
+          1,
+          4
+        ]
+      },
+      {
+        "coefficient": "alpha_0",
+        "left": [
+          0,
+          8
+        ],
+        "right": [
+          0,
+          4
+        ]
+      },
+      {
+        "coefficient": "conjugate(alpha_0)",
+        "left": [
+          0,
+          4
+        ],
+        "right": [
+          0,
+          8
+        ]
+      },
+      {
+        "coefficient": "alpha_1",
+        "left": [
+          1,
+          8
+        ],
+        "right": [
+          1,
+          4
+        ]
+      },
+      {
+        "coefficient": "conjugate(alpha_1)",
+        "left": [
+          1,
+          4
+        ],
+        "right": [
+          1,
+          8
+        ]
+      },
+      {
+        "coefficient": "alpha_3",
+        "left": [
+          3,
+          8
+        ],
+        "right": [
+          3,
+          4
+        ]
+      },
+      {
+        "coefficient": "conjugate(alpha_3)",
+        "left": [
+          3,
+          4
+        ],
+        "right": [
+          3,
+          8
+        ]
+      }
+    ]
+  },
+  "carrier_state": {
+    "phase": "e=(3+7*t-2*t^2+I*s)/(2*sqrt((1+t)*(8-t)*(2-t)*(2+t)))",
+    "phase_identity": "d e/d phi=I*omega*e",
+    "phase_rate": "omega=(85*t^3-105*t^2+12*t+364)/(2*sqrt(85)*(1+t)*(8-t)*(2-t)*(2+t))"
+  },
+  "census_record": {
+    "classified": "INTERFERENCE",
+    "index": 65,
+    "observability_artifact": "results/data/rdm_observability_census.json",
+    "system": "(4,9)"
+  },
+  "checks": {
+    "canonical_basis_dimension": 126,
+    "carrier_dimension": 8,
+    "carrier_leakage_entries": 0,
+    "carrier_pair_kernel_symbolic_support_entries": 7,
+    "carrier_restricted_nonzero_entries": 5,
+    "carrier_schrodinger_residual_entries": 0,
+    "common_rho_leakage_entries": 0,
+    "common_rho_matrix_residual_entries": 0,
+    "common_rho_schrodinger_residual_entries": 0,
+    "conic_reductions_exact": true,
+    "gamma2_cubic_invariant_identity": true,
+    "gamma2_pair_diagonal_direction_nonzero_entries": 8,
+    "gamma2_pair_incidence_minor_determinant": 1,
+    "gamma2_reconstruction_tree_connected": true,
+    "gamma2_reconstruction_tree_edges": 7,
+    "gamma2_trace_identity": true,
+    "physical_radicals_uniformly_positive": true,
+    "wall_regular": true
+  },
+  "common_full_one_rdm_lift": {
+    "beta_rate": "nu=(28-5*t)/(sqrt(85)*(4-t^2))",
+    "canonical_pair_only_identity": "n_8=(1/3)*sum_(j=0)^7 n_j*n_8 on N=4",
+    "exact_statement": "The lifted state solves the scheduled Schrodinger equation and has the displayed complete 1-RDM for every phi.",
+    "hamiltonian": "H_common=U*H_car*U^dagger-nu*n_8",
+    "one_rdm": "(diag(20,14,14,14,5,4,4,4,13)+3*(|8><4|+|4><8|))/23",
+    "orbital_unitary": "U=exp(I*beta*n_8)",
+    "pair_kernel_rule": "Multiply alpha_0, alpha_1, alpha_3 by u and keep their Hermitian conjugates.",
+    "u": "exp(I*beta)=(7*t-5+I*s)/(6*sqrt((2-t)*(2+t)))"
+  },
+  "conic_clock": {
+    "equation": "s^2=119+70*t-85*t^2",
+    "s_dot": "sqrt(85)*(t-7/17)",
+    "s_of_phi": "(18*sqrt(119)/17)*sin(phi)",
+    "t_dot": "-s/sqrt(85)",
+    "t_minus": "7/17-18*sqrt(35)/85",
+    "t_of_phi": "7/17+(18*sqrt(35)/85)*cos(phi)",
+    "t_plus": "7/17+18*sqrt(35)/85",
+    "wall_behavior": "At both walls s=0, the hopping coefficients vanish while the diagonal phase rates remain finite."
+  },
+  "conventions": {
+    "clock_orientation": "phi increases from 0 to 2*pi",
+    "orbital_labels": "zero-based",
+    "pair_annihilator": "A_(i,j)=a_j*a_i for i<j",
+    "pair_operator": "H_K=sum_(p,q) K[p,q]*A_p^dagger*A_q",
+    "radical_branches": "sqrt(1+t), sqrt(8-t), sqrt(2-t), and sqrt(2+t) are the positive roots on the physical interval",
+    "schrodinger_equation": "I*d psi/d phi=H(phi)*psi(phi)",
+    "two_rdm_normalization": "Gamma2[p,q]=<A_p^dagger*A_q>, Tr(Gamma2)=6"
+  },
+  "counterdiabatic_consequence": {
+    "body_order": "at most two-body under the stated hypothesis on H_0",
+    "statement": "If an at-most-two-body H_0(phi) obeys H_0(phi)*psi(phi)=0, then for phi_dot=v(tau), H_total=H_0(phi)+v(tau)*H_car(phi) exactly tracks the carrier state. Replace H_car by H_common for the common-full-1RDM lift."
+  },
+  "evidence": {
+    "method": "SymPy exact arithmetic, signed determinant action, and polynomial reduction modulo s^2-(119+70*t-85*t^2)",
+    "scope": "The known v_B circle on its eight-determinant carrier in wedge^4 C^9, plus its specified common-full-1RDM orbital lift.",
+    "status": "EXACT"
+  },
+  "exact_td2rdm_consequence": {
+    "basis_free_correlation_witness": "Tr(Gamma2^3)=6*(2899-8*t)/12167 and d Tr(Gamma2^3)/dt=-48/12167",
+    "closed_equation": "d Gamma2/d phi=L_(H(phi))(Gamma2,F_(S,3)(Gamma2))",
+    "correlation_change": "The weight tangent (1,-1,0,0,-1,1,0,0) has a nonzero pair-diagonal image, so Gamma2 changes while the lifted complete 1-RDM remains fixed.",
+    "domain": "Pure full-support states on the fixed eight-determinant v_B carrier and in the displayed orbital frame.",
+    "exact_statement": "Because the pair-incidence minor is unimodular, the seven listed collision-free Gamma2 channels form a connected tree, and H_car and H_common preserve the carrier, both schedules give exact closed nonautonomous TD-2RDM trajectories.",
+    "gamma2_reconstruction_tree": [
+      {
+        "child": 1,
+        "coefficient": 1,
+        "left": 0,
+        "left_modes": [
+          1,
+          4
+        ],
+        "parent": 0,
+        "right": 1,
+        "right_modes": [
+          1,
+          8
+        ]
+      },
+      {
+        "child": 2,
+        "coefficient": 1,
+        "left": 0,
+        "left_modes": [
+          2,
+          4
+        ],
+        "parent": 0,
+        "right": 2,
+        "right_modes": [
+          3,
+          5
+        ]
+      },
+      {
+        "child": 3,
+        "coefficient": -1,
+        "left": 0,
+        "left_modes": [
+          1,
+          4
+        ],
+        "parent": 0,
+        "right": 3,
+        "right_modes": [
+          3,
+          6
+        ]
+      },
+      {
+        "child": 7,
+        "coefficient": -1,
+        "left": 0,
+        "left_modes": [
+          0,
+          1
+        ],
+        "parent": 0,
+        "right": 7,
+        "right_modes": [
+          3,
+          8
+        ]
+      },
+      {
+        "child": 6,
+        "coefficient": -1,
+        "left": 1,
+        "left_modes": [
+          0,
+          2
+        ],
+        "parent": 1,
+        "right": 6,
+        "right_modes": [
+          3,
+          6
+        ]
+      },
+      {
+        "child": 4,
+        "coefficient": -1,
+        "left": 2,
+        "left_modes": [
+          1,
+          5
+        ],
+        "parent": 2,
+        "right": 4,
+        "right_modes": [
+          4,
+          7
+        ]
+      },
+      {
+        "child": 5,
+        "coefficient": -1,
+        "left": 2,
+        "left_modes": [
+          1,
+          5
+        ],
+        "parent": 2,
+        "right": 5,
+        "right_modes": [
+          7,
+          8
+        ]
+      }
+    ],
+    "higher_rdm_map": "Gamma3=F_(S,3)(Gamma2), rational on this chart",
+    "pair_incidence_minor_determinant": 1,
+    "pair_incidence_pivots": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "two_rdm_trace": "Tr(Gamma2)=6"
+  },
+  "generated_by": "scripts/vb_carrier_hamiltonian.py",
+  "nonclaims": [
+    "The schedule is not an autonomous state-independent Hamiltonian.",
+    "Neighboring initial states are not asserted to keep the same 1-RDM.",
+    "No spatial locality, experimental noise tolerance, or driver gap is proved.",
+    "The pair-only expression for n_8 is asserted only on the N=4 sector.",
+    "No statement is made about the full fixed-1RDM fiber or its dimension.",
+    "The rational TD-2RDM closure is not asserted for mixed states or outside the certified carrier chart.",
+    "The package certifies closure but does not yet implement an amplitude-free Gamma2 propagator."
+  ],
+  "schema_version": 1
+}

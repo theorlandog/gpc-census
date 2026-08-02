@@ -30,11 +30,12 @@ can be attained. Exactly one of three things is true:
   v_B = (20:14:14:14:14:4:4:4:4)/23 of wedge^4 H_9, whose extremal state
   requires cos(gamma) = 3/(4*sqrt(14)).
 
-Feasible verdicts carry exact design witnesses. The 11 negative verdicts in
-Proposition 1 and the v_B verdict in Theorem 2 also carry exact global
-disjunctive Farkas/branch certificates with a standalone verifier. The other
-144 INTERFERENCE verdicts retain pinned solver certificates at the
-classification layer. The repository ships the complete census: every vertex
+Feasible verdicts carry exact design witnesses: the weights themselves, checked
+exactly. Negative verdicts split. Twelve of them, the 11 negatives of
+Proposition 1 and v_B in Theorem 2, carry finite exact no-design proofs with a
+standard-library verifier. The remaining 144 are solver classifications, held
+by pinned two-solver infeasibility runs rather than by a proof object; closing
+them exactly is open work. The repository ships the complete census: every vertex
 of every determinate system, ranks 6 through 10, with duality transporting the
 classification to the complement systems. Highlights:
 interference is absent in the N=4 series at rank 8 and first appears at
@@ -185,8 +186,52 @@ precompute` (the default) is a lookup, not a solve. Current coverage:
 | (5, 10) | 292 | 250 | 42 | 292 |
 | **Total** | **799** | **643** | **156** | **799** |
 
+The last column is the STATE layer: every corner, design and interference alike,
+ships a closed-form extremal state certified by an exact
+characteristic-polynomial identity. It is not a claim about the CLASSIFICATION
+layer. Being certified here means the state attains the spectrum, not that the
+interference verdict is proved: a certified interference state exhibits phase
+cancellation, it does not rule out an undiscovered design.
+
+The classification layer splits 12/144. Twelve no-design verdicts, the 11
+negatives of Proposition 1 in `(3,8)` and v_B in `(4,9)`, carry finite exact
+proofs: primitive integer Farkas vectors giving hitting clauses closed under
+the equal-spectrum symmetry, plus a finite branch DAG showing that no
+one-hop-free support meets all of them, checked end to end by
+`scripts/verify_interference_certificates_standalone.py` on the standard
+library alone. The other 144 remain SOLVER CLASSIFICATIONS: two-stage
+infeasibility verdicts (CP-SAT integer stage, CBC real stage, pinned solver
+versions, reproduced on two solvers) with structural transport checks. They
+are evidence, not proof, and extending the exact atlas across them is open
+work.
+
+The same support ledger now carries an exact pure-state 2-RDM observability
+atlas. Pair incidence has full column rank for all 799 supports, and 771 have
+a connected collision-free 2-RDM coherence tree, including all 156
+INTERFERENCE supports. On those fixed carriers, in a fixed orbital frame and
+away from zero amplitudes, the 2-RDM rationally reconstructs the full pure
+state and every higher RDM. See `docs/rdm_observability_census.md` and verify
+the 799 exact certificates with:
+
+```sh
+python scripts/verify_rdm_observability_standalone.py
+```
+
+For the v_B carrier, the repository also gives an exact scheduled
+at-most-two-body Hamiltonian with a seven-entry symbolic pair-kernel support.
+It preserves the full eight-determinant carrier, and its aligned lift drives a
+nontrivial loop at one constant complete 1-RDM. Together with the carrier
+inverse above, this yields exact closed nonautonomous TD-2RDM evolution.
+This is currently a theorem-level closure certificate, not yet an executable
+amplitude-free reduced propagator.
+The basis-free witness
+Tr(Gamma_2^3) = 6(2899-8t)/12167 changes along the loop,
+so the motion is not merely a one-body orbital rotation.
+See `docs/vb_carrier_hamiltonian.md` and
+`results/data/vb_carrier_hamiltonian.json`.
+
 Every design corner (integer and real) is certified by construction. All
-156 interference corners are now certified as well; the final two rank-10
+156 interference corners carry certified states as well; the final two rank-10
 corners were closed off the rational search grid by an exact reconstruction
 after the attainability audit self-corrected (`exactify_interference`, the
 off-diagonal-target constructive solver, certifies the rest).

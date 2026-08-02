@@ -874,3 +874,65 @@ inverse-image component. Open fiber-genuine question promoted: does
 the adiabatic path REMAIN within the fiber component to all orders, or
 only perturbatively near it -- a confinement question that symmetry
 does not answer.
+
+## EXACT PURE-STATE 2-RDM RECONSTRUCTION ON CERTIFIED CARRIERS (2026-07)
+
+Let S be a determinant carrier. If its pair-incidence matrix has full column
+rank and its collision-free 2-RDM coherence graph is connected, then every
+pure state with nowhere-vanishing amplitudes on S is rationally reconstructed, up to
+global phase, from its 2-RDM in the fixed orbital frame. The diagonal 2-RDM
+recovers coefficient weights through an exact incidence minor. A connected
+coherence tree recovers m-1 phase ratios, and tree path products reconstruct
+the full rank-one carrier matrix. Every higher RDM is then an exact signed
+linear contraction.
+
+The census certificate proves the hypotheses for 771 of 799 shipped supports:
+603 of 631 DESIGN-INT, 12 of 12 DESIGN-REAL, and 156 of 156 INTERFERENCE.
+Pair incidence has full column rank for all 799. The 28 unresolved records
+are not claimed non-injective because collided channels may contain additional
+information. Purity, full carrier support, and a fixed orbital frame are
+essential hypotheses.
+
+For any known two-body Hamiltonian that preserves one of these carriers, this
+gives exact pure-state BBGKY closure by substituting the rational
+Gamma_3(Gamma_2) map. The closed equation is autonomous for a time-independent
+Hamiltonian and nonautonomous for a scheduled Hamiltonian. Fixed-rho
+preservation is a separate condition and is not implied by carrier
+preservation.
+
+[docs/rdm_observability_census.md;
+results/data/rdm_observability_census.json;
+scripts/verify_rdm_observability_standalone.py]
+
+## EXACT SCHEDULED TWO-BODY MOTION ON THE v_B CARRIER (2026-07)
+
+On the signed conic \(s^2=119+70t-85t^2\), there is an explicit
+wall-regular Hermitian pair kernel with a seven-entry symbolic support. Its
+second-quantized Hamiltonian preserves the complete eight-determinant
+\(v_B\) carrier in \(\wedge^4\mathbb C^9\) and satisfies
+\(i\dot\psi=H_{\rm car}\psi\) exactly, with no projective remainder. The
+only possible outside-carrier transition cancels because its coefficient is
+\(\alpha_1+\alpha_3=0\).
+
+After the exact orbital lift \(U=\exp(i\beta n_8)\), the Hamiltonian
+\(H_{\rm common}=UH_{\rm car}U^\dagger-\dot\beta n_8\) drives a loop whose
+complete 1-RDM is the same matrix for every clock value. On the canonical
+four-particle sector, the one-body term also has a pair-only expression.
+
+The exact identity
+\(\operatorname{Tr}(\Gamma_2^3)=6(2899-8t)/12167\) has nonzero derivative,
+so this fixed-1RDM trajectory is not a one-body orbital orbit. The changing
+two-body data are cumulant data because the disconnected contribution is
+fixed by the complete 1-RDM.
+
+The carrier's unimodular pair-incidence minor and connected seven-edge 2-RDM
+coherence tree give a rational \(\Gamma_3(\Gamma_2)\) inverse on the pure
+full-support chart. Since the schedule preserves that chart, the associated
+TD-2RDM equation is exact, closed, and nonautonomous. No autonomous driver,
+mixed-state closure, noise tolerance, or scalable computational advantage is
+claimed. The rational closure is a theorem here; an amplitude-free reduced
+propagator is not yet implemented.
+
+[docs/vb_carrier_hamiltonian.md;
+results/data/vb_carrier_hamiltonian.json;
+scripts/verify_vb_carrier_hamiltonian_standalone.py]
