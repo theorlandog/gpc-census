@@ -20,4 +20,6 @@ determinacy closure on the unresolved 28 has run and resolved none, and the
 benchmark suite has been rerun on a second machine, where every runtime factor
 moved while the method ordering, variable counts and accuracies held. The
 prior-art track builds on `docs/prior_art_roadmap.md` rather than starting a
-second survey.
+second survey, and the adversarial review in
+`docs/adversarial_observable_audit.md` has already run, refuting two readings
+of T1 that the tracks were drafted against.
