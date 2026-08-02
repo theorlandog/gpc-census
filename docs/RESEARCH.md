@@ -1102,3 +1102,62 @@ rigidity from framework theory, its algorithms from structured inverse
 eigenvalue problems and numerical algebraic geometry, and its pathology
 expectations from tensor rank, applied to a map on which none of those
 fields has yet worked (docs/prior_art_roadmap.md).
+
+## Exact RDM observability atlas (2026-07)
+
+The census now has a second role: a certified sparse correlator-reconstruction
+atlas with a phase-synchronization interpretation.
+For 771 of 799 shipped determinant supports, including all 156 INTERFERENCE
+supports, the 2-RDM rationally reconstructs every pure full-support state on
+the fixed carrier and therefore every higher RDM. The proof uses two exact
+support gates: full column rank of pair incidence and a connected spanning
+tree of collision-free 2-RDM coherence channels. Pair incidence has full
+column rank on all 799 supports.
+
+This is a fixed-frame, carrier-restricted, pure-state statement. It does not
+extend to arbitrary mixed states, infer a carrier, prove non-injectivity for
+the 28 unresolved supports, or supply fixed-rho dynamics. Its immediate use
+is exact higher-RDM reconstruction and carrier-preserving reduced-dynamics
+benchmarks. The high-value dynamic gate, a correlation-changing two-body
+trajectory that remains in a certified carrier and is not a one-body orbit,
+is met below for \(v_B\).
+The remaining gates are an infinite-family and stability theorem.
+
+[docs/rdm_observability_census.md;
+scripts/rdm_observability_census.py;
+scripts/verify_rdm_observability_standalone.py;
+results/data/rdm_observability_census.json;
+tests/test_rdm_observability_census.py]
+
+## Exact scheduled v_B carrier dynamics (2026-07)
+
+The main dynamic gate above is now closed for one exact finite model. A
+Hermitian pair kernel with a seven-entry symbolic support drives the known
+\(v_B\) conic, preserves its complete eight-determinant carrier in the full
+126-dimensional four-particle sector, and satisfies the Schrödinger equation as a vector
+identity. A diagonal orbital lift gives a second at-most-two-body schedule
+whose reference trajectory has one constant complete 1-RDM, not merely a
+fixed diagonal or spectrum.
+
+The basis-free invariant
+\(\operatorname{Tr}(\Gamma_2^3)=6(2899-8t)/12167\) varies strictly with
+\(t\). Therefore the loop is not a one-body orbital orbit, including an orbit
+inside the stabilizer of the fixed 1-RDM. Since the disconnected two-body
+contribution is fixed by that complete 1-RDM, the changing part is the
+two-body cumulant.
+
+The carrier has a unimodular pair-incidence minor and a connected seven-edge
+2-RDM coherence tree. Therefore the scheduled flow remains on a chart with an
+exact rational \(\Gamma_3(\Gamma_2)\) map and gives exact closed nonautonomous
+TD-2RDM evolution. This is a reference-schedule result, not an autonomous
+Hamiltonian, a mixed-state closure, or a scalable speedup. The package proves
+closure but does not yet implement an amplitude-free reduced propagator. The
+next gates are that executable reconstruction, conditioning, additional
+nontransport carriers, an infinite family, and a beyond-full-wavefunction
+benchmark.
+
+[docs/vb_carrier_hamiltonian.md;
+scripts/vb_carrier_hamiltonian.py;
+scripts/verify_vb_carrier_hamiltonian_standalone.py;
+results/data/vb_carrier_hamiltonian.json;
+tests/test_vb_carrier_hamiltonian.py]

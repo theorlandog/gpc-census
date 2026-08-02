@@ -205,6 +205,31 @@ versions, reproduced on two solvers) with structural transport checks. They
 are evidence, not proof, and extending the exact atlas across them is open
 work.
 
+The same support ledger now carries an exact pure-state 2-RDM observability
+atlas. Pair incidence has full column rank for all 799 supports, and 771 have
+a connected collision-free 2-RDM coherence tree, including all 156
+INTERFERENCE supports. On those fixed carriers, in a fixed orbital frame and
+away from zero amplitudes, the 2-RDM rationally reconstructs the full pure
+state and every higher RDM. See `docs/rdm_observability_census.md` and verify
+the 799 exact certificates with:
+
+```sh
+python scripts/verify_rdm_observability_standalone.py
+```
+
+For the v_B carrier, the repository also gives an exact scheduled
+at-most-two-body Hamiltonian with a seven-entry symbolic pair-kernel support.
+It preserves the full eight-determinant carrier, and its aligned lift drives a
+nontrivial loop at one constant complete 1-RDM. Together with the carrier
+inverse above, this yields exact closed nonautonomous TD-2RDM evolution.
+This is currently a theorem-level closure certificate, not yet an executable
+amplitude-free reduced propagator.
+The basis-free witness
+Tr(Gamma_2^3) = 6(2899-8t)/12167 changes along the loop,
+so the motion is not merely a one-body orbital rotation.
+See `docs/vb_carrier_hamiltonian.md` and
+`results/data/vb_carrier_hamiltonian.json`.
+
 Every design corner (integer and real) is certified by construction. All
 156 interference corners carry certified states as well; the final two rank-10
 corners were closed off the rational search grid by an exact reconstruction
