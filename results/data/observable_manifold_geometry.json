@@ -1,0 +1,2557 @@
+{
+  "audits": [
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 3
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 2
+          },
+          "connected_chart_strata": 2,
+          "strata": 2
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 2,
+      "name": "path",
+      "vertices": 2,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0
+        ],
+        "ambiguity_dimension": 0
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 3
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 2
+          },
+          "connected_chart_strata": 2,
+          "strata": 2
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 2,
+      "name": "star",
+      "vertices": 2,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0
+        ],
+        "ambiguity_dimension": 0
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 3
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 2
+          },
+          "connected_chart_strata": 2,
+          "strata": 2
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 2,
+      "name": "balanced",
+      "vertices": 2,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0
+        ],
+        "ambiguity_dimension": 0
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 6,
+        "1": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 3
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 1
+          },
+          "connected_chart_strata": 2,
+          "strata": 3
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 4,
+      "name": "path",
+      "vertices": 3,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2
+        ],
+        "ambiguity_dimension": 1
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 6,
+        "1": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 3
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 1
+          },
+          "connected_chart_strata": 2,
+          "strata": 3
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 4,
+      "name": "star",
+      "vertices": 3,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2
+        ],
+        "ambiguity_dimension": 1
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 6,
+        "1": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 3
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 1
+          },
+          "connected_chart_strata": 2,
+          "strata": 3
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 4,
+      "name": "balanced",
+      "vertices": 3,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2
+        ],
+        "ambiguity_dimension": 1
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 10,
+        "1": 5
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 4
+          },
+          "connected_chart_strata": 4,
+          "strata": 4
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 6
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 2
+          },
+          "connected_chart_strata": 2,
+          "strata": 4
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 6,
+      "name": "path",
+      "vertices": 4,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2
+        ],
+        "ambiguity_dimension": 1
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 11,
+        "1": 3,
+        "2": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 4
+          },
+          "connected_chart_strata": 4,
+          "strata": 4
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 6
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "2": 1
+          },
+          "connected_chart_strata": 3,
+          "strata": 4
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 6,
+      "name": "star",
+      "vertices": 4,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3
+        ],
+        "ambiguity_dimension": 2
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 10,
+        "1": 5
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 4
+          },
+          "connected_chart_strata": 4,
+          "strata": 4
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 6
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 2
+          },
+          "connected_chart_strata": 2,
+          "strata": 4
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 6,
+      "name": "balanced",
+      "vertices": 4,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          3
+        ],
+        "ambiguity_dimension": 1
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 15,
+        "1": 15,
+        "2": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 5
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 6
+          },
+          "connected_chart_strata": 4,
+          "strata": 10
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 6,
+            "2": 1
+          },
+          "connected_chart_strata": 3,
+          "strata": 10
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 3
+          },
+          "connected_chart_strata": 2,
+          "strata": 5
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 8,
+      "name": "path",
+      "vertices": 5,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4
+        ],
+        "ambiguity_dimension": 2
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 20,
+        "1": 6,
+        "2": 4,
+        "3": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 5
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 6
+          },
+          "connected_chart_strata": 4,
+          "strata": 10
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "2": 4
+          },
+          "connected_chart_strata": 6,
+          "strata": 10
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "3": 1
+          },
+          "connected_chart_strata": 4,
+          "strata": 5
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 8,
+      "name": "star",
+      "vertices": 5,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "ambiguity_dimension": 3
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 17,
+        "1": 11,
+        "2": 3
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 5
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 6
+          },
+          "connected_chart_strata": 4,
+          "strata": 10
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 4,
+            "2": 2
+          },
+          "connected_chart_strata": 4,
+          "strata": 10
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 1,
+            "2": 1
+          },
+          "connected_chart_strata": 3,
+          "strata": 5
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 8,
+      "name": "balanced",
+      "vertices": 5,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          3,
+          4
+        ],
+        "ambiguity_dimension": 2
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 21,
+        "1": 35,
+        "2": 7
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 6
+          },
+          "connected_chart_strata": 6,
+          "strata": 6
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 10
+          },
+          "connected_chart_strata": 5,
+          "strata": 15
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 12,
+            "2": 4
+          },
+          "connected_chart_strata": 4,
+          "strata": 20
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 9,
+            "2": 3
+          },
+          "connected_chart_strata": 3,
+          "strata": 15
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 4
+          },
+          "connected_chart_strata": 2,
+          "strata": 6
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 10,
+      "name": "path",
+      "vertices": 6,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4
+        ],
+        "ambiguity_dimension": 2
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 37,
+        "1": 10,
+        "2": 10,
+        "3": 5,
+        "4": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 6
+          },
+          "connected_chart_strata": 6,
+          "strata": 6
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 10
+          },
+          "connected_chart_strata": 5,
+          "strata": 15
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 10,
+            "2": 10
+          },
+          "connected_chart_strata": 10,
+          "strata": 20
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 10,
+            "3": 5
+          },
+          "connected_chart_strata": 10,
+          "strata": 15
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "4": 1
+          },
+          "connected_chart_strata": 5,
+          "strata": 6
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 10,
+      "name": "star",
+      "vertices": 6,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "ambiguity_dimension": 4
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 24,
+        "1": 30,
+        "2": 8,
+        "3": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 6
+          },
+          "connected_chart_strata": 6,
+          "strata": 6
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 10
+          },
+          "connected_chart_strata": 5,
+          "strata": 15
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 10,
+            "2": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 20
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 8,
+            "2": 2,
+            "3": 1
+          },
+          "connected_chart_strata": 4,
+          "strata": 15
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 2,
+            "2": 1
+          },
+          "connected_chart_strata": 3,
+          "strata": 6
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 10,
+      "name": "balanced",
+      "vertices": 6,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          3,
+          4,
+          5
+        ],
+        "ambiguity_dimension": 3
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 28,
+        "1": 70,
+        "2": 28,
+        "3": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 7
+          },
+          "connected_chart_strata": 7,
+          "strata": 7
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 15
+          },
+          "connected_chart_strata": 6,
+          "strata": 21
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 20,
+            "2": 10
+          },
+          "connected_chart_strata": 5,
+          "strata": 35
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 18,
+            "2": 12,
+            "3": 1
+          },
+          "connected_chart_strata": 4,
+          "strata": 35
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 12,
+            "2": 6
+          },
+          "connected_chart_strata": 3,
+          "strata": 21
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 5
+          },
+          "connected_chart_strata": 2,
+          "strata": 7
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 12,
+      "name": "path",
+      "vertices": 7,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "ambiguity_dimension": 3
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 70,
+        "1": 15,
+        "2": 20,
+        "3": 15,
+        "4": 6,
+        "5": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 7
+          },
+          "connected_chart_strata": 7,
+          "strata": 7
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 15
+          },
+          "connected_chart_strata": 6,
+          "strata": 21
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 15,
+            "2": 20
+          },
+          "connected_chart_strata": 15,
+          "strata": 35
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 20,
+            "3": 15
+          },
+          "connected_chart_strata": 20,
+          "strata": 35
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 15,
+            "4": 6
+          },
+          "connected_chart_strata": 15,
+          "strata": 21
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "5": 1
+          },
+          "connected_chart_strata": 6,
+          "strata": 7
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 12,
+      "name": "star",
+      "vertices": 7,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "ambiguity_dimension": 5
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 37,
+        "1": 58,
+        "2": 26,
+        "3": 5,
+        "4": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 7
+          },
+          "connected_chart_strata": 7,
+          "strata": 7
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 15
+          },
+          "connected_chart_strata": 6,
+          "strata": 21
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 16,
+            "2": 12
+          },
+          "connected_chart_strata": 7,
+          "strata": 35
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 18,
+            "2": 6,
+            "3": 5
+          },
+          "connected_chart_strata": 6,
+          "strata": 35
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 8,
+            "2": 6,
+            "4": 1
+          },
+          "connected_chart_strata": 6,
+          "strata": 21
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 1,
+            "2": 2
+          },
+          "connected_chart_strata": 4,
+          "strata": 7
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 12,
+      "name": "balanced",
+      "vertices": 7,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "ambiguity_dimension": 4
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 36,
+        "1": 126,
+        "2": 84,
+        "3": 9
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 8
+          },
+          "connected_chart_strata": 8,
+          "strata": 8
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 21
+          },
+          "connected_chart_strata": 7,
+          "strata": 28
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 30,
+            "2": 20
+          },
+          "connected_chart_strata": 6,
+          "strata": 56
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 30,
+            "2": 30,
+            "3": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 70
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 24,
+            "2": 24,
+            "3": 4
+          },
+          "connected_chart_strata": 4,
+          "strata": 56
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 15,
+            "2": 10
+          },
+          "connected_chart_strata": 3,
+          "strata": 28
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 6
+          },
+          "connected_chart_strata": 2,
+          "strata": 8
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 14,
+      "name": "path",
+      "vertices": 8,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "ambiguity_dimension": 3
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 135,
+        "1": 21,
+        "2": 35,
+        "3": 35,
+        "4": 21,
+        "5": 7,
+        "6": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 8
+          },
+          "connected_chart_strata": 8,
+          "strata": 8
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 21
+          },
+          "connected_chart_strata": 7,
+          "strata": 28
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 21,
+            "2": 35
+          },
+          "connected_chart_strata": 21,
+          "strata": 56
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 35,
+            "3": 35
+          },
+          "connected_chart_strata": 35,
+          "strata": 70
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 35,
+            "4": 21
+          },
+          "connected_chart_strata": 35,
+          "strata": 56
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 21,
+            "5": 7
+          },
+          "connected_chart_strata": 21,
+          "strata": 28
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "6": 1
+          },
+          "connected_chart_strata": 7,
+          "strata": 8
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 14,
+      "name": "star",
+      "vertices": 8,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "ambiguity_dimension": 6
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 51,
+        "1": 110,
+        "2": 74,
+        "3": 17,
+        "4": 3
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 8
+          },
+          "connected_chart_strata": 8,
+          "strata": 8
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 21
+          },
+          "connected_chart_strata": 7,
+          "strata": 28
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 26,
+            "2": 22
+          },
+          "connected_chart_strata": 8,
+          "strata": 56
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 29,
+            "2": 23,
+            "3": 10
+          },
+          "connected_chart_strata": 8,
+          "strata": 70
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 22,
+            "2": 18,
+            "3": 6,
+            "4": 2
+          },
+          "connected_chart_strata": 8,
+          "strata": 56
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 10,
+            "2": 9,
+            "3": 1,
+            "4": 1
+          },
+          "connected_chart_strata": 7,
+          "strata": 28
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 2,
+            "2": 2
+          },
+          "connected_chart_strata": 4,
+          "strata": 8
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 14,
+      "name": "balanced",
+      "vertices": 8,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "ambiguity_dimension": 4
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 45,
+        "1": 210,
+        "2": 210,
+        "3": 45,
+        "4": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 9
+          },
+          "connected_chart_strata": 9,
+          "strata": 9
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 28
+          },
+          "connected_chart_strata": 8,
+          "strata": 36
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 42,
+            "2": 35
+          },
+          "connected_chart_strata": 7,
+          "strata": 84
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 45,
+            "2": 60,
+            "3": 15
+          },
+          "connected_chart_strata": 6,
+          "strata": 126
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 40,
+            "2": 60,
+            "3": 20,
+            "4": 1
+          },
+          "connected_chart_strata": 5,
+          "strata": 126
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 30,
+            "2": 40,
+            "3": 10
+          },
+          "connected_chart_strata": 4,
+          "strata": 84
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 18,
+            "2": 15
+          },
+          "connected_chart_strata": 3,
+          "strata": 36
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 7
+          },
+          "connected_chart_strata": 2,
+          "strata": 9
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 16,
+      "name": "path",
+      "vertices": 9,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "ambiguity_dimension": 4
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 264,
+        "1": 28,
+        "2": 56,
+        "3": 70,
+        "4": 56,
+        "5": 28,
+        "6": 8,
+        "7": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 9
+          },
+          "connected_chart_strata": 9,
+          "strata": 9
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 28
+          },
+          "connected_chart_strata": 8,
+          "strata": 36
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 28,
+            "2": 56
+          },
+          "connected_chart_strata": 28,
+          "strata": 84
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 56,
+            "3": 70
+          },
+          "connected_chart_strata": 56,
+          "strata": 126
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 70,
+            "4": 56
+          },
+          "connected_chart_strata": 70,
+          "strata": 126
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 56,
+            "5": 28
+          },
+          "connected_chart_strata": 56,
+          "strata": 84
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 28,
+            "6": 8
+          },
+          "connected_chart_strata": 28,
+          "strata": 36
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "7": 1
+          },
+          "connected_chart_strata": 8,
+          "strata": 9
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 16,
+      "name": "star",
+      "vertices": 9,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "ambiguity_dimension": 7
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 78,
+        "1": 191,
+        "2": 164,
+        "3": 63,
+        "4": 14,
+        "5": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 9
+          },
+          "connected_chart_strata": 9,
+          "strata": 9
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 28
+          },
+          "connected_chart_strata": 8,
+          "strata": 36
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 10,
+            "1": 36,
+            "2": 38
+          },
+          "connected_chart_strata": 10,
+          "strata": 84
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 11,
+            "1": 45,
+            "2": 45,
+            "3": 25
+          },
+          "connected_chart_strata": 11,
+          "strata": 126
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 12,
+            "1": 42,
+            "2": 42,
+            "3": 22,
+            "4": 8
+          },
+          "connected_chart_strata": 12,
+          "strata": 126
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 12,
+            "1": 29,
+            "2": 24,
+            "3": 14,
+            "4": 4,
+            "5": 1
+          },
+          "connected_chart_strata": 12,
+          "strata": 84
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 12,
+            "3": 2,
+            "4": 2
+          },
+          "connected_chart_strata": 10,
+          "strata": 36
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 1,
+            "2": 3
+          },
+          "connected_chart_strata": 5,
+          "strata": 9
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 16,
+      "name": "balanced",
+      "vertices": 9,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "ambiguity_dimension": 5
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 55,
+        "1": 330,
+        "2": 462,
+        "3": 165,
+        "4": 11
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 10
+          },
+          "connected_chart_strata": 10,
+          "strata": 10
+        },
+        "10": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 9,
+            "1": 36
+          },
+          "connected_chart_strata": 9,
+          "strata": 45
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 8,
+            "1": 56,
+            "2": 56
+          },
+          "connected_chart_strata": 8,
+          "strata": 120
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 7,
+            "1": 63,
+            "2": 105,
+            "3": 35
+          },
+          "connected_chart_strata": 7,
+          "strata": 210
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 6,
+            "1": 60,
+            "2": 120,
+            "3": 60,
+            "4": 6
+          },
+          "connected_chart_strata": 6,
+          "strata": 252
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 50,
+            "2": 100,
+            "3": 50,
+            "4": 5
+          },
+          "connected_chart_strata": 5,
+          "strata": 210
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 4,
+            "1": 36,
+            "2": 60,
+            "3": 20
+          },
+          "connected_chart_strata": 4,
+          "strata": 120
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 3,
+            "1": 21,
+            "2": 21
+          },
+          "connected_chart_strata": 3,
+          "strata": 45
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 2,
+            "1": 8
+          },
+          "connected_chart_strata": 2,
+          "strata": 10
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 18,
+      "name": "path",
+      "vertices": 10,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "ambiguity_dimension": 4
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 521,
+        "1": 36,
+        "2": 84,
+        "3": 126,
+        "4": 126,
+        "5": 84,
+        "6": 36,
+        "7": 9,
+        "8": 1
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 10
+          },
+          "connected_chart_strata": 10,
+          "strata": 10
+        },
+        "10": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 9,
+            "1": 36
+          },
+          "connected_chart_strata": 9,
+          "strata": 45
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 36,
+            "2": 84
+          },
+          "connected_chart_strata": 36,
+          "strata": 120
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 84,
+            "3": 126
+          },
+          "connected_chart_strata": 84,
+          "strata": 210
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 126,
+            "4": 126
+          },
+          "connected_chart_strata": 126,
+          "strata": 252
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 126,
+            "5": 84
+          },
+          "connected_chart_strata": 126,
+          "strata": 210
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 84,
+            "6": 36
+          },
+          "connected_chart_strata": 84,
+          "strata": 120
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 36,
+            "7": 9
+          },
+          "connected_chart_strata": 36,
+          "strata": 45
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 9,
+            "8": 1
+          },
+          "connected_chart_strata": 9,
+          "strata": 10
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          9
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 18,
+      "name": "star",
+      "vertices": 10,
+      "worst_boundary_stratum": {
+        "active_support": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "ambiguity_dimension": 8
+      }
+    },
+    {
+      "all_nonempty_strata_ambiguity_counts": {
+        "0": 110,
+        "1": 307,
+        "2": 388,
+        "3": 167,
+        "4": 46,
+        "5": 5
+      },
+      "boundary": {
+        "1": {
+          "ambiguity_dimension_counts": {
+            "0": 10
+          },
+          "connected_chart_strata": 10,
+          "strata": 10
+        },
+        "10": {
+          "ambiguity_dimension_counts": {
+            "0": 1
+          },
+          "connected_chart_strata": 1,
+          "strata": 1
+        },
+        "2": {
+          "ambiguity_dimension_counts": {
+            "0": 9,
+            "1": 36
+          },
+          "connected_chart_strata": 9,
+          "strata": 45
+        },
+        "3": {
+          "ambiguity_dimension_counts": {
+            "0": 11,
+            "1": 50,
+            "2": 59
+          },
+          "connected_chart_strata": 11,
+          "strata": 120
+        },
+        "4": {
+          "ambiguity_dimension_counts": {
+            "0": 13,
+            "1": 63,
+            "2": 87,
+            "3": 47
+          },
+          "connected_chart_strata": 13,
+          "strata": 210
+        },
+        "5": {
+          "ambiguity_dimension_counts": {
+            "0": 16,
+            "1": 62,
+            "2": 99,
+            "3": 56,
+            "4": 19
+          },
+          "connected_chart_strata": 16,
+          "strata": 252
+        },
+        "6": {
+          "ambiguity_dimension_counts": {
+            "0": 18,
+            "1": 49,
+            "2": 82,
+            "3": 40,
+            "4": 18,
+            "5": 3
+          },
+          "connected_chart_strata": 18,
+          "strata": 210
+        },
+        "7": {
+          "ambiguity_dimension_counts": {
+            "0": 16,
+            "1": 32,
+            "2": 43,
+            "3": 20,
+            "4": 7,
+            "5": 2
+          },
+          "connected_chart_strata": 16,
+          "strata": 120
+        },
+        "8": {
+          "ambiguity_dimension_counts": {
+            "0": 11,
+            "1": 13,
+            "2": 15,
+            "3": 4,
+            "4": 2
+          },
+          "connected_chart_strata": 11,
+          "strata": 45
+        },
+        "9": {
+          "ambiguity_dimension_counts": {
+            "0": 5,
+            "1": 2,
+            "2": 3
+          },
+          "connected_chart_strata": 5,
+          "strata": 10
+        }
+      },
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "full_support_chart_connected": true,
+      "full_support_dimension_real": 18,
+      "name": "balanced",
+      "vertices": 10,
+      "worst_boundary_stratum": {
+        "active_support": [
+          0,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "ambiguity_dimension": 5
+      }
+    }
+  ],
+  "schema_version": 1,
+  "theorem": {
+    "boundary_fiber": "T^(c(A)-1), where c(A) is the number of components of the induced tree on active support A",
+    "full_support_geometry": "interior simplex Delta^(m-1) times torus T^(m-1)",
+    "rank_defect": "c(A)-1 in relative-phase directions",
+    "real_dimension": "2m-2",
+    "selected_tree_relations": "|z_uv|^2 = w_u w_v for each tree edge"
+  }
+}
