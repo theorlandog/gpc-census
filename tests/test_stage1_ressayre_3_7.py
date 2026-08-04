@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import math
+import pathlib
 from fractions import Fraction
 from pathlib import Path
 
@@ -116,12 +117,45 @@ def test_cyclic_schubert_cross_check_was_deferred_during_screening():
         assert row["cyclic_schubert_cross_check"]["status"] == "coefficient_one"
 
 
-def test_manifest_does_not_claim_a_regenerating_verifier_exists_here():
-    """The generation package is absent, so completeness is not reproducible.
+def test_generated_stage1_manifest_is_current():
+    """The tripwire this replaces asserted the generation package was absent.
 
-    The manifest may say system_completeness is proved; this repository cannot
-    confirm that, and the doc says so. Guard against the generation package
-    silently appearing without the doc being updated.
+    It has landed, so the check becomes the one it was standing in for: run
+    the real generator and require the checked-in manifest back byte for byte.
+    Byte identity, not semantic equality, because it also catches changed key
+    ordering, dropped certificates and accidental float serialization.
     """
+    import subprocess
+    import sys
+    import tempfile
+
+    generator = ROOT / "scripts" / "generate_fixed_n3_reference_rank.py"
+    assert generator.exists()
+    assert (ROOT / "src" / "gpc_census" / "generation").is_dir()
+    with tempfile.TemporaryDirectory() as directory:
+        generated = pathlib.Path(directory) / "stage1_ressayre_3_7.json"
+        subprocess.run(
+            [sys.executable, str(generator), "--rank", "7", "--out", str(generated)],
+            check=True,
+            capture_output=True,
+        )
+        assert generated.read_bytes() == MANIFEST.read_bytes()
+
+
+def test_completeness_is_now_reproducible_in_this_repository():
+    """Every import of the generation package must resolve.
+
+    Two of the fifteen modules arrived three separate times without their
+    siblings; an import-time check is what distinguishes a package that is
+    present from one that is merely partly present.
+    """
+    import importlib
+
+    for name in (
+        "admissible_flats", "bdr", "candidate_pipeline", "candidate_system",
+        "cyclic_schubert", "exterior", "full_dimension", "model",
+        "redundancy", "reference_generator", "ressayre", "schubert",
+        "series", "system",
+    ):
+        importlib.import_module(f"gpc_census.generation.{name}")
     assert manifest()["proof_status"]["system_completeness"] == "proved"
-    assert not (ROOT / "src" / "gpc_census" / "generation").exists()
