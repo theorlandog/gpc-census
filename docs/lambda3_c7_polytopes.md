@@ -169,8 +169,29 @@ the coordinate-subspace family cannot express.
 Classes VI, VII and VIII ship as brackets. Sweeping the dominant-weight bound
 from 3 to 7 changes nothing, so the Schur-Horn/Newton inequality family is
 SATURATED: it is exactly tight for six of the nine classes and provably
-cannot close the other three. Closing them needs a different tool (Ressayre
-inequalities, or covariant nonvanishing).
+cannot close the other three. Closing them needs a different tool: Ressayre
+inequalities FOR THE ORBIT CLOSURE, or covariant nonvanishing.
+
+RECONCILIATION (2026-08), read this before citing the sentence above. The
+repository now also carries `docs/stage1_ressayre_3_7.md` and
+`results/data/stage1_ressayre_3_7.json`, a first-principles Ressayre
+derivation at (3,7). That manifest does NOT close the three bracketed
+classes, and the two results must not be run together:
+
+- The manifest computes the AMBIENT cone. Its four retained rows agree, as an
+  oriented set, with the Altunbulak-Klyachko table this layer already consumes
+  through `constraints(3,7)`, and feeding those rows alone through
+  `gpc_census.exact_polytope` reproduces the ten published (3,7) vertices.
+  That is a genuine independent cross-check of the ambient input, and it is
+  pinned by `test_ressayre_manifest_agrees_with_ambient_rows`.
+- The ambient cone is the polytope of the OPEN orbit, which is class IX, and
+  class IX is already EXACT here. So the manifest confirms the one class that
+  needed no help and says nothing about the other eight.
+- What classes VI, VII and VIII need is Ressayre's theorem applied to a fixed
+  orbit closure (the Berenstein-Sjamaar / Ressayre inequalities for a
+  subvariety of P(V)), which is a strictly harder object than the ambient
+  cone: the ambient case is the special instance where the subvariety is all
+  of P(V). None of that machinery is in the repository.
 
 Numerical probing of the unreached outer vertices (Powell descent on
 `dist(sorted spec(rho_{g.psi}), target)^2` over g in GL_7, 30 restarts) shows
