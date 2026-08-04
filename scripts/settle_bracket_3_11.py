@@ -1,5 +1,5 @@
 """Settle the rank-11 Stage-0 bracket for N=3 without generating the rank-11
-constraint system, using four exact methods (all witnesses checked here):
+constraint system, using five exact methods (all witnesses checked here):
 
   STATE-TRANSPORT  a certified census vertex with the same core (padding /
                    frozen-core lift) transports its state; verify_exact certifies.
@@ -13,8 +13,18 @@ constraint system, using four exact methods (all witnesses checked here):
   ZERO-RESTRICTION trailing zeros force the state into wedge^3 H_{d'}; the
                    restricted point must satisfy the known (3, d') GPCs, else
                    refuted.
+  LEVEL5-RESSAYRE  the four level-five rows lambda_A + lambda_11 <= 2 carry exact
+                   Ressayre certificates in results/data/level5_ressayre_3_11.json;
+                   a candidate violating a certified row is outside the polytope.
+                   This method is applied last, so it decides only what the four
+                   older methods left OPEN.
 
-Writes docs/bracket_3_11_settlement.json. Reproduces 19 TRUE / 27 REFUTED / 4 OPEN.
+Writes docs/bracket_3_11_settlement.json. Reproduces 19 TRUE / 31 REFUTED / 0 OPEN.
+
+History: before the level-five rows were certified this script reproduced
+19 / 27 / 4, and the four OPEN candidates were 23, 26, 34 and 44. Those four are
+exactly the ones LEVEL5-RESSAYRE now refutes; every other verdict is unchanged,
+which the settlement records per candidate.
 """
 from __future__ import annotations
 
@@ -121,19 +131,66 @@ def try_zero_restriction(spec):
     return None
 
 
+def certified_level5_rows():
+    """Load the certified level-five rows, keyed by family name.
+
+    Only rows the screen actually certified are returned. A CLAIMED row must
+    never reach this function's caller, so an artifact whose screen_status is
+    anything else contributes nothing and the candidate stays OPEN.
+    """
+    path = DATA / "level5_ressayre_3_11.json"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} is missing; run scripts/level5_ressayre_3_11.py first"
+        )
+    payload = json.loads(path.read_text())
+    return [
+        (row["family"], tuple(row["subset"]), Fraction(row["rhs"]))
+        for row in payload["rank_eleven"]["rows"]
+        if row["screen_status"] == "certified"
+    ]
+
+
+def try_level5_certificate(spec, rows):
+    """Refute a candidate that violates a certified level-five row.
+
+    A Ressayre certificate proves validity of its own inequality, so a spectrum
+    exceeding the right side lies outside the polytope. Validity is all this
+    needs; the certificates make no facetness or completeness claim.
+    """
+    for family, subset, rhs in rows:
+        value = sum(spec[j - 1] for j in subset)
+        if value > rhs:
+            return {
+                "verdict": "REFUTED",
+                "certificate": "LEVEL5-RESSAYRE",
+                "row": {"family": family, "subset": list(subset), "rhs": str(rhs)},
+                "value": str(value),
+                "excess": str(value - rhs),
+                "note": f"violates the certified row {family} "
+                        f"(sum lambda_{list(subset)} <= {rhs}) by {value - rhs}; "
+                        f"see results/data/level5_ressayre_3_11.json and "
+                        f"scripts/verify_level5_ressayre_3_11_standalone.py",
+            }
+    return None
+
+
 def main() -> int:
     bracket = json.loads((ROOT / "docs" / "bracket_3_11.json").read_text())
     out = {"system": "(3,11)", "source_bracket": "docs/bracket_3_11.json",
            "method": "state transport + frozen-core/N=2 pairing + zero-restriction "
-                     "membership + explicit constructions (exact arithmetic)",
+                     "membership + explicit constructions + certified level-five "
+                     "Ressayre rows (exact arithmetic)",
            "candidates": []}
+    level5 = certified_level5_rows()
     tally: Counter = Counter()
     for i, cand in enumerate(bracket["outer_vertices"]):
         spec = spectrum(cand["integer_form"], cand["denominator"])
         rec = {"index": i, "integer_form": cand["integer_form"],
                "denominator": cand["denominator"]}
         settled = (try_transport(spec) or try_explicit(spec)
-                   or try_n2_pairing(spec) or try_zero_restriction(spec))
+                   or try_n2_pairing(spec) or try_zero_restriction(spec)
+                   or try_level5_certificate(spec, level5))
         if settled is None:
             settled = {"verdict": "OPEN", "certificate": None,
                        "note": "genuinely rank-11 full-support candidate; needs Tier A "

@@ -532,7 +532,14 @@ positions, and recomputes the determinant by exact `Fraction` elimination
 rather than by the generator's Bareiss routine. 64 checks pass; the test suite
 asserts the verifier fails on a tampered determinant or hyperplane.
 
-`docs/bracket_3_11_settlement.json` is deliberately NOT rewritten. It is the
-record of the contraction-audit and transport method, whose generator
-`scripts/settle_bracket_3_11.py` still reproduces 19/27/4. The closure is a
-new layer on top.
+`scripts/settle_bracket_3_11.py` carries LEVEL5-RESSAYRE as a fifth exact
+method, applied after the four older ones so it decides only what they left
+OPEN. `docs/bracket_3_11_settlement.json` regenerates at 19 TRUE / 31 REFUTED
+/ 0 OPEN; the four flipped records each name the certified row they violate
+and the exact excess (1/7, 1/27, 1/17, 1/12), and the other 46 verdicts keep
+their original certificates unchanged.
+
+`scripts/partial_families.py` tiers these four rows RESSAYRE at rank 11 only.
+The rank-12 rows share their index sets but live in wedge^3 C^12, a different
+representation, so a rank-11 certificate does not cover them and they stay
+CLAIMED.

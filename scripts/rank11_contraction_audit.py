@@ -98,6 +98,17 @@ def _run_case(record, tries, seed):
     return out
 
 
+
+def _was_open_before_level5(record):
+    """The four candidates the pre-level-five methods could not settle.
+
+    Those four now carry a LEVEL5-RESSAYRE refutation in the settlement, so
+    keying off the OPEN verdict alone would find nothing. Accepting either
+    keeps this script correct against both states of that artifact.
+    """
+    return record.get("verdict") == "OPEN" or record.get("certificate") == "LEVEL5-RESSAYRE"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--tries", type=int, default=20)
@@ -107,7 +118,7 @@ def main():
     settlement = json.loads(SETTLEMENT.read_text())
     opens = [
         record for record in settlement["candidates"]
-        if record["verdict"] == "OPEN"
+        if _was_open_before_level5(record)
     ]
     control = next(
         record for record in settlement["candidates"] if record["index"] == 49
