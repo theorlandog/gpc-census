@@ -1,0 +1,256 @@
+{
+  "candidates": {
+    "23": {
+      "design_search": {
+        "evidence_only": true,
+        "one_hop_free_design_found": false,
+        "solver": "CBC via pulp, floating point",
+        "status": "Infeasible",
+        "support": null
+      },
+      "distinct_values": 2,
+      "families": {
+        "satisfies_every_proved_family": true,
+        "violated": [
+          {
+            "excess": "1/7",
+            "family": "AK-RMK-4.2.1 [1,2,4,7]+[11]<=2",
+            "lhs": "15/7",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          },
+          {
+            "excess": "1/7",
+            "family": "KLY09-EXT-3 [1,2,5,6]+[11]<=2",
+            "lhs": "15/7",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          }
+        ],
+        "violated_claimed_count": 2
+      },
+      "index": 23,
+      "multiplicities": {
+        "1/7": 9,
+        "6/7": 2
+      },
+      "spectrum": [
+        "6/7",
+        "6/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7",
+        "1/7"
+      ],
+      "trace": "3"
+    },
+    "26": {
+      "design_search": {
+        "evidence_only": true,
+        "one_hop_free_design_found": false,
+        "solver": "CBC via pulp, floating point",
+        "status": "Infeasible",
+        "support": null
+      },
+      "distinct_values": 3,
+      "families": {
+        "satisfies_every_proved_family": true,
+        "violated": [
+          {
+            "excess": "1/27",
+            "family": "AK-RMK-4.2.1 [1,2,4,7]+[11]<=2",
+            "lhs": "55/27",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          },
+          {
+            "excess": "1/27",
+            "family": "KLY09-EXT-1 [2,3,4,5]+[11]<=2",
+            "lhs": "55/27",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          },
+          {
+            "excess": "1/27",
+            "family": "KLY09-EXT-3 [1,2,5,6]+[11]<=2",
+            "lhs": "55/27",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          }
+        ],
+        "violated_claimed_count": 3
+      },
+      "index": 26,
+      "multiplicities": {
+        "1/27": 6,
+        "11/27": 3,
+        "7/9": 2
+      },
+      "spectrum": [
+        "7/9",
+        "7/9",
+        "11/27",
+        "11/27",
+        "11/27",
+        "1/27",
+        "1/27",
+        "1/27",
+        "1/27",
+        "1/27",
+        "1/27"
+      ],
+      "trace": "3"
+    },
+    "34": {
+      "design_search": {
+        "evidence_only": true,
+        "one_hop_free_design_found": false,
+        "solver": "CBC via pulp, floating point",
+        "status": "Infeasible",
+        "support": null
+      },
+      "distinct_values": 2,
+      "families": {
+        "satisfies_every_proved_family": true,
+        "violated": [
+          {
+            "excess": "1/17",
+            "family": "AK-RMK-4.2.1 [1,2,4,7]+[11]<=2",
+            "lhs": "35/17",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          },
+          {
+            "excess": "1/17",
+            "family": "KLY09-EXT-1 [2,3,4,5]+[11]<=2",
+            "lhs": "35/17",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          },
+          {
+            "excess": "1/17",
+            "family": "KLY09-EXT-2 [1,3,4,6]+[11]<=2",
+            "lhs": "35/17",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          }
+        ],
+        "violated_claimed_count": 3
+      },
+      "index": 34,
+      "multiplicities": {
+        "1/17": 7,
+        "11/17": 4
+      },
+      "spectrum": [
+        "11/17",
+        "11/17",
+        "11/17",
+        "11/17",
+        "1/17",
+        "1/17",
+        "1/17",
+        "1/17",
+        "1/17",
+        "1/17",
+        "1/17"
+      ],
+      "trace": "3"
+    },
+    "44": {
+      "design_search": {
+        "evidence_only": true,
+        "one_hop_free_design_found": false,
+        "solver": "CBC via pulp, floating point",
+        "status": "Infeasible",
+        "support": null
+      },
+      "distinct_values": 2,
+      "exact_no_design_proof": {
+        "applies": true,
+        "case_one_block": {
+          "contradiction": true,
+          "reason": "the single inside-H block has weight 1/2, saturating its three orbitals; the other two heavy orbitals admit only the one block on the remaining heavy pair, leaving five light orbitals at zero"
+        },
+        "case_two_blocks": {
+          "contradiction": true,
+          "free_heavy_pairs": 4,
+          "light_orbitals_needing_positive_weight": 6,
+          "reason": "a = 1/2 forces c = d = 0, so every |S cap H| = 2 block carries exactly one light orbital; there are too few free heavy pairs"
+        },
+        "case_zero_blocks": {
+          "contradiction": true,
+          "reason": "a = 0 contradicts a >= 1/2"
+        },
+        "conclusion": "no one-hop-free design realises candidate 44",
+        "derivation": "3a+2b+c = 5/2 and a+b+c+d = 1 and b+2c+3d = 1/2 give a - c - 2d = 1/2",
+        "exact": true,
+        "forced_inside_weight_at_least": "1/2",
+        "heavy_orbitals": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "light_orbitals": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "max_blocks_inside_a_five_set": 2
+      },
+      "families": {
+        "satisfies_every_proved_family": true,
+        "violated": [
+          {
+            "excess": "1/12",
+            "family": "KLY09-EXT-1 [2,3,4,5]+[11]<=2",
+            "lhs": "25/12",
+            "rhs": "2",
+            "tier": "CLAIMED"
+          }
+        ],
+        "violated_claimed_count": 1
+      },
+      "index": 44,
+      "multiplicities": {
+        "1/12": 6,
+        "1/2": 5
+      },
+      "spectrum": [
+        "1/2",
+        "1/2",
+        "1/2",
+        "1/2",
+        "1/2",
+        "1/12",
+        "1/12",
+        "1/12",
+        "1/12",
+        "1/12",
+        "1/12"
+      ],
+      "trace": "3"
+    }
+  },
+  "generated_by": "scripts/rank11_open_candidate_designs.py",
+  "nonclaims": [
+    "No candidate is settled TRUE or REFUTED by this artifact.",
+    "The mixed-integer infeasibility verdicts come from a floating-point solver and are evidence; only candidate 44 carries an exact proof.",
+    "Nothing here proves or disproves AK-RMK-4.2.1 or the KLY09 extensions."
+  ],
+  "one_hop_conflict_pairs": 1980,
+  "schema_version": 1,
+  "scope": "A one-hop-free support is a partial Steiner triple system, for which the 1-RDM is diagonal. Absence of such a design closes the design route only: a candidate with no design may still be attainable by an interference state, and none of this bears on the claimed level-five inequalities.",
+  "system": "(3,11)",
+  "triples": 165
+}
