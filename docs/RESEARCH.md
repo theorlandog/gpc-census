@@ -212,6 +212,32 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- complex_fixed_1rdm_observable_ranges.md: exact constrained observable ranges
+  on the pinned Borland-Dennis fiber for rational Gaussian Hermitian carriers.
+  🟦 The gauge-invariant cycle flux chi = h01*h12*conj(h02) is the new
+  invariant: edge phases are gauge-dependent but chi is not, so two carriers
+  with equal diagonals and edge magnitudes can have different ranges. Phase
+  elimination gives a quartic branch curve whose critical values are a
+  primitive sextic in Z[z]; endpoints are its extreme real roots by exact
+  Sturm isolation, with a subresultant linear lift proving every real root has
+  a real (not spuriously complex) critical preimage. ✅ Verified independently
+  here: brute-force optimisation of the original two-phase objective
+  reproduces both ranges to 1e-15, the fiber's 1-RDM is the stated target and
+  is diagonal (the support is one-hop free), A*D-C^2 = delta^2 holds, and the
+  three fermionic channel signs of the at-most-two-body realisation check out
+  by hand. 🟦 The unit-edge flux family contains BOTH earlier real-symmetric
+  regressions as exact u = +-1 boundary points, agreeing with
+  fixed_1rdm_observable_ranges.json, which a different engine produced; pinned
+  by test_flux_family_reproduces_the_real_symmetric_regressions. Scope limits
+  worth respecting: rational Gaussian entries only, generic (nonzero flux,
+  squarefree sextic, coprime lift) only, and one fixed three-determinant
+  fiber. Complex flux is NOT generic for ordinary real-orbital molecular
+  Hamiltonians; it wants magnetic fields, twisted boundaries, complex Bloch
+  orbitals, or spin-orbit structure.
+  [scripts/complex_fixed_1rdm_observable_ranges.py;
+  scripts/verify_complex_fixed_1rdm_observable_ranges_standalone.py;
+  results/data/complex_fixed_1rdm_observable_ranges.json;
+  tests/test_complex_fixed_1rdm_observable_ranges.py]
 - lambda3_c7_polytopes.md: the ORBIT-CLOSURE layer (entanglement polytopes),
   one polytope per SLOCC class rather than one per (N,d). 🟦 CERTIFIED EXACT
   for 10 of 13 class polytopes: all four of Lambda^3 C^6 (reproducing Walter,
