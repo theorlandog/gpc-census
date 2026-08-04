@@ -443,11 +443,67 @@ def support_numeric(H, w, sense: str = "max") -> float:
     def negeig(y):
         return float(np.linalg.eigvalsh(np.diag(y) - A).min())
 
-    y0 = np.full(n, float(np.linalg.eigvalsh(A).max()) + 1.0)
-    res = minimize(lambda y: float(w @ y), y0, method="SLSQP",
-                   constraints=[{"type": "ineq", "fun": negeig}],
-                   options={"maxiter": 800, "ftol": 1e-14})
-    return sgn * float(w @ res.x)
+    # A dual point is only meaningful when it is FEASIBLE, and SLSQP will
+    # happily return a slightly infeasible one (or diverge when the optimal
+    # face is degenerate, as it is whenever H touches only one edge). Repair
+    # each candidate by shifting it up to feasibility, which keeps it a valid
+    # upper bound, then keep the best.
+    scale = float(np.abs(A).max()) + 1.0
+    best = np.inf
+    rng = np.random.default_rng(0)
+    starts = [np.full(n, float(np.linalg.eigvalsh(A).max()) + 1.0),
+              np.real(np.diag(A)) + scale,
+              np.full(n, scale)]
+    starts += [np.full(n, scale) * (1.0 + rng.uniform(0, 1, n)) for _ in range(4)]
+    for y0 in starts:
+        try:
+            res = minimize(lambda y: float(w @ y), y0, method="SLSQP",
+                           constraints=[{"type": "ineq", "fun": negeig}],
+                           options={"maxiter": 500, "ftol": 1e-12})
+            y = np.asarray(res.x, dtype=float)
+        except Exception:
+            continue
+        if not np.all(np.isfinite(y)):
+            continue
+        viol = -negeig(y)
+        if viol > 0:
+            y = y + viol  # shift into the feasible cone
+        best = min(best, float(w @ y))
+    if not np.isfinite(best):
+        raise RuntimeError("dual SDP did not produce a feasible point")
+
+    # At order three the elliptope is the convex hull of the phase matrices
+    # (proved), so the primal must meet the dual. Use the primal value there:
+    # it is a maximisation over two angles and is far better conditioned.
+    if n <= 3:
+        primal = sgn * _phase_extreme(A, w)
+        if abs(primal - sgn * best) > 1e-6 * max(1.0, abs(primal)):
+            return primal  # trust the well-conditioned side
+        return primal
+    return sgn * best
+
+
+def _phase_extreme(A, w) -> float:
+    """max of ``Tr(A c c^dagger)`` over phase vectors with ``|c_i|^2 = w_i``."""
+    import numpy as np
+    from scipy.optimize import minimize
+
+    A = np.asarray(A, dtype=complex)
+    w = np.asarray(w, dtype=float)
+    n = len(w)
+    rng = np.random.default_rng(1)
+    root = np.sqrt(w)
+
+    def obj(ph):
+        c = root * np.exp(1j * np.concatenate([[0.0], ph]))
+        return -float(np.real(np.vdot(c, A @ c)))
+
+    best = np.inf
+    for _ in range(40):
+        r = minimize(obj, rng.uniform(0, 2 * np.pi, n - 1), method="Nelder-Mead",
+                     options={"maxiter": 4000, "fatol": 1e-15, "xatol": 1e-13})
+        best = min(best, r.fun)
+    return -best
 
 
 def phase_hull_extreme_numeric(H, w, sense: str = "max", restarts: int = 60) -> float:

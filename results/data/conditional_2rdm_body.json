@@ -732,9 +732,9 @@
   "extreme_point_rank": 2,
   "is_extreme": true,
   "phase_hull_max": -0.0694326888668945,
-  "relaxation_gap": 0.06943275788009189,
+  "relaxation_gap": 0.06943268901912442,
   "sdp_is_strict_outer_bound": true,
-  "sdp_max": 6.90131973755412e-08,
+  "sdp_max": 1.5222991179051253e-10,
   "why": "r^2 <= m permits r = 2 at m = 4, so the elliptope acquires extreme points that are not phase matrices and the SDP becomes an outer bound on the conditional body",
   "witness_hamiltonian": "minus the projector onto the orthogonal complement of the extreme point's range"
  },
@@ -742,50 +742,50 @@
  "sdp_versus_phase_hull": {
   "pi_flux": {
    "exact_at_order_three": true,
-   "gap": 1.5843348855071326e-10,
+   "gap": 0.0,
    "phase_hull": [
     -1.7618950038622252,
     1.0000000000000002
    ],
    "sdp": [
-    -1.7618950038622259,
-    1.0000000001584337
+    -1.7618950038622252,
+    1.0000000000000002
    ]
   },
   "pythagorean_flux_cos_3_5_sin_4_5": {
    "exact_at_order_three": true,
-   "gap": 8.43769498715119e-15,
+   "gap": 0.0,
    "phase_hull": [
     -1.3461743783796556,
     1.6850735450532648
    ],
    "sdp": [
-    -1.3461743783796472,
-    1.6850735450532643
+    -1.3461743783796556,
+    1.6850735450532648
    ]
   },
   "quarter_flux": {
    "exact_at_order_three": true,
-   "gap": 4.440892098500626e-16,
+   "gap": 0.0,
    "phase_hull": [
     -1.545782759983553,
     1.545782759983553
    ],
    "sdp": [
-    -1.5457827599835534,
-    1.5457827599835534
+    -1.545782759983553,
+    1.545782759983553
    ]
   },
   "zero_flux": {
    "exact_at_order_three": true,
-   "gap": 1.5843348855071326e-10,
+   "gap": 0.0,
    "phase_hull": [
     -1.0000000000000002,
     1.7618950038622252
    ],
    "sdp": [
-    -1.0000000001584337,
-    1.7618950038622259
+    -1.0000000000000002,
+    1.7618950038622252
    ]
   }
  },
