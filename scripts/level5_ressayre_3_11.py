@@ -313,12 +313,19 @@ def true_vertices() -> list[list[F]]:
 
 
 def open_candidates() -> list[tuple[int, list[F]]]:
+    """The candidates the pre-level-five settlement methods could not settle.
+
+    Once this script's certificates land, those candidates carry a
+    LEVEL5-RESSAYRE refutation in the settlement rather than an OPEN verdict,
+    so keying off OPEN alone would find nothing and silently report an empty
+    result. Accepting either keeps the two artifacts regenerable in any order.
+    """
     bracket = json.loads(BRACKET.read_text())["outer_vertices"]
     settlement = json.loads(SETTLEMENT.read_text())["candidates"]
     return [
         (c["index"], [F(x) for x in bracket[c["index"]]["spectrum"]])
         for c in settlement
-        if c.get("verdict") == "OPEN"
+        if c.get("verdict") == "OPEN" or c.get("certificate") == "LEVEL5-RESSAYRE"
     ]
 
 

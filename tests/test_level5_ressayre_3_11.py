@@ -310,14 +310,37 @@ def test_the_artifact_claims_validity_only():
     assert any("sample, not an enumeration" in n for n in nonclaims)
 
 
-def test_the_settlement_artifact_is_left_as_the_record_of_its_own_method():
-    """The closure is a new layer, not a rewrite of the contraction audit.
+def test_the_settlement_records_the_closure_and_nothing_else_moved():
+    """settle_bracket_3_11.py now carries LEVEL5-RESSAYRE as a fifth method.
 
-    scripts/settle_bracket_3_11.py still reproduces 19/27/4 by its own method,
-    so that artifact must keep saying so.
+    It is applied last, so it decides only what the four older methods left
+    OPEN. Every other verdict must still come from its original certificate.
     """
     settlement = json.loads((ROOT / "docs" / "bracket_3_11_settlement.json").read_text())
-    still_open = sorted(
-        c["index"] for c in settlement["candidates"] if c.get("verdict") == "OPEN"
-    )
-    assert still_open == [23, 26, 34, 44]
+    assert settlement["tally"] == {"TRUE-VERTEX": 19, "REFUTED": 31, "OPEN": 0}
+    by_certificate = {}
+    for candidate in settlement["candidates"]:
+        by_certificate.setdefault(candidate.get("certificate"), []).append(
+            candidate["index"]
+        )
+    assert None not in by_certificate, "no candidate is left without a certificate"
+    assert sorted(by_certificate["LEVEL5-RESSAYRE"]) == [23, 26, 34, 44]
+    # the four older methods still settle exactly the 46 they always did
+    older = {
+        "STATE-TRANSPORT", "EXPLICIT-STATE", "N2-PAIRING", "ZERO-RESTRICTION",
+    }
+    assert sum(len(by_certificate[name]) for name in older) == 46
+
+
+def test_each_level5_refutation_names_its_row_and_its_excess():
+    """A refutation that does not say which certified row cut it is not a record."""
+    settlement = json.loads((ROOT / "docs" / "bracket_3_11_settlement.json").read_text())
+    families = {row["family"] for row in artifact()["rank_eleven"]["rows"]}
+    excesses = {23: F(1, 7), 26: F(1, 27), 34: F(1, 17), 44: F(1, 12)}
+    for candidate in settlement["candidates"]:
+        if candidate.get("certificate") != "LEVEL5-RESSAYRE":
+            continue
+        assert candidate["verdict"] == "REFUTED"
+        assert candidate["row"]["family"] in families
+        assert F(candidate["excess"]) == excesses[candidate["index"]]
+        assert F(candidate["value"]) - F(candidate["row"]["rhs"]) == F(candidate["excess"])

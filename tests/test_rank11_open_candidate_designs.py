@@ -21,12 +21,19 @@ def artifact():
 
 
 def test_the_four_open_candidates_are_the_ones_the_settlement_records():
+    """These four were the settlement's OPEN set when this layer was written.
+
+    They are now REFUTED by the certified level-five rows, so the settlement
+    identifies them by that certificate rather than by an OPEN verdict.
+    """
     settlement = json.loads((ROOT / "docs" / "bracket_3_11_settlement.json").read_text())
-    still_open = sorted(
-        c["index"] for c in settlement["candidates"] if c.get("verdict") == "OPEN"
+    were_open = sorted(
+        c["index"]
+        for c in settlement["candidates"]
+        if c.get("verdict") == "OPEN" or c.get("certificate") == "LEVEL5-RESSAYRE"
     )
-    assert still_open == [23, 26, 34, 44]
-    assert sorted(int(k) for k in artifact()["candidates"]) == still_open
+    assert were_open == [23, 26, 34, 44]
+    assert sorted(int(k) for k in artifact()["candidates"]) == were_open
 
 
 def test_every_candidate_has_trace_three():

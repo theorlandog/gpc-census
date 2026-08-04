@@ -158,6 +158,21 @@ Slater point `(1,1,1,0,...)` and the uniform point `(3/11)^11` also satisfy all
 four. The rows cut off the four OPEN candidates and nothing else that is known
 to be attainable.
 
+## What the closure changed in the repository
+
+`scripts/settle_bracket_3_11.py` now carries LEVEL5-RESSAYRE as a fifth exact
+method, applied last so it decides only what the four older methods left OPEN.
+`docs/bracket_3_11_settlement.json` regenerates at 19 / 31 / 0, and the four
+refutations each name the certified row they violate and by how much. Nothing
+else moved: the other 46 verdicts keep their original certificates, which the
+test suite asserts.
+
+`scripts/partial_families.py` gains a RESSAYRE tier for these four rows **at
+rank 11 only**. The rank-12 rows share their index sets but live in
+`wedge^3 C^12`, a different representation, and a rank-11 certificate says
+nothing about them, so they stay CLAIMED. Validity does not propagate upward:
+restriction sends a valid (3,12) row down to (3,11), not the other way.
+
 ## What is not proved
 
 The calibration is complete at ranks 9 and 10. Soundness of the screen at rank

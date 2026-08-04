@@ -6,7 +6,8 @@
 > This page is retained because its content is independent of that: it closes
 > the *design* route, and for candidate 44 it does so by exact counting, which
 > is what killed the falsification branch. Read the verdict language below as
-> the state at the time of writing.
+> the state at the time of writing, including its tier language: the four
+> level-five rows were CLAIMED then and are certified now.
 
 ## What this settles, and what it does not
 

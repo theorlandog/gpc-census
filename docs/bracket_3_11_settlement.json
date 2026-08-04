@@ -1,7 +1,7 @@
 {
  "system": "(3,11)",
  "source_bracket": "docs/bracket_3_11.json",
- "method": "state transport + frozen-core/N=2 pairing + zero-restriction membership + explicit constructions (exact arithmetic)",
+ "method": "state transport + frozen-core/N=2 pairing + zero-restriction membership + explicit constructions + certified level-five Ressayre rows (exact arithmetic)",
  "candidates": [
   {
    "index": 0,
@@ -535,9 +535,22 @@
     1
    ],
    "denominator": 7,
-   "verdict": "OPEN",
-   "certificate": null,
-   "note": "genuinely rank-11 full-support candidate; needs Tier A at d=11 or Stage 1"
+   "verdict": "REFUTED",
+   "certificate": "LEVEL5-RESSAYRE",
+   "row": {
+    "family": "AK-RMK-4.2.1",
+    "subset": [
+     1,
+     2,
+     4,
+     7,
+     11
+    ],
+    "rhs": "2"
+   },
+   "value": "15/7",
+   "excess": "1/7",
+   "note": "violates the certified row AK-RMK-4.2.1 (sum lambda_[1, 2, 4, 7, 11] <= 2) by 1/7; see results/data/level5_ressayre_3_11.json and scripts/verify_level5_ressayre_3_11_standalone.py"
   },
   {
    "index": 24,
@@ -595,9 +608,22 @@
     1
    ],
    "denominator": 27,
-   "verdict": "OPEN",
-   "certificate": null,
-   "note": "genuinely rank-11 full-support candidate; needs Tier A at d=11 or Stage 1"
+   "verdict": "REFUTED",
+   "certificate": "LEVEL5-RESSAYRE",
+   "row": {
+    "family": "AK-RMK-4.2.1",
+    "subset": [
+     1,
+     2,
+     4,
+     7,
+     11
+    ],
+    "rhs": "2"
+   },
+   "value": "55/27",
+   "excess": "1/27",
+   "note": "violates the certified row AK-RMK-4.2.1 (sum lambda_[1, 2, 4, 7, 11] <= 2) by 1/27; see results/data/level5_ressayre_3_11.json and scripts/verify_level5_ressayre_3_11_standalone.py"
   },
   {
    "index": 27,
@@ -764,9 +790,22 @@
     1
    ],
    "denominator": 17,
-   "verdict": "OPEN",
-   "certificate": null,
-   "note": "genuinely rank-11 full-support candidate; needs Tier A at d=11 or Stage 1"
+   "verdict": "REFUTED",
+   "certificate": "LEVEL5-RESSAYRE",
+   "row": {
+    "family": "AK-RMK-4.2.1",
+    "subset": [
+     1,
+     2,
+     4,
+     7,
+     11
+    ],
+    "rhs": "2"
+   },
+   "value": "35/17",
+   "excess": "1/17",
+   "note": "violates the certified row AK-RMK-4.2.1 (sum lambda_[1, 2, 4, 7, 11] <= 2) by 1/17; see results/data/level5_ressayre_3_11.json and scripts/verify_level5_ressayre_3_11_standalone.py"
   },
   {
    "index": 35,
@@ -982,9 +1021,22 @@
     1
    ],
    "denominator": 12,
-   "verdict": "OPEN",
-   "certificate": null,
-   "note": "genuinely rank-11 full-support candidate; needs Tier A at d=11 or Stage 1"
+   "verdict": "REFUTED",
+   "certificate": "LEVEL5-RESSAYRE",
+   "row": {
+    "family": "KLY09-EXT-1",
+    "subset": [
+     2,
+     3,
+     4,
+     5,
+     11
+    ],
+    "rhs": "2"
+   },
+   "value": "25/12",
+   "excess": "1/12",
+   "note": "violates the certified row KLY09-EXT-1 (sum lambda_[2, 3, 4, 5, 11] <= 2) by 1/12; see results/data/level5_ressayre_3_11.json and scripts/verify_level5_ressayre_3_11_standalone.py"
   },
   {
    "index": 45,
@@ -1187,7 +1239,7 @@
  ],
  "tally": {
   "TRUE-VERTEX": 19,
-  "REFUTED": 27,
-  "OPEN": 4
+  "REFUTED": 31,
+  "OPEN": 0
  }
 }

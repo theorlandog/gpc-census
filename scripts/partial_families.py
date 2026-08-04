@@ -16,6 +16,11 @@ output:
            starting at lambda_11 (CMP 2008 Remark 4.2.1, proof deferred;
            Klyachko arXiv:0904.2009, unrefereed letter). NOT a certificate:
            do not settle a verdict on these alone.
+  RESSAYRE the same four level-5 rows AT RANK 11 ONLY, where they now carry
+           exact Ressayre certificates proved in this repository
+           (results/data/level5_ressayre_3_11.json). These ARE certificates.
+           The rank-12 rows share their index sets but are a different
+           representation, wedge^3 C^12, and are NOT covered; they stay CLAIMED.
 
 Regenerates docs/partial_families_3_11_3_12.json and runs the consistency and
 restriction checks. Run: uv run scripts/partial_families.py
@@ -60,7 +65,10 @@ def families(r: int):
         # AK-RMK-4.2.1 is the (1,2,4,7)+tail case; the other three are KLY09-EXT
         for j, q in enumerate([[1, 2, 4, 7], [2, 3, 4, 5], [1, 3, 4, 6], [1, 2, 5, 6]]):
             name = "AK-RMK-4.2.1" if j == 0 else f"KLY09-EXT-{j}"
-            out.append(("CLAIMED", f"{name} {q}+{tail}<=2", q + tail, F(2)))
+            # Certified at rank 11 only; the rank-12 rows are wedge^3 C^12 and
+            # a rank-11 certificate says nothing about them.
+            tag = "RESSAYRE" if r == 11 and tail == [11] else "CLAIMED"
+            out.append((tag, f"{name} {q}+{tail}<=2", q + tail, F(2)))
     return out
 
 
@@ -72,6 +80,17 @@ def _viol(spec, fam, tags):
     return [name for tag, name, idxs, rhs in fam if tag in tags and _val(spec, idxs) > rhs]
 
 
+
+def _was_open_before_level5(record):
+    """The four candidates the pre-level-five methods could not settle.
+
+    Those four now carry a LEVEL5-RESSAYRE refutation in the settlement, so
+    keying off the OPEN verdict alone would find nothing. Accepting either
+    keeps this script correct against both states of that artifact.
+    """
+    return record.get("verdict") == "OPEN" or record.get("certificate") == "LEVEL5-RESSAYRE"
+
+
 def main() -> int:
     fam11 = families(11)
     fam12 = families(12)
@@ -79,7 +98,10 @@ def main() -> int:
         "note": "Stable Grassmann partial families for N=3; NECESSARY conditions "
                 "(outer bound), not the complete system. Tiers: PROVED (CMP 2008 "
                 "Thms 4.2.1/4.3.1), WEAK (thesis, unprinted proof), CLAIMED (CMP "
-                "Remark 4.2.1 / Klyachko 0904.2009, not proved, NOT a certificate).",
+                "Remark 4.2.1 / Klyachko 0904.2009, not proved, NOT a certificate), "
+                "RESSAYRE (the level-5 rows at rank 11 only, proved here by exact "
+                "Ressayre certificate; the rank-12 rows share index sets but are a "
+                "different representation and stay CLAIMED).",
         "sources": ["Altunbulak-Klyachko, Comm. Math. Phys. 282, 287 (2008)",
                     "Klyachko, arXiv:0904.2009 (2009)"],
         "systems": {},
@@ -95,12 +117,12 @@ def main() -> int:
     ok = True
     s = json.loads((ROOT / "docs" / "bracket_3_11_settlement.json").read_text())
     trues = [c for c in s["candidates"] if c["verdict"] == "TRUE-VERTEX"]
-    opens = [c for c in s["candidates"] if c["verdict"] == "OPEN"]
+    opens = [c for c in s["candidates"] if _was_open_before_level5(c)]
 
     nbad = 0
     for c in trues:
         spec = [F(x, c["denominator"]) for x in c["integer_form"]]
-        v = _viol(spec, fam11, {"PROVED", "WEAK", "CLAIMED"})
+        v = _viol(spec, fam11, {"PROVED", "WEAK", "CLAIMED", "RESSAYRE"})
         if v:
             nbad += 1
             print(f"  (3,11) TRUE idx {c['index']} VIOLATES {v}")
@@ -108,12 +130,12 @@ def main() -> int:
           f"{'all satisfy every family' if nbad == 0 else str(nbad)+' violations'}")
     ok &= nbad == 0
 
-    print("[lead] OPEN candidates vs PROVED / CLAIMED:")
+    print("[lead] candidates that were OPEN before level 5, vs proved / claimed:")
     for c in opens:
         spec = [F(x, c["denominator"]) for x in c["integer_form"]]
-        vp = _viol(spec, fam11, {"PROVED", "WEAK"})
+        vp = _viol(spec, fam11, {"PROVED", "WEAK", "RESSAYRE"})
         vc = _viol(spec, fam11, {"CLAIMED"})
-        print(f"  idx {c['index']}: proved={vp or 'none'}  claimed={vc or 'none'}")
+        print(f"  idx {c['index']}: certified={vp or 'none'}  still-claimed={vc or 'none'}")
 
     v10 = json.loads((DATA / "vertices" / "vertices_3_10.json").read_text())
     nbad = 0
@@ -132,7 +154,7 @@ def main() -> int:
         nbad = 0
         for row in rows:
             spec = [F(x) for x in (row["spectrum"] if isinstance(row, dict) else row)]
-            if _viol(spec, fam12, {"PROVED", "WEAK", "CLAIMED"}):
+            if _viol(spec, fam12, {"PROVED", "WEAK", "CLAIMED", "RESSAYRE"}):
                 nbad += 1
         print(f"[consistency] {len(rows)} face-embedded (3,12) TRUE vertices: "
               f"{'all satisfy every family' if nbad == 0 else str(nbad)+' violations'}")

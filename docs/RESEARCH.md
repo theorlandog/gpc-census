@@ -171,14 +171,15 @@ stands.
 2. The (3,11) bracket (docs/bracket_3_11.json) is CLOSED: all 50 outer
    candidates are settled WITHOUT Stage 1, in exact arithmetic, at
    19 TRUE + 31 REFUTED + 0 OPEN.
-   The first 46 come from scripts/settle_bracket_3_11.py, which regenerates
-   docs/bracket_3_11_settlement.json and still records its own 19/27/4: 19
-   TRUE (17 by state transport from the rank-9/10 census, the uniform
-   (3/11)^11 by an explicit Z11 difference design, and a frozen-core paired
-   state); 27 REFUTED (frozen-core pinning to N=2 plus the even-degeneracy
-   pairing theorem, and zero-restriction against known lower-rank GPCs).
-   The last 4 (cands 23, 26, 34, 44) are refuted in
-   results/data/level5_ressayre_3_11.json; see item 3.
+   scripts/settle_bracket_3_11.py regenerates docs/bracket_3_11_settlement.json
+   at 19/31/0 using five exact methods. The first four settle the same 46 they
+   always did: 19 TRUE (17 by state transport from the rank-9/10 census, the
+   uniform (3/11)^11 by an explicit Z11 difference design, and a frozen-core
+   paired state); 27 REFUTED (frozen-core pinning to N=2 plus the
+   even-degeneracy pairing theorem, and zero-restriction against known
+   lower-rank GPCs). The fifth, LEVEL5-RESSAYRE, is applied last and refutes
+   exactly the four that were OPEN (cands 23, 26, 34, 44), each record naming
+   the certified row it violates and the excess; see item 3.
    CAVEAT unchanged: the refutations do NOT finish (3,11) as a polytope;
    cutting them creates new true vertices absent from the outer list, so
    Stage 1 (or a tighter bracket) is still required. The settled points are a
@@ -194,6 +195,10 @@ stands.
    attaining idx 44 to falsify KLY09-EXT-1, is dead; its design route was
    already closed by exact counting in
    docs/rank11_open_candidate_designs.md.
+   scripts/partial_families.py tiers these four RESSAYRE at rank 11 ONLY. The
+   rank-12 rows share index sets but are wedge^3 C^12, a different
+   representation, and stay CLAIMED: restriction carries a valid (3,12) row
+   down to (3,11), never the reverse.
    The certificate proves VALIDITY of each row, not facetness or
    irredundancy, and the screen records both as not established. Validity is
    what refutes a candidate, so that is enough here.
