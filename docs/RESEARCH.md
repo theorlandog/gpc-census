@@ -212,6 +212,78 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- conditional_2rdm_program.md: steps 4-7 built on the order-three theorem.
+  🟦 HIDDEN PAIR CURRENT: states with exactly the same complete 1-RDM carry
+  different two-body pair currents, over the exact flux-INDEPENDENT range
+  [-sqrt(15)/10, sqrt(15)/10]; the energy/current joint body is convex and is
+  recovered by sweeping the support function. 🟦 The unit-edge discriminant
+  gives interior branch-exchange fluxes at Phi ~ 0.0593 and ~ 3.0823, the
+  genuine non-analyticities of the constrained-search functional. 🟦 The
+  Slater-Condon carrier projection reproduces the full CI submatrix with max
+  error 0.0, and its fermionic signs are recomputed from occupation-string
+  algebra rather than assumed. 🟦 QUASIPINNING: eps_H = 2||H||(eps+eps^2) +
+  ||w-w0||_1 ||y||_inf, where the second Lipschitz constant is the dual
+  certificate itself; no quasipinning constant is assumed. Pinning plus the
+  1-RDM narrows the achievable range by 1-2 orders of magnitude. 🟦 ATLAS: all
+  799 supports tiered, 75 exactly spectrahedral (m<=3) and 724 outer-bounded,
+  and only 72 have a complete coherence graph, so MOST census coherences are
+  invisible to any two-body observable. ❌ Two model choices failed
+  instructively and are recorded: spinful Hubbard (degenerate ground state, so
+  the 1-RDM is undefined) and the symmetric ring (degenerate occupations, so
+  the carrier is ambiguous). 🔬 Only 5 of 12 scan points satisfy the
+  nondegeneracy preconditions, and none of them is a genuinely complex-flux
+  case, so the complex engine still has NO physical benchmark.
+  [gpc_census.pinned_physics; scripts/conditional_2rdm_program.py;
+  results/data/conditional_2rdm_program.json;
+  tests/test_conditional_2rdm_program.py]
+- conditional_2rdm_body.md: the REFRAMING of the observable-range work, and
+  the one to read first. The endpoints of a two-body observable's range are the
+  SUPPORT FUNCTION of K(gamma) = conv{Gamma^(2)_Psi : Psi -> gamma}, so the
+  solver is an exact support oracle for the conditional 2-RDM body, and the
+  headline is an exact conditional N-representability statement rather than two
+  solved triangle Hamiltonians. 🟦 ORDER-THREE THEOREM: the variable part of
+  K(gamma) is an affine image of the scaled complex elliptope E_w, whose
+  extreme points obey r^2 <= m (Li and Tam), so at m = 3 every extreme point is
+  a phase matrix and the support function is an EXACT SDP, not a relaxation.
+  🟦 The sextic of complex_fixed_1rdm_observable_ranges is exactly the KKT
+  elimination ideal of that SDP (verified, up to primitive content), which also
+  explains structurally why only |h_ij|^2 and Re(chi) enter. 🟦 Exact dual
+  certificates for four carriers: optimality is witnessed POINTWISE by PSD-ness
+  of Diag(y)-H from principal-minor signs, so no exhaustive-root argument is
+  needed, and the zero/pi-flux cases the sextic engine excludes as degenerate
+  are covered uniformly. ❌ The theorem does NOT extend past order three: an
+  explicit rank-two extreme point at m = 4 gives a relaxation gap of 6.9e-2, so
+  m >= 4 supports ship as outer bounds until proved otherwise. 🔬 Still open,
+  in attack order: energy/pair-current joint body, Slater-Condon projection,
+  quasipinning enlargement, census-wide atlas.
+  [gpc_census.elliptope; scripts/conditional_2rdm_body.py;
+  results/data/conditional_2rdm_body.json; tests/test_conditional_2rdm_body.py]
+- complex_fixed_1rdm_observable_ranges.md: exact constrained observable ranges
+  on the pinned Borland-Dennis fiber for rational Gaussian Hermitian carriers.
+  🟦 The gauge-invariant cycle flux chi = h01*h12*conj(h02) is the new
+  invariant: edge phases are gauge-dependent but chi is not, so two carriers
+  with equal diagonals and edge magnitudes can have different ranges. Phase
+  elimination gives a quartic branch curve whose critical values are a
+  primitive sextic in Z[z]; endpoints are its extreme real roots by exact
+  Sturm isolation, with a subresultant linear lift proving every real root has
+  a real (not spuriously complex) critical preimage. ✅ Verified independently
+  here: brute-force optimisation of the original two-phase objective
+  reproduces both ranges to 1e-15, the fiber's 1-RDM is the stated target and
+  is diagonal (the support is one-hop free), A*D-C^2 = delta^2 holds, and the
+  three fermionic channel signs of the at-most-two-body realisation check out
+  by hand. 🟦 The unit-edge flux family contains BOTH earlier real-symmetric
+  regressions as exact u = +-1 boundary points, agreeing with
+  fixed_1rdm_observable_ranges.json, which a different engine produced; pinned
+  by test_flux_family_reproduces_the_real_symmetric_regressions. Scope limits
+  worth respecting: rational Gaussian entries only, generic (nonzero flux,
+  squarefree sextic, coprime lift) only, and one fixed three-determinant
+  fiber. Complex flux is NOT generic for ordinary real-orbital molecular
+  Hamiltonians; it wants magnetic fields, twisted boundaries, complex Bloch
+  orbitals, or spin-orbit structure.
+  [scripts/complex_fixed_1rdm_observable_ranges.py;
+  scripts/verify_complex_fixed_1rdm_observable_ranges_standalone.py;
+  results/data/complex_fixed_1rdm_observable_ranges.json;
+  tests/test_complex_fixed_1rdm_observable_ranges.py]
 - lambda3_c7_polytopes.md: the ORBIT-CLOSURE layer (entanglement polytopes),
   one polytope per SLOCC class rather than one per (N,d). 🟦 CERTIFIED EXACT
   for 10 of 13 class polytopes: all four of Lambda^3 C^6 (reproducing Walter,
