@@ -1,0 +1,648 @@
+{
+  "evidence": {
+    "arithmetic": "integer, rational, and quadratic-radical identities",
+    "scope": "Pure states in wedge^3 C^6 with the stated complete 1-RDM. Strictly nondegenerate occupations fix the natural-orbital frame; the Borland-Dennis equalities and saturated GPC reduce the global fiber to the certified three-determinant carrier. The general range engine covers rational real-symmetric carrier matrices.",
+    "status": "EXACT"
+  },
+  "examples": {
+    "pi_flux_coherence_triangle": {
+      "interpretation": "One negative carrier edge gives a gauge-invariant pi flux. The interior critical point now supplies the maximum.",
+      "name": "signed coherence triangle with negative cycle product",
+      "operator_decomposition": {
+        "one_body_terms": [],
+        "reconstructed_carrier_matrix": [
+          [
+            "0",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "-1"
+          ],
+          [
+            "1",
+            "-1",
+            "0"
+          ]
+        ],
+        "two_body_terms": [
+          {
+            "channel_coefficient": 1,
+            "channel_left_modes": [
+              1,
+              2
+            ],
+            "channel_right_modes": [
+              3,
+              4
+            ],
+            "edge": [
+              0,
+              1
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "1"
+          },
+          {
+            "channel_coefficient": -1,
+            "channel_left_modes": [
+              0,
+              2
+            ],
+            "channel_right_modes": [
+              3,
+              5
+            ],
+            "edge": [
+              0,
+              2
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "-1"
+          },
+          {
+            "channel_coefficient": 1,
+            "channel_left_modes": [
+              0,
+              4
+            ],
+            "channel_right_modes": [
+              1,
+              5
+            ],
+            "edge": [
+              1,
+              2
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "-1"
+          }
+        ]
+      },
+      "range": {
+        "candidate_reduction": {
+          "candidate_count": 5,
+          "maximum_candidates": [
+            {
+              "branch": "upper",
+              "cos_alpha": "1",
+              "cos_beta": "1",
+              "cos_beta_minus_alpha": "1",
+              "source": "alpha=0 endpoint",
+              "value": "(sqrt(15) + 6)/10"
+            },
+            {
+              "branch": "upper",
+              "cos_alpha": "-1",
+              "cos_beta": "1",
+              "cos_beta_minus_alpha": "-1",
+              "source": "alpha=pi endpoint",
+              "value": "-(-6 + sqrt(15))/10"
+            },
+            {
+              "branch": "upper",
+              "cos_alpha": "7*sqrt(15)/30",
+              "cos_beta": "5/6",
+              "cos_beta_minus_alpha": "2*sqrt(15)/15",
+              "source": "interior stationary point",
+              "value": "1"
+            }
+          ],
+          "minimum_candidates": [
+            {
+              "branch": "lower",
+              "cos_alpha": "1",
+              "cos_beta": "-1",
+              "cos_beta_minus_alpha": "-1",
+              "source": "alpha=0 endpoint",
+              "value": "3*(-2 + sqrt(15))/10"
+            },
+            {
+              "branch": "lower",
+              "cos_alpha": "-1",
+              "cos_beta": "-1",
+              "cos_beta_minus_alpha": "1",
+              "source": "alpha=pi endpoint",
+              "value": "-3*(2 + sqrt(15))/10"
+            }
+          ]
+        },
+        "carrier_matrix": [
+          [
+            "0",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "-1"
+          ],
+          [
+            "1",
+            "-1",
+            "0"
+          ]
+        ],
+        "couplings": {
+          "A_cos_alpha": "sqrt(15)/5",
+          "B_cos_beta": "3/5",
+          "C_cos_beta_minus_alpha": "-sqrt(15)/10"
+        },
+        "fiber_expectation": "0 + sqrt(15)/5 cos(alpha) + 3/5 cos(beta) + -sqrt(15)/10 cos(beta-alpha)",
+        "maximum": "1",
+        "maximum_numeric": 1.0,
+        "maximum_phase_cosines": {
+          "cos_alpha": "7*sqrt(15)/30",
+          "cos_beta": "5/6",
+          "cos_beta_minus_alpha": "2*sqrt(15)/15"
+        },
+        "maximum_source": "interior stationary point",
+        "minimum": "-3*(2 + sqrt(15))/10",
+        "minimum_numeric": -1.761895003862225,
+        "minimum_phase_cosines": {
+          "cos_alpha": "-1",
+          "cos_beta": "-1",
+          "cos_beta_minus_alpha": "1"
+        },
+        "minimum_source": "alpha=pi endpoint",
+        "offset": "0",
+        "width": "(3*sqrt(15) + 16)/10"
+      }
+    },
+    "unfrustrated_coherence_triangle": {
+      "independent_polygon_certificate": {
+        "maximum": "3*(2 + sqrt(15))/10",
+        "maximum_numeric": 1.761895003862225,
+        "maximum_phase_condition": "all three coefficient phases are equal",
+        "minimum": "-1",
+        "minimum_numeric": -1.0,
+        "minimum_pair_phase_cosines": {
+          "0-1": "-7*sqrt(15)/30",
+          "0-2": "-5/6",
+          "1-2": "2*sqrt(15)/15"
+        },
+        "polygon_closes": true,
+        "width": "(3*sqrt(15) + 16)/10"
+      },
+      "name": "complete collision-free two-body coherence triangle",
+      "operator_decomposition": {
+        "one_body_terms": [],
+        "reconstructed_carrier_matrix": [
+          [
+            "0",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "two_body_terms": [
+          {
+            "channel_coefficient": 1,
+            "channel_left_modes": [
+              1,
+              2
+            ],
+            "channel_right_modes": [
+              3,
+              4
+            ],
+            "edge": [
+              0,
+              1
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "1"
+          },
+          {
+            "channel_coefficient": -1,
+            "channel_left_modes": [
+              0,
+              2
+            ],
+            "channel_right_modes": [
+              3,
+              5
+            ],
+            "edge": [
+              0,
+              2
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "-1"
+          },
+          {
+            "channel_coefficient": 1,
+            "channel_left_modes": [
+              0,
+              4
+            ],
+            "channel_right_modes": [
+              1,
+              5
+            ],
+            "edge": [
+              1,
+              2
+            ],
+            "operator": "multiplier * (A_left^dagger A_right + A_right^dagger A_left)",
+            "operator_multiplier": "1"
+          }
+        ]
+      },
+      "phasor_identity": "<W> = |sqrt(3/5) + exp(i alpha)/2 + sqrt(3/20) exp(i beta)|^2 - 1",
+      "range": {
+        "candidate_reduction": {
+          "candidate_count": 5,
+          "maximum_candidates": [
+            {
+              "branch": "upper",
+              "cos_alpha": "1",
+              "cos_beta": "1",
+              "cos_beta_minus_alpha": "1",
+              "source": "alpha=0 endpoint",
+              "value": "3*(2 + sqrt(15))/10"
+            },
+            {
+              "branch": "upper",
+              "cos_alpha": "-1",
+              "cos_beta": "1",
+              "cos_beta_minus_alpha": "-1",
+              "source": "alpha=pi endpoint",
+              "value": "-3*(-2 + sqrt(15))/10"
+            }
+          ],
+          "minimum_candidates": [
+            {
+              "branch": "lower",
+              "cos_alpha": "1",
+              "cos_beta": "-1",
+              "cos_beta_minus_alpha": "-1",
+              "source": "alpha=0 endpoint",
+              "value": "(-6 + sqrt(15))/10"
+            },
+            {
+              "branch": "lower",
+              "cos_alpha": "-1",
+              "cos_beta": "-1",
+              "cos_beta_minus_alpha": "1",
+              "source": "alpha=pi endpoint",
+              "value": "-(sqrt(15) + 6)/10"
+            },
+            {
+              "branch": "lower",
+              "cos_alpha": "-7*sqrt(15)/30",
+              "cos_beta": "-5/6",
+              "cos_beta_minus_alpha": "2*sqrt(15)/15",
+              "source": "interior stationary point",
+              "value": "-1"
+            }
+          ]
+        },
+        "carrier_matrix": [
+          [
+            "0",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "couplings": {
+          "A_cos_alpha": "sqrt(15)/5",
+          "B_cos_beta": "3/5",
+          "C_cos_beta_minus_alpha": "sqrt(15)/10"
+        },
+        "fiber_expectation": "0 + sqrt(15)/5 cos(alpha) + 3/5 cos(beta) + sqrt(15)/10 cos(beta-alpha)",
+        "maximum": "3*(2 + sqrt(15))/10",
+        "maximum_numeric": 1.761895003862225,
+        "maximum_phase_cosines": {
+          "cos_alpha": "1",
+          "cos_beta": "1",
+          "cos_beta_minus_alpha": "1"
+        },
+        "maximum_source": "alpha=0 endpoint",
+        "minimum": "-1",
+        "minimum_numeric": -1.0,
+        "minimum_phase_cosines": {
+          "cos_alpha": "-7*sqrt(15)/30",
+          "cos_beta": "-5/6",
+          "cos_beta_minus_alpha": "2*sqrt(15)/15"
+        },
+        "minimum_source": "interior stationary point",
+        "offset": "0",
+        "width": "(3*sqrt(15) + 16)/10"
+      }
+    }
+  },
+  "fiber": {
+    "one_hop_free": true,
+    "one_hop_pairs": [],
+    "parameterization": "sqrt(3/5)|012> + exp(i alpha)/2 |034> + sqrt(3/20) exp(i beta)|135>",
+    "projective_real_dimension": 2,
+    "singleton_incidence": {
+      "pivot_minor_determinant": 1,
+      "pivot_orbitals": [
+        0,
+        1,
+        2
+      ],
+      "rank": 3
+    },
+    "support_dets": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "support_size": 3,
+    "weights": [
+      "3/5",
+      "1/4",
+      "3/20"
+    ],
+    "weights_recovered_from_target": [
+      "3/5",
+      "1/4",
+      "3/20"
+    ],
+    "weights_unique": true
+  },
+  "generated_by": "scripts/fixed_1rdm_observable_ranges.py",
+  "next_steps": [
+    "Extend exact elimination to rational complex Hermitian carrier matrices, whose cycle phase is gauge invariant.",
+    "Enumerate all Borland-Dennis boundary strata and certify their fixed-1RDM fiber dimensions.",
+    "Compare exact support-restricted extrema with unrestricted numerical constrained searches away from exact pinning.",
+    "Add FCIDUMP/OpenFermion import and project physical two-body Hamiltonians onto certified fibers."
+  ],
+  "nonclaims": [
+    "Complex Hermitian carrier matrices with nontrivial cycle phase are not yet covered by the closed-form engine.",
+    "No mixed-state constrained search is addressed.",
+    "No claim is made that every fixed-1RDM fiber admits a collision-free complete graph.",
+    "The general rank-(3,6) functional remains to be assembled from all strata and observables."
+  ],
+  "observable_realization": {
+    "collision_free_witnesses": [
+      {
+        "channel_coefficient": 1,
+        "channel_left_modes": [
+          1,
+          2
+        ],
+        "channel_right_modes": [
+          3,
+          4
+        ],
+        "edge": [
+          0,
+          1
+        ],
+        "operator_multiplier": "1"
+      },
+      {
+        "channel_coefficient": -1,
+        "channel_left_modes": [
+          0,
+          2
+        ],
+        "channel_right_modes": [
+          3,
+          5
+        ],
+        "edge": [
+          0,
+          2
+        ],
+        "operator_multiplier": "-1"
+      },
+      {
+        "channel_coefficient": 1,
+        "channel_left_modes": [
+          0,
+          4
+        ],
+        "channel_right_modes": [
+          1,
+          5
+        ],
+        "edge": [
+          1,
+          2
+        ],
+        "operator_multiplier": "1"
+      }
+    ],
+    "diagonal_realization": "The invertible singleton-incidence minor on orbitals 0,1,2 realizes every carrier diagonal by a one-body operator.",
+    "off_diagonal_realization": "The three witnesses realize every real carrier off-diagonal by signed Hermitian two-body pair hopping.",
+    "pair_annihilator_convention": "A_(p,q) = a_q a_p for p < q"
+  },
+  "project": "certified two-body observable ranges on fermionic one-body moment-map fibers",
+  "range_engine": {
+    "coefficient_field_for_this_target": "Q(sqrt(15))",
+    "elimination": "At t=cos(alpha), optimize beta exactly to obtain E0+A*t +/- sqrt(B^2+C^2+2BC*t).",
+    "global_certificate": "The plus branch is concave and the minus branch is convex on [-1,1]. Endpoints and the unique feasible stationary candidate therefore contain both global extrema.",
+    "maximum_candidate_count": 5,
+    "normal_form": "E0 + A cos(alpha) + B cos(beta) + C cos(beta-alpha)",
+    "scope": "all rational real-symmetric 3 by 3 carrier matrices"
+  },
+  "schema_version": 2,
+  "selection_rule_certificate": {
+    "ambient_determinants": 20,
+    "equals_benchmark_support": true,
+    "facet_kernel_support": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        0,
+        1,
+        5
+      ],
+      [
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        0,
+        3,
+        5
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "facet_kernel_support_size": 9,
+    "facet_operator": "2 - (n_0 + n_1 + n_3)",
+    "intersection_support": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "intersection_support_size": 3,
+    "single_occupancy_pairs": [
+      [
+        0,
+        5
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "single_occupancy_support": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        3
+      ],
+      [
+        0,
+        2,
+        4
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "single_occupancy_support_size": 8
+  },
+  "system": "wedge^3 C^6",
+  "target_1rdm": {
+    "borland_dennis_pair_sums": [
+      "1",
+      "1",
+      "1"
+    ],
+    "diagonal": [
+      "17/20",
+      "3/4",
+      "3/5",
+      "2/5",
+      "1/4",
+      "3/20"
+    ],
+    "gpc_slack": "0",
+    "matrix_form": "diagonal in the fixed natural-orbital frame",
+    "saturated_gpc": "2 - (lambda_1 + lambda_2 + lambda_4) = 0",
+    "strictly_decreasing": true,
+    "trace": "3"
+  },
+  "theorems": [
+    {
+      "benchmark_specialization": "The Borland-Dennis radii close a triangle, hence the minimum is -1 and the maximum is 3(2+sqrt(15))/10.",
+      "conclusion": "For W equal to the sum of all signed Hermitian coherence channels, the exact range is [(max(0, 2 r_max - sum_a r_a))^2 - 1, (sum_a r_a)^2 - 1], where r_a=sqrt(w_a).",
+      "hypotheses": [
+        "The determinant carrier is one-hop-free, so its 1-RDM is diagonal for every phase choice.",
+        "Singleton incidence has full column rank, so the fixed diagonal 1-RDM uniquely fixes positive weights w_a.",
+        "Every determinant pair has a collision-free two-body channel, with its fermionic sign absorbed into the observable."
+      ],
+      "name": "complete-coherence polygon range on a fixed-support one-body fiber"
+    },
+    {
+      "conclusion": "Both global extrema are selected exactly from the four alpha=0,pi branch endpoints and at most one feasible interior stationary value.",
+      "hypotheses": [
+        "The fixed-1RDM fiber has the certified three-determinant phase-torus form.",
+        "The restricted carrier observable is real symmetric with rational entries."
+      ],
+      "name": "exact real-symmetric triangle constrained search"
+    }
+  ]
+}
