@@ -407,28 +407,33 @@ The benchmark relies on established ingredients:
 
 ## Reproduction
 
-The generator named in the artifact's `generated_by` field,
-`scripts/fixed_1rdm_observable_ranges.py`, was not delivered to this
-repository, nor were the standalone verifier and test module the upstream
-write-up lists. What is here instead is an independent verifier that
-recomputes the whole calculation from the target 1-RDM rather than replaying
-the artifact:
-
 ```sh
-uv run python scripts/verify_fixed_1rdm_observable_ranges.py
+uv run python scripts/fixed_1rdm_observable_ranges.py
+uv run python scripts/fixed_1rdm_observable_ranges.py --check
+uv run python scripts/verify_fixed_1rdm_observable_ranges_standalone.py
 uv run pytest -q tests/test_fixed_1rdm_observable_ranges.py
 ```
 
-It rebuilds the carrier from the two selection rules, solves the six
-occupation equations for the weights, derives the couplings, re-derives both
-ranges by the branch rule and the polygon identity separately, and checks that
-every recorded phase triple is realizable. Comparison against the artifact is
-by symbolic equality, so an equivalent radical form still passes: the branch
-rule returns the maximum as `sqrt(15)/5 + sqrt(12*sqrt(15) + 51)/10`, which
-denests to the recorded `3(2 + sqrt(15))/10`.
-
-Artifact:
+Generated artifact:
 
 ```text
 results/data/fixed_1rdm_observable_ranges.json
 ```
+
+The generator reproduces the shipped artifact byte for byte.
+
+A second, independent verifier is kept alongside the standalone one. It shares
+no code with the generator and recomputes the whole calculation from the target
+1-RDM rather than replaying the artifact: it rebuilds the carrier as the
+intersection of the single-occupancy determinants with the facet kernel, solves
+the six occupation equations for the weights, and re-derives both ranges by the
+branch rule and by the polygon identity separately.
+
+```sh
+uv run python scripts/verify_fixed_1rdm_observable_ranges.py
+uv run pytest -q tests/test_fixed_1rdm_observable_ranges_independent.py
+```
+
+Its comparisons are symbolic rather than textual, which matters here: the
+branch rule returns the maximum as `sqrt(15)/5 + sqrt(12*sqrt(15) + 51)/10`,
+which denests to the recorded `3(2 + sqrt(15))/10`.
