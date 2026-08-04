@@ -223,8 +223,12 @@ plethysm criterion feed Problem 7 below.
   coefficient moduli) plus certified degenerations; the outer from a
   Schur-Horn/Newton dominant-weight family that generalises Ky Fan. 🔬 The
   outer family is SATURATED (sweeping the weight bound 3 to 7 changes
-  nothing), so the last three classes need Ressayre inequalities or covariant
-  nonvanishing. 🔬 Whether class V (orbit dim 26) lies in the closure of class
+  nothing), so the last three classes need Ressayre inequalities FOR THE ORBIT
+  CLOSURE, or covariant nonvanishing. Do NOT read stage1_ressayre_3_7 as
+  closing them: that manifest derives the AMBIENT cone, which is the open
+  orbit's polytope (class IX), already EXACT here. The agreement is a
+  cross-check on the ambient input and is pinned by a test; the bracketed
+  classes are untouched by it. 🔬 Whether class V (orbit dim 26) lies in the closure of class
   VI (orbit dim 28) is open and recorded, not guessed.
   [gpc_census.orbit; scripts/lambda3_c7_polytopes.py;
   results/data/lambda3_c7_polytopes.json; tests/test_lambda3_c7_polytopes.py]

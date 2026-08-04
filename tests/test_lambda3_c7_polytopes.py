@@ -83,6 +83,35 @@ def test_d6_census_matches_published_entanglement_polytopes():
     assert got["II"] < got["III"]
 
 
+def test_ressayre_manifest_agrees_with_ambient_rows():
+    """Cross-check against the independently derived stage-1 Ressayre manifest.
+
+    The manifest derives the (3,7) system from first principles; this layer
+    reads it from the Altunbulak-Klyachko table. They must agree as an
+    oriented set, and the manifest's rows alone must cut out the published
+    vertices. This also pins the scope of that manifest: it is the AMBIENT
+    cone, hence the OPEN-orbit polytope, and so bears on class IX only. It
+    does not supply orbit-closure inequalities for the bracketed classes.
+    """
+    path = ROOT / "stage1_ressayre_3_7.json"
+    if not path.exists():
+        pytest.skip("stage-1 Ressayre manifest not present")
+    rows = [r["constraint"] for r in json.loads(path.read_text())["retained_rows"]]
+    amb_ineqs, amb_eqs = orbit.ambient_rows(3, 7)
+    assert not amb_eqs
+    mine = {(tuple(-x for x in a), -c) for a, c in amb_ineqs}
+    theirs = {(tuple(F(x) for x in r["coeffs"]), F(r["rhs"])) for r in rows}
+    assert mine == theirs
+
+    extra = [([F(-x) for x in r["coeffs"]], F(-r["rhs"])) for r in rows]
+    base_rows, eqs, base = orbit._chamber(7, 3, [])
+    verts = set(ep.vertices_from_hrep(base, base_rows, eqs, extra, 7))
+    assert verts == _ambient_vertices(3, 7)
+
+    generic = json.loads(ARTIFACT.read_text())["blocks"]["7"]["classes"]["35"]
+    assert {tuple(F(x) for x in v) for v in generic["vertices"]} == verts
+
+
 def test_d7_open_orbit_is_the_ambient_polytope():
     block = json.loads(ARTIFACT.read_text())["blocks"]["7"]
     generic = block["classes"]["35"]
