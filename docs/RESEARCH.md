@@ -212,6 +212,28 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- conditional_2rdm_body.md: the REFRAMING of the observable-range work, and
+  the one to read first. The endpoints of a two-body observable's range are the
+  SUPPORT FUNCTION of K(gamma) = conv{Gamma^(2)_Psi : Psi -> gamma}, so the
+  solver is an exact support oracle for the conditional 2-RDM body, and the
+  headline is an exact conditional N-representability statement rather than two
+  solved triangle Hamiltonians. 🟦 ORDER-THREE THEOREM: the variable part of
+  K(gamma) is an affine image of the scaled complex elliptope E_w, whose
+  extreme points obey r^2 <= m (Li and Tam), so at m = 3 every extreme point is
+  a phase matrix and the support function is an EXACT SDP, not a relaxation.
+  🟦 The sextic of complex_fixed_1rdm_observable_ranges is exactly the KKT
+  elimination ideal of that SDP (verified, up to primitive content), which also
+  explains structurally why only |h_ij|^2 and Re(chi) enter. 🟦 Exact dual
+  certificates for four carriers: optimality is witnessed POINTWISE by PSD-ness
+  of Diag(y)-H from principal-minor signs, so no exhaustive-root argument is
+  needed, and the zero/pi-flux cases the sextic engine excludes as degenerate
+  are covered uniformly. ❌ The theorem does NOT extend past order three: an
+  explicit rank-two extreme point at m = 4 gives a relaxation gap of 6.9e-2, so
+  m >= 4 supports ship as outer bounds until proved otherwise. 🔬 Still open,
+  in attack order: energy/pair-current joint body, Slater-Condon projection,
+  quasipinning enlargement, census-wide atlas.
+  [gpc_census.elliptope; scripts/conditional_2rdm_body.py;
+  results/data/conditional_2rdm_body.json; tests/test_conditional_2rdm_body.py]
 - complex_fixed_1rdm_observable_ranges.md: exact constrained observable ranges
   on the pinned Borland-Dennis fiber for rational Gaussian Hermitian carriers.
   🟦 The gauge-invariant cycle flux chi = h01*h12*conj(h02) is the new

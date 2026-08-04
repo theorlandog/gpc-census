@@ -1,0 +1,805 @@
+{
+ "carrier_weights": [
+  "3/5",
+  "1/4",
+  "3/20"
+ ],
+ "certificates": {
+  "pi_flux": {
+   "all_real_roots": [
+    {
+     "approx": -1.761895003862225,
+     "certifies": "minimum",
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      -1
+     ],
+     "interval": {
+      "lower": "-158697393657197129/90071992547409920",
+      "upper": "-198371742071496353/112589990684262400"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "approx": 0.21270166537925844,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      1
+     ],
+     "interval": {
+      "lower": "95792314094311111/450359962737049600",
+      "upper": "5987019630894459/28147497671065600"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 0.5618950038622251,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      1,
+      1,
+      -1
+     ],
+     "interval": {
+      "lower": "253055013001525923/450359962737049600",
+      "upper": "63263753250381539/112589990684262400"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 0.9872983346207415,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      1,
+      1,
+      1
+     ],
+     "interval": {
+      "lower": "88927928238029629/90071992547409920",
+      "upper": "222319820595074189/225179981368524800"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 0.9999999999999998,
+     "certifies": "maximum",
+     "diagonal_minor_signs": [
+      1,
+      1,
+      1
+     ],
+     "interval": {
+      "lower": "22517998136852469/22517998136852480",
+      "upper": "450359962737049613/450359962737049600"
+     },
+     "two_by_two_minor_signs": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "cycle_product": {
+    "im": "0",
+    "re": "-1"
+   },
+   "degenerate_flux": true,
+   "dual_y_offsets_ascending": [
+    [
+     "65623/363",
+     "-120002285/83853",
+     "265291850/83853",
+     "-477161375/251559",
+     "-218945000/251559",
+     "215012500/251559"
+    ],
+    [
+     "-31254/121",
+     "18875950/9317",
+     "-41349125/9317",
+     "24586550/9317",
+     "11407500/9317",
+     "-11105000/9317"
+    ],
+    [
+     "-106222/363",
+     "28204130/11979",
+     "-62990075/11979",
+     "114607250/35937",
+     "51777500/35937",
+     "-51475000/35937"
+    ]
+   ],
+   "hidden_width_approx": 2.7618950038622248,
+   "matrix": [
+    [
+     "0",
+     "1",
+     "1"
+    ],
+    [
+     "1",
+     "0",
+     "-1"
+    ],
+    [
+     "1",
+     "-1",
+     "0"
+    ]
+   ],
+   "maximum": {
+    "approx": 0.9999999999999998,
+    "certifies": "maximum",
+    "diagonal_minor_signs": [
+     1,
+     1,
+     1
+    ],
+    "interval": {
+     "lower": "22517998136852469/22517998136852480",
+     "upper": "450359962737049613/450359962737049600"
+    },
+    "two_by_two_minor_signs": [
+     0,
+     0,
+     0
+    ]
+   },
+   "minimum": {
+    "approx": -1.761895003862225,
+    "certifies": "minimum",
+    "diagonal_minor_signs": [
+     -1,
+     -1,
+     -1
+    ],
+    "interval": {
+     "lower": "-158697393657197129/90071992547409920",
+     "upper": "-198371742071496353/112589990684262400"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "objective_polynomial_ascending": [
+    -2079,
+    18558,
+    -53079,
+    58800,
+    -12200,
+    -20000,
+    10000
+   ]
+  },
+  "pythagorean_flux_cos_3_5_sin_4_5": {
+   "all_real_roots": [
+    {
+     "approx": -1.346174378379655,
+     "certifies": "minimum",
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      -1
+     ],
+     "interval": {
+      "lower": "-18945720090144763509/14073748835532800000",
+      "upper": "-9472860045072378163/7036874417766400000"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "approx": -0.3857567869060325,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      1
+     ],
+     "interval": {
+      "lower": "-542904413051765259/1407374883553280000",
+      "upper": "-5429044130517645407/14073748835532800000"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": -0.07502531481104757,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      1,
+      1,
+      -1
+     ],
+     "interval": {
+      "lower": "-1055887436957466047/14073748835532800000",
+      "upper": "-65992964809841179/879609302220800000"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 1.6850735450532643,
+     "certifies": "maximum",
+     "diagonal_minor_signs": [
+      1,
+      1,
+      1
+     ],
+     "interval": {
+      "lower": "23715301842480502551/14073748835532800000",
+      "upper": "11857650921240254867/7036874417766400000"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    }
+   ],
+   "cycle_product": {
+    "im": "4/5",
+    "re": "3/5"
+   },
+   "degenerate_flux": false,
+   "dual_y_offsets_ascending": [
+    [
+     "-3487619/727063729",
+     "-375869149255/124327897659",
+     "-476482357550/41442632553",
+     "-2036402673625/372983692977",
+     "496953875000/124327897659",
+     "899199687500/372983692977"
+    ],
+    [
+     "12989181726/3635318645",
+     "596907952010/13814210851",
+     "1503267767205/13814210851",
+     "1059156707450/13814210851",
+     "-470800087500/13814210851",
+     "-483212375000/13814210851"
+    ],
+    [
+     "-616539538/103866247",
+     "-945898576010/17761128237",
+     "-801487057975/5920376079",
+     "-5645205877250/53283384711",
+     "724883687500/17761128237",
+     "2592536875000/53283384711"
+    ]
+   ],
+   "hidden_width_approx": 3.031247923432919,
+   "matrix": [
+    [
+     "0",
+     "1",
+     "1"
+    ],
+    [
+     "1",
+     "0",
+     "3/5 + 4*I/5"
+    ],
+    [
+     "1",
+     "3/5 - 4*I/5",
+     "0"
+    ]
+   ],
+   "maximum": {
+    "approx": 1.6850735450532643,
+    "certifies": "maximum",
+    "diagonal_minor_signs": [
+     1,
+     1,
+     1
+    ],
+    "interval": {
+     "lower": "23715301842480502551/14073748835532800000",
+     "upper": "11857650921240254867/7036874417766400000"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "minimum": {
+    "approx": -1.346174378379655,
+    "certifies": "minimum",
+    "diagonal_minor_signs": [
+     -1,
+     -1,
+     -1
+    ],
+    "interval": {
+     "lower": "-18945720090144763509/14073748835532800000",
+     "upper": "-9472860045072378163/7036874417766400000"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "objective_polynomial_ascending": [
+    -136971,
+    -2643570,
+    -12517575,
+    -22482000,
+    -12065000,
+    7500000,
+    6250000
+   ]
+  },
+  "quarter_flux": {
+   "all_real_roots": [
+    {
+     "approx": -1.5457827599835525,
+     "certifies": "minimum",
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      -1
+     ],
+     "interval": {
+      "lower": "-348079333092883263/225179981368524800",
+      "upper": "-696158666185766193/450359962737049600"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "approx": -0.14394617225402756,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      1
+     ],
+     "interval": {
+      "lower": "-4051724548279059/28147497671065600",
+      "upper": "-64827592772464611/450359962737049600"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 0.14394617225402756,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      1,
+      1,
+      -1
+     ],
+     "interval": {
+      "lower": "64827592772464611/450359962737049600",
+      "upper": "4051724548279059/28147497671065600"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 1.5457827599835525,
+     "certifies": "maximum",
+     "diagonal_minor_signs": [
+      1,
+      1,
+      1
+     ],
+     "interval": {
+      "lower": "696158666185766193/450359962737049600",
+      "upper": "348079333092883263/225179981368524800"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    }
+   ],
+   "cycle_product": {
+    "im": "1",
+    "re": "0"
+   },
+   "degenerate_flux": false,
+   "dual_y_offsets_ascending": [
+    [
+     "0",
+     "15926/9891",
+     "0",
+     "-561100/29673",
+     "0",
+     "230000/29673"
+    ],
+    [
+     "0",
+     "6863/1099",
+     "0",
+     "117200/1099",
+     "0",
+     "-50000/1099"
+    ],
+    [
+     "0",
+     "-14387/1413",
+     "0",
+     "-432800/4239",
+     "0",
+     "190000/4239"
+    ]
+   ],
+   "hidden_width_approx": 3.091565519967105,
+   "matrix": [
+    [
+     "0",
+     "1",
+     "1"
+    ],
+    [
+     "1",
+     "0",
+     "I"
+    ],
+    [
+     "1",
+     "-I",
+     "0"
+    ]
+   ],
+   "maximum": {
+    "approx": 1.5457827599835525,
+    "certifies": "maximum",
+    "diagonal_minor_signs": [
+     1,
+     1,
+     1
+    ],
+    "interval": {
+     "lower": "696158666185766193/450359962737049600",
+     "upper": "348079333092883263/225179981368524800"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "minimum": {
+    "approx": -1.5457827599835525,
+    "certifies": "minimum",
+    "diagonal_minor_signs": [
+     -1,
+     -1,
+     -1
+    ],
+    "interval": {
+     "lower": "-348079333092883263/225179981368524800",
+     "upper": "-696158666185766193/450359962737049600"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "objective_polynomial_ascending": [
+    3969,
+    0,
+    -143700,
+    0,
+    -2330000,
+    0,
+    1000000
+   ]
+  },
+  "zero_flux": {
+   "all_real_roots": [
+    {
+     "approx": -0.9999999999999998,
+     "certifies": "minimum",
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      -1
+     ],
+     "interval": {
+      "lower": "-450359962737049613/450359962737049600",
+      "upper": "-22517998136852469/22517998136852480"
+     },
+     "two_by_two_minor_signs": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "approx": -0.9872983346207415,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      -1
+     ],
+     "interval": {
+      "lower": "-222319820595074189/225179981368524800",
+      "upper": "-88927928238029629/90071992547409920"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": -0.5618950038622251,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      -1,
+      -1,
+      1
+     ],
+     "interval": {
+      "lower": "-63263753250381539/112589990684262400",
+      "upper": "-253055013001525923/450359962737049600"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": -0.21270166537925844,
+     "certifies": null,
+     "diagonal_minor_signs": [
+      1,
+      1,
+      -1
+     ],
+     "interval": {
+      "lower": "-5987019630894459/28147497671065600",
+      "upper": "-95792314094311111/450359962737049600"
+     },
+     "two_by_two_minor_signs": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "approx": 1.761895003862225,
+     "certifies": "maximum",
+     "diagonal_minor_signs": [
+      1,
+      1,
+      1
+     ],
+     "interval": {
+      "lower": "198371742071496353/112589990684262400",
+      "upper": "158697393657197129/90071992547409920"
+     },
+     "two_by_two_minor_signs": [
+      1,
+      1,
+      1
+     ]
+    }
+   ],
+   "cycle_product": {
+    "im": "0",
+    "re": "1"
+   },
+   "degenerate_flux": true,
+   "dual_y_offsets_ascending": [
+    [
+     "-65623/363",
+     "-120002285/83853",
+     "-265291850/83853",
+     "-477161375/251559",
+     "218945000/251559",
+     "215012500/251559"
+    ],
+    [
+     "31254/121",
+     "18875950/9317",
+     "41349125/9317",
+     "24586550/9317",
+     "-11407500/9317",
+     "-11105000/9317"
+    ],
+    [
+     "106222/363",
+     "28204130/11979",
+     "62990075/11979",
+     "114607250/35937",
+     "-51777500/35937",
+     "-51475000/35937"
+    ]
+   ],
+   "hidden_width_approx": 2.7618950038622248,
+   "matrix": [
+    [
+     "0",
+     "1",
+     "1"
+    ],
+    [
+     "1",
+     "0",
+     "1"
+    ],
+    [
+     "1",
+     "1",
+     "0"
+    ]
+   ],
+   "maximum": {
+    "approx": 1.761895003862225,
+    "certifies": "maximum",
+    "diagonal_minor_signs": [
+     1,
+     1,
+     1
+    ],
+    "interval": {
+     "lower": "198371742071496353/112589990684262400",
+     "upper": "158697393657197129/90071992547409920"
+    },
+    "two_by_two_minor_signs": [
+     1,
+     1,
+     1
+    ]
+   },
+   "minimum": {
+    "approx": -0.9999999999999998,
+    "certifies": "minimum",
+    "diagonal_minor_signs": [
+     -1,
+     -1,
+     -1
+    ],
+    "interval": {
+     "lower": "-450359962737049613/450359962737049600",
+     "upper": "-22517998136852469/22517998136852480"
+    },
+    "two_by_two_minor_signs": [
+     0,
+     0,
+     0
+    ]
+   },
+   "objective_polynomial_ascending": [
+    -2079,
+    -18558,
+    -53079,
+    -58800,
+    -12200,
+    20000,
+    10000
+   ]
+  }
+ },
+ "order_four_boundary": {
+  "diagonal": [
+   1.0,
+   0.9999999999999998,
+   0.9999999999999998,
+   1.0
+  ],
+  "extreme_point_rank": 2,
+  "is_extreme": true,
+  "phase_hull_max": -0.0694326888668945,
+  "relaxation_gap": 0.06943275788009189,
+  "sdp_is_strict_outer_bound": true,
+  "sdp_max": 6.90131973755412e-08,
+  "why": "r^2 <= m permits r = 2 at m = 4, so the elliptope acquires extreme points that are not phase matrices and the SDP becomes an outer bound on the conditional body",
+  "witness_hamiltonian": "minus the projector onto the orthogonal complement of the extreme point's range"
+ },
+ "scope": "Support function of the conditional 2-RDM body over the pinned Borland-Dennis fiber, via the scaled complex elliptope.",
+ "sdp_versus_phase_hull": {
+  "pi_flux": {
+   "exact_at_order_three": true,
+   "gap": 1.5843348855071326e-10,
+   "phase_hull": [
+    -1.7618950038622252,
+    1.0000000000000002
+   ],
+   "sdp": [
+    -1.7618950038622259,
+    1.0000000001584337
+   ]
+  },
+  "pythagorean_flux_cos_3_5_sin_4_5": {
+   "exact_at_order_three": true,
+   "gap": 8.43769498715119e-15,
+   "phase_hull": [
+    -1.3461743783796556,
+    1.6850735450532648
+   ],
+   "sdp": [
+    -1.3461743783796472,
+    1.6850735450532643
+   ]
+  },
+  "quarter_flux": {
+   "exact_at_order_three": true,
+   "gap": 4.440892098500626e-16,
+   "phase_hull": [
+    -1.545782759983553,
+    1.545782759983553
+   ],
+   "sdp": [
+    -1.5457827599835534,
+    1.5457827599835534
+   ]
+  },
+  "zero_flux": {
+   "exact_at_order_three": true,
+   "gap": 1.5843348855071326e-10,
+   "phase_hull": [
+    -1.0000000000000002,
+    1.7618950038622252
+   ],
+   "sdp": [
+    -1.0000000001584337,
+    1.7618950038622259
+   ]
+  }
+ },
+ "theorem": {
+  "body": "K(gamma) variable part is an affine image of E_w = {rho >= 0, diag(rho) = w}",
+  "extreme_rank_bound": "r^2 <= m (Li and Tam)",
+  "order_three": "m = 3 forces r = 1, so E_w = conv{c c^dagger}: the SDP is exact, not a relaxation",
+  "rank_bound_by_order": {
+   "2": 1,
+   "3": 1,
+   "4": 2,
+   "5": 2,
+   "9": 3
+  },
+  "support_function": "F_H^+ = max{Tr(H rho) : rho in E_w} = min{w.y : Diag(y) - H >= 0}"
+ }
+}
