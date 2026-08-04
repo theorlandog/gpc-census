@@ -212,6 +212,22 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- lambda3_c7_polytopes.md: the ORBIT-CLOSURE layer (entanglement polytopes),
+  one polytope per SLOCC class rather than one per (N,d). 🟦 CERTIFIED EXACT
+  for 10 of 13 class polytopes: all four of Lambda^3 C^6 (reproducing Walter,
+  Doran, Gross, Christandl) and six of the nine of Lambda^3 C^7, including the
+  decisive gate that the OPEN ORBIT reproduces the ambient (3,7) polytope
+  exactly. Classes VI, VII, VIII ship as certified inner/outer brackets. Both
+  bounds are exact: the inner from torus orbits of one-hop-free supports (a
+  COMPLETE enumeration, because one-hop-free supports have vanishing
+  coefficient moduli) plus certified degenerations; the outer from a
+  Schur-Horn/Newton dominant-weight family that generalises Ky Fan. 🔬 The
+  outer family is SATURATED (sweeping the weight bound 3 to 7 changes
+  nothing), so the last three classes need Ressayre inequalities or covariant
+  nonvanishing. 🔬 Whether class V (orbit dim 26) lies in the closure of class
+  VI (orbit dim 28) is open and recorded, not guessed.
+  [gpc_census.orbit; scripts/lambda3_c7_polytopes.py;
+  results/data/lambda3_c7_polytopes.json; tests/test_lambda3_c7_polytopes.py]
 - HANDOFF.md: the note to the next agent from the 2026-07 gauge session, which
   supersedes two instructions of the handoff that preceded it (the v103
   endpoint is not diagonal, and 8 of the 71 cascade endpoints are new states).
