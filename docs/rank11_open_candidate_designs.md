@@ -1,5 +1,13 @@
 # The four OPEN (3,11) candidates: family evaluation and design search
 
+> **Superseded on the verdicts.** All four candidates are now REFUTED and the
+> bracket is closed at 19 TRUE, 31 REFUTED, 0 OPEN. The four claimed level-five
+> rows carry exact Ressayre certificates; see `docs/level5_ressayre_3_11.md`.
+> This page is retained because its content is independent of that: it closes
+> the *design* route, and for candidate 44 it does so by exact counting, which
+> is what killed the falsification branch. Read the verdict language below as
+> the state at the time of writing.
+
 ## What this settles, and what it does not
 
 Nothing here settles any of the four. The (3,11) bracket still stands at 19
@@ -120,6 +128,9 @@ The two live routes are unchanged: prove the claimed level-five inequality, in
 which case all four are REFUTED, or attain candidate 44, which falsifies
 KLY09-EXT-1. This layer only narrows what an attaining state would have to
 look like.
+
+*Resolved after writing: the first route landed. See
+`docs/level5_ressayre_3_11.md`.*
 
 ## Reproduction
 

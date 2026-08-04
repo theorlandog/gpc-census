@@ -1,0 +1,2022 @@
+{
+  "calibration": [
+    {
+      "certified": [
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            4,
+            5,
+            6,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            5,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            5,
+            6,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            4,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            4,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            3,
+            7
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            2,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999899999996,
+          "rhs": 2,
+          "subset": [
+            1,
+            4,
+            5,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            4,
+            5,
+            6,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999899999996,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            6,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999899999996,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            5,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.99999999,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            4,
+            8,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            4,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            6,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            5,
+            8,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            5,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            4
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            4,
+            7
+          ],
+          "valid": true
+        }
+      ],
+      "certified_rows": 19,
+      "certified_rows_invalid_on_published_polytope": 0,
+      "certified_verbatim_in_published_table": 4,
+      "invalid_rows": [],
+      "negative_control": {
+        "demonstrably_false_rows_screened": 626,
+        "false_row_statuses": {
+          "inadmissible": 36,
+          "symbolic_zero_rejected": 3,
+          "trace_rejected": 587
+        },
+        "false_rows_certified": 0,
+        "false_rows_reaching_the_tangent_determinant": 3,
+        "rows_reaching_the_determinant": [
+          {
+            "lp_maximum": 2.1428571499999998,
+            "rhs": 2,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "lp_maximum": 3.0,
+            "rhs": 2,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              1,
+              2,
+              3,
+              8
+            ]
+          },
+          {
+            "lp_maximum": 1.25,
+            "rhs": 1,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              1,
+              9
+            ]
+          }
+        ]
+      },
+      "published_inequalities": 52,
+      "rank": 9,
+      "rows_screened": 984,
+      "screen_counts": {
+        "certified_rows": 19,
+        "cyclic_schubert_deferred_rows": 19,
+        "exact_rejected_rows": 965,
+        "inadmissible_rows": 72,
+        "input_tau_rows": 984,
+        "nonstructural_candidate_rows": 984,
+        "normalized_tau_rows": 984,
+        "resolved_candidate_rows": 984,
+        "symbolic_fallback_attempted_rows": 3,
+        "symbolic_zero_rejected_rows": 3,
+        "trace_rejected_rows": 890
+      },
+      "sound": true
+    },
+    {
+      "certified": [
+        {
+          "lp_maximum": 1.8,
+          "rhs": 2,
+          "subset": [
+            4,
+            5,
+            6,
+            7,
+            9,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.8,
+          "rhs": 2,
+          "subset": [
+            3,
+            5,
+            6,
+            8,
+            9,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.8,
+          "rhs": 2,
+          "subset": [
+            3,
+            4,
+            7,
+            8,
+            9,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.8,
+          "rhs": 2,
+          "subset": [
+            2,
+            5,
+            7,
+            8,
+            9,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            4,
+            5,
+            6,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            5,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            5,
+            6,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.99999999,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            4,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            4,
+            6,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            5,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 0.85714286,
+          "rhs": 1,
+          "subset": [
+            4,
+            7
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            3,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            2,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999899999996,
+          "rhs": 2,
+          "subset": [
+            1,
+            4,
+            5,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            4,
+            5,
+            6,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999899999996,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            6,
+            7,
+            8
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            5,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            5,
+            6,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.99999999,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            4,
+            8,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999999999998,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            4,
+            7,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            3,
+            4,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            6,
+            7,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            5,
+            8,
+            9
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            5,
+            7,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            5,
+            6
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            4
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 2.0,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            4,
+            8,
+            10
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.9999999999999998,
+          "rhs": 2,
+          "subset": [
+            1,
+            2,
+            4,
+            7
+          ],
+          "valid": true
+        },
+        {
+          "lp_maximum": 1.0,
+          "rhs": 1,
+          "subset": [
+            1,
+            10
+          ],
+          "valid": true
+        }
+      ],
+      "certified_rows": 31,
+      "certified_rows_invalid_on_published_polytope": 0,
+      "certified_verbatim_in_published_table": 5,
+      "invalid_rows": [],
+      "negative_control": {
+        "demonstrably_false_rows_screened": 1231,
+        "false_row_statuses": {
+          "symbolic_zero_rejected": 3,
+          "trace_rejected": 1228
+        },
+        "false_rows_certified": 0,
+        "false_rows_reaching_the_tangent_determinant": 3,
+        "rows_reaching_the_determinant": [
+          {
+            "lp_maximum": 2.1428571499999998,
+            "rhs": 2,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "lp_maximum": 3.0,
+            "rhs": 2,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              1,
+              2,
+              3,
+              9,
+              10
+            ]
+          },
+          {
+            "lp_maximum": 3.0,
+            "rhs": 2,
+            "status": "symbolic_zero_rejected",
+            "subset": [
+              1,
+              2,
+              3,
+              8
+            ]
+          }
+        ]
+      },
+      "published_inequalities": 93,
+      "rank": 10,
+      "rows_screened": 1914,
+      "screen_counts": {
+        "certified_rows": 31,
+        "cyclic_schubert_deferred_rows": 31,
+        "exact_rejected_rows": 1883,
+        "inadmissible_rows": 45,
+        "input_tau_rows": 1914,
+        "nonstructural_candidate_rows": 1914,
+        "normalized_tau_rows": 1914,
+        "resolved_candidate_rows": 1914,
+        "symbolic_fallback_attempted_rows": 3,
+        "symbolic_zero_rejected_rows": 3,
+        "trace_rejected_rows": 1835
+      },
+      "sound": true
+    }
+  ],
+  "conclusion": {
+    "bracket_settles": true,
+    "four_claimed_rows_certified": true,
+    "negative_control_passed": true,
+    "screen_sound_at_published_ranks": true,
+    "tally_after": {
+      "OPEN": 0,
+      "REFUTED": 31,
+      "TRUE": 19
+    }
+  },
+  "generated_by": "scripts/level5_ressayre_3_11.py",
+  "nonclaims": [
+    "A Ressayre certificate proves validity of the single inequality it certifies. It is not a claim of facetness or irredundancy, and the screen records both as not established.",
+    "Nothing here claims the (3,11) system is complete. The bracket settles because valid inequalities refute the four remaining candidates, not because the system was enumerated.",
+    "The randomized sweep is a sample, not an enumeration. It widens the coefficient shapes tested; it does not make the calibration complete over general rows.",
+    "The calibration is complete at ranks 9 and 10 only. Soundness of the screen at rank 11 is inferred from the mathematics of the criterion and from the calibration, not proved by enumeration at rank 11."
+  ],
+  "randomized_sweep": {
+    "certified": [
+      {
+        "coefficients": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "lp_maximum": 2.0,
+        "rhs": 2,
+        "status": "certified"
+      },
+      {
+        "coefficients": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          -1,
+          0,
+          0
+        ],
+        "lp_maximum": 1.0,
+        "rhs": 1,
+        "status": "certified"
+      },
+      {
+        "coefficients": [
+          0,
+          2,
+          1,
+          1,
+          2,
+          -1,
+          0,
+          0,
+          1
+        ],
+        "lp_maximum": 3.0,
+        "rhs": 3,
+        "status": "certified"
+      },
+      {
+        "coefficients": [
+          -1,
+          1,
+          1,
+          1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lp_maximum": 1.0,
+        "rhs": 1,
+        "status": "certified"
+      },
+      {
+        "coefficients": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          0
+        ],
+        "lp_maximum": 3.0,
+        "rhs": 3,
+        "status": "certified"
+      }
+    ],
+    "certified_rows": 5,
+    "certified_rows_invalid_on_published_polytope": 0,
+    "coefficient_alphabet": [
+      -1,
+      0,
+      1,
+      2
+    ],
+    "invalid_rows": [],
+    "negative_control": {
+      "demonstrably_false_rows_screened": 3791,
+      "false_row_statuses": {
+        "inadmissible": 2137,
+        "symbolic_zero_rejected": 1,
+        "trace_rejected": 1653
+      },
+      "false_rows_certified": 0,
+      "false_rows_reaching_the_tangent_determinant": 1,
+      "rows_reaching_the_determinant": [
+        {
+          "coefficients": [
+            0,
+            2,
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            1,
+            0
+          ],
+          "lp_maximum": 3.0,
+          "rhs": 2,
+          "status": "symbolic_zero_rejected"
+        }
+      ]
+    },
+    "rank": 9,
+    "right_sides": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "rows_screened": 6000,
+    "screen_counts": {
+      "certified_rows": 5,
+      "cyclic_schubert_deferred_rows": 5,
+      "exact_rejected_rows": 5995,
+      "inadmissible_rows": 3605,
+      "input_tau_rows": 6000,
+      "nonstructural_candidate_rows": 6000,
+      "normalized_tau_rows": 6000,
+      "resolved_candidate_rows": 6000,
+      "symbolic_fallback_attempted_rows": 33,
+      "symbolic_zero_rejected_rows": 33,
+      "trace_rejected_rows": 2357
+    },
+    "seed": 11,
+    "sound": true
+  },
+  "rank_eleven": {
+    "all_four_open_candidates_refuted": true,
+    "attained_vertices_checked": 19,
+    "certified_rows": 4,
+    "certified_rows_violated_by_an_attained_vertex": 0,
+    "open_candidates": [
+      {
+        "cut_by": [
+          {
+            "family": "AK-RMK-4.2.1",
+            "value": "15/7"
+          },
+          {
+            "family": "KLY09-EXT-3",
+            "value": "15/7"
+          }
+        ],
+        "index": 23,
+        "refuted": true,
+        "spectrum": [
+          "6/7",
+          "6/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7",
+          "1/7"
+        ]
+      },
+      {
+        "cut_by": [
+          {
+            "family": "AK-RMK-4.2.1",
+            "value": "55/27"
+          },
+          {
+            "family": "KLY09-EXT-1",
+            "value": "55/27"
+          },
+          {
+            "family": "KLY09-EXT-3",
+            "value": "55/27"
+          }
+        ],
+        "index": 26,
+        "refuted": true,
+        "spectrum": [
+          "7/9",
+          "7/9",
+          "11/27",
+          "11/27",
+          "11/27",
+          "1/27",
+          "1/27",
+          "1/27",
+          "1/27",
+          "1/27",
+          "1/27"
+        ]
+      },
+      {
+        "cut_by": [
+          {
+            "family": "AK-RMK-4.2.1",
+            "value": "35/17"
+          },
+          {
+            "family": "KLY09-EXT-1",
+            "value": "35/17"
+          },
+          {
+            "family": "KLY09-EXT-2",
+            "value": "35/17"
+          }
+        ],
+        "index": 34,
+        "refuted": true,
+        "spectrum": [
+          "11/17",
+          "11/17",
+          "11/17",
+          "11/17",
+          "1/17",
+          "1/17",
+          "1/17",
+          "1/17",
+          "1/17",
+          "1/17",
+          "1/17"
+        ]
+      },
+      {
+        "cut_by": [
+          {
+            "family": "KLY09-EXT-1",
+            "value": "25/12"
+          }
+        ],
+        "index": 44,
+        "refuted": true,
+        "spectrum": [
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/12",
+          "1/12",
+          "1/12",
+          "1/12",
+          "1/12",
+          "1/12"
+        ]
+      }
+    ],
+    "rank": 11,
+    "rows": [
+      {
+        "below_weight_count": 10,
+        "census_tier_after": "PROVED",
+        "census_tier_before": "CLAIMED",
+        "certificate": {
+          "admissibility_witness": [
+            0,
+            2,
+            3,
+            5,
+            6,
+            7,
+            9,
+            12,
+            16,
+            45
+          ],
+          "below_indices": [
+            1,
+            4,
+            8,
+            19,
+            23,
+            38,
+            55,
+            59,
+            74,
+            123
+          ],
+          "determinant_evaluation": [
+            14,
+            74,
+            69,
+            4,
+            48,
+            76,
+            88,
+            62,
+            41,
+            65,
+            33,
+            79,
+            10,
+            44,
+            68,
+            76,
+            71,
+            63,
+            82,
+            26,
+            88,
+            88,
+            55,
+            1,
+            29,
+            18,
+            80,
+            41,
+            68,
+            22,
+            54,
+            21,
+            51,
+            14,
+            28,
+            25,
+            20,
+            14,
+            89,
+            13,
+            12,
+            11,
+            57,
+            4,
+            82,
+            40,
+            78,
+            77,
+            67,
+            55,
+            84,
+            86,
+            16,
+            66,
+            46,
+            13,
+            44,
+            44,
+            8,
+            9
+          ],
+          "determinant_value": 99369851016234708,
+          "h": [
+            -6,
+            -6,
+            5,
+            -6,
+            5,
+            5,
+            -6,
+            5,
+            5,
+            5,
+            -6
+          ],
+          "inequality": "sum_i h_i * lambda_i >= z",
+          "negative_roots": [
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              9,
+              10
+            ]
+          ],
+          "on_indices": [
+            0,
+            2,
+            3,
+            5,
+            6,
+            7,
+            9,
+            12,
+            16,
+            17,
+            18,
+            20,
+            21,
+            22,
+            25,
+            29,
+            30,
+            34,
+            35,
+            36,
+            37,
+            41,
+            43,
+            44,
+            45,
+            48,
+            52,
+            53,
+            54,
+            56,
+            57,
+            58,
+            61,
+            65,
+            66,
+            70,
+            71,
+            72,
+            73,
+            77,
+            79,
+            80,
+            83,
+            87,
+            102,
+            110,
+            114,
+            115,
+            119,
+            120,
+            121,
+            122,
+            126,
+            128,
+            129,
+            138,
+            148,
+            157,
+            159,
+            160
+          ],
+          "z": -7
+        },
+        "constraint": {
+          "coeffs": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "rhs": 2
+        },
+        "family": "AK-RMK-4.2.1",
+        "negative_root_count": 10,
+        "rhs": 2,
+        "screen_status": "certified",
+        "subset": [
+          1,
+          2,
+          4,
+          7,
+          11
+        ],
+        "tau": [
+          1,
+          1,
+          -2,
+          1,
+          -2,
+          -2,
+          1,
+          -2,
+          -2,
+          -2,
+          1
+        ]
+      },
+      {
+        "below_weight_count": 10,
+        "census_tier_after": "PROVED",
+        "census_tier_before": "CLAIMED",
+        "certificate": {
+          "admissibility_witness": [
+            0,
+            1,
+            2,
+            8,
+            9,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "below_indices": [
+            45,
+            46,
+            52,
+            53,
+            59,
+            65,
+            81,
+            87,
+            93,
+            114
+          ],
+          "determinant_evaluation": [
+            22,
+            55,
+            94,
+            17,
+            70,
+            60,
+            15,
+            6,
+            87,
+            3,
+            81,
+            70,
+            82,
+            69,
+            2,
+            91,
+            89,
+            5,
+            71,
+            74,
+            90,
+            69,
+            25,
+            2,
+            24,
+            47,
+            95,
+            50,
+            54,
+            26,
+            34,
+            28,
+            78,
+            95,
+            30,
+            61,
+            96,
+            75,
+            68,
+            96,
+            54,
+            62,
+            93,
+            7,
+            94,
+            36,
+            33,
+            41,
+            41,
+            88,
+            66,
+            75,
+            37,
+            23,
+            82,
+            53,
+            71,
+            42,
+            43,
+            89
+          ],
+          "determinant_value": -2652958389212757152,
+          "h": [
+            5,
+            -6,
+            -6,
+            -6,
+            -6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            -6
+          ],
+          "inequality": "sum_i h_i * lambda_i >= z",
+          "negative_roots": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              6,
+              10
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              9,
+              10
+            ]
+          ],
+          "on_indices": [
+            0,
+            1,
+            2,
+            8,
+            9,
+            10,
+            16,
+            17,
+            23,
+            29,
+            47,
+            48,
+            49,
+            50,
+            51,
+            54,
+            55,
+            56,
+            57,
+            58,
+            60,
+            61,
+            62,
+            63,
+            64,
+            70,
+            74,
+            77,
+            79,
+            80,
+            82,
+            83,
+            84,
+            85,
+            86,
+            88,
+            89,
+            90,
+            91,
+            92,
+            98,
+            102,
+            105,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            119,
+            123,
+            126,
+            128,
+            129,
+            134,
+            138,
+            141,
+            143,
+            144
+          ],
+          "z": -7
+        },
+        "constraint": {
+          "coeffs": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "rhs": 2
+        },
+        "family": "KLY09-EXT-1",
+        "negative_root_count": 10,
+        "rhs": 2,
+        "screen_status": "certified",
+        "subset": [
+          2,
+          3,
+          4,
+          5,
+          11
+        ],
+        "tau": [
+          -2,
+          1,
+          1,
+          1,
+          1,
+          -2,
+          -2,
+          -2,
+          -2,
+          -2,
+          1
+        ]
+      },
+      {
+        "below_weight_count": 10,
+        "census_tier_after": "PROVED",
+        "census_tier_before": "CLAIMED",
+        "certificate": {
+          "admissibility_witness": [
+            0,
+            1,
+            3,
+            8,
+            10,
+            12,
+            13,
+            14,
+            15,
+            45
+          ],
+          "below_indices": [
+            9,
+            11,
+            16,
+            18,
+            23,
+            34,
+            82,
+            87,
+            98,
+            119
+          ],
+          "determinant_evaluation": [
+            76,
+            20,
+            7,
+            25,
+            40,
+            9,
+            42,
+            4,
+            43,
+            12,
+            24,
+            39,
+            41,
+            85,
+            52,
+            57,
+            8,
+            47,
+            40,
+            26,
+            39,
+            42,
+            82,
+            41,
+            87,
+            52,
+            75,
+            61,
+            57,
+            19,
+            92,
+            60,
+            85,
+            73,
+            50,
+            5,
+            10,
+            69,
+            95,
+            17,
+            91,
+            71,
+            48,
+            49,
+            40,
+            28,
+            86,
+            24,
+            84,
+            43,
+            32,
+            23,
+            68,
+            35,
+            34,
+            61,
+            5,
+            79,
+            37,
+            15
+          ],
+          "determinant_value": 40995952218993520,
+          "h": [
+            -6,
+            5,
+            -6,
+            -6,
+            5,
+            -6,
+            5,
+            5,
+            5,
+            5,
+            -6
+          ],
+          "inequality": "sum_i h_i * lambda_i >= z",
+          "negative_roots": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              10
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              6,
+              10
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              9,
+              10
+            ]
+          ],
+          "on_indices": [
+            0,
+            1,
+            3,
+            8,
+            10,
+            12,
+            13,
+            14,
+            15,
+            17,
+            19,
+            20,
+            21,
+            22,
+            24,
+            29,
+            30,
+            31,
+            32,
+            33,
+            38,
+            41,
+            43,
+            44,
+            45,
+            47,
+            52,
+            54,
+            59,
+            70,
+            81,
+            83,
+            84,
+            85,
+            86,
+            88,
+            93,
+            94,
+            95,
+            96,
+            97,
+            102,
+            105,
+            107,
+            108,
+            109,
+            114,
+            115,
+            116,
+            117,
+            118,
+            123,
+            126,
+            128,
+            129,
+            134,
+            148,
+            151,
+            153,
+            154
+          ],
+          "z": -7
+        },
+        "constraint": {
+          "coeffs": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "rhs": 2
+        },
+        "family": "KLY09-EXT-2",
+        "negative_root_count": 10,
+        "rhs": 2,
+        "screen_status": "certified",
+        "subset": [
+          1,
+          3,
+          4,
+          6,
+          11
+        ],
+        "tau": [
+          1,
+          -2,
+          1,
+          1,
+          -2,
+          1,
+          -2,
+          -2,
+          -2,
+          -2,
+          1
+        ]
+      },
+      {
+        "below_weight_count": 10,
+        "census_tier_after": "PROVED",
+        "census_tier_before": "CLAIMED",
+        "certificate": {
+          "admissibility_witness": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            7,
+            10,
+            11,
+            16,
+            46
+          ],
+          "below_indices": [
+            2,
+            3,
+            8,
+            24,
+            29,
+            34,
+            60,
+            65,
+            70,
+            134
+          ],
+          "determinant_evaluation": [
+            64,
+            87,
+            50,
+            3,
+            71,
+            67,
+            57,
+            4,
+            57,
+            96,
+            19,
+            92,
+            81,
+            57,
+            94,
+            7,
+            95,
+            16,
+            92,
+            57,
+            36,
+            57,
+            89,
+            83,
+            22,
+            73,
+            48,
+            20,
+            95,
+            63,
+            16,
+            74,
+            30,
+            97,
+            17,
+            1,
+            84,
+            84,
+            15,
+            29,
+            92,
+            96,
+            56,
+            76,
+            43,
+            13,
+            44,
+            92,
+            12,
+            18,
+            28,
+            45,
+            86,
+            75,
+            94,
+            4,
+            81,
+            4,
+            29,
+            84
+          ],
+          "determinant_value": -62503393702267752,
+          "h": [
+            -6,
+            -6,
+            5,
+            5,
+            -6,
+            -6,
+            5,
+            5,
+            5,
+            5,
+            -6
+          ],
+          "inequality": "sum_i h_i * lambda_i >= z",
+          "negative_roots": [
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              6,
+              10
+            ],
+            [
+              7,
+              10
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              9,
+              10
+            ]
+          ],
+          "on_indices": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            7,
+            10,
+            11,
+            16,
+            17,
+            18,
+            23,
+            25,
+            26,
+            27,
+            28,
+            30,
+            31,
+            32,
+            33,
+            38,
+            41,
+            43,
+            44,
+            46,
+            47,
+            52,
+            53,
+            54,
+            59,
+            61,
+            62,
+            63,
+            64,
+            66,
+            67,
+            68,
+            69,
+            74,
+            77,
+            79,
+            80,
+            88,
+            93,
+            98,
+            109,
+            114,
+            119,
+            130,
+            131,
+            132,
+            133,
+            138,
+            141,
+            143,
+            144,
+            148,
+            151,
+            153,
+            154
+          ],
+          "z": -7
+        },
+        "constraint": {
+          "coeffs": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "rhs": 2
+        },
+        "family": "KLY09-EXT-3",
+        "negative_root_count": 10,
+        "rhs": 2,
+        "screen_status": "certified",
+        "subset": [
+          1,
+          2,
+          5,
+          6,
+          11
+        ],
+        "tau": [
+          1,
+          1,
+          -2,
+          -2,
+          1,
+          1,
+          -2,
+          -2,
+          -2,
+          -2,
+          1
+        ]
+      }
+    ],
+    "screen_counts": {
+      "certified_rows": 4,
+      "cyclic_schubert_deferred_rows": 4,
+      "input_tau_rows": 4,
+      "nonstructural_candidate_rows": 4,
+      "normalized_tau_rows": 4,
+      "resolved_candidate_rows": 4
+    },
+    "violations": []
+  },
+  "schema_version": 1,
+  "system": "(3,11)",
+  "tau_convention": "tau_i = N * [i in A] - k for the row sum_{i in A} lambda_i <= k"
+}

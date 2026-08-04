@@ -77,3 +77,41 @@ The first theorem-grade milestone is Branch A plus an exact boundary witness at
 `q`, or Branch B. If neither exact object is obtained, publish the normalized
 audit and the failed proof/construction attempt without changing the bracket
 verdict.
+
+## OUTCOME (2026-08)
+
+Branch A passes, with a recorded deviation. Branch B is dead.
+
+**Result.** The claimed level-5 inequality
+`lambda_2 + lambda_3 + lambda_4 + lambda_5 + lambda_11 <= 2`, and the three
+sibling rows AK-RMK-4.2.1 and KLY09-EXT-2/3, carry exact Ressayre
+certificates. Candidate 44 violates KLY09-EXT-1 by `1/12`, so it is REFUTED,
+and with the other three the (3,11) bracket closes at 19 TRUE + 31 REFUTED +
+0 OPEN. See `docs/level5_ressayre_3_11.md`,
+`results/data/level5_ressayre_3_11.json`.
+
+**Deviation from the frozen fork.** Branch A enumerated two acceptable proof
+objects, a Schubert-coefficient computation and an exact rational SOS dual.
+The object delivered is neither: it is an exact Ressayre certificate. It meets
+what the branch was written to demand, a finite exact computation with
+independently checkable integer output, and it is checked by a
+standard-library verifier that shares no code with the generator
+(`scripts/verify_level5_ressayre_3_11_standalone.py`). But it is a third route
+and is recorded as such rather than reported as an unqualified PASS of the
+clause as written.
+
+**Branch B.** Dead on both legs. KLY09-EXT-1 is now proved, so no state
+attains `lambda_0`; and the design route was independently closed by exact
+counting before that (`docs/rank11_open_candidate_designs.md`), which had
+already ruled out any one-hop-free witness.
+
+**Boundary witness q.** Still not attained. `q` saturates a now-proved
+inequality, so it is a genuine boundary point of the polytope rather than a
+target outside it, but no symbolic state has passed the unit-norm and
+characteristic-polynomial checks. That part of the preregistration is
+unresolved and stays open.
+
+**Stopping rule, honoured.** The document's own caveat stands unchanged:
+candidate 44 alone does not establish the complete (3,11) polytope. Adding
+these valid cuts creates new intersections that must still be enumerated and
+certified, so Stage 1 or a tighter bracket remains required.

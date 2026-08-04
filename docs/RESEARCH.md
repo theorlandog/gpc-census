@@ -168,36 +168,55 @@ stands.
    Schubert coefficient test via lrcalc). Test-first: it must reproduce the
    five known N=3 systems before any new output counts. Until then
    constraints ship as a lookup (src/gpc_census/data/constraints.json).
-2. The (3,11) bracket (docs/bracket_3_11.json): 46 of the 50 outer candidates
-   are settled WITHOUT Stage 1, in exact arithmetic and independently
-   verified (scripts/settle_bracket_3_11.py regenerates
-   docs/bracket_3_11_settlement.json). 19 TRUE (17 by state transport from
-   the rank-9/10 census, the uniform (3/11)^11 by an explicit Z11 difference
-   design, and a frozen-core paired state); 27 REFUTED (frozen-core pinning
-   to N=2 plus the even-degeneracy pairing theorem, and zero-restriction
-   against known lower-rank GPCs); 4 OPEN (cands 23, 26, 34, 44, all
-   genuinely rank-11 full-support; cand 23 admits no one-hop-free design, so
-   INTERFERENCE if attainable). CAVEAT: the 27 refutations do NOT finish
-   (3,11) as a polytope; cutting them creates new true vertices absent from
-   the outer list, so Stage 1 (or a tighter bracket) is still required. The
-   settled points are a mandatory acceptance oracle for any (3,11)
-   generator.
-3. Partial-family cross-check and the lead on the 4 OPENs: all four violate
-   a published but CLAIMED level-5 series inequality (AK-RMK-4.2.1 or its
-   lambda_11-extended quadruple), and none violate any PROVED family
-   (docs/partial_families_3_11_3_12.json, scripts/partial_families.py). Two
-   ways to close them with proof: (a) prove the level-5 inequality inside
-   Stage 1 (a finite Schubert coefficient computation); or (b) attain
-   idx 44, which would FALSIFY a published Klyachko inequality, itself a
-   citable result. Either branch is a win; until then the four stay OPEN
-   (validation law: a claim is not a certificate).
-   The normalized contraction audit in
-   results/data/rank11_contraction.json leaves positive real and complex
-   numerical floors on all four while retaining the uniform (3,11) vertex as a
-   zero-distance control. Candidate 44 reaches 11/4320 and the spectrum
-   (37/72,(29/60)^4,(7/72)^5,1/15), the exact fixed-trace projection onto the
-   claimed level-5 hyperplane. This is a sharp target datum and numerical
-   evidence only. It does not change any OPEN verdict.
+2. The (3,11) bracket (docs/bracket_3_11.json) is CLOSED: all 50 outer
+   candidates are settled WITHOUT Stage 1, in exact arithmetic, at
+   19 TRUE + 31 REFUTED + 0 OPEN.
+   The first 46 come from scripts/settle_bracket_3_11.py, which regenerates
+   docs/bracket_3_11_settlement.json and still records its own 19/27/4: 19
+   TRUE (17 by state transport from the rank-9/10 census, the uniform
+   (3/11)^11 by an explicit Z11 difference design, and a frozen-core paired
+   state); 27 REFUTED (frozen-core pinning to N=2 plus the even-degeneracy
+   pairing theorem, and zero-restriction against known lower-rank GPCs).
+   The last 4 (cands 23, 26, 34, 44) are refuted in
+   results/data/level5_ressayre_3_11.json; see item 3.
+   CAVEAT unchanged: the refutations do NOT finish (3,11) as a polytope;
+   cutting them creates new true vertices absent from the outer list, so
+   Stage 1 (or a tighter bracket) is still required. The settled points are a
+   mandatory acceptance oracle for any (3,11) generator.
+3. The level-5 series inequalities are PROVED, which closed the 4 OPENs
+   (docs/level5_ressayre_3_11.md, scripts/level5_ressayre_3_11.py,
+   tests/test_level5_ressayre_3_11.py). The four rows that kept 23, 26, 34
+   and 44 open, AK-RMK-4.2.1 and KLY09-EXT-1/2/3, all of the form
+   lambda_A + lambda_11 <= 2 for a second-level quadruple A, carry exact
+   Ressayre certificates from the repository's own generation package. That
+   is branch (a) of the old fork, and it lands: each candidate violates at
+   least one certified row, so each is outside the polytope. Branch (b),
+   attaining idx 44 to falsify KLY09-EXT-1, is dead; its design route was
+   already closed by exact counting in
+   docs/rank11_open_candidate_designs.md.
+   The certificate proves VALIDITY of each row, not facetness or
+   irredundancy, and the screen records both as not established. Validity is
+   what refutes a candidate, so that is enough here.
+   The four certificates are replayed by
+   scripts/verify_level5_ressayre_3_11_standalone.py, which imports nothing
+   from gpc_census, derives the fermionic sign by inversion counting rather
+   than position bookkeeping, and recomputes the determinant by exact
+   Fraction elimination rather than Bareiss. 64 checks, and the test suite
+   asserts it fails on a tampered determinant or hyperplane. This closes the
+   gap the rank-7 checkpoint records, that the Ressayre determinants sit
+   outside its independent verifier's trust boundary.
+   The screen is calibrated at ranks 9 and 10, the largest published fixed-N=3
+   systems, by a COMPLETE test: 2,898 subset rows screened, 50 certified, and
+   every certified row maximized by LP over the published polytope with
+   0 invalid. Negative control: 1,857 demonstrably false rows, 0 certified.
+   Caveat recorded in the artifact and the doc: the trace count did nearly all
+   the rejecting, only 6 false rows reached the tangent determinant, and a
+   targeted hunt over perturbed published facets found no more, so the
+   determinant step is the least stressed part of the calibration.
+   Superseded by this, retained as history: the normalized contraction audit
+   in results/data/rank11_contraction.json, which left positive numerical
+   floors on all four and identified cand 44 at 11/4320 as the sharpest
+   target. It pointed the right way and was never a certificate.
 4. The (3,12) footholds: 19 certified true vertices by face embedding of the
    (3,11) settlement (docs/bracket_3_12_true_vertices.json), and the exact
    plethysm Stage-0 inner cloud (docs/bracket_3_12_stage0_inner.json,
