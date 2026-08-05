@@ -120,8 +120,14 @@ Superseded, kept as the record of what it found. Do not rerun as a task.
 
 Strict order, one gate per session minimum, prereg per gate:
 
-1. (3,7) exhaustiveness via the (3,6) sandwich template (exact plethysm inner
-   points plus H-to-V closure). Until then (3,7) stays labeled relative.
+1. (3,7) exhaustiveness. DONE 2026-08-05, all seven pre-registered
+   predictions PASS, prereg frozen at 9c55f1b before the run. (3,7) is EXACT
+   by the inner/outer closure: 10 vertices matching the reference, every row
+   certified on independent replay, every vertex carrying an exact attaining
+   state. Controls confirm the four rows cut the 13-vertex ordered slice to 10
+   and that each row individually changes the polytope. Candidate
+   exhaustiveness is bypassed, not proved.
+   [docs/generator_gate1_3_7.md; results/data/generator_gate1_3_7.json]
 2. (3,8) gate: first rank with interference vertices; the honest stress test.
 3. (3,9)/(3,10) blind reproduction against the census's own tables.
 4. Full (3,11): candidates, Ressayre screen, relative H-system, then the

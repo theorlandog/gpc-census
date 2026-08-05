@@ -122,7 +122,8 @@ def replay_certificate(cert) -> dict:
     matrix = [[0] * len(roots) for _ in below]
     for col, (i, j) in enumerate(roots):
         for var, wi in enumerate(on):
-            act = root_action(occ[wi], i, j)
+            # root (i, j) carries the operator E_(j,i) = a_j^dag a_i
+            act = root_action(occ[wi], j, i)
             if act is None:
                 continue
             target = tuple(1 if t in act[0] else 0 for t in range(D))
@@ -140,27 +141,38 @@ def replay_certificate(cert) -> dict:
 
 
 def ordered_slice_rows():
-    """Structural rows of the ordered trace-N slice, as (coeffs, rhs) <= form."""
+    """Structural rows of the ordered trace-N slice.
+
+    exact_polytope carries an inequality as ``<a, x> >= c``, so every row here
+    is written in that orientation rather than the ``<=`` form the manifest
+    uses.
+    """
     rows = []
     for i in range(D):
-        row = [F(0)] * D
-        row[i] = F(1)
-        rows.append((list(row), F(1)))          # l_i <= 1
-        rows.append(([-v for v in row], F(0)))  # -l_i <= 0
+        unit = [F(0)] * D
+        unit[i] = F(1)
+        rows.append(([-v for v in unit], F(-1)))  # -l_i >= -1, i.e. l_i <= 1
+        rows.append((list(unit), F(0)))           # l_i >= 0
     for i in range(D - 1):
         row = [F(0)] * D
-        row[i] = F(-1)
-        row[i + 1] = F(1)
-        rows.append((row, F(0)))                # l_{i+1} - l_i <= 0
+        row[i] = F(1)
+        row[i + 1] = F(-1)
+        rows.append((row, F(0)))                  # l_i - l_{i+1} >= 0
     return rows
 
 
 def ressayre_rows(manifest) -> list[tuple[list[F], F]]:
-    """The retained rows as `coeffs . lambda <= rhs` on the ordered slice."""
+    """The retained rows, negated into exact_polytope's ``>=`` orientation.
+
+    The manifest states them as ``coeffs . lambda <= rhs``.
+    """
     rows = []
-    for row in manifest["reduction"]["retained"]:
+    for row in manifest["retained_rows"]:
         constraint = row["constraint"]
-        rows.append(([F(c) for c in constraint["coeffs"]], F(constraint["rhs"])))
+        rows.append((
+            [F(-c) for c in constraint["coeffs"]],
+            F(-constraint["rhs"]),
+        ))
     return rows
 
 
@@ -229,8 +241,8 @@ def build() -> dict:
 
     # G4: replay every certificate
     replays = []
-    for row, retained in zip(rows, manifest["reduction"]["retained"]):
-        cert = retained.get("ressayre_certificate") or retained.get("certificate")
+    for retained in manifest["retained_rows"]:
+        cert = retained["ressayre_certificate"]
         replays.append(replay_certificate(cert))
     g4 = all(r["certified"] and r["trace_condition"] for r in replays)
 
@@ -241,12 +253,23 @@ def build() -> dict:
 
     # G6, G7: the controls
     slice_only = enumerate_vertices([])
-    g6 = len(slice_only) > len(verts)
+    g6 = set(slice_only) != set(verts)
+    # Dropping a row relaxes the polytope. That can change the vertex set
+    # without changing its size, since vertices on the removed facet vanish
+    # while new ones appear, so load bearing is decided by set difference and
+    # the count is reported alongside rather than used as the test.
     drops = []
     for k in range(len(rows)):
         subset = rows[:k] + rows[k + 1 :]
-        count = len(enumerate_vertices(subset))
-        drops.append({"dropped_row": k, "vertices": count, "load_bearing": count > len(verts)})
+        dropped = enumerate_vertices(subset)
+        drops.append({
+            "dropped_row": k,
+            "constraint": [str(c) for c in manifest["retained_rows"][k]["constraint"]["coeffs"]],
+            "rhs": str(manifest["retained_rows"][k]["constraint"]["rhs"]),
+            "vertices": len(dropped),
+            "vertex_set_changed": set(dropped) != set(verts),
+            "load_bearing": set(dropped) != set(verts),
+        })
     g7 = all(d["load_bearing"] for d in drops)
 
     # G3

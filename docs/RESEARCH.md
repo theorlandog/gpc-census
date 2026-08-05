@@ -191,6 +191,29 @@ Infrastructure, not science, but two of these were shipped defects.
    (the ledger is 799/799) and the parallel SOS cand-44 item is marked
    SUPERSEDED, do not run, since the level-5 certificates settle that branch.
 
+## Generator ladder gate 1: (3,7) is EXACT (2026-08-05)
+
+[E] PROVED. (3,7) moves from RELATIVE to EXACT on the claim ladder, by the
+independent inner/outer closure route in docs/fixed_n3_generator_methodology.md,
+not by candidate enumeration. All seven pre-registered predictions PASS
+(prereg frozen at 9c55f1b before the run).
+Validity of every H-row gives P inside H; exact attainability of every
+enumerated H-vertex gives H inside P by convexity; hence P = H.
+Rechecked rather than read: all four Ressayre certificates replay from (h,z)
+with weights, level sets, roots and tangent matrix rebuilt from scratch and
+the determinant recomputed by Fraction elimination rather than Bareiss, all
+four reproducing 48841, 1928920, 1455387, 4817604; each of the ten attaining
+spectra recomputed from its own support and amplitudes rather than from
+integer_form, the field under test.
+Controls: the ordered trace-three slice alone has 13 vertices, so the four
+rows cut it to 10, and dropping any single row changes the vertex set.
+CAVEAT, and it is the whole point of the route: candidate exhaustiveness at
+(3,7) is BYPASSED, not proved. The manifest's system_completeness field is
+unchanged. Nothing here bears on (3,8) or higher; gate 2 is a separate prereg.
+[docs/generator_gate1_3_7.md; docs/prereg_generator_gate1_3_7.md;
+scripts/generator_gate1_3_7.py; results/data/generator_gate1_3_7.json;
+tests/test_generator_gate1_3_7.py]
+
 ## Current campaigns: the (3,11)/(3,12) constraint-generation frontier
 
 NOT superseded by the fiber program; this is where the polytope frontier
