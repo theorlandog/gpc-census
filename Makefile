@@ -30,7 +30,7 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := --citeproc --number-sections
 
-.PHONY: sync test verify-paper verify-data emit paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
+.PHONY: sync test verify-paper verify-data emit note paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
 
 sync:
 	$(UV) sync
@@ -122,6 +122,22 @@ $(REPORT_PDF): $(REPORT_MD) $(REPORT_BIB) $(REPORT_CSL)
 	  && pdftotext $(REPORT_PDF) - 2>/dev/null | grep -q '¿'; then \
 	  echo "report: unresolved crossref marks in PDF output"; exit 1; fi
 	@echo "==> $(REPORT_PDF)"
+
+# The level-5 companion note: same pinned image, same citation discipline,
+# same failure-on-unresolved-citation rule as the main report.
+NOTE_MD := results/report/level5/main.md
+NOTE_PDF := results/report/level5/main.pdf
+NOTE_BIB := results/report/level5/references.bib
+
+note: $(NOTE_PDF)
+
+$(NOTE_PDF): $(NOTE_MD) $(NOTE_BIB) $(REPORT_CSL)
+	mkdir -p build
+	$(PANDOC_RUN) $(NOTE_MD) $(PANDOC_FLAGS) -o $(NOTE_PDF) 2> build/note.log \
+	  || { cat build/note.log; exit 1; }
+	@if grep -Ei 'not found|undefined' build/note.log; then \
+	  echo "note: unresolved references or citations, see build/note.log"; exit 1; fi
+	@echo "==> $(NOTE_PDF)"
 
 report-tex: $(REPORT_TEX)
 

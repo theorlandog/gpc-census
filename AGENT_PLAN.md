@@ -95,9 +95,19 @@ Superseded, kept as the record of what it found. Do not rerun as a task.
   email (paper, PhD question, spin-fiber direction), EV application.
   The agent prepares and validates; it never submits.
 
-### T1. Companion note: the level-5 certificates
+### T1. Companion note: the level-5 certificates. DRAFTED 2026-08-05.
 
-- Short note (4 to 8 pages) from `docs/level5_ressayre_3_11.md`,
+- `results/report/level5/main.md`, built by `make note` on the same pinned
+  pandoc image and citation discipline as the paper.
+  `tests/test_level5_note.py` re-derives every load-bearing number from the
+  artifact and asserts it appears in the text, checks that every bib entry is
+  cited and every citation resolves, and asserts the note states what it does
+  NOT prove. OUTSTANDING: the PDF has never been rendered (no container
+  runtime in the drafting environment), and the bibliography entries for
+  Ressayre 2010, Belkale-Kumar 2006 and Berenstein-Sjamaar 2000 were written
+  from memory and need a citation check before submission. Human gate: arXiv.
+- Original scope, for reference. Short note (4 to 8 pages) from
+  `docs/level5_ressayre_3_11.md`,
   `docs/rank11_open_candidate_designs.md`, and
   `scripts/verify_level5_ressayre_3_11_standalone.py`. First proofs of the
   claimed Klyachko level-5 rows; bracket closes 19 TRUE, 31 REFUTED, 0 OPEN.
@@ -110,8 +120,14 @@ Superseded, kept as the record of what it found. Do not rerun as a task.
 
 Strict order, one gate per session minimum, prereg per gate:
 
-1. (3,7) exhaustiveness via the (3,6) sandwich template (exact plethysm inner
-   points plus H-to-V closure). Until then (3,7) stays labeled relative.
+1. (3,7) exhaustiveness. DONE 2026-08-05, all seven pre-registered
+   predictions PASS, prereg frozen at 9c55f1b before the run. (3,7) is EXACT
+   by the inner/outer closure: 10 vertices matching the reference, every row
+   certified on independent replay, every vertex carrying an exact attaining
+   state. Controls confirm the four rows cut the 13-vertex ordered slice to 10
+   and that each row individually changes the polytope. Candidate
+   exhaustiveness is bypassed, not proved.
+   [docs/generator_gate1_3_7.md; results/data/generator_gate1_3_7.json]
 2. (3,8) gate: first rank with interference vertices; the honest stress test.
 3. (3,9)/(3,10) blind reproduction against the census's own tables.
 4. Full (3,11): candidates, Ressayre screen, relative H-system, then the
@@ -122,12 +138,21 @@ Strict order, one gate per session minimum, prereg per gate:
   targeting rules in `docs/GENERATOR_PLAN.md` (two-block for the cancellation
   regime, multi-block unequal for the gap sample; never collapse them).
 
-### T3. Physics: give the complex engine a physical benchmark
+### T3. Physics: complex engine benchmark. DONE 2026-08-05.
 
-- Standing flag: no scan point is a genuinely complex-flux nondegenerate case.
-  Build a flux-threaded model that breaks BOTH recorded failure modes
-  (degenerate ground state; degenerate occupations), prereg the scan, wire it
-  into `scripts/conditional_2rdm_program.py`.
+The standing flag is cleared. The asymmetric spinless t-V ring with exact
+boundary phase `(4+3i)/5` gives 10 of 12 usable scan points, five with genuine
+carrier flux. Independently reverified here from scratch in occupation space:
+ground energy -0.1363514585, gap 1.434787, min occupation gap
+0.0016711196969708686, all matching the artifact. The run also corrected a real
+bug invisible to the zero-flux benchmark: under `gamma[p,q] = <a_p^dag a_q>`
+the passive CI transform is the third exterior power of `U.T`, giving 2.094e-16
+off-diagonal, where `U.conj().T` gives 0.1694.
+[scripts/verify_complex_flux_physical_benchmark_standalone.py;
+results/data/conditional_2rdm_program.json]
+
+Still open, and not a repeat of the above: extension to molecular magnetic
+fields, complex Bloch orbitals, or spin-orbit terms.
 
 ### T4. Backlog (eligible when T0 is done and nothing above is in flight)
 
