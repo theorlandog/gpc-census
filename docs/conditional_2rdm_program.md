@@ -42,7 +42,7 @@ Those interior values are where the optimizing branch changes, so they are the
 geometric non-analyticities of the constrained-search functional, sitting close
 to but distinct from the symmetric points.
 
-## Step 5: projection of a real Hamiltonian
+## Step 5: projection of a physical Hamiltonian
 
 `carrier_projection` performs the Slater-Condon projection: diagonal entries
 are ordinary determinant energies, and every off-diagonal entry of this carrier
@@ -59,7 +59,7 @@ integral file is exercised.
 ### Model choice, and two traps that had to be avoided
 
 The benchmark uses a spinless **t-V ring** (6 orbitals, 3 fermions, hopping
-`t`, nearest-neighbour `V`, on-site gradient 0.35, optional boundary twist).
+`t`, nearest-neighbour `V`, on-site gradient 0.35, optional boundary phase).
 Two earlier choices failed for instructive reasons, and both are recorded
 because either would have produced confident nonsense:
 
@@ -71,6 +71,20 @@ because either would have produced confident nonsense:
    occupations, which leaves the natural orbitals (hence the carrier)
    ambiguous inside the degenerate subspace: the weight split evenly between
    `(1,3,5)` and its partner `(2,4,5)`. The on-site gradient breaks it.
+
+The genuinely complex benchmark freezes the rational Gaussian boundary phase
+`(4+3i)/5`. It breaks time reversal without introducing an inexact model
+parameter. At `V = 2` the ground-state gap is 1.435, the minimum occupation
+gap is 0.00167, the off-carrier weight is 0.00466, and the gauge-invariant
+carrier cycle product has imaginary part -0.00578. Thus this point is neither
+a degenerate-basis artifact nor gauge-equivalent to a real carrier.
+
+The complex run caught a basis-convention bug hidden by the real benchmark.
+With this module's convention `gamma[p,q] = <a_p^dag a_q>`, a passive CI
+coefficient transformation uses `U.T`, not `U.conj().T`; the physical orbital
+columns used for integral transformation are `U.conj()`. The old formula
+leaves a 0.169 off-diagonal 1-RDM residual at the selected point. The corrected
+formula leaves 2.2e-16. A regression asserts both values qualitatively.
 
 ## Step 6: quasipinning enlargement
 
@@ -92,8 +106,15 @@ No quasipinning constant is assumed. The bound is stated in terms of the
 measured `eps`, so it is self-contained; any theorem supplying
 `eps^2 <= C_gap D(lambda)` plugs into the first term.
 
+Here `||H||` is the centered norm of the FULL fixed-particle Hamiltonian,
+equal to half its spectral width. Using only the norm of `P H P` would not
+control matrix elements between the carrier and its orthogonal complement.
+The complex benchmark exposed that earlier underbound, and the artifact now
+records the normalized carrier energy and checks its direct deviation from the
+full expectation against the corrected enlargement.
+
 🟦 **Measured, not proved:** across the usable scan the ratio
-`D(lambda) / eps^2` stays in `[1.45, 2.00]`, so the off-carrier weight is
+`D(lambda) / eps^2` stays in `[1.43, 2.00]`, so the off-carrier weight is
 controlled linearly by the Borland-Dennis slack. At the well-separated points
 it sits at almost exactly 2. This is an empirical regularity on one model
 family, not a theorem, and it is labelled that way in the artifact.
@@ -105,18 +126,20 @@ pinned width runs from about **11 to 160** over the scan, so pinning plus the
 
 ### Preconditions are enforced, not assumed
 
-Only 5 of 12 scan points are usable. A point counts only when the natural
+Ten of 12 scan points are usable, including five with genuinely complex
+carrier flux. A point counts only when the natural
 occupations are nondegenerate AND the carrier is the dominant support. In
-particular, at boundary twist 0.6 the ground state is quasipinned by slack
-(`D ~ 1e-3`) yet has 8 to 13 percent of its weight off the carrier, because
-the two middle occupations sit within `5e-4` of each other and the natural
-orbitals are correspondingly ill-conditioned. Those points are reported with
-their diagnostics and excluded from the claim.
+particular, both `V = 6` points fail because their three largest determinant
+weights are not the pinned carrier. They are reported with their diagnostics
+and excluded from the claim.
 
-The honest consequence: this benchmark does NOT demonstrate physical relevance
-for the genuinely complex-flux engine. It exercises the real (zero-flux) path.
-That is consistent with the source document's own caveat that ordinary
-real-orbital Hamiltonians produce real carrier couplings.
+The selected `V = 2` complex point passes six frozen gates: nondegenerate
+ground state, nondegenerate occupations, diagonal reconstructed 1-RDM,
+dominant pinned carrier, nonzero gauge-invariant carrier flux, and containment
+of the true energy in the quasipinning enlargement. The standalone verifier
+imports no project module. It rebuilds the occupation-space Hamiltonian and
+the exterior-power basis transformation, and passes 15 of 15 checks. This is
+a numerical benchmark with exact model input, not an exact eigensystem.
 
 ## Step 7: the census-wide atlas
 
@@ -150,9 +173,9 @@ to structure that is merely hard to measure.
   mathematical step; a cycle-constraint or SOS hierarchy is the fallback.
 - `D(lambda) / eps^2` bounded is measured on one family. A theorem would let
   the enlargement bound be quoted from the slack alone.
-- No genuinely complex-flux physical benchmark yet, per the precondition
-  failure above. Magnetic fields, complex Bloch orbitals or spin-orbit terms
-  are the places to look.
+- The complex benchmark is a small flux-threaded lattice model. Extension to
+  molecular magnetic fields, complex Bloch orbitals, or spin-orbit terms is
+  still open.
 - The atlas reports geometry, not widths, for `m >= 4`; per-support widths need
   a canonical observable choice and the outer-bound caveat attached.
 
@@ -160,5 +183,6 @@ to structure that is merely hard to measure.
 
 ```sh
 python scripts/conditional_2rdm_program.py
+python scripts/verify_complex_flux_physical_benchmark_standalone.py
 uv run pytest tests/test_conditional_2rdm_program.py
 ```

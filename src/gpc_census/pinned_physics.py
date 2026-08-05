@@ -171,6 +171,40 @@ def rotate_ci(vec, dets, U):
     return out
 
 
+def natural_orbital_coefficients(vec, dets, U):
+    """Express a CI state in the natural-orbital basis with columns ``U``.
+
+    ``rotate_ci`` implements an active exterior-power action.  A passive
+    coefficient transformation to the basis whose vectors are the columns of
+    ``U`` therefore uses ``U.T`` under this module's 1-RDM convention, not
+    ``U.conj().T``.  The two agree for real orbitals, which is why the wrong
+    choice escaped the original zero-flux benchmark and failed only after a
+    Peierls phase was introduced.
+    """
+    return rotate_ci(vec, dets, U.T)
+
+
+def natural_basis_integrals(h1, g2, U):
+    """Transform integrals consistently with ``natural_orbital_coefficients``.
+
+    This module stores ``gamma[p, q] = <a_p^dag a_q>``.  Consequently the
+    physical natural-orbital columns are ``U.conj()`` when ``U`` is returned
+    by ``numpy.linalg.eigh(gamma)``.  Keeping this conjugation here prevents
+    the state and Hamiltonian from silently being expressed in different
+    bases for genuinely complex orbitals.
+    """
+    import numpy as np
+
+    B = U.conj()
+    h1_no = B.conj().T @ h1 @ B
+    g2_no = np.einsum(
+        "pi,qj,rk,sl,pqrs->ijkl",
+        B.conj(), B, B.conj(), B, g2,
+        optimize=True,
+    )
+    return h1_no, g2_no
+
+
 # --------------------------------------------------------------------------
 # Borland-Dennis pinning
 # --------------------------------------------------------------------------
@@ -355,7 +389,7 @@ def enlargement_bound(H_norm: float, eps: float, dw_l1: float,
 # --------------------------------------------------------------------------
 
 def tv_ring_integrals(n_orb: int, t: float, V: float, twist: float = 0.0,
-                      gradient: float = 0.0):
+                      gradient: float = 0.0, boundary_phase: complex | None = None):
     """Spinless fermions on a ring: hopping ``t``, nearest-neighbour ``V``.
 
     Preferred over the Hubbard model for this benchmark because a spinful
@@ -363,17 +397,25 @@ def tv_ring_integrals(n_orb: int, t: float, V: float, twist: float = 0.0,
     well defined. Spinless fermions avoid that, and the on-site ``gradient``
     breaks the ring's reflection symmetry, which otherwise forces PAIRS OF
     EQUAL natural occupations and leaves the pinned carrier ambiguous. The
-    twist puts a Peierls phase on the wrap-around bond, the standard way a real
-    model acquires genuinely complex hopping.
+    ``twist`` puts a Peierls phase on the wrap-around bond, the standard way a
+    real model acquires genuinely complex hopping. ``boundary_phase`` supplies
+    that unit-modulus phase directly and takes precedence over ``twist``. The
+    direct form permits exact-looking rational Gaussian inputs such as
+    ``(4 + 3j) / 5`` without first passing through a transcendental angle.
     """
     import numpy as np
 
     h1 = np.zeros((n_orb, n_orb), dtype=complex)
     g2 = np.zeros((n_orb,) * 4, dtype=complex)
+    if boundary_phase is None:
+        boundary_phase = np.exp(1j * twist)
+    boundary_phase = complex(boundary_phase)
+    if not np.isclose(abs(boundary_phase), 1.0, atol=1e-12, rtol=0.0):
+        raise ValueError("boundary_phase must have unit modulus")
     for i in range(n_orb):
         h1[i, i] += gradient * i
         j = (i + 1) % n_orb
-        phase = np.exp(1j * twist) if j == 0 else 1.0
+        phase = boundary_phase if j == 0 else 1.0
         h1[i, j] += -t * phase
         h1[j, i] += -t * np.conj(phase)
         g2[i, i, j, j] += V

@@ -337,6 +337,107 @@ CLASSES_6: dict[int, dict] = {
 }
 
 
+# The first certified non-toric inner point.  Squared amplitudes are stored as
+# integers over a common denominator so the witness remains a small exact
+# object.  The signs cancel every one-body coherence.  Its symbolic tangent
+# rank is 34, which identifies class VIII because the nine nonzero d = 7
+# orbits have distinct dimensions.
+CLASS_VIII_INTERFERENCE_WITNESS = {
+    "support": ((0, 1, 3), (0, 3, 4), (1, 4, 5),
+                (2, 4, 6), (0, 2, 5), (1, 2, 6)),
+    "integer_squared_weights": (2, 1, 1, 1, 2, 2),
+    "signs": (1, 1, 1, 1, 1, -1),
+    "denominator": 9,
+    "spectrum": (Fraction(5, 9), Fraction(5, 9), Fraction(5, 9),
+                 Fraction(1, 3), Fraction(1, 3), Fraction(1, 3),
+                 Fraction(1, 3)),
+    "orbit_dimension": 34,
+}
+
+
+def _symbolic_one_rdm(psi, d: int):
+    """Exact 1-RDM over an algebraic SymPy coefficient field."""
+    import sympy as sp
+
+    ann = []
+    for i in range(d):
+        col = {}
+        for S, c in psi.items():
+            if i not in S:
+                continue
+            A = tuple(x for x in S if x != i)
+            col[A] = col.get(A, sp.Integer(0)) + ((-1) ** S.index(i)) * c
+        ann.append(col)
+    rho = sp.zeros(d)
+    for i in range(d):
+        for j in range(d):
+            rho[i, j] = sp.simplify(sum(
+                sp.conjugate(v) * ann[j].get(A, sp.Integer(0))
+                for A, v in ann[i].items()
+            ))
+    return rho
+
+
+def _symbolic_orbit_dimension(psi, d: int) -> int:
+    """Rank of ``gl_d -> Lambda^3 C^d`` over the witness's exact field."""
+    import sympy as sp
+
+    idx = {T: i for i, T in enumerate(triples(d))}
+    cols = []
+    for a in range(d):
+        for b in range(d):
+            v = [sp.Integer(0)] * len(idx)
+            if a == b:
+                for S, c in psi.items():
+                    if a in S:
+                        v[idx[S]] += c
+            else:
+                for T, c in lie_derivation(a, b, psi).items():
+                    v[idx[T]] += c
+            cols.append(sp.Matrix(v))
+    return int(sp.Matrix.hstack(*cols).rank())
+
+
+@lru_cache(maxsize=None)
+def class_viii_interference_certificate() -> dict:
+    """Verify and describe the exact class-VIII interference witness.
+
+    This is deliberately recomputed from the six amplitudes rather than
+    trusting the recorded target.  The two load-bearing checks are the exact
+    diagonal 1-RDM and the exact orbit tangent rank.
+    """
+    import sympy as sp
+
+    rec = CLASS_VIII_INTERFERENCE_WITNESS
+    den = rec["denominator"]
+    psi = {
+        S: sign * sp.sqrt(sp.Rational(weight, den))
+        for S, weight, sign in zip(
+            rec["support"], rec["integer_squared_weights"], rec["signs"]
+        )
+    }
+    norm = sp.simplify(sum(sp.conjugate(c) * c for c in psi.values()))
+    rho = _symbolic_one_rdm(psi, 7)
+    expected = sp.diag(*[sp.Rational(x.numerator, x.denominator)
+                         for x in rec["spectrum"]])
+    orbit_dim = _symbolic_orbit_dimension(psi, 7)
+    if norm != 1 or rho != expected or orbit_dim != rec["orbit_dimension"]:
+        raise AssertionError("class-VIII interference witness failed exact replay")
+    return {
+        "support": ["".join(str(i + 1) for i in S) for S in rec["support"]],
+        "integer_squared_weights": list(rec["integer_squared_weights"]),
+        "signs": list(rec["signs"]),
+        "denominator": den,
+        "spectrum": [str(x) for x in rec["spectrum"]],
+        "norm": str(norm),
+        "one_rdm": [[str(rho[i, j]) for j in range(7)] for i in range(7)],
+        "characteristic_polynomial": str(sp.factor(rho.charpoly().as_expr())),
+        "orbit_dimension": orbit_dim,
+        "support_rank": int(rho.rank()),
+        "one_hop_free": is_one_hop_free(rec["support"]),
+    }
+
+
 def classes(d: int) -> dict[int, dict]:
     if d == 6:
         return CLASSES_6
@@ -624,6 +725,12 @@ def inner_points(orbit_dim: int, d: int,
     pts: set[Vec] = set()
     for sup in supports:
         pts |= newton_cloud(sup, d, levels)
+    if d == 7 and orbit_dim == CLASS_VIII_INTERFERENCE_WITNESS["orbit_dimension"]:
+        # Exact non-toric point.  Replay before admitting it to the inner hull,
+        # so a stale or edited witness fails closed rather than inflating the
+        # certified polytope.
+        class_viii_interference_certificate()
+        pts.add(CLASS_VIII_INTERFERENCE_WITNESS["spectrum"])
     return pts, tuple(supports)
 
 
@@ -782,6 +889,11 @@ def orbit_polytope(psi: Trivector, d: int, levels=DEFAULT_LEVELS,
         "degenerates_to": list(degeneration_order(d).get(dim, ())),
         "supports_explored": len(supports),
         "certified_points": len(inner),
+        "interference_witnesses": (
+            [class_viii_interference_certificate()]
+            if d == 7 and dim == CLASS_VIII_INTERFERENCE_WITNESS["orbit_dimension"]
+            else []
+        ),
         "vertices": [[str(x) for x in v] for v in verts],
         "newton_inequalities": ineqs,
         "dimension": len(verts) and (d - len(ep.affine_hull(verts))),

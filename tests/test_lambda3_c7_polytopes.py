@@ -20,6 +20,8 @@ regenerates it.
 """
 import json
 import pathlib
+import subprocess
+import sys
 from fractions import Fraction as F
 
 import pytest
@@ -31,6 +33,7 @@ ROOT = pathlib.Path(__file__).resolve().parent / "data"
 if not ROOT.exists():
     ROOT = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
 ARTIFACT = ROOT / "lambda3_c7_polytopes.json"
+WITNESS_ARTIFACT = ROOT / "lambda3_c7_class_viii_witness.json"
 
 
 def _ambient_vertices(n, d):
@@ -156,6 +159,36 @@ def test_newton_cloud_points_are_attained_by_an_explicit_state():
         for i in S:
             even[i] += F(1, len(sup))
     assert tuple(sorted(even, reverse=True)) in cloud
+
+
+def test_class_viii_interference_witness_closes_the_missing_vertex():
+    certificate = orbit.class_viii_interference_certificate()
+    target = (F(5, 9), F(5, 9), F(5, 9), F(1, 3), F(1, 3), F(1, 3), F(1, 3))
+    assert tuple(F(x) for x in certificate["spectrum"]) == target
+    assert certificate["orbit_dimension"] == 34
+    assert certificate["support_rank"] == 7
+    assert not certificate["one_hop_free"]
+    assert certificate["norm"] == "1"
+    assert all(certificate["one_rdm"][i][j] == (str(target[i]) if i == j else "0")
+               for i in range(7) for j in range(7))
+
+    block = json.loads(ARTIFACT.read_text())["blocks"]["7"]
+    class_viii = block["classes"]["34"]
+    assert class_viii["verdict"] == "EXACT"
+    assert not class_viii["outer_vertices_not_reached"]
+    assert class_viii["interference_witnesses"] == [certificate]
+
+
+def test_class_viii_standalone_verifier_passes():
+    script = pathlib.Path(__file__).resolve().parents[1] / "scripts" / (
+        "verify_lambda3_c7_class_viii_witness_standalone.py"
+    )
+    subprocess.run(
+        [sys.executable, str(script), str(WITNESS_ARTIFACT)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
 
 
 def test_one_hop_free_supports_have_diagonal_rdm():

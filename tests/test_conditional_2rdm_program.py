@@ -13,6 +13,8 @@ The load-bearing checks are the ones that would catch a silently wrong answer:
 """
 import json
 import pathlib
+import subprocess
+import sys
 
 import numpy as np
 import pytest
@@ -92,9 +94,53 @@ def test_one_rdm_and_natural_orbitals_are_consistent():
     # the Borland-Dennis equalities hold identically for any three-fermion state
     for i in range(3):
         assert abs(lams[i] + lams[5 - i] - 1.0) < 1e-9
-    # rotating to the natural-orbital basis preserves the norm
-    psi_no = pp.rotate_ci(psi, dets, U.conj().T)
+    # rotating to the natural-orbital basis preserves the norm and diagonalizes
+    # the 1-RDM under this module's gamma[p,q] convention
+    psi_no = pp.natural_orbital_coefficients(psi, dets, U)
     assert abs(np.linalg.norm(psi_no) - 1.0) < 1e-9
+    gamma_no = pp.one_rdm_ci(psi_no, dets, 6)
+    assert np.abs(gamma_no - np.diag(np.diag(gamma_no))).max() < 1e-12
+
+
+def test_complex_natural_basis_uses_transpose_not_adjoint():
+    h1, g2 = pp.tv_ring_integrals(
+        6, 1.0, 2.0, gradient=7 / 20, boundary_phase=(4 + 3j) / 5,
+    )
+    H, dets = pp.ci_hamiltonian(h1, g2, 6, 3)
+    psi = np.linalg.eigh(H)[1][:, 0]
+    _, U = pp.natural_orbitals(pp.one_rdm_ci(psi, dets, 6))
+
+    correct = pp.natural_orbital_coefficients(psi, dets, U)
+    correct_gamma = pp.one_rdm_ci(correct, dets, 6)
+    correct_offdiag = np.abs(
+        correct_gamma - np.diag(np.diag(correct_gamma))
+    ).max()
+
+    old_wrong_convention = pp.rotate_ci(psi, dets, U.conj().T)
+    wrong_gamma = pp.one_rdm_ci(old_wrong_convention, dets, 6)
+    wrong_offdiag = np.abs(wrong_gamma - np.diag(np.diag(wrong_gamma))).max()
+    assert correct_offdiag < 1e-12
+    assert wrong_offdiag > 0.1
+
+
+def test_complex_natural_basis_transforms_state_and_hamiltonian_together():
+    h1, g2 = pp.tv_ring_integrals(
+        6, 1.0, 2.0, gradient=7 / 20, boundary_phase=(4 + 3j) / 5,
+    )
+    H, dets = pp.ci_hamiltonian(h1, g2, 6, 3)
+    eigenvalues, eigenvectors = np.linalg.eigh(H)
+    psi = eigenvectors[:, 0]
+    _, U = pp.natural_orbitals(pp.one_rdm_ci(psi, dets, 6))
+    psi_no = pp.natural_orbital_coefficients(psi, dets, U)
+    h1_no, g2_no = pp.natural_basis_integrals(h1, g2, U)
+    H_no, dets_no = pp.ci_hamiltonian(h1_no, g2_no, 6, 3)
+    assert dets_no == dets
+    assert np.max(np.abs(H_no @ psi_no - eigenvalues[0] * psi_no)) < 1e-12
+
+
+def test_direct_boundary_phase_must_have_unit_modulus():
+    with pytest.raises(ValueError, match="unit modulus"):
+        pp.tv_ring_integrals(6, 1.0, 2.0, boundary_phase=1 + 1j)
 
 
 # --------------------------------------------------------------------------
@@ -151,6 +197,7 @@ def test_projection_block_is_exact_and_preconditions_are_enforced():
     assert b["fcidump_round_trip"]
     assert b["carrier_projection_matches_full_ci_max_abs_error"] == 0.0
     assert b["preconditions"]["usable_points"] >= 4
+    assert b["preconditions"]["usable_genuinely_complex_flux_points"] >= 4
     assert b["preconditions"]["usable_points"] < b["preconditions"]["total_points"]
     # points failing the preconditions must be reported, not silently dropped
     failing = [r for r in b["scan"] if not r["carrier_is_dominant_support"]]
@@ -159,12 +206,38 @@ def test_projection_block_is_exact_and_preconditions_are_enforced():
 
 def test_enlargement_bound_holds_where_its_preconditions_hold():
     b = _prog()["projection_and_quasipinning"]
-    usable = [r for r in b["scan"] if r["carrier_is_dominant_support"]]
+    usable = [r for r in b["scan"] if r["pinned_preconditions_pass"]]
     assert usable
     for r in usable:
         assert r["true_energy_inside_enlarged"], r["V"]
         # and pinning genuinely narrows the prediction
         assert r["width_ratio_unconstrained_over_pinned"] > 1.0
+
+
+def test_complex_flux_physical_benchmark_passes_every_frozen_gate():
+    b = _prog()["projection_and_quasipinning"]["complex_flux_physical_benchmark"]
+    assert b["status"] == "NUMERICAL_WITH_EXACT_MODEL_INPUT"
+    assert all(b["gates"].values())
+    assert b["exact_model_input"]["boundary_phase"] == "(4+3*i)/5"
+    row = b["selected_scan_point"]
+    assert row["ground_state_gap"] > 1.0
+    assert row["min_occupation_gap"] > 1e-3
+    assert row["natural_basis_offdiagonal_max"] < 1e-12
+    assert row["off_carrier_weight"] < 0.01
+    assert abs(row["carrier_cycle_product"][1]) > 1e-3
+    assert row["true_to_carrier_energy_deviation"] <= row["enlargement_half_width"]
+
+
+def test_complex_flux_standalone_verifier_passes():
+    script = pathlib.Path(__file__).resolve().parents[1] / "scripts" / (
+        "verify_complex_flux_physical_benchmark_standalone.py"
+    )
+    subprocess.run(
+        [sys.executable, str(script), str(ARTIFACT)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
 
 
 def test_enlargement_bound_is_monotone_in_its_inputs():

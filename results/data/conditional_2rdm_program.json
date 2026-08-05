@@ -13631,28 +13631,115 @@
  },
  "projection_and_quasipinning": {
   "carrier_projection_matches_full_ci_max_abs_error": 0.0,
+  "complex_flux_physical_benchmark": {
+   "exact_model_input": {
+    "boundary_phase": "(4+3*i)/5",
+    "boundary_phase_modulus_squared": "1",
+    "hopping": "1",
+    "nearest_neighbour_interaction": "2",
+    "onsite_gradient": "7/20",
+    "orbitals": 6,
+    "particles": 3,
+    "time_reversal_is_broken": true
+   },
+   "gates": {
+    "dominant_pinned_carrier": true,
+    "natural_basis_reconstruction": true,
+    "nondegenerate_ground_state": true,
+    "nondegenerate_natural_occupations": true,
+    "nonzero_gauge_invariant_carrier_flux": true,
+    "quasipinning_enlargement_contains_true_energy": true
+   },
+   "independent_verifier": "scripts/verify_complex_flux_physical_benchmark_standalone.py",
+   "selected_scan_point": {
+    "V": 2.0,
+    "borland_dennis_slack": 0.00873706156276953,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.2291437034096823,
+     -0.00578117819601684
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
+    "carrier_weights": [
+     0.9649249893551601,
+     0.029293487569789858,
+     0.005781523075050061
+    ],
+    "enlargement_half_width": 0.6750313240311246,
+    "genuinely_complex_carrier_flux": true,
+    "gradient": 0.35,
+    "ground_state_gap": 1.4347865080989735,
+    "min_occupation_gap": 0.0016711196969708686,
+    "natural_basis_offdiagonal_max": 2.094248612727121e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -0.10382196810040456,
+    "occupations": [
+     0.9895918187402613,
+     0.9662029085571995,
+     0.9645317888602286,
+     0.035468211139772825,
+     0.03379709144280182,
+     0.010408181259740537
+    ],
+    "off_carrier_weight": 0.004656504538378292,
+    "pinned_interval": [
+     -0.10382227549790189,
+     0.5382777155539422
+    ],
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.6420999910518441,
+    "slack_over_off_carrier_weight": 1.8763133356275783,
+    "true_energy": -0.13635145854062342,
+    "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.032529490440218856,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 9.260312656653731,
+    "width_ratio_unconstrained_over_pinned": 14.421916813118347
+   },
+   "status": "NUMERICAL_WITH_EXACT_MODEL_INPUT"
+  },
   "enlargement_bound_holds_on_usable_points": true,
   "fcidump_round_trip": true,
   "model": "spinless t-V ring, 6 orbitals, 3 fermions, on-site gradient 0.35 to break the reflection symmetry that would otherwise force degenerate natural occupations",
   "preconditions": {
    "note": "the pinned description is only meaningful where the natural occupations are nondegenerate AND the carrier is the dominant support; points failing either are reported but not used to support the bound",
    "total_points": 12,
-   "usable_points": 5
+   "usable_genuinely_complex_flux_points": 5,
+   "usable_points": 10
   },
   "scan": [
    {
     "V": 0.5,
     "borland_dennis_slack": 0.0002871732192856512,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.004417230816697537,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": false,
     "carrier_is_dominant_support": true,
     "carrier_weights": [
      0.9969862069922464,
      0.0027694698818051242,
      0.0002443231259484922
     ],
-    "enlargement_half_width": 0.07565754094755958,
+    "enlargement_half_width": 0.10291054690398029,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.6888198275910167,
     "min_occupation_gap": 0.00010094011358410468,
+    "natural_basis_offdiagonal_max": 3.9531027648358197e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -1.169253727881457,
     "occupations": [
      0.9996118866671297,
      0.997087104297958,
@@ -13666,61 +13753,93 @@
      -1.1692537278814568,
      -1.1164295574902685
     ],
+    "pinned_preconditions_pass": true,
     "pinned_width": 0.05282417039118825,
     "slack_over_off_carrier_weight": 1.9966780773784882,
     "true_energy": -1.1702208601036104,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.0009671322221533885,
     "twist": 0.0,
     "unconstrained_width": 8.479388843029733,
     "width_ratio_unconstrained_over_pinned": 160.52100355265028
    },
    {
     "V": 0.5,
-    "borland_dennis_slack": 0.00028310320386548205,
-    "carrier_is_dominant_support": false,
+    "borland_dennis_slack": 0.00028251238026766974,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.004340521865506953,
+     -9.911256941737452e-05
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
     "carrier_weights": [
-     0.9940821976765272,
-     0.005293727190284065,
-     0.0006240751331887831
+     0.9969751493102101,
+     0.002773682984764987,
+     0.00025116770502481837
     ],
-    "enlargement_half_width": 2.8954134159938585,
+    "enlargement_half_width": 0.1015872568365539,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.5293331661518008,
-    "min_occupation_gap": 0.00010897005659271913,
+    "ground_state_gap": 1.5103862445062708,
+    "min_occupation_gap": 0.00011013812664106837,
+    "natural_basis_offdiagonal_max": 3.269545756528997e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -1.1489258455891793,
     "occupations": [
-     0.9996079267395426,
-     0.99708531336356,
-     0.9969763433069672,
-     0.0030236566930337072,
-     0.002914686636440988,
-     0.00039207326045820123
+     0.9996073494930917,
+     0.997085192519129,
+     0.9969750543924879,
+     0.00302494560751326,
+     0.0029148074808718724,
+     0.0003926505069090572
     ],
-    "off_carrier_weight": 0.1274201861355414,
+    "off_carrier_weight": 0.00014151851526300607,
     "pinned_interval": [
-     -0.8094371031077591,
-     -0.7357099464881146
+     -1.1489258460238099,
+     -1.096249228719927
     ],
-    "pinned_width": 0.07372715661964446,
-    "slack_over_off_carrier_weight": 0.0022218081173130217,
-    "true_energy": -1.1525326888648526,
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.052676617303882844,
+    "slack_over_off_carrier_weight": 1.9962927094213265,
+    "true_energy": -1.1498869438480108,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 8.444351913402118,
-    "width_ratio_unconstrained_over_pinned": 114.53516316879276
+    "true_to_carrier_energy_deviation": 0.0009610982588315053,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 8.439110151655461,
+    "width_ratio_unconstrained_over_pinned": 160.20599999752463
    },
    {
     "V": 1.0,
     "borland_dennis_slack": 0.001592041999442361,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.03508420823974527,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": true,
     "carrier_is_dominant_support": true,
     "carrier_weights": [
      0.988863491899405,
      0.009932103534796883,
      0.00120440456579807
     ],
-    "enlargement_half_width": 0.18797538104599854,
+    "enlargement_half_width": 0.2514538937376055,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.7345535899127131,
     "min_occupation_gap": 0.0004146263384105873,
+    "natural_basis_offdiagonal_max": 2.042365842419569e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -0.7864592860955916,
     "occupations": [
      0.9979933316621482,
      0.9892727693662466,
@@ -13734,61 +13853,93 @@
      -0.7864592860955916,
      -0.5850587467905802
     ],
+    "pinned_preconditions_pass": true,
     "pinned_width": 0.20140053930501134,
     "slack_over_off_carrier_weight": 1.9819986333709212,
     "true_energy": -0.7919158555884888,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.00545656949289719,
     "twist": 0.0,
     "unconstrained_width": 8.627706079038107,
     "width_ratio_unconstrained_over_pinned": 42.83854506452868
    },
    {
     "V": 1.0,
-    "borland_dennis_slack": 0.001564775642822338,
-    "carrier_is_dominant_support": false,
+    "borland_dennis_slack": 0.0015608754865392722,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.03426283699097757,
+     -0.0008036072017406897
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
     "carrier_weights": [
-     0.9846963772304307,
-     0.013548024898098877,
-     0.0017555978714704444
+     0.9888449858071845,
+     0.009918000375159391,
+     0.0012370138176560947
     ],
-    "enlargement_half_width": 2.8879600184558565,
+    "enlargement_half_width": 0.2479334762460211,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.5580917158902952,
-    "min_occupation_gap": 0.0004574263607884932,
+    "ground_state_gap": 1.5382291002189605,
+    "min_occupation_gap": 0.0004634860942254182,
+    "natural_basis_offdiagonal_max": 2.4686466004735565e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -0.7666697548273934,
     "occupations": [
-     0.9979777979963902,
-     0.9892972706829626,
-     0.9888398443221741,
-     0.01116015567782801,
-     0.01070272931703916,
-     0.0020222020036111876
+     0.9979756384192344,
+     0.9893016326948187,
+     0.9888381466005933,
+     0.011161853399406793,
+     0.01069836730518117,
+     0.002024361580764894
     ],
-    "off_carrier_weight": 0.11987045391060669,
+    "off_carrier_weight": 0.0007883446403833538,
     "pinned_interval": [
-     -0.43525380457487384,
-     -0.20104610151480712
+     -0.7666697661856687,
+     -0.5664826699279617
     ],
-    "pinned_width": 0.23420770306006672,
-    "slack_over_off_carrier_weight": 0.013053889359501953,
-    "true_energy": -0.7746593736220925,
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.20018709625770703,
+    "slack_over_off_carrier_weight": 1.9799405064519173,
+    "true_energy": -0.7720804571582696,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 8.594182057877514,
-    "width_ratio_unconstrained_over_pinned": 36.69470280263747
+    "true_to_carrier_energy_deviation": 0.005410702330876149,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 8.58917132862895,
+    "width_ratio_unconstrained_over_pinned": 42.905719145712794
    },
    {
     "V": 2.0,
     "borland_dennis_slack": 0.009018041579592365,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.240110838224158,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": false,
     "carrier_is_dominant_support": true,
     "carrier_weights": [
      0.9646222746881793,
      0.029685759603705456,
      0.005691965708115244
     ],
-    "enlargement_half_width": 0.5319416685443974,
+    "enlargement_half_width": 0.68649336299928,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.544502350958288,
     "min_occupation_gap": 0.0014214741665741215,
+    "natural_basis_offdiagonal_max": 3.319369460786434e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -0.12081710908367933,
     "occupations": [
      0.989560484253833,
      0.965694226329735,
@@ -13802,61 +13953,93 @@
      -0.12081710908367929,
      0.534553864084847
     ],
+    "pinned_preconditions_pass": true,
     "pinned_width": 0.6553709731685262,
     "slack_over_off_carrier_weight": 1.8876228641422979,
     "true_energy": -0.15392922523480576,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.03311211615112643,
     "twist": 0.0,
     "unconstrained_width": 9.289914666051342,
     "width_ratio_unconstrained_over_pinned": 14.17504748667359
    },
    {
     "V": 2.0,
-    "borland_dennis_slack": 0.008771830510816307,
-    "carrier_is_dominant_support": false,
+    "borland_dennis_slack": 0.00873706156276953,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.2291437034096823,
+     -0.00578117819601684
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
     "carrier_weights": [
-     0.9613215726250857,
-     0.03269092147887431,
-     0.005987505896040003
+     0.9649249893551601,
+     0.029293487569789858,
+     0.005781523075050061
     ],
-    "enlargement_half_width": 2.9770336225709086,
+    "enlargement_half_width": 0.6750313240311246,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.4479136700936373,
-    "min_occupation_gap": 0.0016420916994535906,
+    "ground_state_gap": 1.4347865080989735,
+    "min_occupation_gap": 0.0016711196969708686,
+    "natural_basis_offdiagonal_max": 2.094248612727121e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": -0.10382196810040456,
     "occupations": [
-     0.9895860777897301,
-     0.966133814892112,
-     0.9644917231926581,
-     0.03550827680734187,
-     0.03386618510788828,
-     0.010413922210269894
+     0.9895918187402613,
+     0.9662029085571995,
+     0.9645317888602286,
+     0.035468211139772825,
+     0.03379709144280182,
+     0.010408181259740537
     ],
-    "off_carrier_weight": 0.10509760473118956,
+    "off_carrier_weight": 0.004656504538378292,
     "pinned_interval": [
-     0.2043565329252718,
-     0.8793688818741644
+     -0.10382227549790189,
+     0.5382777155539422
     ],
-    "pinned_width": 0.6750123489488926,
-    "slack_over_off_carrier_weight": 0.08346365774226928,
-    "true_energy": -0.13863030157893635,
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.6420999910518441,
+    "slack_over_off_carrier_weight": 1.8763133356275783,
+    "true_energy": -0.13635145854062342,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 9.264141185964638,
-    "width_ratio_unconstrained_over_pinned": 13.72440252447301
+    "true_to_carrier_energy_deviation": 0.032529490440218856,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 9.260312656653731,
+    "width_ratio_unconstrained_over_pinned": 14.421916813118347
    },
    {
     "V": 3.0,
     "borland_dennis_slack": 0.02068101603843902,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.5257883288292806,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": true,
     "carrier_is_dominant_support": true,
     "carrier_weights": [
      0.9465401669266486,
      0.04280908615984115,
      0.010650746913510215
     ],
-    "enlargement_half_width": 1.0112364937559808,
+    "enlargement_half_width": 1.2882916369912711,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.3308739350209062,
     "min_occupation_gap": 0.00209842960069051,
+    "natural_basis_offdiagonal_max": 2.983724378680108e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 0.4195047729832897,
     "occupations": [
      0.9772205543608707,
      0.9455839345133513,
@@ -13870,61 +14053,93 @@
      0.41950477298328964,
      1.387819597340582
     ],
+    "pinned_preconditions_pass": true,
     "pinned_width": 0.9683148243572923,
     "slack_over_off_carrier_weight": 1.6823798381969157,
     "true_energy": 0.33461878646900467,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.08488598651428503,
     "twist": 0.0,
     "unconstrained_width": 10.459864457010795,
     "width_ratio_unconstrained_over_pinned": 10.80213190369507
    },
    {
     "V": 3.0,
-    "borland_dennis_slack": 0.01982903489169624,
-    "carrier_is_dominant_support": false,
+    "borland_dennis_slack": 0.01970824213769362,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.4815721710858549,
+     -0.013356492261604805
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
     "carrier_weights": [
-     0.9475508205154101,
-     0.042564792551917405,
-     0.009884386932672545
+     0.9480906860436702,
+     0.041357398852335144,
+     0.010551915103994614
     ],
-    "enlargement_half_width": 3.1057924718557386,
+    "enlargement_half_width": 1.2615087873484718,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.2790700046134746,
-    "min_occupation_gap": 0.00250618757579419,
+    "ground_state_gap": 1.2716073323649,
+    "min_occupation_gap": 0.0025547286825897755,
+    "natural_basis_offdiagonal_max": 2.5902641997752535e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 0.4308971382569937,
     "occupations": [
-     0.977664777532511,
-     0.9471787318001893,
-     0.9446725442243947,
-     0.055327455775606105,
-     0.052821268199811915,
-     0.022335222467490434
+     0.9777370291797165,
+     0.9474222513703546,
+     0.9448675226877646,
+     0.055132477312235334,
+     0.05257774862964556,
+     0.022262970820283404
     ],
-    "off_carrier_weight": 0.09051741729933482,
+    "off_carrier_weight": 0.011870034123696693,
     "pinned_interval": [
-     0.7071337401820479,
-     1.6412127239398953
+     0.4308956759504763,
+     1.3547486355473792
     ],
-    "pinned_width": 0.9340789837578474,
-    "slack_over_off_carrier_weight": 0.21906319781664776,
-    "true_energy": 0.3468030217981836,
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.923852959596903,
+    "slack_over_off_carrier_weight": 1.6603357608171618,
+    "true_energy": 0.34860838612548173,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 10.443643595931611,
-    "width_ratio_unconstrained_over_pinned": 11.180685763763039
+    "true_to_carrier_energy_deviation": 0.08228875213151199,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 10.44124902738601,
+    "width_ratio_unconstrained_over_pinned": 11.301851575971304
    },
    {
     "V": 4.0,
     "borland_dennis_slack": 0.028551442216400866,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.5861918996757312,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": true,
     "carrier_is_dominant_support": true,
     "carrier_weights": [
      0.9488374085130843,
      0.040066108820142304,
      0.011096482666773362
     ],
-    "enlargement_half_width": 1.5018892771853283,
+    "enlargement_half_width": 1.9116726971212836,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.18733949283315,
     "min_occupation_gap": 0.001917569865597768,
+    "natural_basis_offdiagonal_max": 2.6948005178482865e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 0.8205594932310483,
     "occupations": [
      0.9695309879180011,
      0.9414473769172462,
@@ -13938,61 +14153,93 @@
      0.8205594932310482,
      1.6995366526357423
     ],
+    "pinned_preconditions_pass": true,
     "pinned_width": 0.8789771594046941,
     "slack_over_off_carrier_weight": 1.4500115109367286,
     "true_energy": 0.6923701019207353,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.12818939131031293,
     "twist": 0.0,
     "unconstrained_width": 11.946960344551808,
     "width_ratio_unconstrained_over_pinned": 13.591889410008264
    },
    {
     "V": 4.0,
-    "borland_dennis_slack": 0.026968254420479253,
-    "carrier_is_dominant_support": false,
+    "borland_dennis_slack": 0.02674190368714425,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.5121312352840952,
+     -0.014780589228592003
+    ],
+    "carrier_energy_inside_pinned_interval": true,
+    "carrier_is_dominant_support": true,
     "carrier_weights": [
-     0.9533333333086143,
-     0.03708925508582427,
-     0.009577411605561536
+     0.9515713980153012,
+     0.03775505703841922,
+     0.010673544946279498
     ],
-    "enlargement_half_width": 3.183892594615942,
+    "enlargement_half_width": 1.8558490209282232,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.157287688482064,
-    "min_occupation_gap": 0.0023062488871079395,
+    "ground_state_gap": 1.1529102371589186,
+    "min_occupation_gap": 0.002347340170398879,
+    "natural_basis_offdiagonal_max": 2.551107475041579e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 0.8243631465966398,
     "occupations": [
-     0.9707254966924136,
-     0.944212670690793,
-     0.9419064218036849,
-     0.058093578196315894,
-     0.055787329309207954,
-     0.0292745033075872
+     0.9709107561424561,
+     0.9446267442429503,
+     0.9422794040725512,
+     0.05772059592744779,
+     0.05537325575704891,
+     0.02908924385754313
     ],
-    "off_carrier_weight": 0.07537554015374925,
+    "off_carrier_weight": 0.018710022654896963,
     "pinned_interval": [
-     1.0623602759704716,
-     1.871254102004279
+     0.8243606454004377,
+     1.6423819660047645
     ],
-    "pinned_width": 0.8088938260338074,
-    "slack_over_off_carrier_weight": 0.3577852227058014,
-    "true_energy": 0.70114969254159,
+    "pinned_preconditions_pass": true,
+    "pinned_width": 0.8180213206043268,
+    "slack_over_off_carrier_weight": 1.429282271881435,
+    "true_energy": 0.7024428252741811,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 11.936649903558466,
-    "width_ratio_unconstrained_over_pinned": 14.756757338706128
+    "true_to_carrier_energy_deviation": 0.12192032132245867,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 11.935134282833523,
+    "width_ratio_unconstrained_over_pinned": 14.590248422884926
    },
    {
     "V": 6.0,
     "borland_dennis_slack": 0.023859502232154467,
+    "boundary_phase": [
+     1.0,
+     0.0
+    ],
+    "boundary_phase_label": "zero_flux",
+    "carrier_cycle_product": [
+     -0.30671284577301766,
+     0.0
+    ],
+    "carrier_energy_inside_pinned_interval": true,
     "carrier_is_dominant_support": false,
     "carrier_weights": [
      0.9777200370466955,
      0.017405367670259502,
      0.004874595283044854
     ],
-    "enlargement_half_width": 1.9692624887340957,
+    "enlargement_half_width": 2.4772739468283946,
+    "genuinely_complex_carrier_flux": false,
     "gradient": 0.35,
     "ground_state_gap": 1.0635897407462136,
     "min_occupation_gap": 0.0007920626100384395,
+    "natural_basis_offdiagonal_max": 3.749895627248304e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 1.2347493187581224,
     "occupations": [
      0.9753484351578094,
      0.9632687433975035,
@@ -14006,53 +14253,71 @@
      1.2347493187581224,
      1.602115626052382
     ],
+    "pinned_preconditions_pass": false,
     "pinned_width": 0.36736630729425945,
     "slack_over_off_carrier_weight": 1.195396073589622,
     "true_energy": 1.1325027573781135,
     "true_energy_inside_enlarged": true,
+    "true_to_carrier_energy_deviation": 0.10224656138000898,
     "twist": 0.0,
     "unconstrained_width": 15.364123275253085,
     "width_ratio_unconstrained_over_pinned": 41.82235270407219
    },
    {
     "V": 6.0,
-    "borland_dennis_slack": 0.02209694671761376,
+    "borland_dennis_slack": 0.021842400122826566,
+    "boundary_phase": [
+     0.8,
+     0.6
+    ],
+    "boundary_phase_label": "rational_gaussian_flux_(4+3i)/5",
+    "carrier_cycle_product": [
+     -0.25513469057836996,
+     -0.006072256276639293
+    ],
+    "carrier_energy_inside_pinned_interval": true,
     "carrier_is_dominant_support": false,
     "carrier_weights": [
-     0.9810956310373992,
-     0.014904387624126159,
-     0.0039999813384745606
+     0.9795547874723435,
+     0.015925202669246543,
+     0.004520009858409991
     ],
-    "enlargement_half_width": 3.106173225862081,
+    "enlargement_half_width": 2.3646524086319705,
+    "genuinely_complex_carrier_flux": true,
     "gradient": 0.35,
-    "ground_state_gap": 1.0526803741319064,
-    "min_occupation_gap": 0.0008939073950796628,
+    "ground_state_gap": 1.0510914937825988,
+    "min_occupation_gap": 0.0009015115208204916,
+    "natural_basis_offdiagonal_max": 4.107077034286855e-16,
+    "natural_occupations_nondegenerate": true,
+    "normalized_carrier_energy": 1.2313918121483336,
     "occupations": [
-     0.9770091458873047,
-     0.9658517545387658,
-     0.9649578471436862,
-     0.03504215285631195,
-     0.0341482454612321,
-     0.022990854112693613
+     0.9772560883563522,
+     0.966230467103089,
+     0.965328955582268,
+     0.03467104441773069,
+     0.0337695328969102,
+     0.022743911643647058
     ],
-    "off_carrier_weight": 0.04601444141592392,
+    "off_carrier_weight": 0.018380682679494997,
     "pinned_interval": [
-     1.4033617756099805,
-     1.7259608340059267
+     1.231390712991957,
+     1.5673040821734594
     ],
-    "pinned_width": 0.32259905839594616,
-    "slack_over_off_carrier_weight": 0.4802176455404457,
-    "true_energy": 1.1363916141178805,
+    "pinned_preconditions_pass": false,
+    "pinned_width": 0.3359133691815024,
+    "slack_over_off_carrier_weight": 1.1883345414146869,
+    "true_energy": 1.1369593882239761,
     "true_energy_inside_enlarged": true,
-    "twist": 0.6,
-    "unconstrained_width": 15.359886501750973,
-    "width_ratio_unconstrained_over_pinned": 47.61293036044394
+    "true_to_carrier_energy_deviation": 0.09443242392435747,
+    "twist": 0.6435011087932844,
+    "unconstrained_width": 15.359268242762402,
+    "width_ratio_unconstrained_over_pinned": 45.72389684931952
    }
   ],
   "slack_versus_off_carrier_weight": {
    "comment": "D(lambda) / eps^2 stays of order one across the usable scan, so eps^2 is controlled linearly by the slack; this is measured, not proved",
    "observed_ratio_range": [
-    1.4500115109367286,
+    1.429282271881435,
     1.9966780773784882
    ]
   }
