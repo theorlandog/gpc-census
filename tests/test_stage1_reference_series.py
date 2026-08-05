@@ -139,3 +139,52 @@ def test_operational_failures_are_not_counted_as_gates():
         if rec.get("status") == "operational_failure":
             assert not rec["gate_passed"], d
             assert d not in art["gates_passed"]
+
+
+def test_checkpoint_round_trip_is_identical():
+    """A resumed enumeration must equal a fresh one, exactly.
+
+    Checkpointing exists so a rank whose cost is hours can be finished across
+    several runs. That is only safe if resuming cannot perturb the lattice, so
+    the flat counts AND the hyperplane tuple are compared, not just the count.
+    """
+    import tempfile
+
+    from gpc_census.generation import admissible_flats as af
+
+    enum = af.enumerate_admissible_hyperplanes_by_flats
+    enum.cache_clear()
+    fresh = enum(3, 7)
+    with tempfile.TemporaryDirectory() as tmp:
+        enum.cache_clear()
+        written = enum(3, 7, tmp)
+        enum.cache_clear()
+        resumed = enum(3, 7, tmp)
+    enum.cache_clear()
+
+    assert list(fresh.flat_counts_by_rank) == list(written.flat_counts_by_rank)
+    assert list(fresh.flat_counts_by_rank) == list(resumed.flat_counts_by_rank)
+    assert fresh.hyperplanes == written.hyperplanes == resumed.hyperplanes
+    assert fresh.modulus == resumed.modulus
+
+
+def test_checkpoint_files_are_plain_text_not_pickle():
+    """A checkpoint is data; loading one must not be able to execute anything."""
+    import tempfile
+
+    from gpc_census.generation import admissible_flats as af
+
+    enum = af.enumerate_admissible_hyperplanes_by_flats
+    with tempfile.TemporaryDirectory() as tmp:
+        enum.cache_clear()
+        enum(3, 7, tmp)
+        enum.cache_clear()
+        files = sorted(pathlib.Path(tmp).glob("flats_3_7_rank*.txt"))
+        assert len(files) == 6            # ranks 1..d-1
+        head = files[0].read_text().splitlines()[0]
+        mask_hex, sep, basis = head.partition(":")
+        assert sep == ":"
+        int(mask_hex, 16)                 # parses as hex
+        assert all(part.isdigit() for part in basis.split(",") if part)
+        # no leftover partial files from an interrupted write
+        assert not list(pathlib.Path(tmp).glob("*.partial"))

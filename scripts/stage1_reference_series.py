@@ -55,9 +55,10 @@ def _counts(obj) -> dict:
             if not k.startswith("_") and isinstance(getattr(obj, k, None), int)}
 
 
-def run_rank(d: int, workers: int) -> dict:
+def run_rank(d: int, workers: int, checkpoint_dir: str | None = None) -> dict:
     started = time.time()
-    result = generate_fixed_n3_reference_rank(d, workers=workers)
+    result = generate_fixed_n3_reference_rank(
+        d, workers=workers, checkpoint_dir=checkpoint_dir)
     elapsed = time.time() - started
     cs = result.candidate_system
     reg = cs.known_system_regression
@@ -89,6 +90,9 @@ def main() -> int:
     ap.add_argument("--ranks", type=int, nargs="+", default=[7, 8])
     ap.add_argument("--workers", type=int, default=os.cpu_count() or 1)
     ap.add_argument("-o", "--out", default=str(DEFAULT_OUT))
+    ap.add_argument("--checkpoint-dir", default=None,
+                    help="resume the flat enumeration across runs; a rank whose "
+                         "cost is hours can then be finished incrementally")
     args = ap.parse_args()
 
     out_path = pathlib.Path(args.out)
@@ -99,7 +103,7 @@ def main() -> int:
     for d in args.ranks:
         print(f"rank {d}: generating (workers={args.workers}) ...", flush=True)
         try:
-            rec = run_rank(d, args.workers)
+            rec = run_rank(d, args.workers, args.checkpoint_dir)
         except Exception as exc:                     # operational, not a refutation
             rec = {"d": d, "status": "operational_failure",
                    "error": f"{type(exc).__name__}: {exc}", "gate_passed": False}

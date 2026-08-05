@@ -195,9 +195,46 @@ def _extend_one_rank(
     return next_states
 
 
+def _level_path(checkpoint_dir, n: int, d: int, rank: int):
+    from pathlib import Path
+    return Path(checkpoint_dir) / f"flats_{n}_{d}_rank{rank}.txt"
+
+
+def _save_level(checkpoint_dir, n: int, d: int, rank: int,
+                states: dict[int, tuple[int, ...]]) -> None:
+    """Write one closed-flat level as ``hexmask:i1,i2,...`` lines.
+
+    Deliberately a plain text format rather than pickle: a checkpoint is data,
+    and loading it must not be able to execute anything.
+    """
+    path = _level_path(checkpoint_dir, n, d, rank)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".partial")
+    with tmp.open("w") as handle:
+        for mask, basis in states.items():
+            handle.write(f"{mask:x}:{','.join(str(i) for i in basis)}\n")
+    tmp.replace(path)          # atomic, so a killed run leaves no half level
+
+
+def _load_level(checkpoint_dir, n: int, d: int, rank: int):
+    path = _level_path(checkpoint_dir, n, d, rank)
+    if not path.exists():
+        return None
+    states: dict[int, tuple[int, ...]] = {}
+    with path.open() as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            mask_hex, _, basis = line.partition(":")
+            states[int(mask_hex, 16)] = tuple(
+                int(part) for part in basis.split(",") if part)
+    return states
+
+
 @lru_cache(maxsize=None)
 def enumerate_admissible_hyperplanes_by_flats(
-    n: int, d: int
+    n: int, d: int, checkpoint_dir: str | None = None
 ) -> FlatHyperplaneEnumeration:
     """Exhaust affine exterior-weight hyperplanes through closed flats.
 
@@ -207,6 +244,12 @@ def enumerate_admissible_hyperplanes_by_flats(
     every closure of rank ``rank(F) + 1`` once per parent. Induction from the
     empty flat therefore reaches every rank-``d-1`` flat, which is exactly an
     admissible affine hyperplane in the rank-``d`` augmented configuration.
+
+    ``checkpoint_dir`` makes the level induction RESUMABLE. Each completed
+    level is written out and reloaded on a later call, so a rank whose cost is
+    hours rather than gigabytes can be finished across several runs. The
+    enumeration is deterministic, so a resumed run and a fresh one produce the
+    same lattice; ``test_checkpoint_round_trip_is_identical`` pins that.
     """
     modulus, bound_squared = rank_preserving_modulus(n, d)
     weights = exterior_weights(n, d)
@@ -214,8 +257,14 @@ def enumerate_admissible_hyperplanes_by_flats(
 
     states: dict[int, tuple[int, ...]] = {0: ()}
     flat_counts = [1]
-    for _rank in range(1, d):
-        states = _extend_one_rank(states, points, modulus)
+    for rank in range(1, d):
+        restored = _load_level(checkpoint_dir, n, d, rank) if checkpoint_dir else None
+        if restored is not None:
+            states = restored
+        else:
+            states = _extend_one_rank(states, points, modulus)
+            if checkpoint_dir:
+                _save_level(checkpoint_dir, n, d, rank, states)
         flat_counts.append(len(states))
 
     hyperplanes: dict[tuple[tuple[int, ...], int], AdmissibleHyperplane] = {}

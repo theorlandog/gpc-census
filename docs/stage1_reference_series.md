@@ -115,26 +115,69 @@ That moves rank 9 from "OOM on a 16 GB machine" to roughly 3 to 4 GB by the
 same scaling, so the remaining obstacle there is TIME, not memory: rank 7 to
 rank 8 cost a factor of about 53 in wall time.
 
-## The engineering the next step still needs
+## The time wall, profiled
 
-1. **Prune inside the enumeration.** About 95 percent of taus are
-   trace-rejected by a cheap test (10,133 of 10,682 at rank 7). Applying an
-   equivalent test during extension would prune the flat tree rather than the
-   output list, which is the only change that attacks the time wall rather
-   than the memory wall.
-2. **Stream the hyperplanes into screening.** Screening is per-tau and
-   stateless, so it can be fused with the final level instead of
-   materialising both lists. This is now a minor win, since the final level is
-   no longer the memory peak.
-3. **Only then parallelise.** Screening is already embarrassingly parallel and
-   runs at 0.14 ms per tau; parallelising it first would buy nothing.
+Rank 9 needs roughly a factor of 50. A profile of the rank-7 enumeration
+(12.3 s under cProfile) says where the time is, and therefore what micro
+optimisation can and cannot buy:
+
+| site | tottime | share |
+|---|---|---|
+| `_residual_mod` (1,192,695 calls) | 2.59 s | 21% |
+| `_projective_key` (1,192,695 calls, cumulative 4.55 s) | 2.44 s | 20% |
+| `_extend_one_rank` body | 1.51 s | 12% |
+| `_rref_mod` (39,810 calls) | 0.87 s | 7% |
+| `_bareiss_det` | 0.83 s | 7% |
+| `pow` (modular inverse, 1,365,000 calls) | 0.47 s | 4% |
+
+The two inner-loop functions together are 58 percent, so even a perfect
+vectorisation of both caps out near 2.4x by Amdahl. That is not 50x, and it
+is the reason no vectorised rewrite is attempted here: it would not close G3
+and would risk the exactness of the finite-field closure for a factor the gate
+does not care about.
+
+The honest diagnosis is that the cost is the SIZE OF THE FLAT LATTICE, not
+inefficiency per flat. Rank 8 visits about 1.37 million closed flats
+(1 + 56 + 1540 + 21420 + 147630 + 467082 + 565208 + 166420) and the work is
+close to linear in that count. Pruning cannot help either: every rank-`k` flat
+is on a chain to some rank-`d-1` flat, and the trace test that rejects 95
+percent of candidates downstream is a property of a COMPLETED hyperplane
+`(h, z)`, so it has nothing to test on a partial flat.
+
+So the three routes to G3 are, in order of honesty about effort:
+
+1. **Accept the runtime, incrementally. IMPLEMENTED.** Rank 9 fits in memory
+   now; it wants hours, not gigabytes. `enumerate_admissible_hyperplanes_by_flats`
+   and `generate_fixed_n3_reference_rank` take a `checkpoint_dir`, and
+   `scripts/stage1_reference_series.py` exposes `--checkpoint-dir`. Each
+   completed level is written out atomically and reloaded on a later call, so
+   a rank can be finished across several runs without a single long-lived
+   process. Checkpoints are plain text (`hexmask:i1,i2,...`), never pickle,
+   because a checkpoint is data and loading one must not be able to execute
+   anything. `test_checkpoint_round_trip_is_identical` pins that a resumed
+   enumeration reproduces the fresh one exactly, hyperplane tuple included.
+2. **Compile the inner loop.** The residual and projective-key steps are
+   fixed-width modular arithmetic over small integers, which is exactly what a
+   compiled kernel is for. This is the only route that plausibly gets 50x.
+3. **Change the enumeration.** A different exhaustiveness argument that does
+   not traverse the whole flat lattice would be a genuine improvement, and
+   there is no candidate on the table.
+
+Streaming the hyperplanes into screening remains available but is now a minor
+win, since the final level is no longer the memory peak. Parallelising the
+screening buys nothing: it already runs at 0.14 ms per tau and is not the
+bottleneck.
 
 ## Reproducing
 
 ```sh
 python scripts/stage1_reference_series.py --ranks 7 8    # about 7 minutes
 uv run pytest tests/test_stage1_reference_series.py
+
+# a rank that wants hours, finished across several runs
+python scripts/stage1_reference_series.py --ranks 9 --checkpoint-dir build/flats
 ```
 
 The script accumulates across invocations, so a later rank can be appended
-without recomputing the earlier ones.
+without recomputing the earlier ones, and `--checkpoint-dir` additionally
+resumes an unfinished rank at the last completed flat level.
