@@ -113,7 +113,7 @@
     "symbolic_zero_rejected_rows": 499,
     "trace_rejected_rows": 10133
    },
-   "seconds": 8.4,
+   "seconds": 4.5,
    "status": "finalized_known_system_regression",
    "system_counts": {
     "certified_rows": 49,
@@ -587,7 +587,7 @@
     "symbolic_zero_rejected_rows": 6469,
     "trace_rejected_rows": 326233
    },
-   "seconds": 422.8,
+   "seconds": 170.1,
    "status": "finalized_known_system_regression",
    "system_counts": {
     "certified_rows": 137,

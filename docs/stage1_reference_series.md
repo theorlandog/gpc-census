@@ -42,8 +42,8 @@ cannot establish blindness.
 
 | rank | admissible hyperplanes | oriented taus | retained rows | published rows | gate | time |
 |---|---|---|---|---|---|---|
-| 7 | 5,341 | 10,682 | 4 | 4 | **PASS** | 8 s |
-| 8 | 166,420 | 332,840 | 31 | 31 | **PASS** | 423 s |
+| 7 | 5,341 | 10,682 | 4 | 4 | **PASS** | 4.5 s |
+| 8 | 166,420 | 332,840 | 31 | 31 | **PASS** | 170 s |
 
 Both match the published system as an unordered set of oriented rows, with
 `generated_only` and `published_only` both empty. The screening partition is
@@ -55,14 +55,17 @@ rejected, or structural, with zero unresolved rows.
 The flat enumeration dominates and the screening does not:
 
 - screening runs at about **0.14 ms per tau**, so the 332,840 taus at rank 8
-  cost roughly a minute of the 423 second total;
+  cost well under a minute of the 170 second total;
 - the enumeration grows by a factor of **31 in hyperplanes** from rank 7 to
-  rank 8, and about 50 in wall time.
+  rank 8, and about 45 in wall time.
 
-That single number is what gates G3 and G5. Extrapolating the same factor puts
-rank 9 in the millions of hyperplanes, and the binding constraint is MEMORY
-rather than time: the enumeration materialises the hyperplane list. A rank-9
-attempt in this environment held about 9 GB of 16 GB before being cut off.
+That growth factor is what gates G3 and G5, and extrapolating it puts rank 9
+in the millions of hyperplanes.
+
+The binding constraint has MOVED. It was memory: a first rank-9 attempt held
+about 9 GB of 16 GB before being cut off. After the memory fix below it is
+time. Both fixes are recorded separately because they are separate problems
+and the second only became visible once the first was solved.
 
 The methodology document's labelling applies: resource exhaustion is
 **operational** and carries no mathematical meaning. It is not evidence that
@@ -84,6 +87,38 @@ new-rank output remains a facet system relative to the supplied certified
 candidates until exhaustiveness is established separately. G3 is not closed,
 so the ladder is not yet at the frontier.
 
+## The speed fix, applied and measured
+
+The profile below located the cost in two inner-loop functions, `_residual_mod`
+and `_projective_key`, together 58 percent of the enumeration. Both are pure
+fixed-width modular arithmetic over a whole block of candidate points, and
+because the reduction is in reduced row-echelon form the residual is exactly
+
+    residual = point - point[pivots] @ rref,
+
+one matrix product for the entire candidate block of a parent rather than one
+Python loop per point. The projective normalisation, the leading-entry inverse
+(from a tabulated inverse array rather than a modular exponentiation) and the
+grouping key are vectorised with it. The hyperplane incidence test at the end,
+`<h, omega> == z` for every pair, is likewise one integer matmul.
+
+| enumeration only | before | after |
+|---|---|---|
+| rank 7 | 5.6 s | **2.7 s** |
+| rank 8 | 298 s | **121 s** |
+
+End to end, including screening and the ordered-slice reduction, rank 8 went
+from 423 s to **170 s**. Output is byte-identical at both ranks: the same
+hyperplane count, the same hyperplane tuple, and the same flat count at every
+rank.
+
+Two things were deliberately NOT done. The residual grouping loop and the
+Bareiss cofactor determinants are what remain, and both are exactness-critical
+integer arithmetic where a vectorised rewrite trades a modest constant for real
+risk. The scalar implementation is kept as `_extend_one_rank_scalar`, both as
+the definition the vectorised path is checked against and as the fallback when
+the modulus is too large to tabulate inverses.
+
 ## The memory fix, applied and measured
 
 Profiling located the cost precisely. A stored flat took about 950 bytes, of
@@ -97,7 +132,7 @@ ranks.
 | rank 8 | before | after |
 |---|---|---|
 | peak RSS | 1302 MB | **298 MB** |
-| wall time | 343 s | 298 s |
+| wall time | 343 s | 298 s (121 s after the speed fix above) |
 | hyperplanes | 166,420 | 166,420 |
 | flat counts by rank | 1, 56, 1540, 21420, 147630, 467082, 565208, 166420 | identical |
 
@@ -130,19 +165,26 @@ optimisation can and cannot buy:
 | `_bareiss_det` | 0.83 s | 7% |
 | `pow` (modular inverse, 1,365,000 calls) | 0.47 s | 4% |
 
-The two inner-loop functions together are 58 percent, so even a perfect
-vectorisation of both caps out near 2.4x by Amdahl. That is not 50x, and it
-is the reason no vectorised rewrite is attempted here: it would not close G3
-and would risk the exactness of the finite-field closure for a factor the gate
-does not care about.
+The two inner-loop functions together are 58 percent, which bounds what
+vectorising them can buy at about 2.4x by Amdahl. That is exactly what was
+obtained (2.46x on the enumeration), and it is not 50x.
 
-The honest diagnosis is that the cost is the SIZE OF THE FLAT LATTICE, not
-inefficiency per flat. Rank 8 visits about 1.37 million closed flats
-(1 + 56 + 1540 + 21420 + 147630 + 467082 + 565208 + 166420) and the work is
-close to linear in that count. Pruning cannot help either: every rank-`k` flat
-is on a chain to some rank-`d-1` flat, and the trace test that rejects 95
-percent of candidates downstream is a property of a COMPLETED hyperplane
-`(h, z)`, so it has nothing to test on a partial flat.
+The honest diagnosis is that the remaining cost is the SIZE OF THE FLAT
+LATTICE, not inefficiency per flat. Rank 8 visits about 1.37 million closed
+flats (1 + 56 + 1540 + 21420 + 147630 + 467082 + 565208 + 166420) and the work
+is close to linear in that count. Two measurements pin that down:
+
+- **the dedup absorbs a lot, and that is inherent.** Rank 8 generates
+  15,632,106 child insertions for 1,369,356 unique flats, a redundancy of
+  11.4x (8.5x at rank 7, so it grows). Each flat has many rank-`k-1` subflats
+  and is therefore reached from many parents. Removing the redundancy would
+  need a canonical-parent test, and the scan that finds a parent's residual
+  classes has to happen anyway: the cost is (parents) times (points), which is
+  59.8 million residuals at rank 8 whether or not the children are deduped.
+- **pruning cannot help.** Every rank-`k` flat is on a chain to some
+  rank-`d-1` flat, and the trace test that rejects 95 percent of candidates
+  downstream is a property of a COMPLETED hyperplane `(h, z)`, so it has
+  nothing to test on a partial flat.
 
 So the three routes to G3 are, in order of honesty about effort:
 
@@ -156,9 +198,11 @@ So the three routes to G3 are, in order of honesty about effort:
    because a checkpoint is data and loading one must not be able to execute
    anything. `test_checkpoint_round_trip_is_identical` pins that a resumed
    enumeration reproduces the fresh one exactly, hyperplane tuple included.
-2. **Compile the inner loop.** The residual and projective-key steps are
-   fixed-width modular arithmetic over small integers, which is exactly what a
-   compiled kernel is for. This is the only route that plausibly gets 50x.
+2. **Compile the inner loop.** The residual and projective-key steps are now
+   vectorised, which took the 2.4x that Amdahl allows. Going further means a
+   compiled kernel for the whole level induction, including the residual
+   grouping and the row reduction. This is the only route that plausibly gets
+   the remaining order of magnitude.
 3. **Change the enumeration.** A different exhaustiveness argument that does
    not traverse the whole flat lattice would be a genuine improvement, and
    there is no candidate on the table.
