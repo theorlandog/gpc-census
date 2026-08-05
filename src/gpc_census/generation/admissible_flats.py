@@ -54,14 +54,6 @@ class FlatHyperplaneEnumeration:
         }
 
 
-@dataclass(frozen=True)
-class _FlatState:
-    mask: int
-    basis_indices: tuple[int, ...]
-    rref_rows: tuple[tuple[int, ...], ...]
-    pivot_columns: tuple[int, ...]
-
-
 def rank_preserving_modulus(n: int, d: int) -> tuple[int, int]:
     """Return a prime that preserves all augmented-weight ranks over ``Q``.
 
@@ -157,55 +149,49 @@ def _projective_key(residual: tuple[int, ...], modulus: int) -> tuple[int, ...]:
     return tuple(value * inverse % modulus for value in residual)
 
 
-def _state_from_basis(
-    mask: int,
-    basis_indices: tuple[int, ...],
-    points: tuple[tuple[int, ...], ...],
-    modulus: int,
-) -> _FlatState:
-    rows = tuple(points[index] for index in basis_indices)
-    rref_rows, pivots = _rref_mod(rows, modulus)
-    if len(rref_rows) != len(basis_indices):
-        raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
-    return _FlatState(mask, basis_indices, rref_rows, pivots)
-
-
 def _extend_one_rank(
-    states: dict[int, _FlatState],
+    states: dict[int, tuple[int, ...]],
     points: tuple[tuple[int, ...], ...],
     modulus: int,
-) -> dict[int, _FlatState]:
-    """Generate every one-rank extension of the supplied closed flats."""
-    next_states: dict[int, _FlatState] = {}
-    for state in states.values():
+) -> dict[int, tuple[int, ...]]:
+    """Generate every one-rank extension of the supplied closed flats.
+
+    A level is stored as ``mask -> basis_indices`` and NOT as a materialised
+    row reduction. Carrying the RREF per flat costs about 870 of the 950 bytes
+    a stored flat used to take, and it is redundant: the reduction is a
+    function of the basis and is needed only while a flat is being extended.
+    Recomputing it once per PARENT also replaces one reduction per CHILD, and
+    children outnumber parents heavily at the wide middle ranks.
+
+    Rank validation is preserved: every flat is reduced when it is extended,
+    and the final rank, which is never extended, is checked exactly by the
+    hyperplane closure test in the caller.
+    """
+    next_states: dict[int, tuple[int, ...]] = {}
+    for mask, basis_indices in states.items():
+        rows = tuple(points[index] for index in basis_indices)
+        rref_rows, pivot_columns = _rref_mod(rows, modulus)
+        if len(rref_rows) != len(basis_indices):
+            raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
+
         residual_classes: dict[tuple[int, ...], tuple[int, int]] = {}
         for index, point in enumerate(points):
-            if state.mask & (1 << index):
+            if mask & (1 << index):
                 continue
             key = _projective_key(
-                _residual_mod(
-                    point,
-                    state.rref_rows,
-                    state.pivot_columns,
-                    modulus,
-                ),
+                _residual_mod(point, rref_rows, pivot_columns, modulus),
                 modulus,
             )
             class_mask, representative = residual_classes.get(key, (0, index))
             residual_classes[key] = (class_mask | (1 << index), representative)
 
         for class_mask, representative in residual_classes.values():
-            mask = state.mask | class_mask
-            basis_indices = tuple(sorted((*state.basis_indices, representative)))
-            previous = next_states.get(mask)
-            if previous is not None and previous.basis_indices <= basis_indices:
+            child_mask = mask | class_mask
+            child_basis = tuple(sorted((*basis_indices, representative)))
+            previous = next_states.get(child_mask)
+            if previous is not None and previous <= child_basis:
                 continue
-            next_states[mask] = _state_from_basis(
-                mask,
-                basis_indices,
-                points,
-                modulus,
-            )
+            next_states[child_mask] = child_basis
     return next_states
 
 
@@ -226,15 +212,14 @@ def enumerate_admissible_hyperplanes_by_flats(
     weights = exterior_weights(n, d)
     points = tuple(tuple(weight) + (1,) for weight in weights)
 
-    states = {0: _FlatState(0, (), (), ())}
+    states: dict[int, tuple[int, ...]] = {0: ()}
     flat_counts = [1]
     for _rank in range(1, d):
         states = _extend_one_rank(states, points, modulus)
         flat_counts.append(len(states))
 
     hyperplanes: dict[tuple[tuple[int, ...], int], AdmissibleHyperplane] = {}
-    for state in states.values():
-        witness = state.basis_indices
+    for state_mask, witness in states.items():
         base = weights[witness[0]]
         difference_rows = [
             [weights[index][column] - base[column] for column in range(d)]
@@ -248,7 +233,7 @@ def enumerate_admissible_hyperplanes_by_flats(
             for index, weight in enumerate(weights)
             if sum(left * right for left, right in zip(h, weight, strict=True)) == z
         )
-        if on_mask != state.mask:
+        if on_mask != state_mask:
             raise AssertionError("finite-field closure disagrees with exact hyperplane")
         candidate = AdmissibleHyperplane(h=h, z=z, witness=witness)
         previous = hyperplanes.setdefault((h, z), candidate)
