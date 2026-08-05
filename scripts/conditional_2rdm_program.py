@@ -100,16 +100,22 @@ def block_flux_current(n_flux: int = 25, n_dirs: int = 120) -> dict:
 # blocks 5 and 6
 # --------------------------------------------------------------------------
 
-def _scan_point(V: float, twist: float, gradient: float) -> dict:
-    h1, g2 = pp.tv_ring_integrals(6, 1.0, V, twist=twist, gradient=gradient)
+def _scan_point(V: float, boundary_phase: complex, gradient: float) -> dict:
+    h1, g2 = pp.tv_ring_integrals(
+        6, 1.0, V, gradient=gradient, boundary_phase=boundary_phase,
+    )
     H, dets = pp.ci_hamiltonian(h1, g2, 6, 3)
     evals, evecs = np.linalg.eigh(H)
     psi = evecs[:, 0]
     gap = float(evals[1] - evals[0])
     gamma = pp.one_rdm_ci(psi, dets, 6)
     lams, U = pp.natural_orbitals(gamma)
-    psi_no = pp.rotate_ci(psi, dets, U.conj().T)
+    psi_no = pp.natural_orbital_coefficients(psi, dets, U)
     psi_no = psi_no / np.linalg.norm(psi_no)
+    gamma_no = pp.one_rdm_ci(psi_no, dets, 6)
+    natural_basis_offdiag = float(np.max(np.abs(
+        gamma_no - np.diag(np.diag(gamma_no))
+    )))
     eps2, w = pp.carrier_weight(psi_no, dets)
     slack = pp.borland_dennis_slack(lams)
     occ_gap = float(min(lams[i] - lams[i + 1] for i in range(5)))
@@ -121,34 +127,63 @@ def _scan_point(V: float, twist: float, gradient: float) -> dict:
     carrier_matches = all(D in pp.DETS for _, D in top)
 
     # project the Hamiltonian in the natural-orbital basis
-    h1_no = U.conj().T @ h1 @ U
-    g2_no = np.einsum("pi,qj,rk,sl,pqrs->ijkl", U.conj(), U, U.conj(), U, g2,
-                      optimize=True)
+    h1_no, g2_no = pp.natural_basis_integrals(h1, g2, U)
     Hc = pp.carrier_projection(h1_no, g2_no)
+    cycle = Hc[0, 1] * Hc[1, 2] * np.conj(Hc[0, 2])
 
     Fhi = float(el.support_numeric(Hc, w, "max"))
     Flo = float(el.support_numeric(Hc, w, "min"))
     true_E = float(np.real(np.vdot(psi, H @ psi)))
 
+    carrier_index = {D: i for i, D in enumerate(dets)}
+    carrier_amplitudes = np.array([psi_no[carrier_index[D]] for D in pp.DETS])
+    carrier_amplitudes /= np.linalg.norm(carrier_amplitudes)
+    carrier_E = float(np.real(np.vdot(carrier_amplitudes, Hc @ carrier_amplitudes)))
+
     # baseline: no 1-RDM information at all, only the Hamiltonian's spectrum
     unconstrained = float(evals[-1] - evals[0])
 
     y = pp.dual_optimal_y(Hc, w, "max")
-    Hnorm = float(np.linalg.eigvalsh(Hc).max() - np.linalg.eigvalsh(Hc).min()) / 2
+    # The off-carrier error sees the full Hamiltonian, not merely P H P.
+    # Centering by the middle of the spectral interval minimizes its norm
+    # without changing expectation differences.
+    Hnorm = unconstrained / 2
     eps = float(np.sqrt(eps2))
     eps_H = pp.enlargement_bound(Hnorm, eps, dw_l1=0.0, y_inf=float(np.abs(y).max()))
+    occupation_nondegenerate = bool(occ_gap > 1e-8)
+    pinned_preconditions = bool(
+        gap > 1e-8
+        and occupation_nondegenerate
+        and carrier_matches
+        and natural_basis_offdiag < 1e-10
+    )
     return {
-        "V": V, "twist": twist, "gradient": gradient,
+        "V": V,
+        "boundary_phase": [float(boundary_phase.real), float(boundary_phase.imag)],
+        "boundary_phase_label": (
+            "zero_flux" if abs(boundary_phase.imag) < 1e-15
+            else "rational_gaussian_flux_(4+3i)/5"
+        ),
+        "twist": float(np.angle(boundary_phase)),
+        "gradient": gradient,
         "ground_state_gap": gap,
         "occupations": [float(x) for x in lams],
         "min_occupation_gap": occ_gap,
+        "natural_occupations_nondegenerate": occupation_nondegenerate,
+        "natural_basis_offdiagonal_max": natural_basis_offdiag,
         "borland_dennis_slack": float(slack),
         "off_carrier_weight": float(eps2),
         "slack_over_off_carrier_weight": float(slack / eps2) if eps2 > 1e-14 else None,
         "carrier_is_dominant_support": bool(carrier_matches),
+        "pinned_preconditions_pass": pinned_preconditions,
         "carrier_weights": w,
+        "carrier_cycle_product": [float(cycle.real), float(cycle.imag)],
+        "genuinely_complex_carrier_flux": bool(abs(cycle.imag) > 1e-8),
         "pinned_interval": [Flo, Fhi],
         "pinned_width": Fhi - Flo,
+        "normalized_carrier_energy": carrier_E,
+        "carrier_energy_inside_pinned_interval": bool(Flo <= carrier_E <= Fhi),
+        "true_to_carrier_energy_deviation": abs(true_E - carrier_E),
         "true_energy": true_E,
         "unconstrained_width": unconstrained,
         "width_ratio_unconstrained_over_pinned": (unconstrained / (Fhi - Flo)
@@ -160,11 +195,17 @@ def _scan_point(V: float, twist: float, gradient: float) -> dict:
 
 def block_projection_and_quasipinning() -> dict:
     scan = []
+    phases = (1.0 + 0.0j, (4.0 + 3.0j) / 5.0)
     for V in (0.5, 1.0, 2.0, 3.0, 4.0, 6.0):
-        for twist in (0.0, 0.6):
-            scan.append(_scan_point(V, twist, gradient=0.35))
+        for phase in phases:
+            scan.append(_scan_point(V, phase, gradient=0.35))
 
-    usable = [r for r in scan if r["carrier_is_dominant_support"]]
+    usable = [r for r in scan if r["pinned_preconditions_pass"]]
+    complex_usable = [r for r in usable if r["genuinely_complex_carrier_flux"]]
+    selected_complex = next(
+        r for r in complex_usable
+        if r["V"] == 2.0 and r["boundary_phase_label"].startswith("rational_gaussian")
+    )
     # FCIDUMP round trip, on the integrals the scan actually used
     h1, g2 = pp.tv_ring_integrals(6, 1.0, 2.0, twist=0.0, gradient=0.35)
     with tempfile.TemporaryDirectory() as tmp:
@@ -193,7 +234,43 @@ def block_projection_and_quasipinning() -> dict:
                     "the dominant support; points failing either are reported "
                     "but not used to support the bound",
             "usable_points": len(usable),
+            "usable_genuinely_complex_flux_points": len(complex_usable),
             "total_points": len(scan),
+        },
+        "complex_flux_physical_benchmark": {
+            "status": "NUMERICAL_WITH_EXACT_MODEL_INPUT",
+            "selected_scan_point": selected_complex,
+            "exact_model_input": {
+                "particles": 3,
+                "orbitals": 6,
+                "hopping": "1",
+                "nearest_neighbour_interaction": "2",
+                "onsite_gradient": "7/20",
+                "boundary_phase": "(4+3*i)/5",
+                "boundary_phase_modulus_squared": "1",
+                "time_reversal_is_broken": True,
+            },
+            "gates": {
+                "nondegenerate_ground_state": selected_complex["ground_state_gap"] > 1e-8,
+                "nondegenerate_natural_occupations": selected_complex[
+                    "natural_occupations_nondegenerate"
+                ],
+                "natural_basis_reconstruction": selected_complex[
+                    "natural_basis_offdiagonal_max"
+                ] < 1e-10,
+                "dominant_pinned_carrier": selected_complex[
+                    "carrier_is_dominant_support"
+                ],
+                "nonzero_gauge_invariant_carrier_flux": selected_complex[
+                    "genuinely_complex_carrier_flux"
+                ],
+                "quasipinning_enlargement_contains_true_energy": selected_complex[
+                    "true_energy_inside_enlarged"
+                ],
+            },
+            "independent_verifier": (
+                "scripts/verify_complex_flux_physical_benchmark_standalone.py"
+            ),
         },
         "slack_versus_off_carrier_weight": {
             "observed_ratio_range": [

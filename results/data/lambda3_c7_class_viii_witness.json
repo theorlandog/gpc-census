@@ -1,0 +1,121 @@
+{
+ "certificate": {
+  "characteristic_polynomial": "(3*lambda - 1)**4*(9*lambda - 5)**3/59049",
+  "denominator": 9,
+  "integer_squared_weights": [
+   2,
+   1,
+   1,
+   1,
+   2,
+   2
+  ],
+  "norm": "1",
+  "one_hop_free": false,
+  "one_rdm": [
+   [
+    "5/9",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "5/9",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0",
+    "5/9",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0",
+    "0",
+    "1/3",
+    "0",
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0",
+    "0",
+    "0",
+    "1/3",
+    "0",
+    "0"
+   ],
+   [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "1/3",
+    "0"
+   ],
+   [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "1/3"
+   ]
+  ],
+  "orbit_dimension": 34,
+  "signs": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1
+  ],
+  "spectrum": [
+   "5/9",
+   "5/9",
+   "5/9",
+   "1/3",
+   "1/3",
+   "1/3",
+   "1/3"
+  ],
+  "support": [
+   "124",
+   "145",
+   "256",
+   "357",
+   "136",
+   "237"
+  ],
+  "support_rank": 7
+ },
+ "claim": "The spectrum (5/9,5/9,5/9,1/3,1/3,1/3,1/3) lies in the GL_7 orbit of class VIII. Adding it to the certified inner hull closes the existing inner/outer sandwich for that class.",
+ "class": "VIII",
+ "class_orbit_dimension": 34,
+ "discovery": {
+  "method": "integer incidence search at denominator 9 followed by exact signed cancellation of every one-body coherence channel",
+  "search_exhaustiveness_needed_for_claim": false,
+  "skeletons_examined_before_hit": 590
+ },
+ "independent_verifier": "scripts/verify_lambda3_c7_class_viii_witness_standalone.py",
+ "schema_version": 1,
+ "scope": "This proves one exact orbit point and closes class VIII through the already-certified sandwich. It does not close classes VI or VII.",
+ "status": "EXACT",
+ "system": "Lambda^3 C^7"
+}

@@ -312,10 +312,17 @@ plethysm criterion feed Problem 7 below.
   invisible to any two-body observable. ❌ Two model choices failed
   instructively and are recorded: spinful Hubbard (degenerate ground state, so
   the 1-RDM is undefined) and the symmetric ring (degenerate occupations, so
-  the carrier is ambiguous). 🔬 Only 5 of 12 scan points satisfy the
-  nondegeneracy preconditions, and none of them is a genuinely complex-flux
-  case, so the complex engine still has NO physical benchmark.
+  the carrier is ambiguous). 🟦 The physical complex-flux gate is now met by
+  the asymmetric spinless t-V ring with exact boundary phase `(4+3i)/5`:
+  10 of 12 scan points pass, five have genuine carrier flux, and the selected
+  V=2 point has ground gap 1.435, minimum occupation gap 0.00167,
+  off-carrier weight 0.00466, and Im(chi)=-0.00578. An independent verifier
+  rebuilds the occupation-space Hamiltonian and exterior basis change and
+  passes 15/15 checks. The complex run also corrected two real-only blind
+  spots: passive CI coefficients use `U.T`, not `U.conj().T`, and the
+  quasipinning error uses the centered norm of the full Hamiltonian, not PHP.
   [gpc_census.pinned_physics; scripts/conditional_2rdm_program.py;
+  scripts/verify_complex_flux_physical_benchmark_standalone.py;
   results/data/conditional_2rdm_program.json;
   tests/test_conditional_2rdm_program.py]
 - conditional_2rdm_body.md: the REFRAMING of the observable-range work, and
@@ -335,9 +342,9 @@ plethysm criterion feed Problem 7 below.
   needed, and the zero/pi-flux cases the sextic engine excludes as degenerate
   are covered uniformly. ❌ The theorem does NOT extend past order three: an
   explicit rank-two extreme point at m = 4 gives a relaxation gap of 6.9e-2, so
-  m >= 4 supports ship as outer bounds until proved otherwise. 🔬 Still open,
-  in attack order: energy/pair-current joint body, Slater-Condon projection,
-  quasipinning enlargement, census-wide atlas.
+  m >= 4 supports ship as outer bounds until proved otherwise. Steps 4-7 are
+  now implemented in conditional_2rdm_program.md; the principal open problem
+  here is structured exactness beyond carrier order three.
   [gpc_census.elliptope; scripts/conditional_2rdm_body.py;
   results/data/conditional_2rdm_body.json; tests/test_conditional_2rdm_body.py]
 - complex_fixed_1rdm_observable_ranges.md: exact constrained observable ranges
@@ -368,24 +375,32 @@ plethysm criterion feed Problem 7 below.
   tests/test_complex_fixed_1rdm_observable_ranges.py]
 - lambda3_c7_polytopes.md: the ORBIT-CLOSURE layer (entanglement polytopes),
   one polytope per SLOCC class rather than one per (N,d). 🟦 CERTIFIED EXACT
-  for 10 of 13 class polytopes: all four of Lambda^3 C^6 (reproducing Walter,
-  Doran, Gross, Christandl) and six of the nine of Lambda^3 C^7, including the
+  for 11 of 13 class polytopes: all four of Lambda^3 C^6 (reproducing Walter,
+  Doran, Gross, Christandl) and seven of the nine of Lambda^3 C^7, including the
   decisive gate that the OPEN ORBIT reproduces the ambient (3,7) polytope
-  exactly. Classes VI, VII, VIII ship as certified inner/outer brackets. Both
+  exactly. Classes VI and VII ship as certified inner/outer brackets. Class
+  VIII is closed by an exact six-term interference state with spectrum
+  `(5/9)^3,(1/3)^4` and symbolic orbit tangent rank 34. Both
   bounds are exact: the inner from torus orbits of one-hop-free supports (a
   COMPLETE enumeration, because one-hop-free supports have vanishing
   coefficient moduli) plus certified degenerations; the outer from a
   Schur-Horn/Newton dominant-weight family that generalises Ky Fan. 🔬 The
   outer family is SATURATED (sweeping the weight bound 3 to 7 changes
-  nothing), so the last three classes need Ressayre inequalities FOR THE ORBIT
+  nothing), so the last two classes need Ressayre inequalities FOR THE ORBIT
   CLOSURE, or covariant nonvanishing. Do NOT read stage1_ressayre_3_7 as
   closing them: that manifest derives the AMBIENT cone, which is the open
   orbit's polytope (class IX), already EXACT here. The agreement is a
   cross-check on the ambient input and is pinned by a test; the bracketed
-  classes are untouched by it. 🔬 Whether class V (orbit dim 26) lies in the closure of class
-  VI (orbit dim 28) is open and recorded, not guessed.
+  classes are untouched by it. 🔬 Class VII has a numerically attained missing
+  inner vertex and is the next exactification target. Whether class V (orbit
+  dim 26) lies in the closure of class VI (orbit dim 28) is open and recorded,
+  not guessed.
   [gpc_census.orbit; scripts/lambda3_c7_polytopes.py;
-  results/data/lambda3_c7_polytopes.json; tests/test_lambda3_c7_polytopes.py]
+  scripts/lambda3_c7_class_viii_witness.py;
+  scripts/verify_lambda3_c7_class_viii_witness_standalone.py;
+  results/data/lambda3_c7_polytopes.json;
+  results/data/lambda3_c7_class_viii_witness.json;
+  tests/test_lambda3_c7_polytopes.py]
 - HANDOFF.md: the note to the next agent from the 2026-07 gauge session, which
   supersedes two instructions of the handoff that preceded it (the v103
   endpoint is not diagonal, and 8 of the 71 cascade endpoints are new states).

@@ -1,10 +1,12 @@
 # Orbit-closure moment polytopes of Lambda^3 C^7
 
-Status: 10 of 13 class polytopes CERTIFIED EXACT (4 of 4 at d = 6, 6 of 9 at
-d = 7); 3 shipped as certified inner/outer brackets. Emitter
+Status: 11 of 13 class polytopes CERTIFIED EXACT (4 of 4 at d = 6, 7 of 9 at
+d = 7); 2 shipped as certified inner/outer brackets. Emitter
 `scripts/lambda3_c7_polytopes.py`, artifact
 `results/data/lambda3_c7_polytopes.json`, library `gpc_census.orbit`, guards
-`tests/test_lambda3_c7_polytopes.py`.
+`tests/test_lambda3_c7_polytopes.py`. The exact interference witness that
+closes class VIII is separately recorded in
+`results/data/lambda3_c7_class_viii_witness.json`.
 
 ## What this computes, and how it differs from the census
 
@@ -40,7 +42,7 @@ invariant at d = 7. That is what `gpc_census.orbit.classify` relies on.
 | V    | 26 | 6 | e123+e456                 | 3 | EXACT |
 | VI   | 28 | 7 | e123+e145+e167+e246       | 6 | BRACKET |
 | VII  | 31 | 7 | e123+e456+e147            | 6 | BRACKET |
-| VIII | 34 | 7 | e123+e456+e147+e257       | 6 | BRACKET |
+| VIII | 34 | 7 | e123+e456+e147+e257       | 6 | EXACT |
 | IX   | 35 | 7 | e123+e456+e147+e257+e367  | 6 | EXACT |
 
 Four classes have rank <= 6 (I, II, IV, V): these are the inherited
@@ -80,6 +82,19 @@ Certified degenerations contribute too: a class in the orbit closure of
 another contributes its entire polytope. Degenerations are produced
 constructively, each an explicit one-parameter limit (Newton faces, which are
 torus limits, and `pi(h.psi)`, the limit of `diag(1,...,1,t).h.psi`).
+
+Class VIII needs one additional point that no one-hop-free support can reach.
+The exact six-term state has support and amplitudes
+
+    +sqrt(2/9)e124 + (1/3)e145 + (1/3)e256 + (1/3)e357
+    +sqrt(2/9)e136 - sqrt(2/9)e237.
+
+Its 1-RDM is exactly diagonal with spectrum
+`(5/9,5/9,5/9,1/3,1/3,1/3,1/3)`. Exact symbolic tangent rank 34 identifies
+its GL_7 orbit as class VIII, since the nine nonzero orbits have distinct
+dimensions. This point closes the sole missing outer vertex. The standalone
+verifier reconstructs the wedge signs, norm, 1-RDM, characteristic polynomial,
+and tangent rank without importing the project package.
 
 ### Outer: validity
 
@@ -157,7 +172,7 @@ class V does not. So one-body data separates the two rank-6 classes.
 No two classes share a polytope: the containment order computed from the
 vertex sets is strict throughout, so at d = 7 the one-body spectrum
 distinguishes every SLOCC class from every other, at least to the resolution
-of these bounds (the three bracketed classes are reported by their outer
+of these bounds (the two bracketed classes are reported by their outer
 polytopes in that comparison).
 
 Class VI's outer description contains `2l1 + l2 + l3 + l4 >= 3`, a genuinely
@@ -166,28 +181,30 @@ the coordinate-subspace family cannot express.
 
 ## What is open, and which side the gap is on
 
-Classes VI, VII and VIII ship as brackets. Sweeping the dominant-weight bound
+Classes VI and VII ship as brackets. Sweeping the dominant-weight bound
 from 3 to 7 changes nothing, so the Schur-Horn/Newton inequality family is
-SATURATED: it is exactly tight for six of the nine classes and provably
-cannot close the other three. Closing them needs a different tool: Ressayre
+SATURATED: it is exactly tight for seven of the nine classes after admitting
+the independent class-VIII interference witness, and it cannot close the
+other two with the current inner generator. Closing them needs a different
+tool: Ressayre
 inequalities FOR THE ORBIT CLOSURE, or covariant nonvanishing.
 
 RECONCILIATION (2026-08), read this before citing the sentence above. The
 repository now also carries `docs/stage1_ressayre_3_7.md` and
 `results/data/stage1_ressayre_3_7.json`, a first-principles Ressayre
-derivation at (3,7). That manifest does NOT close the three bracketed
+derivation at (3,7). That manifest does NOT close the two bracketed
 classes, and the two results must not be run together:
 
 - The manifest computes the AMBIENT cone. Its four retained rows agree, as an
   oriented set, with the Altunbulak-Klyachko table this layer already consumes
   through `constraints(3,7)`, and feeding those rows alone through
   `gpc_census.exact_polytope` reproduces the ten published (3,7) vertices.
-  That is a genuine independent cross-check of the ambient input, and it is
+- That is a genuine independent cross-check of the ambient input, and it is
   pinned by `test_ressayre_manifest_agrees_with_ambient_rows`.
 - The ambient cone is the polytope of the OPEN orbit, which is class IX, and
   class IX is already EXACT here. So the manifest confirms the one class that
   needed no help and says nothing about the other eight.
-- What classes VI, VII and VIII need is Ressayre's theorem applied to a fixed
+- What classes VI and VII need is Ressayre's theorem applied to a fixed
   orbit closure (the Berenstein-Sjamaar / Ressayre inequalities for a
   subvariety of P(V)), which is a strictly harder object than the ambient
   cone: the ambient case is the special instance where the subvariety is all
@@ -204,17 +221,11 @@ certificate:
   (2/3,2/3,1/2,1/2,1/3,1/3,0) floor 1.7e-2; class VII at
   (7/11,...,3/11) floor 1.9e-2 and (2/3,1/2,1/2,1/2,1/2,1/6,1/6) floor
   1.6e-2.
-- Floors at 1e-21, so the point IS attained and the INNER generator is
-  incomplete there: class VII at (3/5,3/5,3/5,2/5,2/5,1/5,1/5) and class VIII
-  at (5/9,5/9,5/9,1/3,1/3,1/3,1/3). Both are attained by orbit points whose
-  1-RDM is not diagonal in any coordinate basis, which is precisely what the
-  one-hop-free generator cannot reach. `gpc_census.orbit.rational_spectrum`
-  reads exact spectra off the characteristic polynomial and does not need a
-  diagonal 1-RDM, so it is the hook for closing these two; the search for an
-  exact attaining state has not been done.
-
-Class VIII is one vertex away from EXACT, and that vertex is numerically
-attained, so class VIII is the cheapest remaining target.
+- Floors at 1e-21 showed that the INNER generator was incomplete at class VII
+  `(3/5,3/5,3/5,2/5,2/5,1/5,1/5)` and class VIII
+  `(5/9,5/9,5/9,1/3,1/3,1/3,1/3)`. The class-VIII point is now exact by the
+  six-term witness above. Class VII remains numerical only and is now the
+  clearest inner-side target.
 
 One structural question stayed open and is recorded rather than guessed:
 whether class V (orbit dimension 26) lies in the closure of class VI (orbit
@@ -231,5 +242,6 @@ but that argument covers only degenerations of the form
 
 ```sh
 python scripts/lambda3_c7_polytopes.py     # ~30 s, writes the artifact
+python scripts/verify_lambda3_c7_class_viii_witness_standalone.py
 uv run pytest tests/test_lambda3_c7_polytopes.py
 ```
