@@ -242,6 +242,7 @@ def _extend_one_rank(
 
     point_count, width = points_array.shape
     all_indices = np.arange(point_count)
+    byte_width = (point_count + 7) // 8
     next_states: dict[int, tuple[int, ...]] = {}
     for mask, basis_indices in states.items():
         rows = tuple(points[index] for index in basis_indices)
@@ -249,8 +250,17 @@ def _extend_one_rank(
         if len(rref_rows) != len(basis_indices):
             raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
 
-        candidates = all_indices[
-            ((mask >> all_indices) & 1) == 0] if mask else all_indices
+        # The mask has one bit per exterior weight, so it exceeds 64 bits from
+        # rank 9 on (84 weights). Shifting it by a numpy array would overflow a
+        # C long; unpacking its bytes keeps the arbitrary-precision semantics.
+        if mask:
+            bits = np.unpackbits(
+                np.frombuffer(mask.to_bytes(byte_width, "little"), dtype=np.uint8),
+                bitorder="little",
+            )[:point_count]
+            candidates = all_indices[bits == 0]
+        else:
+            candidates = all_indices
         if candidates.size == 0:
             continue
         block = points_array[candidates]

@@ -188,3 +188,48 @@ def test_checkpoint_files_are_plain_text_not_pickle():
         assert all(part.isdigit() for part in basis.split(",") if part)
         # no leftover partial files from an interrupted write
         assert not list(pathlib.Path(tmp).glob("*.partial"))
+
+
+def test_vectorised_extension_matches_the_scalar_definition_past_64_bits():
+    """Regression: flat masks exceed 64 bits from rank 9 on.
+
+    A mask carries one bit per exterior weight, and rank 9 has 84 of them, so
+    ``mask >> numpy_array`` overflows a C long there while every rank the gates
+    currently cover (56 weights at rank 8) stays inside it. This compares the
+    vectorised extension against the scalar definition at rank 9, where the
+    masks are genuinely 84 bits wide.
+    """
+    import numpy as np
+
+    from gpc_census.generation import admissible_flats as af
+    from gpc_census.generation.exterior import exterior_weights
+
+    n, d = 3, 9
+    modulus, _ = af.rank_preserving_modulus(n, d)
+    weights = exterior_weights(n, d)
+    points = tuple(tuple(w) + (1,) for w in weights)
+    assert len(points) == 84                       # > 64, the whole point
+
+    inverse_table = af._inverse_table(modulus)
+    points_array = np.asarray(points, dtype=np.int64)
+    states: dict[int, tuple[int, ...]] = {0: ()}
+    for _ in range(2):
+        vectorised = af._extend_one_rank(
+            states, points, modulus, points_array, inverse_table)
+        scalar = af._extend_one_rank_scalar(states, points, modulus)
+        assert vectorised == scalar
+        assert max(vectorised).bit_length() > 64
+        states = vectorised
+    assert len(states) == 3486
+
+
+def test_inverse_table_covers_every_modulus_the_generator_selects():
+    from gpc_census.generation import admissible_flats as af
+
+    for d in range(6, 16):
+        modulus, bound_squared = af.rank_preserving_modulus(3, d)
+        assert modulus * modulus > bound_squared
+        assert af._inverse_table(modulus) is not None, d
+    table = af._inverse_table(257)
+    for value in (1, 2, 3, 256):
+        assert (int(table[value]) * value) % 257 == 1
