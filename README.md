@@ -173,18 +173,20 @@ dataset.resolve_states(4, 9, mode="hybrid")
 vertex the campaign has closed so far, so `gpc-census states --source
 precompute` (the default) is a lookup, not a solve. Current coverage:
 
+<!-- sync:census-coverage:start -->
 | System (N, d) | Corners | Design | Interference | Certified closed forms |
 | --- | ---: | ---: | ---: | ---: |
 | (3, 6) | 4 | 4 | 0 | 4 |
 | (3, 7) | 10 | 10 | 0 | 10 |
 | (3, 8) | 38 | 27 | 11 | 38 |
-| (4, 8) | 22 | 22 | 0 | 22 |
 | (3, 9) | 58 | 38 | 20 | 58 |
-| (4, 9) | 103 | 87 | 16 | 103 |
 | (3, 10) | 113 | 71 | 42 | 113 |
+| (4, 8) | 22 | 22 | 0 | 22 |
+| (4, 9) | 103 | 87 | 16 | 103 |
 | (4, 10) | 159 | 134 | 25 | 159 |
 | (5, 10) | 292 | 250 | 42 | 292 |
 | **Total** | **799** | **643** | **156** | **799** |
+<!-- sync:census-coverage:end -->
 
 The last column is the STATE layer: every corner, design and interference alike,
 ships a closed-form extremal state certified by an exact

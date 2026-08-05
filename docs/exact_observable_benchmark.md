@@ -53,3 +53,27 @@ The valid computational claim is therefore:
   reduced-observable interface is required, or where the ambient/carrier
   wavefunction cannot be stored while a compiled observable closure remains
   sparse.
+
+## Results
+
+<!-- sync:exact-observable-benchmark:start -->
+| Method | Median runtime (s) |
+| --- | ---: |
+| compiled sparse | 0.418163 |
+| carrier | 0.00439135 |
+| dense2rdm | 0.683258 |
+| fci | 0.00697382 |
+| sparse2rdm | 0.62023 |
+
+| Speedup | Value |
+| --- | ---: |
+| vs_carrier | 2.288 |
+| vs_compiled_sparse2rdm | 217.9 |
+| vs_dense2rdm | 356 |
+| vs_fci | 3.633 |
+| vs_original_sparse2rdm | 323.1 |
+
+_This artifact records no machine tag, so these are one unrecorded machine's numbers. Runtime factors move across machines while method ordering holds, so treat the ordering as the finding._
+
+_Caveat, still unmet: there is no independently optimized dense baseline. Speedups are against this repository's own control arm._
+<!-- sync:exact-observable-benchmark:end -->

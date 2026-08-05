@@ -24,12 +24,18 @@ The dense and sparse reduced methods do not evolve wavefunction amplitudes.
 
 ## Results
 
+<!-- sync:rdm-method-benchmark:start -->
 | Method | Real ODE variables | Median runtime (s) | Median peak RSS (MiB) | Maximum reference error |
-|---|---:|---:|---:|---:|
-| Full FCI | 420 | 0.00697 | 178.15 | 5.55e-17 |
-| Carrier wavefunction | 58 | 0.00439 | 177.87 | 5.55e-17 |
-| Dense 2-RDM | 4050 | 0.68326 | 180.82 | 2.14e-12 |
-| Sparse observable manifold | 167 | 0.62023 | 178.13 | 1.40e-12 |
+| --- | ---: | ---: | ---: | ---: |
+| fci | 420 | 0.00697382 | 178.15 | 5.55e-17 |
+| carrier | 58 | 0.00439135 | 177.87 | 5.55e-17 |
+| dense2rdm | 4050 | 0.683258 | 180.82 | 2.14e-12 |
+| sparse2rdm | 167 | 0.62023 | 178.13 | 1.4e-12 |
+
+_This artifact records no machine tag, so these are one unrecorded machine's numbers. Runtime factors move across machines while method ordering holds, so treat the ordering as the finding._
+
+_Caveat, still unmet: there is no independently optimized dense baseline. Speedups are against this repository's own control arm._
+<!-- sync:rdm-method-benchmark:end -->
 
 All methods took 26 accepted steps and 314 RHS evaluations, so the runtime
 comparison primarily measures RHS cost rather than different adaptive-step

@@ -26,13 +26,25 @@ The compiled right-hand side does not assemble the dense carrier matrix and does
 
 Seven repeated integrations used the same 167 real observable variables, DOP853 tolerances, 26 accepted steps, and 314 right-hand-side evaluations.
 
-| Method | Median runtime | Maximum carrier-matrix error |
-|---|---:|---:|
-| Original sparse 2-RDM | 0.601 s | 1.40e-12 |
-| Compiled sparse 2-RDM | 0.418 s | 1.40e-12 |
-| Dense 2-RDM, previous benchmark | 0.683 s | 2.1e-12 |
-| Full FCI, previous benchmark | 0.00697 s | 5.6e-17 |
-| Carrier wavefunction, previous benchmark | 0.00439 s | 5.6e-17 |
+<!-- sync:compiled-sparse-benchmark:start -->
+| Method | Median runtime (s) | Maximum carrier-matrix error | ODE variables |
+| --- | ---: | ---: | ---: |
+| sparse2rdm | 0.601154 | 1.4e-12 | 167 |
+| compiled_sparse2rdm | 0.418163 | 1.4e-12 | 167 |
+| dense 2-RDM, previous benchmark | 0.683258 | | |
+| full FCI, previous benchmark | 0.00697382 | | |
+| carrier wavefunction, previous benchmark | 0.00439135 | | |
+
+| Ratio | Value |
+| --- | ---: |
+| compiled_vs_carrier | 95.22 |
+| compiled_vs_fci | 59.96 |
+| dense_vs_compiled | 1.634 |
+
+_This artifact records no machine tag, so these are one unrecorded machine's numbers. Runtime factors move across machines while method ordering holds, so treat the ordering as the finding._
+
+_Caveat, still unmet: there is no independently optimized dense baseline. Speedups are against this repository's own control arm._
+<!-- sync:compiled-sparse-benchmark:end -->
 
 The compiler gives:
 
