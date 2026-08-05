@@ -292,6 +292,31 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- stage1_reference_series.md: the RANK GENERATOR's validation ladder. 🟦 GATE
+  G2 CLOSED: the generator reproduces the published fixed-N=3 systems at rank
+  7 (4 rows) and rank 8 (31 rows) BLIND, matching as oriented sets with
+  generated_only and published_only both empty. Blindness is structural, not
+  claimed: generation enumerates admissible affine flats, screens by the exact
+  Ressayre criterion and reduces on the ordered Pauli slice, and the stored
+  table is read only afterwards in _known_system_regression; the rank-7 gate
+  is re-run LIVE in the test rather than re-read from the artifact. 🟦 The
+  screening partition is exhaustive at both ranks, zero unresolved rows. 🟦
+  MEMORY FIX, 4.4x with byte-identical output: a stored flat carried a
+  materialised RREF (about 870 of its 950 bytes) that is a function of its own
+  basis and is needed only while extending, so the level dict now stores
+  mask -> basis_indices and reduces once per parent instead of once per child.
+  Rank 8 peak RSS 1302 MB -> 298 MB; flat counts by rank pinned by test.
+  🔬 G3 (ranks 9, 10) is NOT closed. The wall is now TIME, not memory: rank 7
+  to rank 8 costs a factor of about 53 in wall time and 31 in hyperplanes, and
+  the only fix that attacks it is pruning inside the enumeration (about 95
+  percent of taus are trace-rejected downstream by a cheap test). Per the
+  methodology labels, resource exhaustion is OPERATIONAL and is recorded as
+  status=operational_failure with gate_passed=false, never as a rejection.
+  ❗ Passing G2 says nothing about candidate EXHAUSTIVENESS at a new rank;
+  a new-rank output stays relative to the supplied certified candidates.
+  [scripts/stage1_reference_series.py;
+  results/data/stage1_reference_series.json;
+  tests/test_stage1_reference_series.py; gpc_census.generation]
 - holonomy_two_elementary.md: the PROOF ATTACK on 2-elementarity, and the
   current state of the classes-3-and-4 gap. ✅ REDUCTION THEOREM: the
   multiquadratic conjecture follows from two conditions on one quantity per

@@ -148,18 +148,23 @@ def generate_fixed_n3_reference_rank(
     *,
     ressayre_attempts: int = 32,
     workers: int = 1,
+    checkpoint_dir: str | None = None,
 ) -> FixedN3ReferenceGeneration:
     """Generate a complete fixed-``N=3`` system from affine flats.
 
-    This is a coverage-first reference path. It is practical at rank 7 and is
-    intended as the exact oracle against which faster pruning backends are
-    proved. Resource exhaustion at a larger rank has no mathematical meaning.
+    This is a coverage-first reference path. It is practical at ranks 7 and 8
+    and is intended as the exact oracle against which faster pruning backends
+    are proved. Resource exhaustion at a larger rank has no mathematical
+    meaning.
+
+    ``checkpoint_dir`` makes the flat enumeration resumable across runs, which
+    is what a rank whose cost is hours rather than gigabytes needs.
     """
     if type(d) is not int or not 7 <= d <= 13:
         raise ValueError(
             "the reference composition currently supports ranks 7 through 13"
         )
-    enumeration = enumerate_admissible_hyperplanes_by_flats(3, d)
+    enumeration = enumerate_admissible_hyperplanes_by_flats(3, d, checkpoint_dir)
     taus = oriented_taus(enumeration)
     screening = screen_tau_candidates(
         taus,

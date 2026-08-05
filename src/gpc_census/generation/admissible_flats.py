@@ -54,14 +54,6 @@ class FlatHyperplaneEnumeration:
         }
 
 
-@dataclass(frozen=True)
-class _FlatState:
-    mask: int
-    basis_indices: tuple[int, ...]
-    rref_rows: tuple[tuple[int, ...], ...]
-    pivot_columns: tuple[int, ...]
-
-
 def rank_preserving_modulus(n: int, d: int) -> tuple[int, int]:
     """Return a prime that preserves all augmented-weight ranks over ``Q``.
 
@@ -83,9 +75,14 @@ def rank_preserving_modulus(n: int, d: int) -> tuple[int, int]:
 
 
 def _rref_mod(
-    rows: tuple[tuple[int, ...], ...], modulus: int
+    rows: tuple[tuple[int, ...], ...], modulus: int, inverse_table=None
 ) -> tuple[tuple[tuple[int, ...], ...], tuple[int, ...]]:
-    """Return reduced row-echelon form over the configured prime field."""
+    """Return reduced row-echelon form over the configured prime field.
+
+    ``inverse_table`` removes one modular exponentiation per pivot. The
+    reduction runs once per parent flat, which is 1.2 million times at rank 8,
+    so the exponentiations are worth removing even though each is cheap.
+    """
     if not rows:
         return (), ()
     width = len(rows[0])
@@ -106,7 +103,9 @@ def _rref_mod(
         if selected is None:
             continue
         matrix[pivot_row], matrix[selected] = matrix[selected], matrix[pivot_row]
-        inverse = pow(matrix[pivot_row][column], modulus - 2, modulus)
+        head = matrix[pivot_row][column]
+        inverse = (int(inverse_table[head]) if inverse_table is not None
+                   else pow(head, modulus - 2, modulus))
         matrix[pivot_row] = [
             value * inverse % modulus for value in matrix[pivot_row]
         ]
@@ -157,61 +156,222 @@ def _projective_key(residual: tuple[int, ...], modulus: int) -> tuple[int, ...]:
     return tuple(value * inverse % modulus for value in residual)
 
 
-def _state_from_basis(
-    mask: int,
-    basis_indices: tuple[int, ...],
-    points: tuple[tuple[int, ...], ...],
-    modulus: int,
-) -> _FlatState:
-    rows = tuple(points[index] for index in basis_indices)
-    rref_rows, pivots = _rref_mod(rows, modulus)
-    if len(rref_rows) != len(basis_indices):
-        raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
-    return _FlatState(mask, basis_indices, rref_rows, pivots)
+def _inverse_table(modulus: int):
+    """Modular inverses ``1..modulus-1`` as an array, or None if too large.
+
+    The inverse of a residual's leading entry is needed once per candidate
+    point, which is the single hottest scalar operation in the induction
+    (1.37 million ``pow`` calls at rank 7 alone). Every modulus this generator
+    actually selects is small enough to tabulate: the Hadamard bound needs
+    ``prime^2 > 4^d``, so 65537 serves every rank up to 15.
+    """
+    if modulus > 1 << 21:
+        return None
+    import numpy as np
+
+    table = np.zeros(modulus, dtype=np.int64)
+    table[1:] = [pow(value, modulus - 2, modulus) for value in range(1, modulus)]
+    return table
+
+
+def _incidence_masks(rows_out, weights, d: int) -> list[int]:
+    """Which weights lie on each hyperplane, as bitmasks.
+
+    This is the exact test ``<h, omega> == z`` for every (hyperplane, weight)
+    pair, which is 9.3 million dot products at rank 8. As an integer matrix
+    product it is one matmul, and it stays exact: the entries are bounded well
+    inside int64 and the bound is asserted rather than assumed.
+    """
+    if not rows_out:
+        return []
+    try:
+        import numpy as np
+    except ModuleNotFoundError:                       # pragma: no cover
+        return [
+            sum(
+                1 << index
+                for index, weight in enumerate(weights)
+                if sum(a * b for a, b in zip(h, weight, strict=True)) == z
+            )
+            for _, _, h, z in rows_out
+        ]
+
+    normals = np.array([h for _, _, h, _ in rows_out], dtype=np.int64)
+    offsets = np.array([z for _, _, _, z in rows_out], dtype=np.int64)
+    weight_matrix = np.asarray(weights, dtype=np.int64).T
+    largest = int(np.abs(normals).max(initial=0))
+    if largest * d >= 1 << 62:                        # never reached in practice
+        raise AssertionError("hyperplane incidence product would overflow int64")
+    on = (normals @ weight_matrix) == offsets[:, None]
+    packed = np.packbits(on, axis=1, bitorder="little")
+    return [int.from_bytes(row.tobytes(), "little") for row in packed]
 
 
 def _extend_one_rank(
-    states: dict[int, _FlatState],
+    states: dict[int, tuple[int, ...]],
     points: tuple[tuple[int, ...], ...],
     modulus: int,
-) -> dict[int, _FlatState]:
-    """Generate every one-rank extension of the supplied closed flats."""
-    next_states: dict[int, _FlatState] = {}
-    for state in states.values():
+    points_array=None,
+    inverse_table=None,
+) -> dict[int, tuple[int, ...]]:
+    """Generate every one-rank extension of the supplied closed flats.
+
+    A level is stored as ``mask -> basis_indices`` and NOT as a materialised
+    row reduction. Carrying the RREF per flat costs about 870 of the 950 bytes
+    a stored flat used to take, and it is redundant: the reduction is a
+    function of the basis and is needed only while a flat is being extended.
+    Recomputing it once per PARENT also replaces one reduction per CHILD, and
+    children outnumber parents heavily at the wide middle ranks.
+
+    The residual-and-key step is done for ALL candidate points of a parent at
+    once. It is the dominant cost of the whole generator (59.8 million
+    residuals at rank 8, about 50 per parent), and it is exactly a matrix
+    operation: because the reduction is in reduced row-echelon form the
+    residual is ``point - point[pivots] @ rref``, one matmul for the entire
+    candidate block. The projective normalisation and the grouping key are
+    vectorised with it.
+
+    Rank validation is preserved: every flat is reduced when it is extended,
+    and the final rank, which is never extended, is checked exactly by the
+    hyperplane closure test in the caller.
+    """
+    if points_array is None or inverse_table is None:      # scalar fallback
+        return _extend_one_rank_scalar(states, points, modulus)
+
+    import numpy as np
+
+    point_count, width = points_array.shape
+    all_indices = np.arange(point_count)
+    byte_width = (point_count + 7) // 8
+    next_states: dict[int, tuple[int, ...]] = {}
+    for mask, basis_indices in states.items():
+        rows = tuple(points[index] for index in basis_indices)
+        rref_rows, pivot_columns = _rref_mod(rows, modulus, inverse_table)
+        if len(rref_rows) != len(basis_indices):
+            raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
+
+        # The mask has one bit per exterior weight, so it exceeds 64 bits from
+        # rank 9 on (84 weights). Shifting it by a numpy array would overflow a
+        # C long; unpacking its bytes keeps the arbitrary-precision semantics.
+        if mask:
+            bits = np.unpackbits(
+                np.frombuffer(mask.to_bytes(byte_width, "little"), dtype=np.uint8),
+                bitorder="little",
+            )[:point_count]
+            candidates = all_indices[bits == 0]
+        else:
+            candidates = all_indices
+        if candidates.size == 0:
+            continue
+        block = points_array[candidates]
+        if pivot_columns:
+            reduction = np.asarray(rref_rows, dtype=np.int64)
+            residual = (block - block[:, pivot_columns] @ reduction) % modulus
+        else:
+            residual = block % modulus
+
+        nonzero = residual != 0
+        if not nonzero.any(axis=1).all():
+            raise AssertionError("an element outside a closed flat had zero residual")
+        leading = residual[np.arange(residual.shape[0]), nonzero.argmax(axis=1)]
+        residual = (residual * inverse_table[leading][:, None]) % modulus
+
+        raw = residual.astype("<u4").tobytes()
+        stride = width * 4
+        residual_classes: dict[bytes, tuple[int, int]] = {}
+        for offset, index in enumerate(candidates.tolist()):
+            key = raw[offset * stride:(offset + 1) * stride]
+            class_mask, representative = residual_classes.get(key, (0, index))
+            residual_classes[key] = (class_mask | (1 << index), representative)
+
+        for class_mask, representative in residual_classes.values():
+            child_mask = mask | class_mask
+            child_basis = tuple(sorted((*basis_indices, representative)))
+            previous = next_states.get(child_mask)
+            if previous is not None and previous <= child_basis:
+                continue
+            next_states[child_mask] = child_basis
+    return next_states
+
+
+def _extend_one_rank_scalar(
+    states: dict[int, tuple[int, ...]],
+    points: tuple[tuple[int, ...], ...],
+    modulus: int,
+) -> dict[int, tuple[int, ...]]:
+    """Reference implementation of one rank extension, without numpy.
+
+    Kept as the definition the vectorised path is checked against, and used
+    when the modulus is too large to tabulate inverses.
+    """
+    next_states: dict[int, tuple[int, ...]] = {}
+    for mask, basis_indices in states.items():
+        rows = tuple(points[index] for index in basis_indices)
+        rref_rows, pivot_columns = _rref_mod(rows, modulus)
+        if len(rref_rows) != len(basis_indices):
+            raise AssertionError("flat basis lost rank modulo the rank-preserving prime")
+
         residual_classes: dict[tuple[int, ...], tuple[int, int]] = {}
         for index, point in enumerate(points):
-            if state.mask & (1 << index):
+            if mask & (1 << index):
                 continue
             key = _projective_key(
-                _residual_mod(
-                    point,
-                    state.rref_rows,
-                    state.pivot_columns,
-                    modulus,
-                ),
+                _residual_mod(point, rref_rows, pivot_columns, modulus),
                 modulus,
             )
             class_mask, representative = residual_classes.get(key, (0, index))
             residual_classes[key] = (class_mask | (1 << index), representative)
 
         for class_mask, representative in residual_classes.values():
-            mask = state.mask | class_mask
-            basis_indices = tuple(sorted((*state.basis_indices, representative)))
-            previous = next_states.get(mask)
-            if previous is not None and previous.basis_indices <= basis_indices:
+            child_mask = mask | class_mask
+            child_basis = tuple(sorted((*basis_indices, representative)))
+            previous = next_states.get(child_mask)
+            if previous is not None and previous <= child_basis:
                 continue
-            next_states[mask] = _state_from_basis(
-                mask,
-                basis_indices,
-                points,
-                modulus,
-            )
+            next_states[child_mask] = child_basis
     return next_states
+
+
+def _level_path(checkpoint_dir, n: int, d: int, rank: int):
+    from pathlib import Path
+    return Path(checkpoint_dir) / f"flats_{n}_{d}_rank{rank}.txt"
+
+
+def _save_level(checkpoint_dir, n: int, d: int, rank: int,
+                states: dict[int, tuple[int, ...]]) -> None:
+    """Write one closed-flat level as ``hexmask:i1,i2,...`` lines.
+
+    Deliberately a plain text format rather than pickle: a checkpoint is data,
+    and loading it must not be able to execute anything.
+    """
+    path = _level_path(checkpoint_dir, n, d, rank)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".partial")
+    with tmp.open("w") as handle:
+        for mask, basis in states.items():
+            handle.write(f"{mask:x}:{','.join(str(i) for i in basis)}\n")
+    tmp.replace(path)          # atomic, so a killed run leaves no half level
+
+
+def _load_level(checkpoint_dir, n: int, d: int, rank: int):
+    path = _level_path(checkpoint_dir, n, d, rank)
+    if not path.exists():
+        return None
+    states: dict[int, tuple[int, ...]] = {}
+    with path.open() as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            mask_hex, _, basis = line.partition(":")
+            states[int(mask_hex, 16)] = tuple(
+                int(part) for part in basis.split(",") if part)
+    return states
 
 
 @lru_cache(maxsize=None)
 def enumerate_admissible_hyperplanes_by_flats(
-    n: int, d: int
+    n: int, d: int, checkpoint_dir: str | None = None
 ) -> FlatHyperplaneEnumeration:
     """Exhaust affine exterior-weight hyperplanes through closed flats.
 
@@ -221,20 +381,39 @@ def enumerate_admissible_hyperplanes_by_flats(
     every closure of rank ``rank(F) + 1`` once per parent. Induction from the
     empty flat therefore reaches every rank-``d-1`` flat, which is exactly an
     admissible affine hyperplane in the rank-``d`` augmented configuration.
+
+    ``checkpoint_dir`` makes the level induction RESUMABLE. Each completed
+    level is written out and reloaded on a later call, so a rank whose cost is
+    hours rather than gigabytes can be finished across several runs. The
+    enumeration is deterministic, so a resumed run and a fresh one produce the
+    same lattice; ``test_checkpoint_round_trip_is_identical`` pins that.
     """
     modulus, bound_squared = rank_preserving_modulus(n, d)
     weights = exterior_weights(n, d)
     points = tuple(tuple(weight) + (1,) for weight in weights)
 
-    states = {0: _FlatState(0, (), (), ())}
+    inverse_table = _inverse_table(modulus)
+    points_array = None
+    if inverse_table is not None:
+        import numpy as np
+
+        points_array = np.asarray(points, dtype=np.int64)
+
+    states: dict[int, tuple[int, ...]] = {0: ()}
     flat_counts = [1]
-    for _rank in range(1, d):
-        states = _extend_one_rank(states, points, modulus)
+    for rank in range(1, d):
+        restored = _load_level(checkpoint_dir, n, d, rank) if checkpoint_dir else None
+        if restored is not None:
+            states = restored
+        else:
+            states = _extend_one_rank(
+                states, points, modulus, points_array, inverse_table)
+            if checkpoint_dir:
+                _save_level(checkpoint_dir, n, d, rank, states)
         flat_counts.append(len(states))
 
-    hyperplanes: dict[tuple[tuple[int, ...], int], AdmissibleHyperplane] = {}
-    for state in states.values():
-        witness = state.basis_indices
+    rows_out: list[tuple[int, tuple[int, ...], tuple[int, ...], int]] = []
+    for state_mask, witness in states.items():
         base = weights[witness[0]]
         difference_rows = [
             [weights[index][column] - base[column] for column in range(d)]
@@ -243,12 +422,13 @@ def enumerate_admissible_hyperplanes_by_flats(
         normal = _cofactor_nullvector(difference_rows + [[1] * d])
         offset = sum(normal[index] * base[index] for index in range(d))
         h, z = _primitive_pair(normal, offset, orient=True)
-        on_mask = sum(
-            1 << index
-            for index, weight in enumerate(weights)
-            if sum(left * right for left, right in zip(h, weight, strict=True)) == z
-        )
-        if on_mask != state.mask:
+        rows_out.append((state_mask, witness, h, z))
+
+    on_masks = _incidence_masks(rows_out, weights, d)
+
+    hyperplanes: dict[tuple[tuple[int, ...], int], AdmissibleHyperplane] = {}
+    for (state_mask, witness, h, z), on_mask in zip(rows_out, on_masks, strict=True):
+        if on_mask != state_mask:
             raise AssertionError("finite-field closure disagrees with exact hyperplane")
         candidate = AdmissibleHyperplane(h=h, z=z, witness=witness)
         previous = hyperplanes.setdefault((h, z), candidate)

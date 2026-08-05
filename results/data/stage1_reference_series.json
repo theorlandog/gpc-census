@@ -1,0 +1,607 @@
+{
+ "blindness": "the generation path reads no stored constraints or vertices; the stored table is consulted only afterwards for the regression comparison",
+ "gate_ladder": {
+  "G1": "(3,6) first-principles and sandwich-closed, generate_3_6",
+  "G2": "(3,7), (3,8) blind against the Altunbulak-Klyachko tables",
+  "G3": "(3,9), (3,10) blind against the census H-data"
+ },
+ "gates_passed": [
+  "7",
+  "8"
+ ],
+ "ranks": {
+  "7": {
+   "admissible_hyperplanes": 5341,
+   "d": 7,
+   "flat_counts_by_rank": [
+    1,
+    35,
+    595,
+    4655,
+    15505,
+    19019,
+    5341
+   ],
+   "gate_passed": true,
+   "hadamard_bound_squared": 16384,
+   "known_system_regression": {
+    "available": true,
+    "expected_count": 4,
+    "generated_only": [],
+    "lookup_source": "AK2008 Table 2",
+    "oriented_sets_equal": true,
+    "passed": true,
+    "published_only": [],
+    "retained_count": 4
+   },
+   "oriented_taus": 10682,
+   "proved_complete": true,
+   "rank_preserving_modulus": 257,
+   "retained_count": 4,
+   "retained_rows": [
+    {
+     "coeffs": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     "rhs": 2
+    }
+   ],
+   "screening_counts": {
+    "certified_rows": 49,
+    "cyclic_schubert_coefficient_one_rows": 0,
+    "cyclic_schubert_cross_checked_rows": 0,
+    "cyclic_schubert_deferred_rows": 49,
+    "cyclic_schubert_exact_coefficient_rows": 0,
+    "cyclic_schubert_nonzero_rows": 0,
+    "cyclic_schubert_unavailable_rows": 0,
+    "cyclic_schubert_zero_rows": 0,
+    "duplicate_or_rescaled_rows": 0,
+    "evaluation_unresolved_rows": 0,
+    "exact_rejected_rows": 10632,
+    "inadmissible_rows": 0,
+    "input_tau_rows": 10682,
+    "nonstructural_candidate_rows": 10681,
+    "normalized_tau_rows": 10682,
+    "resolved_candidate_rows": 10681,
+    "structural_rows": 1,
+    "symbolic_fallback_attempted_rows": 499,
+    "symbolic_fallback_certified_rows": 0,
+    "symbolic_fallback_exception_unresolved_rows": 0,
+    "symbolic_fallback_resource_limited_rows": 0,
+    "symbolic_zero_rejected_rows": 499,
+    "trace_rejected_rows": 10133
+   },
+   "seconds": 4.5,
+   "status": "finalized_known_system_regression",
+   "system_counts": {
+    "certified_rows": 49,
+    "exact_rejected_rows": 10632,
+    "normalized_tau_rows": 10682,
+    "redundancy_input_rows": 49,
+    "redundant_rows": 45,
+    "retained_cyclic_cross_checks": 4,
+    "retained_rows": 4,
+    "screened_candidate_rows": 10681,
+    "structural_rows": 1,
+    "unresolved_rows": 0
+   }
+  },
+  "8": {
+   "admissible_hyperplanes": 166420,
+   "d": 8,
+   "flat_counts_by_rank": [
+    1,
+    56,
+    1540,
+    21420,
+    147630,
+    467082,
+    565208,
+    166420
+   ],
+   "gate_passed": true,
+   "hadamard_bound_squared": 65536,
+   "known_system_regression": {
+    "available": true,
+    "expected_count": 31,
+    "generated_only": [],
+    "lookup_source": "AK2008 Table 4",
+    "oriented_sets_equal": true,
+    "passed": true,
+    "published_only": [],
+    "retained_count": 31
+   },
+   "oriented_taus": 332840,
+   "proved_complete": true,
+   "rank_preserving_modulus": 257,
+   "retained_count": 31,
+   "retained_rows": [
+    {
+     "coeffs": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      1,
+      2,
+      2,
+      3,
+      0,
+      1,
+      0,
+      2
+     ],
+     "rhs": 5
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      2,
+      2,
+      1,
+      1,
+      0,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      2,
+      2,
+      3,
+      4,
+      0,
+      1,
+      1,
+      3
+     ],
+     "rhs": 7
+    },
+    {
+     "coeffs": [
+      2,
+      3,
+      4,
+      5,
+      0,
+      1,
+      2,
+      4
+     ],
+     "rhs": 9
+    },
+    {
+     "coeffs": [
+      1,
+      2,
+      1,
+      1,
+      2,
+      1,
+      0,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      0,
+      1,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      1,
+      2,
+      0,
+      0,
+      0,
+      1
+     ],
+     "rhs": 3
+    },
+    {
+     "coeffs": [
+      1,
+      2,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1
+     ],
+     "rhs": 3
+    },
+    {
+     "coeffs": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      2,
+      1,
+      2,
+      3,
+      0,
+      0,
+      1,
+      2
+     ],
+     "rhs": 5
+    },
+    {
+     "coeffs": [
+      2,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      2
+     ],
+     "rhs": 3
+    },
+    {
+     "coeffs": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      3,
+      0,
+      2
+     ],
+     "rhs": 6
+    },
+    {
+     "coeffs": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      2
+     ],
+     "rhs": 3
+    },
+    {
+     "coeffs": [
+      2,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     "rhs": 3
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      3,
+      3,
+      0,
+      1,
+      1,
+      2,
+      2,
+      2
+     ],
+     "rhs": 6
+    },
+    {
+     "coeffs": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+     ],
+     "rhs": 2
+    },
+    {
+     "coeffs": [
+      4,
+      5,
+      0,
+      2,
+      1,
+      2,
+      3,
+      4
+     ],
+     "rhs": 9
+    },
+    {
+     "coeffs": [
+      2,
+      3,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+     ],
+     "rhs": 5
+    },
+    {
+     "coeffs": [
+      2,
+      3,
+      0,
+      2,
+      0,
+      1,
+      1,
+      2
+     ],
+     "rhs": 5
+    },
+    {
+     "coeffs": [
+      5,
+      1,
+      2,
+      2,
+      3,
+      4,
+      0,
+      4
+     ],
+     "rhs": 9
+    },
+    {
+     "coeffs": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     "rhs": 1
+    },
+    {
+     "coeffs": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      2,
+      0,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      2,
+      1,
+      1,
+      2,
+      0,
+      1,
+      1,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      5,
+      4,
+      0,
+      1,
+      2,
+      2,
+      3,
+      4
+     ],
+     "rhs": 9
+    },
+    {
+     "coeffs": [
+      2,
+      2,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "rhs": 4
+    },
+    {
+     "coeffs": [
+      3,
+      4,
+      0,
+      2,
+      1,
+      1,
+      2,
+      3
+     ],
+     "rhs": 7
+    },
+    {
+     "coeffs": [
+      4,
+      1,
+      2,
+      1,
+      2,
+      3,
+      0,
+      3
+     ],
+     "rhs": 7
+    },
+    {
+     "coeffs": [
+      4,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3
+     ],
+     "rhs": 7
+    },
+    {
+     "coeffs": [
+      4,
+      3,
+      0,
+      1,
+      2,
+      1,
+      2,
+      3
+     ],
+     "rhs": 7
+    }
+   ],
+   "screening_counts": {
+    "certified_rows": 137,
+    "cyclic_schubert_coefficient_one_rows": 0,
+    "cyclic_schubert_cross_checked_rows": 0,
+    "cyclic_schubert_deferred_rows": 137,
+    "cyclic_schubert_exact_coefficient_rows": 0,
+    "cyclic_schubert_nonzero_rows": 0,
+    "cyclic_schubert_unavailable_rows": 0,
+    "cyclic_schubert_zero_rows": 0,
+    "duplicate_or_rescaled_rows": 0,
+    "evaluation_unresolved_rows": 0,
+    "exact_rejected_rows": 332702,
+    "inadmissible_rows": 0,
+    "input_tau_rows": 332840,
+    "nonstructural_candidate_rows": 332839,
+    "normalized_tau_rows": 332840,
+    "resolved_candidate_rows": 332839,
+    "structural_rows": 1,
+    "symbolic_fallback_attempted_rows": 6469,
+    "symbolic_fallback_certified_rows": 0,
+    "symbolic_fallback_exception_unresolved_rows": 0,
+    "symbolic_fallback_resource_limited_rows": 0,
+    "symbolic_zero_rejected_rows": 6469,
+    "trace_rejected_rows": 326233
+   },
+   "seconds": 170.1,
+   "status": "finalized_known_system_regression",
+   "system_counts": {
+    "certified_rows": 137,
+    "exact_rejected_rows": 332702,
+    "normalized_tau_rows": 332840,
+    "redundancy_input_rows": 137,
+    "redundant_rows": 106,
+    "retained_cyclic_cross_checks": 31,
+    "retained_rows": 31,
+    "screened_candidate_rows": 332839,
+    "structural_rows": 1,
+    "unresolved_rows": 0
+   }
+  }
+ },
+ "what": "Blind first-principles reproduction of the fixed-N=3 GPC systems, generator-plan gates G2 and G3."
+}
