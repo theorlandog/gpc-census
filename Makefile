@@ -30,7 +30,7 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := --citeproc --number-sections
 
-.PHONY: sync test verify-paper verify-data paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
+.PHONY: sync test verify-paper verify-data emit paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
 
 sync:
 	$(UV) sync
@@ -49,6 +49,16 @@ verify-paper:
 # keep their own gate here.
 verify-data:
 	$(UV) run python scripts/check_data_consistency.py
+	$(UV) run python scripts/audit_data_completeness.py
+	$(UV) run python scripts/build_census_master.py --check
+	$(UV) run python scripts/emit_doc_tables.py --check
+
+# Regenerate everything the sync invariant owns: the census summary and every
+# emitted doc table. Run this, never hand-edit a block between sync markers.
+emit:
+	$(UV) run python scripts/build_census_master.py
+	$(UV) run python scripts/emit_doc_tables.py --write
+	$(UV) run python scripts/update_data_checksums.py
 
 paper1-supplement:
 	$(UV) run --python $(SUPPLEMENT_PYTHON) python $(SUPPLEMENT_BUILDER) --output $(SUPPLEMENT_ZIP)

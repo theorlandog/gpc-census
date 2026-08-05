@@ -1,7 +1,12 @@
 # RANK-10 CLOSURE PLAN (authoritative checklist)
 
-Status: 797/799 certified; v89, v103 NUMERICALLY attained (contraction attack,
-residuals 2.0e-16 / 3.5e-16; real-amplitude solutions also exist numerically).
+Status: HISTORICAL HEADER, superseded. It read "797/799 certified; v89, v103
+NUMERICALLY attained (contraction attack, residuals 2.0e-16 / 3.5e-16)". Both
+are now exactly certified: the ledger carries 799 of 799 certified closed
+forms, which `results/data/census_master.csv` and the emitted README coverage
+table both derive from `results/data/states.jsonl`. Step 1 below is therefore
+done; it is kept as the record of how.
+
 Closure = exact certified states for both, ledger regenerated, paper finalized.
 
 ## Step 1 -- certify v89 and v103 (rig; first route to succeed wins)
@@ -50,6 +55,11 @@ same week (momentum is its currency).
 
 ## Parallel (not blocking closure)
 
-- SOS certificate session for cand 44 (outputs/claude_code_prompt_sos_
-  certificate.md) -- settles rank 11 on the refutation branch.
+- SUPERSEDED, do not run: SOS certificate session for cand 44
+  (outputs/claude_code_prompt_sos_certificate.md). The refutation branch is
+  settled. The four claimed level-five rows carry exact Ressayre certificates,
+  cand 44 is REFUTED by KLY09-EXT-1, and the (3,11) bracket closes at
+  19 TRUE / 31 REFUTED / 0 OPEN. See docs/level5_ressayre_3_11.md and
+  scripts/verify_level5_ressayre_3_11_standalone.py. An SOS dual would now be
+  a second proof of a settled statement, not a closure step.
 - Paper 2 Stage-B closeout (10 pending walls, surfaces, quasi-fiber theorem).

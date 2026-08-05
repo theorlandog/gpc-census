@@ -34,6 +34,29 @@ The design route was closed by exact counting in
 `docs/rank11_open_candidate_designs.md`, and KLY09-EXT-1 is now certified, so
 no state of any kind attains it.
 
+## Bracket tally
+
+<!-- sync:bracket-3-11:start -->
+| verdict | candidates |
+| --- | ---: |
+| TRUE-VERTEX | 19 |
+| REFUTED | 31 |
+| OPEN | 0 |
+| **Total** | **50** |
+
+By certificate:
+
+| certificate | candidates |
+| --- | ---: |
+| EXPLICIT-STATE | 2 |
+| LEVEL5-RESSAYRE | 4 |
+| N2-PAIRING | 18 |
+| STATE-TRANSPORT | 17 |
+| ZERO-RESTRICTION | 9 |
+
+The 4 certified level-five rows refute 4 of these; validity is proved, facetness and completeness of the (3,11) system are not.
+<!-- sync:bracket-3-11:end -->
+
 ## What a certificate proves
 
 The generation package states its convention plainly: a certificate `(H,z)`

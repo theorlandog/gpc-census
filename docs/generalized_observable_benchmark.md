@@ -40,16 +40,22 @@ All timings are median end-to-end update times for the same initial state and
 clock value.  The dense carrier comparison is structure-aware: it applies
 local tensor rotations rather than constructing a dense Hamiltonian matrix.
 
-| Cells q | Dense carrier amplitudes | Observable variables | Observable time | Dense carrier time | Speedup | vs factorized amplitudes |
-|---:|---:|---:|---:|---:|---:|---:|
-| 4 | 16 | 12 | 7.88 us | 59.3 us | 8x | 1.39x |
-| 6 | 64 | 18 | 7.87 us | 92.6 us | 12x | 1.40x |
-| 8 | 256 | 24 | 9.14 us | 164.5 us | 18x | 1.20x |
-| 10 | 1,024 | 30 | 8.05 us | 272.2 us | 34x | 1.38x |
-| 12 | 4,096 | 36 | 8.06 us | 511.1 us | 63x | 2.45x |
-| 14 | 16,384 | 42 | 8.12 us | 1927.0 us | 237x | 1.38x |
-| 16 | 65,536 | 48 | 9.76 us | 10624.8 us | 1,088x | 1.27x |
-| 18 | 262,144 | 54 | 9.60 us | 55347.5 us | 5,764x | 1.19x |
+<!-- sync:generalized-observable-benchmark:start -->
+| Cells q | Dense carrier amplitudes | Observable variables | Observable time (s) | Dense carrier time (s) | Speedup |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 4 | 16 | 12 | 7.883e-06 | 5.93065e-05 | 7.523 |
+| 6 | 64 | 18 | 7.8675e-06 | 9.2559e-05 | 11.76 |
+| 8 | 256 | 24 | 9.1445e-06 | 0.000164452 | 17.98 |
+| 10 | 1024 | 30 | 8.054e-06 | 0.00027222 | 33.8 |
+| 12 | 4096 | 36 | 8.0625e-06 | 0.000511076 | 63.39 |
+| 14 | 16384 | 42 | 8.117e-06 | 0.00192697 | 237.4 |
+| 16 | 65536 | 48 | 9.7645e-06 | 0.0106248 | 1088 |
+| 18 | 262144 | 54 | 9.602e-06 | 0.0553475 | 5764 |
+
+_This artifact records no machine tag, so these are one unrecorded machine's numbers. Runtime factors move across machines while method ordering holds, so treat the ordering as the finding._
+
+_Caveat, still unmet: there is no independently optimized dense baseline. Speedups are against this repository's own control arm._
+<!-- sync:generalized-observable-benchmark:end -->
 
 A generic dense matrix exponential is measured where it is still feasible:
 
