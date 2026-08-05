@@ -189,6 +189,21 @@ counterexample is `sqrt(1 + sqrt 2)`, whose minimal polynomial
 Proposition B's corollary delivers 2-power degree and constructibility, but it
 does NOT deliver a 2-elementary Galois group.
 
+**Update (2026-08): the gap has been MOVED, not closed.**
+`docs/holonomy_two_elementary.md` proves a reduction: 2-elementarity follows
+from two conditions on a single quantity per loop,
+
+  (R1) `deg_Q(cos^2 Phi) <= 2`, and
+  (R2) at `deg_Q(cos Phi) = 4`, `N(cos^2 Phi)` is a rational square,
+
+the second being exactly the classical V4 condition for an even quartic. Both
+are confirmed exactly, 82 of 82 and 13 of 13, and the reduction DERIVES the
+certified group of every loop (C1 37, C2 32, V4 13) without a group
+computation. It also strengthens Theorem A to Theorem A': at class size <= 2
+the cosine is `n / sqrt(M)` with `n, M` rational, so `cos^2` is RATIONAL and
+the minimal polynomial is even. (R1) at class sizes 3 and 4 remains open, and
+Proposition B does not supply it: squaring its formula leaves a cross term.
+
 The conjecture therefore stands as follows.
 
 > **Holonomy Rationality (conjecture).** For an extremal state over a census
