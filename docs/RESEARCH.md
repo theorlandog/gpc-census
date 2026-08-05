@@ -236,6 +236,31 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- holonomy_two_elementary.md: the PROOF ATTACK on 2-elementarity, and the
+  current state of the classes-3-and-4 gap. ✅ REDUCTION THEOREM: the
+  multiquadratic conjecture follows from two conditions on one quantity per
+  loop, (R1) deg_Q(cos^2 Phi) <= 2 and (R2) N(cos^2 Phi) a rational square at
+  degree 4, the second being exactly the classical V4 criterion for an even
+  quartic (D4 and C4 are the alternatives it excludes). ✅ THEOREM A',
+  strengthening the shipped Theorem A: at one-hop class size <= 2 the cosine
+  is n/sqrt(M) with n, M rational, so cos^2 is RATIONAL and the minimal
+  polynomial is EVEN, which is the part that generalises. 🟦 (R1) holds 82/82
+  and (R2) 13/13, and the reduction DERIVES every certified Galois group
+  (C1 37, C2 32, V4 13) with no group computation. 🟦 Theorem A' has 0
+  violations, and every cos^2-irrational loop sits in a state with a class of
+  size 3. ❌ "The minimal polynomial is always even" is FALSE: two (5,10)
+  loops have deg cos = deg cos^2 = 2; 2-elementarity survives trivially there,
+  but any proof of evenness must explain them. 🔬 (R1) at class sizes 3 and 4
+  is the remaining open step, and Proposition B does not supply it (squaring
+  leaves a cross term). 💡 The conjugation-involution/Galois-commutant
+  mechanism is stated precisely: time reversal and the fiber sign flips are
+  commuting INVOLUTIONS, so the group they generate is elementary abelian and
+  has no element of order 4, which is what D4 and C4 both need; the
+  obstruction is that Galois permutes COMPLEX solutions while those symmetries
+  act on the REAL ones, the same gap Rigidity-Rationality's descent step hits.
+  [scripts/holonomy_two_elementary.py;
+  results/data/holonomy_two_elementary.json;
+  tests/test_holonomy_two_elementary.py]
 - conditional_2rdm_program.md: steps 4-7 built on the order-three theorem.
   🟦 HIDDEN PAIR CURRENT: states with exactly the same complete 1-RDM carry
   different two-body pair currents, over the exact flux-INDEPENDENT range

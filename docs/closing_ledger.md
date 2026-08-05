@@ -235,7 +235,14 @@ and not a law about the universe.
 **OPEN.**
 
 - Holonomy Rationality at class sizes 3 and 4 (17 classes census-wide);
-  scoped rather than extended, deliberately.
+  scoped rather than extended, deliberately. **Narrowed 2026-08**
+  (`docs/holonomy_two_elementary.md`): 2-elementarity is now PROVED to follow
+  from (R1) `deg_Q(cos^2 Phi) <= 2` and (R2) `N(cos^2 Phi)` a rational square
+  at degree 4, both confirmed 82/82 and 13/13, and the reduction derives every
+  certified Galois group. What is still open is (R1) at class sizes 3 and 4;
+  Proposition B does not give it. Theorem A' (class size <= 2 forces `cos^2`
+  rational, hence an even minimal polynomial) is proved as part of the same
+  work.
 - Rigidity-Rationality gap (a), isolation certificates; gap (b), uniqueness
   modulo gauge. v_B instantiates (b) with degree 2 and orbit size 2.
 - Whether the interference case admits any analogue of the design-case proof.
