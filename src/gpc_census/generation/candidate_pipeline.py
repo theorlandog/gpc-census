@@ -282,7 +282,7 @@ class CandidateScreeningCounts:
 
 @dataclass(frozen=True)
 class CandidateScreeningResult:
-    """Deterministic screening payload for one supplied fixed-``N=3`` rank."""
+    """Deterministic screening payload for one supplied census system."""
 
     d: int
     normalized_taus: tuple[Tau, ...]
@@ -295,6 +295,7 @@ class CandidateScreeningResult:
     include_modular_cross_checks: bool
     symbolic_fallback_enabled: bool
     symbolic_max_determinant_order: int | None
+    n: int = 3
 
     @property
     def all_candidates_resolved(self) -> bool:
@@ -304,7 +305,7 @@ class CandidateScreeningResult:
     def as_dict(self) -> dict[str, object]:
         """Return the complete screening artifact for one rank."""
         return {
-            "particle_number": 3,
+            "particle_number": self.n,
             "rank": self.d,
             "counts": self.counts.as_dict(),
             "all_candidates_resolved": self.all_candidates_resolved,
@@ -355,7 +356,7 @@ def _coerce_raw_taus(raw_taus: Sequence[Sequence[int]]) -> tuple[Tau, ...]:
     if any(len(row) != width for row in rows):
         raise ValueError("tau rows have inconsistent dimensions")
     if width < 3:
-        raise ValueError("fixed-N=3 screening requires rank at least three")
+        raise ValueError("screening requires rank at least three")
     if any(not any(row) for row in rows):
         raise ValueError("tau rows must be nonzero")
     return rows
@@ -366,11 +367,12 @@ def _cross_check_cyclic(
     *,
     include_modular: bool,
     modulus: int,
+    particle_number: int = 3,
 ) -> CyclicSchubertVerdict:
     verdict = certify_cyclic_schubert(
         constraint.coeffs,
         constraint.rhs,
-        particle_number=3,
+        particle_number=particle_number,
         include_modular=include_modular,
         modulus=modulus,
     )
@@ -390,6 +392,7 @@ def _attempt_symbolic_fallback(
     assessment: RessayreEvaluationVerdict,
     *,
     max_determinant_order: int | None,
+    particle_number: int = 3,
 ) -> SymbolicFallbackOutcome:
     """Try exact symbolic certification after finite evaluation exhaustion.
 
@@ -401,8 +404,8 @@ def _attempt_symbolic_fallback(
     if assessment.status != "evaluation_unresolved":
         raise ValueError("symbolic fallback requires evaluation_unresolved")
     try:
-        candidate = admissible_candidate_from_tau(3, tau)
-        weights = exterior_weights(3, len(tau))
+        candidate = admissible_candidate_from_tau(particle_number, tau)
+        weights = exterior_weights(particle_number, len(tau))
         exact_below_count = sum(
             sum(left * right for left, right in zip(candidate.h, weight, strict=True))
             < candidate.z
@@ -443,7 +446,7 @@ def _attempt_symbolic_fallback(
 
     try:
         determinant_is_zero = tangent_determinant_is_identically_zero(
-            3, len(tau), candidate
+            particle_number, len(tau), candidate
         )
     except Exception as error:
         return SymbolicFallbackOutcome(
@@ -461,7 +464,7 @@ def _attempt_symbolic_fallback(
             certificate_replayed_and_bound=None,
         )
     try:
-        certificate = certify_candidate(3, len(tau), candidate)
+        certificate = certify_candidate(particle_number, len(tau), candidate)
     except Exception as error:
         return SymbolicFallbackOutcome(
             status="exception_unresolved",
@@ -473,7 +476,7 @@ def _attempt_symbolic_fallback(
         raise AssertionError(
             "sparse nonzero determinant disagrees with symbolic certification"
         )
-    if not verify_tau_ressayre_certificate(3, tau, certificate):
+    if not verify_tau_ressayre_certificate(particle_number, tau, certificate):
         raise AssertionError("symbolic Ressayre certificate failed replay or tau binding")
     return SymbolicFallbackOutcome(
         status="certified",
@@ -534,17 +537,18 @@ def _screen_candidate(
     modulus: int,
     symbolic_fallback_enabled: bool,
     symbolic_max_determinant_order: int | None,
+    particle_number: int = 3,
 ) -> ScreenedCandidateRow:
-    constraint = constraint_from_tau(tau, 3)
+    constraint = constraint_from_tau(tau, particle_number)
     try:
         assessment = assess_tau_by_evaluation(
-            3,
+            particle_number,
             tau,
             attempts=ressayre_attempts,
         )
     except ValueError:
         try:
-            admissible_candidate_from_tau(3, tau)
+            admissible_candidate_from_tau(particle_number, tau)
         except ValueError as admissibility_error:
             return ScreenedCandidateRow(
                 tau=tau,
@@ -590,6 +594,7 @@ def _screen_candidate(
             tau,
             assessment,
             max_determinant_order=symbolic_max_determinant_order,
+            particle_number=particle_number,
         )
         if symbolic.status == "certified":
             cyclic = (
@@ -597,6 +602,7 @@ def _screen_candidate(
                     constraint,
                     include_modular=include_modular,
                     modulus=modulus,
+                    particle_number=particle_number,
                 )
                 if cyclic_cross_check
                 else None
@@ -644,13 +650,14 @@ def _screen_candidate(
     certificate = assessment.certificate
     if certificate is None:
         raise AssertionError("validated certified assessment lost its certificate")
-    if not verify_tau_ressayre_certificate(3, tau, certificate):
+    if not verify_tau_ressayre_certificate(particle_number, tau, certificate):
         raise AssertionError("Ressayre certificate failed replay or oriented tau binding")
     cyclic = (
         _cross_check_cyclic(
             constraint,
             include_modular=include_modular,
             modulus=modulus,
+            particle_number=particle_number,
         )
         if cyclic_cross_check
         else None
@@ -768,6 +775,7 @@ def _verify_count_conservation(result: CandidateScreeningResult, input_count: in
 def screen_tau_candidates(
     raw_taus: Sequence[Sequence[int]],
     *,
+    particle_number: int = 3,
     ressayre_attempts: int = 32,
     cyclic_cross_check: bool = False,
     include_modular: bool = False,
@@ -777,12 +785,20 @@ def screen_tau_candidates(
     workers: int = 1,
     require_resolved: bool = False,
 ) -> CandidateScreeningResult:
-    """Normalize and screen supplied fixed-``N=3`` homogeneous rows.
+    """Normalize and screen supplied homogeneous rows for one census system.
+
+    ``particle_number`` defaults to three, which is the fixed-``N=3`` generator
+    program.  Nothing below this function is special to ``N = 3``: the weights,
+    roots, tangent determinant, and full-dimension witness are all written for
+    ``wedge^n C^d``, so the wider census systems screen by the same code path
+    and produce the same kind of exact Ressayre certificate.
 
     ``require_resolved`` is an optional operational gate.  It is checked only
     after all rows have been screened, and its exception retains the complete
     result so unresolved rows can still be serialized and resumed.
     """
+    if type(particle_number) is not int or particle_number <= 0:
+        raise ValueError("particle_number must be a positive integer")
     if type(ressayre_attempts) is not int or ressayre_attempts <= 0:
         raise ValueError("ressayre_attempts must be a positive integer")
     if type(cyclic_cross_check) is not bool:
@@ -811,13 +827,13 @@ def screen_tau_candidates(
     if type(workers) is not int or workers <= 0:
         raise ValueError("workers must be a positive integer")
     raw = _coerce_raw_taus(raw_taus)
-    normalized = normalize_tau_system(raw, 3)
+    normalized = normalize_tau_system(raw, particle_number)
     d = normalized.d
     if include_modular and modulus < d:
         raise ValueError("modulus must be at least the rank for distinct base residues")
     symbolic_fallback_enabled = d <= 13 if symbolic_fallback is None else symbolic_fallback
 
-    ambient = full_dimension_certificate(d)
+    ambient = full_dimension_certificate(d, particle_number)
     if not verify_full_dimension_certificate(ambient):
         raise AssertionError("ambient full-dimension certificate failed replay")
 
@@ -828,11 +844,12 @@ def screen_tau_candidates(
         tau for tau in normalized.raw_taus if not is_pauli_lower_tau(tau)
     )
     structural = tuple(
-        StructuralPauliRow(tau=tau, constraint=constraint_from_tau(tau, 3))
+        StructuralPauliRow(tau=tau, constraint=constraint_from_tau(tau, particle_number))
         for tau in structural_taus
     )
     screen_one = partial(
         _screen_candidate,
+        particle_number=particle_number,
         ressayre_attempts=ressayre_attempts,
         cyclic_cross_check=cyclic_cross_check,
         include_modular=include_modular,
@@ -860,6 +877,7 @@ def screen_tau_candidates(
     )
     result = CandidateScreeningResult(
         d=d,
+        n=particle_number,
         normalized_taus=normalized.raw_taus,
         candidates=candidates,
         structural_rows=structural,
@@ -881,6 +899,7 @@ def screen_bdr_export(
     text: str,
     *,
     expected_rank: int | None = None,
+    particle_number: int = 3,
     ressayre_attempts: int = 32,
     cyclic_cross_check: bool = False,
     include_modular: bool = False,
@@ -899,6 +918,7 @@ def screen_bdr_export(
             raise ValueError(f"BDR export does not contain rank-{expected_rank} rows")
     return screen_tau_candidates(
         raw_taus,
+        particle_number=particle_number,
         ressayre_attempts=ressayre_attempts,
         cyclic_cross_check=cyclic_cross_check,
         include_modular=include_modular,

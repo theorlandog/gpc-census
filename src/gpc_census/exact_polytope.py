@@ -167,6 +167,17 @@ def cut(verts: list[Vec], rows: list[Row], eqs: list[Row], new: Row, n: int) -> 
 
     ``rows`` are the inequalities already imposed (used for the adjacency
     test); ``new`` is appended by the caller after the call.
+
+    The adjacency test dominates the cost, and the naive form recomputes a
+    vertex's tight set once per pair and an exact rank once per pair. Three
+    things fix that without changing a single answer, since all three are
+    identities rather than heuristics:
+
+    - each tight set is computed once per vertex, not once per pair;
+    - a pair whose common tight rows cannot reach rank ``n-1`` at all, counted
+      against the equalities, is rejected on an integer comparison;
+    - the exact rank is memoised on the common tight set, which repeats
+      heavily across pairs on a degenerate polytope.
     """
     a, c = new
     val = {v: sum(ai * xi for ai, xi in zip(a, v)) for v in verts}
@@ -174,12 +185,29 @@ def cut(verts: list[Vec], rows: list[Row], eqs: list[Row], new: Row, n: int) -> 
     drop = [v for v in verts if val[v] < c]
     if not drop:
         return verts
+
+    eq_rows = [list(eq_a) for eq_a, _ in eqs]
+    eq_rank = rank(eq_rows)
+    tight = {v: _tight(rows, v) for v in verts}
+    memo: dict[frozenset[int], bool] = {}
+
+    def adjacent(v: Vec, w: Vec) -> bool:
+        common = tight[v] & tight[w]
+        if eq_rank + len(common) < n - 1:
+            return False
+        hit = memo.get(common)
+        if hit is None:
+            mat = eq_rows + [list(rows[i][0]) for i in common]
+            hit = rank(mat) == n - 1
+            memo[common] = hit
+        return hit
+
     fresh: list[Vec] = []
     for v in keep:
         if val[v] == c:
             continue
         for w in drop:
-            if not _adjacent(rows, eqs, v, w, n):
+            if not adjacent(v, w):
                 continue
             # the point on segment [v, w] where <a, x> == c
             theta = (c - val[w]) / (val[v] - val[w])

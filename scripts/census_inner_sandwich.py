@@ -13,7 +13,9 @@ Both halves are available at every rank the census covers:
     P subset O   every row of O is a replayed exact Ressayre certificate.
                  Certifying the VALIDITY of a supplied row is screening, which
                  costs about 0.14 ms per row. Only EXHAUSTIVENESS was ever
-                 expensive, and this proof does not use it.
+                 expensive, and this proof does not use it. The screening
+                 pipeline is no longer fixed-N=3, so this half certifies at
+                 every particle number the census covers.
 
     O subset P   every vertex of O is an attained spectrum. The census ships
                  799 certified extremal states, each with an exact
@@ -37,6 +39,7 @@ enumerator in `gpc_census.exact_polytope` does it in 0.0 s, 0.6 s, 12 s and
 
 Usage:
     python scripts/census_inner_sandwich.py
+    python scripts/census_inner_sandwich.py --wider
     python scripts/census_inner_sandwich.py --systems 3,6 3,7
 """
 from __future__ import annotations
@@ -77,11 +80,15 @@ def _spectrum(rec) -> tuple[Fraction, ...]:
 
 
 def screen_validity(n: int, d: int) -> dict:
-    """Certify every stored row as an exact Ressayre inequality (P subset O)."""
-    if n != 3:
-        return {"available": False,
-                "why": "the Ressayre screening machinery is fixed-N=3; validity "
-                       "at this system rests on its published source"}
+    """Certify every stored row as an exact Ressayre inequality (P subset O).
+
+    This used to bail out for ``n != 3``, because the screening pipeline hard
+    coded the particle number even though everything under it (weights, roots,
+    tangent determinant, full-dimension witness) was already written for
+    ``wedge^n C^d``.  The particle number is now threaded through, so the wider
+    census systems screen by the same code path and get the same exact
+    certificate rather than a citation.
+    """
     from gpc_census.generation import screen_tau_candidates
     from gpc_census.generation.bdr import tau_from_constraint
     from gpc_census.generation.model import IntegralConstraint
@@ -91,12 +98,13 @@ def screen_validity(n: int, d: int) -> dict:
         tau_from_constraint(IntegralConstraint(tuple(r["coeffs"]), int(r["rhs"])), n)
         for r in rows
     )
-    result = screen_tau_candidates(taus, ressayre_attempts=32,
+    result = screen_tau_candidates(taus, particle_number=n, ressayre_attempts=32,
                                    cyclic_cross_check=False,
                                    symbolic_fallback=True, workers=1)
     counts = result.counts
     return {
         "available": True,
+        "particle_number": n,
         "rows": len(rows),
         "certified": counts.certified_rows,
         "structural": counts.structural_rows,
@@ -135,8 +143,21 @@ def run_system(n: int, d: int, states: dict[str, list[dict]],
                 continue
         attained.append(rec["index"])
 
-    closed = (not resisting and not failures
-              and (validity.get("all_valid", False) if n == 3 else True))
+    inner = not resisting and not failures
+    outer = bool(validity.get("all_valid", False))
+    if inner and outer:
+        status = "proved"
+        note = "P = O, both halves certified in repo, exhaustiveness unused"
+    elif inner and not validity.get("available", False):
+        # N != 3: the Ressayre screening machinery is fixed-N=3, so the outer
+        # half rests on the published source rather than on a replayed
+        # certificate. Reporting this as "proved" would overstate it.
+        status = "inner_half_only"
+        note = ("O subset P certified; P subset O rests on the published "
+                "source because the screening machinery is fixed-N=3")
+    else:
+        status = "open"
+        note = "not closed; a resisting vertex is a pointer at a missing facet"
     return {
         "system": key, "n": n, "d": d,
         "seconds": round(time.time() - started, 1),
@@ -149,10 +170,11 @@ def run_system(n: int, d: int, states: dict[str, list[dict]],
         "resisting_vertices": resisting,
         "attainment_failures": failures,
         "states_reverified": bool(verify_states),
-        "closure_proved": bool(closed),
-        "closure_note": (
-            "P = O, with candidate exhaustiveness unused" if closed else
-            "not closed; a resisting vertex is a pointer at a missing facet"),
+        "inner_half_proved": bool(inner),
+        "outer_half_proved": bool(outer),
+        "closure_proved": bool(inner and outer),
+        "closure_status": status,
+        "closure_note": note,
     }
 
 
@@ -174,6 +196,7 @@ def main() -> int:
         wanted = LADDER + (WIDER if args.wider else [])
 
     states = _census_states()
+    out = pathlib.Path(args.out)
     blocks = {}
     for n, d in wanted:
         print(f"({n},{d}): sandwiching ...", flush=True)
@@ -187,15 +210,23 @@ def main() -> int:
         else:
             print(f"  rows {rec['outer_rows']}  vertices {rec['vertices']}  "
                   f"attained {rec['attained_vertices']}  "
-                  f"closed {rec['closure_proved']}  ({rec['seconds']}s)", flush=True)
+                  f"{rec['closure_status']}  ({rec['seconds']}s)", flush=True)
         blocks[rec["system"]] = rec
+        # the wider systems cost tens of minutes each, so a crash or a timeout
+        # must not throw away the systems that already closed
+        _write(out, blocks)
 
+    print(f"wrote {out}")
+    return 0
+
+
+def _write(out: pathlib.Path, blocks: dict) -> None:
     payload = {
         "what": "Exact inner/outer closure using the certified census states, "
                 "which proves P = O without candidate exhaustiveness.",
         "argument": {
             "P_subset_O": "every stored row screens as an exact Ressayre "
-                          "certificate (fixed-N=3 machinery)",
+                          "certificate, at every particle number in the census",
             "O_subset_P": "every vertex of O is the spectrum of a certified "
                           "census state, verified by an exact characteristic-"
                           "polynomial identity",
@@ -209,12 +240,12 @@ def main() -> int:
         "systems": blocks,
         "closed_systems": sorted(k for k, v in blocks.items()
                                  if v.get("closure_proved")),
+        "inner_half_only_systems": sorted(
+            k for k, v in blocks.items()
+            if v.get("closure_status") == "inner_half_only"),
     }
-    out = pathlib.Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=1, sort_keys=True) + "\n")
-    print(f"wrote {out}")
-    return 0
 
 
 if __name__ == "__main__":

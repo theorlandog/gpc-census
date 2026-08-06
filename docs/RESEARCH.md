@@ -296,24 +296,46 @@ plethysm criterion feed Problem 7 below.
   the one to read before spending any more effort on exhaustive enumeration.
   The claim ladder allows "an exhaustive-enumeration proof OR an independent
   exact inner/outer closure", and the second route does not care where the
-  candidate rows came from. 🟦 P = O PROVED at (3,6), (3,7), (3,8), (3,9) and
-  (3,10) with exhaustiveness unused; ranks 9 and 10 had no in-repo completeness
-  proof before. Outer half: every stored row screens as an exact Ressayre
-  certificate (4/4, 31/31, 52/52, 93/93), because certifying VALIDITY of a
-  supplied row costs 0.14 ms and only EXHAUSTIVENESS was ever expensive. Inner
-  half: every vertex of O is the spectrum of a certified census state, verified
-  by an exact characteristic-polynomial identity. ❗ NON-CIRCULARITY is the
+  candidate rows came from. 🟦 P = O PROVED at ALL NINE census systems, (3,6)
+  through (3,10) and (4,8), (4,9), (4,10), (5,10), with exhaustiveness unused;
+  ranks 9 and 10 had no in-repo completeness proof before, and no N > 3 system
+  did. Outer half: every stored row screens as an exact Ressayre certificate
+  (4/4, 31/31, 52/52, 93/93, 15/15, 60/60, 125/125, 161/161), because
+  certifying VALIDITY of a supplied row costs 0.14 ms and only EXHAUSTIVENESS
+  was ever expensive. Inner half: every vertex of O is the spectrum of a
+  certified census state, verified by an exact characteristic-polynomial
+  identity. 🟦 The screening pipeline is NO LONGER FIXED-N=3: everything under
+  it (exterior weights, roots, tangent determinant, certify_candidate, the
+  full-dimension witness) was already written for wedge^n C^d, so the
+  restriction was seven literal 3s in candidate_pipeline.py plus one
+  combinations(range(d), 3) in full_dimension.py; screen_tau_candidates now
+  takes particle_number and the n=3 artifacts are byte-identical. ❗ The
+  general-N screening is guarded against being vacuous by two tests: perturbing
+  each (4,8) row rejects 15/15 and certifies 0, and screening the (4,8) rows at
+  particle_number=3 does not certify them all. 💡 The inner_half_only label is
+  what made the fix obvious: the first version of the script called the N > 3
+  systems closed when only their inner half was certified, the label recorded
+  the gap honestly, and the gap turned out to be plumbing. The label is kept and
+  still tested, now unused. ❗ NON-CIRCULARITY is the
   whole game: the census VERTEX lists came from the constraint tables and would
   be circular, the attaining STATES did not and reference no table, which is
   why the script re-runs the state certificates rather than trusting the vertex
   list. ❌ The predicted wall was wrong: exact vertex enumeration of the
   degenerate polytope was expected to block this, and gpc_census.exact_polytope
-  does ranks 7-10 in 0.0/0.6/12/247 s reproducing the certified counts, so
-  lrs-style pivoting, symmetry-aware orbit enumeration and containment checking
-  are all still unspent. 🔬 BOUNDED NULL: the self-improving loop (a resisting
+  does every census system reproducing the certified counts, so lrs-style
+  pivoting, symmetry-aware orbit enumeration and containment checking are all
+  still unspent. 🟦 It did bite at the wide end, and the fix was inside the
+  existing enumerator: exact_polytope.cut recomputed a vertex's tight set once
+  per PAIR and an exact rank once per PAIR, so caching the tight set per vertex,
+  rejecting pairs whose common tight rows cannot reach rank n-1 on an integer
+  count, and memoising the rank on the common tight set give 12->1.5 s at
+  (3,9), 247->11 s at (3,10), 211->22 s at (4,10) and, at (5,10), over 40
+  minutes abandoned -> 166 s. All three are identities, not heuristics, and a
+  test pins that by re-running the whole (3,8) enumeration against the
+  unmemoised _adjacent and comparing the cut sets at every step. 🔬 BOUNDED NULL: the self-improving loop (a resisting
   vertex points at a missing facet, contraction attack + SOS + level-5 Ressayre
   turn it into a row) is implemented but never fired, zero vertices resisted at
-  all five systems, so it is exercised only on its trivial branch. Its first
+  all nine systems, so it is exercised only on its trivial branch. Its first
   real test is (3,11), where the inner side is 19 bracket vertices rather than
   a census. 💡 Orbit reduction under S_d is recorded as available and NOT
   implemented; it is the one provably safe pruning, since the moment polytope
