@@ -1,0 +1,143 @@
+{
+ "argument": {
+  "O_subset_P": "every vertex of O is the spectrum of a certified census state, verified by an exact characteristic-polynomial identity",
+  "P_subset_O": "every stored row screens as an exact Ressayre certificate (fixed-N=3 machinery)",
+  "conclusion": "P = O; candidate exhaustiveness is not used",
+  "non_circularity": "the census VERTEX lists came from the constraint tables, so they alone would be circular; the attaining STATES do not, since each is checked by a characteristic-polynomial identity that references no table"
+ },
+ "closed_systems": [
+  "(3,10)",
+  "(3,6)",
+  "(3,7)",
+  "(3,8)",
+  "(3,9)"
+ ],
+ "systems": {
+  "(3,10)": {
+   "attained_vertices": 113,
+   "attainment_failures": [],
+   "closure_note": "P = O, with candidate exhaustiveness unused",
+   "closure_proved": true,
+   "d": 10,
+   "n": 3,
+   "outer_equalities": 0,
+   "outer_rows": 93,
+   "resisting_vertices": [],
+   "seconds": 254.2,
+   "states_reverified": true,
+   "system": "(3,10)",
+   "validity_P_subset_O": {
+    "all_valid": true,
+    "available": true,
+    "certified": 93,
+    "exact_rejected": 0,
+    "rows": 93,
+    "structural": 0,
+    "unresolved": 0
+   },
+   "vertex_enumeration_seconds": 246.4,
+   "vertices": 113
+  },
+  "(3,6)": {
+   "attained_vertices": 4,
+   "attainment_failures": [],
+   "closure_note": "P = O, with candidate exhaustiveness unused",
+   "closure_proved": true,
+   "d": 6,
+   "n": 3,
+   "outer_equalities": 3,
+   "outer_rows": 1,
+   "resisting_vertices": [],
+   "seconds": 0.6,
+   "states_reverified": true,
+   "system": "(3,6)",
+   "validity_P_subset_O": {
+    "all_valid": true,
+    "available": true,
+    "certified": 1,
+    "exact_rejected": 0,
+    "rows": 1,
+    "structural": 0,
+    "unresolved": 0
+   },
+   "vertex_enumeration_seconds": 0.0,
+   "vertices": 4
+  },
+  "(3,7)": {
+   "attained_vertices": 10,
+   "attainment_failures": [],
+   "closure_note": "P = O, with candidate exhaustiveness unused",
+   "closure_proved": true,
+   "d": 7,
+   "n": 3,
+   "outer_equalities": 0,
+   "outer_rows": 4,
+   "resisting_vertices": [],
+   "seconds": 0.1,
+   "states_reverified": true,
+   "system": "(3,7)",
+   "validity_P_subset_O": {
+    "all_valid": true,
+    "available": true,
+    "certified": 4,
+    "exact_rejected": 0,
+    "rows": 4,
+    "structural": 0,
+    "unresolved": 0
+   },
+   "vertex_enumeration_seconds": 0.0,
+   "vertices": 10
+  },
+  "(3,8)": {
+   "attained_vertices": 38,
+   "attainment_failures": [],
+   "closure_note": "P = O, with candidate exhaustiveness unused",
+   "closure_proved": true,
+   "d": 8,
+   "n": 3,
+   "outer_equalities": 0,
+   "outer_rows": 31,
+   "resisting_vertices": [],
+   "seconds": 2.2,
+   "states_reverified": true,
+   "system": "(3,8)",
+   "validity_P_subset_O": {
+    "all_valid": true,
+    "available": true,
+    "certified": 31,
+    "exact_rejected": 0,
+    "rows": 31,
+    "structural": 0,
+    "unresolved": 0
+   },
+   "vertex_enumeration_seconds": 0.6,
+   "vertices": 38
+  },
+  "(3,9)": {
+   "attained_vertices": 58,
+   "attainment_failures": [],
+   "closure_note": "P = O, with candidate exhaustiveness unused",
+   "closure_proved": true,
+   "d": 9,
+   "n": 3,
+   "outer_equalities": 0,
+   "outer_rows": 52,
+   "resisting_vertices": [],
+   "seconds": 14.8,
+   "states_reverified": true,
+   "system": "(3,9)",
+   "validity_P_subset_O": {
+    "all_valid": true,
+    "available": true,
+    "certified": 52,
+    "exact_rejected": 0,
+    "rows": 52,
+    "structural": 0,
+    "unresolved": 0
+   },
+   "vertex_enumeration_seconds": 12.2,
+   "vertices": 58
+  }
+ },
+ "what": "Exact inner/outer closure using the certified census states, which proves P = O without candidate exhaustiveness."
+}

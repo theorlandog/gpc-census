@@ -292,6 +292,35 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- census_inner_sandwich.md: COMPLETENESS WITHOUT CANDIDATE EXHAUSTIVENESS, and
+  the one to read before spending any more effort on exhaustive enumeration.
+  The claim ladder allows "an exhaustive-enumeration proof OR an independent
+  exact inner/outer closure", and the second route does not care where the
+  candidate rows came from. 🟦 P = O PROVED at (3,6), (3,7), (3,8), (3,9) and
+  (3,10) with exhaustiveness unused; ranks 9 and 10 had no in-repo completeness
+  proof before. Outer half: every stored row screens as an exact Ressayre
+  certificate (4/4, 31/31, 52/52, 93/93), because certifying VALIDITY of a
+  supplied row costs 0.14 ms and only EXHAUSTIVENESS was ever expensive. Inner
+  half: every vertex of O is the spectrum of a certified census state, verified
+  by an exact characteristic-polynomial identity. ❗ NON-CIRCULARITY is the
+  whole game: the census VERTEX lists came from the constraint tables and would
+  be circular, the attaining STATES did not and reference no table, which is
+  why the script re-runs the state certificates rather than trusting the vertex
+  list. ❌ The predicted wall was wrong: exact vertex enumeration of the
+  degenerate polytope was expected to block this, and gpc_census.exact_polytope
+  does ranks 7-10 in 0.0/0.6/12/247 s reproducing the certified counts, so
+  lrs-style pivoting, symmetry-aware orbit enumeration and containment checking
+  are all still unspent. 🔬 BOUNDED NULL: the self-improving loop (a resisting
+  vertex points at a missing facet, contraction attack + SOS + level-5 Ressayre
+  turn it into a row) is implemented but never fired, zero vertices resisted at
+  all five systems, so it is exercised only on its trivial branch. Its first
+  real test is (3,11), where the inner side is 19 bracket vertices rather than
+  a census. 💡 Orbit reduction under S_d is recorded as available and NOT
+  implemented; it is the one provably safe pruning, since the moment polytope
+  is Weyl-invariant and the ordered slice is a fundamental domain.
+  [scripts/census_inner_sandwich.py;
+  results/data/census_inner_sandwich.json;
+  tests/test_census_inner_sandwich.py]
 - stage1_reference_series.md: the RANK GENERATOR's validation ladder. 🟦 GATE
   G2 CLOSED: the generator reproduces the published fixed-N=3 systems at rank
   7 (4 rows) and rank 8 (31 rows) BLIND, matching as oriented sets with
