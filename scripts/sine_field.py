@@ -82,17 +82,22 @@ def in_field_of(value, generator) -> bool | None:
     """Whether ``value`` lies in Q(generator), decided by degree comparison.
 
     ``Q(generator, value) == Q(generator)`` exactly when adjoining ``value``
-    does not raise the degree, so the primitive element of the pair has the
-    same degree as the generator alone.
+    does not raise the degree, so a primitive element of the pair has the same
+    degree as the generator alone.
+
+    ``sympy.primitive_element`` returns its polynomial in a symbol of its own
+    choosing, so the degree must be read off that polynomial's own generator.
+    Reading it against an unrelated symbol returns 0 for every input, which is
+    what the first run of this script did: it reported 0 of 44, a perfect
+    failure that was the helper and not the mathematics.
     """
     try:
         base = _degree(generator)
-        joint = _degree(sp.simplify(generator + sp.pi * 0 + value * 0 + value))
-        if base is None or joint is None:
+        if base is None:
             return None
         together, _ = sp.primitive_element([sp.nsimplify(generator),
                                             sp.nsimplify(value)])
-        return sp.Poly(together, X).degree() == base
+        return sp.Poly(together).degree() == base
     except Exception:
         return None
 
@@ -185,11 +190,16 @@ def main() -> int:
     source = json.loads(SOURCE.read_text())
     holonomy = json.loads(HOLONOMY.read_text())
     recorded = collections.defaultdict(set)
+    cosine = collections.defaultdict(set)
     for loop in holonomy["loops"]:
         for radicand in loop["sin_radicands"]:
             for prime, exponent in sp.factorint(int(radicand)).items():
                 if exponent % 2:
                     recorded[(loop["system"], loop["index"])].add(prime)
+        for radicand in loop["radicands"]:
+            for prime, exponent in sp.factorint(int(radicand)).items():
+                if exponent % 2:
+                    cosine[(loop["system"], loop["index"])].add(prime)
 
     blocks = []
     for block in source["classes"]:
@@ -199,10 +209,15 @@ def main() -> int:
         if d:
             primes = {p for p, e in sp.factorint(int(d)).items() if e % 2}
         seen = recorded.get((record["system"], record["index"]), set())
+        cos_seen = cosine.get((record["system"], record["index"]), set())
         record["sine_radicand_primes"] = sorted(primes)
         record["recorded_sin_radicand_primes"] = sorted(seen)
+        record["recorded_cos_radicand_primes"] = sorted(cos_seen)
         record["matches_recorded_sin_radicands"] = bool(
             not primes or primes <= seen)
+        # P-F-5: the sine field is not the holonomy (cosine) field
+        record["sine_field_differs_from_cosine_field"] = bool(
+            primes and not primes <= cos_seen)
         blocks.append(record)
         print(f"{record['system']} v{record['index']} ch{record['channel']} "
               f"d={record['sine_field_squarefree']} "
@@ -245,6 +260,10 @@ def main() -> int:
                                       if b["sine_field_squarefree"] == 0),
             "matches_recorded_sin_radicands": sum(
                 1 for b in blocks if b["matches_recorded_sin_radicands"]),
+            "sine_field_differs_from_cosine_field": sum(
+                1 for b in blocks if b["sine_field_differs_from_cosine_field"]),
+            "nondegenerate_classes": sum(
+                1 for b in blocks if b["sine_field_squarefree"]),
             "pairs": len(all_pairs),
             "pairs_with_rational_area": sum(1 for p in all_pairs
                                             if p["area_rational"]),

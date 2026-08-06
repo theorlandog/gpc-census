@@ -1,0 +1,1987 @@
+{
+ "classes": [
+  {
+   "channel": [
+    5,
+    9
+   ],
+   "class_size": 3,
+   "index": 17,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/578",
+     "area_rational": false,
+     "area_squared": "7/334084",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-3/578",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/8092",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/668168 + 5/668168",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/1156 + sqrt(21)/1156",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/8092",
+     "area_rational": false,
+     "area_squared": "5/668168 - sqrt(21)/668168",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/1156 - 1/1156",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(3,10)",
+   "transport_class": "N=3:14/17,5/17,5/17,5/17,5/17,5/17,3/17,3/17,3/17,3/17",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "index": 25,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/450",
+     "area_rational": false,
+     "area_squared": "7/202500",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/150",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/6300",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/405000 + 1/81000",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/900 + sqrt(21)/900",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/6300",
+     "area_rational": false,
+     "area_squared": "1/81000 - sqrt(21)/405000",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/900 - 1/900",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(3,10)",
+   "transport_class": "N=3:4/5,1/3,1/3,1/3,1/5,1/5,1/5,1/5,1/5,1/5",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "index": 33,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(3,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    8
+   ],
+   "class_size": 3,
+   "index": 75,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/392",
+     "area_rational": false,
+     "area_squared": "15/153664",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 15,
+     "t_ab": "-1/392",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      2
+     ],
+     "squarefree": 0,
+     "t_ab": "-1/196",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "1/392",
+     "area_rational": false,
+     "area_squared": "15/153664",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "squarefree": 15,
+     "t_ab": "1/392",
+     "t_rational": true
+    }
+   ],
+   "recorded_cos_radicand_primes": [],
+   "recorded_sin_radicand_primes": [
+    3,
+    5
+   ],
+   "sine_field_differs_from_cosine_field": true,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 15,
+   "sine_radicand_primes": [
+    3,
+    5
+   ],
+   "system": "(3,10)",
+   "transport_class": "N=3:9/14,1/2,1/2,1/2,1/7,1/7,1/7,1/7,1/7,1/7",
+   "triples": [
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "index": 98,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "sqrt(46*sqrt(1633) + 2162)/220800",
+     "area_rational": false,
+     "area_squared": "sqrt(1633)/46080000 + 47/46080000",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/9600 + sqrt(1633)/9600",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(198122 - 506*sqrt(1633))/220800",
+     "area_rational": false,
+     "area_squared": "4307/46080000 - 11*sqrt(1633)/46080000",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(1633)/9600 - 11/9600",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "1/800",
+     "area_rational": false,
+     "area_squared": "23/640000",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "squarefree": 23,
+     "t_ab": "-1/800",
+     "t_rational": true
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    23,
+    71
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    23,
+    71
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 23,
+   "sine_radicand_primes": [
+    23
+   ],
+   "system": "(3,10)",
+   "transport_class": "N=3:11/20,11/20,11/20,11/20,1/5,1/5,1/10,1/10,1/10,1/10",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    1,
+    6
+   ],
+   "class_size": 3,
+   "index": 103,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 0,
+     "t_ab": "-525/634933",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      2
+     ],
+     "squarefree": 0,
+     "t_ab": "525/16508258",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      1,
+      2
+     ],
+     "squarefree": 0,
+     "t_ab": "-21/634933",
+     "t_rational": true
+    }
+   ],
+   "recorded_cos_radicand_primes": [],
+   "recorded_sin_radicand_primes": [],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 0,
+   "sine_radicand_primes": [],
+   "system": "(3,10)",
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34",
+   "triples": [
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 4,
+   "index": 103,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 0,
+     "t_ab": "-3150/634933",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      2
+     ],
+     "squarefree": 0,
+     "t_ab": "-525/1269866",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      0,
+      3
+     ],
+     "squarefree": 0,
+     "t_ab": "525/16508258",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      1,
+      2
+     ],
+     "squarefree": 0,
+     "t_ab": "75/195364",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      1,
+      3
+     ],
+     "squarefree": 0,
+     "t_ab": "-75/2539732",
+     "t_rational": true
+    },
+    {
+     "area_rational": true,
+     "area_squared": "0",
+     "area_squared_rational": true,
+     "area_vanishes": true,
+     "in_sine_field": null,
+     "pair": [
+      2,
+      3
+     ],
+     "squarefree": 0,
+     "t_ab": "-25/10158928",
+     "t_rational": true
+    }
+   ],
+   "recorded_cos_radicand_primes": [],
+   "recorded_sin_radicand_primes": [],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 0,
+   "sine_radicand_primes": [],
+   "system": "(3,10)",
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34",
+   "triples": [
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      2,
+      0,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      2,
+      1,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      3,
+      1
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      3,
+      2
+     ]
+    },
+    {
+     "both_t_rational": true,
+     "degenerate": true,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      3,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "index": 10,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(3,8)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "index": 13,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(3,9)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "index": 13,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(4,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "index": 10,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(4,9)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "index": 10,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "index": 113,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/648",
+     "area_rational": false,
+     "area_squared": "47/419904",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 47,
+     "t_ab": "-1/72",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(94*sqrt(517) + 2726)/182736",
+     "area_rational": false,
+     "area_squared": "sqrt(517)/7558272 + 29/7558272",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(658*sqrt(517) + 27542)/182736",
+     "area_rational": false,
+     "area_squared": "7*sqrt(517)/7558272 + 293/7558272",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    11,
+    47
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    11,
+    47
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 47,
+   "sine_radicand_primes": [
+    47
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=5:17/18,17/18,8/9,4/9,4/9,4/9,2/9,2/9,2/9,2/9",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "index": 144,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/1369",
+     "area_rational": false,
+     "area_squared": "71/1874161",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 71,
+     "t_ab": "-17/1369",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(10224*sqrt(2769) + 585537)/2915970",
+     "area_rational": false,
+     "area_squared": "4*sqrt(2769)/46854025 + 2749/562248300",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "12/6845 - sqrt(2769)/41070",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(29394*sqrt(2769) + 1873122)/2915970",
+     "area_rational": false,
+     "area_squared": "23*sqrt(2769)/93708050 + 4397/281124150",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-69/13690 + sqrt(2769)/41070",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    5,
+    13,
+    71
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    5,
+    13,
+    71
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 71,
+   "sine_radicand_primes": [
+    71
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=5:34/37,34/37,34/37,17/37,17/37,17/37,8/37,8/37,8/37,8/37",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    5
+   ],
+   "class_size": 3,
+   "index": 256,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/1369",
+     "area_rational": false,
+     "area_squared": "47/1874161",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 47,
+     "t_ab": "-5/1369",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(94*sqrt(705) + 2914)/514744",
+     "area_rational": false,
+     "area_squared": "sqrt(705)/59973152 + 31/59973152",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/10952 + sqrt(705)/10952",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(36754 - 658*sqrt(705))/514744",
+     "area_rational": false,
+     "area_squared": "391/59973152 - 7*sqrt(705)/59973152",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(705)/10952 - 7/10952",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    5,
+    47
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    5,
+    47
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 47,
+   "sine_radicand_primes": [
+    47
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=5:29/37,29/37,29/37,29/37,20/37,20/37,20/37,3/37,3/37,3/37",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "index": 261,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/648",
+     "area_rational": false,
+     "area_squared": "47/419904",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 47,
+     "t_ab": "-1/72",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(94*sqrt(517) + 2726)/182736",
+     "area_rational": false,
+     "area_squared": "sqrt(517)/7558272 + 29/7558272",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(658*sqrt(517) + 27542)/182736",
+     "area_rational": false,
+     "area_squared": "7*sqrt(517)/7558272 + 293/7558272",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    11,
+    47
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    11,
+    47
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 47,
+   "sine_radicand_primes": [
+    47
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=5:7/9,7/9,7/9,7/9,5/9,5/9,5/9,1/9,1/18,1/18",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    6
+   ],
+   "class_size": 3,
+   "index": 268,
+   "matches_recorded_sin_radicands": true,
+   "pairs": [
+    {
+     "area_over_sqrt_d": "1/288",
+     "area_rational": false,
+     "area_squared": "7/82944",
+     "area_squared_rational": true,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      1
+     ],
+     "squarefree": 7,
+     "t_ab": "-1/96",
+     "t_rational": true
+    },
+    {
+     "area_over_sqrt_d": "sqrt(70 - 14*sqrt(21))/4032",
+     "area_rational": false,
+     "area_squared": "5/165888 - sqrt(21)/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_rational": false
+    },
+    {
+     "area_over_sqrt_d": "sqrt(14*sqrt(21) + 70)/4032",
+     "area_rational": false,
+     "area_squared": "sqrt(21)/165888 + 5/165888",
+     "area_squared_rational": false,
+     "area_vanishes": false,
+     "in_sine_field": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_rational": false
+    }
+   ],
+   "recorded_cos_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "recorded_sin_radicand_primes": [
+    2,
+    3,
+    7
+   ],
+   "sine_field_differs_from_cosine_field": false,
+   "sine_field_is_uniform": true,
+   "sine_field_squarefree": 7,
+   "sine_radicand_primes": [
+    7
+   ],
+   "system": "(5,10)",
+   "transport_class": "N=5:3/4,3/4,3/4,3/4,7/12,7/12,7/12,1/4",
+   "triples": [
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      1,
+      0,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "both_t_rational": false,
+     "degenerate": false,
+     "delta_equals_area_product": true,
+     "sine_addition_holds": true,
+     "triple": [
+      0,
+      2,
+      1
+     ]
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "classes": 17,
+  "degenerate_classes": 2,
+  "delta_equals_area_product": 60,
+  "in_sine_field_holds": 44,
+  "in_sine_field_tested": 44,
+  "matches_recorded_sin_radicands": 17,
+  "nondegenerate_classes": 15,
+  "pairs": 54,
+  "pairs_with_rational_area": 10,
+  "pairs_with_vanishing_area": 10,
+  "sine_addition_holds": 60,
+  "sine_field_differs_from_cosine_field": 1,
+  "sine_field_uniform": 17,
+  "sine_field_values": [
+   0,
+   7,
+   15,
+   23,
+   47,
+   71
+  ],
+  "transport_classes": 11,
+  "triples": 60,
+  "value_to_transport_classes": {
+   "0": 1,
+   "15": 1,
+   "23": 1,
+   "47": 3,
+   "7": 4,
+   "71": 1
+  }
+ },
+ "theorem_F": {
+  "degenerate_limit": "a state real up to gauge has every sine zero, which is why 17 of 18 triples degenerate",
+  "discriminant": "Delta/4 = A_ab^2 A_bc^2, so t_ac is rational iff A_ab A_bc is rational iff sin^2(Phi_ab) and sin^2(Phi_bc) share a squarefree part",
+  "identity": "z_a conj(z_b) = t_ab + i A_ab with t_ab^2 + A_ab^2 = r_a^2 r_b^2",
+  "propagation": "r_b^2 A_ac = A_ab t_bc + t_ab A_bc, so with t_ab and t_bc rational the sine field propagates"
+ },
+ "what": "Theorem F: Delta/4 = A_ab^2 A_bc^2 with A the signed area, so Theorem E's rationality condition is a statement about the SINE field Q(sin Phi), not the holonomy field Q(cos Phi)."
+}

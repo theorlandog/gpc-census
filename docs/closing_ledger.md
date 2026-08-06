@@ -237,6 +237,12 @@ and not a law about the universe.
 
 **CONFIRMED BY CENSUS**, with scope stated.
 
+- The SINE field `Q(sin Phi)` is a one-hop-class invariant, 44 of 44
+  non-vacuous pairs over 11 transport classes, values 0, 7, 15, 23, 47, 71
+  (`sine_field.json`). It is a different object from the holonomy field
+  `Q(cos Phi)`, and at (3,10) v75 it is invisible to it: every loop there has
+  degree 1 with no cosine radicand, yet the sines carry `sqrt(15)`.
+
 - 82 of 82 loop holonomies 2-elementary, degrees 1, 2, 4.
 - (R1) holds on all 54 within-class holonomies of the 17 large classes,
   `cos^2` of degree 1 on 26 and degree 2 on 28 (`polygon_diagonals.json`).
