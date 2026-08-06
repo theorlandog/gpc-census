@@ -240,6 +240,7 @@ and not a law about the universe.
 - 82 of 82 loop holonomies 2-elementary, degrees 1, 2, 4.
 - (R1) holds on all 54 within-class holonomies of the 17 large classes,
   `cos^2` of degree 1 on 26 and degree 2 on 28 (`polygon_diagonals.json`).
+  Now PROVED rather than measured at all 17 (`class_closure.json`).
 - 740 of 740 fixed-rho rigid records have rational weights, with the power
   warning: all 645 natural-orbital representatives are rigid, so the
   discriminating power lies entirely in the non-natural-orbital population.
@@ -249,7 +250,17 @@ and not a law about the universe.
 **OPEN.**
 
 - Holonomy Rationality at class sizes 3 and 4 (17 classes census-wide);
-  scoped rather than extended, deliberately. **Largely CLOSED 2026-08**
+  scoped rather than extended, deliberately. **CLOSED census-wide 2026-08**
+  (`docs/class_closure.md`): Theorem E generalises Theorem D by dropping the
+  size-2 hypothesis, since what propagates rationality is the rank-2 Gram matrix
+  and not the linking class's size. All 17 large classes now have multiquadratic
+  within-class holonomy cosines with C4 and D4 excluded, grounded in Theorem A
+  with no checked arithmetic hypothesis. The last class closed because v103 is
+  real up to gauge, so both feeding sines vanish and the Theorem E discriminant
+  is exactly zero. Still open: whether the linking structure must exist at all,
+  which is verified per class and not proved, and which (3,10) v103 already
+  showed cannot be had from a one-step size-2 conjecture. **Largely CLOSED
+  2026-08**
   (`docs/shared_loop_rationality.md`): Theorem D proves the rational diagonal
   is Theorem A read through a loop shared with a size-2 class, and Theorem C'
   gives multiquadratic at ANY class size from a rank-2 Gram matrix. 16 of the 17

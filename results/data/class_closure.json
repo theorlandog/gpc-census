@@ -1,0 +1,752 @@
+{
+ "classes": [
+  {
+   "channel": [
+    5,
+    9
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 17,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:14/17,5/17,5/17,5/17,5/17,5/17,3/17,3/17,3/17,3/17"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 25,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:4/5,1/3,1/3,1/3,1/5,1/5,1/5,1/5,1/5,1/5"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 33,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    2,
+    8
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 75,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [
+    {
+     "coefficients": [
+      "1/196",
+      "-1/38416",
+      "1/30118144"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "1/392",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": false,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      0,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "1/49",
+      "1/76832",
+      "-1/2151296"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "225/5903156224",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": false,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-1/196",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": false,
+     "sin_bc_vanishes": false,
+     "triple": [
+      0,
+      1,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "1/196",
+      "1/38416",
+      "1/30118144"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-1/392",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": false,
+     "triple": [
+      0,
+      2,
+      1
+     ],
+     "uses_only_theorem_D_inputs": false
+    }
+   ],
+   "transport_class": "N=3:9/14,1/2,1/2,1/2,1/7,1/7,1/7,1/7,1/7,1/7"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 98,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:11/20,11/20,11/20,11/20,1/5,1/5,1/10,1/10,1/10,1/10"
+  },
+  {
+   "channel": [
+    1,
+    6
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": false,
+   "closed_by_transport_from": [
+    3,
+    9
+   ],
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 0,
+   "index": 103,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [
+    {
+     "coefficients": [
+      "13125/16508258",
+      "275625/5240818888357",
+      "5788125/6655137718482350162"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-21/634933",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      0,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "42/48841",
+      "-22050/403139914489",
+      "5788125/6655137718482350162"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "525/16508258",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      1,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "21/16508258",
+      "11025/5240818888357",
+      "5788125/6655137718482350162"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-525/634933",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      2,
+      1
+     ],
+     "uses_only_theorem_D_inputs": false
+    }
+   ],
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 4,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 2,
+   "diagonals_proved_by_theorem_D": 2,
+   "index": 103,
+   "system": "(3,10)",
+   "theorem_E_extends_rationality": true,
+   "theorem_E_triples": [
+    {
+     "coefficients": [
+      "44100/8254129",
+      "-1653750/403139914489",
+      "62015625/78759026254228996"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "75/195364",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      0,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "44100/8254129",
+      "1653750/5240818888357",
+      "62015625/13310275436964700324"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-75/2539732",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      0,
+      3
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "44100/8254129",
+      "275625/10481637776714",
+      "6890625/212964406991435205184"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-25/10158928",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      2,
+      0,
+      3
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "225/48841",
+      "118125/31010762653",
+      "62015625/78759026254228996"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-525/1269866",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      1,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "225/48841",
+      "-118125/403139914489",
+      "62015625/13310275436964700324"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "525/16508258",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      1,
+      3
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "225/48841",
+      "5625/248086101224",
+      "140625/5040577680270655744"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-25/10158928",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      2,
+      1,
+      3
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "25/781456",
+      "39375/124043050612",
+      "62015625/78759026254228996"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-3150/634933",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      2,
+      1
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "25/781456",
+      "-13125/6450238631824",
+      "6890625/212964406991435205184"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "525/16508258",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      2,
+      3
+     ],
+     "uses_only_theorem_D_inputs": true
+    },
+    {
+     "coefficients": [
+      "25/781456",
+      "1875/992344404896",
+      "140625/5040577680270655744"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-75/2539732",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      2,
+      3
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "25/132066064",
+      "39375/20963275553428",
+      "62015625/13310275436964700324"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-3150/634933",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      3,
+      1
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "25/132066064",
+      "13125/83853102213712",
+      "6890625/212964406991435205184"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "-525/1269866",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      0,
+      3,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    },
+    {
+     "coefficients": [
+      "25/132066064",
+      "-1875/12900477263648",
+      "140625/5040577680270655744"
+     ],
+     "coefficients_rational": true,
+     "discriminant": "0",
+     "discriminant_factored_matches": true,
+     "discriminant_is_a_rational_square": true,
+     "discriminant_rational": true,
+     "discriminant_zero": true,
+     "forces_rational_t_ac": true,
+     "measured_solves_quadratic": true,
+     "measured_t_ac": "75/195364",
+     "measured_t_ac_rational": true,
+     "sin_ab_vanishes": true,
+     "sin_bc_vanishes": true,
+     "triple": [
+      1,
+      3,
+      2
+     ],
+     "uses_only_theorem_D_inputs": false
+    }
+   ],
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34"
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 10,
+   "system": "(3,8)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 13,
+   "system": "(3,9)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 13,
+   "system": "(4,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 10,
+   "system": "(4,9)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 10,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 113,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=5:17/18,17/18,8/9,4/9,4/9,4/9,2/9,2/9,2/9,2/9"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 144,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=5:34/37,34/37,34/37,17/37,17/37,17/37,8/37,8/37,8/37,8/37"
+  },
+  {
+   "channel": [
+    2,
+    5
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 256,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=5:29/37,29/37,29/37,29/37,20/37,20/37,20/37,3/37,3/37,3/37"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 261,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=5:7/9,7/9,7/9,7/9,5/9,5/9,5/9,1/9,1/18,1/18"
+  },
+  {
+   "channel": [
+    3,
+    6
+   ],
+   "class_size": 3,
+   "closed": true,
+   "closed_by_theorem_D": true,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "index": 268,
+   "system": "(5,10)",
+   "theorem_E_extends_rationality": false,
+   "theorem_E_triples": [],
+   "transport_class": "N=5:3/4,3/4,3/4,3/4,7/12,7/12,7/12,1/4"
+  }
+ ],
+ "summary": {
+  "classes": 17,
+  "closed": 17,
+  "closed_by_theorem_D": 16,
+  "closed_by_theorem_E": 1,
+  "not_closed": [],
+  "theorem_E_coefficients_rational": 18,
+  "theorem_E_degenerate_triples": 17,
+  "theorem_E_discriminant_rational": 18,
+  "theorem_E_factorisation_matches": 18,
+  "theorem_E_measured_solves": 18,
+  "theorem_E_triples": 18
+ },
+ "theorem_E": {
+  "geometry": "Delta / 4 = r_a^2 r_b^4 r_c^2 sin^2(Phi_ab) sin^2(Phi_bc), so t_ac is rational whenever either linked holonomy has cos = +/- 1",
+  "last_class": "(3,10) v103 is real up to gauge with holonomy (0, pi, pi, 0, 0) per v103_fiber_count.json, so both sines vanish, Delta = 0, and t_03 is forced rational",
+  "statement": "for pairs a,b,c of a class, r_b^2 t_ac^2 - 2 t_ab t_bc t_ac + (r_a^2 t_bc^2 + r_c^2 t_ab^2 - r_a^2 r_b^2 r_c^2) = 0; with t_ab, t_bc rational this is a rational quadratic with discriminant 4 (t_ab^2 - r_a^2 r_b^2)(t_bc^2 - r_b^2 r_c^2)"
+ },
+ "what": "Theorem E (rank-2 Gram chaining) and the closure ledger for every large one-hop class."
+}

@@ -292,6 +292,36 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- class_closure.md: THEOREM E, and EVERY LARGE CLASS CLOSED, 17 of 17. 🟦
+  THEOREM E PROVED, the statement Theorem D was a special case of: the sides lie
+  in the real plane so the Gram matrix has rank at most 2, and its 3x3 minor on
+  any triple {a,b,c} is a RATIONAL quadratic in t_ac as soon as t_ab and t_bc
+  are rational, with discriminant factoring as 4 (t_ab^2 - r_a^2 r_b^2)(t_bc^2 -
+  r_b^2 r_c^2) = 4 r_a^2 r_b^4 r_c^2 sin^2(Phi_ab) sin^2(Phi_bc). So t_ac always
+  lies in a quadratic extension by a RATIONAL radicand, and is rational exactly
+  when that is a square, in particular whenever a linked holonomy has cos = +/-
+  1. The size-2 hypothesis of Theorem D was only ever the base case. 🟦 THE LAST
+  CLASS CLOSED: (3,10) v103 ch(1,6) could not be reached by Theorem D because
+  its only one-hop link runs to the size-4 class (3,9). Two entries of (3,9) are
+  Theorem-D-proved from size-2 links at (2,6) and (1,2); Theorem E on the triple
+  (0,2,3) has discriminant EXACTLY ZERO, forcing t_03 rational; the shared loop
+  transports it and Theorem C finishes. The triple carries
+  uses_only_theorem_D_inputs, so nothing measured is consumed and the chain is
+  grounded in Theorem A throughout. ❗ The vanishing discriminant is not luck:
+  v103_fiber_count.json independently certifies v103 as real up to gauge with
+  holonomy (0, pi, pi, 0, 0), so every sine vanishes. The one class the size-2
+  mechanism missed is the one whose geometry is degenerate, and the degeneracy
+  was already on record. ❌ P-E-6 FAILED as pre-registered, and taught more than
+  the successes: degeneracy is NOT a v103 peculiarity, 17 of the 18 chained
+  triples have discriminant 0, spread across (3,10) v75 and both v103 classes.
+  Rationality propagates mostly because linked holonomies are pinned at cos =
+  +/- 1, not because discriminants happen to be squares. The single
+  non-degenerate triple, v75 ch(2,8) (0,1,2), has discriminant 225/5903156224 =
+  (15/76832)^2, so both modes occur. 🔬 POST-HOC and needing an out-of-sample
+  test: whether degenerate dominance is a fact about real-up-to-gauge states
+  specifically. Scope 17 classes, 16 states, 11 transport classes (R2).
+  [docs/prereg_class_closure.md; scripts/class_closure.py;
+  results/data/class_closure.json; tests/test_class_closure.py]
 - shared_loop_rationality.md: THEOREM D and THEOREM C', the induction that
   turns Theorem C's checked hypothesis into a proof and lifts its conclusion off
   class size 3. 🟦 THEOREM D PROVED: if two pairs of a class (A,B) have A-side
