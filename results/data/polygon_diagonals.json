@@ -1,0 +1,2702 @@
+{
+ "classes": [
+  {
+   "channel": [
+    5,
+    9
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 17,
+   "oriented": [
+    [
+     2,
+     3,
+     1
+    ],
+    [
+     4,
+     5,
+     -1
+    ],
+    [
+     6,
+     7,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/289",
+     "value": "1/289",
+     "value_numeric": 0.0034602076124567475
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "sqrt(21)/578 + 5/578",
+     "value_numeric": 0.016578850683314602
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "5/578 - sqrt(21)/578",
+     "value_numeric": 0.0007221873789691349
+    }
+   ],
+   "r_squared": [
+    "2/289",
+    "2/289",
+    "1/289"
+   ],
+   "rho_mod2": "1/289",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(3,10)",
+   "theorem_C": {
+    "D_squared": "1/289",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "21/111612119056",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/578",
+    "p_rational": true,
+    "q": "1/578",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/289",
+     "1/167042",
+     "-5/96550276"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-1/1156 + sqrt(21)/1156",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:14/17,5/17,5/17,5/17,5/17,5/17,3/17,3/17,3/17,3/17",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-3/578",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/1156 + sqrt(21)/1156",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/1156 - 1/1156",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 25,
+   "oriented": [
+    [
+     1,
+     2,
+     1
+    ],
+    [
+     3,
+     5,
+     -1
+    ],
+    [
+     6,
+     7,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/225",
+     "value": "1/225",
+     "value_numeric": 0.0044444444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "sqrt(21)/450 + 1/90",
+     "value_numeric": 0.021294612655457422
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "1/90 - sqrt(21)/450",
+     "value_numeric": 0.0009276095667647999
+    }
+   ],
+   "r_squared": [
+    "2/225",
+    "2/225",
+    "1/225"
+   ],
+   "rho_mod2": "1/225",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(3,10)",
+   "theorem_C": {
+    "D_squared": "1/225",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/13668750000",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/450",
+    "p_rational": true,
+    "q": "1/450",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/225",
+     "1/101250",
+     "-1/9112500"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-1/900 + sqrt(21)/900",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:4/5,1/3,1/3,1/3,1/5,1/5,1/5,1/5,1/5,1/5",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/150",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/900 + sqrt(21)/900",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/900 - 1/900",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 33,
+   "oriented": [
+    [
+     1,
+     2,
+     1
+    ],
+    [
+     3,
+     4,
+     -1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(3,10)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-1/576 + sqrt(21)/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    8
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 75,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     8,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/49",
+     "value": "1/49",
+     "value_numeric": 0.02040816326530612
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "0",
+     "value_numeric": 0.0
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "3/98",
+     "value_numeric": 0.030612244897959183
+    }
+   ],
+   "r_squared": [
+    "1/196",
+    "1/49",
+    "1/196"
+   ],
+   "rho_mod2": "1/49",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(3,10)",
+   "theorem_C": {
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": null,
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "max_cos_squared_degree": 1,
+    "route": "fully_rational_polygon"
+   },
+   "transport_class": "N=3:9/14,1/2,1/2,1/2,1/7,1/7,1/7,1/7,1/7,1/7",
+   "within_class_cosines": [
+    {
+     "cos_squared": "1/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/392",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/196",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "1/392",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 98,
+   "oriented": [
+    [
+     2,
+     3,
+     -1
+    ],
+    [
+     5,
+     6,
+     1
+    ],
+    [
+     7,
+     8,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "value": "sqrt(1633)/4800 + 47/4800",
+     "value_numeric": 0.018210498896323646
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "97/4800 - sqrt(1633)/4800",
+     "value_numeric": 0.011789501103676353
+    },
+    {
+     "coherent_modes": [
+      1
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "two_rdm_mod2": "3/200",
+     "value": "3/200",
+     "value_numeric": 0.015
+    }
+   ],
+   "r_squared": [
+    "3/400",
+    "1/400",
+    "3/200"
+   ],
+   "rho_mod2": "1/50",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(3,10)",
+   "theorem_C": {
+    "D_squared": "3/200",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     1,
+     2
+    ],
+    "discriminant": "1633/409600000000",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/800",
+    "p_rational": true,
+    "q": "1/800",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "3/200",
+     "1/320000",
+     "-17/64000000"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-1/9600 + sqrt(1633)/9600",
+    "t_ac_degree": 2,
+    "third": 0
+   },
+   "transport_class": "N=3:11/20,11/20,11/20,11/20,1/5,1/5,1/10,1/10,1/10,1/10",
+   "within_class_cosines": [
+    {
+     "cos_squared": "817/864 - sqrt(1633)/864",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/9600 + sqrt(1633)/9600",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "(11 + sqrt(1633))**2/10368",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(1633)/9600 - 11/9600",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "1/24",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/800",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    }
+   ]
+  },
+  {
+   "channel": [
+    1,
+    6
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 103,
+   "oriented": [
+    [
+     0,
+     11,
+     1
+    ],
+    [
+     10,
+     2,
+     -1
+    ],
+    [
+     9,
+     13,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "value": "21/16508258",
+     "value_numeric": 1.2720906106507423e-06
+    },
+    {
+     "coherent_modes": [
+      2
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "two_rdm_mod2": "42/48841",
+     "value": "42/48841",
+     "value_numeric": 0.0008599332527999017
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "13125/16508258",
+     "value_numeric": 0.0007950566316567138
+    }
+   ],
+   "r_squared": [
+    "13125/16508258",
+    "42/48841",
+    "21/16508258"
+   ],
+   "rho_mod2": "0",
+   "rho_mod2_rational": true,
+   "support_size": 14,
+   "system": "(3,10)",
+   "theorem_C": {
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": null,
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "max_cos_squared_degree": 1,
+    "route": "fully_rational_polygon"
+   },
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34",
+   "within_class_cosines": [
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-525/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "525/16508258",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-21/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 4,
+   "classified": "INTERFERENCE",
+   "index": 103,
+   "oriented": [
+    [
+     0,
+     9,
+     1
+    ],
+    [
+     4,
+     5,
+     -1
+    ],
+    [
+     12,
+     7,
+     -1
+    ],
+    [
+     11,
+     13,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "value": "225/8254129",
+     "value_numeric": 2.7259084513944475e-05
+    },
+    {
+     "coherent_modes": [
+      1
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "two_rdm_mod2": "600625/132066064",
+     "value": "600625/132066064",
+     "value_numeric": 0.0045479132322744165
+    },
+    {
+     "coherent_modes": [
+      2
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      3
+     ],
+     "two_rdm_mod2": "25/4624",
+     "value": "25/4624",
+     "value_numeric": 0.005406574394463667
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "25/4624",
+     "value_numeric": 0.005406574394463667
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      1,
+      3
+     ],
+     "value": "600625/132066064",
+     "value_numeric": 0.0045479132322744165
+    },
+    {
+     "coherent_modes": [
+      6
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      2,
+      3
+     ],
+     "two_rdm_mod2": "225/8254129",
+     "value": "225/8254129",
+     "value_numeric": 2.7259084513944475e-05
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 3,
+     "subset": [
+      0,
+      1,
+      2
+     ],
+     "value": "25/132066064",
+     "value_numeric": 1.892991980135033e-07
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 3,
+     "subset": [
+      0,
+      1,
+      3
+     ],
+     "value": "25/781456",
+     "value_numeric": 3.199156446428206e-05
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 3,
+     "subset": [
+      0,
+      2,
+      3
+     ],
+     "value": "225/48841",
+     "value_numeric": 0.004606785282856616
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": true,
+     "size": 3,
+     "subset": [
+      1,
+      2,
+      3
+     ],
+     "value": "44100/8254129",
+     "value_numeric": 0.005342780564733117
+    }
+   ],
+   "r_squared": [
+    "44100/8254129",
+    "225/48841",
+    "25/781456",
+    "25/132066064"
+   ],
+   "rho_mod2": "0",
+   "rho_mod2_rational": true,
+   "support_size": 14,
+   "system": "(3,10)",
+   "theorem_C": {
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": null,
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "max_cos_squared_degree": 1,
+    "route": "fully_rational_polygon"
+   },
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34",
+   "within_class_cosines": [
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-3150/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-525/1269866",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      3
+     ],
+     "t_ab": "525/16508258",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "75/195364",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      1,
+      3
+     ],
+     "t_ab": "-75/2539732",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "1",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      2,
+      3
+     ],
+     "t_ab": "-25/10158928",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 10,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(3,8)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 13,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(3,9)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 13,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      1
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(4,10)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 10,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      1
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(4,9)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 10,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      2
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 113,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     5,
+     6,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      2
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/108",
+     "value": "1/108",
+     "value_numeric": 0.009259259259259259
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "31/1944 - sqrt(517)/1944",
+     "value_numeric": 0.00425018827067688
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(517)/1944 + 47/1944",
+     "value_numeric": 0.035873268519446576
+    }
+   ],
+   "r_squared": [
+    "1/81",
+    "2/81",
+    "1/324"
+   ],
+   "rho_mod2": "1/108",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "1/108",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "517/176319369216",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/648",
+    "p_rational": true,
+    "q": "-1/648",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/108",
+     "-1/209952",
+     "-43/136048896"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "1/3888 - sqrt(517)/3888",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=5:17/18,17/18,8/9,4/9,4/9,4/9,2/9,2/9,2/9,2/9",
+   "within_class_cosines": [
+    {
+     "cos_squared": "81/128",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/72",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "259/288 - sqrt(517)/288",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "(7 - sqrt(517))**2/1152",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 144,
+   "oriented": [
+    [
+     1,
+     3,
+     -1
+    ],
+    [
+     2,
+     4,
+     1
+    ],
+    [
+     8,
+     9,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "15/1369",
+     "value": "15/1369",
+     "value_numeric": 0.01095690284879474
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "value": "79/6845 - sqrt(2769)/20535",
+     "value_numeric": 0.008978753909535356
+    },
+    {
+     "coherent_modes": [],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "mode_coherent": false,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "value": "sqrt(2769)/20535 + 141/6845",
+     "value_numeric": 0.023161494446929217
+    }
+   ],
+   "r_squared": [
+    "9/1369",
+    "40/1369",
+    "2/1369"
+   ],
+   "rho_mod2": "8/1369",
+   "rho_mod2_rational": true,
+   "support_size": 10,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "15/1369",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "2769/14049917815684",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-9/2738",
+    "p_rational": true,
+    "q": "-8/1369",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "15/1369",
+     "-72/1874161",
+     "161/10262905636"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "12/6845 - sqrt(2769)/41070",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=5:34/37,34/37,34/37,17/37,17/37,17/37,8/37,8/37,8/37,8/37",
+   "within_class_cosines": [
+    {
+     "cos_squared": "289/360",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-17/1369",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "(72 - sqrt(2769))**2/16200",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "12/6845 - sqrt(2769)/41070",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "(207 - sqrt(2769))**2/72000",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-69/13690 + sqrt(2769)/41070",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    2,
+    5
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 256,
+   "oriented": [
+    [
+     0,
+     2,
+     1
+    ],
+    [
+     1,
+     4,
+     -1
+    ],
+    [
+     7,
+     9,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      0,
+      4
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "8/1369",
+     "value": "8/1369",
+     "value_numeric": 0.005843681519357195
+    },
+    {
+     "coherent_modes": [
+      3
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "two_rdm_mod2": "sqrt(705)/5476 + 31/5476",
+     "value": "sqrt(705)/5476 + 31/5476",
+     "value_numeric": 0.010509831280990414
+    },
+    {
+     "coherent_modes": [
+      6
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "two_rdm_mod2": "49/5476 - sqrt(705)/5476",
+     "value": "49/5476 - sqrt(705)/5476",
+     "value_numeric": 0.0040993725174025735
+    }
+   ],
+   "r_squared": [
+    "6/1369",
+    "12/1369",
+    "2/1369"
+   ],
+   "rho_mod2": "8/1369",
+   "rho_mod2_rational": true,
+   "support_size": 10,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "8/1369",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "705/3512479453921",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/1369",
+    "p_rational": true,
+    "q": "1/1369",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "8/1369",
+     "2/1874161",
+     "-88/2565726409"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-1/10952 + sqrt(705)/10952",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=5:29/37,29/37,29/37,29/37,20/37,20/37,20/37,3/37,3/37,3/37",
+   "within_class_cosines": [
+    {
+     "cos_squared": "25/72",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-5/1369",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "353/384 - sqrt(705)/384",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/10952 + sqrt(705)/10952",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "(7 + sqrt(705))**2/1536",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(705)/10952 - 7/10952",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 261,
+   "oriented": [
+    [
+     3,
+     1,
+     1
+    ],
+    [
+     4,
+     2,
+     -1
+    ],
+    [
+     6,
+     5,
+     1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      3,
+      6
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/108",
+     "value": "1/108",
+     "value_numeric": 0.009259259259259259
+    },
+    {
+     "coherent_modes": [
+      9
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "two_rdm_mod2": "31/1944 - sqrt(517)/1944",
+     "value": "31/1944 - sqrt(517)/1944",
+     "value_numeric": 0.00425018827067688
+    },
+    {
+     "coherent_modes": [
+      5
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "two_rdm_mod2": "sqrt(517)/1944 + 47/1944",
+     "value": "sqrt(517)/1944 + 47/1944",
+     "value_numeric": 0.035873268519446576
+    }
+   ],
+   "r_squared": [
+    "1/81",
+    "2/81",
+    "1/324"
+   ],
+   "rho_mod2": "1/108",
+   "rho_mod2_rational": true,
+   "support_size": 9,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "1/108",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "517/176319369216",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/648",
+    "p_rational": true,
+    "q": "-1/648",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/108",
+     "-1/209952",
+     "-43/136048896"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "1/3888 - sqrt(517)/3888",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=5:7/9,7/9,7/9,7/9,5/9,5/9,5/9,1/9,1/18,1/18",
+   "within_class_cosines": [
+    {
+     "cos_squared": "81/128",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/72",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "259/288 - sqrt(517)/288",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "(7 - sqrt(517))**2/1152",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  },
+  {
+   "channel": [
+    3,
+    6
+   ],
+   "class_size": 3,
+   "classified": "INTERFERENCE",
+   "index": 268,
+   "oriented": [
+    [
+     0,
+     1,
+     -1
+    ],
+    [
+     2,
+     3,
+     1
+    ],
+    [
+     4,
+     5,
+     -1
+    ]
+   ],
+   "proper_subsets": [
+    {
+     "coherent_modes": [
+      1,
+      4
+     ],
+     "degree_over_Q": 1,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": true,
+     "size": 2,
+     "subset": [
+      0,
+      1
+     ],
+     "two_rdm_mod2": "1/144",
+     "value": "1/144",
+     "value_numeric": 0.006944444444444444
+    },
+    {
+     "coherent_modes": [
+      2
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      0,
+      2
+     ],
+     "two_rdm_mod2": "5/288 - sqrt(21)/288",
+     "value": "5/288 - sqrt(21)/288",
+     "value_numeric": 0.00144938994807
+    },
+    {
+     "coherent_modes": [
+      5
+     ],
+     "degree_over_Q": 2,
+     "degree_resolved": true,
+     "matches_two_rdm": true,
+     "mode_coherent": true,
+     "rational": false,
+     "size": 2,
+     "subset": [
+      1,
+      2
+     ],
+     "two_rdm_mod2": "sqrt(21)/288 + 5/288",
+     "value": "sqrt(21)/288 + 5/288",
+     "value_numeric": 0.033272832274152224
+    }
+   ],
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rho_mod2": "1/144",
+   "rho_mod2_rational": true,
+   "support_size": 8,
+   "system": "(5,10)",
+   "theorem_C": {
+    "D_squared": "1/144",
+    "D_squared_rational": true,
+    "all_coefficients_rational": true,
+    "applies": true,
+    "diagonal_pair": [
+     0,
+     1
+    ],
+    "discriminant": "7/2293235712",
+    "discriminant_rational": true,
+    "gram_identity_holds": true,
+    "gram_residual": "0",
+    "p": "-1/288",
+    "p_rational": true,
+    "q": "1/288",
+    "q_rational": true,
+    "quadratic_coefficients": [
+     "1/144",
+     "1/41472",
+     "-5/11943936"
+    ],
+    "route": "gram_triangulation",
+    "t_ac": "-sqrt(21)/576 - 1/576",
+    "t_ac_degree": 2,
+    "third": 2
+   },
+   "transport_class": "N=5:3/4,3/4,3/4,3/4,7/12,7/12,7/12,1/4",
+   "within_class_cosines": [
+    {
+     "cos_squared": "9/16",
+     "cos_squared_degree": 1,
+     "cos_squared_rational": true,
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true
+    },
+    {
+     "cos_squared": "sqrt(21)/16 + 11/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    },
+    {
+     "cos_squared": "11/16 - sqrt(21)/16",
+     "cos_squared_degree": 2,
+     "cos_squared_rational": false,
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false
+    }
+   ]
+  }
+ ],
+ "reduction": {
+  "consequence": "the polygon question is (R1) on within-class difference loops plus a squareness demand, not an independent question",
+  "statement": "for |T| = 2 the diagonal is rational iff t_ab is, and t_ab^2 = (rational) * cos^2(Phi_ab), so a rational diagonal forces (R1) on the within-class holonomy"
+ },
+ "source": "results/data/states.jsonl (exact closed forms)",
+ "summary": {
+  "class_sizes": {
+   "3": 16,
+   "4": 1
+  },
+  "classes": 17,
+  "classes_with_a_rational_diagonal": 17,
+  "cos_squared_rational": 26,
+  "cos_squared_unresolved": 0,
+  "degree_unresolved": 0,
+  "distinct_states": 16,
+  "irrational_degrees": {
+   "2": 28
+  },
+  "irrational_subsets": 28,
+  "mode_coherent_irrational": 6,
+  "mode_coherent_rational": 19,
+  "mode_coherent_subsets": 25,
+  "mode_incoherent_irrational": 22,
+  "mode_incoherent_rational": 11,
+  "mode_incoherent_subsets": 33,
+  "proper_subsets": 58,
+  "rational_subsets": 30,
+  "t_ab_rational": 26,
+  "t_ab_unresolved": 0,
+  "theorem_C_all_coefficients_rational": 17,
+  "theorem_C_applies": 17,
+  "theorem_C_discriminant_rational": 17,
+  "theorem_C_gram_identity_holds": 17,
+  "transport_classes": 11,
+  "two_rdm_checked": 25,
+  "two_rdm_matches": 25,
+  "within_class_pairs": 54
+ },
+ "what": "Polygon reformulation of Lemma 2: squared diagonal lengths of the one-hop channel polygon, and whether they are rational."
+}

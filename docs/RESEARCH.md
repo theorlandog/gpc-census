@@ -292,6 +292,33 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- polygon_diagonals.md: THEOREM C, the mechanism that forbids D4 at one-hop
+  class size 3, and the one to read before any further attack on (R1) at large
+  classes. Lemma 2 unexpanded says a class of size m is a closed (m+1)-gon with
+  side lengths fixed by the weights, so Theorem A is the law of cosines for a
+  triangle and a size-3 class is a quadrilateral. 🟦 THEOREM C PROVED: if a
+  size-3 class carries a RATIONAL DIAGONAL then z_a, z_c and D = z_a + z_b are
+  three vectors in the real plane, their Gram matrix is singular, and the
+  vanishing determinant is a quadratic in t_ac with RATIONAL coefficients and
+  RATIONAL discriminant; so every within-class cosine lies in a multiquadratic
+  field, (R1) holds and C4 and D4 are excluded. ❗ This is what Proposition B
+  could not give: B's radicand carries sin psi from an earlier loop and builds a
+  2-tower, which may close dihedrally, while C's radicand is rational outright
+  because the Gram relation never leaves the class. 🟦 Machine-checked, Gram
+  residual exactly 0 on 17 of 17 classes (14 by triangulation, 3 already fully
+  rational). ❌ P-B1-2 FAILED and is the informative part: mode-coherent partial
+  sums ARE the 2-RDM entries rho^(2)_{AC,BC}, verified exactly 25 of 25, and 6
+  of them are IRRATIONAL of degree 2, so hypothesis (H2) does NOT extend from
+  the 1-RDM to the 2-RDM. P-B1-4 failed the other way, 11 of 33 mode-incoherent
+  subsets are rational, so mode-coherence is the wrong invariant entirely. 🔬
+  POST-HOC, labelled: all 17 classes carry a rational diagonal, 14 of them
+  exactly one, which is what makes Theorem C bite and which needs an
+  out-of-sample test. The residue, and the new open problem, is sharper than
+  what it replaces: prove every size-3 one-hop class carries a rational
+  diagonal, or exhibit one that does not. Scope 17 classes, 16 states, 11
+  transport classes (R2).
+  [docs/prereg_polygon_diagonals.md; scripts/polygon_diagonals.py;
+  results/data/polygon_diagonals.json; tests/test_polygon_diagonals.py]
 - census_inner_sandwich.md: COMPLETENESS WITHOUT CANDIDATE EXHAUSTIVENESS, and
   the one to read before spending any more effort on exhaustive enumeration.
   The claim ladder allows "an exhaustive-enumeration proof OR an independent
