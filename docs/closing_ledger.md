@@ -249,7 +249,14 @@ and not a law about the universe.
 **OPEN.**
 
 - Holonomy Rationality at class sizes 3 and 4 (17 classes census-wide);
-  scoped rather than extended, deliberately. **Narrowed again 2026-08**
+  scoped rather than extended, deliberately. **Largely CLOSED 2026-08**
+  (`docs/shared_loop_rationality.md`): Theorem D proves the rational diagonal
+  is Theorem A read through a loop shared with a size-2 class, and Theorem C'
+  gives multiquadratic at ANY class size from a rank-2 Gram matrix. 16 of the 17
+  large classes are now PROVED end to end with no checked arithmetic hypothesis.
+  Still open: the last class, (3,10) v103 channel (1,6), and the well-foundedness
+  of the class-linking recursion. The clean one-step conjecture that would have
+  closed it is REFUTED by that same class. **Narrowed again 2026-08**
   (`docs/polygon_diagonals.md`): Theorem C PROVES (R1) at class size 3 from a
   RATIONAL DIAGONAL, by the singular Gram matrix of three vectors in the plane,
   with C4 and D4 excluded rather than merely absent; machine-checked with Gram

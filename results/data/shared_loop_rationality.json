@@ -1,0 +1,1427 @@
+{
+ "classes": [
+  {
+   "channel": [
+    5,
+    9
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 17,
+   "links": [
+    {
+     "linking_channel": [
+      4,
+      8
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/289",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-3/578",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-3/578",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/1156 + sqrt(21)/1156",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/1156 - 1/1156",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "2/289",
+    "2/289",
+    "1/289"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "2/289",
+     "1/289",
+     "1/289"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:14/17,5/17,5/17,5/17,5/17,5/17,3/17,3/17,3/17,3/17"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 25,
+   "links": [
+    {
+     "linking_channel": [
+      2,
+      8
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/225",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/150",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/150",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/900 + sqrt(21)/900",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/900 - 1/900",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "2/225",
+    "2/225",
+    "1/225"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "2/225",
+     "1/225",
+     "1/225"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:4/5,1/3,1/3,1/3,1/5,1/5,1/5,1/5,1/5,1/5"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 33,
+   "links": [
+    {
+     "linking_channel": [
+      2,
+      6
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    2,
+    8
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 75,
+   "links": [
+    {
+     "linking_channel": [
+      3,
+      9
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/49",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/392",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/392",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/196",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "1/392",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/196",
+    "1/49",
+    "1/196"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/196",
+     "1/49",
+     "1/49"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:9/14,1/2,1/2,1/2,1/7,1/7,1/7,1/7,1/7,1/7"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 98,
+   "links": [
+    {
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-1/9600 + sqrt(1633)/9600",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(1633)/9600 - 11/9600",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "linking_channel": [
+      2,
+      5
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "3/200",
+     "pair": [
+      1,
+      2
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/800",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/800",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "3/400",
+    "1/400",
+    "3/200"
+   ],
+   "rational_chain": {
+    "order": [
+     1,
+     2,
+     0
+    ],
+    "partial_moduli": [
+     "1/400",
+     "3/200",
+     "1/50"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:11/20,11/20,11/20,11/20,1/5,1/5,1/10,1/10,1/10,1/10"
+  },
+  {
+   "channel": [
+    1,
+    6
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 0,
+   "exactly_at_the_minimum": false,
+   "has_rational_chain": true,
+   "has_size_two_link": false,
+   "index": 103,
+   "links": [
+    {
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-525/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "linking_channel": [
+      3,
+      9
+     ],
+     "linking_channel_size": 4,
+     "pair": [
+      0,
+      2
+     ],
+     "shared_loop": true,
+     "t_ab": "525/16508258",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-21/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": false,
+   "r_squared": [
+    "13125/16508258",
+    "42/48841",
+    "21/16508258"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "13125/16508258",
+     "21/16508258",
+     "0"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34"
+  },
+  {
+   "channel": [
+    3,
+    9
+   ],
+   "class_size": 4,
+   "diagonals_needed": 2,
+   "diagonals_proved_by_theorem_D": 2,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 103,
+   "links": [
+    {
+     "pair": [
+      0,
+      1
+     ],
+     "t_ab": "-3150/634933",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "linking_channel": [
+      2,
+      6
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "0",
+     "pair": [
+      0,
+      2
+     ],
+     "shared_loop": true,
+     "t_ab": "-525/1269866",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-525/1269866",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "linking_channel": [
+      1,
+      6
+     ],
+     "linking_channel_size": 3,
+     "pair": [
+      0,
+      3
+     ],
+     "shared_loop": true,
+     "t_ab": "525/16508258",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "75/195364",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      3
+     ],
+     "t_ab": "-75/2539732",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "linking_channel": [
+      1,
+      2
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "0",
+     "pair": [
+      2,
+      3
+     ],
+     "shared_loop": true,
+     "t_ab": "-25/10158928",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-25/10158928",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "44100/8254129",
+    "225/48841",
+    "25/781456",
+    "25/132066064"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "partial_moduli": [
+     "44100/8254129",
+     "225/8254129",
+     "25/132066064",
+     "0"
+    ]
+   },
+   "system": "(3,10)",
+   "transport_class": "N=3:9/17,9/17,9/17,9/17,5/34,5/34,5/34,5/34,5/34,5/34"
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 10,
+   "links": [
+    {
+     "linking_channel": [
+      3,
+      7
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(3,8)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    2,
+    6
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 13,
+   "links": [
+    {
+     "linking_channel": [
+      3,
+      7
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(3,9)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 13,
+   "links": [
+    {
+     "linking_channel": [
+      4,
+      8
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(4,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    3,
+    7
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 10,
+   "links": [
+    {
+     "linking_channel": [
+      4,
+      8
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(4,9)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 10,
+   "links": [
+    {
+     "linking_channel": [
+      5,
+      9
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=3:3/4,5/12,5/12,5/12,1/4,1/4,1/4,1/4"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 113,
+   "links": [
+    {
+     "linking_channel": [
+      5,
+      9
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/108",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/72",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/72",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/81",
+    "2/81",
+    "1/324"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/81",
+     "1/108",
+     "1/108"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=5:17/18,17/18,8/9,4/9,4/9,4/9,2/9,2/9,2/9,2/9"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 144,
+   "links": [
+    {
+     "linking_channel": [
+      5,
+      9
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "8/1369",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-17/1369",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-17/1369",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "12/6845 - sqrt(2769)/41070",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-69/13690 + sqrt(2769)/41070",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "9/1369",
+    "40/1369",
+    "2/1369"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "9/1369",
+     "15/1369",
+     "8/1369"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=5:34/37,34/37,34/37,17/37,17/37,17/37,8/37,8/37,8/37,8/37"
+  },
+  {
+   "channel": [
+    2,
+    5
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 256,
+   "links": [
+    {
+     "linking_channel": [
+      3,
+      6
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "8/1369",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-5/1369",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-5/1369",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-1/10952 + sqrt(705)/10952",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-sqrt(705)/10952 - 7/10952",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "6/1369",
+    "12/1369",
+    "2/1369"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "6/1369",
+     "8/1369",
+     "8/1369"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=5:29/37,29/37,29/37,29/37,20/37,20/37,20/37,3/37,3/37,3/37"
+  },
+  {
+   "channel": [
+    4,
+    8
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 261,
+   "links": [
+    {
+     "linking_channel": [
+      5,
+      9
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/108",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/72",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/72",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "1/3888 - sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-7/3888 + sqrt(517)/3888",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/81",
+    "2/81",
+    "1/324"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/81",
+     "1/108",
+     "1/108"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=5:7/9,7/9,7/9,7/9,5/9,5/9,5/9,1/9,1/18,1/18"
+  },
+  {
+   "channel": [
+    3,
+    6
+   ],
+   "class_size": 3,
+   "diagonals_needed": 1,
+   "diagonals_proved_by_theorem_D": 1,
+   "exactly_at_the_minimum": true,
+   "has_rational_chain": true,
+   "has_size_two_link": true,
+   "index": 268,
+   "links": [
+    {
+     "linking_channel": [
+      2,
+      5
+     ],
+     "linking_channel_size": 2,
+     "linking_rho_mod2": "1/144",
+     "pair": [
+      0,
+      1
+     ],
+     "shared_loop": true,
+     "t_ab": "-1/96",
+     "t_ab_degree": 1,
+     "t_ab_rational": true,
+     "theorem_D_matches": true,
+     "theorem_D_predicted_rational": true,
+     "theorem_D_predicted_t_ab": "-1/96",
+     "u_hop": 1,
+     "v_hop": 1,
+     "v_side_same_channel": true
+    },
+    {
+     "pair": [
+      0,
+      2
+     ],
+     "t_ab": "-sqrt(21)/576 - 1/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    },
+    {
+     "pair": [
+      1,
+      2
+     ],
+     "t_ab": "-1/576 + sqrt(21)/576",
+     "t_ab_degree": 2,
+     "t_ab_rational": false,
+     "u_hop": 2,
+     "v_hop": 2
+    }
+   ],
+   "proved_end_to_end": true,
+   "r_squared": [
+    "1/72",
+    "1/72",
+    "1/144"
+   ],
+   "rational_chain": {
+    "order": [
+     0,
+     1,
+     2
+    ],
+    "partial_moduli": [
+     "1/72",
+     "1/144",
+     "1/144"
+    ]
+   },
+   "system": "(5,10)",
+   "transport_class": "N=5:3/4,3/4,3/4,3/4,7/12,7/12,7/12,1/4"
+  }
+ ],
+ "summary": {
+  "class_sizes": {
+   "3": 16,
+   "4": 1
+  },
+  "classes": 17,
+  "classes_with_a_rational_chain": 17,
+  "classes_with_a_size_two_link": 16,
+  "distinct_states": 16,
+  "exactly_at_the_minimum": 16,
+  "not_proved_end_to_end": [
+   "(3,10) v103 ch(1, 6)"
+  ],
+  "one_hop_linked_pairs": 19,
+  "pairs": 54,
+  "proved_end_to_end": 16,
+  "shared_loop_holds": 19,
+  "size_two_link_and_t_rational": 17,
+  "size_two_links": 17,
+  "theorem_D_checked": 17,
+  "theorem_D_matches": 17,
+  "theorem_D_predicted_rational": 17,
+  "transport_classes": 11,
+  "v_side_same_channel": 19
+ },
+ "theorems": {
+  "C_prime": "the Gram matrix of the sides has rank at most 2 because they lie in the real plane, so a rational chain of partial sums forces every t_ab into a multiquadratic field at any class size, not only size 3",
+  "D": "if u_b = u_a - C + E then the (A,B) loop of {a,b} equals the (C,E) loop of (u_a,u_b); when (C,E) has size 2, Theorem A there gives t_ab = s_a s_b (|rho_CE|^2 - p_ua p_ub - p_va p_vb) / (2 sigma_1 sigma_2), which is RATIONAL because the monomial M = (r_a r_b)^2 cancels identically"
+ },
+ "what": "Theorem D (a shared loop makes the diagonal rational, by Theorem A on a smaller class) and Theorem C' (rank-2 Gram triangulation at arbitrary class size)."
+}

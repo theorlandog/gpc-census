@@ -166,9 +166,12 @@ def analyse(rec, min_size: int) -> list[dict]:
         # Theorem C': a rational chain is an ordering whose partial sums all
         # have rational squared modulus. Search orderings for one.
         chain = None
+        # Every ordering is searched. An earlier version skipped orderings with
+        # order[0] > order[-1] to "dedupe reverses", which is wrong: reversing
+        # an ordering changes which partial sums appear, so the reverse of a
+        # chain is generally not a chain. That bug reported (3,10) v98 as having
+        # no rational chain when it has one.
         for order in itertools.permutations(range(len(oriented))):
-            if order[0] > order[-1]:
-                continue                       # the reverse gives the same chain
             partial = (sp.Integer(0), sp.Integer(0))
             moduli, good = [], True
             for k in order:
@@ -183,11 +186,22 @@ def analyse(rec, min_size: int) -> list[dict]:
                 chain = {"order": list(order), "partial_moduli": moduli}
                 break
 
+        # Theorem C' needs m-2 rational diagonals; Theorem D proves one per
+        # pair carrying a size-2 link. When D supplies enough, the class is
+        # proved end to end from Theorem A with no checked arithmetic input.
+        size = len(oriented)
+        proved_diagonals = sum(1 for e in links
+                               if e.get("linking_channel_size") == 2
+                               and e.get("theorem_D_matches"))
         out.append({
             "system": rec["system"],
             "index": rec["index"],
             "channel": [a_mode, b_mode],
-            "class_size": len(oriented),
+            "class_size": size,
+            "diagonals_proved_by_theorem_D": proved_diagonals,
+            "diagonals_needed": size - 2,
+            "proved_end_to_end": bool(proved_diagonals >= size - 2),
+            "exactly_at_the_minimum": bool(proved_diagonals == size - 2),
             "transport_class": transport_class(
                 rec["system"], rec["integer_form"], rec["denominator"]),
             "r_squared": [str(v) for v in r2],
@@ -259,6 +273,12 @@ def main() -> int:
                                                 if b["has_size_two_link"]),
             "classes_with_a_rational_chain": sum(1 for b in blocks
                                                  if b["has_rational_chain"]),
+            "proved_end_to_end": sum(1 for b in blocks if b["proved_end_to_end"]),
+            "exactly_at_the_minimum": sum(1 for b in blocks
+                                          if b["exactly_at_the_minimum"]),
+            "not_proved_end_to_end": sorted(
+                f'{b["system"]} v{b["index"]} ch{tuple(b["channel"])}'
+                for b in blocks if not b["proved_end_to_end"]),
         },
         "classes": blocks,
     }

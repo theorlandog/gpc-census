@@ -292,6 +292,37 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- shared_loop_rationality.md: THEOREM D and THEOREM C', the induction that
+  turns Theorem C's checked hypothesis into a proof and lifts its conclusion off
+  class size 3. 🟦 THEOREM D PROVED: if two pairs of a class (A,B) have A-side
+  determinants one hop apart, u_b = u_a - C + E, then v_b = v_a - C + E too,
+  both determinant pairs lie in the class (C,E), and the two Lemma 1 loops are
+  the SAME integer vector; when (C,E) has size 2 Theorem A applies there and the
+  weight monomial M = (r_a r_b)^2 cancels identically, so t_ab is RATIONAL. The
+  rational diagonal is Theorem A read through a shared loop, not a coincidence.
+  🟦 THEOREM C' PROVED: the sides lie in the real plane so the Gram matrix has
+  rank at most 2, a class of size m needs m-2 rational diagonals, and a rational
+  chain makes every adjoined radicand rational, hence multiquadratic at ANY
+  size. That is what Proposition B could not give, since B's radicand carries
+  sin psi from an earlier loop and only builds a 2-tower, which may close
+  dihedrally. 🟦 Together: 16 of 17 large classes PROVED end to end from Theorem
+  A with NO checked arithmetic hypothesis, and all 16 sit exactly at the minimum
+  m-2 with never a spare diagonal. Cross-check 17 of 17: the predicted t_ab is
+  built from the LINKING class and matches the one computed inside the original
+  class, which is where a fermionic sign error would surface. ❌ REFUTED, and
+  pre-registered as an expected failure: "every class of size >= 3 contains a
+  pair linked by a class of size at most 2" is FALSE, counterexample (3,10) v103
+  channel (1,6), whose only one-hop link sits in the size-4 class of the same
+  state. It survives only because its diagonals are rational for another reason,
+  which names the honest generalisation: replace "size 2" with "all pairwise t
+  already rational", making the induction a mutual recursion whose
+  well-foundedness is the new open problem. ❗ A measurement bug was caught
+  before scoring: the chain search skipped orderings with order[0] > order[-1]
+  as reverses, but reversing changes which partial sums appear, and the bug
+  would have manufactured a refutation of the programme's own hypothesis.
+  [docs/prereg_shared_loop_rationality.md; scripts/shared_loop_rationality.py;
+  results/data/shared_loop_rationality.json;
+  tests/test_shared_loop_rationality.py]
 - polygon_diagonals.md: THEOREM C, the mechanism that forbids D4 at one-hop
   class size 3, and the one to read before any further attack on (R1) at large
   classes. Lemma 2 unexpanded says a class of size m is a closed (m+1)-gon with
