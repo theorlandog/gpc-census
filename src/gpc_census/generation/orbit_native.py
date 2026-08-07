@@ -61,7 +61,7 @@ from .model import AdmissibleHyperplane
 from .orbit_canonical import (
     enumerate_orbits_by_augmentation,
     generate_trace_survivors,
-    orbit_size,
+    top_level_orbit_size,
     trace_survivor_count,
 )
 from .ressayre import (
@@ -224,7 +224,10 @@ def enumerate_orbit_survivor_taus(
         if _incidence_mask(n, d, h, z) != mask:
             raise AssertionError(
                 "orbit representative disagrees with its exact hyperplane")
-        size = orbit_size(mask, n, d)
+        # closed form rather than another hypergraph canonical search: the
+        # orbit of a codimension-one flat is its distinct normals, which is the
+        # multiset permutation count, halved when the flat is its own reverse
+        size = top_level_orbit_size(h, z, d)
         automorphisms = _factorial(d) // size
         hyperplanes += size
         oriented_rows += 2 * size

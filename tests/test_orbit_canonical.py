@@ -189,6 +189,54 @@ def test_checkpoints_do_not_collide_with_the_materialising_enumerator(tmp_path):
     assert list((tmp_path / "orbits").glob("*.txt"))
 
 
+@pytest.mark.parametrize(("d", "orbits", "total"), [
+    (6, 8, 362), (7, 19, 5341), (8, 56, 166420)])
+def test_the_codimension_one_key_agrees_with_the_hypergraph_canonicalizer(
+        d, orbits, total):
+    """The top level is decided by a sort, and it must decide the same way.
+
+    Instrumenting (3,9) showed the top level costs 167 of 214 seconds, 78
+    percent, because codimension-one flats carry most of the weight set and so
+    have the largest automorphism groups. Replacing the search with the exact
+    normal is only legitimate if it induces the SAME partition and the SAME
+    orbit sizes, so both are checked against the expensive route rather than
+    against a stored number.
+    """
+    _, levels = oc.enumerate_orbits_by_augmentation(3, d)
+    top = levels[-1]
+    assert len(top) == orbits
+    cheap_total = 0
+    for mask, witness in top.items():
+        h, z = oc._exact_top_normal(3, d, witness)
+        cheap = oc.top_level_orbit_size(h, z, d)
+        assert cheap == oc.orbit_size(mask, 3, d), (h, z)
+        cheap_total += cheap
+    assert cheap_total == total
+
+    # distinct orbits must get distinct keys, or the enumerator would merge them
+    keys = {oc.top_level_canonical_key(*oc._exact_top_normal(3, d, w))
+            for w in top.values()}
+    assert len(keys) == orbits
+
+
+def test_the_codimension_one_key_is_permutation_and_sign_invariant():
+    """Both invariances matter: the flat is unoriented, so (h, z) and (-h, -z)
+    describe the same flat and must not be given different keys."""
+    import random
+
+    random.seed(20260808)
+    for _ in range(200):
+        d = random.randint(3, 9)
+        h = tuple(random.randint(-4, 4) for _ in range(d))
+        z = random.randint(-5, 5)
+        permuted = list(h)
+        random.shuffle(permuted)
+        assert (oc.top_level_canonical_key(h, z)
+                == oc.top_level_canonical_key(tuple(permuted), z))
+        assert (oc.top_level_canonical_key(h, z)
+                == oc.top_level_canonical_key(tuple(-v for v in h), -z))
+
+
 def test_orbit_counts_stay_tiny_against_the_materialised_lattice():
     """The whole point: the raw lattice explodes and the orbit lattice does not."""
     counts, _ = oc.enumerate_orbits_by_augmentation(3, 7)

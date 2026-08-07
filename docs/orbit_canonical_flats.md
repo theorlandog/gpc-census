@@ -194,6 +194,57 @@ before continuing past the point of death.
 takes 401 seconds and never exceeds 494 orbits at a level, against a
 materialised level 7 of 27,392,341 flats that does not fit in memory.
 
+## Where the cost actually is, measured per level
+
+Guessing which level is expensive turned out to be wrong in an instructive way.
+The orbit COUNT peaks at codimension two, so that looks like the place to
+attack. The TIME does not peak there. Instrumenting (3,9) per level:
+
+| rank | codim | orbits | canonical calls | leaves | leaves per call | seconds |
+|---|---|---|---|---|---|---|
+| 5 | 4 | 146 | 1,650 | 39,382 | 24 | 2.3 |
+| 6 | 3 | 364 | 3,420 | 113,066 | 33 | 9.2 |
+| 7 | 2 | **494** | 4,683 | 323,361 | 69 | 34.7 |
+| 8 | 1 | 231 | 2,443 | **841,328** | **344** | **167.5** |
+
+The top level holds fewer than a fifth of the orbits and consumes **78 percent
+of the time**, at five times the leaves per call of the level below. The top two
+levels together are **94 percent of the time**. The reason is structural: a
+codimension-one flat carries most of the weight set, so it has the largest
+automorphism groups, and the hypergraph canonicalizer pays `|Aut|` leaves each.
+
+## Codimension one is decided by a sort, not a search
+
+A codimension-one closed flat IS a hyperplane, so it is fully described by its
+exact primitive normal `(h, z)`. Two of them lie in the same `S_d` orbit exactly
+when one `h` is a permutation of the other with matching `z`, because a
+permutation acts on the normal and nothing else. The flat is unoriented, so
+`(h, z)` and `(-h, -z)` describe the same flat and the key takes the smaller.
+
+    key(h, z) = min( (sorted(h), z), (sorted(-h), -z) )
+
+No refinement, no individualization, no hypergraph. Correctness does not rest on
+the refinement being strong; it rests on the normal determining the flat, which
+is what codimension one means.
+
+The orbit size follows in closed form as the multiset permutation count
+`d! / prod m_i!`, **halved** when the flat is its own reverse, that is when
+`z == 0` and the multiset of `-h` equals that of `h`. That halving is not a
+detail: it applies to 1, 3 and 3 orbits at ranks 6, 7 and 8, which is exactly
+why the oriented orbit counts are 15, 35 and 109 rather than 16, 38 and 112.
+
+**Measured, with the orbit ladder and every orbit size checked against the
+expensive route rather than against a stored number:**
+
+| system | before | after | speedup |
+|---|---|---|---|
+| (3,8) | 14.7 s | **4.8 s** | 3.1x |
+| (3,9) | 228.6 s | **51.2 s** | **4.5x** |
+
+Same ladders, same 166,420 and 10,004,154. A test pins the cheap key against the
+hypergraph canonicalizer at ranks 6, 7 and 8, on the partition and on every
+orbit size, so the two cannot drift.
+
 ## Memory was the wrong shape too, and that is what killed rank 11
 
 The enumerator held only orbit representatives BETWEEN levels but built every
