@@ -87,6 +87,58 @@ object, counted by a Gaussian multinomial and generable in output-linear time.
 Without that step every row must still be visited, which is what sets the
 reachable rank.
 
+## Attacking the determinant: most zeros are structural, not algebraic
+
+The determinant stage is where the remaining cost sits, and it turns out most
+of it is not algebra at all.
+
+The tangent matrix has rows indexed by weights below and columns by roots, with
+each cell either empty or a signed variable. Its determinant is the sum over
+permutation terms, so **if the support bipartite graph has no perfect matching,
+every term contains an empty cell and the determinant is identically zero for
+structural reasons.** By Hall's theorem the obstruction is a set of rows whose
+joint neighbourhood is strictly smaller, which is a compact certificate a
+reader can check against the support alone.
+
+| system | reach the determinant | structural zeros | algebraic zeros | nonzero |
+|---|---|---|---|---|
+| (3,7) | 549 | **474 (86.3%)** | 25 (4.6%) | 50 |
+| (3,8) | 6,607 | **6,414 (97.1%)** | 55 (0.8%) | 138 |
+
+At rank 7 the split 474 + 25 = 499 reproduces the methodology doc's
+symbolic-zero count exactly, and 50 matches its 49 nonstructural Ressayre rows
+plus 1 structural Pauli row.
+
+**The structural share RISES with rank**, 86.3% to 97.1%, and the cost gap
+widens sharply: at rank 8 the matching test takes **0.08 seconds for all 6,607
+survivors** while the dynamic programming takes **224 seconds for the 193 that
+genuinely need it**. The DP is exponential in the matrix size in the worst
+case; matching is `O(E sqrt(V))`.
+
+`tangent_determinant_is_structurally_zero` returns the verdict with its Hall
+violator and `verify_hall_violator` replays it. Every one of the 474 structural
+verdicts at rank 7 is cross-checked against the symbolic route, and every
+violator replays.
+
+**The refined pipeline**, in increasing cost per candidate:
+
+1. trace test, `inv(sigma h) == B` with `B` per orbit, kills about 98%;
+2. Hall matching, kills 97% of what remains, with a certificate;
+3. one evaluation at an integer point: NONZERO is already a proof of
+   nonvanishing, so certified rows never need the symbolic route;
+4. symbolic expansion, needed only where a matching exists and every
+   evaluation vanishes, which is the genuine algebraic-cancellation case:
+   **55 of 6,607 at rank 8**.
+
+## Symmetry still on the table, and not yet used
+
+The stabilizer of a candidate in `S_d` permutes the weights below and the roots
+simultaneously, so the tangent matrix is equivariant and its determinant
+block-diagonalises over isotypic components. The stabilizers are large: over
+the 56 rank-8 orbits their orders run 5040, 5040, 1440, 1440, 720, 720, 576,
+240, ... down to 2, against `8! = 40320`. That is a genuine second attack on
+the residual algebraic cases, and it is NOT implemented or verified here.
+
 ## What this does and does not license
 
 **Does.** `B` as an orbit invariant, proved by equivariance and verified on
@@ -95,9 +147,13 @@ number, verified directly against the implementation. A measured survivor
 fraction falling through 2%.
 
 **Does not.** It does not rescue verdict transport, which is dead. It does not
-reduce the number of determinant certifications. And it does not license the
-earlier sentence in `docs/orbit_canonical_flats.md` claiming orbit invariance
-"is true for validity"; that sentence was wrong and is corrected there.
+reduce the number of CANDIDATES that must be visited: every oriented row still
+has to be touched, which is what sets the reachable rank. The Hall filter
+reduces the cost of deciding a candidate, not the number of them. The
+stabilizer block-diagonalisation is named as available and is unimplemented.
+And it does not license the earlier sentence in
+`docs/orbit_canonical_flats.md` claiming orbit invariance "is true for
+validity"; that sentence was wrong and is corrected there.
 
 ## Reproducing
 

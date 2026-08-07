@@ -130,3 +130,84 @@ def test_the_earlier_doc_carries_its_correction():
     text = doc.read_text()
     assert "CORRECTION" in text
     assert "screening_orbit_structure" in text
+
+
+# --------------------------------------------------------------------------
+# the determinant stage: structural zeros decided by matching
+# --------------------------------------------------------------------------
+
+def test_structural_zeros_replay_and_a_sample_agrees_with_the_symbolic_route():
+    """A Hall violator PROVES the determinant is identically zero.
+
+    Every violator is replayed from the support alone, which is cheap, and a
+    sample is cross-checked against the exponential symbolic route, which is
+    not. The sample is what would catch a matching bug; replaying all of them
+    is what would catch a certificate that merely echoed its own run.
+    """
+    from gpc_census.generation.reference_generator import oriented_taus
+    from gpc_census.generation.ressayre import (
+        _level_sets,
+        admissible_candidate_from_tau,
+        tangent_determinant_is_identically_zero,
+        tangent_determinant_is_structurally_zero,
+        verify_hall_violator,
+    )
+
+    n, d = 3, 7
+    weights = exterior_weights(n, d)
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    structural = matching = cross_checked = 0
+    for tau in oriented_taus(enum):
+        candidate = admissible_candidate_from_tau(n, tau)
+        _, below = _level_sets(weights, candidate.h, candidate.z)
+        roots = _negative_root_set(candidate.h)
+        if len(below) != len(roots) or not roots:
+            continue
+        is_structural, violator = tangent_determinant_is_structurally_zero(
+            n, d, candidate)
+        if not is_structural:
+            matching += 1
+            continue
+        structural += 1
+        assert verify_hall_violator(n, d, candidate, violator)
+        if cross_checked < 40:
+            assert tangent_determinant_is_identically_zero(n, d, candidate)
+            cross_checked += 1
+    assert structural == 474
+    assert matching == 73, "the test must be able to say NO, not only YES"
+    assert cross_checked == 40
+
+
+def test_a_certified_row_is_never_called_structurally_zero():
+    """The direction that would break the pipeline if it were wrong.
+
+    A false structural verdict would silently discard a genuine facet, so
+    every certified row in a prefix of the candidate list is checked to come
+    back NOT structural.
+    """
+    from gpc_census.generation.reference_generator import oriented_taus
+    from gpc_census.generation.ressayre import (
+        _level_sets,
+        admissible_candidate_from_tau,
+        certify_candidate,
+        tangent_determinant_is_structurally_zero,
+    )
+
+    n, d = 3, 7
+    weights = exterior_weights(n, d)
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    certified = 0
+    for tau in oriented_taus(enum)[:1500]:
+        candidate = admissible_candidate_from_tau(n, tau)
+        _, below = _level_sets(weights, candidate.h, candidate.z)
+        roots = _negative_root_set(candidate.h)
+        if len(below) != len(roots) or not roots:
+            continue
+        if certify_candidate(n, d, candidate) is None:
+            continue
+        certified += 1
+        is_structural, violator = tangent_determinant_is_structurally_zero(
+            n, d, candidate)
+        assert not is_structural
+        assert violator is None
+    assert certified > 0
