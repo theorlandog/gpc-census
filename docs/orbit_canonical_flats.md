@@ -120,22 +120,55 @@ leaf, which is what keeps the automorphism count exact.
 and the (3,8) orbit enumeration falls from **401 seconds to 16.7 seconds**.
 
 **The new cost is at its floor.** Every automorphism of a flat produces a
-distinct leaf, so `leaves >= |Aut|` for a canonicalizer of this shape. Across
-all 313 flats of the (3,8) orbit lattice, at every rank:
+distinct leaf, so `leaves >= |Aut|` for a canonicalizer of this shape, and
+across all 313 flats of the (3,8) orbit lattice the bound is met on 300 with a
+worst overshoot of 3x.
+
+## Isolated modes, which is why the floor itself had to be broken
+
+That floor is real but it is not the right floor, and (3,11) proved it. A mode
+lying in NO present weight is swapped with any other such mode by a
+transposition that leaves the flat pointwise unchanged. Refinement can never
+split them, so individualization walks all `k!` of them for nothing, and `|Aut|`
+contains that `k!` as a factor.
+
+At low ranks that is most of the modes. Rank 1 of (3,11) is a single weight: 8
+of the 11 modes are isolated, `|Aut| = 3! * 8! = 241,920`, and the run produced
+no output at all in 43 seconds of CPU because it was doing this 165 times over.
+
+Isolated modes are therefore handled analytically instead of searched: their
+cell is never individualized, their positions are assigned in a fixed order, and
+the `k!` they contribute is multiplied back into the automorphism count at the
+end. The image cannot depend on how they are ordered among themselves, because
+they occur in no present weight. Measured on that same rank-1 flat at d = 11:
+
+| | before | after |
+|---|---|---|
+| leaves | 241,920 | **6** |
+| automorphisms reported | 241,920 | 241,920 |
+| orbit size | 165 | 165 |
+
+and the orbit size is `C(11,3) = 165`, which is exactly the number of
+single-weight flats, so the analytic factor is checked against a count that is
+known independently.
+
+**Where the whole lattice ends up:**
 
 | | (3,6) | (3,7) | (3,8) |
 |---|---|---|---|
 | flats | 31 | 94 | 313 |
-| leaves exactly `|Aut|` | 27 | 87 | **300** |
-| worst overshoot | 3x | 3x | **3x** |
-| total leaves | 964 | 5,180 | **32,774** |
+| total leaves, refinement only | 964 | 5,180 | 32,774 |
+| total leaves, with isolated modes handled | **900** | **4,672** | **28,898** |
 | brute force would be | 22,320 | 473,760 | **12,620,160** |
 
-So 300 of 313 flats are canonicalized with zero wasted work and the whole
-lattice costs 385x less than brute force. What remains is not slack, it is the
-symmetry the flats genuinely have: the residual tail is now `|Aut|`, which tops
-out at 5,040 at rank 8. `tests/test_orbit_canonical.py` pins the ratio rather
-than a timing, so the factorial tail cannot return unnoticed.
+The gain at rank 8 is modest, 437x rather than 385x, because these flats have
+few isolated modes. That is exactly the point: the gain is concentrated at low
+rank and high `d`, which is the regime the enumerator has to pass THROUGH to
+reach a high rank, and it is where the run was actually stalling.
+
+`tests/test_orbit_canonical.py` pins the leaves-to-automorphism ratio rather
+than a timing, so the factorial tail cannot return unnoticed, and the orbit-size
+sums (362 and 5,341) are what check the analytic `k!` correction.
 
 ## Verification, at every level and not just the top
 
@@ -160,6 +193,27 @@ before continuing past the point of death.
 **Cost.** Rank 8 takes 2.8 seconds against 126 seconds materialised. Rank 9
 takes 401 seconds and never exceeds 494 orbits at a level, against a
 materialised level 7 of 27,392,341 flats that does not fit in memory.
+
+## Memory was the wrong shape too, and that is what killed rank 11
+
+The enumerator held only orbit representatives BETWEEN levels but built every
+child of every parent into one dict WITHIN a level, and only then collapsed
+them onto canonical forms. So peak memory scaled with the child count, not the
+orbit count, and the level being held was about to be discarded. The (3,11) run
+died at level 9 holding 6.2 GB, which is that shape and not a compute limit.
+
+`iter_one_rank_children` yields children parent by parent and the enumerator
+collapses them as they arrive, so peak memory is now the orbit count of the next
+level. Streaming re-canonicalizes a child once per parent that reaches it, so
+there is a memo, and the memo is CAPPED: an uncapped one would reintroduce
+exactly the per-child memory the change exists to remove, and dropping it costs
+time only.
+
+Rerun of (3,9) on the streaming path: the same orbit ladder
+`[1, 1, 3, 12, 45, 146, 364, 494, 231]`, the same expansion ending in
+**10,004,154**, in **308 seconds at a peak of 112 MB**. The representative kept
+per class is the smallest `(mask, basis)` rather than the first seen, so it does
+not depend on the order children happen to be produced in.
 
 ## Scorecard
 

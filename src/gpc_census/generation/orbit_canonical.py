@@ -135,6 +135,18 @@ def canonical_form(mask: int, n: int, d: int,
     if not present:
         return (0, _factorial(d)) if with_automorphisms else 0
 
+    # ISOLATED MODES, handled analytically rather than searched. A mode in no
+    # present weight is fixed by nothing and swapped with any other such mode by
+    # a transposition that leaves the flat pointwise unchanged, so refinement can
+    # never split them and individualization would walk all k! of them for
+    # nothing. That is not a corner case: at rank 1 of (3,11) it is 8 of the 11
+    # modes, 40,320 leaves per flat, and it is what stalled the rank-11 run even
+    # after individualization. Their cell is never individualized, their
+    # positions are assigned in a fixed order, and the k! they contribute is
+    # multiplied back into the automorphism count at the end.
+    isolated = {mode for mode in range(d)
+                if not any(mode in subset for subset in present)}
+
     best: int | None = None
     automorphisms = 0
 
@@ -144,12 +156,20 @@ def canonical_form(mask: int, n: int, d: int,
         cells = _cells(signature, d)
         target = None
         for cell in cells:
+            if cell[0] in isolated:
+                continue
             if len(cell) > 1 and (target is None or len(cell) < len(target)):
                 target = cell
         if target is None:
+            # every cell is a singleton except possibly the isolated one, whose
+            # members take consecutive positions in mode order; the image cannot
+            # depend on which order, because they occur in no present weight
             mapping = [0] * d
-            for position, cell in enumerate(cells):
-                mapping[cell[0]] = position
+            position = 0
+            for cell in cells:
+                for mode in cell:
+                    mapping[mode] = position
+                    position += 1
             image = _apply(present, mapping, n, d)
             if best is None or image < best:
                 best, automorphisms = image, 1
@@ -163,7 +183,7 @@ def canonical_form(mask: int, n: int, d: int,
 
     descend(None)
     if with_automorphisms:
-        return best, automorphisms
+        return best, automorphisms * _factorial(len(isolated))
     return best
 
 
