@@ -301,6 +301,93 @@ def test_the_trace_dead_prune_never_kills_a_survivor():
     assert killed_rows == 1694
 
 
+def test_generated_survivors_are_exactly_the_filtered_survivors():
+    """Generation must reproduce the SET, not merely the count.
+
+    A generator that produced the right number of arrangements while getting
+    the arrangements themselves wrong would pass a count check and silently
+    replace the candidate list with a different one, so every rank-7 orbit is
+    compared set against set with the rows that actually survive filtering.
+    """
+    import collections
+
+    from gpc_census.generation.exterior import exterior_weights
+    from gpc_census.generation.reference_generator import oriented_taus
+    from gpc_census.generation.ressayre import (
+        _level_sets,
+        _negative_root_set,
+        admissible_candidate_from_tau,
+    )
+
+    n, d = 3, 7
+    weights = exterior_weights(n, d)
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    by_orbit = collections.defaultdict(list)
+    for tau in oriented_taus(enum):
+        by_orbit[tuple(sorted(tau))].append(tau)
+
+    total_survivors = total_rows = 0
+    for members in by_orbit.values():
+        first = admissible_candidate_from_tau(n, members[0])
+        below = len(_level_sets(weights, first.h, first.z)[1])
+        filtered = set()
+        for tau in members:
+            candidate = admissible_candidate_from_tau(n, tau)
+            if len(_negative_root_set(candidate.h)) == below:
+                filtered.add(tuple(candidate.h))
+        generated = set(oc.generate_trace_survivors(first.h, below))
+        assert generated == filtered
+        total_survivors += len(filtered)
+        total_rows += len(members)
+    # the published partition: 10,682 oriented rows, 549 trace survivors
+    assert total_rows == 10682
+    assert total_survivors == 549
+
+
+def test_survivor_generation_wastes_no_search_nodes():
+    """Output linearity is the claim, so it is measured, not asserted.
+
+    The prune interval is the exact set of attainable inversion numbers, so
+    every surviving branch must complete. If that reasoning were wrong the
+    generator would still be CORRECT and merely slow, which no other test here
+    would notice.
+    """
+    nodes = [0]
+    real_max = oc._max_inversions
+
+    def counting_max(counts, total):
+        nodes[0] += 1
+        return real_max(counts, total)
+
+    oc._max_inversions = counting_max
+    try:
+        produced = len(list(oc.generate_trace_survivors((3, 1, 1, 2, 2, 0, 4), 9)))
+    finally:
+        oc._max_inversions = real_max
+    assert produced > 0
+    # a node per placement step of a produced arrangement, up to the pruned
+    # children examined at each step; linear in the output, not in 7! = 5040
+    assert nodes[0] <= 12 * produced
+
+
+def test_survivor_generation_agrees_with_the_closed_form_off_the_lattice():
+    """Random multisets, so the agreement is not an artifact of real data."""
+    import random
+
+    random.seed(20260807)
+    for _ in range(60):
+        size = random.randint(2, 7)
+        h = tuple(random.randint(0, 3) for _ in range(size))
+        for below in range(size * (size - 1) // 2 + 2):
+            generated = list(oc.generate_trace_survivors(h, below))
+            assert len(generated) == oc.trace_survivor_count(h, below)
+            for arrangement in generated:
+                assert sorted(arrangement) == sorted(h)
+                assert sum(1 for i in range(size)
+                           for j in range(i + 1, size)
+                           if arrangement[j] < arrangement[i]) == below
+
+
 def test_the_inversion_generating_function_is_a_real_distribution():
     """Total mass must be the multiset permutation count, and it must be able
     to be lopsided, or the prune above would be vacuous."""

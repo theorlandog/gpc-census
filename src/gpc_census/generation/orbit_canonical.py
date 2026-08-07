@@ -267,6 +267,7 @@ __all__ = [
     "canonical_form",
     "canonical_representatives",
     "enumerate_orbits_by_augmentation",
+    "generate_trace_survivors",
     "inversion_generating_function",
     "orbit_is_trace_dead",
     "trace_survivor_count",
@@ -354,6 +355,70 @@ def trace_survivor_count(h, weights_below: int) -> int:
     if weights_below < 0 or weights_below >= len(polynomial):
         return 0
     return polynomial[weights_below]
+
+
+def _max_inversions(counts: dict[int, int], total: int) -> int:
+    """Largest inversion number attainable by any arrangement of a multiset."""
+    return total * (total - 1) // 2 - sum(
+        c * (c - 1) // 2 for c in counts.values())
+
+
+def generate_trace_survivors(h, weights_below: int):
+    """Yield exactly the arrangements of ``h`` that pass the Ressayre trace test.
+
+    THE POINT. Screening currently VISITS every oriented row and throws almost
+    all of them away: 332,840 rows at rank 8 to keep 6,607, and the survivor
+    fraction is falling (8.8, 5.1, 2.0 percent at ranks 6, 7, 8). The row scan
+    is what sets the reachable rank, not the work done on survivors. Since the
+    test is ``inv(sigma h) == B`` with ``B`` an orbit invariant, the survivors
+    are the arrangements of a multiset with a PRESCRIBED inversion number, and
+    those can be generated directly.
+
+    THE ALGORITHM. Build the arrangement left to right. Placing value ``v``
+    next costs exactly the number of remaining elements strictly less than
+    ``v``, because each will land to its right and form an inversion. Recurse
+    on the residual budget.
+
+    WHY IT IS OUTPUT LINEAR, which is the whole claim. Prune a branch unless
+    the residual budget lies in ``[0, maxinv(rest)]`` where
+    ``maxinv = C(m,2) - sum C(m_i,2)``. That interval is EXACTLY the set of
+    attainable inversion numbers: the Gaussian multinomial has strictly
+    positive coefficients across its whole degree range, with no internal
+    zeros. So a surviving branch always completes to at least one output, no
+    node is wasted, and the cost is proportional to the number of survivors
+    rather than to the size of the orbit.
+
+    The count is cross-checked against ``trace_survivor_count``, which reads
+    the same number off the Gaussian multinomial in closed form without
+    generating anything, so the two routes are independent.
+    """
+    import collections as _collections
+
+    counts = _collections.Counter(h)
+    values = sorted(counts)
+    prefix: list[int] = []
+
+    def descend(total: int, budget: int):
+        if total == 0:
+            if budget == 0:
+                yield tuple(prefix)
+            return
+        smaller = 0
+        for value in values:
+            available = counts[value]
+            if available:
+                remaining = budget - smaller
+                counts[value] = available - 1
+                if not counts[value]:
+                    del counts[value]
+                if 0 <= remaining <= _max_inversions(counts, total - 1):
+                    prefix.append(value)
+                    yield from descend(total - 1, remaining)
+                    prefix.pop()
+                counts[value] = available
+            smaller += available
+
+    yield from descend(len(h), weights_below)
 
 
 def orbit_is_trace_dead(h, weights_below: int) -> bool:
