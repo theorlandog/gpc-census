@@ -27,12 +27,21 @@ corrected and the next gate is (3,8).
 
 ## Why orbit reduction is the one permitted pruning
 
-The moment polytope is Weyl invariant and the ordered slice is a fundamental
-domain for the `S_d` action, so two admissible hyperplanes in one orbit are
-facets together or not at all. Enumerating representatives DISCARDS NOTHING.
-Every other pruning proposed for this search has been an empirical pattern,
-which the standing rule forbids until a theorem makes it lossless. This one has
-the theorem, which is why it is implemented and the others are not.
+The set of admissible hyperplanes is `S_d` STABLE: permuting modes permutes the
+exterior weights, hence permutes closed flats, hence permutes hyperplanes. That
+is verified here rather than assumed, `images_outside_set` being zero at every
+rank. So storing one representative per orbit and expanding loses nothing, and
+the enumeration is lossless by a theorem rather than by an empirical pattern,
+which is what the standing rule requires.
+
+**Stated carefully, because the stronger version is false.** This justifies
+orbit reduction for ENUMERATING candidates only. It does NOT say that two
+hyperplanes in one orbit are facets together or not at all: the GPC system is a
+list of inequalities facing the DOMINANT CHAMBER, the chamber is a fundamental
+domain and so is exactly what the Weyl group fails to preserve, and
+`docs/screening_orbit_structure.md` measures the consequence, namely that
+screening verdicts are not constant on orbits. An earlier version of this
+paragraph asserted the stronger claim and was wrong.
 
 ## The measured payoff
 
@@ -42,9 +51,12 @@ the theorem, which is why it is implemented and the others are not.
 | 7 | 5,341 | 19 | 281x |
 | 8 | 166,420 | 56 | 2,972x |
 | 9 | **10,004,154** | **231** | **43,308x** |
+| 10 | **889,205,792** | **1,337** | **665,076x** |
 
 The raw count explodes and the orbit count barely moves. Orbits grow 8, 19, 56,
-231, ratios 2.4, 2.9, 4.1, against raw ratios 14.8, 31.2, 60.1.
+231, 1337, ratios 2.4, 2.9, 4.1, 5.8, against raw ratios 14.8, 31.2, 60.1, 88.9.
+The orbit ratio is CLIMBING, so the reduction is not a constant-factor law and
+must not be extrapolated as one.
 
 ## The algorithm
 
@@ -77,6 +89,7 @@ level for level:
 | 7 | 1, 1, 3, 10, 25, 36, 19 | 1, 35, 595, 4655, 15505, 19019, 5341 |
 | 8 | 1, 1, 3, 11, 37, 87, 118, 56 | 1, 56, 1540, 21420, 147630, 467082, 565208, 166420 |
 | 9 | 1, 1, 3, 12, 45, 146, 364, 494, 231 | 1, 84, 3486, 78274, 968121, 6383706, 20605599, 27392341, **10004154** |
+| 10 | 1, 1, 3, 12, 49, 189, 691, 1840, 2705, 1337 | ..., 1994358765, **889205792** |
 
 Every one of those expansions matches the materialising enumerator exactly at
 ranks 6, 7 and 8. At rank 9 the materialising enumerator DIED at level 6, but
@@ -107,10 +120,14 @@ each unoriented hyperplane appears once. Permuting the coordinates of `h`
 therefore leaves the stored set unless the image is re-normalized. Without the
 renormalization the action sends 201 of 362 images outside the set at rank 6
 and the orbit count comes out **15 instead of 8**, and 35 instead of 19 at rank
-7. Those are not obviously wrong numbers: they are valid orbit counts of a
-valid group action on a set that simply is not the hyperplane set. The script
-reports `images_outside_set` and a test asserts it is zero, and a second test
-pins the trap itself so a convention change cannot silently remove the guard.
+7. Those are not obviously wrong numbers, and they turned out not to be
+meaningless either: 15 and 35 are exactly the counts of ORIENTED hyperplane
+orbits, which is what the screening stage actually consumes, since each
+hyperplane yields two oriented tau rows. So the un-normalized union-find was
+answering a different and equally real question. The script reports
+`images_outside_set` and a test asserts it is zero for the unoriented count,
+and a second test pins the trap so a convention change cannot silently remove
+the guard.
 
 ## The (3,8) replication
 
@@ -128,10 +145,18 @@ materialising method wherever the latter got. The enumerator is lossless by a
 theorem, not by a pattern.
 
 **Does not.** Enumerating hyperplanes is not a complete GPC system. Each
-representative still needs Ressayre screening and exact reduction, and the
-screening cost scales with the ORBIT count only if screening is orbit
-invariant, which is true for validity but has not been re-verified in this
-repository at rank 9. Nothing here yet produces the (3,9) facets.
+representative still needs Ressayre screening and exact reduction.
+
+**CORRECTION, 2026-08.** An earlier version of this paragraph said the
+screening cost "scales with the ORBIT count only if screening is orbit
+invariant, which is true for validity". That parenthetical was WRONG.
+`docs/screening_orbit_structure.md` refutes it: at rank 7, 25 of the 35
+oriented-tau orbits carry mixed verdicts, several containing both `certified`
+and `trace_rejected`. The dominant chamber is a fundamental domain and is
+therefore exactly what the Weyl group does not preserve, so a chamber-facing
+condition cannot be an orbit invariant. Orbit reduction is lossless for
+ENUMERATING candidates and inapplicable to DECIDING them. Nothing here produces
+the (3,9) facets.
 
 **Projection, labelled as such.** Orbit ratios 2.4, 2.9, 4.1 do not fix an
 asymptotic from four points. If the ratio stays near 4 then rank 10 lands near

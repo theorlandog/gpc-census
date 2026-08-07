@@ -412,6 +412,32 @@ plethysm criterion feed Problem 7 below.
   transport classes (R2).
   [docs/prereg_polygon_diagonals.md; scripts/polygon_diagonals.py;
   results/data/polygon_diagonals.json; tests/test_polygon_diagonals.py]
+- screening_orbit_structure.md: SCREENING IS NOT A WEYL-ORBIT INVARIANT, a
+  refutation of my own next step, with the decomposition that survives. ❌
+  REFUTED: screening one representative per orbit and transporting the verdict.
+  At rank 7, 25 of 35 oriented-tau orbits carry MIXED verdicts, several holding
+  both certified and trace_rejected. The reason is structural: the dominant
+  chamber is a fundamental domain and so is exactly what the Weyl group does not
+  preserve, and the moment cone's Weyl invariance is a statement about the
+  AMBIENT cone, not about a chamber-facing inequality list. 🟦 WHAT SURVIVES,
+  and it is the generator's new cost model: the trace test compares negative
+  roots with h_j - h_i < 0 against weights strictly below, the second count is
+  S_d INVARIANT (verified on every row at ranks 6, 7, 8, zero failures) and the
+  first is EXACTLY the inversion number of h (verified against
+  _negative_root_set), which spreads over a Mahonian range inside one orbit. So
+  the test reads inv(sigma h) == B with B invariant: B costs one evaluation per
+  ORBIT rather than per row, and each row then costs only an inversion count. 🟦
+  Measured survivor fractions 8.84%, 5.14%, 1.98% at ranks 6, 7, 8, FALLING, so
+  the expensive determinant stage shrinks as a share of the work. The 549
+  survivors at rank 7 cross-check exactly against the methodology doc's 10,133
+  trace failures out of 10,682. ❗ orbit_canonical_flats.md is CORRECTED: it said
+  orbit invariance "is true for validity" and justified the reduction by
+  claiming orbit members are facets together or not at all. Both wrong. The
+  enumeration reduction stands instead on the S_d STABILITY of the candidate
+  set, which is separately verified with images_outside_set zero at every rank.
+  [scripts/screening_orbit_structure.py;
+  results/data/screening_orbit_structure.json;
+  tests/test_screening_orbit_structure.py]
 - orbit_canonical_flats.md: WEYL-ORBIT CANONICAL ENUMERATION, and the first
   exhaustive hyperplane count at rank 9. ❗ CORRECTION FIRST: (3,7) candidate
   exhaustiveness is CLOSED by the closed-flat enumerator (5,341 hyperplanes for
