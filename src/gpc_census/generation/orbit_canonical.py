@@ -18,12 +18,15 @@ one bit per ``n``-subset of ``d`` modes, exactly as
 permutes the weights, which permutes the bits.
 
 CANONICALIZATION. Brute force over ``d!`` is hopeless past rank 9 (``9! =
-362,880``, ``11! = 4.0e7``), so modes are first split by an iterated incidence
-signature and only permutations respecting that ordered partition are tried.
-The signature is an invariant of the flat, so the refinement can never separate
-two modes that some symmetry identifies; it only ever narrows the search.
-Correctness therefore does not depend on the refinement being strong, only on
-it being invariant, and the tests check the canonical form against orbit counts
+362,880``, ``11! = 4.0e7``), so modes are split by an iterated incidence
+signature (colour refinement) and, where that leaves ties, by INDIVIDUALIZATION:
+a mode of an unsplit cell is singled out, the colouring is re-refined, and the
+search recurses. This is the standard nauty structure and it is what removes the
+factorial tail; refinement alone degenerated to the full ``d!`` on the most
+symmetric flats. Both steps are isomorphism invariant, so they can never
+separate two modes that a symmetry identifies; they only ever narrow the search.
+Correctness therefore does not depend on the refinement being strong, only on it
+being invariant, and the tests check the canonical form against orbit counts
 computed independently by union-find.
 """
 
@@ -50,19 +53,24 @@ def mask_to_subsets(mask: int, n: int, d: int) -> tuple[tuple[int, ...], ...]:
     return tuple(subsets[i] for i in range(len(subsets)) if mask >> i & 1)
 
 
-def _signatures(present: tuple[tuple[int, ...], ...], d: int,
-                rounds: int = 3) -> tuple[tuple, ...]:
-    """An iterated, permutation-invariant signature per mode.
+def _refine(present: tuple[tuple[int, ...], ...], d: int,
+            colours: tuple[int, ...] | None = None) -> tuple[int, ...]:
+    """Colour refinement to a fixed point, from an optional initial colouring.
 
-    Round zero is the degree of the mode in the flat. Each later round replaces
-    a mode's signature by its own signature together with the sorted multiset
-    of its co-members' signatures, which is the standard colour refinement and
-    is invariant under relabelling by construction.
+    Round zero is the degree of the mode in the flat, or the supplied colours.
+    Each round replaces a mode's colour by its own colour together with the
+    sorted multiset of its co-members' colours, which is invariant under
+    relabelling by construction. Iterating to a FIXED POINT rather than a fixed
+    number of rounds matters: a bounded number of rounds can stop while the
+    partition is still splitting, which leaves larger cells than necessary and
+    is paid for factorially in the search below.
     """
-    signature = [0] * d
-    for mode in range(d):
-        signature[mode] = sum(1 for subset in present if mode in subset)
-    for _ in range(rounds):
+    if colours is None:
+        signature = [sum(1 for subset in present if mode in subset)
+                     for mode in range(d)]
+    else:
+        signature = list(colours)
+    for _ in range(d + 1):
         refined = []
         for mode in range(d):
             partners = []
@@ -72,9 +80,11 @@ def _signatures(present: tuple[tuple[int, ...], ...], d: int,
                                                  for other in subset
                                                  if other != mode)))
             refined.append((signature[mode], tuple(sorted(partners))))
-        # compress to small integers so the next round stays cheap
         order = {value: i for i, value in enumerate(sorted(set(refined)))}
-        signature = [order[value] for value in refined]
+        updated = [order[value] for value in refined]
+        if updated == signature:
+            break
+        signature = updated
     return tuple(signature)
 
 
@@ -98,38 +108,82 @@ def _apply(present: tuple[tuple[int, ...], ...], mapping: list[int],
 
 def canonical_form(mask: int, n: int, d: int,
                    with_automorphisms: bool = False):
-    """Lexicographically minimal image of a flat mask under ``S_d``.
+    """Lexicographically minimal image of a flat mask, by individualization.
 
-    Returns the canonical mask, or ``(mask, automorphism_count)`` when
-    ``with_automorphisms`` is set. The automorphism count is the number of
-    permutations fixing the flat, which gives the orbit size as
-    ``d! / automorphisms`` without enumerating the orbit.
+    THE PROBLEM THIS FIXES. Plain colour refinement followed by brute force
+    inside the cells degenerates to the full ``d!`` on the most symmetric
+    flats, where refinement splits nothing at all. Measured before this change:
+    the worst per-flat cost was exactly ``8! = 40320`` at rank 8 and
+    ``9! = 362880`` at rank 9, hit at both the top and the peak level. That
+    tail grows factorially and is the wrong shape.
+
+    THE FIX, which is the standard nauty move. Refine; if the partition is
+    discrete the labelling is determined; otherwise pick a target cell, and for
+    each mode in it give that mode a colour strictly below its cell-mates,
+    re-refine, and recurse. The canonical form is the minimum over the leaves.
+
+    WHY IT IS STILL CANONICAL. The target cell is chosen by an
+    ISOMORPHISM-INVARIANT rule, the first cell of minimum size greater than one
+    in refined-colour order, so the whole search tree is an invariant of the
+    flat. Minimising over its leaves therefore gives a well defined function of
+    the isomorphism class. Individualization only ever narrows the labellings
+    considered, and every permutation carrying the flat to the minimum
+    respects refinement and so appears as a leaf, which is what keeps the
+    automorphism count exact.
     """
     present = mask_to_subsets(mask, n, d)
     if not present:
         return (0, _factorial(d)) if with_automorphisms else 0
 
-    cells = _cells(_signatures(present, d), d)
-    best = None
+    # ISOLATED MODES, handled analytically rather than searched. A mode in no
+    # present weight is fixed by nothing and swapped with any other such mode by
+    # a transposition that leaves the flat pointwise unchanged, so refinement can
+    # never split them and individualization would walk all k! of them for
+    # nothing. That is not a corner case: at rank 1 of (3,11) it is 8 of the 11
+    # modes, 40,320 leaves per flat, and it is what stalled the rank-11 run even
+    # after individualization. Their cell is never individualized, their
+    # positions are assigned in a fixed order, and the k! they contribute is
+    # multiplied back into the automorphism count at the end.
+    isolated = {mode for mode in range(d)
+                if not any(mode in subset for subset in present)}
+
+    best: int | None = None
     automorphisms = 0
-    for choice in itertools.product(*(itertools.permutations(cell)
-                                      for cell in cells)):
-        mapping = [0] * d
-        target = 0
-        for cell, ordering in zip(cells, choice, strict=True):
-            for mode in ordering:
-                mapping[mode] = target
-                target += 1
-        image = _apply(present, mapping, n, d)
-        if best is None or image < best:
-            best = image
-            automorphisms = 1
-        elif image == best:
-            automorphisms += 1
+
+    def descend(colours: tuple[int, ...] | None) -> None:
+        nonlocal best, automorphisms
+        signature = _refine(present, d, colours)
+        cells = _cells(signature, d)
+        target = None
+        for cell in cells:
+            if cell[0] in isolated:
+                continue
+            if len(cell) > 1 and (target is None or len(cell) < len(target)):
+                target = cell
+        if target is None:
+            # every cell is a singleton except possibly the isolated one, whose
+            # members take consecutive positions in mode order; the image cannot
+            # depend on which order, because they occur in no present weight
+            mapping = [0] * d
+            position = 0
+            for cell in cells:
+                for mode in cell:
+                    mapping[mode] = position
+                    position += 1
+            image = _apply(present, mapping, n, d)
+            if best is None or image < best:
+                best, automorphisms = image, 1
+            elif image == best:
+                automorphisms += 1
+            return
+        for mode in target:
+            child = [2 * value for value in signature]
+            child[mode] -= 1
+            descend(tuple(child))
+
+    descend(None)
     if with_automorphisms:
-        # permutations outside the refinement cannot fix the flat, because the
-        # signature is an invariant, so counting inside the cells is complete
-        return best, automorphisms
+        return best, automorphisms * _factorial(len(isolated))
     return best
 
 
@@ -157,7 +211,9 @@ def canonical_representatives(masks, n: int, d: int) -> dict[int, int]:
     return out
 
 
-def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
+def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
+                                     memo_limit: int = 1 << 21,
+                                     checkpoint_dir=None):
     """Enumerate ``S_d`` orbit representatives of closed flats, level by level.
 
     THE ALGORITHM. Hold only orbit representatives at each rank. Extend each
@@ -172,12 +228,22 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
     produces a member of ``O'``. Every orbit at level ``k+1`` is therefore
     reached from some representative at level ``k``.
 
+    CHECKPOINTING. Pass ``checkpoint_dir`` to write each completed level and
+    resume from the last one present. A (3,11) run reached rank 8 over roughly
+    two hours and was then lost outright when the machine restarted, which is a
+    recoverable accident being paid for as if it were a failed computation. The
+    materialising enumerator already checkpoints this way and the format is
+    shared with it: plain text, written to a temporary file and renamed, so a
+    run killed mid-write leaves no half level behind.
+
     Returns ``(orbit_counts_by_rank, representatives_by_rank)`` where the
     counts are the number of orbits at each rank, starting with the empty flat.
     """
     from .admissible_flats import (
-        _extend_one_rank,
         _inverse_table,
+        _load_level,
+        _save_level,
+        iter_one_rank_children,
         rank_preserving_modulus,
     )
     from .exterior import exterior_weights
@@ -192,27 +258,59 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
 
         points_array = np.asarray(points, dtype=np.int64)
 
+    # a subdirectory of its own: the level filenames are shared with the
+    # MATERIALISING enumerator, and silently loading one of its levels here
+    # would put the entire lattice in memory instead of the representatives
+    if checkpoint_dir is not None:
+        from pathlib import Path
+
+        checkpoint_dir = Path(checkpoint_dir) / "orbits"
+
     states: dict[int, tuple[int, ...]] = {0: ()}
     counts = [1]
     levels = [dict(states)]
     for rank in range(1, d):
-        children = _extend_one_rank(
-            states, points, modulus, points_array, inverse_table)
-        # keep one ACTUAL mask per canonical class, not the canonical mask,
-        # because the extension step needs a genuine flat with its basis
-        representatives: dict[int, tuple[int, ...]] = {}
-        seen: set[int] = set()
-        for mask, witness in children.items():
-            key = canonical_form(mask, n, d)
-            if key not in seen:
-                seen.add(key)
-                representatives[mask] = witness
-        states = representatives
+        if checkpoint_dir is not None:
+            restored = _load_level(checkpoint_dir, n, d, rank)
+            if restored is not None:
+                states = restored
+                counts.append(len(states))
+                levels.append(dict(states))
+                if verbose:
+                    print(f"  rank {rank}: {len(states)} orbits (restored)",
+                          flush=True)
+                continue
+        # Children are STREAMED and collapsed onto canonical forms as they
+        # arrive, so peak memory is the orbit count of the next level rather
+        # than its child count. Keep one ACTUAL mask per canonical class, not
+        # the canonical mask, because the extension step needs a genuine flat
+        # with its basis; take the smallest such mask so the representative does
+        # not depend on the order children happen to be produced in.
+        # A child is produced once per parent that reaches it, so the same mask
+        # arrives many times. The memo skips the repeat canonicalizations and is
+        # CAPPED, because an uncapped one would reintroduce exactly the
+        # per-child memory this loop exists to avoid; dropping it on overflow
+        # costs time and never correctness.
+        chosen: dict[int, tuple[int, tuple[int, ...]]] = {}
+        memo: dict[int, int] = {}
+        for mask, witness in iter_one_rank_children(
+                states, points, modulus, points_array, inverse_table):
+            key = memo.get(mask)
+            if key is None:
+                key = canonical_form(mask, n, d)
+                if len(memo) >= memo_limit:
+                    memo.clear()
+                memo[mask] = key
+            previous = chosen.get(key)
+            if previous is None or (mask, witness) < previous:
+                chosen[key] = (mask, witness)
+        states = {mask: witness for mask, witness in chosen.values()}
+        if checkpoint_dir is not None:
+            _save_level(checkpoint_dir, n, d, rank, states)
         counts.append(len(states))
         levels.append(dict(states))
         if verbose:
-            print(f"  rank {rank}: {len(children)} children -> "
-                  f"{len(states)} orbits", flush=True)
+            print(f"  rank {rank}: {len(states)} orbits", flush=True)
     return counts, levels
 
 
@@ -220,7 +318,171 @@ __all__ = [
     "canonical_form",
     "canonical_representatives",
     "enumerate_orbits_by_augmentation",
+    "generate_trace_survivors",
+    "inversion_generating_function",
+    "orbit_is_trace_dead",
+    "trace_survivor_count",
     "mask_to_subsets",
     "orbit_size",
     "weight_subsets",
 ]
+
+
+# --------------------------------------------------------------------------
+# order-free orbit invariants, and what they prune
+# --------------------------------------------------------------------------
+#
+# THE PRINCIPLE, learned by refuting two shortcuts. A quantity attached to a
+# candidate is an ``S_d`` orbit invariant if and only if it is defined from the
+# weight configuration and the hyperplane WITHOUT reference to the order of the
+# modes. The count of weights below a hyperplane qualifies. The inversion
+# number of ``h``, the selected negative-root set, and any test built on
+# ``negative_roots`` (which lists upward moves ``i < j`` only) do NOT, because
+# the dominant chamber is a fundamental domain and is exactly what the Weyl
+# group fails to preserve. Two proposals died on this: transporting screening
+# verdicts across an orbit, and an orbit-level Hall prune on all roots, which
+# varies on 14 of the 35 rank-7 orbits.
+
+
+def _poly_mul(a: list[int], b: list[int]) -> list[int]:
+    out = [0] * (len(a) + len(b) - 1)
+    for i, x in enumerate(a):
+        if x:
+            for j, y in enumerate(b):
+                if y:
+                    out[i + j] += x * y
+    return out
+
+
+def _poly_exact_div(a: list[int], b: list[int]) -> list[int]:
+    work = list(a)
+    quotient = [0] * (len(a) - len(b) + 1)
+    for i in range(len(quotient) - 1, -1, -1):
+        coefficient = work[i + len(b) - 1] // b[-1]
+        quotient[i] = coefficient
+        if coefficient:
+            for j, y in enumerate(b):
+                work[i + j] -= coefficient * y
+    if any(work):
+        raise ArithmeticError("q-factorial division was not exact")
+    return quotient
+
+
+@lru_cache(maxsize=None)
+def _q_factorial(k: int) -> tuple[int, ...]:
+    out = [1]
+    for i in range(1, k + 1):
+        out = _poly_mul(out, [1] * i)
+    return tuple(out)
+
+
+def inversion_generating_function(sequence) -> tuple[int, ...]:
+    """Gaussian multinomial: arrangements of the multiset by inversion number.
+
+    Coefficient ``k`` is the number of distinct arrangements with exactly ``k``
+    inversions, so the whole distribution is available in closed form without
+    enumerating a single arrangement.
+    """
+    import collections as _collections
+
+    numerator = list(_q_factorial(len(sequence)))
+    for multiplicity in _collections.Counter(sequence).values():
+        numerator = _poly_exact_div(numerator, list(_q_factorial(multiplicity)))
+    return tuple(numerator)
+
+
+def trace_survivor_count(h, weights_below: int) -> int:
+    """How many rows of this orbit pass the Ressayre trace test.
+
+    The test is ``inv(sigma h) == B`` with ``B`` an orbit invariant, so the
+    answer is one coefficient of the inversion generating function of ``h``'s
+    multiset. Exact on 31 of 31 rank-7 orbits, checked against brute force.
+
+    This is what makes the row scan avoidable in principle: the survivors are
+    the arrangements with a prescribed inversion number, a classical object
+    that can be generated directly rather than filtered out of the full orbit.
+    """
+    polynomial = inversion_generating_function(tuple(h))
+    if weights_below < 0 or weights_below >= len(polynomial):
+        return 0
+    return polynomial[weights_below]
+
+
+def _max_inversions(counts: dict[int, int], total: int) -> int:
+    """Largest inversion number attainable by any arrangement of a multiset."""
+    return total * (total - 1) // 2 - sum(
+        c * (c - 1) // 2 for c in counts.values())
+
+
+def generate_trace_survivors(h, weights_below: int):
+    """Yield exactly the arrangements of ``h`` that pass the Ressayre trace test.
+
+    THE POINT. Screening currently VISITS every oriented row and throws almost
+    all of them away: 332,840 rows at rank 8 to keep 6,607, and the survivor
+    fraction is falling (8.8, 5.1, 2.0 percent at ranks 6, 7, 8). The row scan
+    is what sets the reachable rank, not the work done on survivors. Since the
+    test is ``inv(sigma h) == B`` with ``B`` an orbit invariant, the survivors
+    are the arrangements of a multiset with a PRESCRIBED inversion number, and
+    those can be generated directly.
+
+    THE ALGORITHM. Build the arrangement left to right. Placing value ``v``
+    next costs exactly the number of remaining elements strictly less than
+    ``v``, because each will land to its right and form an inversion. Recurse
+    on the residual budget.
+
+    WHY IT IS OUTPUT LINEAR, which is the whole claim. Prune a branch unless
+    the residual budget lies in ``[0, maxinv(rest)]`` where
+    ``maxinv = C(m,2) - sum C(m_i,2)``. That interval is EXACTLY the set of
+    attainable inversion numbers: the Gaussian multinomial has strictly
+    positive coefficients across its whole degree range, with no internal
+    zeros. So a surviving branch always completes to at least one output, no
+    node is wasted, and the cost is proportional to the number of survivors
+    rather than to the size of the orbit.
+
+    The count is cross-checked against ``trace_survivor_count``, which reads
+    the same number off the Gaussian multinomial in closed form without
+    generating anything, so the two routes are independent.
+    """
+    import collections as _collections
+
+    counts = _collections.Counter(h)
+    values = sorted(counts)
+    prefix: list[int] = []
+
+    def descend(total: int, budget: int):
+        if total == 0:
+            if budget == 0:
+                yield tuple(prefix)
+            return
+        smaller = 0
+        for value in values:
+            available = counts[value]
+            if available:
+                remaining = budget - smaller
+                counts[value] = available - 1
+                if not counts[value]:
+                    del counts[value]
+                if 0 <= remaining <= _max_inversions(counts, total - 1):
+                    prefix.append(value)
+                    yield from descend(total - 1, remaining)
+                    prefix.pop()
+                counts[value] = available
+            smaller += available
+
+    yield from descend(len(h), weights_below)
+
+
+def orbit_is_trace_dead(h, weights_below: int) -> bool:
+    """Whether NO arrangement of ``h`` can pass the trace test.
+
+    This is EXACT, not a bound: the coefficient is the number of arrangements
+    with exactly ``B`` inversions, so zero means no member of the orbit can
+    pass. It kills 3 of the 15 rank-6 orbits (4.4 percent of rows) and 10 of
+    the 35 rank-7 orbits (15.9 percent), which is every dead orbit at those
+    ranks and strictly more than the crude ``B > C(d,2)`` bound catches.
+
+    Unlike the refuted proposals this one is ORDER FREE: ``B`` is an orbit
+    invariant and the inversion distribution depends only on the multiset of
+    ``h``, never on its arrangement.
+    """
+    return trace_survivor_count(h, weights_below) == 0

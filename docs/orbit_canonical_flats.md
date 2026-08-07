@@ -27,12 +27,21 @@ corrected and the next gate is (3,8).
 
 ## Why orbit reduction is the one permitted pruning
 
-The moment polytope is Weyl invariant and the ordered slice is a fundamental
-domain for the `S_d` action, so two admissible hyperplanes in one orbit are
-facets together or not at all. Enumerating representatives DISCARDS NOTHING.
-Every other pruning proposed for this search has been an empirical pattern,
-which the standing rule forbids until a theorem makes it lossless. This one has
-the theorem, which is why it is implemented and the others are not.
+The set of admissible hyperplanes is `S_d` STABLE: permuting modes permutes the
+exterior weights, hence permutes closed flats, hence permutes hyperplanes. That
+is verified here rather than assumed, `images_outside_set` being zero at every
+rank. So storing one representative per orbit and expanding loses nothing, and
+the enumeration is lossless by a theorem rather than by an empirical pattern,
+which is what the standing rule requires.
+
+**Stated carefully, because the stronger version is false.** This justifies
+orbit reduction for ENUMERATING candidates only. It does NOT say that two
+hyperplanes in one orbit are facets together or not at all: the GPC system is a
+list of inequalities facing the DOMINANT CHAMBER, the chamber is a fundamental
+domain and so is exactly what the Weyl group fails to preserve, and
+`docs/screening_orbit_structure.md` measures the consequence, namely that
+screening verdicts are not constant on orbits. An earlier version of this
+paragraph asserted the stronger claim and was wrong.
 
 ## The measured payoff
 
@@ -42,9 +51,12 @@ the theorem, which is why it is implemented and the others are not.
 | 7 | 5,341 | 19 | 281x |
 | 8 | 166,420 | 56 | 2,972x |
 | 9 | **10,004,154** | **231** | **43,308x** |
+| 10 | **889,205,792** | **1,337** | **665,076x** |
 
 The raw count explodes and the orbit count barely moves. Orbits grow 8, 19, 56,
-231, ratios 2.4, 2.9, 4.1, against raw ratios 14.8, 31.2, 60.1.
+231, 1337, ratios 2.4, 2.9, 4.1, 5.8, against raw ratios 14.8, 31.2, 60.1, 88.9.
+The orbit ratio is CLIMBING, so the reduction is not a constant-factor law and
+must not be extrapolated as one.
 
 ## The algorithm
 
@@ -59,11 +71,104 @@ still in `O'`, so extending `R` reaches `O'`. Every orbit at level `k+1` is
 therefore reached from some representative at level `k`.
 
 **Canonicalization.** Brute force over `d!` is hopeless past rank 9, so modes
-are first split by an iterated incidence signature (colour refinement) and only
+are split by an iterated incidence signature (colour refinement) and only
 permutations respecting that ordered partition are tried. The signature is an
 invariant of the flat, so refinement can never separate modes that a symmetry
 identifies; it only narrows the search. Correctness does not depend on the
 refinement being strong, only on it being invariant.
+
+## The factorial tail, found by measuring and then removed
+
+Refinement alone is not enough, and the failure mode was invisible in the orbit
+counts because the answers were right; only the cost was wrong. Instrumenting
+the canonicalizer to count leaves gave:
+
+| system, level | flats | worst leaves | mean | `d!` |
+|---|---|---|---|---|
+| (3,8) top | 56 | 5,040 | 317.8 | 40,320 |
+| (3,8) peak | 118 | **40,320** | 512.2 | 40,320 |
+| (3,9) top | 231 | **362,880** | 3,724.5 | 362,880 |
+| (3,9) peak | 494 | **362,880** | 1,750.6 | 362,880 |
+
+The worst case was not a large cell, it was **exactly `d!`, at every rank**: on
+the most symmetric flats refinement splits nothing at all and the search
+degenerates to full brute force. At `d = 11` that is 39,916,800 permutations for
+a single flat, which is a credible cause of the (3,11) run burning hours before
+it died.
+
+The fix is **individualization**, the standard nauty move. Refine; if the
+partition is discrete the labelling is determined; otherwise choose a target
+cell, and for each mode in it give that mode a colour strictly below its
+cell-mates, re-refine, and recurse. The minimum over the leaves is the canonical
+form.
+
+**Why it is still canonical.** The target cell is chosen by an
+isomorphism-invariant rule, the first cell of minimum size greater than one in
+refined-colour order, so the entire search tree is an invariant of the flat and
+minimising over its leaves is a well defined function of the isomorphism class.
+Individualization only narrows the labellings considered, and every permutation
+carrying the flat to the minimum respects refinement, so it still appears as a
+leaf, which is what keeps the automorphism count exact.
+
+**Measured after.**
+
+| system, level | worst leaves before | after | mean before | after |
+|---|---|---|---|---|
+| (3,8) top | 5,040 | 5,040 | 317.8 | 309.5 |
+| (3,8) peak | 40,320 | **1,440** | 512.2 | **73.5** |
+
+and the (3,8) orbit enumeration falls from **401 seconds to 16.7 seconds**.
+
+**The new cost is at its floor.** Every automorphism of a flat produces a
+distinct leaf, so `leaves >= |Aut|` for a canonicalizer of this shape, and
+across all 313 flats of the (3,8) orbit lattice the bound is met on 300 with a
+worst overshoot of 3x.
+
+## Isolated modes, which is why the floor itself had to be broken
+
+That floor is real but it is not the right floor, and (3,11) proved it. A mode
+lying in NO present weight is swapped with any other such mode by a
+transposition that leaves the flat pointwise unchanged. Refinement can never
+split them, so individualization walks all `k!` of them for nothing, and `|Aut|`
+contains that `k!` as a factor.
+
+At low ranks that is most of the modes. Rank 1 of (3,11) is a single weight: 8
+of the 11 modes are isolated, `|Aut| = 3! * 8! = 241,920`, and the run produced
+no output at all in 43 seconds of CPU because it was doing this 165 times over.
+
+Isolated modes are therefore handled analytically instead of searched: their
+cell is never individualized, their positions are assigned in a fixed order, and
+the `k!` they contribute is multiplied back into the automorphism count at the
+end. The image cannot depend on how they are ordered among themselves, because
+they occur in no present weight. Measured on that same rank-1 flat at d = 11:
+
+| | before | after |
+|---|---|---|
+| leaves | 241,920 | **6** |
+| automorphisms reported | 241,920 | 241,920 |
+| orbit size | 165 | 165 |
+
+and the orbit size is `C(11,3) = 165`, which is exactly the number of
+single-weight flats, so the analytic factor is checked against a count that is
+known independently.
+
+**Where the whole lattice ends up:**
+
+| | (3,6) | (3,7) | (3,8) |
+|---|---|---|---|
+| flats | 31 | 94 | 313 |
+| total leaves, refinement only | 964 | 5,180 | 32,774 |
+| total leaves, with isolated modes handled | **900** | **4,672** | **28,898** |
+| brute force would be | 22,320 | 473,760 | **12,620,160** |
+
+The gain at rank 8 is modest, 437x rather than 385x, because these flats have
+few isolated modes. That is exactly the point: the gain is concentrated at low
+rank and high `d`, which is the regime the enumerator has to pass THROUGH to
+reach a high rank, and it is where the run was actually stalling.
+
+`tests/test_orbit_canonical.py` pins the leaves-to-automorphism ratio rather
+than a timing, so the factorial tail cannot return unnoticed, and the orbit-size
+sums (362 and 5,341) are what check the analytic `k!` correction.
 
 ## Verification, at every level and not just the top
 
@@ -77,6 +182,7 @@ level for level:
 | 7 | 1, 1, 3, 10, 25, 36, 19 | 1, 35, 595, 4655, 15505, 19019, 5341 |
 | 8 | 1, 1, 3, 11, 37, 87, 118, 56 | 1, 56, 1540, 21420, 147630, 467082, 565208, 166420 |
 | 9 | 1, 1, 3, 12, 45, 146, 364, 494, 231 | 1, 84, 3486, 78274, 968121, 6383706, 20605599, 27392341, **10004154** |
+| 10 | 1, 1, 3, 12, 49, 189, 691, 1840, 2705, 1337 | ..., 1994358765, **889205792** |
 
 Every one of those expansions matches the materialising enumerator exactly at
 ranks 6, 7 and 8. At rank 9 the materialising enumerator DIED at level 6, but
@@ -87,6 +193,27 @@ before continuing past the point of death.
 **Cost.** Rank 8 takes 2.8 seconds against 126 seconds materialised. Rank 9
 takes 401 seconds and never exceeds 494 orbits at a level, against a
 materialised level 7 of 27,392,341 flats that does not fit in memory.
+
+## Memory was the wrong shape too, and that is what killed rank 11
+
+The enumerator held only orbit representatives BETWEEN levels but built every
+child of every parent into one dict WITHIN a level, and only then collapsed
+them onto canonical forms. So peak memory scaled with the child count, not the
+orbit count, and the level being held was about to be discarded. The (3,11) run
+died at level 9 holding 6.2 GB, which is that shape and not a compute limit.
+
+`iter_one_rank_children` yields children parent by parent and the enumerator
+collapses them as they arrive, so peak memory is now the orbit count of the next
+level. Streaming re-canonicalizes a child once per parent that reaches it, so
+there is a memo, and the memo is CAPPED: an uncapped one would reintroduce
+exactly the per-child memory the change exists to remove, and dropping it costs
+time only.
+
+Rerun of (3,9) on the streaming path: the same orbit ladder
+`[1, 1, 3, 12, 45, 146, 364, 494, 231]`, the same expansion ending in
+**10,004,154**, in **308 seconds at a peak of 112 MB**. The representative kept
+per class is the smallest `(mask, basis)` rather than the first seen, so it does
+not depend on the order children happen to be produced in.
 
 ## Scorecard
 
@@ -107,10 +234,14 @@ each unoriented hyperplane appears once. Permuting the coordinates of `h`
 therefore leaves the stored set unless the image is re-normalized. Without the
 renormalization the action sends 201 of 362 images outside the set at rank 6
 and the orbit count comes out **15 instead of 8**, and 35 instead of 19 at rank
-7. Those are not obviously wrong numbers: they are valid orbit counts of a
-valid group action on a set that simply is not the hyperplane set. The script
-reports `images_outside_set` and a test asserts it is zero, and a second test
-pins the trap itself so a convention change cannot silently remove the guard.
+7. Those are not obviously wrong numbers, and they turned out not to be
+meaningless either: 15 and 35 are exactly the counts of ORIENTED hyperplane
+orbits, which is what the screening stage actually consumes, since each
+hyperplane yields two oriented tau rows. So the un-normalized union-find was
+answering a different and equally real question. The script reports
+`images_outside_set` and a test asserts it is zero for the unoriented count,
+and a second test pins the trap so a convention change cannot silently remove
+the guard.
 
 ## The (3,8) replication
 
@@ -128,10 +259,18 @@ materialising method wherever the latter got. The enumerator is lossless by a
 theorem, not by a pattern.
 
 **Does not.** Enumerating hyperplanes is not a complete GPC system. Each
-representative still needs Ressayre screening and exact reduction, and the
-screening cost scales with the ORBIT count only if screening is orbit
-invariant, which is true for validity but has not been re-verified in this
-repository at rank 9. Nothing here yet produces the (3,9) facets.
+representative still needs Ressayre screening and exact reduction.
+
+**CORRECTION, 2026-08.** An earlier version of this paragraph said the
+screening cost "scales with the ORBIT count only if screening is orbit
+invariant, which is true for validity". That parenthetical was WRONG.
+`docs/screening_orbit_structure.md` refutes it: at rank 7, 25 of the 35
+oriented-tau orbits carry mixed verdicts, several containing both `certified`
+and `trace_rejected`. The dominant chamber is a fundamental domain and is
+therefore exactly what the Weyl group does not preserve, so a chamber-facing
+condition cannot be an orbit invariant. Orbit reduction is lossless for
+ENUMERATING candidates and inapplicable to DECIDING them. Nothing here produces
+the (3,9) facets.
 
 **Projection, labelled as such.** Orbit ratios 2.4, 2.9, 4.1 do not fix an
 asymptotic from four points. If the ratio stays near 4 then rank 10 lands near

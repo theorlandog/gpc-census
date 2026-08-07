@@ -469,6 +469,32 @@ plethysm criterion feed Problem 7 below.
   transport classes (R2).
   [docs/prereg_polygon_diagonals.md; scripts/polygon_diagonals.py;
   results/data/polygon_diagonals.json; tests/test_polygon_diagonals.py]
+- screening_orbit_structure.md: SCREENING IS NOT A WEYL-ORBIT INVARIANT, a
+  refutation of my own next step, with the decomposition that survives. ❌
+  REFUTED: screening one representative per orbit and transporting the verdict.
+  At rank 7, 25 of 35 oriented-tau orbits carry MIXED verdicts, several holding
+  both certified and trace_rejected. The reason is structural: the dominant
+  chamber is a fundamental domain and so is exactly what the Weyl group does not
+  preserve, and the moment cone's Weyl invariance is a statement about the
+  AMBIENT cone, not about a chamber-facing inequality list. 🟦 WHAT SURVIVES,
+  and it is the generator's new cost model: the trace test compares negative
+  roots with h_j - h_i < 0 against weights strictly below, the second count is
+  S_d INVARIANT (verified on every row at ranks 6, 7, 8, zero failures) and the
+  first is EXACTLY the inversion number of h (verified against
+  _negative_root_set), which spreads over a Mahonian range inside one orbit. So
+  the test reads inv(sigma h) == B with B invariant: B costs one evaluation per
+  ORBIT rather than per row, and each row then costs only an inversion count. 🟦
+  Measured survivor fractions 8.84%, 5.14%, 1.98% at ranks 6, 7, 8, FALLING, so
+  the expensive determinant stage shrinks as a share of the work. The 549
+  survivors at rank 7 cross-check exactly against the methodology doc's 10,133
+  trace failures out of 10,682. ❗ orbit_canonical_flats.md is CORRECTED: it said
+  orbit invariance "is true for validity" and justified the reduction by
+  claiming orbit members are facets together or not at all. Both wrong. The
+  enumeration reduction stands instead on the S_d STABILITY of the candidate
+  set, which is separately verified with images_outside_set zero at every rank.
+  [scripts/screening_orbit_structure.py;
+  results/data/screening_orbit_structure.json;
+  tests/test_screening_orbit_structure.py]
 - orbit_canonical_flats.md: WEYL-ORBIT CANONICAL ENUMERATION, and the first
   exhaustive hyperplane count at rank 9. ❗ CORRECTION FIRST: (3,7) candidate
   exhaustiveness is CLOSED by the closed-flat enumerator (5,341 hyperplanes for
@@ -496,9 +522,50 @@ plethysm criterion feed Problem 7 below.
   HYPERPLANES, not facets: each representative still needs Ressayre screening
   and exact reduction, and no (3,9) system is produced here. Orbit ratios 2.4,
   2.9, 4.1 over four points are a projection, not an asymptotic.
+  🟦 COST, measured and then fixed, twice. Canonicalization: the worst per-flat
+  cost was exactly d! at EVERY rank, not a large-cell effect, because plain
+  colour refinement splits nothing on the most symmetric flats. Individualization
+  (the nauty step, with an isomorphism-invariant target cell so the canonical
+  form stays well defined) drops the (3,8) peak worst case 40,320 to 1,440 and
+  the (3,8) enumeration 401 s to 16.7 s, reaching the floor leaves >= |Aut| on
+  300 of 313 flats. That floor is then BROKEN where it was the real obstacle: a
+  mode in no present weight is swapped with any other such mode by a
+  transposition fixing the flat, so refinement can never split them and |Aut|
+  carries a k! that is pure waste. At rank 1 of (3,11) that is 8 of 11 modes,
+  |Aut| = 3!*8! = 241,920, and the run emitted nothing in 43 s of CPU; handling
+  them analytically gives 6 leaves for the same flat with orbit size 165 =
+  C(11,3), checked against a count known independently. Memory: children were
+  materialised
+  before being collapsed, so peak scaled with the CHILD count, which is the
+  shape that killed the (3,11) run at 6.2 GB; streaming them makes peak the
+  ORBIT count of the next level. (3,9) reruns to the same ladder and the same
+  10,004,154 in 308 s at 112 MB. A test pins the leaves-to-|Aut| RATIO rather
+  than a timing, so the factorial tail cannot return unnoticed.
   [docs/prereg_orbit_canonical_flats.md; scripts/orbit_canonical_flats.py;
   src/gpc_census/generation/orbit_canonical.py;
   results/data/orbit_canonical_flats.json; tests/test_orbit_canonical.py]
+- direct_survivor_generation.md: THE ROW SCAN IS GONE, which is the limit
+  screening_orbit_structure.md named for itself ("every oriented row still has
+  to be touched, which is what sets the reachable rank"). 🟦 The trace test is
+  inv(sigma h) == B with B an orbit invariant, so an orbit's survivors are the
+  arrangements of a multiset with a PRESCRIBED inversion number; those are
+  generated directly rather than filtered out. Output linearity is the claim and
+  it is exact, not heuristic: pruning to residual budget in [0, maxinv(rest)]
+  with maxinv = C(m,2) - sum C(m_i,2) is exactly the attainable range, because
+  the Gaussian multinomial has strictly positive coefficients across its whole
+  degree range, so every surviving branch completes and no node is wasted.
+  🟦 Verified SET against set, not merely by count, on all 35 rank-7 orbits: a
+  generator emitting the right NUMBER of wrong arrangements would silently
+  replace the candidate list. Measured 549 of 10,682 rows at rank 7 (133x) and
+  6,607 of 332,840 at rank 8 (719x), both reproducing
+  screening_orbit_structure.json exactly, with 45 of 109 rank-8 orbits killed
+  outright before any arrangement is built and 326,233 rows never visited. The
+  speedup RISES with rank because it is the reciprocal of the falling survivor
+  fraction, so this is a change of shape rather than a constant. 🔬 It does not
+  reduce the ORBIT count, does not touch the determinant stage, and does not
+  make screening an S_d invariant, which stays refuted.
+  [docs/prereg_direct_survivor_generation.md;
+  src/gpc_census/generation/orbit_canonical.py; tests/test_orbit_canonical.py]
 - census_inner_sandwich.md: COMPLETENESS WITHOUT CANDIDATE EXHAUSTIVENESS, and
   the one to read before spending any more effort on exhaustive enumeration.
   The claim ladder allows "an exhaustive-enumeration proof OR an independent

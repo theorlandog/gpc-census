@@ -149,6 +149,26 @@ Strict order, one gate per session minimum, prereg per gate:
    canonical augmentation.
    [docs/prereg_orbit_canonical_flats.md; scripts/orbit_canonical_flats.py;
    results/data/orbit_canonical_flats.json]
+   DONE, and then made cheap enough to matter. Canonicalization was measured,
+   not assumed, and its worst per-flat cost was exactly `d!` at every rank,
+   because plain colour refinement splits nothing on the most symmetric flats.
+   Individualization removes that tail: (3,8) peak worst case 40,320 to 1,440
+   and the (3,8) enumeration 401 s to 16.7 s, with leaves now equal to the
+   automorphism group order on 300 of 313 flats, which is the floor. Children
+   are also STREAMED rather than materialised, so peak memory is the orbit count
+   of the next level, which is the shape problem that killed the (3,11) run at
+   6.2 GB.
+   [docs/orbit_canonical_flats.md; tests/test_orbit_canonical.py]
+2b. DIRECT SURVIVOR GENERATION, which removes the row scan. The Ressayre trace
+   test is `inv(sigma h) == B` with `B` an orbit invariant, so the survivors of
+   an orbit are the arrangements of a multiset with a prescribed inversion
+   number, and those are generated directly in output-linear time instead of
+   filtered out of the orbit. Verified SET against set on all 35 rank-7 orbits,
+   549 of 10,682 rows, 133x. This is what
+   `docs/screening_orbit_structure.md` named as the step that sets the reachable
+   rank.
+   [docs/prereg_direct_survivor_generation.md;
+   docs/direct_survivor_generation.md; tests/test_orbit_canonical.py]
 3. (3,8) gate: first rank with interference vertices; the honest stress test.
    Flat lattice already enumerated,
    [1, 56, 1540, 21420, 147630, 467082, 565208, 166420], 166,420 admissible

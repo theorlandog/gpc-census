@@ -294,6 +294,33 @@ def _extend_one_rank(
     return next_states
 
 
+def iter_one_rank_children(
+    states: dict[int, tuple[int, ...]],
+    points: tuple[tuple[int, ...], ...],
+    modulus: int,
+    points_array=None,
+    inverse_table=None,
+):
+    """Yield ``(child_mask, child_basis)`` one parent at a time.
+
+    ``_extend_one_rank`` accumulates every child of every parent into one dict
+    before anything downstream sees them, which is the right shape when the
+    caller wants the whole level. It is the wrong shape for the ORBIT
+    enumerator, which is about to collapse those children onto a few thousand
+    canonical forms and therefore never needs the intermediate set: at (3,11)
+    the level-9 orbits alone expand to millions of children, and holding them
+    is what exhausted memory. Streaming caps the caller's peak at the number of
+    ORBITS in the next level rather than the number of children.
+
+    A child may be yielded more than once, by different parents or by the same
+    parent through different points. Deduplication is the caller's business.
+    """
+    for parent, basis_indices in states.items():
+        one = {parent: basis_indices}
+        yield from _extend_one_rank(
+            one, points, modulus, points_array, inverse_table).items()
+
+
 def _extend_one_rank_scalar(
     states: dict[int, tuple[int, ...]],
     points: tuple[tuple[int, ...], ...],
