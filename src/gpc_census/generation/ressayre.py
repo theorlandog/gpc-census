@@ -301,6 +301,136 @@ def _sparse_determinant_coefficients(
     return states.get((1 << size) - 1, {})
 
 
+def _sparse_determinant_matching_counts(
+    edge_matrix: Sequence[Sequence[tuple[int, int] | None]],
+) -> tuple[dict[tuple[int, ...], int], dict[tuple[int, ...], int]]:
+    """Signed coefficients AND unsigned matching multiplicities per monomial.
+
+    The determinant's permutation terms are exactly the perfect matchings of the
+    support graph, each carrying a sign and a monomial in the on-weight
+    variables. The existing expansion keeps only the SIGNED sum, which is what
+    decides vanishing but destroys the information that explains it.
+
+    Carrying the unsigned count alongside separates three situations that the
+    signed sum alone conflates:
+
+    - a monomial reached by exactly ONE matching has coefficient plus or minus
+      one and cannot cancel, so its existence is an immediate proof that the
+      determinant is nonzero, with no evaluation and no large integer work;
+    - a monomial reached by several matchings that do not cancel;
+    - a monomial reached by several matchings that cancel exactly, which is the
+      genuine algebraic case and the only one that needs the full expansion.
+
+    Same dynamic program, same cost class: one extra unsigned accumulator.
+    """
+    size = len(edge_matrix)
+    if any(len(row) != size for row in edge_matrix):
+        raise ValueError("sparse determinant requires a square matrix")
+    signed: dict[int, dict[tuple[int, ...], int]] = {0: {(): 1}}
+    counts: dict[int, dict[tuple[int, ...], int]] = {0: {(): 1}}
+    for row_index, row in enumerate(edge_matrix):
+        next_signed: dict[int, dict[tuple[int, ...], int]] = {}
+        next_counts: dict[int, dict[tuple[int, ...], int]] = {}
+        for used_columns, polynomial in signed.items():
+            multiplicity = counts[used_columns]
+            for column, edge in enumerate(row):
+                if edge is None or used_columns & (1 << column):
+                    continue
+                variable_index, edge_sign = edge
+                inversion_sign = (
+                    -1 if (used_columns >> (column + 1)).bit_count() % 2 else 1
+                )
+                mask = used_columns | (1 << column)
+                target = next_signed.setdefault(mask, {})
+                tally = next_counts.setdefault(mask, {})
+                factor = edge_sign * inversion_sign
+                for monomial, coefficient in polynomial.items():
+                    extended = tuple(sorted((*monomial, variable_index)))
+                    updated = target.get(extended, 0) + factor * coefficient
+                    if updated:
+                        target[extended] = updated
+                    else:
+                        target.pop(extended, None)
+                for monomial, seen in multiplicity.items():
+                    extended = tuple(sorted((*monomial, variable_index)))
+                    tally[extended] = tally.get(extended, 0) + seen
+        signed = next_signed
+        counts = next_counts
+        if not counts:
+            return {}, {}
+    full = (1 << size) - 1
+    return signed.get(full, {}), counts.get(full, {})
+
+
+def classify_tangent_determinant(
+    n: int, d: int, candidate: AdmissibleHyperplane, *, orientation: int = 1
+) -> dict[str, object]:
+    """Classify a trace-matched tangent determinant by its matching structure.
+
+    Returns the classification and the evidence for it. The categories are
+    ordered by how cheaply they can be certified, and the point of the exercise
+    is to find out how much of the residual algebra is really needed:
+
+    ``structural_zero``
+        no perfect matching, Hall violator attached, no algebra at all;
+    ``unique_matching``
+        exactly one perfect matching, so the determinant IS a single signed
+        monomial and nonvanishing is immediate;
+    ``unique_exposed_monomial``
+        some monomial is reached by exactly one matching, so its coefficient is
+        plus or minus one and cannot cancel; nonvanishing follows without
+        summing anything;
+    ``nonzero_after_collision``
+        every monomial is reached by several matchings and the signed sum
+        survives anyway;
+    ``exact_cancellation``
+        the signed sum vanishes identically, which is the genuine algebraic
+        case.
+    """
+    weights, on_indices, below_indices, roots = _validate_admissible_candidate(
+        n, d, candidate
+    )
+    if orientation not in (-1, 1):
+        raise ValueError("orientation must be -1 or 1")
+    if len(below_indices) != len(roots):
+        raise ValueError("determinant classification requires trace equality")
+    edge_matrix = _tangent_edge_matrix(weights, on_indices, below_indices, roots)
+    violator = _hall_violator(edge_matrix)
+    if violator is not None:
+        return {
+            "classification": "structural_zero",
+            "is_zero": True,
+            "order": len(below_indices),
+            "hall_violator": list(violator),
+            "perfect_matchings": 0,
+            "distinct_monomials": 0,
+            "min_monomial_multiplicity": None,
+        }
+    signed, counts = _sparse_determinant_matching_counts(edge_matrix)
+    total = sum(counts.values())
+    smallest = min(counts.values()) if counts else None
+    is_zero = not signed
+    if is_zero:
+        classification = "exact_cancellation"
+    elif total == 1:
+        classification = "unique_matching"
+    elif smallest == 1:
+        classification = "unique_exposed_monomial"
+    else:
+        classification = "nonzero_after_collision"
+    return {
+        "classification": classification,
+        "is_zero": is_zero,
+        "order": len(below_indices),
+        "hall_violator": None,
+        "perfect_matchings": total,
+        "distinct_monomials": len(counts),
+        "min_monomial_multiplicity": smallest,
+        "cancelling_monomials": sum(
+            1 for monomial in counts if monomial not in signed),
+    }
+
+
 def tangent_determinant_is_identically_zero(
     n: int,
     d: int,
@@ -536,6 +666,30 @@ def assess_candidate_by_evaluation(
         return RessayreEvaluationVerdict(
             status="trace_rejected",
             attempts=0,
+            below_weight_count=len(below_indices),
+            negative_root_count=len(roots),
+            certificate=None,
+        )
+    # PROVE THE SEARCH FUTILE BEFORE RUNNING IT. Every trial point below costs
+    # a Bareiss determinant, and on a row whose determinant is IDENTICALLY zero
+    # all of them return zero: the budget is spent to learn nothing. That is not
+    # the rare case, it is the common one. At rank 8, 6,414 of the 6,607 trace
+    # survivors are structurally zero, so the loop burned 32 exact determinants
+    # apiece to reach a foregone conclusion, and that is where the screening
+    # time was going.
+    #
+    # A Hall violator settles it in O(E sqrt(V)) from the support alone. The
+    # recorded verdict is unchanged, INCLUDING the attempt count, and that is
+    # deliberate rather than sloppy: the field records that the budget yields no
+    # nonzero evaluation, and a structural proof establishes exactly that
+    # statement for every trial point at once. It is the same claim reached by a
+    # shorter route, so stored manifests stay byte identical.
+    if roots and _hall_violator(
+        _tangent_edge_matrix(weights, on_indices, below_indices, roots)
+    ) is not None:
+        return RessayreEvaluationVerdict(
+            status="evaluation_unresolved",
+            attempts=attempts,
             below_weight_count=len(below_indices),
             negative_root_count=len(roots),
             certificate=None,

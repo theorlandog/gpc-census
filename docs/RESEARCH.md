@@ -524,6 +524,37 @@ plethysm criterion feed Problem 7 below.
   [scripts/screening_orbit_structure.py;
   results/data/screening_orbit_structure.json;
   tests/test_screening_orbit_structure.py]
+- determinant_matching_audit.md: THE TANGENT DETERMINANT CLASSIFIED BY ITS
+  MATCHINGS, and the profiling result that came out of it. 🟦 Each perfect
+  matching of the support graph carries a sign and a monomial, so keeping the
+  UNSIGNED multiplicity beside the signed coefficient separates cases the signed
+  sum conflates. A monomial reached by exactly ONE matching has coefficient +-1
+  and cannot cancel, which proves nonvanishing with no summation, no evaluation
+  and no large-integer work. Rank 7: 474 structural_zero, 25 exact_cancellation,
+  16 unique_matching, 24 unique_exposed_monomial, 10 nonzero_after_collision,
+  summing to 549 and reproducing the published 499/50 split. 40 of the 50
+  nonzero determinants, 80%, are certifiable without summing anything; largest
+  matching count seen is 30,528, so this is not a small-case artifact.
+  ❗ THE BIGGER FINDING was in the profile, not the audit: at rank 8, 48.6 of
+  the orbit-native constructor's 54 seconds sat inside screening, with
+  enumeration 4.8 s and candidate reconstruction 0.7 s. The cause is that
+  assess_candidate_by_evaluation computes up to 32 exact Bareiss determinants
+  looking for a nonzero evaluation, and on an IDENTICALLY ZERO determinant every
+  one returns zero; 6,414 of 6,607 rank-8 survivors are structurally zero, so
+  the budget was being spent to reach a foregone conclusion before falling
+  through to the Hall test that settles it at once. Running Hall FIRST proves
+  the search futile instead of performing it: (3,8) goes 251.9 s reference to
+  66.0 s orbit-native to 12.4 s, 20x, partition unchanged at 137/6,469/1/0.
+  The verdict including the attempt count is byte identical by design, because
+  the field records that the budget yields no nonzero evaluation and a Hall
+  violator establishes exactly that for every trial point at once; the rank-7
+  manifest still regenerates byte for byte. 🔬 unique_exposed_monomial is
+  currently DETECTED by the full expansion it is meant to avoid; the cheap
+  separating-weight certifier is not implemented, so 80% is what is CERTIFIABLE
+  this way, not what is certified this way. The 25 exact cancellations are
+  unexplained.
+  [docs/determinant_matching_audit.md;
+  tests/test_determinant_matching_audit.py]
 - orbit_native_constructor.md: THE FAST COMPONENTS ARE NOW ON THE ACTUAL PATH,
   which they were not. ❗ FINDING FIRST: orbit enumeration, direct survivor
   generation and the Hall filter were each proved and measured, and the
