@@ -1,12 +1,21 @@
 """Weyl-orbit canonicalization of closed flats of the exterior weight set.
 
-WHY THIS IS THE ONE PERMITTED PRUNING. The moment polytope is Weyl invariant
-and the ordered slice is a fundamental domain for the ``S_d`` action, so two
-admissible hyperplanes in the same ``S_d`` orbit are facets together or not at
-all. Enumerating orbit representatives therefore discards nothing. Every other
-pruning proposed for this search has been an empirical pattern, which the
-standing rule forbids until a theorem makes it lossless; this one has the
-theorem.
+WHY THIS IS THE ONE PERMITTED PRUNING. The set of admissible hyperplanes is
+``S_d`` STABLE: permuting modes permutes the exterior weights, hence permutes
+closed flats, hence permutes hyperplanes. Storing one representative per orbit
+and expanding therefore discards no CANDIDATE. Every other pruning proposed for
+this search has been an empirical pattern, which the standing rule forbids until
+a theorem makes it lossless; this one has the theorem, and the stability is
+verified rather than assumed (``images_outside_set`` is zero at every rank).
+
+STATED CAREFULLY, BECAUSE THE STRONGER VERSION IS FALSE. This licenses orbit
+reduction for ENUMERATING candidates only. It does NOT say that hyperplanes in
+one orbit are facets together or not at all: the GPC system is a list of
+inequalities facing the DOMINANT CHAMBER, the chamber is a fundamental domain
+and so is exactly what the Weyl group fails to preserve, and
+``docs/screening_orbit_structure.md`` measures the consequence, namely that 25
+of the 35 oriented-tau orbits at rank 7 carry MIXED screening verdicts. An
+earlier version of this docstring asserted the stronger claim and was wrong.
 
 WHY IT MATTERS. The raw flat lattice explodes while the orbit count barely
 moves: 362 hyperplanes in 8 orbits at rank 6, 5,341 in 19 at rank 7. An
@@ -195,6 +204,78 @@ def _factorial(k: int) -> int:
     return result
 
 
+def _exact_top_normal(n: int, d: int, witness):
+    """Exact primitive ``(h, z)`` of a codimension-one flat from its basis.
+
+    Deliberately the same construction the materialising enumerator uses, so
+    the two paths cannot disagree about what a flat's hyperplane is.
+    """
+    from .exterior import exterior_weights
+    from .ressayre import _cofactor_nullvector, _primitive_pair
+
+    weights = exterior_weights(n, d)
+    base = weights[witness[0]]
+    difference_rows = [
+        [weights[index][column] - base[column] for column in range(d)]
+        for index in witness[1:]
+    ]
+    normal = _cofactor_nullvector(difference_rows + [[1] * d])
+    offset = sum(normal[index] * base[index] for index in range(d))
+    return _primitive_pair(normal, offset, orient=True)
+
+
+def top_level_canonical_key(h, z: int):
+    """Canonical key of a CODIMENSION-ONE flat, in ``O(d log d)``.
+
+    WHY THIS EXISTS. Instrumenting (3,9) showed the cost is not spread over the
+    lattice and is not where the orbit COUNT peaks. The top level holds 231 of
+    the 1,297 orbits and consumes **167 of the 214 seconds**, 78 percent, at 344
+    leaves per canonical call against 69 one level down. The reason is
+    structural: a codimension-one flat carries most of the weight set, so it has
+    the largest automorphism groups, and the hypergraph canonicalizer pays
+    ``|Aut|`` leaves for each one.
+
+    THE SHORTCUT. A codimension-one closed flat IS a hyperplane, so it is fully
+    described by its exact primitive normal ``(h, z)``. Two of them lie in the
+    same ``S_d`` orbit exactly when one ``h`` is a permutation of the other with
+    matching ``z``, because a permutation acts on the normal and nothing else.
+    The flat is unoriented, so ``(h, z)`` and ``(-h, -z)`` describe the same
+    flat and the key takes the smaller.
+
+    That is a sort, not a search: no refinement, no individualization, no
+    hypergraph. Correctness does not rest on the refinement being strong, it
+    rests on the normal determining the flat, which is what codimension one
+    means.
+    """
+    forward = (tuple(sorted(h)), z)
+    backward = (tuple(sorted(-value for value in h)), -z)
+    return min(forward, backward)
+
+
+def top_level_orbit_size(h, z: int, d: int) -> int:
+    """Orbit size of a codimension-one flat, in closed form.
+
+    The orbit of the flat is the set of distinct normals ``(sigma h, z)``, which
+    is the multiset permutation count ``d! / prod m_i!``. It is HALVED when the
+    flat is its own reverse, that is when ``z == 0`` and the multiset of ``-h``
+    equals that of ``h``, because then ``sigma h = -h`` for some ``sigma`` and
+    the two normals of one flat are counted twice.
+
+    That halving is not a detail: at ranks 6, 7 and 8 it applies to 1, 3 and 3
+    orbits, which is exactly why the ORIENTED orbit counts are 15, 35 and 109
+    rather than 16, 38 and 112.
+    """
+    import collections as _collections
+
+    arrangements = _factorial(d)
+    for multiplicity in _collections.Counter(h).values():
+        arrangements //= _factorial(multiplicity)
+    negated = sorted(-value for value in h)
+    if z == 0 and negated == sorted(h):
+        return arrangements // 2
+    return arrangements
+
+
 def orbit_size(mask: int, n: int, d: int) -> int:
     """Size of the ``S_d`` orbit of a flat, by orbit-stabilizer."""
     _, automorphisms = canonical_form(mask, n, d, with_automorphisms=True)
@@ -291,13 +372,21 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
         # CAPPED, because an uncapped one would reintroduce exactly the
         # per-child memory this loop exists to avoid; dropping it on overflow
         # costs time and never correctness.
-        chosen: dict[int, tuple[int, tuple[int, ...]]] = {}
-        memo: dict[int, int] = {}
+        # At the TOP level the flat is a hyperplane and its exact normal decides
+        # its orbit by a sort, so the hypergraph canonicalizer is not needed at
+        # all. That is where the cost is: 78 percent of the (3,9) enumeration.
+        top_level = rank == d - 1
+        chosen: dict[object, tuple[int, tuple[int, ...]]] = {}
+        memo: dict[int, object] = {}
         for mask, witness in iter_one_rank_children(
                 states, points, modulus, points_array, inverse_table):
             key = memo.get(mask)
             if key is None:
-                key = canonical_form(mask, n, d)
+                if top_level:
+                    key = top_level_canonical_key(
+                        *_exact_top_normal(n, d, witness))
+                else:
+                    key = canonical_form(mask, n, d)
                 if len(memo) >= memo_limit:
                     memo.clear()
                 memo[mask] = key

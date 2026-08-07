@@ -1,5 +1,39 @@
 {
  "augmentation": {
+  "10": {
+   "d": 10,
+   "expanded_by_rank": [
+    1,
+    120,
+    7140,
+    241150,
+    4823910,
+    56904687,
+    379791510,
+    1315196575,
+    1994358765,
+    889205792
+   ],
+   "hyperplanes": 889205792,
+   "levels_restored_from_checkpoint": 7,
+   "levels_total": 9,
+   "orbits_by_rank": [
+    1,
+    1,
+    3,
+    12,
+    49,
+    189,
+    691,
+    1840,
+    2705,
+    1337
+   ],
+   "peak_orbits": 2705,
+   "seconds": 520.1,
+   "timing_is_a_full_run": false,
+   "top_orbits": 1337
+  },
   "6": {
    "d": 6,
    "expanded_by_rank": [
@@ -11,6 +45,8 @@
     362
    ],
    "hyperplanes": 362,
+   "levels_restored_from_checkpoint": 5,
+   "levels_total": 5,
    "orbits_by_rank": [
     1,
     1,
@@ -20,7 +56,8 @@
     8
    ],
    "peak_orbits": 12,
-   "seconds": 0.1,
+   "seconds": 0.0,
+   "timing_is_a_full_run": false,
    "top_orbits": 8
   },
   "7": {
@@ -35,6 +72,8 @@
     5341
    ],
    "hyperplanes": 5341,
+   "levels_restored_from_checkpoint": 6,
+   "levels_total": 6,
    "orbits_by_rank": [
     1,
     1,
@@ -45,7 +84,8 @@
     19
    ],
    "peak_orbits": 36,
-   "seconds": 0.3,
+   "seconds": 0.0,
+   "timing_is_a_full_run": false,
    "top_orbits": 19
   },
   "8": {
@@ -61,6 +101,8 @@
     166420
    ],
    "hyperplanes": 166420,
+   "levels_restored_from_checkpoint": 7,
+   "levels_total": 7,
    "orbits_by_rank": [
     1,
     1,
@@ -72,7 +114,8 @@
     56
    ],
    "peak_orbits": 118,
-   "seconds": 2.9,
+   "seconds": 0.0,
+   "timing_is_a_full_run": false,
    "top_orbits": 56
   },
   "9": {
@@ -89,6 +132,8 @@
     10004154
    ],
    "hyperplanes": 10004154,
+   "levels_restored_from_checkpoint": 8,
+   "levels_total": 8,
    "orbits_by_rank": [
     1,
     1,
@@ -101,11 +146,19 @@
     231
    ],
    "peak_orbits": 494,
-   "seconds": 407.3,
+   "seconds": 0.1,
+   "timing_is_a_full_run": false,
    "top_orbits": 231
   }
  },
+ "augmentation_sha256": "3f16b3b0da31e0a4efbe1b778f69e2a3dbcf82879c5184276f123895ed04c343",
  "convention_trap": "hyperplanes are stored with first nonzero entry positive, so a permuted image must be re-normalized; without that the action is not closed and rank 6 reports 15 orbits, not 8",
+ "machine": {
+  "cpu_count": 4,
+  "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "python": "3.14.0rc2"
+ },
  "ranks": {
   "6": {
    "action_is_closed": true,
@@ -239,7 +292,7 @@
   "7": {
    "action_is_closed": true,
    "d": 7,
-   "enumerate_seconds": 3.0,
+   "enumerate_seconds": 2.1,
    "flat_counts_by_rank": [
     1,
     35,
@@ -531,7 +584,7 @@
   "8": {
    "action_is_closed": true,
    "d": 8,
-   "enumerate_seconds": 125.3,
+   "enumerate_seconds": 110.6,
    "flat_counts_by_rank": [
     1,
     56,
@@ -546,7 +599,7 @@
    "images_outside_set": 0,
    "largest_orbit": 20160,
    "n": 3,
-   "orbit_seconds": 1.0,
+   "orbit_seconds": 0.9,
    "orbit_sizes": [
     20160,
     10080,
@@ -1399,12 +1452,14 @@
  "summary": {
   "all_actions_closed": true,
   "augmentation_agrees_with_materialised": {
+   "10": false,
    "6": true,
    "7": true,
    "8": true,
    "9": false
   },
   "augmentation_hyperplanes": {
+   "10": 889205792,
    "6": 362,
    "7": 5341,
    "8": 166420,
@@ -1414,9 +1469,11 @@
    6,
    7,
    8,
-   9
+   9,
+   10
   ],
   "augmentation_top_orbits": {
+   "10": 1337,
    "6": 8,
    "7": 19,
    "8": 56,
@@ -1443,5 +1500,5 @@
    "8": 2971.8
   }
  },
- "what": "S_d orbit structure of the admissible hyperplane set. The moment polytope is Weyl invariant and the ordered slice is a fundamental domain, so orbit reduction is provably lossless rather than empirically motivated."
+ "what": "S_d orbit structure of the admissible hyperplane set. The set is S_d STABLE, so enumerating orbit representatives and expanding discards no CANDIDATE; that is the whole of the licence, and it is verified here rather than assumed. It does NOT make screening an orbit invariant: the dominant chamber is a fundamental domain and so is exactly what the Weyl group fails to preserve, and 25 of the 35 rank-7 oriented orbits carry mixed verdicts."
 }

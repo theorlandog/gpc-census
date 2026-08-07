@@ -524,6 +524,78 @@ plethysm criterion feed Problem 7 below.
   [scripts/screening_orbit_structure.py;
   results/data/screening_orbit_structure.json;
   tests/test_screening_orbit_structure.py]
+- determinant_matching_audit.md: THE TANGENT DETERMINANT CLASSIFIED BY ITS
+  MATCHINGS, and the profiling result that came out of it. 🟦 Each perfect
+  matching of the support graph carries a sign and a monomial, so keeping the
+  UNSIGNED multiplicity beside the signed coefficient separates cases the signed
+  sum conflates. A monomial reached by exactly ONE matching has coefficient +-1
+  and cannot cancel, which proves nonvanishing with no summation, no evaluation
+  and no large-integer work. Rank 7: 474 structural_zero, 25 exact_cancellation,
+  16 unique_matching, 24 unique_exposed_monomial, 10 nonzero_after_collision,
+  summing to 549 and reproducing the published 499/50 split. 40 of the 50
+  nonzero determinants, 80%, are certifiable without summing anything; largest
+  matching count seen is 30,528, so this is not a small-case artifact. Rank 8
+  reproduces the predicted split exactly: 6,414 structural, 55 exact
+  cancellation, 193 Hall-feasible splitting 55 zero and 138 nonzero, and the
+  share needing no summation RISES, 80.0% to 84.1%, at a largest matching count
+  of 9,538,560 and order 22. 🟦 THE CERTIFICATE IS NOW POLYNOMIAL: weight each
+  variable, and a matching strictly lighter than every other carries a monomial
+  no other matching reaches, so its coefficient is +-1 and the determinant
+  cannot vanish; the certificate is a weight vector, a matching and the
+  second-best weight, replayed with one assignment solve per matched edge. It
+  issues on 36 of the 50 rank-7 nonzeros against the audit's upper bound of 40,
+  the gap being weight-vector choice rather than a limit of the method. Safety
+  is the tested direction: no certificate was ever issued for a vanishing
+  determinant, every one replays, and tampered ones are rejected.
+  ❗ THE BIGGER FINDING was in the profile, not the audit: at rank 8, 48.6 of
+  the orbit-native constructor's 54 seconds sat inside screening, with
+  enumeration 4.8 s and candidate reconstruction 0.7 s. The cause is that
+  assess_candidate_by_evaluation computes up to 32 exact Bareiss determinants
+  looking for a nonzero evaluation, and on an IDENTICALLY ZERO determinant every
+  one returns zero; 6,414 of 6,607 rank-8 survivors are structurally zero, so
+  the budget was being spent to reach a foregone conclusion before falling
+  through to the Hall test that settles it at once. Running Hall FIRST proves
+  the search futile instead of performing it: (3,8) goes 251.9 s reference to
+  66.0 s orbit-native to 12.4 s, 20x, partition unchanged at 137/6,469/1/0.
+  The verdict including the attempt count is byte identical by design, because
+  the field records that the budget yields no nonzero evaluation and a Hall
+  violator establishes exactly that for every trial point at once; the rank-7
+  manifest still regenerates byte for byte. 🔬 unique_exposed_monomial is
+  currently DETECTED by the full expansion it is meant to avoid; the cheap
+  separating-weight certifier is not implemented, so 80% is what is CERTIFIABLE
+  this way, not what is certified this way. The 25 exact cancellations are
+  unexplained.
+  [docs/determinant_matching_audit.md;
+  tests/test_determinant_matching_audit.py]
+- orbit_native_constructor.md: THE FAST COMPONENTS ARE NOW ON THE ACTUAL PATH,
+  which they were not. ❗ FINDING FIRST: orbit enumeration, direct survivor
+  generation and the Hall filter were each proved and measured, and the
+  production constructor called NONE of them. It materialised every hyperplane,
+  oriented each into two taus and screened the whole list, and the screening
+  fallback ran the exponential determinant DP with no matching pre-test. Every
+  measured speedup sat beside the pipeline rather than in it. 🟦 HALL is now
+  inside the symbolic fallback with a DELIBERATELY INDISTINGUISHABLE outcome,
+  same status and same reason, so stored manifests stay byte identical and it is
+  a pure accelerator: the rank-7 reference manifest regenerates byte for byte
+  and rank-8 screening counts match the stored artifact. Of 6,469 rank-8 rows
+  reaching the fallback, 6,414 are decided by matching and 55 reach the DP.
+  🟦 ORBIT-NATIVE CONSTRUCTOR builds a complete system from orbit
+  representatives alone and never constructs the hyperplane list, the oriented
+  tau list, or a trace-rejected row: 326,233 of 332,840 rank-8 rows are never
+  built. Coverage is CHECKED by count conservation, orbit-stabilizer plus the
+  Gaussian multinomial against what the run did, so a lost orbit cannot balance
+  it. ❗ SELF-PAIRING TRAP: the oriented orbit of (h,z) already contains (-h,-z)
+  when z = 0 and the multiset of -h equals that of h, so processing both
+  orientations double counts; there are 1, 3 and 3 such orbits at ranks 6, 7, 8,
+  which is exactly why the oriented counts are 15, 35, 109 and not 16, 38, 112.
+  🟦 GATED, not merely run: at rank 7 the emitted taus equal the reference
+  survivor set exactly and the partition reproduces the published 1/49/499/0; at
+  rank 8 retained rows, reduction certificate, regression, certified tau set and
+  symbolic-zero tau set are all identical, 66 s against 252 s. 🔬 The speedup is
+  3.8x, not the 719x survivor generation shows alone, because the orbit
+  ENUMERATION is now the dominant stage. The row scan is gone and enumeration
+  replaced it as the bottleneck.
+  [src/gpc_census/generation/orbit_native.py; tests/test_orbit_native.py]
 - orbit_canonical_flats.md: WEYL-ORBIT CANONICAL ENUMERATION, and the first
   exhaustive hyperplane count at rank 9. ❗ CORRECTION FIRST: (3,7) candidate
   exhaustiveness is CLOSED by the closed-flat enumerator (5,341 hyperplanes for
