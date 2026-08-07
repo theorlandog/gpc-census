@@ -144,6 +144,20 @@ results/data/quantization_multiplicities.json]
   semi-invariant hypothesis, equality is verified only at the 14 with a
   measured multiplicity sequence. Never quote them as measured periods; the
   artifact flags each row with `verified`.
+- 🟦 THE SLICE FIXES THE VACUOUS KERNEL (2026-08-07). The symplectic slice
+  `V_x = ker d(mu)_x / T_x(K_mu . x)` is the honest transverse object. At the
+  uniform Borland-Dennis vertex (3,6)#3 the raw kernel is 19 but `dim V_x = 0`,
+  which CERTIFIES the reduced germ is a point and the fixed-rho fiber near psi
+  is exactly the `K_mu` orbit. ❗ And a nonzero slice does NOT mean a
+  positive-dimensional germ: the Slater vertex has `dim V_x = 20` over a
+  reduced space that is a single point, so the slice dimension is a local model
+  INPUT, not a fiber dimension. ⚠️ REFUTED METHOD, recorded so it is not
+  retried: `dim V_x - 2 dim(K_x . v)` at generic `v` in `V_x` returns -10 at
+  the Slater vertex; the formula needs a generic point of `mu_V^{-1}(0)`.
+  PARTIAL: v_B, v89 and v103 exceeded the exact-symbolic budget and are named
+  in the artifact's `unfinished` field.
+  [docs/symplectic_slice.md; docs/prereg_symplectic_slice.md;
+  results/data/symplectic_slices.json]
 - ⚠️ NOT CLAIMED: `dim M_lambda` from symplectic reduction. First-order tangent
   rank is vacuous at these ranks (`ker d(mu)` has dimension at least
   `2*binom(d,n) - d^2` for trivial reasons; the (3,6) Slater vertex, whose

@@ -622,3 +622,144 @@ def predicted_quantization_period(elements: list[dict], q: int) -> int | None:
             return None
         period = period * least // gcd(period, least)
     return period
+
+
+# --------------------------------------------------------------------------
+# the symplectic slice (Marle-Guillemin-Sternberg local model)
+# --------------------------------------------------------------------------
+
+
+def symplectic_slice(record: dict) -> dict:
+    """Exact symplectic slice at a certified state, with its validation gates.
+
+    At `x = [psi]` in `P(wedge^n C^d)` with `K = U(d)` and moment map the 1-RDM,
+    the symplectic slice is
+
+        V_x = T_x(K.x)^omega / T_x(K_mu(x).x),
+
+    where `T_x(K.x)^omega = ker d(mu)_x` and the denominator is the standard
+    intersection `T_x(K.x)^omega and T_x(K.x)`. This is the object the previous
+    campaign lacked: the RAW `ker d(mu)_x` is dominated by trivial ambient
+    directions and is a vacuous upper bound on anything, while `dim V_x` is the
+    honest local transverse dimension, and `dim V_x = 0` certifies outright that
+    the reduced germ is a point.
+
+    Two identities are checked on every state and returned, because both are
+    forced and both caught bugs while this was written:
+
+      `dim ker d(mu)_x == 2(H-1) - dim(K.x)`, since `im d(mu)_x = ann(k_x)`;
+      `dim T_x(K_mu.x) == dim K_mu - dim K_x`, since `K_x` is contained in
+      `K_mu`.
+
+    NOT returned: a reduced-germ dimension. The obvious shortcut,
+    `dim V_x - 2 dim(K_x . v)` at a generic `v` in `V_x`, is WRONG, because the
+    formula needs a generic point of `mu_V^{-1}(0)` and a generic point of
+    `V_x` has a strictly larger orbit. At the Slater vertex it returns -10.
+    See `docs/symplectic_slice.md`.
+    """
+    n, d, basis, index, psi = state_vector(record)
+    h = len(basis)
+
+    e: dict[tuple[int, int], list[sp.Expr]] = {}
+    for p in range(d):
+        for q in range(d):
+            v = [sp.Integer(0)] * h
+            for k, s in enumerate(basis):
+                if psi[k] == 0:
+                    continue
+                out = excite(p, q, s)
+                if out:
+                    v[index[out[1]]] += out[0] * psi[k]
+            e[(p, q)] = [sp.expand(x) for x in v]
+
+    algebra, images = _u_d_basis(e, d)
+    rho = sp.Matrix(
+        d, d,
+        lambda p, q: sp.expand(sum(sp.conjugate(psi[k]) * e[(p, q)][k] for k in range(h))),
+    )
+    commutant = _commutant_coefficients(rho, algebra, d)
+
+    real_psi = sp.Matrix([[sp.re(x) for x in psi] + [sp.im(x) for x in psi]])
+    real_ipsi = sp.Matrix([[sp.re(sp.I * x) for x in psi] + [sp.im(sp.I * x) for x in psi]])
+    n1, n2 = real_psi.dot(real_psi), real_ipsi.dot(real_ipsi)
+
+    def to_tangent(vec):
+        """Real coordinates of `vec`, projected onto the tangent space `psi^perp`."""
+        r = sp.Matrix([[sp.re(x) for x in vec] + [sp.im(x) for x in vec]])
+        r = r - (r.dot(real_psi) / n1) * real_psi - (r.dot(real_ipsi) / n2) * real_ipsi
+        return [sp.simplify(x) for x in r]
+
+    orbit = sp.Matrix([to_tangent(g) for g in images])
+    orbit_dim = orbit.rank()
+    stabilizer = [list(v.T) for v in orbit.T.nullspace()]
+
+    ambient = []
+    for k in range(h):
+        for mult in (sp.Integer(1), sp.I):
+            unit = [sp.Integer(0)] * h
+            unit[k] = mult
+            ambient.append(to_tangent(unit))
+    span = sp.Matrix(ambient)
+    # pivot COLUMNS of the transpose are the independent ROWS; using rref pivots
+    # on `span` itself selects the wrong vectors and silently drops the rank of
+    # d(mu) by one, which is how this was caught at the Slater vertex.
+    tangent = [ambient[i] for i in span.T.rref()[1]]
+    assert len(tangent) == 2 * h - 2, (len(tangent), 2 * h - 2)
+
+    def d_mu(row):
+        vec = [row[k] + sp.I * row[h + k] for k in range(h)]
+        out = []
+        for p in range(d):
+            for q in range(p, d):
+                a = sum(sp.conjugate(vec[j]) * e[(p, q)][j] for j in range(h))
+                b = sum(sp.conjugate(vec[j]) * e[(q, p)][j] for j in range(h))
+                val = sp.expand(a + sp.conjugate(b))
+                out.append(sp.re(val))
+                if p != q:
+                    out.append(sp.im(val))
+        return out
+
+    jac = sp.Matrix([d_mu(t) for t in tangent])
+    basis_matrix = sp.Matrix(tangent)
+    kernel = [list(sp.Matrix([list(v.T)]) * basis_matrix) for v in jac.T.nullspace()]
+
+    def combine_images(coeffs):
+        out = [sp.Integer(0)] * h
+        for j, c in enumerate(coeffs):
+            if c == 0:
+                continue
+            for k in range(h):
+                out[k] += c * images[j][k]
+        return to_tangent(out)
+
+    levi = sp.Matrix([combine_images(c) for c in commutant])
+    levi_dim = levi.rank()
+
+    reduced = sp.Matrix(kernel)
+    if levi_dim:
+        independent = sp.Matrix([levi.row(i) for i in levi.T.rref()[1]])
+        projected = []
+        for row in kernel:
+            r = sp.Matrix([row])
+            for i in range(independent.rows):
+                q = independent.row(i)
+                r = r - (r.dot(q) / q.dot(q)) * q
+            projected.append([sp.simplify(x) for x in r])
+        reduced = sp.Matrix(projected)
+    slice_dim = len(reduced.T.rref()[1]) if kernel else 0
+
+    return {
+        "ambient_tangent_dim": 2 * h - 2,
+        "orbit_dim": int(orbit_dim),
+        "stab_dim": int(d * d - orbit_dim),
+        "stabilizer_algebra_dim": len(stabilizer),
+        "commutant_dim": len(commutant),
+        "rank_d_mu": int(jac.rank()),
+        "ker_d_mu_dim": len(kernel),
+        "levi_orbit_dim": int(levi_dim),
+        "slice_dim": int(slice_dim),
+        "gate_rank_equals_orbit": bool(jac.rank() == orbit_dim),
+        "gate_kernel_dim": bool(len(kernel) == 2 * h - 2 - orbit_dim),
+        "gate_levi_dim": bool(levi_dim == len(commutant) - (d * d - orbit_dim)),
+        "slice_certifies_point": bool(slice_dim == 0),
+    }
