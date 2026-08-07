@@ -120,9 +120,33 @@ def orbit_structure(n: int, d: int) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--ranks", nargs="*", type=int, default=[6, 7])
+    ap.add_argument("--augment", nargs="*", type=int, default=[],
+                    help="ranks to run through the orbit-augmentation "
+                         "enumerator, which never materialises the lattice")
     ap.add_argument("-o", "--out",
                     default=str(ROOT / "results/data/orbit_canonical_flats.json"))
     args = ap.parse_args()
+
+    from gpc_census.generation import orbit_canonical as oc
+
+    augmented = []
+    for d in args.augment:
+        print(f"(3,{d}): orbit augmentation ...", flush=True)
+        t0 = time.time()
+        counts, levels = oc.enumerate_orbits_by_augmentation(3, d)
+        elapsed = time.time() - t0
+        expanded = [sum(oc.orbit_size(m, 3, d) for m in level) for level in levels]
+        augmented.append({
+            "d": d,
+            "orbits_by_rank": counts,
+            "expanded_by_rank": expanded,
+            "hyperplanes": expanded[-1],
+            "top_orbits": counts[-1],
+            "peak_orbits": max(counts),
+            "seconds": round(elapsed, 1),
+        })
+        print(f"  orbits {counts}", flush=True)
+        print(f"  expands to {expanded}  ({elapsed:.1f}s)", flush=True)
 
     blocks = []
     out = pathlib.Path(args.out)
@@ -145,12 +169,24 @@ def main() -> int:
                                "re-normalized; without that the action is not "
                                "closed and rank 6 reports 15 orbits, not 8",
             "ranks": {str(b["d"]): b for b in blocks},
+            "augmentation": {str(a["d"]): a for a in augmented},
             "summary": {
                 "ranks": [b["d"] for b in blocks],
                 "hyperplanes": {str(b["d"]): b["hyperplanes"] for b in blocks},
                 "orbits": {str(b["d"]): b["orbits"] for b in blocks},
                 "reduction": {str(b["d"]): b["reduction_factor"] for b in blocks},
                 "all_actions_closed": all(b["action_is_closed"] for b in blocks),
+                "augmentation_ranks": [a["d"] for a in augmented],
+                "augmentation_hyperplanes": {str(a["d"]): a["hyperplanes"]
+                                             for a in augmented},
+                "augmentation_top_orbits": {str(a["d"]): a["top_orbits"]
+                                            for a in augmented},
+                "augmentation_agrees_with_materialised": {
+                    str(a["d"]): (a["expanded_by_rank"]
+                                  == next((b["flat_counts_by_rank"]
+                                           for b in blocks if b["d"] == a["d"]),
+                                          None))
+                    for a in augmented},
             },
         }
         out.parent.mkdir(parents=True, exist_ok=True)

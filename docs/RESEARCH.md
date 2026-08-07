@@ -412,6 +412,36 @@ plethysm criterion feed Problem 7 below.
   transport classes (R2).
   [docs/prereg_polygon_diagonals.md; scripts/polygon_diagonals.py;
   results/data/polygon_diagonals.json; tests/test_polygon_diagonals.py]
+- orbit_canonical_flats.md: WEYL-ORBIT CANONICAL ENUMERATION, and the first
+  exhaustive hyperplane count at rank 9. ❗ CORRECTION FIRST: (3,7) candidate
+  exhaustiveness is CLOSED by the closed-flat enumerator (5,341 hyperplanes for
+  1,623,160 candidate bases, 10,682 rows all resolved, exact reduction giving
+  the four published facets). AGENT_PLAN T2 step 1 said "bypassed, not proved",
+  which describes only the gate-1 inner/outer closure and made rank 7 look open;
+  the plan is corrected and the next gate is (3,8). 🟦 Orbit reduction is the ONE
+  pruning the standing rule permits, because the moment polytope is Weyl
+  invariant and the ordered slice is a fundamental domain, so nothing is
+  discarded. Measured: 362 hyperplanes in 8 orbits at rank 6, 5,341 in 19 at
+  rank 7, 166,420 in 56 at rank 8, reductions 45x, 281x, 2,972x, action closed
+  at all three. 🟦 THE AUGMENTATION ENUMERATOR holds only representatives and
+  never materialises the lattice; expanding orbits by d!/|Aut| rebuilds the
+  materialised counts EXACTLY at EVERY level, not just the top. Rank 8 in 2.9 s
+  against 125 s materialised. 🟦 RANK 9 REACHED, which the materialising
+  enumerator could not finish: it died at level 6 having checkpointed levels 1
+  to 5, and the orbit expansion reproduces those five stored counts (84, 3486,
+  78274, 968121, 6383706) then continues, giving (3,9) = 10,004,154 ADMISSIBLE
+  HYPERPLANES through 231 orbits, peak 494 at any level, in 407 s. 🟦 Rank-8
+  level vector now has THREE independent derivations. ❗ CONVENTION TRAP, pinned
+  by a test: hyperplanes are stored with first nonzero entry positive, so a
+  permuted image must be re-normalized; without it the action sends 201 of 362
+  images outside the set and the orbit count reads 15 instead of 8, a valid
+  orbit count of a valid action on the wrong set. 🔬 This enumerates
+  HYPERPLANES, not facets: each representative still needs Ressayre screening
+  and exact reduction, and no (3,9) system is produced here. Orbit ratios 2.4,
+  2.9, 4.1 over four points are a projection, not an asymptotic.
+  [docs/prereg_orbit_canonical_flats.md; scripts/orbit_canonical_flats.py;
+  src/gpc_census/generation/orbit_canonical.py;
+  results/data/orbit_canonical_flats.json; tests/test_orbit_canonical.py]
 - census_inner_sandwich.md: COMPLETENESS WITHOUT CANDIDATE EXHAUSTIVENESS, and
   the one to read before spending any more effort on exhaustive enumeration.
   The claim ladder allows "an exhaustive-enumeration proof OR an independent

@@ -1,0 +1,183 @@
+"""Guards for Weyl-orbit canonicalization and the augmentation enumerator.
+
+Orbit reduction is the one pruning the standing rule permits, so the code that
+performs it has to be verified rather than trusted. The tests that matter are
+the ones that could catch a canonical form that is not actually invariant, or
+an enumerator that silently loses orbits:
+
+- the canonical form is checked against orbit counts computed independently by
+  union-find over adjacent transpositions;
+- orbit sizes from the orbit-stabilizer theorem must SUM to the materialised
+  flat counts at every level, which is the check that would fail if the
+  enumerator dropped an orbit;
+- the sign-convention trap that gave 15 orbits instead of 8 is pinned.
+"""
+import json
+import pathlib
+
+import pytest
+
+from gpc_census.generation import admissible_flats as af
+from gpc_census.generation import orbit_canonical as oc
+
+ROOT = pathlib.Path(__file__).resolve().parent / "data"
+if not ROOT.exists():
+    ROOT = pathlib.Path(__file__).resolve().parents[1] / "results" / "data"
+ARTIFACT = ROOT / "orbit_canonical_flats.json"
+
+
+def _art():
+    return json.loads(ARTIFACT.read_text())
+
+
+def _hyperplane_masks(n, d):
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    subsets = oc.weight_subsets(n, d)
+    masks = []
+    for hp in enum.hyperplanes:
+        mask = 0
+        for i, subset in enumerate(subsets):
+            if sum(hp.h[m] for m in subset) == hp.z:
+                mask |= 1 << i
+        masks.append(mask)
+    return masks
+
+
+# --------------------------------------------------------------------------
+# the canonical form
+# --------------------------------------------------------------------------
+
+def test_canonical_form_is_permutation_invariant():
+    import random
+
+    n, d = 3, 6
+    subsets = oc.weight_subsets(n, d)
+    index = {s: i for i, s in enumerate(subsets)}
+    random.seed(20260806)
+    for _ in range(100):
+        mask = random.getrandbits(len(subsets))
+        perm = list(range(d))
+        random.shuffle(perm)
+        moved = 0
+        for i, subset in enumerate(subsets):
+            if mask >> i & 1:
+                moved |= 1 << index[tuple(sorted(perm[m] for m in subset))]
+        assert oc.canonical_form(mask, n, d) == oc.canonical_form(moved, n, d)
+
+
+@pytest.mark.parametrize(("d", "orbits"), [(6, 8), (7, 19)])
+def test_canonical_forms_reproduce_the_union_find_orbit_count(d, orbits):
+    masks = _hyperplane_masks(3, d)
+    assert len({oc.canonical_form(m, 3, d) for m in masks}) == orbits
+
+
+@pytest.mark.parametrize(("d", "total"), [(6, 362), (7, 5341)])
+def test_orbit_sizes_from_stabilizers_sum_to_the_total(d, total):
+    """Orbit-stabilizer, checked against the materialised count.
+
+    If the canonicalization merged two genuinely distinct orbits, or split one,
+    this sum would not land on the hyperplane count.
+    """
+    masks = _hyperplane_masks(3, d)
+    seen = {}
+    for mask in masks:
+        seen.setdefault(oc.canonical_form(mask, 3, d), mask)
+    assert sum(oc.orbit_size(m, 3, d) for m in seen.values()) == total
+
+
+# --------------------------------------------------------------------------
+# the augmentation enumerator
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("d", [6, 7])
+def test_augmentation_reproduces_the_full_lattice_at_every_level(d):
+    """The decisive check: expanding orbits must rebuild the whole lattice.
+
+    Not just the top level. An enumerator that lost an orbit at some
+    intermediate rank would still land on the right hyperplane count if the
+    loss happened to be reachable another way, so every level is compared.
+    """
+    counts, levels = oc.enumerate_orbits_by_augmentation(3, d)
+    expanded = [sum(oc.orbit_size(m, 3, d) for m in level) for level in levels]
+    materialised = list(
+        af.enumerate_admissible_hyperplanes_by_flats(3, d).flat_counts_by_rank)
+    assert expanded == materialised
+    assert counts[-1] == len({oc.canonical_form(m, 3, d)
+                              for m in _hyperplane_masks(3, d)})
+
+
+def test_orbit_counts_stay_tiny_against_the_materialised_lattice():
+    """The whole point: the raw lattice explodes and the orbit lattice does not."""
+    counts, _ = oc.enumerate_orbits_by_augmentation(3, 7)
+    materialised = list(
+        af.enumerate_admissible_hyperplanes_by_flats(3, 7).flat_counts_by_rank)
+    assert counts == [1, 1, 3, 10, 25, 36, 19]
+    assert max(counts) * 500 < max(materialised)
+
+
+# --------------------------------------------------------------------------
+# the artifact, and the trap
+# --------------------------------------------------------------------------
+
+def test_artifact_records_closed_actions_and_the_orbit_ladder():
+    art = _art()
+    summary = art["summary"]
+    assert summary["all_actions_closed"]
+    assert summary["orbits"]["6"] == 8
+    assert summary["orbits"]["7"] == 19
+    assert summary["orbits"]["8"] == 56
+    assert summary["hyperplanes"]["8"] == 166420
+    for record in art["ranks"].values():
+        assert record["images_outside_set"] == 0, record["d"]
+
+
+def test_rank_9_is_reached_by_augmentation_and_agrees_where_checkable():
+    """Rank 9 is the rank the materialising enumerator could not finish.
+
+    It died at level 6 having checkpointed levels 1 to 5, so the orbit
+    expansion is compared against those five stored counts and then continues
+    past the point of death.
+    """
+    art = _art()
+    aug = art["augmentation"]["9"]
+    assert aug["orbits_by_rank"] == [1, 1, 3, 12, 45, 146, 364, 494, 231]
+    assert aug["expanded_by_rank"][:6] == [1, 84, 3486, 78274, 968121, 6383706]
+    assert aug["hyperplanes"] == 10004154
+    assert aug["top_orbits"] == 231
+    assert aug["peak_orbits"] == 494
+
+
+def test_augmentation_agrees_with_the_materialised_lattice_where_both_ran():
+    art = _art()
+    agreement = art["summary"]["augmentation_agrees_with_materialised"]
+    for d in ("6", "7", "8"):
+        assert agreement[d] is True, d
+
+
+def test_rank_8_flat_lattice_is_replicated():
+    """Three independent derivations now agree on this vector."""
+    art = _art()
+    assert art["ranks"]["8"]["flat_counts_by_rank"] == [
+        1, 56, 1540, 21420, 147630, 467082, 565208, 166420]
+
+
+def test_the_sign_convention_trap_is_real():
+    """Permuting h without re-normalizing breaks closure, giving 15 not 8.
+
+    This is pinned because the wrong answer looks entirely plausible: it is a
+    valid orbit count of a valid group action on a set that is simply not the
+    hyperplane set.
+    """
+    enum = af.enumerate_admissible_hyperplanes_by_flats(3, 6)
+    stored = {(hp.h, hp.z) for hp in enum.hyperplanes}
+    outside = 0
+    for hp in enum.hyperplanes:
+        image = list(hp.h)
+        image[0], image[1] = image[1], image[0]
+        if (tuple(image), hp.z) not in stored:
+            outside += 1
+    assert outside > 0, "if this is 0 the convention changed and the trap is gone"
+    # every stored hyperplane has its first nonzero entry positive
+    for hp in enum.hyperplanes:
+        first = next((v for v in hp.h if v), 0)
+        assert first > 0
