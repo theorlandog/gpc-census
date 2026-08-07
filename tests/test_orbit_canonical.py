@@ -145,6 +145,50 @@ def test_augmentation_reproduces_the_full_lattice_at_every_level(d):
                               for m in _hyperplane_masks(3, d)})
 
 
+def test_checkpointed_and_resumed_runs_agree_with_an_uninterrupted_one(tmp_path):
+    """A restart must not change the answer, and must not silently skip a level.
+
+    A (3,11) run was lost outright to a machine restart after reaching rank 8,
+    so resumption is now part of the enumerator. The failure mode worth testing
+    is not "does it crash" but "does a resumed run agree with a clean one",
+    since a checkpoint written or read at the wrong rank would still produce a
+    plausible ladder.
+    """
+    reference, _ = oc.enumerate_orbits_by_augmentation(3, 6)
+
+    first, _ = oc.enumerate_orbits_by_augmentation(3, 6, checkpoint_dir=tmp_path)
+    assert first == reference
+
+    # every level is now on disk, so this run restores rather than computes
+    resumed, levels = oc.enumerate_orbits_by_augmentation(
+        3, 6, checkpoint_dir=tmp_path)
+    assert resumed == reference
+    expanded = [sum(oc.orbit_size(m, 3, 6) for m in level) for level in levels]
+    assert expanded == list(
+        af.enumerate_admissible_hyperplanes_by_flats(3, 6).flat_counts_by_rank)
+
+    # a partial run: drop the tail and confirm it recomputes to the same place
+    saved = sorted((tmp_path / "orbits").glob("*.txt"))
+    assert len(saved) == 5, [p.name for p in saved]
+    for path in saved[-2:]:
+        path.unlink()
+    partial, _ = oc.enumerate_orbits_by_augmentation(
+        3, 6, checkpoint_dir=tmp_path)
+    assert partial == reference
+
+
+def test_checkpoints_do_not_collide_with_the_materialising_enumerator(tmp_path):
+    """The level filenames are shared, so orbit levels live in a subdirectory.
+
+    Reading a materialised level as if it were a set of representatives would
+    put the whole lattice in memory, which is exactly what the orbit enumerator
+    exists to avoid, and it would not look like an error.
+    """
+    oc.enumerate_orbits_by_augmentation(3, 6, checkpoint_dir=tmp_path)
+    assert not list(tmp_path.glob("*.txt"))
+    assert list((tmp_path / "orbits").glob("*.txt"))
+
+
 def test_orbit_counts_stay_tiny_against_the_materialised_lattice():
     """The whole point: the raw lattice explodes and the orbit lattice does not."""
     counts, _ = oc.enumerate_orbits_by_augmentation(3, 7)

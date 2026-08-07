@@ -212,7 +212,8 @@ def canonical_representatives(masks, n: int, d: int) -> dict[int, int]:
 
 
 def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
-                                     memo_limit: int = 1 << 21):
+                                     memo_limit: int = 1 << 21,
+                                     checkpoint_dir=None):
     """Enumerate ``S_d`` orbit representatives of closed flats, level by level.
 
     THE ALGORITHM. Hold only orbit representatives at each rank. Extend each
@@ -227,11 +228,21 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
     produces a member of ``O'``. Every orbit at level ``k+1`` is therefore
     reached from some representative at level ``k``.
 
+    CHECKPOINTING. Pass ``checkpoint_dir`` to write each completed level and
+    resume from the last one present. A (3,11) run reached rank 8 over roughly
+    two hours and was then lost outright when the machine restarted, which is a
+    recoverable accident being paid for as if it were a failed computation. The
+    materialising enumerator already checkpoints this way and the format is
+    shared with it: plain text, written to a temporary file and renamed, so a
+    run killed mid-write leaves no half level behind.
+
     Returns ``(orbit_counts_by_rank, representatives_by_rank)`` where the
     counts are the number of orbits at each rank, starting with the empty flat.
     """
     from .admissible_flats import (
         _inverse_table,
+        _load_level,
+        _save_level,
         iter_one_rank_children,
         rank_preserving_modulus,
     )
@@ -247,10 +258,28 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
 
         points_array = np.asarray(points, dtype=np.int64)
 
+    # a subdirectory of its own: the level filenames are shared with the
+    # MATERIALISING enumerator, and silently loading one of its levels here
+    # would put the entire lattice in memory instead of the representatives
+    if checkpoint_dir is not None:
+        from pathlib import Path
+
+        checkpoint_dir = Path(checkpoint_dir) / "orbits"
+
     states: dict[int, tuple[int, ...]] = {0: ()}
     counts = [1]
     levels = [dict(states)]
     for rank in range(1, d):
+        if checkpoint_dir is not None:
+            restored = _load_level(checkpoint_dir, n, d, rank)
+            if restored is not None:
+                states = restored
+                counts.append(len(states))
+                levels.append(dict(states))
+                if verbose:
+                    print(f"  rank {rank}: {len(states)} orbits (restored)",
+                          flush=True)
+                continue
         # Children are STREAMED and collapsed onto canonical forms as they
         # arrive, so peak memory is the orbit count of the next level rather
         # than its child count. Keep one ACTUAL mask per canonical class, not
@@ -276,6 +305,8 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
             if previous is None or (mask, witness) < previous:
                 chosen[key] = (mask, witness)
         states = {mask: witness for mask, witness in chosen.values()}
+        if checkpoint_dir is not None:
+            _save_level(checkpoint_dir, n, d, rank, states)
         counts.append(len(states))
         levels.append(dict(states))
         if verbose:
