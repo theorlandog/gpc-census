@@ -278,6 +278,63 @@ def test_rank_9_is_reached_by_augmentation_and_agrees_where_checkable():
     assert aug["peak_orbits"] == 494
 
 
+def test_rank_10_has_a_committed_artifact_and_not_only_a_write_up():
+    """The write-up quoted rank 10 with nothing behind it.
+
+    The measuring script computed augmentation and then wrote the payload only
+    inside the --ranks loop, so requesting augmentation alone produced no file
+    at all. That is how 889,205,792 reached the documentation unbacked. This
+    pins the record, its provenance, and the checksum over it.
+    """
+    art = _art()
+    aug = art["augmentation"]["10"]
+    assert aug["orbits_by_rank"] == [1, 1, 3, 12, 49, 189, 691, 1840, 2705, 1337]
+    assert aug["expanded_by_rank"] == [
+        1, 120, 7140, 241150, 4823910, 56904687,
+        379791510, 1315196575, 1994358765, 889205792]
+    assert aug["hyperplanes"] == 889205792
+    assert aug["top_orbits"] == 1337
+    assert aug["peak_orbits"] == 2705
+    # the top level is not the peak: the peak is codimension two
+    assert aug["peak_orbits"] > aug["top_orbits"]
+
+
+def test_recorded_timings_say_whether_they_timed_a_full_run():
+    """A resumed run reports almost no wall time, which times nothing.
+
+    Shipping that as a measurement would be worse than shipping no number, so
+    every augmentation record carries how many levels it restored.
+    """
+    art = _art()
+    for key, record in art["augmentation"].items():
+        assert "timing_is_a_full_run" in record, key
+        assert record["levels_total"] == int(key) - 1
+        restored = record["levels_restored_from_checkpoint"]
+        assert 0 <= restored <= record["levels_total"]
+        assert record["timing_is_a_full_run"] == (restored == 0)
+
+
+def test_the_artifact_carries_provenance_and_a_checksum():
+    import hashlib
+    import json as _json
+
+    art = _art()
+    assert set(art["machine"]) >= {"python", "platform", "processor", "cpu_count"}
+    digest = hashlib.sha256(
+        _json.dumps(art["augmentation"], sort_keys=True,
+                    separators=(",", ":")).encode("utf-8")).hexdigest()
+    assert digest == art["augmentation_sha256"]
+
+
+def test_the_artifact_no_longer_justifies_the_reduction_by_the_refuted_claim():
+    """The description said the reduction holds because the ordered slice is a
+    fundamental domain. That is the reason screening is NOT invariant."""
+    art = _art()
+    what = art["what"]
+    assert "STABLE" in what
+    assert "does NOT make screening an orbit invariant" in what
+
+
 def test_augmentation_agrees_with_the_materialised_lattice_where_both_ran():
     art = _art()
     agreement = art["summary"]["augmentation_agrees_with_materialised"]
