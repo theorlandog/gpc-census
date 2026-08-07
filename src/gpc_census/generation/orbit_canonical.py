@@ -191,7 +191,8 @@ def canonical_representatives(masks, n: int, d: int) -> dict[int, int]:
     return out
 
 
-def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
+def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False,
+                                     memo_limit: int = 1 << 21):
     """Enumerate ``S_d`` orbit representatives of closed flats, level by level.
 
     THE ALGORITHM. Hold only orbit representatives at each rank. Extend each
@@ -210,8 +211,8 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
     counts are the number of orbits at each rank, starting with the empty flat.
     """
     from .admissible_flats import (
-        _extend_one_rank,
         _inverse_table,
+        iter_one_rank_children,
         rank_preserving_modulus,
     )
     from .exterior import exterior_weights
@@ -230,23 +231,35 @@ def enumerate_orbits_by_augmentation(n: int, d: int, verbose: bool = False):
     counts = [1]
     levels = [dict(states)]
     for rank in range(1, d):
-        children = _extend_one_rank(
-            states, points, modulus, points_array, inverse_table)
-        # keep one ACTUAL mask per canonical class, not the canonical mask,
-        # because the extension step needs a genuine flat with its basis
-        representatives: dict[int, tuple[int, ...]] = {}
-        seen: set[int] = set()
-        for mask, witness in children.items():
-            key = canonical_form(mask, n, d)
-            if key not in seen:
-                seen.add(key)
-                representatives[mask] = witness
-        states = representatives
+        # Children are STREAMED and collapsed onto canonical forms as they
+        # arrive, so peak memory is the orbit count of the next level rather
+        # than its child count. Keep one ACTUAL mask per canonical class, not
+        # the canonical mask, because the extension step needs a genuine flat
+        # with its basis; take the smallest such mask so the representative does
+        # not depend on the order children happen to be produced in.
+        # A child is produced once per parent that reaches it, so the same mask
+        # arrives many times. The memo skips the repeat canonicalizations and is
+        # CAPPED, because an uncapped one would reintroduce exactly the
+        # per-child memory this loop exists to avoid; dropping it on overflow
+        # costs time and never correctness.
+        chosen: dict[int, tuple[int, tuple[int, ...]]] = {}
+        memo: dict[int, int] = {}
+        for mask, witness in iter_one_rank_children(
+                states, points, modulus, points_array, inverse_table):
+            key = memo.get(mask)
+            if key is None:
+                key = canonical_form(mask, n, d)
+                if len(memo) >= memo_limit:
+                    memo.clear()
+                memo[mask] = key
+            previous = chosen.get(key)
+            if previous is None or (mask, witness) < previous:
+                chosen[key] = (mask, witness)
+        states = {mask: witness for mask, witness in chosen.values()}
         counts.append(len(states))
         levels.append(dict(states))
         if verbose:
-            print(f"  rank {rank}: {len(children)} children -> "
-                  f"{len(states)} orbits", flush=True)
+            print(f"  rank {rank}: {len(states)} orbits", flush=True)
     return counts, levels
 
 
