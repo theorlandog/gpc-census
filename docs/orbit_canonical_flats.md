@@ -71,11 +71,71 @@ still in `O'`, so extending `R` reaches `O'`. Every orbit at level `k+1` is
 therefore reached from some representative at level `k`.
 
 **Canonicalization.** Brute force over `d!` is hopeless past rank 9, so modes
-are first split by an iterated incidence signature (colour refinement) and only
+are split by an iterated incidence signature (colour refinement) and only
 permutations respecting that ordered partition are tried. The signature is an
 invariant of the flat, so refinement can never separate modes that a symmetry
 identifies; it only narrows the search. Correctness does not depend on the
 refinement being strong, only on it being invariant.
+
+## The factorial tail, found by measuring and then removed
+
+Refinement alone is not enough, and the failure mode was invisible in the orbit
+counts because the answers were right; only the cost was wrong. Instrumenting
+the canonicalizer to count leaves gave:
+
+| system, level | flats | worst leaves | mean | `d!` |
+|---|---|---|---|---|
+| (3,8) top | 56 | 5,040 | 317.8 | 40,320 |
+| (3,8) peak | 118 | **40,320** | 512.2 | 40,320 |
+| (3,9) top | 231 | **362,880** | 3,724.5 | 362,880 |
+| (3,9) peak | 494 | **362,880** | 1,750.6 | 362,880 |
+
+The worst case was not a large cell, it was **exactly `d!`, at every rank**: on
+the most symmetric flats refinement splits nothing at all and the search
+degenerates to full brute force. At `d = 11` that is 39,916,800 permutations for
+a single flat, which is a credible cause of the (3,11) run burning hours before
+it died.
+
+The fix is **individualization**, the standard nauty move. Refine; if the
+partition is discrete the labelling is determined; otherwise choose a target
+cell, and for each mode in it give that mode a colour strictly below its
+cell-mates, re-refine, and recurse. The minimum over the leaves is the canonical
+form.
+
+**Why it is still canonical.** The target cell is chosen by an
+isomorphism-invariant rule, the first cell of minimum size greater than one in
+refined-colour order, so the entire search tree is an invariant of the flat and
+minimising over its leaves is a well defined function of the isomorphism class.
+Individualization only narrows the labellings considered, and every permutation
+carrying the flat to the minimum respects refinement, so it still appears as a
+leaf, which is what keeps the automorphism count exact.
+
+**Measured after.**
+
+| system, level | worst leaves before | after | mean before | after |
+|---|---|---|---|---|
+| (3,8) top | 5,040 | 5,040 | 317.8 | 309.5 |
+| (3,8) peak | 40,320 | **1,440** | 512.2 | **73.5** |
+
+and the (3,8) orbit enumeration falls from **401 seconds to 16.7 seconds**.
+
+**The new cost is at its floor.** Every automorphism of a flat produces a
+distinct leaf, so `leaves >= |Aut|` for a canonicalizer of this shape. Across
+all 313 flats of the (3,8) orbit lattice, at every rank:
+
+| | (3,6) | (3,7) | (3,8) |
+|---|---|---|---|
+| flats | 31 | 94 | 313 |
+| leaves exactly `|Aut|` | 27 | 87 | **300** |
+| worst overshoot | 3x | 3x | **3x** |
+| total leaves | 964 | 5,180 | **32,774** |
+| brute force would be | 22,320 | 473,760 | **12,620,160** |
+
+So 300 of 313 flats are canonicalized with zero wasted work and the whole
+lattice costs 385x less than brute force. What remains is not slack, it is the
+symmetry the flats genuinely have: the residual tail is now `|Aut|`, which tops
+out at 5,040 at rank 8. `tests/test_orbit_canonical.py` pins the ratio rather
+than a timing, so the factorial tail cannot return unnoticed.
 
 ## Verification, at every level and not just the top
 

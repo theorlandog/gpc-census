@@ -85,6 +85,45 @@ def test_orbit_sizes_from_stabilizers_sum_to_the_total(d, total):
     assert sum(oc.orbit_size(m, 3, d) for m in seen.values()) == total
 
 
+def test_canonicalization_cost_is_bounded_by_the_automorphism_group():
+    """The factorial tail must stay dead.
+
+    Plain colour refinement followed by brute force inside the cells hit
+    exactly ``d!`` on the most symmetric flats, which is the wrong shape and is
+    what stalled rank 11. Individualization brings the leaf count down to the
+    order of the automorphism group, which is a floor: every automorphism
+    produces a distinct leaf, so no canonicalizer of this form can do better
+    than 1x. This pins the ratio rather than a raw timing, so it is machine
+    independent, and it would fail loudly if the individualization step were
+    removed.
+    """
+    leaves = [0]
+    real_apply = oc._apply
+
+    def counting_apply(present, mapping, n, d):
+        leaves[0] += 1
+        return real_apply(present, mapping, n, d)
+
+    d = 8
+    _, levels = oc.enumerate_orbits_by_augmentation(3, d)
+    oc._apply = counting_apply
+    try:
+        worst_ratio = 0.0
+        worst_leaves = 0
+        for level in levels[1:]:
+            for mask in level:
+                leaves[0] = 0
+                _, automorphisms = oc.canonical_form(
+                    mask, 3, d, with_automorphisms=True)
+                worst_ratio = max(worst_ratio, leaves[0] / automorphisms)
+                worst_leaves = max(worst_leaves, leaves[0])
+    finally:
+        oc._apply = real_apply
+    assert worst_ratio <= 4.0, worst_ratio
+    # the pre-individualization implementation hit 40320 here
+    assert worst_leaves < oc._factorial(d) // 4, worst_leaves
+
+
 # --------------------------------------------------------------------------
 # the augmentation enumerator
 # --------------------------------------------------------------------------

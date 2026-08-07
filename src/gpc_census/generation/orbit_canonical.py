@@ -18,12 +18,15 @@ one bit per ``n``-subset of ``d`` modes, exactly as
 permutes the weights, which permutes the bits.
 
 CANONICALIZATION. Brute force over ``d!`` is hopeless past rank 9 (``9! =
-362,880``, ``11! = 4.0e7``), so modes are first split by an iterated incidence
-signature and only permutations respecting that ordered partition are tried.
-The signature is an invariant of the flat, so the refinement can never separate
-two modes that some symmetry identifies; it only ever narrows the search.
-Correctness therefore does not depend on the refinement being strong, only on
-it being invariant, and the tests check the canonical form against orbit counts
+362,880``, ``11! = 4.0e7``), so modes are split by an iterated incidence
+signature (colour refinement) and, where that leaves ties, by INDIVIDUALIZATION:
+a mode of an unsplit cell is singled out, the colouring is re-refined, and the
+search recurses. This is the standard nauty structure and it is what removes the
+factorial tail; refinement alone degenerated to the full ``d!`` on the most
+symmetric flats. Both steps are isomorphism invariant, so they can never
+separate two modes that a symmetry identifies; they only ever narrow the search.
+Correctness therefore does not depend on the refinement being strong, only on it
+being invariant, and the tests check the canonical form against orbit counts
 computed independently by union-find.
 """
 
@@ -50,19 +53,24 @@ def mask_to_subsets(mask: int, n: int, d: int) -> tuple[tuple[int, ...], ...]:
     return tuple(subsets[i] for i in range(len(subsets)) if mask >> i & 1)
 
 
-def _signatures(present: tuple[tuple[int, ...], ...], d: int,
-                rounds: int = 3) -> tuple[tuple, ...]:
-    """An iterated, permutation-invariant signature per mode.
+def _refine(present: tuple[tuple[int, ...], ...], d: int,
+            colours: tuple[int, ...] | None = None) -> tuple[int, ...]:
+    """Colour refinement to a fixed point, from an optional initial colouring.
 
-    Round zero is the degree of the mode in the flat. Each later round replaces
-    a mode's signature by its own signature together with the sorted multiset
-    of its co-members' signatures, which is the standard colour refinement and
-    is invariant under relabelling by construction.
+    Round zero is the degree of the mode in the flat, or the supplied colours.
+    Each round replaces a mode's colour by its own colour together with the
+    sorted multiset of its co-members' colours, which is invariant under
+    relabelling by construction. Iterating to a FIXED POINT rather than a fixed
+    number of rounds matters: a bounded number of rounds can stop while the
+    partition is still splitting, which leaves larger cells than necessary and
+    is paid for factorially in the search below.
     """
-    signature = [0] * d
-    for mode in range(d):
-        signature[mode] = sum(1 for subset in present if mode in subset)
-    for _ in range(rounds):
+    if colours is None:
+        signature = [sum(1 for subset in present if mode in subset)
+                     for mode in range(d)]
+    else:
+        signature = list(colours)
+    for _ in range(d + 1):
         refined = []
         for mode in range(d):
             partners = []
@@ -72,9 +80,11 @@ def _signatures(present: tuple[tuple[int, ...], ...], d: int,
                                                  for other in subset
                                                  if other != mode)))
             refined.append((signature[mode], tuple(sorted(partners))))
-        # compress to small integers so the next round stays cheap
         order = {value: i for i, value in enumerate(sorted(set(refined)))}
-        signature = [order[value] for value in refined]
+        updated = [order[value] for value in refined]
+        if updated == signature:
+            break
+        signature = updated
     return tuple(signature)
 
 
@@ -98,37 +108,61 @@ def _apply(present: tuple[tuple[int, ...], ...], mapping: list[int],
 
 def canonical_form(mask: int, n: int, d: int,
                    with_automorphisms: bool = False):
-    """Lexicographically minimal image of a flat mask under ``S_d``.
+    """Lexicographically minimal image of a flat mask, by individualization.
 
-    Returns the canonical mask, or ``(mask, automorphism_count)`` when
-    ``with_automorphisms`` is set. The automorphism count is the number of
-    permutations fixing the flat, which gives the orbit size as
-    ``d! / automorphisms`` without enumerating the orbit.
+    THE PROBLEM THIS FIXES. Plain colour refinement followed by brute force
+    inside the cells degenerates to the full ``d!`` on the most symmetric
+    flats, where refinement splits nothing at all. Measured before this change:
+    the worst per-flat cost was exactly ``8! = 40320`` at rank 8 and
+    ``9! = 362880`` at rank 9, hit at both the top and the peak level. That
+    tail grows factorially and is the wrong shape.
+
+    THE FIX, which is the standard nauty move. Refine; if the partition is
+    discrete the labelling is determined; otherwise pick a target cell, and for
+    each mode in it give that mode a colour strictly below its cell-mates,
+    re-refine, and recurse. The canonical form is the minimum over the leaves.
+
+    WHY IT IS STILL CANONICAL. The target cell is chosen by an
+    ISOMORPHISM-INVARIANT rule, the first cell of minimum size greater than one
+    in refined-colour order, so the whole search tree is an invariant of the
+    flat. Minimising over its leaves therefore gives a well defined function of
+    the isomorphism class. Individualization only ever narrows the labellings
+    considered, and every permutation carrying the flat to the minimum
+    respects refinement and so appears as a leaf, which is what keeps the
+    automorphism count exact.
     """
     present = mask_to_subsets(mask, n, d)
     if not present:
         return (0, _factorial(d)) if with_automorphisms else 0
 
-    cells = _cells(_signatures(present, d), d)
-    best = None
+    best: int | None = None
     automorphisms = 0
-    for choice in itertools.product(*(itertools.permutations(cell)
-                                      for cell in cells)):
-        mapping = [0] * d
-        target = 0
-        for cell, ordering in zip(cells, choice, strict=True):
-            for mode in ordering:
-                mapping[mode] = target
-                target += 1
-        image = _apply(present, mapping, n, d)
-        if best is None or image < best:
-            best = image
-            automorphisms = 1
-        elif image == best:
-            automorphisms += 1
+
+    def descend(colours: tuple[int, ...] | None) -> None:
+        nonlocal best, automorphisms
+        signature = _refine(present, d, colours)
+        cells = _cells(signature, d)
+        target = None
+        for cell in cells:
+            if len(cell) > 1 and (target is None or len(cell) < len(target)):
+                target = cell
+        if target is None:
+            mapping = [0] * d
+            for position, cell in enumerate(cells):
+                mapping[cell[0]] = position
+            image = _apply(present, mapping, n, d)
+            if best is None or image < best:
+                best, automorphisms = image, 1
+            elif image == best:
+                automorphisms += 1
+            return
+        for mode in target:
+            child = [2 * value for value in signature]
+            child[mode] -= 1
+            descend(tuple(child))
+
+    descend(None)
     if with_automorphisms:
-        # permutations outside the refinement cannot fix the flat, because the
-        # signature is an invariant, so counting inside the cells is complete
         return best, automorphisms
     return best
 
