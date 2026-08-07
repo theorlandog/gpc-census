@@ -1,0 +1,930 @@
+{
+ "generated_by": "scripts/quantization_multiplicity.py",
+ "prereg": "docs/prereg_symplectic_invariants.md",
+ "evidence": "exact",
+ "note": "Multiplicity of highest weight k*lambda in Sym^k(wedge^n C^d) at census vertices, by the alternating Weyl formula over exact integer weight counts. A vertex whose multiplicity is 1 at every tested k has a zero-dimensional reduced space as far as the tested k can see; this is evidence, not a proof for all k.",
+ "rows": [
+  {
+   "system": "(3,6)",
+   "index": 0,
+   "integer_form": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "denominator": 1,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 1,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 2,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 3,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 5,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 7,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 9,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 10,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 11,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 13,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 15,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 0.0
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 1,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ]
+  },
+  {
+   "system": "(3,6)",
+   "index": 1,
+   "integer_form": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   "denominator": 2,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 2,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 10,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 0.02
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 0.04
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 0.06
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 2,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+   ]
+  },
+  {
+   "system": "(3,6)",
+   "index": 2,
+   "integer_form": [
+    3,
+    3,
+    2,
+    2,
+    1,
+    1
+   ],
+   "denominator": 4,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.14
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 0.79
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 3.0
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 4,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    4,
+    8,
+    12,
+    16
+   ]
+  },
+  {
+   "system": "(3,6)",
+   "index": 3,
+   "integer_form": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "denominator": 2,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 2,
+     "multiplicity": 0,
+     "secs": 0.0
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.0
+    },
+    {
+     "k": 6,
+     "multiplicity": 0,
+     "secs": 0.01
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.02
+    },
+    {
+     "k": 10,
+     "multiplicity": 0,
+     "secs": 0.98
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 2.52
+    },
+    {
+     "k": 14,
+     "multiplicity": 0,
+     "secs": 4.5
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 8.49
+    }
+   ],
+   "all_one": false,
+   "nonzero_all_one": true,
+   "quantization_period": 4,
+   "period_exceeds_denominator": true,
+   "period_consistent": true,
+   "k_tested": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 0,
+   "integer_form": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "denominator": 1,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 1,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 2,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 3,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 5,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 7,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 9,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 10,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 11,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 13,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 15,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 0.01
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 1,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 1,
+   "integer_form": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   "denominator": 2,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 2,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 10,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 0.31
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 2,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 2,
+   "integer_form": [
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "denominator": 3,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 3,
+     "multiplicity": 1,
+     "secs": 0.02
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.06
+    },
+    {
+     "k": 9,
+     "multiplicity": 1,
+     "secs": 2.45
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 21.05
+    },
+    {
+     "k": 15,
+     "multiplicity": 1,
+     "secs": 52.89
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 3,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    3,
+    6,
+    9,
+    12,
+    15
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 3,
+   "integer_form": [
+    3,
+    3,
+    2,
+    2,
+    1,
+    1,
+    0
+   ],
+   "denominator": 4,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.02
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.18
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 1.2
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 11.34
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 4,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    4,
+    8,
+    12,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 4,
+   "integer_form": [
+    5,
+    5,
+    3,
+    3,
+    3,
+    1,
+    1
+   ],
+   "denominator": 7,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 7,
+     "multiplicity": 1,
+     "secs": 0.55
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 19.05
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 7,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    7,
+    14
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 5,
+   "integer_form": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "denominator": 3,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 3,
+     "multiplicity": 0,
+     "secs": 0.01
+    },
+    {
+     "k": 6,
+     "multiplicity": 1,
+     "secs": 0.05
+    },
+    {
+     "k": 9,
+     "multiplicity": 0,
+     "secs": 1.82
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 17.97
+    },
+    {
+     "k": 15,
+     "multiplicity": 0,
+     "secs": 145.28
+    }
+   ],
+   "all_one": false,
+   "nonzero_all_one": true,
+   "quantization_period": 6,
+   "period_exceeds_denominator": true,
+   "period_consistent": true,
+   "k_tested": [
+    3,
+    6,
+    9,
+    12,
+    15
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 6,
+   "integer_form": [
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1
+   ],
+   "denominator": 5,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 5,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 10,
+     "multiplicity": 1,
+     "secs": 0.13
+    },
+    {
+     "k": 15,
+     "multiplicity": 1,
+     "secs": 53.44
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 5,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    5,
+    10,
+    15
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 7,
+   "integer_form": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   "denominator": 2,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 2,
+     "multiplicity": 0,
+     "secs": 0.01
+    },
+    {
+     "k": 4,
+     "multiplicity": 1,
+     "secs": 0.01
+    },
+    {
+     "k": 6,
+     "multiplicity": 0,
+     "secs": 0.2
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.27
+    },
+    {
+     "k": 10,
+     "multiplicity": 0,
+     "secs": 0.59
+    },
+    {
+     "k": 12,
+     "multiplicity": 1,
+     "secs": 1.42
+    },
+    {
+     "k": 14,
+     "multiplicity": 0,
+     "secs": 0.01
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 31.59
+    }
+   ],
+   "all_one": false,
+   "nonzero_all_one": true,
+   "quantization_period": 4,
+   "period_exceeds_denominator": true,
+   "period_consistent": true,
+   "k_tested": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 8,
+   "integer_form": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+   ],
+   "denominator": 4,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 4,
+     "multiplicity": 0,
+     "secs": 0.01
+    },
+    {
+     "k": 8,
+     "multiplicity": 1,
+     "secs": 0.11
+    },
+    {
+     "k": 12,
+     "multiplicity": 0,
+     "secs": 10.22
+    },
+    {
+     "k": 16,
+     "multiplicity": 1,
+     "secs": 235.5
+    }
+   ],
+   "all_one": false,
+   "nonzero_all_one": true,
+   "quantization_period": 8,
+   "period_exceeds_denominator": true,
+   "period_consistent": true,
+   "k_tested": [
+    4,
+    8,
+    12,
+    16
+   ]
+  },
+  {
+   "system": "(3,7)",
+   "index": 9,
+   "integer_form": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "denominator": 7,
+   "evidence": "exact",
+   "multiplicities": [
+    {
+     "k": 7,
+     "multiplicity": 1,
+     "secs": 2.29
+    },
+    {
+     "k": 14,
+     "multiplicity": 1,
+     "secs": 412.81
+    }
+   ],
+   "all_one": true,
+   "nonzero_all_one": true,
+   "quantization_period": 7,
+   "period_exceeds_denominator": false,
+   "period_consistent": true,
+   "k_tested": [
+    7,
+    14
+   ]
+  }
+ ],
+ "scorecard": {
+  "P6_vertices_are_multiplicity_free": {
+   "verdict": "FAIL",
+   "scope": 14,
+   "independent_scope": 14,
+   "independent_distinct_states": 14,
+   "vertices_untested_budget": [],
+   "violations": [
+    "(3,6)#3",
+    "(3,7)#5",
+    "(3,7)#7",
+    "(3,7)#8"
+   ],
+   "zero_multiplicity_vertices": [
+    "(3,6)#3",
+    "(3,7)#5",
+    "(3,7)#7",
+    "(3,7)#8"
+   ]
+  },
+  "finding_quantization_period": {
+   "note": "P6 was written assuming every admissible k realizes the vertex. Where it fails, the failure is periodic, not erratic: the multiplicity is 1 on multiples of a period p and 0 elsewhere, with p a multiple of the spectrum denominator. p is a lattice invariant of the vertex that the polytope does not record.",
+   "vertices_with_period_above_denominator": [
+    "(3,6)#3",
+    "(3,7)#5",
+    "(3,7)#7",
+    "(3,7)#8"
+   ],
+   "period_model_inconsistent": [],
+   "nonzero_multiplicities_all_one": true
+  }
+ }
+}
