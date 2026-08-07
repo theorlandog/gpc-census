@@ -169,6 +169,17 @@ Strict order, one gate per session minimum, prereg per gate:
    rank.
    [docs/prereg_direct_survivor_generation.md;
    docs/direct_survivor_generation.md; tests/test_orbit_canonical.py]
+2c. INTEGRATION, which was the real gap. The three fast components above were
+   each proved and none was on the path that builds a system; the production
+   constructor materialised everything and the screening fallback ran the
+   exponential determinant DP with no matching pre-test. Hall is now inside the
+   fallback with an indistinguishable outcome (manifests byte identical, 6,414
+   of 6,469 rank-8 rows decided by matching), and the orbit-native constructor
+   builds a complete system from orbit representatives alone, gated against the
+   materialising reference at ranks 7 and 8. Enumeration is now the dominant
+   stage, which is where the next work goes.
+   [docs/orbit_native_constructor.md; src/gpc_census/generation/orbit_native.py;
+   tests/test_orbit_native.py]
 3. (3,8) gate: first rank with interference vertices; the honest stress test.
    Flat lattice already enumerated,
    [1, 56, 1540, 21420, 147630, 467082, 565208, 166420], 166,420 admissible

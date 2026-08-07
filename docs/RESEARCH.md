@@ -524,6 +524,35 @@ plethysm criterion feed Problem 7 below.
   [scripts/screening_orbit_structure.py;
   results/data/screening_orbit_structure.json;
   tests/test_screening_orbit_structure.py]
+- orbit_native_constructor.md: THE FAST COMPONENTS ARE NOW ON THE ACTUAL PATH,
+  which they were not. ❗ FINDING FIRST: orbit enumeration, direct survivor
+  generation and the Hall filter were each proved and measured, and the
+  production constructor called NONE of them. It materialised every hyperplane,
+  oriented each into two taus and screened the whole list, and the screening
+  fallback ran the exponential determinant DP with no matching pre-test. Every
+  measured speedup sat beside the pipeline rather than in it. 🟦 HALL is now
+  inside the symbolic fallback with a DELIBERATELY INDISTINGUISHABLE outcome,
+  same status and same reason, so stored manifests stay byte identical and it is
+  a pure accelerator: the rank-7 reference manifest regenerates byte for byte
+  and rank-8 screening counts match the stored artifact. Of 6,469 rank-8 rows
+  reaching the fallback, 6,414 are decided by matching and 55 reach the DP.
+  🟦 ORBIT-NATIVE CONSTRUCTOR builds a complete system from orbit
+  representatives alone and never constructs the hyperplane list, the oriented
+  tau list, or a trace-rejected row: 326,233 of 332,840 rank-8 rows are never
+  built. Coverage is CHECKED by count conservation, orbit-stabilizer plus the
+  Gaussian multinomial against what the run did, so a lost orbit cannot balance
+  it. ❗ SELF-PAIRING TRAP: the oriented orbit of (h,z) already contains (-h,-z)
+  when z = 0 and the multiset of -h equals that of h, so processing both
+  orientations double counts; there are 1, 3 and 3 such orbits at ranks 6, 7, 8,
+  which is exactly why the oriented counts are 15, 35, 109 and not 16, 38, 112.
+  🟦 GATED, not merely run: at rank 7 the emitted taus equal the reference
+  survivor set exactly and the partition reproduces the published 1/49/499/0; at
+  rank 8 retained rows, reduction certificate, regression, certified tau set and
+  symbolic-zero tau set are all identical, 66 s against 252 s. 🔬 The speedup is
+  3.8x, not the 719x survivor generation shows alone, because the orbit
+  ENUMERATION is now the dominant stage. The row scan is gone and enumeration
+  replaced it as the bottleneck.
+  [src/gpc_census/generation/orbit_native.py; tests/test_orbit_native.py]
 - orbit_canonical_flats.md: WEYL-ORBIT CANONICAL ENUMERATION, and the first
   exhaustive hyperplane count at rank 9. ❗ CORRECTION FIRST: (3,7) candidate
   exhaustiveness is CLOSED by the closed-flat enumerator (5,341 hyperplanes for
