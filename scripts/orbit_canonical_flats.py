@@ -145,6 +145,14 @@ def main() -> int:
     augmented = []
     for d in args.augment:
         print(f"(3,{d}): orbit augmentation ...", flush=True)
+        # A resumed run reports a wall time of nearly nothing, which is not a
+        # timing of anything. Record how many levels were restored so the
+        # number is self describing rather than quietly misleading.
+        restored = 0
+        if args.checkpoint_dir:
+            base = pathlib.Path(args.checkpoint_dir) / "orbits"
+            restored = sum(1 for rank in range(1, d)
+                           if (base / f"flats_3_{d}_rank{rank}.txt").exists())
         t0 = time.time()
         counts, levels = oc.enumerate_orbits_by_augmentation(
             3, d, checkpoint_dir=args.checkpoint_dir)
@@ -158,6 +166,9 @@ def main() -> int:
             "top_orbits": counts[-1],
             "peak_orbits": max(counts),
             "seconds": round(elapsed, 1),
+            "levels_restored_from_checkpoint": restored,
+            "levels_total": d - 1,
+            "timing_is_a_full_run": restored == 0,
         })
         print(f"  orbits {counts}", flush=True)
         print(f"  expands to {expanded}  ({elapsed:.1f}s)", flush=True)
