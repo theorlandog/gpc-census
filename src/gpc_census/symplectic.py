@@ -485,3 +485,140 @@ def _in_lattice(vec: list[int], lattice: list[list[int]]) -> list[int]:
     b = sp.Matrix(lattice).T
     sol = b.solve(sp.Matrix(vec))
     return [int(x) for x in sol]
+
+
+# --------------------------------------------------------------------------
+# finite isotropy characters and the quantization period
+# --------------------------------------------------------------------------
+
+
+def spectrum_blocks(integer_form) -> list[list[int]]:
+    """Index blocks of equal occupation, the Levi factors of `L_lambda`."""
+    blocks: list[list[int]] = []
+    for i, value in enumerate(integer_form):
+        if i and value == integer_form[i - 1]:
+            blocks[-1].append(i)
+        else:
+            blocks.append([i])
+    return blocks
+
+
+def _sort_sign(values: list[int]) -> int:
+    """Sign of the permutation that sorts `values` ascending."""
+    sign = 1
+    for i in range(len(values)):
+        for j in range(i + 1, len(values)):
+            if values[i] > values[j]:
+                sign = -sign
+    return sign
+
+
+def _cycle_sign(perm: list[int]) -> int:
+    seen = [False] * len(perm)
+    sign = 1
+    for i in range(len(perm)):
+        if seen[i]:
+            continue
+        j, length = i, 0
+        while not seen[j]:
+            seen[j] = True
+            j, length = perm[j], length + 1
+        if length % 2 == 0:
+            sign = -sign
+    return sign
+
+
+def levi_permutation_stabilizer(record: dict, max_period_multiple: int = 512) -> list[dict]:
+    """`lambda`-preserving permutations that fix the certified state's LINE.
+
+    Enumerates `sigma` in `S_d` preserving every block of equal occupation,
+    which is exactly `S_d` intersected with the Levi `L_lambda`, and keeps those
+    with `wedge^n(P_sigma) psi = c psi` for a scalar `c`. For each it records
+    `c`, the block determinants (the sign of `sigma` restricted to each block),
+    and the least `k` divisible by the spectrum denominator `q` with
+
+        c^k * prod_i det_i^(-k * a_i / q) = 1,
+
+    which is the character condition `omega(sigma)^k = 1` of
+    `docs/prereg_quantization_character.md`. All arithmetic is exact.
+    """
+    n, d, basis, index, psi = state_vector(record)
+    form = [int(x) for x in record["integer_form"]]
+    q = int(record["denominator"] or 1)
+    blocks = spectrum_blocks(form)
+
+    support = {tuple(sorted(det)) for det in record["closed_form"]["support_dets"]}
+
+    out: list[dict] = []
+    for choice in it.product(*[list(it.permutations(b)) for b in blocks]):
+        sigma = list(range(d))
+        for block, image in zip(blocks, choice):
+            for src, dst in zip(block, image):
+                sigma[src] = dst
+
+        # `P_sigma` is invertible, so `wedge^n(P_sigma) psi` is nonzero and can be
+        # a multiple of `psi` only if `sigma` permutes the support. Testing that
+        # first is a pure set operation and skips the exact amplitude work for
+        # the overwhelming majority of candidates.
+        if {tuple(sorted(sigma[o] for o in det)) for det in support} != support:
+            continue
+
+        moved = [sp.Integer(0)] * len(basis)
+        for k, s in enumerate(basis):
+            if psi[k] == 0:
+                continue
+            image = [sigma[o] for o in s]
+            moved[index[tuple(sorted(image))]] += _sort_sign(image) * psi[k]
+
+        scalar = None
+        ok = True
+        for k in range(len(basis)):
+            if psi[k] == 0:
+                if sp.simplify(moved[k]) != 0:
+                    ok = False
+                    break
+                continue
+            ratio = sp.simplify(moved[k] / psi[k])
+            if scalar is None:
+                scalar = ratio
+            elif sp.simplify(ratio - scalar) != 0:
+                ok = False
+                break
+        if not ok or scalar is None:
+            continue
+
+        dets = [_cycle_sign([block.index(sigma[o]) for o in block]) for block in blocks]
+        # The exponent on block i is k*lambda_i, and lambda_i is the occupation
+        # shared by the ORBITALS of that block, not `form[i]`: `form` is indexed
+        # by orbital, `dets` by block. Indexing `form` by the block counter is
+        # wrong as soon as the blocks are not all singletons, and it manufactures
+        # obstructions that do not exist.
+        block_numerators = [form[block[0]] for block in blocks]
+        least = None
+        for k in range(q, max_period_multiple * q + 1, q):
+            value = scalar ** k
+            for i, det in enumerate(dets):
+                value *= sp.Integer(det) ** (-k * block_numerators[i] // q)
+            if sp.simplify(value - 1) == 0:
+                least = k
+                break
+        out.append({
+            "sigma": sigma,
+            "c": sp.srepr(sp.nsimplify(scalar)),
+            "c_pretty": str(sp.nsimplify(scalar)),
+            "block_determinants": dets,
+            "least_admissible_k": least,
+            "nontrivial": sigma != list(range(d)),
+        })
+    return out
+
+
+def predicted_quantization_period(elements: list[dict], q: int) -> int | None:
+    """lcm of the least admissible `k` over the isotropy elements found."""
+    period = q
+    for element in elements:
+        least = element["least_admissible_k"]
+        if least is None:
+            return None
+        period = period * least // gcd(period, least)
+    return period
