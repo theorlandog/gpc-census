@@ -1,0 +1,84 @@
+{
+ "generated_by": "scripts/symplectic_slice_atlas.py",
+ "prereg": "docs/prereg_symplectic_slice.md",
+ "evidence": "exact",
+ "note": "Symplectic slices at the census landmark states. A slice dimension of 0 certifies that the reduced germ is a point. No reduced-germ dimension is reported where the slice is nonzero: the generic-orbit shortcut is wrong and returns -10 at the Slater vertex. See docs/symplectic_slice.md.",
+ "rows": [
+  {
+   "system": "(3,6)",
+   "index": 0,
+   "label": "Slater vertex; fixed-rho fiber is a single point",
+   "integer_form": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "denominator": 1,
+   "classified": "DESIGN-INT",
+   "support_size": 1,
+   "evidence": "exact",
+   "slice": {
+    "ambient_tangent_dim": 38,
+    "orbit_dim": 18,
+    "stab_dim": 18,
+    "stabilizer_algebra_dim": 18,
+    "commutant_dim": 18,
+    "rank_d_mu": 18,
+    "ker_d_mu_dim": 20,
+    "levi_orbit_dim": 0,
+    "slice_dim": 20,
+    "gate_rank_equals_orbit": true,
+    "gate_kernel_dim": true,
+    "gate_levi_dim": true,
+    "slice_certifies_point": false
+   },
+   "secs": 0.2
+  },
+  {
+   "system": "(3,6)",
+   "index": 3,
+   "label": "uniform Borland-Dennis vertex (1/2)^6",
+   "integer_form": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "denominator": 2,
+   "classified": "DESIGN-INT",
+   "support_size": 2,
+   "evidence": "exact",
+   "slice": {
+    "ambient_tangent_dim": 38,
+    "orbit_dim": 19,
+    "stab_dim": 17,
+    "stabilizer_algebra_dim": 17,
+    "commutant_dim": 36,
+    "rank_d_mu": 19,
+    "ker_d_mu_dim": 19,
+    "levi_orbit_dim": 19,
+    "slice_dim": 0,
+    "gate_rank_equals_orbit": true,
+    "gate_kernel_dim": true,
+    "gate_levi_dim": true,
+    "slice_certifies_point": true
+   },
+   "secs": 0.5
+  }
+ ],
+ "unfinished": [
+  "(3,10)#103",
+  "(3,10)#89",
+  "(4,9)#65"
+ ],
+ "gates": {
+  "rank_equals_orbit_violations": [],
+  "kernel_dim_violations": [],
+  "levi_dim_violations": []
+ }
+}
