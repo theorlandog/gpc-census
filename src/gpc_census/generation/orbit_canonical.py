@@ -1,12 +1,21 @@
 """Weyl-orbit canonicalization of closed flats of the exterior weight set.
 
-WHY THIS IS THE ONE PERMITTED PRUNING. The moment polytope is Weyl invariant
-and the ordered slice is a fundamental domain for the ``S_d`` action, so two
-admissible hyperplanes in the same ``S_d`` orbit are facets together or not at
-all. Enumerating orbit representatives therefore discards nothing. Every other
-pruning proposed for this search has been an empirical pattern, which the
-standing rule forbids until a theorem makes it lossless; this one has the
-theorem.
+WHY THIS IS THE ONE PERMITTED PRUNING. The set of admissible hyperplanes is
+``S_d`` STABLE: permuting modes permutes the exterior weights, hence permutes
+closed flats, hence permutes hyperplanes. Storing one representative per orbit
+and expanding therefore discards no CANDIDATE. Every other pruning proposed for
+this search has been an empirical pattern, which the standing rule forbids until
+a theorem makes it lossless; this one has the theorem, and the stability is
+verified rather than assumed (``images_outside_set`` is zero at every rank).
+
+STATED CAREFULLY, BECAUSE THE STRONGER VERSION IS FALSE. This licenses orbit
+reduction for ENUMERATING candidates only. It does NOT say that hyperplanes in
+one orbit are facets together or not at all: the GPC system is a list of
+inequalities facing the DOMINANT CHAMBER, the chamber is a fundamental domain
+and so is exactly what the Weyl group fails to preserve, and
+``docs/screening_orbit_structure.md`` measures the consequence, namely that 25
+of the 35 oriented-tau orbits at rank 7 carry MIXED screening verdicts. An
+earlier version of this docstring asserted the stronger claim and was wrong.
 
 WHY IT MATTERS. The raw flat lattice explodes while the orbit count barely
 moves: 362 hyperplanes in 8 orbits at rank 6, 5,341 in 19 at rank 7. An

@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 """Weyl-orbit canonicalization of the admissible hyperplane set.
 
-THE PRUNING, AND WHY IT IS SAFE. The moment polytope is Weyl invariant and the
-ordered slice is a fundamental domain for the `S_d` action, so two admissible
-hyperplanes in the same `S_d` orbit carry the same information: one is a facet
-if and only if the other is. Enumerating orbit representatives therefore
-DISCARDS NOTHING. This is the one pruning that meets the standing rule that no
+THE PRUNING, AND WHY IT IS SAFE. The admissible hyperplane set is `S_d` STABLE:
+permuting modes permutes the exterior weights, hence the closed flats, hence the
+hyperplanes. Enumerating orbit representatives and expanding therefore DISCARDS
+NO CANDIDATE. This is the one pruning that meets the standing rule that no
 candidate may be dropped until a theorem proves the drop lossless, as opposed
 to an empirical pattern that merely looks safe.
+
+WHAT IT DOES NOT SAY, because an earlier version of this docstring said it and
+was wrong. It does NOT say two hyperplanes in one orbit are facets together or
+not at all. Screening faces the DOMINANT CHAMBER, which is a fundamental domain
+and so exactly what the Weyl group does not preserve; `screening_orbit_structure`
+measures 25 of 35 rank-7 orbits carrying mixed verdicts. Orbit reduction is
+lossless for ENUMERATING candidates and inapplicable to DECIDING them.
 
 THE MEASURED PAYOFF. The raw hyperplane count explodes while the orbit count
 barely moves:
@@ -38,8 +44,11 @@ from __future__ import annotations
 
 import argparse
 import collections
+import hashlib
 import json
+import os
 import pathlib
+import platform
 import sys
 import time
 
@@ -123,6 +132,10 @@ def main() -> int:
     ap.add_argument("--augment", nargs="*", type=int, default=[],
                     help="ranks to run through the orbit-augmentation "
                          "enumerator, which never materialises the lattice")
+    ap.add_argument("--checkpoint-dir", default=None,
+                    help="resume the augmentation from written levels, which "
+                         "is what a rank costing hours rather than gigabytes "
+                         "needs")
     ap.add_argument("-o", "--out",
                     default=str(ROOT / "results/data/orbit_canonical_flats.json"))
     args = ap.parse_args()
@@ -133,7 +146,8 @@ def main() -> int:
     for d in args.augment:
         print(f"(3,{d}): orbit augmentation ...", flush=True)
         t0 = time.time()
-        counts, levels = oc.enumerate_orbits_by_augmentation(3, d)
+        counts, levels = oc.enumerate_orbits_by_augmentation(
+            3, d, checkpoint_dir=args.checkpoint_dir)
         elapsed = time.time() - t0
         expanded = [sum(oc.orbit_size(m, 3, d) for m in level) for level in levels]
         augmented.append({
@@ -150,20 +164,17 @@ def main() -> int:
 
     blocks = []
     out = pathlib.Path(args.out)
-    for d in args.ranks:
-        print(f"(3,{d}): enumerating and orbiting ...", flush=True)
-        record = orbit_structure(3, d)
-        print(f"  hyperplanes {record['hyperplanes']}  orbits {record['orbits']}  "
-              f"reduction {record['reduction_factor']}x  "
-              f"closed {record['action_is_closed']}  "
-              f"({record['enumerate_seconds']}s + {record['orbit_seconds']}s)",
-              flush=True)
-        blocks.append(record)
+
+    def payload_for(blocks, augmented):
         payload = {
             "what": "S_d orbit structure of the admissible hyperplane set. The "
-                    "moment polytope is Weyl invariant and the ordered slice is "
-                    "a fundamental domain, so orbit reduction is provably "
-                    "lossless rather than empirically motivated.",
+                    "set is S_d STABLE, so enumerating orbit representatives "
+                    "and expanding discards no CANDIDATE; that is the whole of "
+                    "the licence, and it is verified here rather than assumed. "
+                    "It does NOT make screening an orbit invariant: the "
+                    "dominant chamber is a fundamental domain and so is exactly "
+                    "what the Weyl group fails to preserve, and 25 of the 35 "
+                    "rank-7 oriented orbits carry mixed verdicts.",
             "convention_trap": "hyperplanes are stored with first nonzero entry "
                                "positive, so a permuted image must be "
                                "re-normalized; without that the action is not "
@@ -189,8 +200,41 @@ def main() -> int:
                     for a in augmented},
             },
         }
+        # provenance for a result that costs hours and cannot be rerun casually
+        payload["machine"] = {
+            "python": platform.python_version(),
+            "platform": platform.platform(),
+            "processor": platform.machine(),
+            "cpu_count": os.cpu_count(),
+        }
+        payload["augmentation_sha256"] = hashlib.sha256(
+            json.dumps(payload["augmentation"], sort_keys=True,
+                       separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        return payload
+
+    def write(blocks, augmented):
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(payload, indent=1, sort_keys=True) + "\n")
+        out.write_text(
+            json.dumps(payload_for(blocks, augmented), indent=1, sort_keys=True)
+            + "\n")
+
+    for d in args.ranks:
+        print(f"(3,{d}): enumerating and orbiting ...", flush=True)
+        record = orbit_structure(3, d)
+        print(f"  hyperplanes {record['hyperplanes']}  orbits {record['orbits']}  "
+              f"reduction {record['reduction_factor']}x  "
+              f"closed {record['action_is_closed']}  "
+              f"({record['enumerate_seconds']}s + {record['orbit_seconds']}s)",
+              flush=True)
+        blocks.append(record)
+        write(blocks, augmented)          # incremental, so a kill loses one rank
+
+    # Written unconditionally, not only inside the rank loop. Requesting
+    # augmentation alone previously computed everything and wrote NOTHING,
+    # which is how the rank-10 count ended up in the write-up with no artifact
+    # behind it.
+    write(blocks, augmented)
     print(f"wrote {out}")
     return 0
 
