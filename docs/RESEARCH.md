@@ -534,7 +534,19 @@ plethysm criterion feed Problem 7 below.
   16 unique_matching, 24 unique_exposed_monomial, 10 nonzero_after_collision,
   summing to 549 and reproducing the published 499/50 split. 40 of the 50
   nonzero determinants, 80%, are certifiable without summing anything; largest
-  matching count seen is 30,528, so this is not a small-case artifact.
+  matching count seen is 30,528, so this is not a small-case artifact. Rank 8
+  reproduces the predicted split exactly: 6,414 structural, 55 exact
+  cancellation, 193 Hall-feasible splitting 55 zero and 138 nonzero, and the
+  share needing no summation RISES, 80.0% to 84.1%, at a largest matching count
+  of 9,538,560 and order 22. 🟦 THE CERTIFICATE IS NOW POLYNOMIAL: weight each
+  variable, and a matching strictly lighter than every other carries a monomial
+  no other matching reaches, so its coefficient is +-1 and the determinant
+  cannot vanish; the certificate is a weight vector, a matching and the
+  second-best weight, replayed with one assignment solve per matched edge. It
+  issues on 36 of the 50 rank-7 nonzeros against the audit's upper bound of 40,
+  the gap being weight-vector choice rather than a limit of the method. Safety
+  is the tested direction: no certificate was ever issued for a vanishing
+  determinant, every one replays, and tampered ones are rejected.
   ❗ THE BIGGER FINDING was in the profile, not the audit: at rank 8, 48.6 of
   the orbit-native constructor's 54 seconds sat inside screening, with
   enumeration 4.8 s and candidate reconstruction 0.7 s. The cause is that

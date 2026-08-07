@@ -43,9 +43,53 @@ required.
 The 474 + 25 = 499 zeros and the 16 + 24 + 10 = 50 nonzeros reproduce the
 published partition exactly.
 
-**40 of the 50 nonzero determinants, 80 percent, are certified by a unique
-exposed monomial.** Only 10 need the signed sum at all. The largest matching
-count seen is 30,528, so this is not a statement about tiny cases.
+## Measured at rank 8
+
+| class | count |
+|---|---|
+| `structural_zero` | 6,414 |
+| `exact_cancellation` | 55 |
+| `unique_matching` | 22 |
+| `unique_exposed_monomial` | 94 |
+| `nonzero_after_collision` | 22 |
+| total | **6,607** |
+
+193 Hall-feasible, splitting 55 zero and 138 nonzero, which is the predicted
+split exactly.
+
+**The share needing no summation RISES with rank: 80.0 percent at rank 7, 84.1
+percent at rank 8.** The largest matching count seen is 9,538,560 at order 22,
+so this is emphatically not a statement about tiny cases: the audit itself took
+1,167 seconds at rank 8, which is the cost the certificate below avoids.
+
+## The certificate, in polynomial time
+
+The audit above FOUND the cheap cases with the exponential expansion they exist
+to avoid, so on its own it proved only that a cheap route should exist. It does.
+
+Give each on-weight variable an integer weight, so every perfect matching
+acquires the weight of its monomial. If one matching is strictly lighter than
+every other, no other matching carries its monomial, its coefficient is `+-1`,
+and the determinant cannot vanish. The certificate is a weight vector, a
+matching and the second-best weight; a reader replays it with one assignment
+solve per matched edge.
+
+| rank 7 | |
+|---|---|
+| nonzero determinants | 50 |
+| have a singly-reached monomial (audit upper bound) | 40 |
+| **certified by the polynomial-time certificate** | **36** |
+| certificate time vs expansion time | 0.05 s vs 0.26 s |
+
+The gap of 4 is the choice of weight vectors, not a limit of the method: those
+determinants do have a singly-reached monomial, and no vector among the four
+tried exposed it. Pinning both numbers keeps that distinction visible.
+
+**Safety is the direction that matters and it is tested.** A cheap test may say
+NO when the answer is yes; it may never say YES when the answer is no, because
+that would certify a facet that is not there. Every certificate issued at rank 7
+is checked against the exact expansion, none was issued for a vanishing
+determinant, every one replays, and tampered certificates are rejected.
 
 ## The consequence that was worth more than the audit
 
@@ -79,17 +123,19 @@ and a Hall violator establishes exactly that statement for every trial point at
 once. It is the same claim by a shorter route, so the rank-7 reference manifest
 still regenerates byte for byte against the stored artifact.
 
-## What the audit does not yet license
+## What this does not license
 
-The `unique_exposed_monomial` class is currently DETECTED by the full expansion,
-which is the thing it is meant to avoid. Turning it into a cheap certifier needs
-the separating-weight construction: a matching `P` and integer variable weights
-whose minimum over perfect matchings is attained only at `P`, checkable with one
-min-weight matching and one second-best bound. That is not implemented, and
-until it is, the 80 percent figure describes what is CERTIFIABLE this way, not
-what is currently certified this way.
+The certificate is not wired into the production screening path. It is built and
+verified, and the pipeline still reaches nonzero determinants by evaluation,
+which already succeeds cheaply on them; the futile-search fix above removed the
+cost that mattered. Wiring it in is worth doing when the determinant order grows
+past what evaluation handles comfortably, not before.
 
-The audit also does not explain the 25 exact cancellations. Whether they share a
+Returning `None` proves nothing. The determinant may still be nonzero and the
+caller must fall back, which is why the certifier is only ever allowed to say
+YES.
+
+The audit does not explain the 55 exact cancellations. Whether they share a
 common alternating-cycle mechanism is open, and it is the natural next question:
 the symmetric difference of two matchings is a union of alternating cycles, and
 two matchings collide exactly when their cycles have zero net variable-label

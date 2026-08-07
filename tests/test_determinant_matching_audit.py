@@ -135,6 +135,88 @@ def test_a_certified_row_still_finds_its_evaluation():
     assert certified == 50
 
 
+# --------------------------------------------------------------------------
+# the polynomial-time certificate
+# --------------------------------------------------------------------------
+
+def test_a_separating_certificate_is_never_issued_for_a_zero_determinant():
+    """The only direction that can break anything.
+
+    A cheap test is allowed to say NO when the answer is yes; it is never
+    allowed to say YES when the answer is no, because that would certify a
+    facet that is not there. Every certificate issued at rank 7 is checked
+    against the exact expansion.
+    """
+    from gpc_census.generation.ressayre import (
+        separating_weight_certificate,
+        verify_separating_weight_certificate,
+    )
+
+    _, records = _classified(7)
+    issued = 0
+    for _tau, candidate, record in records:
+        if record["classification"] == "structural_zero":
+            continue
+        certificate = separating_weight_certificate(3, 7, candidate)
+        if certificate is None:
+            continue
+        assert not record["is_zero"], "certificate issued on a vanishing determinant"
+        assert verify_separating_weight_certificate(3, 7, candidate, certificate)
+        issued += 1
+    assert issued == 36
+
+
+def test_the_certificate_reaches_most_of_what_the_expansion_can_reach():
+    """36 of the 50 nonzero, against an upper bound of 40 from the audit.
+
+    The bound is the count of determinants that HAVE a monomial with a single
+    matching. The shortfall is the choice of weight vectors, not a limit of the
+    method, and pinning both numbers keeps that distinction visible.
+    """
+    from gpc_census.generation.ressayre import separating_weight_certificate
+
+    tally, records = _classified(7)
+    exposable = tally["unique_matching"] + tally["unique_exposed_monomial"]
+    issued = sum(
+        1 for _t, candidate, record in records
+        if record["classification"] != "structural_zero"
+        and separating_weight_certificate(3, 7, candidate) is not None)
+    assert exposable == 40
+    assert issued == 36
+    assert issued <= exposable
+
+
+def test_a_tampered_certificate_is_rejected():
+    """Replay must actually check, not merely parse."""
+    from gpc_census.generation.ressayre import (
+        separating_weight_certificate,
+        verify_separating_weight_certificate,
+    )
+
+    _, records = _classified(7)
+    tested = 0
+    for _tau, candidate, record in records:
+        if record["classification"] == "structural_zero":
+            continue
+        certificate = separating_weight_certificate(3, 7, candidate)
+        if certificate is None:
+            continue
+        broken = dict(certificate)
+        broken["matching_weight"] = int(certificate["matching_weight"]) + 1
+        assert not verify_separating_weight_certificate(3, 7, candidate, broken)
+        shuffled = dict(certificate)
+        matching = list(certificate["matching"])
+        if len(matching) > 1:
+            matching[0], matching[1] = matching[1], matching[0]
+            shuffled["matching"] = matching
+            assert not verify_separating_weight_certificate(
+                3, 7, candidate, shuffled)
+        tested += 1
+        if tested >= 8:
+            break
+    assert tested == 8
+
+
 @pytest.mark.parametrize("d", [7])
 def test_structural_share_is_the_reason_the_shortcut_pays(d):
     """If most rows were NOT structurally zero the reordering would be noise."""

@@ -362,6 +362,143 @@ def _sparse_determinant_matching_counts(
     return signed.get(full, {}), counts.get(full, {})
 
 
+def _min_weight_matching(
+    edge_matrix: Sequence[Sequence[tuple[int, int] | None]],
+    weights: Sequence[int],
+    forbidden: tuple[int, int] | None = None,
+) -> tuple[int, tuple[int, ...]] | None:
+    """Minimum weight perfect matching, weighting a cell by its variable.
+
+    Exact in integers: the costs are small integers and the assignment is solved
+    over them, so no rounding decides anything.
+    """
+    import numpy as np
+    from scipy.optimize import linear_sum_assignment
+
+    size = len(edge_matrix)
+    blocked = 1 + size * (max(weights) if len(weights) else 1) + 1
+    cost = np.full((size, size), blocked, dtype=np.int64)
+    for row_index, row in enumerate(edge_matrix):
+        for column, edge in enumerate(row):
+            if edge is None:
+                continue
+            if forbidden is not None and (row_index, column) == forbidden:
+                continue
+            cost[row_index][column] = weights[edge[0]]
+    rows, columns = linear_sum_assignment(cost)
+    total = int(cost[rows, columns].sum())
+    if any(cost[r][c] == blocked for r, c in zip(rows, columns, strict=True)):
+        return None                      # no perfect matching avoiding the edge
+    return total, tuple(int(c) for c in columns)
+
+
+def separating_weight_certificate(
+    n: int, d: int, candidate: AdmissibleHyperplane, *, orientation: int = 1
+) -> dict[str, object] | None:
+    """Prove the determinant nonzero with one matching and a weight vector.
+
+    THE CERTIFICATE. Give each on-weight variable an integer weight, so every
+    perfect matching acquires the weight of its monomial. If ONE perfect
+    matching is strictly lighter than every other, then no other matching
+    carries its monomial, its coefficient is plus or minus one, and the
+    determinant cannot vanish. The certificate is a weight vector, a matching,
+    and the second-best weight; a reader replays it with one assignment solve
+    per edge.
+
+    WHY THIS IS THE POINT. The audit found 40 of 50 rank-7 nonzero determinants
+    are certifiable by a unique exposed monomial, but it FOUND them with the
+    exponential expansion that the certificate exists to avoid. This decides the
+    same question in polynomial time: one assignment solve for the optimum and
+    one per matched edge for the runner up, against a dynamic program that is
+    exponential in the matrix order.
+
+    Returns ``None`` when no tried weight vector separates, which is not a proof
+    of anything: the determinant may still be nonzero and the caller must fall
+    back. That asymmetry is deliberate, since a cheap test may only ever be
+    allowed to say YES.
+    """
+    weights_list, on_indices, below_indices, roots = _validate_admissible_candidate(
+        n, d, candidate
+    )
+    if orientation not in (-1, 1):
+        raise ValueError("orientation must be -1 or 1")
+    if len(below_indices) != len(roots):
+        raise ValueError("separating certificate requires trace equality")
+    if not roots:
+        return None
+    edge_matrix = _tangent_edge_matrix(
+        weights_list, on_indices, below_indices, roots)
+    variables = len(on_indices)
+    # deterministic weight vectors, tried in order; the first that separates
+    # wins. They are chosen to be small so the assignment stays exact.
+    trials = [
+        tuple(index + 1 for index in range(variables)),
+        tuple(1 + (index * index) % (2 * variables + 1) for index in range(variables)),
+        tuple(1 + (index * 7) % (3 * variables + 1) for index in range(variables)),
+        tuple(1 + (index * 13) % (5 * variables + 1) for index in range(variables)),
+    ]
+    for weight_vector in trials:
+        best = _min_weight_matching(edge_matrix, weight_vector)
+        if best is None:
+            return None                  # no perfect matching at all
+        best_weight, assignment = best
+        runner_up = None
+        for row_index, column in enumerate(assignment):
+            alternative = _min_weight_matching(
+                edge_matrix, weight_vector, forbidden=(row_index, column))
+            if alternative is None:
+                continue
+            if runner_up is None or alternative[0] < runner_up:
+                runner_up = alternative[0]
+        if runner_up is None or runner_up > best_weight:
+            return {
+                "variable_weights": list(weight_vector),
+                "matching": list(assignment),
+                "matching_weight": best_weight,
+                "second_best_weight": runner_up,
+                "order": len(below_indices),
+            }
+    return None
+
+
+def verify_separating_weight_certificate(
+    n: int,
+    d: int,
+    candidate: AdmissibleHyperplane,
+    certificate: dict[str, object],
+    *,
+    orientation: int = 1,
+) -> bool:
+    """Replay a separating-weight certificate from the support alone."""
+    try:
+        weights_list, on_indices, below_indices, roots = (
+            _validate_admissible_candidate(n, d, candidate))
+        if len(below_indices) != len(roots) or not roots:
+            return False
+        edge_matrix = _tangent_edge_matrix(
+            weights_list, on_indices, below_indices, roots)
+        weight_vector = tuple(int(v) for v in certificate["variable_weights"])
+        assignment = tuple(int(c) for c in certificate["matching"])
+        if sorted(assignment) != list(range(len(edge_matrix))):
+            return False
+        total = 0
+        for row_index, column in enumerate(assignment):
+            edge = edge_matrix[row_index][column]
+            if edge is None:
+                return False
+            total += weight_vector[edge[0]]
+        if total != int(certificate["matching_weight"]):
+            return False
+        for row_index, column in enumerate(assignment):
+            alternative = _min_weight_matching(
+                edge_matrix, weight_vector, forbidden=(row_index, column))
+            if alternative is not None and alternative[0] <= total:
+                return False
+        return True
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
 def classify_tangent_determinant(
     n: int, d: int, candidate: AdmissibleHyperplane, *, orientation: int = 1
 ) -> dict[str, object]:
