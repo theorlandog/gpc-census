@@ -524,6 +524,29 @@ plethysm criterion feed Problem 7 below.
   [scripts/screening_orbit_structure.py;
   results/data/screening_orbit_structure.json;
   tests/test_screening_orbit_structure.py]
+- parabolic_survivor_traversal.md: THE PARABOLIC REFORMULATION IS RIGHT AND THE
+  SPEEDUP IT MOTIVATES IS NOT. 🟦 CONFIRMED: arrangements of h are the parabolic
+  quotient S_d/(S_m1 x ... x S_mr), the trace inversion number is Coxeter length
+  on minimal coset representatives, and the Gaussian multinomial already used by
+  trace_survivor_count is that quotient's Poincare polynomial. ❗ CONVENTION IS
+  LOAD BEARING: minimal coset length equals the arrangement's inversion number
+  only with h sorted INCREASINGLY; sorted decreasingly the base arrangement is
+  the LONGEST representative and neither the min nor the max coset length
+  matches. ❌ REFUTED, first obstruction: a fixed-length Gray code cannot exist,
+  because an adjacent transposition changes Coxeter length by exactly one, so
+  two distinct length-B representatives are never adjacent. Measured, 562
+  adjacent swaps between same-multiset arrangements, ZERO preserve the inversion
+  number. ❌ REFUTED, second obstruction: the DFS-prefix increment that DOES
+  exist is exact (partitions bit identical to a full rebuild at ranks 7 and 8)
+  and saves almost nothing, ratio 1.03 and 1.07 against a predicted d/3 of 2.33
+  and 2.67, and it is SLOWER in wall time (0.11 s to 0.17 s at rank 8). The
+  prediction assumed prefix sharing and there is almost none: 52.2 triple sums
+  per survivor against 56 for a full rebuild, so the DFS tree is close to a star.
+  🔬 The stage was under one percent of the run anyway, 0.11 s of 12.4 s, after
+  the futile-evaluation fix took rank 8 from 66 s to 12.4 s. What survives is the
+  identification itself as the right language, with its convention pinned.
+  [scripts/parabolic_survivor_traversal.py;
+  tests/test_parabolic_survivor_traversal.py]
 - determinant_matching_audit.md: THE TANGENT DETERMINANT CLASSIFIED BY ITS
   MATCHINGS, and the profiling result that came out of it. 🟦 Each perfect
   matching of the support graph carries a sign and a monomial, so keeping the
