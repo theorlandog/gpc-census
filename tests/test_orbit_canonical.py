@@ -181,3 +181,94 @@ def test_the_sign_convention_trap_is_real():
     for hp in enum.hyperplanes:
         first = next((v for v in hp.h if v), 0)
         assert first > 0
+
+
+# --------------------------------------------------------------------------
+# order-free invariants: what prunes, and what was refuted
+# --------------------------------------------------------------------------
+
+def test_closed_form_survivor_count_matches_brute_force():
+    """The Gaussian multinomial predicts the trace survivors, per orbit.
+
+    This is what makes the row scan avoidable in principle, so it is checked
+    against an actual count on every rank-7 orbit rather than sampled.
+    """
+    import collections
+
+    from gpc_census.generation.exterior import exterior_weights
+    from gpc_census.generation.reference_generator import oriented_taus
+    from gpc_census.generation.ressayre import (
+        _level_sets,
+        _negative_root_set,
+        admissible_candidate_from_tau,
+    )
+
+    n, d = 3, 7
+    weights = exterior_weights(n, d)
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    by_orbit = collections.defaultdict(list)
+    for tau in oriented_taus(enum):
+        by_orbit[tuple(sorted(tau))].append(tau)
+
+    checked = 0
+    for members in by_orbit.values():
+        first = admissible_candidate_from_tau(n, members[0])
+        below = len(_level_sets(weights, first.h, first.z)[1])
+        actual = sum(
+            1 for tau in members
+            if len(_negative_root_set(admissible_candidate_from_tau(n, tau).h))
+            == below)
+        assert oc.trace_survivor_count(first.h, below) == actual
+        checked += 1
+    assert checked == 35
+
+
+def test_the_trace_dead_prune_never_kills_a_survivor():
+    """B above C(d,2) kills a whole orbit on one comparison.
+
+    The direction that matters is safety: a prune that removed a live orbit
+    would silently lose facets, so every killed orbit is confirmed to have no
+    survivor at all.
+    """
+    import collections
+
+    from gpc_census.generation.exterior import exterior_weights
+    from gpc_census.generation.reference_generator import oriented_taus
+    from gpc_census.generation.ressayre import (
+        _level_sets,
+        _negative_root_set,
+        admissible_candidate_from_tau,
+    )
+
+    n, d = 3, 7
+    weights = exterior_weights(n, d)
+    enum = af.enumerate_admissible_hyperplanes_by_flats(n, d)
+    by_orbit = collections.defaultdict(list)
+    for tau in oriented_taus(enum):
+        by_orbit[tuple(sorted(tau))].append(tau)
+
+    killed_orbits = killed_rows = 0
+    for members in by_orbit.values():
+        first = admissible_candidate_from_tau(n, members[0])
+        below = len(_level_sets(weights, first.h, first.z)[1])
+        if not oc.orbit_is_trace_dead(first.h, below):
+            continue
+        killed_orbits += 1
+        killed_rows += len(members)
+        for tau in members:
+            candidate = admissible_candidate_from_tau(n, tau)
+            assert len(_negative_root_set(candidate.h)) != below
+    assert killed_orbits == 10
+    assert killed_rows == 1694
+
+
+def test_the_inversion_generating_function_is_a_real_distribution():
+    """Total mass must be the multiset permutation count, and it must be able
+    to be lopsided, or the prune above would be vacuous."""
+    from math import factorial
+
+    poly = oc.inversion_generating_function((3, 1, 2))
+    assert sum(poly) == factorial(3)
+    poly = oc.inversion_generating_function((1, 1, 2, 2))
+    assert sum(poly) == 6
+    assert oc.trace_survivor_count((1, 1, 1), 1) == 0

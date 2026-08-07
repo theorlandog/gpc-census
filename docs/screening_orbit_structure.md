@@ -130,6 +130,52 @@ violator replays.
    evaluation vanishes, which is the genuine algebraic-cancellation case:
    **55 of 6,607 at rank 8**.
 
+## The principle that predicts which shortcuts work
+
+Two orbit shortcuts were proposed and both died, for one reason. It is worth
+stating as a rule, because it decides future proposals without measuring them:
+
+> A quantity attached to a candidate is an `S_d` orbit invariant if and only if
+> it is defined from the weight configuration and the hyperplane WITHOUT
+> reference to the ORDER of the modes.
+
+- `B`, the count of weights below, is order free. **Invariant.**
+- `inv(h)`, the selected root set, and anything built on `negative_roots`
+  (which lists upward moves `i < j` only) are order referenced. **Not
+  invariant.**
+
+That kills verdict transport, and it also killed a second proposal tested here:
+an orbit-level Hall prune, running the matching against ALL roots as a superset
+in the hope of killing whole orbits before any row work. It looks sound and it
+is not: the all-roots bipartite graph **varies across 14 of the 35 rank-7
+orbits**, because `negative_roots` is itself chamber referenced.
+
+## What the principle does allow: an exact dead-orbit prune
+
+The trace test is `inv(sigma h) == B`, so the number of survivors in an orbit
+is the coefficient of `q^B` in the inversion generating function of `h`'s
+multiset, which is the Gaussian multinomial `[d]_q! / prod [m_i]_q!`. Both
+inputs are order free, so this is a genuine orbit invariant.
+
+**Checked against brute force on every rank-7 orbit: exact, 35 of 35.**
+
+Because it is exact rather than a bound, zero survivors is a proof that the
+whole orbit is dead:
+
+| system | orbits killed | rows killed |
+|---|---|---|
+| (3,6) | 3 of 15 | 32 of 724 (4.4%) |
+| (3,7) | 10 of 35 | 1,694 of 10,682 (15.9%) |
+
+That is EVERY dead orbit at those ranks, found at the cost of one polynomial
+per orbit and no row visits at all. The crude bound `B > C(d,2)` catches only 4
+of the 10 at rank 7, so the closed form is strictly sharper.
+
+`trace_survivor_count` and `orbit_is_trace_dead` implement it, and the same
+coefficient tells you the work an orbit will cost BEFORE doing it, which is
+what makes generating survivors directly a well-posed engineering step rather
+than a hope.
+
 ## Symmetry still on the table, and not yet used
 
 The stabilizer of a candidate in `S_d` permutes the weights below and the roots
