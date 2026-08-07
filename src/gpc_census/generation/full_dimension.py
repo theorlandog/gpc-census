@@ -1,10 +1,11 @@
-"""Exact full-dimension certificates for ``wedge^3 C^d``.
+"""Exact full-dimension certificates for ``wedge^n C^d``.
 
 The Bulois-Denis-Ressayre moment-cone theorem assumes that the moment cone
 has nonempty interior.  For a unitary representation this follows when one
 can exhibit a vector with zero infinitesimal compact stabilizer.  This module
 provides such an exhibit, with an exact finite-field certificate, for every
-rank ``7 <= d <= 13`` used by the generator program.
+rank ``7 <= d <= 13`` used by the generator program at ``n = 3``, and for the
+wider ``n = 4`` and ``n = 5`` census systems.
 
 Write an element of ``u(d)`` uniquely as ``A + i B``, where ``A`` is real
 skew-symmetric and ``B`` is real symmetric.  The vector constructed here has
@@ -14,8 +15,8 @@ real integer coefficients.  Consequently
 
 We form the two integer action matrices
 
-``so(d) -> wedge^3 R^d, A |-> A psi`` and
-``Sym(d) -> wedge^3 R^d, B |-> B psi``.
+``so(d) -> wedge^n R^d, A |-> A psi`` and
+``Sym(d) -> wedge^n R^d, B |-> B psi``.
 
 Full column rank modulo a prime exhibits a maximal integer minor that is
 nonzero modulo that prime.  The same minor is therefore nonzero over the
@@ -24,17 +25,22 @@ compact Lie stabilizer of ``psi`` is zero.  The certificate payload records
 the coefficient rule, prime, ranks, pivot-row minors, and their nonzero
 determinants, so verification uses integer arithmetic only.
 
-Rank six is deliberately rejected.  Independently of the chosen real vector
-in this construction, ``dim Sym(6) = 21`` is larger than
+Rank six at ``n = 3`` is deliberately rejected.  Independently of the chosen
+real vector in this construction, ``dim Sym(6) = 21`` is larger than
 ``dim wedge^3 R^6 = 20``, so the symmetric action map cannot be injective.
 The witness below has modular ranks 15 and 19, consistent with the separately
 known lower-dimensional Borland-Dennis cone.
 
-For ``m = binomial(d, 3)`` and ``n = dim u(d) = d^2``, dense matrix
-construction takes ``O(m n) = O(d^5)`` integer operations and storage.
-Gaussian elimination takes ``O(m n^2) = O(d^7)`` field operations; the two
+For ``m = binomial(d, n)`` and ``c = dim u(d) = d^2``, dense matrix
+construction takes ``O(m c) = O(d^2 binomial(d,n))`` integer operations and
+storage.  Gaussian elimination takes ``O(m c^2)`` field operations; the two
 minor determinants cost only ``O(d^6)`` more.  These bounds are deliberately
-simple and deterministic because this certificate is computed once per rank.
+simple and deterministic because this certificate is computed once per system.
+
+The particle number enters only through the wedge basis, so the argument is
+identical for every ``n``: the coefficient rule, the prime, the two action
+maps, and the minor replay are unchanged.  ``n`` defaults to three so every
+existing fixed-``N=3`` call site and stored certificate is untouched.
 """
 
 from __future__ import annotations
@@ -42,6 +48,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 from itertools import combinations
+from math import comb
 from typing import Final, Sequence
 
 
@@ -53,19 +60,32 @@ LCG_MULTIPLIER: Final = 1_103_515_245
 LCG_INCREMENT: Final = 12_345
 COEFFICIENT_MODULUS: Final = 100
 
-SEED_RULE: Final = (
-    "x_0=d; x_(k+1)=(1103515245*x_k+12345) mod 2^31; "
-    "c_k=1+(x_(k+1) mod 100), with 3-subsets in lexicographic order"
-)
+
+def seed_rule(n: int) -> str:
+    """Return the coefficient rule string for particle number ``n``.
+
+    At ``n = 3`` this reproduces ``SEED_RULE`` character for character, so
+    certificates stored before the generalization still replay.
+    """
+    return (
+        "x_0=d; x_(k+1)=(1103515245*x_k+12345) mod 2^31; "
+        f"c_k=1+(x_(k+1) mod 100), with {n}-subsets in lexicographic order"
+    )
+
+
+SEED_RULE: Final = seed_rule(3)
 
 
 @dataclass(frozen=True)
 class FullDimensionCertificate:
-    """Replayable zero-stabilizer certificate for ``wedge^3 C^d``.
+    """Replayable zero-stabilizer certificate for ``wedge^n C^d``.
 
     The two ``rank`` fields are ranks over ``F_prime``.  When they equal their
     respective column counts, the recorded nonzero minors prove the same full
     column ranks over the rationals and reals.
+
+    ``n`` is last and defaults to three so that positional construction of the
+    fixed-``N=3`` certificate is unchanged.
     """
 
     d: int
@@ -80,6 +100,7 @@ class FullDimensionCertificate:
     symmetric_pivot_rows: tuple[int, ...]
     skew_minor_determinant_mod_prime: int | None
     symmetric_minor_determinant_mod_prime: int | None
+    n: int = 3
 
     @property
     def is_full_dimensional(self) -> bool:
@@ -92,7 +113,12 @@ class FullDimensionCertificate:
         )
 
     def as_dict(self) -> dict[str, object]:
-        """Return the complete deterministic replay payload."""
+        """Return the complete deterministic replay payload.
+
+        The particle number is not a separate key: ``seed_rule`` already names
+        the subset size, so adding one would only churn every stored manifest
+        without recording anything new.
+        """
         return {
             "rank": self.d,
             "prime": self.prime,
@@ -112,18 +138,24 @@ class FullDimensionCertificate:
         }
 
 
-def _coefficients(d: int) -> tuple[int, ...]:
+def _coefficients(d: int, n: int = 3) -> tuple[int, ...]:
+    """Return ``binomial(d, n)`` deterministic coefficients seeded by ``d``.
+
+    The stream depends on ``d`` alone, so the ``n = 3`` coefficients are a
+    prefix or extension of any other ``n`` at the same rank.  That is harmless:
+    what the certificate needs is determinism, not independence across ``n``.
+    """
     state = d
     result: list[int] = []
-    for _ in range(d * (d - 1) * (d - 2) // 6):
+    for _ in range(comb(d, n)):
         state = (LCG_MULTIPLIER * state + LCG_INCREMENT) % LCG_MODULUS
         result.append(1 + state % COEFFICIENT_MODULUS)
     return tuple(result)
 
 
 def _matrix_unit_image(
-    occupied: tuple[int, int, int], row: int, column: int
-) -> tuple[tuple[int, int, int], int] | None:
+    occupied: tuple[int, ...], row: int, column: int
+) -> tuple[tuple[int, ...], int] | None:
     """Return ``E_(row,column) e_occupied`` in the ordered wedge basis."""
     if column not in occupied:
         return None
@@ -138,15 +170,15 @@ def _matrix_unit_image(
     target_position = sum(value < row for value in remaining)
     sign = -1 if (source_position + target_position) % 2 else 1
     remaining.insert(target_position, row)
-    return (remaining[0], remaining[1], remaining[2]), sign
+    return tuple(remaining), sign
 
 
 def _action_matrices(
-    d: int, coefficients: Sequence[int]
+    d: int, coefficients: Sequence[int], n: int = 3
 ) -> tuple[list[list[int]], list[list[int]]]:
-    basis = tuple(combinations(range(d), 3))
+    basis = tuple(combinations(range(d), n))
     if len(coefficients) != len(basis):
-        raise ValueError("coefficient count must equal binomial(d, 3)")
+        raise ValueError("coefficient count must equal binomial(d, n)")
     basis_index = {occupied: index for index, occupied in enumerate(basis)}
 
     skew_column_count = d * (d - 1) // 2
@@ -267,18 +299,18 @@ def _full_column_minor(
 
 
 @lru_cache(maxsize=None)
-def full_dimension_certificate(d: int) -> FullDimensionCertificate:
-    """Construct the deterministic exact certificate for rank ``d``.
+def full_dimension_certificate(d: int, n: int = 3) -> FullDimensionCertificate:
+    """Construct the deterministic exact certificate for ``wedge^n C^d``.
 
-    The returned payload can also represent failure.  In particular, rank
-    six has symmetric rank 19 modulo the certificate prime against the
+    The returned payload can also represent failure.  In particular, ``n = 3``
+    at rank six has symmetric rank 19 modulo the certificate prime against the
     required 21 and therefore has ``is_full_dimensional == False``.
     """
-    if d < 3:
-        raise ValueError("wedge^3 C^d requires d >= 3")
+    if n < 1 or d < n:
+        raise ValueError("wedge^n C^d requires 1 <= n <= d")
 
-    coefficients = _coefficients(d)
-    skew, symmetric = _action_matrices(d, coefficients)
+    coefficients = _coefficients(d, n)
+    skew, symmetric = _action_matrices(d, coefficients, n)
     skew_rank, skew_pivots = _rank_and_pivot_rows_mod(skew, CERTIFICATE_PRIME)
     symmetric_rank, symmetric_pivots = _rank_and_pivot_rows_mod(symmetric, CERTIFICATE_PRIME)
     expected_skew_rank = d * (d - 1) // 2
@@ -286,8 +318,9 @@ def full_dimension_certificate(d: int) -> FullDimensionCertificate:
 
     return FullDimensionCertificate(
         d=d,
+        n=n,
         prime=CERTIFICATE_PRIME,
-        seed_rule=SEED_RULE,
+        seed_rule=seed_rule(n),
         coefficients=coefficients,
         skew_rank=skew_rank,
         symmetric_rank=symmetric_rank,
@@ -304,14 +337,14 @@ def full_dimension_certificate(d: int) -> FullDimensionCertificate:
     )
 
 
-def require_full_dimension(d: int) -> FullDimensionCertificate:
-    """Return a certificate or reject a rank not certified by this witness."""
-    certificate = full_dimension_certificate(d)
+def require_full_dimension(d: int, n: int = 3) -> FullDimensionCertificate:
+    """Return a certificate or reject a system not certified by this witness."""
+    certificate = full_dimension_certificate(d, n)
     if not certificate.is_full_dimensional:
         raise ValueError(
-            f"wedge^3 C^{d} is not full-dimensional under the deterministic witness: "
-            f"ranks are ({certificate.skew_rank}, {certificate.symmetric_rank}) "
-            f"but ({certificate.expected_skew_rank}, "
+            f"wedge^{n} C^{d} is not full-dimensional under the deterministic "
+            f"witness: ranks are ({certificate.skew_rank}, "
+            f"{certificate.symmetric_rank}) but ({certificate.expected_skew_rank}, "
             f"{certificate.expected_symmetric_rank}) are required"
         )
     return certificate
@@ -319,11 +352,13 @@ def require_full_dimension(d: int) -> FullDimensionCertificate:
 
 def verify_full_dimension_certificate(certificate: FullDimensionCertificate) -> bool:
     """Replay a certificate from its public payload using exact arithmetic."""
-    if certificate.prime != CERTIFICATE_PRIME or certificate.seed_rule != SEED_RULE:
+    if certificate.prime != CERTIFICATE_PRIME:
         return False
-    if certificate.coefficients != _coefficients(certificate.d):
+    if certificate.seed_rule != seed_rule(certificate.n):
         return False
-    expected = full_dimension_certificate(certificate.d)
+    if certificate.coefficients != _coefficients(certificate.d, certificate.n):
+        return False
+    expected = full_dimension_certificate(certificate.d, certificate.n)
     return certificate == expected
 
 
@@ -331,6 +366,7 @@ __all__ = [
     "CERTIFICATE_PRIME",
     "FullDimensionCertificate",
     "SEED_RULE",
+    "seed_rule",
     "full_dimension_certificate",
     "require_full_dimension",
     "verify_full_dimension_certificate",

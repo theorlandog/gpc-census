@@ -120,17 +120,41 @@ Superseded, kept as the record of what it found. Do not rerun as a task.
 
 Strict order, one gate per session minimum, prereg per gate:
 
-1. (3,7) exhaustiveness. DONE 2026-08-05, all seven pre-registered
-   predictions PASS, prereg frozen at 9c55f1b before the run. (3,7) is EXACT
-   by the inner/outer closure: 10 vertices matching the reference, every row
-   certified on independent replay, every vertex carrying an exact attaining
-   state. Controls confirm the four rows cut the 13-vertex ordered slice to 10
-   and that each row individually changes the polytope. Candidate
-   exhaustiveness is bypassed, not proved.
-   [docs/generator_gate1_3_7.md; results/data/generator_gate1_3_7.json]
-2. (3,8) gate: first rank with interference vertices; the honest stress test.
-3. (3,9)/(3,10) blind reproduction against the census's own tables.
-4. Full (3,11): candidates, Ressayre screen, relative H-system, then the
+1. (3,7). CLOSED TWICE, and no longer a gate. Corrected 2026-08: an earlier
+   version of this step read "candidate exhaustiveness is bypassed, not
+   proved", which is true of the inner/outer closure alone and made rank 7 look
+   open when it is not.
+   (a) INNER/OUTER CLOSURE, DONE 2026-08-05, all seven pre-registered
+   predictions PASS, prereg frozen at 9c55f1b before the run: 10 vertices
+   matching the reference, every row certified on independent replay, every
+   vertex carrying an exact attaining state, and controls confirming the four
+   rows cut the 13-vertex ordered slice to 10 with each row individually
+   changing the polytope. This route bypasses exhaustiveness.
+   (b) CANDIDATE EXHAUSTIVENESS, proved separately by the closed-flat
+   enumerator (`docs/fixed_n3_generator_methodology.md`): 5,341 hyperplanes in
+   place of 1,623,160 candidate bases, 10,682 oriented rows, screening
+   resolving every one of them with none unresolved (10,133 trace failures, 499
+   exact determinant zeros, 1 structural Pauli row, 49 nonstructural Ressayre
+   rows), and exact reduction returning the four published facets. So rank 7
+   has system completeness, not just a relative system.
+   [docs/generator_gate1_3_7.md; results/data/generator_gate1_3_7.json;
+   results/data/stage1_reference_series.json]
+2. WEYL-ORBIT CANONICAL ENUMERATOR, before grinding rank-8 flats. Orbit
+   reduction is the one pruning the standing rule permits, since the moment
+   polytope is Weyl invariant and the ordered slice is a fundamental domain, so
+   nothing is discarded. Measured payoff: 362 hyperplanes in 8 orbits at rank 6
+   and 5,341 in 19 at rank 7, reductions of 45x and 281x, so the raw count
+   explodes while the orbit count barely moves. The right algorithm never
+   materializes the flat lattice; it enumerates orbit representatives by
+   canonical augmentation.
+   [docs/prereg_orbit_canonical_flats.md; scripts/orbit_canonical_flats.py;
+   results/data/orbit_canonical_flats.json]
+3. (3,8) gate: first rank with interference vertices; the honest stress test.
+   Flat lattice already enumerated,
+   [1, 56, 1540, 21420, 147630, 467082, 565208, 166420], 166,420 admissible
+   hyperplanes against C(56,7) = 2.3e8 for brute force.
+4. (3,9)/(3,10) blind reproduction against the census's own tables.
+5. Full (3,11): candidates, Ressayre screen, relative H-system, then the
    exhaustiveness proof per the claim ladder in
    `docs/fixed_n3_generator_methodology.md`. No level of the ladder implies
    the next without its named certificate.

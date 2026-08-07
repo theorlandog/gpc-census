@@ -178,12 +178,13 @@ being tested:
 
 | prediction | mechanism | result |
 |---|---|---|
+| mode-coherent partial sums are rational (P-B1-2) | they are 2-RDM entries and (H2) makes 1-RDM channel targets rational | **FAILED**, 6 of 25 irrational |
 | non-monomial radicands only at class size >= 3 | the quadratic formula adjoins a discriminant, not a monomial | CONFIRMED, 63 of 63 states |
 | cross-block channel necessary for a two-fiber gap | the silence-rank lemma's cross-block clause | CONFIRMED, 799 of 799, 0 exceptions |
 | the v_B Galois orbit has size 2 | Galois acts on the wall parameter; both roots solve the same quadratic | CONFIRMED, both attain exactly |
 | ratio > 1 implies generic interference | sparsity and diagonality cannot share a basis outside design and cancellation | CONFIRMED, 141 of 141 |
 
-    4 scored, 4 confirmed.
+    5 scored, 4 confirmed, 1 outright failure.
 
 **NEAR MISS, and it belongs in the tally.** A fifth mechanism-first idea was
 proposed at the end of the arc and did not survive: that v103's several
@@ -198,11 +199,22 @@ signs). The unifying clause was pulled from the manuscript outlook and
 relocated to RESEARCH.md's open-problem register; the two certified counts
 stay in the results section as data.
 
-Scored honestly, mechanism-first therefore runs 4 confirmed, 1 partial. The
-4 of 4 above should not be quoted without this line: the difference between
-this near miss and the eleven dead mined laws is not that it was luckier, it
-is that it was checked before being asserted, and the check is what caught
-the half that was wrong.
+Scored honestly, mechanism-first therefore runs 4 confirmed, 1 partial, 1
+outright failure. The failure is P-B1-2 (`docs/polygon_diagonals.md`), added
+2026-08: mode-coherent partial sums were predicted rational because they are
+2-RDM entries and (H2) makes 1-RDM channel targets rational. The mechanism was
+half right in a way that makes the failure informative rather than embarrassing.
+The identification is EXACT, 25 of 25, so those partial sums really are
+`rho^(2)_{AC,BC}`; the arithmetic conclusion is false, 6 of 25 are irrational,
+so (H2) does not extend from the 1-RDM to the 2-RDM. A structurally correct
+mechanism with a false arithmetic consequence is a new failure mode for this
+tally and it should not be filed as a near miss.
+
+So mechanism-first is no longer 4 of 4, and the earlier count should not be
+quoted without this line. What survives is the comparison, not the perfect
+record: mined laws run 10 scored and 10 dead, mechanism-first runs 5 scored
+with 4 confirmed. The difference is not luck, it is that each was checked
+before being asserted, and the check is what caught the parts that were wrong.
 
 This is the single most useful methodological finding of the arc, and it is
 what the ordering rule "mechanism before mining" is now based on. It is also
@@ -225,7 +237,16 @@ and not a law about the universe.
 
 **CONFIRMED BY CENSUS**, with scope stated.
 
+- The SINE field `Q(sin Phi)` is a one-hop-class invariant, 44 of 44
+  non-vacuous pairs over 11 transport classes, values 0, 7, 15, 23, 47, 71
+  (`sine_field.json`). It is a different object from the holonomy field
+  `Q(cos Phi)`, and at (3,10) v75 it is invisible to it: every loop there has
+  degree 1 with no cosine radicand, yet the sines carry `sqrt(15)`.
+
 - 82 of 82 loop holonomies 2-elementary, degrees 1, 2, 4.
+- (R1) holds on all 54 within-class holonomies of the 17 large classes,
+  `cos^2` of degree 1 on 26 and degree 2 on 28 (`polygon_diagonals.json`).
+  Now PROVED rather than measured at all 17 (`class_closure.json`).
 - 740 of 740 fixed-rho rigid records have rational weights, with the power
   warning: all 645 natural-orbital representatives are rigid, so the
   discriminating power lies entirely in the non-natural-orbital population.
@@ -235,7 +256,32 @@ and not a law about the universe.
 **OPEN.**
 
 - Holonomy Rationality at class sizes 3 and 4 (17 classes census-wide);
-  scoped rather than extended, deliberately. **Narrowed 2026-08**
+  scoped rather than extended, deliberately. **CLOSED census-wide 2026-08**
+  (`docs/class_closure.md`): Theorem E generalises Theorem D by dropping the
+  size-2 hypothesis, since what propagates rationality is the rank-2 Gram matrix
+  and not the linking class's size. All 17 large classes now have multiquadratic
+  within-class holonomy cosines with C4 and D4 excluded, grounded in Theorem A
+  with no checked arithmetic hypothesis. The last class closed because v103 is
+  real up to gauge, so both feeding sines vanish and the Theorem E discriminant
+  is exactly zero. Still open: whether the linking structure must exist at all,
+  which is verified per class and not proved, and which (3,10) v103 already
+  showed cannot be had from a one-step size-2 conjecture. **Largely CLOSED
+  2026-08**
+  (`docs/shared_loop_rationality.md`): Theorem D proves the rational diagonal
+  is Theorem A read through a loop shared with a size-2 class, and Theorem C'
+  gives multiquadratic at ANY class size from a rank-2 Gram matrix. 16 of the 17
+  large classes are now PROVED end to end with no checked arithmetic hypothesis.
+  Still open: the last class, (3,10) v103 channel (1,6), and the well-foundedness
+  of the class-linking recursion. The clean one-step conjecture that would have
+  closed it is REFUTED by that same class. **Narrowed again 2026-08**
+  (`docs/polygon_diagonals.md`): Theorem C PROVES (R1) at class size 3 from a
+  RATIONAL DIAGONAL, by the singular Gram matrix of three vectors in the plane,
+  with C4 and D4 excluded rather than merely absent; machine-checked with Gram
+  residual exactly 0 on 17 of 17 classes. What is still open is the hypothesis
+  itself, and it is sharper than what it replaces: prove every size-3 one-hop
+  class carries a rational diagonal, or exhibit one that does not. That all 17
+  census classes do is POST-HOC and needs an out-of-sample test. **Narrowed
+  2026-08**
   (`docs/holonomy_two_elementary.md`): 2-elementarity is now PROVED to follow
   from (R1) `deg_Q(cos^2 Phi) <= 2` and (R2) `N(cos^2 Phi)` a rational square
   at degree 4, both confirmed 82/82 and 13/13, and the reduction derives every
