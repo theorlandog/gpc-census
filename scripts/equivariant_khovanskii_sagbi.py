@@ -108,7 +108,10 @@ def hw_support(n: int, d: int, m: int, deadline: float | None = None):
     for index, lam in enumerate(partitions(n * m, maxpart=m)):
         if len(lam) > d:
             continue
-        if deadline is not None and not index % 64 and time.time() > deadline:
+        # Checked often, because one Murnaghan-Nakayama evaluation at the top
+        # of the range costs seconds: a coarse stride overshoots the budget by
+        # minutes rather than by the intended fraction of a degree.
+        if deadline is not None and not index % 4 and time.time() > deadline:
             return None
         mult = sum(
             coefficient * mn(lam, tuple(sorted(mu, reverse=True)))
@@ -119,25 +122,67 @@ def hw_support(n: int, d: int, m: int, deadline: float | None = None):
     return out
 
 
-def semigroup(n: int, d: int, max_m: int, budget: float, log=print):
-    """Return `(levels, reached, status, secs)` for `S(n,d)` up to `max_m`."""
+def _cache_paths(cache: pathlib.Path | None, n: int, d: int):
+    if cache is None:
+        return None, None
+    cache.mkdir(parents=True, exist_ok=True)
+    return cache / f"levels_{n}_{d}.json", cache / f"spent_{n}_{d}.json"
+
+
+def semigroup(n: int, d: int, max_m: int, budget: float, log=print,
+              cache: pathlib.Path | None = None):
+    """Return `(levels, reached, status, secs)` for `S(n,d)` up to `max_m`.
+
+    The budget is CUMULATIVE compute, not wall clock of one process. Levels are
+    exact and deterministic, so a cached level is replayed for free on a
+    resumed run, and the seconds actually spent producing new levels are
+    carried across resumes in the cache. Enforcing the budget against that
+    running total is what keeps a restarted run inside the declared scope
+    instead of silently buying more degrees every time it is relaunched.
+    """
+    levels_path, spent_path = _cache_paths(cache, n, d)
     levels: dict[int, dict[tuple[int, ...], int]] = {}
-    started = time.time()
-    deadline = started + budget
-    reached = 0
+    spent = 0.0
+    if levels_path is not None and levels_path.exists():
+        stored = json.loads(levels_path.read_text())
+        levels = {int(m): {tuple(row["lam"]): row["mult"] for row in rows}
+                  for m, rows in stored.items()}
+        spent = json.loads(spent_path.read_text())["seconds"] if \
+            spent_path.exists() else 0.0
+        if levels:
+            log(f"  ({n},{d}) resumed from cache: degrees <= {max(levels)}, "
+                f"{spent:.1f}s already spent")
+
+    def persist() -> None:
+        if levels_path is None:
+            return
+        levels_path.write_text(json.dumps(
+            {str(m): [{"lam": list(lam), "mult": mult}
+                      for lam, mult in sorted(level.items())]
+             for m, level in levels.items()}))
+        spent_path.write_text(json.dumps({"seconds": round(spent, 1)}))
+
+    reached = max(levels) if levels else 0
     for m in range(1, max_m + 1):
-        if time.time() > deadline:
+        if m in levels:
+            reached = m
+            continue
+        if spent >= budget:
             break
-        level = hw_support(n, d, m, deadline)
+        started = time.time()
+        level = hw_support(n, d, m, started + (budget - spent))
+        spent += time.time() - started
         if level is None:
             log(f"  ({n},{d}) m={m}: abandoned on budget, level discarded")
+            persist()
             break
         levels[m] = level
         reached = m
-        log(f"  ({n},{d}) m={m}: |S_m|={len(level)} "
-            f"[{time.time() - started:.1f}s]")
+        persist()
+        log(f"  ({n},{d}) m={m}: |S_m|={len(level)} [{spent:.1f}s cumulative]")
+    persist()
     status = "complete" if reached == max_m else "operational"
-    return levels, reached, status, round(time.time() - started, 1)
+    return levels, reached, status, round(spent, 1)
 
 
 # --------------------------------------------------------------------------
@@ -503,17 +548,32 @@ def leading_values(basis, kernel, key) -> list[tuple[int, ...]]:
 
 
 def term_order_semigroup(n: int, d: int, max_m: int, budget: float, name: str,
-                         log=print):
+                         log=print, cache: pathlib.Path | None = None):
     """Value semigroup of the term-order valuation `name`, with a gate count."""
     subs = subsets(n, d)
     index_of = {s: i for i, s in enumerate(subs)}
     key = order_key(name, subs)
     levels: dict[int, set] = {}
     gate_ok, gate_total = 0, 0
+    path = None
+    if cache is not None:
+        cache.mkdir(parents=True, exist_ok=True)
+        path = cache / f"term_{name}_{n}_{d}.json"
+        if path.exists():
+            stored = json.loads(path.read_text())
+            levels = {int(m): {tuple(v) for v in values}
+                      for m, values in stored["levels"].items()}
+            gate_ok, gate_total = stored["gate_ok"], stored["gate_total"]
+            if levels:
+                log(f"  ({n},{d}) {name} resumed from cache: "
+                    f"degrees <= {max(levels)}")
     started = time.time()
     deadline = started + budget
-    reached = 0
+    reached = max(levels) if levels else 0
     for m in range(1, max_m + 1):
+        if m in levels:
+            reached = m
+            continue
         if time.time() > deadline:
             break
         support = hw_support(n, d, m, deadline)
@@ -539,6 +599,11 @@ def term_order_semigroup(n: int, d: int, max_m: int, budget: float, name: str,
             break
         levels[m] = here
         reached = m
+        if path is not None:
+            path.write_text(json.dumps({
+                "levels": {str(k): [list(v) for v in sorted(value)]
+                           for k, value in levels.items()},
+                "gate_ok": gate_ok, "gate_total": gate_total}))
         log(f"  ({n},{d}) {name} m={m}: |values|={len(here)} "
             f"[{time.time() - started:.1f}s]")
     status = "complete" if reached == max_m else "operational"
@@ -572,7 +637,20 @@ def padding_report(gens_by_system: dict, n: int, ranks: list[int],
 
 def particle_hole_report(levels: dict[int, dict], n: int, d: int,
                          reached: int) -> dict:
-    """`lambda -> (m - lambda_d, ..., m - lambda_1)` must preserve `S(n,d)`."""
+    """`lambda -> (m - lambda_d, ..., m - lambda_1)` carries `S(n,d)` to `S(d-n,d)`.
+
+    It is a SELF-map only when `2n = d`, because
+    `wedge^n C^d` is `(wedge^n C^d)^*` twisted by `det` exactly there. At every
+    other system the complement lands in a different algebra, which is not in
+    scope, so the row is NOT_APPLICABLE and is never counted as a failure.
+    Running the self-map anyway and reporting its mismatches would report the
+    definition of the transport as if it were a defect.
+    """
+    if 2 * n != d:
+        return {"system": f"({n},{d})", "self_dual": False,
+                "verdict": "NOT_APPLICABLE", "checked": 0, "failures": 0,
+                "reason": f"the complement lands in ({d - n},{d}), not in scope",
+                "witnesses": []}
     checked, failures = 0, []
     for m in range(1, reached + 1):
         here = set(levels[m])
@@ -581,8 +659,10 @@ def particle_hole_report(levels: dict[int, dict], n: int, d: int,
             checked += 1
             if dual not in here:
                 failures.append([m, list(lam), list(dual)])
-    return {"system": f"({n},{d})", "checked": checked,
-            "failures": len(failures), "witnesses": failures[:5]}
+    return {"system": f"({n},{d})", "self_dual": True,
+            "verdict": "PASS" if not failures else "FAIL",
+            "checked": checked, "failures": len(failures),
+            "witnesses": failures[:5]}
 
 
 # --------------------------------------------------------------------------
@@ -607,6 +687,11 @@ def summarize(name: str, levels, reached, generators, window: int,
         "minimal_generators": len(inside),
         "primitive_generators": (len(primitive) if primitive is not None else None),
         "max_generator_degree": max((g[0] for g in inside), default=0),
+        # A maximum generator degree equal to the window is NOT a bound: it
+        # says the window ran out before the generators did. Only a strict
+        # inequality here establishes that the generating set is finished.
+        "generator_degree_saturates_window":
+            max((g[0] for g in inside), default=0) == window,
         "compression_ratio": (round(len(inside) / raw, 4) if raw else None),
         "generators_by_degree": {
             str(m): sum(1 for g in inside if g[0] == m) for m in range(1, window + 1)
@@ -620,6 +705,10 @@ def main() -> int:
                         help="short budgets for a smoke run; not the scored scope")
     parser.add_argument("--out", type=pathlib.Path, default=OUT,
                         help="write elsewhere; used to smoke-test the verifier")
+    parser.add_argument("--cache", type=pathlib.Path, default=None,
+                        help="resume from and write exact level checkpoints; "
+                             "the per-system budget stays cumulative across "
+                             "resumes, so a restart never buys extra degrees")
     args = parser.parse_args()
 
     v2_max = 8 if args.quick else V2_MAX_M
@@ -653,7 +742,8 @@ def main() -> int:
     raw_levels: dict = {}
     gens_by_system: dict = {}
     for n, d in v2_systems:
-        levels, reached, status, secs = semigroup(n, d, v2_max, v2_budget)
+        levels, reached, status, secs = semigroup(
+            n, d, v2_max, v2_budget, cache=args.cache)
         as_sets = {m: set(levels[m]) for m in levels}
         generators, violations = minimal_generators(as_sets, reached)
         raw_levels[(n, d)] = (as_sets, reached)
@@ -728,12 +818,13 @@ def main() -> int:
 
     # ---- V1 and V3, the term-order valuations -----------------------------
     term_rows, term_gate, term_closure, term_heldout, term_raw = [], [], [], [], []
+    term_data: dict = {}
     for name in ("v1", "v3"):
         print(f"{name} term-order valuation")
         for n, d in v13_systems:
             cap = V13_MAX_M[(n, d)]
             levels, reached, status, ok, total, secs = term_order_semigroup(
-                n, d, cap, v13_budget, name)
+                n, d, cap, v13_budget, name, cache=args.cache)
             generators, violations = minimal_generators(levels, reached)
             width = math.comb(d, n)
             term_rows.append(summarize(name, levels, reached, generators, reached,
@@ -750,6 +841,7 @@ def main() -> int:
             test = [m for m in (fit + 1, fit + 2) if m <= reached]
             term_heldout.append({"system": f"({n},{d})", "valuation": name}
                                 | held_out(generators, levels, fit, test, width))
+            term_data[((n, d), name)] = (levels, reached, generators)
             term_raw.append({
                 "system": f"({n},{d})", "valuation": name, "reached": reached,
                 "value_width": width,
@@ -759,6 +851,22 @@ def main() -> int:
             })
     payload["v1_v3_by_system"] = term_rows
     payload["raw_term_order"] = term_raw
+    # A fair comparison needs the SAME degree window on all three valuations.
+    # The term orders stop earlier than the highest-weight side, so quoting
+    # each at its own reach would credit v2 with degrees v1 and v3 never saw.
+    matched = []
+    for (n, d), name in sorted(term_data, key=lambda k: (k[1], k[0])):
+        levels, reached, generators = term_data[((n, d), name)]
+        entry = v2.get((n, d))
+        if entry is None:
+            continue
+        window = min(reached, entry["reached"])
+        matched.append(summarize("v2", entry["levels"], entry["reached"],
+                                 entry["generators"], window, n, d,
+                                 weights=True))
+        matched.append(summarize(name, levels, reached, generators, window,
+                                 n, d, weights=False))
+    payload["valuation_comparison_matched_window"] = matched
     payload["hw_dimension_gate"] = term_gate
     payload["term_order_closure_gate"] = term_closure
     payload["held_out_degree_term_orders"] = term_heldout
