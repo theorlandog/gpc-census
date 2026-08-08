@@ -1634,6 +1634,24 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   `area_distribution` fields its own generator emits. Every shared key agrees
   exactly, so it is a trimmed copy rather than a different computation, but its
   SHA256SUMS pins a file the script does not reproduce.
+- 🟦 FOLLOW-UP MEMO, three refinements checked. TRANSPOSE ORBITS reproduce
+  exactly, 993 / 4,249 / 11,478 at (10,20) / (15,30) / (20,40), with 46 / 89 /
+  139 self-conjugate diagrams. The DURFEE BOUND is correct, `binom(2r,r) <=
+  budget` giving `r <= 4,4,5,5`, and it SURVIVES the zero-layer refutation
+  because the answer is the same for budget and budget+1; measured max Durfee
+  rank of a positive weight is 2 on the census against a bound of 3, so the
+  fixed-width Frobenius encoding is sound.
+- ❗ THE PER-LEVI BUDGET IS ALREADY IN THE REPOSITORY. `R_L = sum_{i<j} m_i m_j
+  = (d^2 - sum m_i^2)/2` is exactly
+  `gpc_census.generation.orbit_canonical._max_inversions`, identical on 400
+  random Levi types, and `orbit_is_trace_dead` already applies it. Not a
+  refinement to implement; the sharp form the survivor generator has been using,
+  which is independent evidence the budget is the right quantity.
+- ❗ AND IT CUTS BOTH WAYS, which the memo does not say. A smaller budget is a
+  stronger claim on BOTH sides: the positive half survives the tightening
+  (280/280 for both the family size and every positive weight), while the zero
+  half degrades from 22 failures out of 280 to 70 out of 280. Adopting the
+  per-Levi budget is right AND it widens the sign-control gap.
 - 🔬 Claims resting on the BDR implementation remain unverified here;
   bdr_constructor_comparison.md records that the pinned backend cannot be
   fetched or run in this environment and labels that benchmark INCOMPLETE.

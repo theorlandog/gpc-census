@@ -120,6 +120,61 @@ def test_violations_carry_a_witness():
             assert violation["distinct_levels"] < len(violation["tau"])
 
 
+def test_per_levi_budget_is_the_repository_max_inversions():
+    """The proposed refinement is a function the repository already applies."""
+    identity = _artifact()["levi_budget_identity"]
+    assert identity["identical_to_max_inversions"]
+    assert identity["mismatches"] == 0
+    assert identity["trials"] == 400
+    assert MODULE.levi_budget([2, 2, 1], 5) == (25 - 9) // 2
+
+
+def test_per_levi_budget_sharpens_positive_and_aggravates_zero():
+    """A smaller budget is a stronger claim on both sides."""
+    artifact = _artifact()["census_validation"]
+    uniform_zero = 0
+    levi_zero = 0
+    for record in artifact.values():
+        mechanisms = record["mechanisms"]
+        assert record["levi_positive_family_within_budget"] == mechanisms
+        assert record["levi_positive_weight_bound_holds"] == mechanisms
+        assert record["levi_zero_weight_bound_holds"] < mechanisms
+        assert (
+            record["levi_zero_weight_bound_holds"]
+            <= record["zero_weight_uniform_bound_holds"]
+        )
+        uniform_zero += mechanisms - record["zero_weight_uniform_bound_holds"]
+        levi_zero += mechanisms - record["levi_zero_weight_bound_holds"]
+    assert uniform_zero == 22
+    assert levi_zero == 70
+
+
+def test_durfee_bound_holds_with_slack():
+    for record in _artifact()["census_validation"].values():
+        measured = record["measured_max_durfee_rank_of_positive_weights"]
+        assert measured == 2
+        assert measured <= record["durfee_rank_bound_from_global_budget"] == 3
+
+
+def test_half_filling_transpose_orbit_counts():
+    transpose = _artifact()["half_filling_transpose"]
+    assert transpose["(10,20)"]["transpose_orbits"] == 993
+    assert transpose["(15,30)"]["transpose_orbits"] == 4249
+    assert transpose["(20,40)"]["transpose_orbits"] == 11478
+    for record in transpose.values():
+        assert record["applies"]
+        assert (
+            record["sign_control_universe"] + record["self_conjugate"]
+            == 2 * record["transpose_orbits"]
+        )
+
+
+def test_transpose_is_an_involution_of_the_rectangle():
+    assert MODULE.transpose((3, 1, 0), 3) == (2, 1, 1)
+    assert MODULE.transpose(MODULE.transpose((3, 1, 0), 3), 3) == (3, 1, 0)
+    assert MODULE.transpose_orbit_counts(3, 10)["applies"] is False
+
+
 def test_verdict_records_both_halves():
     verdict = _artifact()["verdict"]
     assert verdict["positive_layer_bound"].startswith("HOLDS")

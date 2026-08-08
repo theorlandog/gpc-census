@@ -49,6 +49,7 @@ import argparse
 import hashlib
 import itertools
 import json
+import collections
 import math
 import pathlib
 import sys
@@ -146,6 +147,83 @@ def subset_to_partition(subset, particle_number: int) -> tuple[int, ...]:
     )
 
 
+def durfee_rank(partition) -> int:
+    return sum(1 for index, value in enumerate(partition) if value > index)
+
+
+def transpose(partition, rows: int):
+    if not any(partition):
+        return tuple([0] * rows)
+    columns = max(partition)
+    conjugate = [sum(1 for value in partition if value > column) for column in range(columns)]
+    return tuple(conjugate + [0] * rows)[:rows]
+
+
+def levi_budget(multiplicities, d: int) -> int:
+    """R_L = sum_{i<j} m_i m_j = (d^2 - sum m_i^2) / 2."""
+    return (d * d - sum(value * value for value in multiplicities)) // 2
+
+
+def levi_budget_matches_repository(trials: int = 400) -> dict:
+    """R_L is the repository's existing maximum-inversion bound, not a new one."""
+    import random
+
+    from gpc_census.generation.orbit_canonical import _max_inversions
+
+    rng = random.Random(3)
+    mismatches = 0
+    for _ in range(trials):
+        d = rng.randrange(4, 14)
+        parts = []
+        remaining = d
+        while remaining > 0:
+            piece = rng.randrange(1, remaining + 1)
+            parts.append(piece)
+            remaining -= piece
+        counts = {index: value for index, value in enumerate(parts)}
+        if levi_budget(parts, d) != _max_inversions(counts, d):
+            mismatches += 1
+    return {
+        "trials": trials,
+        "mismatches": mismatches,
+        "identical_to_max_inversions": mismatches == 0,
+        "note": (
+            "The per-Levi budget is gpc_census.generation.orbit_canonical."
+            "_max_inversions, which orbit_is_trace_dead already applies, so it "
+            "is the sharp form the survivor generator uses rather than a new "
+            "quantity to implement."
+        ),
+    }
+
+
+def transpose_orbit_counts(particle_number: int, orbitals: int) -> dict:
+    """Half-filling transpose quotient of the sign-control universe."""
+    if 2 * particle_number != orbitals:
+        return {"applies": False, "reason": "transpose is an involution only when 2N = d"}
+    budget = math.comb(orbitals, 2)
+    columns = orbitals - particle_number
+    count = subpartition_counter(particle_number, columns)
+    initial = (0,) * particle_number
+    queue = deque([initial])
+    seen = {initial}
+    universe = set()
+    while queue:
+        alpha = queue.popleft()
+        universe.add(alpha)
+        if count(alpha) <= budget + 1:
+            for child in addable_partitions(alpha, columns):
+                if child not in seen:
+                    seen.add(child)
+                    queue.append(child)
+    fixed = sum(1 for alpha in universe if transpose(alpha, particle_number) == alpha)
+    return {
+        "applies": True,
+        "sign_control_universe": len(universe),
+        "self_conjugate": fixed,
+        "transpose_orbits": (len(universe) + fixed) // 2,
+    }
+
+
 def surviving_mechanisms(n: int, d: int, source: str, checkpoint_dir=None):
     """Sorted-tau shapes carrying at least one Ressayre trace survivor."""
     import importlib.util
@@ -196,10 +274,22 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
     largest_positive_family = 0
     max_distinct_levels = 0
     uniform_violations: list[dict] = []
+    levi_positive_family = 0
+    levi_positive_bound = 0
+    levi_zero_bound = 0
+    measured_durfee = 0
+    levi_budget_min = None
+    levi_budget_max = 0
 
     for key in surviving_mechanisms(n, d, source, checkpoint_dir=checkpoint_dir):
         mechanisms += 1
         tau = tuple(sorted(key, reverse=True))
+        multiplicities = list(collections.Counter(tau).values())
+        budget_levi = levi_budget(multiplicities, d)
+        levi_budget_min = (
+            budget_levi if levi_budget_min is None else min(levi_budget_min, budget_levi)
+        )
+        levi_budget_max = max(levi_budget_max, budget_levi)
         levels = len(set(tau))
         max_distinct_levels = max(max_distinct_levels, levels)
         if levels == d:
@@ -230,6 +320,16 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
 
         if all(size <= budget for size in positive_ideals):
             positive_holds += 1
+        if len(positive) <= budget_levi:
+            levi_positive_family += 1
+        if all(size <= budget_levi for size in positive_ideals):
+            levi_positive_bound += 1
+        if all(size <= budget_levi + 1 for size in zero_ideals):
+            levi_zero_bound += 1
+        for member in positive:
+            measured_durfee = max(
+                measured_durfee, durfee_rank(subset_to_partition(member, n))
+            )
         if all(size <= budget + 1 for size in zero_ideals):
             zero_holds_uniform += 1
         elif len(uniform_violations) < 5:
@@ -264,6 +364,14 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
         "zero_weight_corrected_bound_holds": zero_holds_corrected,
         "worst_zero_weight_ideal": worst_zero_ideal,
         "uniform_bound_violations": uniform_violations,
+        "levi_budget_range": [levi_budget_min, levi_budget_max],
+        "levi_positive_family_within_budget": levi_positive_family,
+        "levi_positive_weight_bound_holds": levi_positive_bound,
+        "levi_zero_weight_bound_holds": levi_zero_bound,
+        "measured_max_durfee_rank_of_positive_weights": measured_durfee,
+        "durfee_rank_bound_from_global_budget": max(
+            (r for r in range(1, 12) if math.comb(2 * r, r) <= budget), default=0
+        ),
         "seconds": round(time.perf_counter() - started, 1),
     }
 
@@ -328,6 +436,11 @@ def main() -> int:
         "root_budget": root_budget,
         "boundary_layers": layers,
         "census_validation": census,
+        "levi_budget_identity": levi_budget_matches_repository(),
+        "half_filling_transpose": {
+            f"({n},{d})": transpose_orbit_counts(n, d)
+            for n, d in ((10, 20), (15, 30), (20, 40))
+        },
         "verdict": {
             "positive_layer_bound": (
                 "HOLDS, and needs no regularity: below a positive weight every "
@@ -343,6 +456,15 @@ def main() -> int:
                 "Regular mechanisms are rare: none at ranks 7 and 8, three of "
                 "191 at rank 9. The regular stratum the (20,40) counts describe "
                 "is therefore not where the known mechanisms live."
+            ),
+            "per_levi_budget": (
+                "SHARPENS the positive half and AGGRAVATES the zero half. "
+                "R_L = (d^2 - sum m_i^2)/2 is the repository's own "
+                "_max_inversions, so orbit_is_trace_dead already applies it. "
+                "Every positive bound still holds under R_L, which is strictly "
+                "smaller than binom(d,2); the zero bound fails more often "
+                "under R_L than under the global budget, exactly because the "
+                "budget shrinks."
             ),
             "corrected_zero_bound": (
                 "|down I| <= binom(d,2) + |Omega_0| holds on every mechanism "
