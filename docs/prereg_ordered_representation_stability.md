@@ -271,3 +271,71 @@ Any one of these, taken from the artifact:
 3. held-out coverage of 100 percent at rank 10;
 4. `pi` preserving facetness exactly, which would make `F(N,-)` a subfunctor
    rather than merely `V(N,-)`.
+
+## SCORED (2026-08-08, after running; predictions above are unedited)
+
+Verdicts are read from `results/data/ordered_representation_stability.json`
+(`scorecard` block), which the measuring script computes so that no verdict is
+retyped by hand. Independent scope is the PRIMITIVE count, since padding and
+frozen-core rows are functions of their donors.
+
+| prediction | verdict | scope | independent scope | measured |
+|---|---|---|---|---|
+| P1 terminal restriction total | CONFIRMATORY-PASS | 726 | 293 | 724 nontrivial, all valid; 2 trivial |
+| P2 non-terminal restriction fails | PASS | 6258 | 293 | 3048 invalid pairs of 6258 |
+| P3 tight extension is a section | PASS | 620 | 159 | 620 round trips exact |
+| P4 extension does not preserve facetness | PASS | 620 | 159 | 5 misses |
+| P5 primitive counts do not vanish | **FAIL** | 176 | 89 | 27, 21, 41 at (3,8..10) |
+| P6 width unbounded | PASS | 181 | 94 | 4, 6, 7, 8, 9 |
+| P7 height unbounded | **CONFIRMATORY-FAIL** | 181 | 94 | spread 2, 3, 12, 12, 12 |
+| P8a holdout (3,10) | PASS | 93 | 41 | 55.91 percent |
+| P8b holdout (4,10) | PASS | 125 | 45 | 64.0 percent |
+| P8c holdout (5,10) | **FAIL** | 161 | 56 | 64.6 percent |
+| P9 composability | PASS | 86 | 69 | 86 exact |
+
+### The three failures, with mechanism
+
+**P5.** The nonzero clause held at every rank; the non-decreasing clause did
+not, since the primitive count at `N=3` goes 27, 21, 41 across ranks 8, 9, 10.
+Monotonicity was asserted with no mechanism behind it and it is false. The
+substantive conclusion, that primitive rows never stop appearing within the
+census, is unaffected, but the dip removes any licence to extrapolate.
+
+**P7.** Flagged CONFIRMATORY in advance because the coefficient ranges were
+already visible in the tables. Spread stabilizes at 12 over ranks 8 to 10 and
+affine height goes 9, 9, 15, so neither is monotone. Height is not the
+obstruction, which closes one route rather than opening one.
+
+**P8c.** Predicted below 30 percent, measured 64.6 percent. This is a
+pre-registration bookkeeping error, not a surprise about the mathematics: the
+prediction was drafted for a corpus without the derived dual systems, the
+"Systems in scope" section was then added to include them, and P8c was not
+restated to match. Including the duals opens the `psi` route from `(4,9)` and
+the `pi` route from the derived `(5,9)`, which is where the coverage comes
+from. Scored as written, and failed.
+
+### Predictions that passed but should not be banked
+
+**P6** passed and is worthless as evidence. The artifact records
+`max_width_primitive` and `max_width_inherited` as equal at every system, so
+width does not separate inherited rows from primitive ones. `pi` raises width
+by construction, so unbounded width is a property of the transport maps rather
+than an obstruction to generation. The pre-registered rationale was wrong even
+though the prediction came true.
+
+**P4** passed on a technicality. All five misses are the structural chamber
+rows or the non-full-dimensional Borland-Dennis system. Once those two families
+are excluded by name, facet preservation is exact at 612 of 612, which is the
+opposite of what P4 was written to detect.
+
+### Unregistered findings
+
+Two results were not predicted because the questions were not asked in advance,
+and they are labeled as unregistered in the artifact rather than folded in with
+the scored predictions:
+
+1. no nonstructural row is permutation stable, 0 of 901, which is the
+   obstruction that closes the `FI` repair;
+2. all 907 published rows are genuine facets, certified by exact affine rank on
+   the tight vertices, which is what makes the facet counting in the disproof
+   legitimate. No prior in-repo result established irredundancy.

@@ -426,6 +426,199 @@ def measure_maps(systems, taus) -> dict:
     return report
 
 
+def symmetry_obstruction(systems, taus) -> dict:
+    """Whether chamber-facing rows carry any symmetric-group structure.
+
+    Two exact tests.  First, a row is valid on the whole Weyl saturation of the
+    moment polytope exactly when its worst rearrangement is still satisfied,
+    and by the rearrangement inequality the worst case pairs the sorted row
+    with the sorted vertex, so no permutation has to be enumerated.  Second, a
+    direct certificate that the Weyl saturation is not convex, which is the
+    reason the first test comes out the way it does: there is no S_d invariant
+    convex body whose facets these rows could be.
+    """
+
+    global_validity = []
+    for (n, d), payload in sorted(systems.items()):
+        sorted_vertices = [sorted(v, reverse=True) for v in payload["vertices"]]
+        stable = []
+        for index, tau in enumerate(taus[n, d]):
+            worst = sorted(tau, reverse=True)
+            if all(sum((Fraction(a) * b for a, b in zip(worst, v)), Fraction(0)) <= 0
+                   for v in sorted_vertices):
+                stable.append(index)
+        structural = [i for i, tau in enumerate(taus[n, d]) if is_chamber_row(tau, n)]
+        global_validity.append({
+            "system": f"({n},{d})", "rows": len(taus[n, d]),
+            "permutation_stable": len(stable),
+            "permutation_stable_indices": stable,
+            "of_those_structural": len([i for i in stable if i in structural]),
+            "nonstructural_permutation_stable": len([i for i in stable if i not in structural]),
+        })
+
+    nonconvex = []
+    for (n, d), payload in sorted(systems.items()):
+        if not payload["primary"]:
+            continue
+        rows = taus[n, d]
+
+        def inside(point) -> bool:
+            y = tuple(sorted(point, reverse=True))
+            return y[0] <= 1 and y[-1] >= 0 and all(dot(t, y) <= 0 for t in rows)
+
+        witness = None
+        for v in payload["vertices"]:
+            for j in range(d - 1):
+                swapped = list(v)
+                swapped[j], swapped[j + 1] = swapped[j + 1], swapped[j]
+                mid = tuple((a + b) / 2 for a, b in zip(v, swapped))
+                if not inside(mid):
+                    witness = {
+                        "x": [str(t) for t in v],
+                        "y": [str(t) for t in swapped],
+                        "midpoint": [str(t) for t in mid],
+                        "midpoint_sorted": [str(t) for t in sorted(mid, reverse=True)],
+                        "transposition": [j, j + 1],
+                    }
+                    break
+            if witness:
+                break
+        nonconvex.append({"system": f"({n},{d})", "certificate": witness,
+                          "saturation_convex": witness is None})
+    return {"global_validity": global_validity, "weyl_saturation_nonconvexity": nonconvex}
+
+
+def _affine_rank(points: list[Vertex]) -> int:
+    """Exact affine rank of a set of rational points, by Gaussian elimination."""
+
+    if not points:
+        return -1
+    base = points[0]
+    rows = [[a - b for a, b in zip(p, base)] for p in points[1:]]
+    rank = 0
+    width_ = len(base)
+    for column in range(width_):
+        pivot = next((i for i in range(rank, len(rows)) if rows[i][column] != 0), None)
+        if pivot is None:
+            continue
+        rows[rank], rows[pivot] = rows[pivot], rows[rank]
+        head = rows[rank]
+        for i in range(len(rows)):
+            if i != rank and rows[i][column] != 0:
+                factor = rows[i][column] / head[column]
+                rows[i] = [x - factor * y for x, y in zip(rows[i], head)]
+        rank += 1
+    return rank
+
+
+def nondegeneracy(systems, taus) -> dict:
+    """Theorem 1's hypothesis: the slice is not trapped in {lambda_d = 0}.
+
+    The barycenter of the vertex list is in the slice by convexity, so it is a
+    positive interior point exactly when some vertex occupies the last mode.
+    Exhibiting it is what replaces the Weyl-averaging argument that Theorem 2
+    forbids.
+    """
+
+    report = []
+    for (n, d), payload in sorted(systems.items()):
+        vertices = payload["vertices"]
+        count = len(vertices)
+        centre = tuple(sum(v[i] for v in vertices) / count for i in range(d))
+        report.append({
+            "system": f"({n},{d})",
+            "barycentre": [str(x) for x in centre],
+            "all_coordinates_positive": all(x > 0 for x in centre),
+            "in_slice": all(dot(tau, centre) <= 0 for tau in taus[n, d]),
+            "vertices_occupying_last_mode": sum(1 for v in vertices if v[-1] > 0),
+        })
+    return report
+
+
+def facetness(systems, taus) -> dict:
+    """Certify that each published row really is a facet of its ordered slice.
+
+    The disproof of finite generation counts facets, so it is not enough that
+    the published rows cut the right polytope: a redundant row would inflate
+    the count.  A row is a facet exactly when the vertices where it is tight
+    span an affine subspace of dimension one below the slice, which is an exact
+    rational rank computation on the census vertex lists.
+    """
+
+    report = []
+    for (n, d), payload in sorted(systems.items()):
+        vertices = payload["vertices"]
+        ambient = _affine_rank(vertices)
+        facets = nonfacets = 0
+        offenders = []
+        for index, tau in enumerate(taus[n, d]):
+            tight = [v for v in vertices if dot(tau, v) == 0]
+            if _affine_rank(tight) == ambient - 1:
+                facets += 1
+            else:
+                nonfacets += 1
+                offenders.append({"index": index, "tau": list(tau),
+                                  "tight_rank": _affine_rank(tight)})
+        report.append({
+            "system": f"({n},{d})", "primary": payload["primary"],
+            "slice_dimension": ambient, "rows": len(taus[n, d]),
+            "facets": facets, "redundant_or_lower_face": nonfacets,
+            "offenders": offenders[:5],
+            "all_facets": nonfacets == 0,
+        })
+    return report
+
+
+def facet_preservation(systems, taus) -> dict:
+    """Do the covariant transports send published facets to published facets?
+
+    Split out the two families that are not counterexamples to anything:
+    structural chamber rows, which the published tables carry by a different
+    convention at each rank, and the Borland-Dennis system (3,6), which is not
+    full dimensional because it ships three equalities.  What remains is the
+    honest question.
+    """
+
+    degenerate = {(n, d) for (n, d), payload in systems.items() if payload["equalities"]}
+    detail, misses = [], []
+    kept = preserved = 0
+    for (n, d), rows in sorted(taus.items()):
+        for name, target, apply_map in (
+            ("pi", (n, d + 1), lambda tau, t: pi_pad(tau, systems[t]["vertices"])),
+            ("psi", (n + 1, d + 1), lambda tau, t: psi_core(tau, n, systems[t]["vertices"])),
+        ):
+            if target not in systems:
+                continue
+            published = set(taus[target])
+            eligible = hit = 0
+            for index, tau in enumerate(rows):
+                if is_chamber_row(tau, n) or (n, d) in degenerate:
+                    continue
+                image = apply_map(tau, target)
+                if image is None:
+                    continue
+                eligible += 1
+                if image in published:
+                    hit += 1
+                else:
+                    misses.append({"map": name, "source": f"({n},{d})", "index": index,
+                                   "tau": list(tau), "image": list(image)})
+            detail.append({"map": name, "source": f"({n},{d})",
+                           "target": f"({target[0]},{target[1]})",
+                           "nonstructural_eligible": eligible, "landed_on_facet": hit})
+            kept += eligible
+            preserved += hit
+    return {
+        "excluded_structural_rows": True,
+        "excluded_degenerate_systems": [f"({n},{d})" for n, d in sorted(degenerate)],
+        "nonstructural_eligible": kept,
+        "landed_on_published_facet": preserved,
+        "exact": kept == preserved,
+        "misses": misses,
+        "per_pair": detail,
+    }
+
+
 def classify(systems, taus) -> dict:
     """Task 2: label every published row, with an exact round-trip witness."""
 
@@ -485,32 +678,75 @@ def cores(systems, taus, labels) -> dict:
     index_of = {key: {tau: i for i, tau in enumerate(rows)} for key, rows in taus.items()}
     resolved: dict[tuple[int, int, Tau], dict] = {}
 
-    def core_of(n: int, d: int, tau: Tau, path: list[str]) -> dict:
+    def core_of(n: int, d: int, tau: Tau) -> dict:
+        """Descend padding and frozen-core donors to the primitive core.
+
+        The word is read left to right as the sequence of covariant maps that
+        rebuilds this row from its core, so replaying it is the reproduction
+        test the acceptance criteria ask for.
+        """
+
         key = (n, d, tau)
         if key in resolved:
             return resolved[key]
         record = labels[n, d][index_of[n, d][tau]]
         if record["label"] == "PADDING":
-            donor = tuple(record["donor"][1])
-            answer = core_of(n, d - 1, donor, path + ["pi"])
+            base = core_of(n, d - 1, tuple(record["donor"][1]))
+            answer = {**base, "word": base["word"] + ["pi"]}
         elif record["label"] == "FROZEN-CORE":
-            donor = tuple(record["donor"][1])
-            answer = core_of(n - 1, d - 1, donor, path + ["psi"])
+            base = core_of(n - 1, d - 1, tuple(record["donor"][1]))
+            answer = {**base, "word": base["word"] + ["psi"]}
         else:
             answer = {"system": f"({n},{d})", "rank": d, "particles": n,
                       "tau": list(tau), "word": []}
-        resolved[key] = {**answer, "word": list(reversed(path)) + answer["word"][len(path):]}
-        return resolved[key]
+        resolved[key] = answer
+        return answer
 
     out = {}
     for (n, d), rows in sorted(taus.items()):
         entries = []
         for tau in rows:
-            base = core_of(n, d, tau, [])
+            base = core_of(n, d, tau)
             entries.append({"tau": list(tau), "core_system": base["system"],
-                            "core_rank": base["rank"], "core_tau": base["tau"]})
+                            "core_rank": base["rank"], "core_tau": base["tau"],
+                            "word": base["word"]})
         out[f"({n},{d})"] = entries
     return out
+
+
+def replay_cores(systems, taus, core_map) -> dict:
+    """Acceptance criterion: rebuild every inherited row from its core.
+
+    Reads the descent word back as a composite of the covariant maps and
+    checks that the result is the row it started from, byte for byte on
+    primitive taus.  A single mismatch invalidates the whole core reduction.
+    """
+
+    checked = rebuilt = 0
+    failures = []
+    for key, entries in sorted(core_map.items()):
+        n, d = (int(part) for part in key.strip("()").split(","))
+        for entry in entries:
+            if not entry["word"]:
+                continue
+            checked += 1
+            tau = tuple(entry["core_tau"])
+            cn, cd = (int(part) for part in entry["core_system"].strip("()").split(","))
+            for step in entry["word"]:
+                if step == "pi":
+                    tau = pi_pad(tau, systems[cn, cd + 1]["vertices"])
+                    cd += 1
+                else:
+                    tau = psi_core(tau, cn, systems[cn + 1, cd + 1]["vertices"])
+                    cn, cd = cn + 1, cd + 1
+                if tau is None:
+                    break
+            if tau is not None and tuple(tau) == tuple(entry["tau"]) and (cn, cd) == (n, d):
+                rebuilt += 1
+            else:
+                failures.append({"system": key, "tau": entry["tau"], "word": entry["word"]})
+    return {"inherited_rows_checked": checked, "rebuilt_exactly": rebuilt,
+            "all_reproduced": checked == rebuilt, "failures": failures[:5]}
 
 
 def holdout(systems, taus) -> dict:
@@ -565,22 +801,152 @@ def summarize(systems, taus, labels, core_map) -> dict:
         entries = labels[n, d]
         counts = Counter(entry["label"] for entry in entries)
         core_ranks = [c["core_rank"] for c in core_map[f"({n},{d})"]]
-        core_orbits = {tuple(sorted(c["core_tau"])) for c in core_map[f"({n},{d})"]}
         distinct_cores = {(c["core_system"], tuple(c["core_tau"]))
                           for c in core_map[f"({n},{d})"]}
+        primitive = [e for e in entries if e["label"] == "PRIMITIVE"]
+        inherited = [e for e in entries if e["label"] in ("PADDING", "FROZEN-CORE")]
         out[f"({n},{d})"] = {
             "primary": systems[n, d]["primary"],
             "rows": len(rows),
             "labels": dict(sorted(counts.items())),
             "primitive": counts.get("PRIMITIVE", 0),
+            "independent_scope": counts.get("PRIMITIVE", 0),
+            "independent_distinct_cores": len(distinct_cores),
             "max_width": max(entry["width"] for entry in entries),
+            "max_width_primitive": max((e["width"] for e in primitive), default=None),
+            "max_width_inherited": max((e["width"] for e in inherited), default=None),
             "max_spread": max(entry["spread"] for entry in entries),
             "max_height": max(entry["height"] for entry in entries),
             "max_core_rank": max(core_ranks),
             "distinct_cores": len(distinct_cores),
-            "core_orbit_types": len(core_orbits),
+            # Coefficient-multiset classes.  These are NOT orbits of valid
+            # inequalities: the global-validity test shows the permuted rows
+            # are invalid.  Reported as a descriptive statistic only.
+            "coefficient_multiset_classes": len({tuple(sorted(e["tau"])) for e in entries}),
         }
     return out
+
+
+def scorecard(summary, maps, held, obstruction, replay, preservation) -> dict:
+    """Score every pre-registered prediction from the artifact alone."""
+
+    def series(n, key):
+        return [summary[f"({n},{d})"][key] for d in range(6, 11) if f"({n},{d})" in summary]
+
+    def independent(keys):
+        """Standing rule R2: only PRIMITIVE rows are independent observations."""
+
+        return sum(summary[key]["primitive"] for key in keys if key in summary)
+
+    def sources(records):
+        return {record["system"] for record in records}
+
+    def strictly_rising(values):
+        return sum(1 for a, b in zip(values, values[1:]) if b > a)
+
+    terminal = maps["terminal_restriction"]
+    nonterminal = maps["nonterminal_restriction"]
+    padding = maps["tight_padding"]
+    frozen = maps["tight_frozen_core"]
+    two_step = maps["two_step_composition"]
+
+    prim3 = [summary[f"(3,{d})"]["primitive"] for d in (8, 9, 10)]
+    width3 = series(3, "max_width")
+    spread3 = series(3, "max_spread")
+    height3 = series(3, "max_height")
+
+    nonstructural_stable = sum(
+        rec["nonstructural_permutation_stable"] for rec in obstruction["global_validity"])
+    total_rows = sum(rec["rows"] for rec in obstruction["global_validity"])
+
+    return {
+        "P1_terminal_restriction_total": {
+            "verdict": "CONFIRMATORY-PASS" if all(r["total_valid"] for r in terminal) else "FAIL",
+            "scope": sum(r["rows"] for r in terminal),
+            "independent_scope": independent(sources(terminal)),
+            "note": "disclosed in the prereg as already observed; a theorem, not a discovery",
+        },
+        "P2_nonterminal_restriction_fails": {
+            "verdict": "PASS" if any(r["invalid_pairs"] > 0 for r in nonterminal) else "FAIL",
+            "scope": sum(r["pairs_tested"] for r in nonterminal),
+            "independent_scope": independent(sources(nonterminal)),
+            "invalid_pairs": sum(r["invalid_pairs"] for r in nonterminal),
+        },
+        "P3_tight_padding_is_a_section": {
+            "verdict": "PASS" if all(r["section_total"] for r in padding + frozen) else "FAIL",
+            "scope": sum(r["rows"] for r in padding + frozen),
+            "independent_scope": independent(sources(padding + frozen)),
+            "round_trip_ok": sum(r["round_trip_ok"] for r in padding + frozen),
+        },
+        "P4_extension_does_not_preserve_facetness": {
+            "verdict": "PASS" if any(
+                r["lands_on_published_facet"] < r["rows"] for r in padding + frozen) else "FAIL",
+            "scope": sum(r["rows"] for r in padding + frozen),
+            "independent_scope": independent(sources(padding + frozen)),
+            "misses": sum(r["rows"] - r["lands_on_published_facet"] for r in padding + frozen),
+            "note": "PASS as stated, but every miss is a structural chamber row or the "
+                    "degenerate (3,6) system; see the write-up",
+        },
+        "P5_primitive_counts_do_not_vanish": {
+            "verdict": "PASS" if all(p > 0 for p in prim3) and prim3 == sorted(prim3) else "FAIL",
+            "scope": sum(summary[f"(3,{d})"]["rows"] for d in (8, 9, 10)),
+            "independent_scope": independent([f"(3,{d})" for d in (8, 9, 10)]),
+            "measured_primitive_3_8_9_10": prim3,
+            "nonzero_clause": all(p > 0 for p in prim3),
+            "non_decreasing_clause": prim3 == sorted(prim3),
+        },
+        "P6_width_unbounded": {
+            "verdict": "PASS" if strictly_rising(width3) >= 2
+            and summary["(3,10)"]["max_width"] >= 8 else "FAIL",
+            "scope": sum(summary[f"(3,{d})"]["rows"] for d in range(6, 11)),
+            "independent_scope": independent([f"(3,{d})" for d in range(6, 11)]),
+            "measured_max_width_3_6_to_10": width3,
+        },
+        "P7_height_unbounded": {
+            "verdict": "CONFIRMATORY-PASS" if strictly_rising(spread3) == len(spread3) - 1
+            and strictly_rising(height3) == len(height3) - 1 else "CONFIRMATORY-FAIL",
+            "scope": sum(summary[f"(3,{d})"]["rows"] for d in range(6, 11)),
+            "independent_scope": independent([f"(3,{d})" for d in range(6, 11)]),
+            "measured_max_spread_3_6_to_10": spread3,
+            "measured_max_height_3_6_to_10": height3,
+        },
+        "P8a_holdout_3_10": {
+            "verdict": "PASS" if 30.0 <= held["(3,10)"]["coverage_percent"] <= 80.0 else "FAIL",
+            "coverage_percent": held["(3,10)"]["coverage_percent"],
+            "scope": summary["(3,10)"]["rows"],
+            "independent_scope": independent(["(3,10)"]),
+        },
+        "P8b_holdout_4_10": {
+            "verdict": "PASS" if held["(4,10)"]["coverage_percent"] < 100.0 else "FAIL",
+            "coverage_percent": held["(4,10)"]["coverage_percent"],
+            "scope": summary["(4,10)"]["rows"],
+            "independent_scope": independent(["(4,10)"]),
+        },
+        "P8c_holdout_5_10": {
+            "verdict": "PASS" if held["(5,10)"]["coverage_percent"] < 30.0 else "FAIL",
+            "coverage_percent": held["(5,10)"]["coverage_percent"],
+            "scope": summary["(5,10)"]["rows"],
+            "independent_scope": independent(["(5,10)"]),
+        },
+        "P9_composability": {
+            "verdict": "PASS" if all(r["tested"] == r["round_trip_ok"] for r in two_step)
+            else "FAIL",
+            "scope": sum(r["tested"] for r in two_step),
+            "independent_scope": independent(sources(two_step)),
+        },
+        "unregistered_findings": {
+            "no_symmetric_group_structure": {
+                "rows_tested": total_rows,
+                "nonstructural_rows_stable_under_permutation": nonstructural_stable,
+            },
+            "cores_replay": replay,
+            "facet_preservation": {
+                "nonstructural_eligible": preservation["nonstructural_eligible"],
+                "landed_on_published_facet": preservation["landed_on_published_facet"],
+                "exact": preservation["exact"],
+            },
+        },
+    }
 
 
 def main() -> int:
@@ -591,10 +957,16 @@ def main() -> int:
     systems = load_systems()
     taus = build_rows(systems)
     maps = measure_maps(systems, taus)
+    obstruction = symmetry_obstruction(systems, taus)
+    preservation = facet_preservation(systems, taus)
+    facets = facetness(systems, taus)
+    nondegen = nondegeneracy(systems, taus)
     labels = classify(systems, taus)
     core_map = cores(systems, taus, labels)
+    replay = replay_cores(systems, taus, core_map)
     summary = summarize(systems, taus, labels, core_map)
     held = holdout(systems, taus)
+    score = scorecard(summary, maps, held, obstruction, replay, preservation)
 
     artifact = {
         "description": "Ordered representation stability of chamber-facing GPC rows",
@@ -612,10 +984,16 @@ def main() -> int:
             for (n, d), payload in sorted(systems.items())
         },
         "map_tests": maps,
+        "symmetry_obstruction": obstruction,
+        "facet_preservation": preservation,
+        "facetness": facets,
+        "nondegeneracy": nondegen,
         "summary": summary,
         "rows": {f"({n},{d})": labels[n, d] for (n, d) in sorted(labels)},
         "cores": core_map,
+        "core_replay": replay,
         "holdout_rank10": held,
+        "scorecard": score,
     }
     path = pathlib.Path(args.out)
     path.write_text(json.dumps(artifact, indent=1, sort_keys=False) + "\n")
@@ -627,6 +1005,9 @@ def main() -> int:
     for key, value in held.items():
         print(f"  holdout {key}: {value['covered']}/{value['published']} "
               f"= {value['coverage_percent']}%")
+    for key, value in score.items():
+        if isinstance(value, dict) and "verdict" in value:
+            print(f"  {key:44s} {value['verdict']}")
     return 0
 
 
