@@ -202,7 +202,6 @@ def test_saturation_fails_with_witnesses(art):
 # The standalone verifier, including a negative control
 # --------------------------------------------------------------------------
 
-@pytest.mark.slow
 def test_standalone_verifier_passes():
     if not VERIFIER.exists():  # pragma: no cover
         pytest.skip("verifier not present")
@@ -211,7 +210,6 @@ def test_standalone_verifier_passes():
     assert done.returncode == 0, done.stdout + done.stderr
 
 
-@pytest.mark.slow
 def test_standalone_verifier_rejects_a_tampered_generator(tmp_path):
     """A verifier that cannot fail is not a verifier."""
     if not VERIFIER.exists():  # pragma: no cover
@@ -226,13 +224,13 @@ def test_standalone_verifier_rejects_a_tampered_generator(tmp_path):
         assert level["values"]
     tampered = tmp_path / "tampered.json"
     tampered.write_text(json.dumps(payload))
-    done = subprocess.run([sys.executable, str(VERIFIER), str(tampered)],
+    done = subprocess.run([sys.executable, str(VERIFIER), str(tampered),
+                           "--skip-independent"],
                           capture_output=True, text=True)
     assert done.returncode == 1, done.stdout
     assert "decomposes" in done.stdout
 
 
-@pytest.mark.slow
 def test_standalone_verifier_rejects_a_tampered_digest(tmp_path):
     if not VERIFIER.exists():  # pragma: no cover
         pytest.skip("verifier not present")
@@ -242,7 +240,8 @@ def test_standalone_verifier_rejects_a_tampered_digest(tmp_path):
     row["sha256"] = "0" * 64
     tampered = tmp_path / "tampered.json"
     tampered.write_text(json.dumps(payload))
-    done = subprocess.run([sys.executable, str(VERIFIER), str(tampered)],
+    done = subprocess.run([sys.executable, str(VERIFIER), str(tampered),
+                           "--skip-independent"],
                           capture_output=True, text=True)
     assert done.returncode == 1, done.stdout
     assert "digest mismatch" in done.stdout
