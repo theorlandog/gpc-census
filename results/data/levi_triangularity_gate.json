@@ -1,0 +1,146 @@
+{
+ "canonical_sha256_without_this_field_or_timings": "48072f9f04af831c479d57ad2cefcc015a6cff16122840686913a8934c14792b",
+ "conjecture": "Fermionic Levi Triangularity: every minimal fermionic BDR facet becomes linear triangular after determinant-twist removal, Levi-excitation decomposition, grade ordering and Dulmage-Mendelsohn factorization.",
+ "generated_by": "scripts/levi_triangularity_gate.py",
+ "schema_version": 1,
+ "status": "conjecture_test",
+ "systems": {
+  "(3,7)": {
+   "determinant_nonzero_hall_feasible_rows": 48,
+   "fully_triangular_fraction": 0.2917,
+   "fully_triangular_rows": 14,
+   "largest_block_witness": {
+    "blocks": [
+     9,
+     1
+    ],
+    "matrix_order": 10,
+    "tau": [
+     -1,
+     -1,
+     -1,
+     2,
+     2,
+     -4,
+     2
+    ]
+   },
+   "largest_irreducible_block": 9,
+   "largest_matrix_order": 14,
+   "matching_independence_disagreements": 0,
+   "matching_independence_rows_checked": 40,
+   "matrix_order_at_largest_block": 10,
+   "max_block_size_distribution": {
+    "1": 14,
+    "2": 7,
+    "3": 4,
+    "4": 6,
+    "5": 7,
+    "6": 3,
+    "8": 6,
+    "9": 1
+   },
+   "particle_number": 3,
+   "rank": 7,
+   "seconds": 3.4,
+   "system": "(3,7)"
+  },
+  "(3,8)": {
+   "determinant_nonzero_hall_feasible_rows": 136,
+   "fully_triangular_fraction": 0.1471,
+   "fully_triangular_rows": 20,
+   "largest_block_witness": {
+    "blocks": [
+     14,
+     4
+    ],
+    "matrix_order": 18,
+    "tau": [
+     0,
+     -1,
+     -1,
+     0,
+     0,
+     0,
+     1,
+     1
+    ]
+   },
+   "largest_irreducible_block": 14,
+   "largest_matrix_order": 22,
+   "matching_independence_disagreements": 0,
+   "matching_independence_rows_checked": 40,
+   "matrix_order_at_largest_block": 18,
+   "max_block_size_distribution": {
+    "1": 20,
+    "10": 7,
+    "12": 1,
+    "14": 5,
+    "2": 26,
+    "3": 10,
+    "4": 17,
+    "5": 12,
+    "6": 21,
+    "7": 4,
+    "8": 6,
+    "9": 7
+   },
+   "particle_number": 3,
+   "rank": 8,
+   "seconds": 136.0,
+   "system": "(3,8)"
+  },
+  "(3,9)": {
+   "determinant_nonzero_hall_feasible_rows": 240,
+   "fully_triangular_fraction": 0.0958,
+   "fully_triangular_rows": 23,
+   "largest_block_witness": {
+    "blocks": [
+     15,
+     1
+    ],
+    "matrix_order": 16,
+    "tau": [
+     -1,
+     -1,
+     -1,
+     -1,
+     -1,
+     2,
+     2,
+     -4,
+     2
+    ]
+   },
+   "largest_irreducible_block": 15,
+   "largest_matrix_order": 36,
+   "matching_independence_disagreements": 0,
+   "matching_independence_rows_checked": 40,
+   "matrix_order_at_largest_block": 16,
+   "max_block_size_distribution": {
+    "1": 23,
+    "10": 16,
+    "12": 2,
+    "14": 5,
+    "15": 6,
+    "2": 56,
+    "3": 19,
+    "4": 23,
+    "5": 23,
+    "6": 38,
+    "7": 8,
+    "8": 13,
+    "9": 8
+   },
+   "particle_number": 3,
+   "rank": 9,
+   "seconds": 21.8,
+   "system": "(3,9)"
+  }
+ },
+ "verdict": {
+  "block_triangular_reading": "Still open, but the premise it needs is not supported here. If the conjecture means block triangular with jointly solved irreducible blocks, the operative question is whether block size stays bounded, and the largest block grows across the three ranks.",
+  "canonicality": "The block multiset is matching-independent, re-checked on a sample at every rank rather than assumed.",
+  "strict_triangularity": "REFUTED for the majority of true facets. Fully triangular rows, meaning every Dulmage-Mendelsohn block is 1x1 and back substitution alone solves the system, are a minority at every rank and the fraction FALLS with rank."
+ }
+}

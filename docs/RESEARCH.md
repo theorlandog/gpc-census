@@ -581,6 +581,13 @@ plethysm criterion feed Problem 7 below.
   as a FACE (six rows, four faces at (3,6)) and why the affine hull must be
   certified rather than assumed. Artifact closure_certificate.json; guard test
   tests/test_closure_certificate.py.
+- levi_triangularity_gate.md: GATE 4, and it REFUTES the strict form of the
+  Fermionic Levi Triangularity Conjecture. Fully triangular tangent systems are
+  14 of 48, 20 of 136 and 23 of 240 true facets at ranks 7, 8, 9, a fraction
+  that FALLS with rank, with a named rank-9 witness whose 16 by 16 matrix has
+  blocks [15,1]. The block-triangular reading survives but needs bounded block
+  size, and the largest block grows 9, 14, 15. Artifact
+  levi_triangularity_gate.json; guard test tests/test_levi_triangularity_gate.py.
 - root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
   REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
   mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
@@ -1753,6 +1760,48 @@ tests/test_closure_certificate.py]
   says nothing about (20,40). The reverse-search vertex enumeration and the BDR
   coverage ledger, the two pieces a rank-40 closure would need, are not built
   here and are not implied by anything here.
+
+## Gate 4: strict linear triangularity is refuted (2026-08-08)
+
+The Levi excitation programme proposes four gates. Gate 1 cannot falsify
+anything (see the root-budget section: `delta <= N` makes it vacuous), gates 2
+and 3 are implementation, and gate 4 is the one that can fail on data that
+exists. It fails. [docs/levi_triangularity_gate.md;
+results/data/levi_triangularity_gate.json;
+scripts/levi_triangularity_gate.py; tests/test_levi_triangularity_gate.py]
+
+- ❌ STRICT TRIANGULARITY IS REFUTED on the known true facets. For every
+  determinant-nonzero Hall-feasible row the tangent matrix is square with a
+  perfect matching; orienting by a matching and taking strongly connected
+  components gives the Dulmage-Mendelsohn irreducible blocks, and the system is
+  triangular exactly when all are `1 x 1`. Fully triangular rows: 14 of 48 at
+  (3,7), 20 of 136 at (3,8), 23 of 240 at (3,9). So 29 percent, then 15, then
+  **10**: strict triangularity is the exception and the exception is getting
+  rarer.
+- ❗ NAMED WITNESS at rank 9, and nothing about it is exotic:
+  `tau = (-1,-1,-1,-1,-1,2,2,-4,2)` has a 16 by 16 tangent matrix whose blocks
+  are `[15, 1]`. Three distinct levels, Hall-feasible, determinant nonzero,
+  exactly the kind of row the conjecture is about.
+- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES, but the premise it needs is not
+  supported: if the conjecture means block triangular with jointly solved
+  irreducible blocks, the operative question is bounded block size, and the
+  largest block grows 9, 14, 15 across the three ranks. ⚠️ Three points are not
+  a trend, and the largest block does not track matrix order monotonically (the
+  rank-9 maximum occurs at order 16, not at the largest order 36), so this is a
+  caution rather than a second refutation.
+- 🟦 CANONICALITY CHECKED, NOT ASSUMED, since the verdict rests on it: the block
+  multiset is matching-independent by the Dulmage-Mendelsohn theorem, re-checked
+  at 40 rows per rank against four extra random matchings each with ZERO
+  disagreements, plus a separate 191-row sweep at (3,8).
+- ❗ CONSEQUENCE FOR THE BIRATIONALITY SKETCH. The proposed induction picks a
+  minimal positive profile, makes its block square by Hall equality, invertible
+  by nonvanishing, removes it and recurses. The measured structure says the
+  peeled object is usually a large irreducible block rather than a single
+  variable, so the induction must carry joint solves of blocks whose size is not
+  known to be bounded. That is materially harder than the sketch suggests, and
+  better known before the birationality stage is written than after.
+- 🔬 UNTOUCHED by this gate: the excitation theorem itself, which is proved, and
+  the sparse generic-isotropy reduction, which is correct and separate.
 
 ## Adjacent literature to respect
 
