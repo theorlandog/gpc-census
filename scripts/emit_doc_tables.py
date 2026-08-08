@@ -228,7 +228,74 @@ def generalized_observable_benchmark() -> str:
     return "\n".join(lines + _machine_footer(payload))
 
 
+def khovanskii_rank_growth() -> str:
+    """Rank growth of the highest-weight semigroup's minimal generators."""
+    payload = read_json(DATA / "equivariant_khovanskii_sagbi.json")
+    rows = sorted(payload["rank_growth"], key=lambda row: system_key(row["system"]))
+    window = rows[0]["window"] if rows else 0
+    lines = [
+        f"Common degree window `m <= {window}`, all values exact.",
+        "",
+        "| System | Raw values | Minimal generators | Primitive | Primitive / raw |",
+        "| --- | ---: | ---: | ---: | ---: |",
+    ]
+    for row in rows:
+        lines.append(
+            f"| `{row['system']}` | {row['raw_values']} | "
+            f"{row['minimal_generators']} | {row['primitive_generators']} | "
+            f"{row['primitive_ratio']} |"
+        )
+    return "\n".join(lines)
+
+
+def khovanskii_valuations() -> str:
+    """The three valuations on one table, compared in a fixed scope."""
+    payload = read_json(DATA / "equivariant_khovanskii_sagbi.json")
+    lines = [
+        "| Valuation | System | Degrees | Status | Raw values | "
+        "Minimal generators | Max generator degree | Compression |",
+        "| --- | --- | ---: | --- | ---: | ---: | ---: | ---: |",
+    ]
+    rows = [row for row in payload["v2_by_system"]
+            if system_key(row["system"])[0] == 3
+            and system_key(row["system"])[1] <= 8]
+    rows += payload["v1_v3_by_system"]
+    for row in sorted(rows, key=lambda r: (r["valuation"], system_key(r["system"]))):
+        lines.append(
+            f"| `{row['valuation']}` | `{row['system']}` | "
+            f"`m <= {row['reached_degree']}` | {row['status']} | "
+            f"{row['raw_values']} | {row['minimal_generators']} | "
+            f"{row['max_generator_degree']} | {row['compression_ratio']} |"
+        )
+    return "\n".join(lines)
+
+
+def khovanskii_held_out() -> str:
+    """The preregistered held-out degree test, scored per system."""
+    payload = read_json(DATA / "equivariant_khovanskii_sagbi.json")
+    lines = [
+        "| System | Fit `m <=` | Test degrees | Fitted generators | "
+        "Misses | Verdict |",
+        "| --- | ---: | --- | ---: | ---: | --- |",
+    ]
+    for row in sorted(payload["held_out_degree"],
+                      key=lambda r: system_key(r["system"])):
+        misses = sum(entry["misses"] for entry in row["per_degree"])
+        degrees = ", ".join(str(d) for d in row["test_degrees"]) or "none"
+        lines.append(
+            f"| `{row['system']}` | {row['fit_degree']} | {degrees} | "
+            f"{row['fitted_generators']} | {misses} | {row['verdict']} |"
+        )
+    return "\n".join(lines)
+
+
 BLOCKS = {
+    "khovanskii-rank-growth": (
+        DOCS / "equivariant_khovanskii_sagbi.md", khovanskii_rank_growth),
+    "khovanskii-valuations": (
+        DOCS / "equivariant_khovanskii_sagbi.md", khovanskii_valuations),
+    "khovanskii-held-out": (
+        DOCS / "equivariant_khovanskii_sagbi.md", khovanskii_held_out),
     "census-coverage": (ROOT / "README.md", census_coverage),
     "bracket-3-11": (DOCS / "level5_ressayre_3_11.md", bracket_3_11_tally),
     "compiled-sparse-benchmark": (

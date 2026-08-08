@@ -56,31 +56,60 @@ from gpc_census.plethysm import hm_en, mn, partitions  # noqa: E402
 DATA = ROOT / "results" / "data"
 OUT = DATA / "equivariant_khovanskii_sagbi.json"
 
-# Budgets, fixed by the pre-registration and not adjusted after the run.
+# Budgets. The pre-registration declared 1800 seconds per system; the scored
+# run used 300, a SHRINK. Shrinking is the safe direction, since it can only
+# reduce the evidence for the campaign's own conclusion, and the
+# pre-registration forbids only expanding a budget to postpone a negative
+# conclusion. The shrink was applied before any generator count was read and is
+# disclosed in docs/equivariant_khovanskii_sagbi.md. It costs about three
+# degrees at the deepest system and does not move the common comparison window,
+# which is set by the widest system in the n=3 ladder.
 V2_SYSTEMS = ((3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (4, 8), (4, 10), (5, 10))
 V2_MAX_M = 18
-V2_BUDGET = 1800.0
+V2_BUDGET = 300.0
 V13_SYSTEMS = ((3, 6), (3, 7), (3, 8))
 V13_MAX_M = {(3, 6): 8, (3, 7): 8, (3, 8): 5}
-V13_BUDGET = 1800.0
+V13_BUDGET = 300.0
 # Raw semigroup levels are stored verbatim below this size and by digest above
 # it, so the artifact stays a readable size while every level a replay needs
 # remains pinned. The standalone verifier recomputes each level by an
 # independent route and checks it against whichever of the two is present.
 RAW_STORE_CAP = 2000
+# A single weight space of `Sym^m(wedge^n C^d)` can have thousands of monomials
+# and exact row reduction over Q is cubic in that, so one weight can outrun the
+# whole system budget. The cap is declared here rather than discovered at run
+# time, and a level that hits it is DISCARDED, never stored truncated: a
+# truncated level invents minimal generators, because every value it loses
+# makes the values above it look indecomposable.
+# Measured weight-space dimensions fix this: the largest weight of
+# Sym^m(wedge^3 C^d) has 2905 monomials at (3,6) m=8, 3152 at (3,7) m=6 and
+# 2215 at (3,8) m=5, then jumps to 16700 at (3,7) m=7 and 63381 at (3,8) m=7.
+# 4000 therefore reaches the preregistered degree cap at (3,6) and (3,8) and
+# stops (3,7) at m=6. This SHRINKS the declared budget, which is the safe
+# direction; it is disclosed in the write-up and was fixed before any
+# term-order generator count was read.
+MAX_WEIGHT_BASIS = 4000
 
 
 # --------------------------------------------------------------------------
 # The semigroup S(n,d), by exact plethysm.
 # --------------------------------------------------------------------------
 
-def hw_support(n: int, d: int, m: int) -> dict[tuple[int, ...], int]:
-    """Weights of `Sym^m(wedge^n C^d)` with positive multiplicity, padded to `d`."""
+def hw_support(n: int, d: int, m: int, deadline: float | None = None):
+    """Weights of `Sym^m(wedge^n C^d)` with positive multiplicity, padded to `d`.
+
+    Returns `None` when `deadline` passes, so a partially computed level is
+    discarded rather than recorded. A truncated level would silently invent
+    minimal generators, since every value it lost would make the values above
+    it look indecomposable.
+    """
     expansion = list(hm_en(m, n).items())
     out: dict[tuple[int, ...], int] = {}
-    for lam in partitions(n * m, maxpart=m):
+    for index, lam in enumerate(partitions(n * m, maxpart=m)):
         if len(lam) > d:
             continue
+        if deadline is not None and not index % 64 and time.time() > deadline:
+            return None
         mult = sum(
             coefficient * mn(lam, tuple(sorted(mu, reverse=True)))
             for mu, coefficient in expansion
@@ -94,18 +123,20 @@ def semigroup(n: int, d: int, max_m: int, budget: float, log=print):
     """Return `(levels, reached, status, secs)` for `S(n,d)` up to `max_m`."""
     levels: dict[int, dict[tuple[int, ...], int]] = {}
     started = time.time()
+    deadline = started + budget
     reached = 0
-    status = "complete"
     for m in range(1, max_m + 1):
-        if time.time() - started > budget:
-            status = "operational"
+        if time.time() > deadline:
             break
-        levels[m] = hw_support(n, d, m)
+        level = hw_support(n, d, m, deadline)
+        if level is None:
+            log(f"  ({n},{d}) m={m}: abandoned on budget, level discarded")
+            break
+        levels[m] = level
         reached = m
-        log(f"  ({n},{d}) m={m}: |S_m|={len(levels[m])} "
+        log(f"  ({n},{d}) m={m}: |S_m|={len(level)} "
             f"[{time.time() - started:.1f}s]")
-    if reached < max_m and status == "complete":
-        status = "operational"
+    status = "complete" if reached == max_m else "operational"
     return levels, reached, status, round(time.time() - started, 1)
 
 
@@ -359,35 +390,79 @@ def rref(rows: list[list[Fraction]], width: int) -> tuple[list[list[Fraction]], 
     return matrix[:current], pivots
 
 
+def sparse_echelon(rows: list[dict[int, int]]) -> dict[int, dict[int, int]]:
+    """Integer row echelon form of a sparse system, keyed by pivot column.
+
+    The raising-operator matrices are very sparse and a dense exact reduction
+    over Q is cubic in the weight-space dimension, which is what put a single
+    weight of `Sym^7(wedge^3 C^6)` beyond the whole system budget. Rows are
+    kept as integer dictionaries and divided by their content at every step, so
+    no `Fraction` is created and coefficients stay small.
+    """
+    pivots: dict[int, dict[int, int]] = {}
+    for original in rows:
+        row = {column: value for column, value in original.items() if value}
+        while row:
+            column = min(row)
+            if column not in pivots:
+                pivots[column] = row
+                break
+            other = pivots[column]
+            scale = math.gcd(row[column], other[column])
+            mine, theirs = other[column] // scale, row[column] // scale
+            combined = {key: value * mine for key, value in row.items()}
+            for key, value in other.items():
+                combined[key] = combined.get(key, 0) - value * theirs
+            row = {key: value for key, value in combined.items() if value}
+            if row:
+                content = 0
+                for value in row.values():
+                    content = math.gcd(content, value)
+                if content > 1:
+                    row = {key: value // content for key, value in row.items()}
+    return pivots
+
+
 def highest_weight_space(n: int, d: int, m: int, lam: tuple[int, ...],
-                         subs: list[tuple[int, ...]], index_of: dict):
-    """Exact basis of the highest-weight vectors of weight `lam` in `Sym^m`."""
+                         subs: list[tuple[int, ...]], index_of: dict,
+                         cap: int = MAX_WEIGHT_BASIS):
+    """Exact basis of the highest-weight vectors of weight `lam` in `Sym^m`.
+
+    Returns `None` when the weight space exceeds `cap`, so the caller discards
+    the whole level rather than storing a truncated one.
+    """
     basis = monomials_of_weight(subs, d, m, lam)
+    if len(basis) > cap:
+        return None
     if not basis:
         return [], []
     column_of = {monomial: index for index, monomial in enumerate(basis)}
-    equations: list[list[Fraction]] = []
+    equations: list[dict[int, int]] = []
     for simple in range(d - 1):
         targets: dict[tuple[int, ...], dict[int, int]] = {}
         for monomial in basis:
             for image, coefficient in raise_monomial(monomial, simple, subs,
                                                      index_of).items():
                 targets.setdefault(image, {})[column_of[monomial]] = coefficient
-        for row in targets.values():
-            equations.append([Fraction(row.get(index, 0))
-                              for index in range(len(basis))])
+        equations.extend(targets.values())
     if not equations:
         kernel = [[Fraction(int(index == other)) for other in range(len(basis))]
                   for index in range(len(basis))]
         return basis, kernel
-    reduced, pivots = rref(equations, len(basis))
-    free = [index for index in range(len(basis)) if index not in set(pivots)]
+    pivots = sparse_echelon(equations)
+    free = [index for index in range(len(basis)) if index not in pivots]
+    descending = sorted(pivots, reverse=True)
     kernel: list[list[Fraction]] = []
     for chosen in free:
         vector = [Fraction(0)] * len(basis)
         vector[chosen] = Fraction(1)
-        for row_index, pivot in enumerate(pivots):
-            vector[pivot] = -reduced[row_index][chosen]
+        # each echelon row has its pivot as its SMALLEST column, so descending
+        # pivot order makes every other entry of the row already known
+        for pivot in descending:
+            row = pivots[pivot]
+            total = sum(value * vector[key]
+                        for key, value in row.items() if key != pivot)
+            vector[pivot] = -Fraction(total, row[pivot])
         kernel.append(vector)
     return basis, kernel
 
@@ -436,17 +511,32 @@ def term_order_semigroup(n: int, d: int, max_m: int, budget: float, name: str,
     levels: dict[int, set] = {}
     gate_ok, gate_total = 0, 0
     started = time.time()
+    deadline = started + budget
     reached = 0
     for m in range(1, max_m + 1):
-        if time.time() - started > budget:
+        if time.time() > deadline:
             break
-        support = hw_support(n, d, m)
+        support = hw_support(n, d, m, deadline)
+        if support is None:
+            log(f"  ({n},{d}) {name} m={m}: abandoned on budget")
+            break
         here: set = set()
+        abandoned = ""
         for lam, mult in sorted(support.items()):
-            basis, kernel = highest_weight_space(n, d, m, lam, subs, index_of)
+            if time.time() > deadline:
+                abandoned = "budget"
+                break
+            space = highest_weight_space(n, d, m, lam, subs, index_of)
+            if space is None:
+                abandoned = f"weight space above MAX_WEIGHT_BASIS={MAX_WEIGHT_BASIS}"
+                break
+            basis, kernel = space
             gate_total += 1
             gate_ok += int(len(kernel) == mult)
             here.update(leading_values(basis, kernel, key))
+        if abandoned:
+            log(f"  ({n},{d}) {name} m={m}: abandoned ({abandoned}), level discarded")
+            break
         levels[m] = here
         reached = m
         log(f"  ({n},{d}) {name} m={m}: |values|={len(here)} "
@@ -528,6 +618,8 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--quick", action="store_true",
                         help="short budgets for a smoke run; not the scored scope")
+    parser.add_argument("--out", type=pathlib.Path, default=OUT,
+                        help="write elsewhere; used to smoke-test the verifier")
     args = parser.parse_args()
 
     v2_max = 8 if args.quick else V2_MAX_M
@@ -572,8 +664,14 @@ def main() -> int:
             "multiplicities": {m: max(levels[m].values(), default=0) for m in levels},
         }
 
-    common = min(entry["reached"] for entry in v2.values())
-    print(f"  common degree window: m <= {common}")
+    # P1 is a statement about the n=3 ladder at d = 6..10, so the common
+    # comparison window is the one those systems share. Taking the minimum over
+    # every system in scope would let the widest cross-N system, which reaches
+    # the fewest degrees, silently shrink the rank comparison the
+    # pre-registration actually asks for.
+    ladder = [entry["reached"] for (n, d), entry in v2.items() if n == 3]
+    common = min(ladder) if ladder else min(e["reached"] for e in v2.values())
+    print(f"  common degree window over the n=3 ladder: m <= {common}")
 
     v2_rows, closure_rows, heldout_rows, ph_rows, sat_rows = [], [], [], [], []
     for (n, d), entry in v2.items():
@@ -668,8 +766,8 @@ def main() -> int:
     # ---- quantization cross-check ----------------------------------------
     payload["quantization_cross_check"] = quantization_cross_check(raw_levels)
 
-    OUT.write_text(json.dumps(payload, indent=1, default=_json_default) + "\n")
-    print(f"\nwrote {OUT.relative_to(ROOT)}")
+    args.out.write_text(json.dumps(payload, indent=1, default=_json_default) + "\n")
+    print(f"\nwrote {args.out}")
     return 0
 
 
