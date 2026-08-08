@@ -574,6 +574,13 @@ plethysm criterion feed Problem 7 below.
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
+  REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
+  mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
+  regularity. ❌ The zero-layer extension is refuted off the regular stratum,
+  which is 3 of 280 mechanisms here, and a corrected Levi-type-dependent bound
+  is supplied and verified. Artifact root_budget_boundary.json; guard test
+  tests/test_root_budget_boundary.py.
 - signed_chow_projection.md: THE INCIDENCE HASH BECOMES A THEOREM. Three proved
   statements (c_+ determines the positive family; c_+ is order-monotone in tau;
   the signed pair determines the normal ray when the zero family spans a
@@ -1572,6 +1579,57 @@ scripts/signed_chow_projection.py; tests/test_signed_chow_projection.py]
   solved here. T2 is the practical lever. Certificate VERIFICATION needs no
   inversion: one pass over the slice recomputes the pair, and T3 upgrades a
   match to uniqueness.
+
+## The root-budget boundary layer: half of an external claim survives (2026-08-08)
+
+An externally supplied rank-40 memo proposes replacing the flat/permutation
+constructor with BDR inversion diagrams plus a root-budget weight oracle. The
+oracle half was tested against the census before adoption.
+[docs/root_budget_boundary.md; results/data/root_budget_boundary.json;
+scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
+
+- 🟦 THE POSITIVE-LAYER BOUND HOLDS, and it is a real reduction. For dominant
+  `tau`, `Omega_+` is a dominance ideal, so every positive weight `I` has
+  `|down I| <= |Omega_+| <= binom(d,2)`; as a Young diagram in the
+  `N x (d-N)` rectangle that caps the subdiagram count, and the layer is
+  enumerable without materialising `binom(d,N)` weights. At `(20,40)`: 15,359
+  weights against an ambient 137,846,528,820, about a ninefold-million cut,
+  reproduced here in 7 seconds of standard library. Verified on EVERY surviving
+  mechanism at ranks 7, 8 and 9, 280 of 280, and the budget is ATTAINED
+  (`|Omega_+| = 36 = binom(9,2)` at rank 9), so the bound is tight.
+- ❗ REGULARITY IS NOT NEEDED for that half, contrary to the memo's framing:
+  below a positive weight everything is positive whether or not `tau` repeats.
+- ❗ AND IT IS A CONDITION THE REPO ALREADY ENFORCES, in other clothing.
+  `|Omega_+(tau)|` is the orbit invariant `B` of screening_orbit_structure.md,
+  and `B <= binom(d,2)` is exactly `orbit_is_trace_dead` being false. The new
+  content is the Young-diagram consequence, which turns a known bound into an
+  enumeration strategy.
+- ❌ THE ZERO-LAYER EXTENSION IS REFUTED off the regular stratum. The memo's
+  `|down I| <= binom(d,2)+1` for a zero weight needs `tau.J > tau.I` strictly,
+  hence `tau` REGULAR; with a repeated level a weight strictly below a zero
+  weight can itself be zero. Violated at 4 of 25, 10 of 64 and 8 of 191
+  mechanisms, worst case `|down I| = 56` against a bound of 37 at rank 9.
+- ❌ AND THE REGULAR STRATUM IS NEARLY EMPTY HERE, which is what makes the
+  refutation bite: 0 regular mechanisms at rank 7, 0 at rank 8, 3 of 191 at
+  rank 9, with max distinct `tau` levels 5, 7 and 9 out of `d`. The memo calls
+  the regular case "the largest full-resolution instance"; in the census it is
+  3 of 280, so the `(20,40)` zero-layer count describes a regime the census
+  suggests is not where the facets live.
+- 🟦 A CORRECTED BOUND, verified 280 of 280 with tightest slack 6, 9, 9: for
+  `tau.I >= 0`, `down I` sits inside `Omega_+ union Omega_0`, so
+  `|down I| <= binom(d,2) + |Omega_0|`. The correction term is the zero-grade
+  dimension the Levi-fusion audit already computes, available per Levi type in
+  closed form from the memo's own generating function. ⚠️ The cost is that it is
+  Levi-type dependent rather than diagram-only, so it does not support one
+  universal truncation and degrades where the zero-grade module is large.
+- ⚠️ PROVENANCE WART in the uploaded bundle: the shipped
+  `rank40_root_budget_boundary.json` lacks the `rectangle` and
+  `area_distribution` fields its own generator emits. Every shared key agrees
+  exactly, so it is a trimmed copy rather than a different computation, but its
+  SHA256SUMS pins a file the script does not reproduce.
+- 🔬 Claims resting on the BDR implementation remain unverified here;
+  bdr_constructor_comparison.md records that the pinned backend cannot be
+  fetched or run in this environment and labels that benchmark INCOMPLETE.
 
 ## Adjacent literature to respect
 

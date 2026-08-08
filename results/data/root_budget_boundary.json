@@ -1,0 +1,501 @@
+{
+ "boundary_layers": [
+  {
+   "particle_number": 3,
+   "positive_layer": {
+    "accepted_plus_frontier": 3071,
+    "accepted_weight_types": 2587,
+    "ambient_weight_count": 9880,
+    "budget": 780,
+    "maximum_ideal_size": 780,
+    "maximum_young_area": 74,
+    "minimal_excluded_frontier": 484,
+    "minimum_frontier_ideal_size": 781,
+    "orbitals": 40,
+    "particle_number": 3,
+    "rectangle": [
+     3,
+     37
+    ],
+    "seconds": 0.18
+   },
+   "zero_or_positive_layer": {
+    "accepted_plus_frontier": 3075,
+    "accepted_weight_types": 2590,
+    "ambient_weight_count": 9880,
+    "budget": 781,
+    "maximum_ideal_size": 781,
+    "maximum_young_area": 74,
+    "minimal_excluded_frontier": 485,
+    "minimum_frontier_ideal_size": 782,
+    "orbitals": 40,
+    "particle_number": 3,
+    "rectangle": [
+     3,
+     37
+    ],
+    "seconds": 0.182
+   }
+  },
+  {
+   "particle_number": 4,
+   "positive_layer": {
+    "accepted_plus_frontier": 6166,
+    "accepted_weight_types": 4634,
+    "ambient_weight_count": 91390,
+    "budget": 780,
+    "maximum_ideal_size": 780,
+    "maximum_young_area": 72,
+    "minimal_excluded_frontier": 1532,
+    "minimum_frontier_ideal_size": 781,
+    "orbitals": 40,
+    "particle_number": 4,
+    "rectangle": [
+     4,
+     36
+    ],
+    "seconds": 0.34
+   },
+   "zero_or_positive_layer": {
+    "accepted_plus_frontier": 6175,
+    "accepted_weight_types": 4638,
+    "ambient_weight_count": 91390,
+    "budget": 781,
+    "maximum_ideal_size": 781,
+    "maximum_young_area": 72,
+    "minimal_excluded_frontier": 1537,
+    "minimum_frontier_ideal_size": 782,
+    "orbitals": 40,
+    "particle_number": 4,
+    "rectangle": [
+     4,
+     36
+    ],
+    "seconds": 0.329
+   }
+  },
+  {
+   "particle_number": 5,
+   "positive_layer": {
+    "accepted_plus_frontier": 9095,
+    "accepted_weight_types": 6525,
+    "ambient_weight_count": 658008,
+    "budget": 780,
+    "maximum_ideal_size": 780,
+    "maximum_young_area": 70,
+    "minimal_excluded_frontier": 2570,
+    "minimum_frontier_ideal_size": 781,
+    "orbitals": 40,
+    "particle_number": 5,
+    "rectangle": [
+     5,
+     35
+    ],
+    "seconds": 0.468
+   },
+   "zero_or_positive_layer": {
+    "accepted_plus_frontier": 9106,
+    "accepted_weight_types": 6530,
+    "ambient_weight_count": 658008,
+    "budget": 781,
+    "maximum_ideal_size": 781,
+    "maximum_young_area": 70,
+    "minimal_excluded_frontier": 2576,
+    "minimum_frontier_ideal_size": 782,
+    "orbitals": 40,
+    "particle_number": 5,
+    "rectangle": [
+     5,
+     35
+    ],
+    "seconds": 0.457
+   }
+  },
+  {
+   "particle_number": 10,
+   "positive_layer": {
+    "accepted_plus_frontier": 18088,
+    "accepted_weight_types": 12372,
+    "ambient_weight_count": 847660528,
+    "budget": 780,
+    "maximum_ideal_size": 780,
+    "maximum_young_area": 60,
+    "minimal_excluded_frontier": 5716,
+    "minimum_frontier_ideal_size": 781,
+    "orbitals": 40,
+    "particle_number": 10,
+    "rectangle": [
+     10,
+     30
+    ],
+    "seconds": 0.87
+   },
+   "zero_or_positive_layer": {
+    "accepted_plus_frontier": 18106,
+    "accepted_weight_types": 12382,
+    "ambient_weight_count": 847660528,
+    "budget": 781,
+    "maximum_ideal_size": 781,
+    "maximum_young_area": 60,
+    "minimal_excluded_frontier": 5724,
+    "minimum_frontier_ideal_size": 782,
+    "orbitals": 40,
+    "particle_number": 10,
+    "rectangle": [
+     10,
+     30
+    ],
+    "seconds": 0.88
+   }
+  },
+  {
+   "particle_number": 20,
+   "positive_layer": {
+    "accepted_plus_frontier": 22797,
+    "accepted_weight_types": 15359,
+    "ambient_weight_count": 137846528820,
+    "budget": 780,
+    "maximum_ideal_size": 780,
+    "maximum_young_area": 42,
+    "minimal_excluded_frontier": 7438,
+    "minimum_frontier_ideal_size": 781,
+    "orbitals": 40,
+    "particle_number": 20,
+    "rectangle": [
+     20,
+     20
+    ],
+    "seconds": 1.284
+   },
+   "zero_or_positive_layer": {
+    "accepted_plus_frontier": 22817,
+    "accepted_weight_types": 15371,
+    "ambient_weight_count": 137846528820,
+    "budget": 781,
+    "maximum_ideal_size": 781,
+    "maximum_young_area": 42,
+    "minimal_excluded_frontier": 7446,
+    "minimum_frontier_ideal_size": 782,
+    "orbitals": 40,
+    "particle_number": 20,
+    "rectangle": [
+     20,
+     20
+    ],
+    "seconds": 1.292
+   }
+  }
+ ],
+ "canonical_sha256_without_this_field_or_timings": "a4c41aca850b70f0484ce2574dc1e833ae294dc2e0b7a5466f7ad13f952099cb",
+ "census_validation": {
+  "(3,7)": {
+   "largest_positive_family": 18,
+   "max_distinct_levels": 5,
+   "mechanisms": 25,
+   "particle_number": 3,
+   "positive_family_is_a_dominance_ideal": 25,
+   "positive_family_within_root_budget": 25,
+   "positive_weight_bound_holds": 25,
+   "rank": 7,
+   "regular_mechanisms": 0,
+   "root_budget": 21,
+   "seconds": 5.9,
+   "system": "(3,7)",
+   "uniform_bound_violations": [
+    {
+     "corrected_bound": 41,
+     "distinct_levels": 2,
+     "largest_zero_weight_ideal": 30,
+     "tau": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2
+     ],
+     "uniform_bound": 22,
+     "zero_grade_dimension": 20
+    },
+    {
+     "corrected_bound": 41,
+     "distinct_levels": 2,
+     "largest_zero_weight_ideal": 25,
+     "tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "uniform_bound": 22,
+     "zero_grade_dimension": 20
+    },
+    {
+     "corrected_bound": 34,
+     "distinct_levels": 3,
+     "largest_zero_weight_ideal": 23,
+     "tau": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1
+     ],
+     "uniform_bound": 22,
+     "zero_grade_dimension": 13
+    },
+    {
+     "corrected_bound": 29,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 23,
+     "tau": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1
+     ],
+     "uniform_bound": 22,
+     "zero_grade_dimension": 8
+    }
+   ],
+   "worst_positive_weight_ideal": 14,
+   "worst_zero_weight_ideal": 30,
+   "zero_weight_corrected_bound_holds": 25,
+   "zero_weight_uniform_bound_holds": 21
+  },
+  "(3,8)": {
+   "largest_positive_family": 27,
+   "max_distinct_levels": 7,
+   "mechanisms": 64,
+   "particle_number": 3,
+   "positive_family_is_a_dominance_ideal": 64,
+   "positive_family_within_root_budget": 64,
+   "positive_weight_bound_holds": 64,
+   "rank": 8,
+   "regular_mechanisms": 0,
+   "root_budget": 28,
+   "seconds": 226.2,
+   "system": "(3,8)",
+   "uniform_bound_violations": [
+    {
+     "corrected_bound": 45,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 30,
+     "tau": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -5
+     ],
+     "uniform_bound": 29,
+     "zero_grade_dimension": 17
+    },
+    {
+     "corrected_bound": 49,
+     "distinct_levels": 3,
+     "largest_zero_weight_ideal": 31,
+     "tau": [
+      2,
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "uniform_bound": 29,
+     "zero_grade_dimension": 21
+    },
+    {
+     "corrected_bound": 45,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 31,
+     "tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "uniform_bound": 29,
+     "zero_grade_dimension": 17
+    },
+    {
+     "corrected_bound": 58,
+     "distinct_levels": 2,
+     "largest_zero_weight_ideal": 40,
+     "tau": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ],
+     "uniform_bound": 29,
+     "zero_grade_dimension": 30
+    },
+    {
+     "corrected_bound": 41,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 31,
+     "tau": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -2
+     ],
+     "uniform_bound": 29,
+     "zero_grade_dimension": 13
+    }
+   ],
+   "worst_positive_weight_ideal": 20,
+   "worst_zero_weight_ideal": 40,
+   "zero_weight_corrected_bound_holds": 64,
+   "zero_weight_uniform_bound_holds": 54
+  },
+  "(3,9)": {
+   "largest_positive_family": 36,
+   "max_distinct_levels": 9,
+   "mechanisms": 191,
+   "particle_number": 3,
+   "positive_family_is_a_dominance_ideal": 191,
+   "positive_family_within_root_budget": 191,
+   "positive_weight_bound_holds": 191,
+   "rank": 9,
+   "regular_mechanisms": 3,
+   "root_budget": 36,
+   "seconds": 0.5,
+   "system": "(3,9)",
+   "uniform_bound_violations": [
+    {
+     "corrected_bound": 61,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 40,
+     "tau": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -5
+     ],
+     "uniform_bound": 37,
+     "zero_grade_dimension": 25
+    },
+    {
+     "corrected_bound": 69,
+     "distinct_levels": 3,
+     "largest_zero_weight_ideal": 46,
+     "tau": [
+      2,
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "uniform_bound": 37,
+     "zero_grade_dimension": 33
+    },
+    {
+     "corrected_bound": 52,
+     "distinct_levels": 5,
+     "largest_zero_weight_ideal": 43,
+     "tau": [
+      2,
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -3
+     ],
+     "uniform_bound": 37,
+     "zero_grade_dimension": 16
+    },
+    {
+     "corrected_bound": 76,
+     "distinct_levels": 2,
+     "largest_zero_weight_ideal": 50,
+     "tau": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "uniform_bound": 37,
+     "zero_grade_dimension": 40
+    },
+    {
+     "corrected_bound": 58,
+     "distinct_levels": 4,
+     "largest_zero_weight_ideal": 43,
+     "tau": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -2
+     ],
+     "uniform_bound": 37,
+     "zero_grade_dimension": 22
+    }
+   ],
+   "worst_positive_weight_ideal": 28,
+   "worst_zero_weight_ideal": 56,
+   "zero_weight_corrected_bound_holds": 191,
+   "zero_weight_uniform_bound_holds": 183
+  }
+ },
+ "generated_by": "scripts/root_budget_boundary.py",
+ "orbitals": 40,
+ "root_budget": 780,
+ "schema_version": 1,
+ "verdict": {
+  "corrected_zero_bound": "|down I| <= binom(d,2) + |Omega_0| holds on every mechanism tested. It is Levi-type dependent rather than diagram-only, so it does not give the same uniform Young-lattice truncation.",
+  "positive_layer_bound": "HOLDS, and needs no regularity: below a positive weight every weight is positive. Verified on every surviving mechanism at ranks 7, 8 and 9.",
+  "regularity_in_the_census": "Regular mechanisms are rare: none at ranks 7 and 8, three of 191 at rank 9. The regular stratum the (20,40) counts describe is therefore not where the known mechanisms live.",
+  "zero_layer_uniform_bound": "REFUTED for non-regular tau. The step from a zero weight needs strict increase, which fails when two entries of tau coincide. Violated on the census at every rank tested."
+ }
+}
