@@ -202,7 +202,6 @@ def test_saturation_fails_with_witnesses(art):
 # The standalone verifier, including a negative control
 # --------------------------------------------------------------------------
 
-@pytest.mark.slow
 def test_standalone_verifier_passes():
     if not VERIFIER.exists():  # pragma: no cover
         pytest.skip("verifier not present")
@@ -211,7 +210,6 @@ def test_standalone_verifier_passes():
     assert done.returncode == 0, done.stdout + done.stderr
 
 
-@pytest.mark.slow
 def test_standalone_verifier_rejects_a_tampered_generator(tmp_path):
     """A verifier that cannot fail is not a verifier."""
     if not VERIFIER.exists():  # pragma: no cover
@@ -232,7 +230,6 @@ def test_standalone_verifier_rejects_a_tampered_generator(tmp_path):
     assert "decomposes" in done.stdout
 
 
-@pytest.mark.slow
 def test_standalone_verifier_rejects_a_tampered_digest(tmp_path):
     if not VERIFIER.exists():  # pragma: no cover
         pytest.skip("verifier not present")
