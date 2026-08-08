@@ -5,14 +5,14 @@ does not prove that the rows are valid generalized Pauli constraints.  Given
 that separate validity input, it proves exactly which supplied rows are
 redundant and which define facets after adjoining the fixed structural system
 
-``sum(lambda_i) = 3``, ``lambda_0 <= 1``,
+``sum(lambda_i) = N``, ``lambda_0 <= 1``,
 ``lambda_0 >= ... >= lambda_(d-1)``, and ``lambda_(d-1) >= 0``.
 
 For a target row ``a.x <= b``, redundancy is certified by rational Farkas
 multipliers ``y_j >= 0`` and a free trace multiplier ``z`` satisfying
 
 ``a = sum_j y_j A_j + z * 1`` and
-``b = sum_j y_j b_j + 3*z + slack``, with ``slack >= 0``.
+``b = sum_j y_j b_j + N*z + slack``, with ``slack >= 0``.
 
 Every point satisfying the premise rows and the trace equation then satisfies
 the target.  Removal certificates are replayed in order, so later certificates
@@ -110,7 +110,7 @@ class FacetWitnessCertificate:
 
 @dataclass(frozen=True)
 class OrderedSliceReductionCertificate:
-    """Replayable reduction and facet proof for one fixed-``N=3`` system."""
+    """Replayable reduction and facet proof for one ordered-slice system."""
 
     particle_number: int
     d: int
@@ -144,9 +144,17 @@ class OrderedSliceReductionCertificate:
 
 
 def ordered_pauli_inequalities(d: int) -> tuple[IntegralConstraint, ...]:
-    """Return the canonical Pauli and dominance rows for rank ``7 <= d <= 13``."""
-    if not 7 <= d <= 13:
-        raise ValueError("the fixed-N=3 certificate supports ranks 7 through 13")
+    """Return the canonical Pauli and dominance rows for ``d`` orbitals.
+
+    These are ``lambda_0 <= 1``, the dominance chain, and
+    ``lambda_(d-1) >= 0``. None of them mentions the particle number: occupation
+    numbers lie in ``[0, 1]`` and are ordered whatever ``N`` is, so the rank
+    window here was an ``N=3`` habit rather than a mathematical limit. The
+    particle number enters only through the trace equation, which is carried
+    separately as the free multiplier.
+    """
+    if type(d) is not int or d < 2:
+        raise ValueError("the ordered slice requires at least two orbitals")
 
     rows = [IntegralConstraint((1,) + (0,) * (d - 1), 1)]
     for index in range(d - 1):
@@ -480,7 +488,7 @@ def verify_ordered_slice_reduction_certificate(
 ) -> bool:
     """Replay every implication, strict point, and facet witness over ``Q``."""
     try:
-        if certificate.particle_number != 3:
+        if not 0 < certificate.particle_number < certificate.d:
             return False
         if certificate.structural_rows != ordered_pauli_inequalities(certificate.d):
             return False
@@ -543,8 +551,8 @@ def certify_ordered_slice_redundancy(
     later rows are removed because those removals only enlarge the comparison
     polyhedron.
     """
-    if particle_number != 3:
-        raise ValueError("this certificate is specialized to particle number 3")
+    if type(particle_number) is not int or not 0 < particle_number < d:
+        raise ValueError("require an integer particle number with 0 < N < d")
     structural = ordered_pauli_inequalities(d)
     candidates = _validate_rows(candidate_rows, d)
     active = list(range(len(candidates)))

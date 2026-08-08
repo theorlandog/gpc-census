@@ -1,4 +1,11 @@
-"""Fail-closed composition of screened fixed-``N=3`` candidate systems.
+"""Fail-closed composition of screened candidate systems, for any ``N``.
+
+The particle number is taken from the screening result rather than assumed.
+Everything below the screening layer was already written for ``wedge^n C^d``;
+this module was the fixed-``N=3`` choke point, hardcoding three in certificate
+replay, constraint conversion, the known-system lookup, the cyclic cross-check
+and the serialized output. An ``N=3`` run is unchanged byte for byte, because
+the value now flows from ``screening.n`` which is three for those runs.
 
 The candidate screen and the ordered-slice reducer prove different facts.
 The screen binds an exact Ressayre determinant witness to each accepted,
@@ -171,6 +178,11 @@ class CandidateSystemResult:
     include_modular_cross_checks: bool
 
     @property
+    def particle_number(self) -> int:
+        """The ``N`` this system was screened for, carried not assumed."""
+        return self.screening.n
+
+    @property
     def finalized(self) -> bool:
         """Whether a final relative facet system is present."""
         return self.status in {FINALIZED_KNOWN_STATUS, FINALIZED_RELATIVE_STATUS}
@@ -190,7 +202,7 @@ class CandidateSystemResult:
         """Return a complete diagnostic artifact, finalized or blocked."""
         if self.finalized:
             final_system: dict[str, object] | None = {
-                "particle_number": 3,
+                "particle_number": self.particle_number,
                 "rank": self.d,
                 "rows": [row.as_dict() for row in self.retained_rows],
             }
@@ -211,7 +223,7 @@ class CandidateSystemResult:
         else:
             known_status = "exact_oriented_tau_set_mismatch"
         return {
-            "particle_number": 3,
+            "particle_number": self.particle_number,
             "rank": self.d,
             "status": self.status,
             "finalized": self.finalized,
@@ -259,6 +271,7 @@ def _require(condition: bool, message: str) -> None:
 
 def _certified_ressayre_certificate(
     row: candidate_pipeline.ScreenedCandidateRow,
+    particle_number: int,
 ) -> RessayreCertificate:
     """Return the exact certificate selected by the row's resolution method."""
     _require(row.status == "certified", "only certified rows may enter reduction")
@@ -297,7 +310,7 @@ def _certified_ressayre_certificate(
             f"unknown certification method: {row.resolution_method}"
         )
     _require(
-        verify_tau_ressayre_certificate(3, row.tau, certificate),
+        verify_tau_ressayre_certificate(particle_number, row.tau, certificate),
         "Ressayre certificate failed exact replay or oriented-tau binding",
     )
     return certificate
@@ -361,6 +374,7 @@ def _validate_screening(
         "screening must be a CandidateScreeningResult",
     )
     d = screening.d
+    n = screening.n
     _require(7 <= d <= 13, "candidate-system finalization supports ranks 7 through 13")
     _require(
         screening.full_dimension.d == d
@@ -399,11 +413,11 @@ def _validate_screening(
 
     for row in screening.structural_rows:
         _require(
-            row.constraint == constraint_from_tau(row.tau, 3),
+            row.constraint == constraint_from_tau(row.tau, n),
             "structural constraint is not bound to its tau",
         )
         _require(
-            tau_from_constraint(row.constraint, 3) == row.tau,
+            tau_from_constraint(row.constraint, n) == row.tau,
             "structural affine row fails homogeneous round trip",
         )
 
@@ -417,11 +431,11 @@ def _validate_screening(
     }
     for index, row in enumerate(screening.candidates):
         _require(
-            row.constraint == constraint_from_tau(row.tau, 3),
+            row.constraint == constraint_from_tau(row.tau, n),
             "candidate constraint is not bound to its tau",
         )
         _require(
-            tau_from_constraint(row.constraint, 3) == row.tau,
+            tau_from_constraint(row.constraint, n) == row.tau,
             "candidate affine row fails homogeneous round trip",
         )
         _require(row.status in status_counts, f"unknown screening status: {row.status}")
@@ -431,7 +445,7 @@ def _validate_screening(
             "cyclic cross-check was not deferred on a screened candidate",
         )
         if row.status == "certified":
-            _certified_ressayre_certificate(row)
+            _certified_ressayre_certificate(row, n)
             certified.append((index, row))
         else:
             _validate_noncertified_row(row)
@@ -540,11 +554,26 @@ def _validate_screening(
     return tuple(certified)
 
 
+def _known_table_exists(n: int, d: int) -> bool:
+    """Whether a published system is tabulated for ``(n, d)``.
+
+    Asks the table rather than testing ``d > 10``, which was an ``N=3`` fact.
+    ``constraints`` already derives particle-hole duals, so ``(4,7)`` resolves
+    through ``(3,7)`` and the regression gate stays live for the complement
+    systems that the general-``N`` gates need.
+    """
+    try:
+        constraints(n, d)
+    except KeyError:
+        return False
+    return True
+
+
 def _known_system_regression(
-    d: int, retained_rows: tuple[IntegralConstraint, ...]
+    n: int, d: int, retained_rows: tuple[IntegralConstraint, ...]
 ) -> KnownSystemRegression:
-    retained_taus = {tau_from_constraint(row, 3) for row in retained_rows}
-    if d > 10:
+    retained_taus = {tau_from_constraint(row, n) for row in retained_rows}
+    if not _known_table_exists(n, d):
         return KnownSystemRegression(
             available=False,
             expected_count=None,
@@ -554,11 +583,11 @@ def _known_system_regression(
             published_only=(),
             lookup_source=None,
         )
-    table = constraints(3, d)
+    table = constraints(n, d)
     published_taus = {
         tau_from_constraint(
             IntegralConstraint(tuple(row["coeffs"]), int(row["rhs"])),
-            3,
+            n,
         )
         for row in table["inequalities"]
     }
@@ -576,13 +605,14 @@ def _known_system_regression(
 def _cross_check_retained_row(
     constraint: IntegralConstraint,
     *,
+    particle_number: int,
     include_modular: bool,
     modulus: int,
 ) -> CyclicSchubertVerdict:
     verdict = certify_cyclic_schubert(
         constraint.coeffs,
         constraint.rhs,
-        particle_number=3,
+        particle_number=particle_number,
         include_modular=include_modular,
         modulus=modulus,
     )
@@ -674,7 +704,8 @@ def compose_candidate_system(
         "reduction count conservation failed",
     )
 
-    regression = _known_system_regression(screening.d, reduction.retained_rows)
+    regression = _known_system_regression(
+        screening.n, screening.d, reduction.retained_rows)
     if not regression.passed:
         return CandidateSystemResult(
             d=screening.d,
@@ -691,11 +722,13 @@ def compose_candidate_system(
     final_rows: list[FinalCandidateRow] = []
     for reduction_index in reduction.retained_indices:
         screening_index, screened_row = certified[reduction_index]
-        certificate = _certified_ressayre_certificate(screened_row)
+        certificate = _certified_ressayre_certificate(
+            screened_row, screening.n)
         facet = facets.get(reduction_index)
         _require(facet is not None, "retained row lacks its exact facet witness")
         cyclic = _cross_check_retained_row(
             screened_row.constraint,
+            particle_number=screening.n,
             include_modular=include_modular,
             modulus=modulus,
         )
