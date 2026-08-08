@@ -1,0 +1,7133 @@
+{
+  "conditionality": "The rank-9 and rank-10 constraint lists are conjecturally complete per AK2008 (results/data/PROVENANCE.md), so every statement resting on them is conditional on that completeness.",
+  "generator": "scripts/facet_index_stability.py",
+  "machine": {
+    "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+    "python": "3.14.0rc2"
+  },
+  "part_a_landing": {
+    "note": "Part A tables were computed in scratch before the pre-registration existed, so under rule R4 they are landed with a generator and a guard test rather than scored as discoveries. Only P6 is predictive.",
+    "scratch_agreement": {
+      "max_tau_entry": {
+        "(3,10)": {
+          "agrees": true,
+          "landed": 7,
+          "scratch": 7
+        },
+        "(3,6)": {
+          "agrees": true,
+          "landed": 1,
+          "scratch": 1
+        },
+        "(3,7)": {
+          "agrees": true,
+          "landed": 2,
+          "scratch": 2
+        },
+        "(3,8)": {
+          "agrees": true,
+          "landed": 7,
+          "scratch": 7
+        },
+        "(3,9)": {
+          "agrees": true,
+          "landed": 7,
+          "scratch": 7
+        }
+      },
+      "padding_violations": {
+        "(3,6)->(3,7)": {
+          "agrees": true,
+          "landed": 1,
+          "scratch": 1
+        },
+        "(3,7)->(3,8)": {
+          "agrees": true,
+          "landed": 0,
+          "scratch": 0
+        },
+        "(3,8)->(3,9)": {
+          "agrees": true,
+          "landed": 21,
+          "scratch": 21
+        },
+        "(3,9)->(3,10)": {
+          "agrees": true,
+          "landed": 8,
+          "scratch": 8
+        }
+      },
+      "shape_counts": {
+        "(3,10)": {
+          "agrees": true,
+          "landed": 16,
+          "scratch": 16
+        },
+        "(3,6)": {
+          "agrees": true,
+          "landed": 1,
+          "scratch": 1
+        },
+        "(3,7)": {
+          "agrees": true,
+          "landed": 1,
+          "scratch": 1
+        },
+        "(3,8)": {
+          "agrees": true,
+          "landed": 9,
+          "scratch": 9
+        },
+        "(3,9)": {
+          "agrees": true,
+          "landed": 8,
+          "scratch": 8
+        }
+      }
+    },
+    "verdict": "LANDED"
+  },
+  "part_a_padding_census": [
+    {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 1,
+      "map": "(3,6)->(3,7)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 0,
+      "valid_and_tight": 0,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 1,
+      "violation_examples": [
+        {
+          "excess": "1/5",
+          "lower_row": {
+            "coeffs": [
+              0,
+              0,
+              0,
+              1,
+              -1,
+              -1
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/5",
+          "padded_tau": [
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            0
+          ],
+          "rhs": 0
+        }
+      ]
+    },
+    {
+      "agrees_with_tight_extension": 4,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 4,
+      "map": "(3,7)->(3,8)",
+      "padding_is_a_valid_map": true,
+      "present_in_higher_facet_list": 4,
+      "valid_and_tight": 4,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 0,
+      "violation_examples": []
+    },
+    {
+      "agrees_with_tight_extension": 10,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 31,
+      "map": "(3,8)->(3,9)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 10,
+      "valid_and_tight": 10,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 21,
+      "violation_examples": [
+        {
+          "excess": "1/4",
+          "lower_row": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "rhs": 1
+          },
+          "max_value_over_higher_vertices": "5/4",
+          "padded_tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            -1
+          ],
+          "rhs": 1
+        },
+        {
+          "excess": "1/10",
+          "lower_row": {
+            "coeffs": [
+              0,
+              1,
+              -1,
+              0,
+              0,
+              -1,
+              -1,
+              0
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/10",
+          "padded_tau": [
+            0,
+            1,
+            -1,
+            0,
+            0,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "rhs": 0
+        },
+        {
+          "excess": "1/7",
+          "lower_row": {
+            "coeffs": [
+              0,
+              0,
+              0,
+              1,
+              -1,
+              -1,
+              -1,
+              0
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/7",
+          "padded_tau": [
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "rhs": 0
+        }
+      ]
+    },
+    {
+      "agrees_with_tight_extension": 37,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 52,
+      "map": "(3,9)->(3,10)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 37,
+      "valid_and_tight": 44,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 8,
+      "violation_examples": [
+        {
+          "excess": "1/6",
+          "lower_row": {
+            "coeffs": [
+              3,
+              2,
+              -2,
+              2,
+              -2,
+              -1,
+              0,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "max_value_over_higher_vertices": "19/6",
+          "padded_tau": [
+            2,
+            1,
+            -3,
+            1,
+            -3,
+            -2,
+            -1,
+            -1,
+            0,
+            -1
+          ],
+          "rhs": 3
+        },
+        {
+          "excess": "1/8",
+          "lower_row": {
+            "coeffs": [
+              3,
+              2,
+              -2,
+              -1,
+              0,
+              0,
+              1,
+              2,
+              -2
+            ],
+            "rhs": 3
+          },
+          "max_value_over_higher_vertices": "25/8",
+          "padded_tau": [
+            2,
+            1,
+            -3,
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            -3,
+            -1
+          ],
+          "rhs": 3
+        },
+        {
+          "excess": "1/10",
+          "lower_row": {
+            "coeffs": [
+              3,
+              -1,
+              0,
+              0,
+              1,
+              2,
+              -2,
+              2,
+              -2
+            ],
+            "rhs": 3
+          },
+          "max_value_over_higher_vertices": "31/10",
+          "padded_tau": [
+            2,
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            -3,
+            1,
+            -3,
+            -1
+          ],
+          "rhs": 3
+        }
+      ]
+    },
+    {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 4,
+      "map": "(4,7)->(4,8)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 0,
+      "valid_and_tight": 0,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 4,
+      "violation_examples": [
+        {
+          "excess": "2/3",
+          "lower_row": {
+            "coeffs": [
+              0,
+              0,
+              -1,
+              -1,
+              -1,
+              -1,
+              0
+            ],
+            "rhs": -2
+          },
+          "max_value_over_higher_vertices": "-4/3",
+          "padded_tau": [
+            1,
+            1,
+            -1,
+            -1,
+            -1,
+            -1,
+            1,
+            1
+          ],
+          "rhs": -2
+        },
+        {
+          "excess": "1/3",
+          "lower_row": {
+            "coeffs": [
+              0,
+              -1,
+              0,
+              -1,
+              -1,
+              0,
+              -1
+            ],
+            "rhs": -2
+          },
+          "max_value_over_higher_vertices": "-5/3",
+          "padded_tau": [
+            1,
+            -1,
+            1,
+            -1,
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "rhs": -2
+        },
+        {
+          "excess": "1/3",
+          "lower_row": {
+            "coeffs": [
+              -1,
+              0,
+              0,
+              -1,
+              0,
+              -1,
+              -1
+            ],
+            "rhs": -2
+          },
+          "max_value_over_higher_vertices": "-5/3",
+          "padded_tau": [
+            -1,
+            1,
+            1,
+            -1,
+            1,
+            -1,
+            -1,
+            1
+          ],
+          "rhs": -2
+        }
+      ]
+    },
+    {
+      "agrees_with_tight_extension": 8,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 15,
+      "map": "(4,8)->(4,9)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 8,
+      "valid_and_tight": 8,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 7,
+      "violation_examples": [
+        {
+          "excess": "1/6",
+          "lower_row": {
+            "coeffs": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              -1,
+              -1,
+              -1
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/6",
+          "padded_tau": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            0
+          ],
+          "rhs": 0
+        },
+        {
+          "excess": "1/6",
+          "lower_row": {
+            "coeffs": [
+              1,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              -1,
+              -1
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/6",
+          "padded_tau": [
+            1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            -1,
+            0
+          ],
+          "rhs": 0
+        },
+        {
+          "excess": "1/7",
+          "lower_row": {
+            "coeffs": [
+              1,
+              0,
+              -1,
+              0,
+              0,
+              -1,
+              0,
+              -1
+            ],
+            "rhs": 0
+          },
+          "max_value_over_higher_vertices": "1/7",
+          "padded_tau": [
+            1,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0
+          ],
+          "rhs": 0
+        }
+      ]
+    },
+    {
+      "agrees_with_tight_extension": 19,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 60,
+      "map": "(4,9)->(4,10)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 19,
+      "valid_and_tight": 19,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 41,
+      "violation_examples": [
+        {
+          "excess": "1/4",
+          "lower_row": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              -2,
+              -1,
+              -1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "9/4",
+          "padded_tau": [
+            3,
+            1,
+            1,
+            -5,
+            -3,
+            -3,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "rhs": 2
+        },
+        {
+          "excess": "1/4",
+          "lower_row": {
+            "coeffs": [
+              2,
+              1,
+              -1,
+              -1,
+              0,
+              0,
+              1,
+              -2,
+              0
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "9/4",
+          "padded_tau": [
+            3,
+            1,
+            -3,
+            -3,
+            -1,
+            -1,
+            1,
+            -5,
+            -1,
+            -1
+          ],
+          "rhs": 2
+        },
+        {
+          "excess": "1/7",
+          "lower_row": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              1,
+              2,
+              -2,
+              -1,
+              -1,
+              0
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "15/7",
+          "padded_tau": [
+            1,
+            -1,
+            -1,
+            1,
+            3,
+            -5,
+            -3,
+            -3,
+            -1,
+            -1
+          ],
+          "rhs": 2
+        }
+      ]
+    },
+    {
+      "lower_facets": 31,
+      "map": "(5,8)->(5,9)",
+      "present_in_higher_facet_list": 0,
+      "unavailable_reason": "no precomputed vertices for (5,9)",
+      "validity_available": false
+    },
+    {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
+      "lower_facets": 60,
+      "map": "(5,9)->(5,10)",
+      "padding_is_a_valid_map": false,
+      "present_in_higher_facet_list": 0,
+      "valid_and_tight": 1,
+      "valid_but_strictly_interior": 0,
+      "validity_available": true,
+      "violated_at_higher_rank": 59,
+      "violation_examples": [
+        {
+          "excess": "1/7",
+          "lower_row": {
+            "coeffs": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              2,
+              -1,
+              -1,
+              -2
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "15/7",
+          "padded_tau": [
+            -2,
+            -2,
+            -2,
+            3,
+            3,
+            8,
+            -7,
+            -7,
+            -12,
+            -2
+          ],
+          "rhs": 2
+        },
+        {
+          "excess": "3/35",
+          "lower_row": {
+            "coeffs": [
+              0,
+              2,
+              -1,
+              0,
+              0,
+              1,
+              1,
+              -1,
+              -2
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "73/35",
+          "padded_tau": [
+            -2,
+            8,
+            -7,
+            -2,
+            -2,
+            3,
+            3,
+            -7,
+            -12,
+            -2
+          ],
+          "rhs": 2
+        },
+        {
+          "excess": "5/28",
+          "lower_row": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              -2,
+              -1,
+              0,
+              0,
+              -1
+            ],
+            "rhs": 2
+          },
+          "max_value_over_higher_vertices": "61/28",
+          "padded_tau": [
+            -2,
+            3,
+            3,
+            8,
+            -12,
+            -7,
+            -2,
+            -2,
+            -7,
+            -2
+          ],
+          "rhs": 2
+        }
+      ]
+    }
+  ],
+  "part_a_shape_census": [
+    {
+      "distinct_sorted_tau_shapes": 1,
+      "facet_count": 1,
+      "lookup_source": "Borland-Dennis; AK2008 Table 1",
+      "max_abs_affine_coefficient": 1,
+      "max_abs_tau_entry": 1,
+      "max_rhs": 0,
+      "particle_number": 3,
+      "rank": 6,
+      "shape_to_facet_ratio": 1.0,
+      "system": "(3,6)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 1,
+      "facet_count": 4,
+      "lookup_source": "AK2008 Table 2",
+      "max_abs_affine_coefficient": 1,
+      "max_abs_tau_entry": 2,
+      "max_rhs": 2,
+      "particle_number": 3,
+      "rank": 7,
+      "shape_to_facet_ratio": 0.25,
+      "system": "(3,7)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 9,
+      "facet_count": 31,
+      "lookup_source": "AK2008 Table 4",
+      "max_abs_affine_coefficient": 3,
+      "max_abs_tau_entry": 7,
+      "max_rhs": 2,
+      "particle_number": 3,
+      "rank": 8,
+      "shape_to_facet_ratio": 0.2903225806451613,
+      "system": "(3,8)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 8,
+      "facet_count": 52,
+      "lookup_source": "Altunbulak thesis Appendix A",
+      "max_abs_affine_coefficient": 3,
+      "max_abs_tau_entry": 7,
+      "max_rhs": 5,
+      "particle_number": 3,
+      "rank": 9,
+      "shape_to_facet_ratio": 0.15384615384615385,
+      "system": "(3,9)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 16,
+      "facet_count": 93,
+      "lookup_source": "Altunbulak thesis Appendix A",
+      "max_abs_affine_coefficient": 4,
+      "max_abs_tau_entry": 7,
+      "max_rhs": 4,
+      "particle_number": 3,
+      "rank": 10,
+      "shape_to_facet_ratio": 0.17204301075268819,
+      "system": "(3,10)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 1,
+      "facet_count": 4,
+      "lookup_source": "AK2008 Table 2 (particle-hole dual)",
+      "max_abs_affine_coefficient": 1,
+      "max_abs_tau_entry": 1,
+      "max_rhs": -2,
+      "particle_number": 4,
+      "rank": 7,
+      "shape_to_facet_ratio": 0.25,
+      "system": "(4,7)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 3,
+      "facet_count": 15,
+      "lookup_source": "AK2008 Table 3",
+      "max_abs_affine_coefficient": 1,
+      "max_abs_tau_entry": 3,
+      "max_rhs": 2,
+      "particle_number": 4,
+      "rank": 8,
+      "shape_to_facet_ratio": 0.2,
+      "system": "(4,8)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 13,
+      "facet_count": 60,
+      "lookup_source": "Altunbulak thesis Appendix A",
+      "max_abs_affine_coefficient": 5,
+      "max_abs_tau_entry": 9,
+      "max_rhs": 8,
+      "particle_number": 4,
+      "rank": 9,
+      "shape_to_facet_ratio": 0.21666666666666667,
+      "system": "(4,9)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 15,
+      "facet_count": 125,
+      "lookup_source": "Altunbulak thesis Appendix A",
+      "max_abs_affine_coefficient": 5,
+      "max_abs_tau_entry": 15,
+      "max_rhs": 8,
+      "particle_number": 4,
+      "rank": 10,
+      "shape_to_facet_ratio": 0.12,
+      "system": "(4,10)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 9,
+      "facet_count": 31,
+      "lookup_source": "AK2008 Table 4 (particle-hole dual)",
+      "max_abs_affine_coefficient": 3,
+      "max_abs_tau_entry": 13,
+      "max_rhs": 3,
+      "particle_number": 5,
+      "rank": 8,
+      "shape_to_facet_ratio": 0.2903225806451613,
+      "system": "(5,8)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 13,
+      "facet_count": 60,
+      "lookup_source": "Altunbulak thesis Appendix A (particle-hole dual)",
+      "max_abs_affine_coefficient": 5,
+      "max_abs_tau_entry": 23,
+      "max_rhs": 2,
+      "particle_number": 5,
+      "rank": 9,
+      "shape_to_facet_ratio": 0.21666666666666667,
+      "system": "(5,9)"
+    },
+    {
+      "distinct_sorted_tau_shapes": 21,
+      "facet_count": 161,
+      "lookup_source": "Altunbulak thesis Appendix A",
+      "max_abs_affine_coefficient": 7,
+      "max_abs_tau_entry": 34,
+      "max_rhs": 15,
+      "particle_number": 5,
+      "rank": 10,
+      "shape_to_facet_ratio": 0.13043478260869565,
+      "system": "(5,10)"
+    }
+  ],
+  "part_b_coefficient_census": [
+    {
+      "certified_rows": 49,
+      "coefficient_one_prefilter": {
+        "added_after_scoring": true,
+        "caveat": "sound only where every facet has coefficient one, which is an observation at two ranks and not a theorem. Using it as a gate needs that forward direction proved.",
+        "input_reduction_fraction": 0.44897959183673475,
+        "reduction_input_rows_after": 27,
+        "reduction_input_rows_before": 49,
+        "reduction_stage_speedup": 1.632951657535514,
+        "retained_sets_identical": true,
+        "seconds_after": 0.1545034629998554,
+        "seconds_before": 0.25229668600059085,
+        "soundness_basis": "every facet has coefficient one at this rank, measured not proved"
+      },
+      "criterion": {
+        "converse_holds_no_removed_row_has_one": false,
+        "counterexamples": [
+          {
+            "certified_index": 6,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                2,
+                2,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              1,
+              1,
+              4,
+              -2,
+              -5,
+              -5
+            ]
+          },
+          {
+            "certified_index": 8,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                3,
+                1,
+                2,
+                2,
+                0,
+                0
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              4,
+              -2,
+              1,
+              1,
+              -5,
+              -5
+            ]
+          },
+          {
+            "certified_index": 12,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                1,
+                2,
+                2,
+                1,
+                1,
+                0
+              ],
+              "rhs": 4
+            },
+            "tau": [
+              -1,
+              -1,
+              2,
+              2,
+              -1,
+              -1,
+              -4
+            ]
+          },
+          {
+            "certified_index": 21,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                2,
+                1,
+                1,
+                2,
+                1,
+                0
+              ],
+              "rhs": 4
+            },
+            "tau": [
+              -1,
+              2,
+              -1,
+              -1,
+              2,
+              -1,
+              -4
+            ]
+          },
+          {
+            "certified_index": 22,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                2,
+                1,
+                2,
+                1,
+                0,
+                0
+              ],
+              "rhs": 4
+            },
+            "tau": [
+              -1,
+              2,
+              -1,
+              2,
+              -1,
+              -4,
+              -4
+            ]
+          }
+        ],
+        "forward_holds_every_facet_has_one": true,
+        "removed_rows_with_coefficient_one": 23,
+        "separates_exactly": false,
+        "statement": "coefficient one iff facet, on certified rows"
+      },
+      "facet_rows": 4,
+      "facets": {
+        "coefficient_nonunit_nonzero": 0,
+        "coefficient_one": 4,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1
+        ],
+        "ill_formed": 0,
+        "rows": 4,
+        "unresolved": 0
+      },
+      "particle_number": 3,
+      "rank": 7,
+      "removed": {
+        "coefficient_nonunit_nonzero": 22,
+        "coefficient_one": 23,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1,
+          2
+        ],
+        "ill_formed": 0,
+        "rows": 45,
+        "unresolved": 0
+      },
+      "removed_rows": 45,
+      "rows": [
+        {
+          "certified_index": 0,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              4,
+              3,
+              0,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.001937839999300195,
+          "tau": [
+            -4,
+            -1,
+            2,
+            5,
+            2,
+            -7,
+            -1
+          ]
+        },
+        {
+          "certified_index": 1,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              2,
+              3,
+              4,
+              0,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0016870649997144938,
+          "tau": [
+            -4,
+            2,
+            -1,
+            2,
+            5,
+            -7,
+            -1
+          ]
+        },
+        {
+          "certified_index": 2,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              3,
+              1,
+              0,
+              1,
+              2,
+              2
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004581778000101622,
+          "tau": [
+            -4,
+            5,
+            -1,
+            -4,
+            -1,
+            2,
+            2
+          ]
+        },
+        {
+          "certified_index": 3,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              3,
+              2,
+              0,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.001953622999280924,
+          "tau": [
+            -2,
+            -2,
+            1,
+            4,
+            1,
+            -5,
+            1
+          ]
+        },
+        {
+          "certified_index": 4,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              3,
+              0,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0021087129998704768,
+          "tau": [
+            -2,
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            1
+          ]
+        },
+        {
+          "certified_index": 5,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00011429000005591661,
+          "tau": [
+            -2,
+            1,
+            1,
+            1,
+            1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 6,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              1,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00015798099957464729,
+          "tau": [
+            -2,
+            1,
+            1,
+            4,
+            -2,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 7,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              4,
+              1,
+              1,
+              2,
+              3,
+              3
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.013810589000058826,
+          "tau": [
+            -2,
+            2,
+            -1,
+            -1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 8,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              1,
+              2,
+              2,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00019410200002312195,
+          "tau": [
+            -2,
+            4,
+            -2,
+            1,
+            1,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 9,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              0,
+              2
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.01433309999993071,
+          "tau": [
+            -1,
+            -1,
+            -1,
+            2,
+            2,
+            -4,
+            2
+          ]
+        },
+        {
+          "certified_index": 10,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              3,
+              3,
+              0,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.008580038000218337,
+          "tau": [
+            -1,
+            -1,
+            0,
+            1,
+            1,
+            -2,
+            2
+          ]
+        },
+        {
+          "certified_index": 11,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00018330299917579396,
+          "tau": [
+            -1,
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 12,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              2,
+              1,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 9.776800015970366e-05,
+          "tau": [
+            -1,
+            -1,
+            2,
+            2,
+            -1,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 13,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              0,
+              2,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0034334089996264083,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 14,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              1,
+              0,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0035351890001038555,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "certified_index": 15,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              0,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.001722795000205224,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            1,
+            -2,
+            0
+          ]
+        },
+        {
+          "certified_index": 16,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              0,
+              1,
+              2,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0040281729998241644,
+          "tau": [
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 17,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              1,
+              0,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0034895190001407173,
+          "tau": [
+            -1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 18,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              2,
+              0,
+              1,
+              1,
+              2,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004437013999449846,
+          "tau": [
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 19,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              2,
+              1,
+              0,
+              1,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004057404999912251,
+          "tau": [
+            -1,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 20,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00019311000050947769,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            -1,
+            2,
+            -1
+          ]
+        },
+        {
+          "certified_index": 21,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              1,
+              2,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 9.755700011737645e-05,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            2,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 22,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 7.230700066429563e-05,
+          "tau": [
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 23,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00010633700003381819,
+          "tau": [
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 24,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              1,
+              1,
+              2,
+              0,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.003032108999832417,
+          "tau": [
+            0,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "certified_index": 25,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              1,
+              2,
+              0,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.003639173000010487,
+          "tau": [
+            0,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 26,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              2,
+              0,
+              1,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0035193759995308938,
+          "tau": [
+            0,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 27,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              2,
+              0,
+              0,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011792800069088116,
+          "tau": [
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 28,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00022878399977344088,
+          "tau": [
+            0,
+            1,
+            -1,
+            0,
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "certified_index": 29,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 7.128400011424674e-05,
+          "tau": [
+            0,
+            1,
+            -1,
+            0,
+            0,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 30,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 9.570500060362974e-05,
+          "tau": [
+            1,
+            -2,
+            1,
+            1,
+            -2,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 31,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              3,
+              0,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0001208080002470524,
+          "tau": [
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 32,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 6.943199969100533e-05,
+          "tau": [
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            -1
+          ]
+        },
+        {
+          "certified_index": 33,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 8.762899960856885e-05,
+          "tau": [
+            1,
+            1,
+            -2,
+            -2,
+            1,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 34,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 5.6988999858731404e-05,
+          "tau": [
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 35,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 8.909799998946255e-05,
+          "tau": [
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 36,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              1,
+              3,
+              0,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00013326299995242152,
+          "tau": [
+            1,
+            1,
+            -2,
+            4,
+            -5,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 37,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              1,
+              2,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00035482100065564737,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            -2,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 38,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              2,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00013090299944451544,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            1,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 39,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              2,
+              1,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00020281599972804543,
+          "tau": [
+            1,
+            4,
+            -5,
+            1,
+            -2,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 40,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 5.838800007040845e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 41,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              1,
+              1,
+              2,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 8.928999977797503e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            -4
+          ]
+        },
+        {
+          "certified_index": 42,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              2,
+              0,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 6.873999973322498e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            2,
+            -4,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 43,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              2,
+              0,
+              1,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 8.854899988364195e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            2,
+            -4,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 44,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011376600014045835,
+          "tau": [
+            2,
+            2,
+            -4,
+            -1,
+            -1,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 45,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 9.827699977904558e-05,
+          "tau": [
+            2,
+            2,
+            -4,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 46,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              2,
+              0,
+              2,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00012720199993054848,
+          "tau": [
+            4,
+            -2,
+            -2,
+            1,
+            -5,
+            1,
+            -5
+          ]
+        },
+        {
+          "certified_index": 47,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              1,
+              1,
+              2,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011271499988652067,
+          "tau": [
+            4,
+            1,
+            -5,
+            -2,
+            -2,
+            1,
+            -5
+          ]
+        },
+        {
+          "certified_index": 48,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              2,
+              0,
+              1,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00012380599946482107,
+          "tau": [
+            4,
+            1,
+            -5,
+            1,
+            -5,
+            -2,
+            -2
+          ]
+        }
+      ],
+      "screening_counts": {
+        "certified_rows": 49,
+        "cyclic_schubert_coefficient_one_rows": 0,
+        "cyclic_schubert_cross_checked_rows": 0,
+        "cyclic_schubert_deferred_rows": 49,
+        "cyclic_schubert_exact_coefficient_rows": 0,
+        "cyclic_schubert_nonzero_rows": 0,
+        "cyclic_schubert_unavailable_rows": 0,
+        "cyclic_schubert_zero_rows": 0,
+        "duplicate_or_rescaled_rows": 0,
+        "evaluation_unresolved_rows": 0,
+        "exact_rejected_rows": 499,
+        "inadmissible_rows": 0,
+        "input_tau_rows": 549,
+        "nonstructural_candidate_rows": 548,
+        "normalized_tau_rows": 549,
+        "resolved_candidate_rows": 548,
+        "structural_rows": 1,
+        "symbolic_fallback_attempted_rows": 499,
+        "symbolic_fallback_certified_rows": 0,
+        "symbolic_fallback_exception_unresolved_rows": 0,
+        "symbolic_fallback_resource_limited_rows": 0,
+        "symbolic_zero_rejected_rows": 499,
+        "trace_rejected_rows": 0
+      },
+      "system": "(3,7)"
+    },
+    {
+      "certified_rows": 137,
+      "coefficient_one_prefilter": {
+        "added_after_scoring": true,
+        "caveat": "sound only where every facet has coefficient one, which is an observation at two ranks and not a theorem. Using it as a gate needs that forward direction proved.",
+        "input_reduction_fraction": 0.5109489051094891,
+        "reduction_input_rows_after": 67,
+        "reduction_input_rows_before": 137,
+        "reduction_stage_speedup": 1.8197003597194445,
+        "retained_sets_identical": true,
+        "seconds_after": 0.5470001539997611,
+        "seconds_before": 0.9953763769999568,
+        "soundness_basis": "every facet has coefficient one at this rank, measured not proved"
+      },
+      "criterion": {
+        "converse_holds_no_removed_row_has_one": false,
+        "counterexamples": [
+          {
+            "certified_index": 20,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                2,
+                2,
+                3,
+                1,
+                0,
+                0,
+                0
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              1,
+              1,
+              4,
+              -2,
+              -5,
+              -5,
+              -5
+            ]
+          },
+          {
+            "certified_index": 21,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                2,
+                2,
+                3,
+                1,
+                0,
+                0,
+                1
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              1,
+              1,
+              4,
+              -2,
+              -5,
+              -5,
+              -2
+            ]
+          },
+          {
+            "certified_index": 24,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                3,
+                1,
+                2,
+                2,
+                0,
+                0,
+                0
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              4,
+              -2,
+              1,
+              1,
+              -5,
+              -5,
+              -5
+            ]
+          },
+          {
+            "certified_index": 25,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                3,
+                1,
+                2,
+                2,
+                0,
+                0,
+                1
+              ],
+              "rhs": 5
+            },
+            "tau": [
+              -2,
+              4,
+              -2,
+              1,
+              1,
+              -5,
+              -5,
+              -2
+            ]
+          },
+          {
+            "certified_index": 36,
+            "coefficient": 1,
+            "constraint": {
+              "coeffs": [
+                1,
+                1,
+                2,
+                2,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rhs": 4
+            },
+            "tau": [
+              -1,
+              -1,
+              2,
+              2,
+              -1,
+              -1,
+              -4,
+              -4
+            ]
+          }
+        ],
+        "forward_holds_every_facet_has_one": true,
+        "removed_rows_with_coefficient_one": 36,
+        "separates_exactly": false,
+        "statement": "coefficient one iff facet, on certified rows"
+      },
+      "facet_rows": 31,
+      "facets": {
+        "coefficient_nonunit_nonzero": 0,
+        "coefficient_one": 31,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1
+        ],
+        "ill_formed": 0,
+        "rows": 31,
+        "unresolved": 0
+      },
+      "particle_number": 3,
+      "rank": 8,
+      "removed": {
+        "coefficient_nonunit_nonzero": 70,
+        "coefficient_one": 36,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9,
+          12,
+          18
+        ],
+        "ill_formed": 0,
+        "rows": 106,
+        "unresolved": 0
+      },
+      "removed_rows": 106,
+      "rows": [
+        {
+          "certified_index": 0,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              3,
+              4,
+              0,
+              2,
+              1
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005212399999436457,
+          "tau": [
+            -4,
+            -1,
+            2,
+            2,
+            5,
+            -7,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 1,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              3,
+              4,
+              1,
+              0,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005033615000684222,
+          "tau": [
+            -4,
+            -1,
+            2,
+            2,
+            5,
+            -4,
+            -7,
+            -1
+          ]
+        },
+        {
+          "certified_index": 2,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              4,
+              3,
+              0,
+              1,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005121304999192944,
+          "tau": [
+            -4,
+            -1,
+            2,
+            5,
+            2,
+            -7,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 3,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              4,
+              3,
+              0,
+              2,
+              0
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.001496055000643537,
+          "tau": [
+            -4,
+            -1,
+            2,
+            5,
+            2,
+            -7,
+            -1,
+            -7
+          ]
+        },
+        {
+          "certified_index": 4,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              2,
+              3,
+              4,
+              0,
+              1,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005692095000085828,
+          "tau": [
+            -4,
+            2,
+            -1,
+            2,
+            5,
+            -7,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 5,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              2,
+              3,
+              4,
+              0,
+              2,
+              0
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0016511859994352562,
+          "tau": [
+            -4,
+            2,
+            -1,
+            2,
+            5,
+            -7,
+            -1,
+            -7
+          ]
+        },
+        {
+          "certified_index": 6,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              4,
+              2,
+              1,
+              2,
+              3,
+              3,
+              0
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004286757999580004,
+          "tau": [
+            -4,
+            5,
+            -1,
+            -4,
+            -1,
+            2,
+            2,
+            -7
+          ]
+        },
+        {
+          "certified_index": 7,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              2,
+              3,
+              0,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.010226692999822262,
+          "tau": [
+            -2,
+            -2,
+            1,
+            1,
+            4,
+            -5,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 8,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              3,
+              2,
+              0,
+              2,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0020497519999480573,
+          "tau": [
+            -2,
+            -2,
+            1,
+            4,
+            1,
+            -5,
+            1,
+            -5
+          ]
+        },
+        {
+          "certified_index": 9,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              3,
+              3,
+              4,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.27953292500023963,
+          "tau": [
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "certified_index": 10,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              3,
+              4,
+              2,
+              3
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.28060414099945774,
+          "tau": [
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 11,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              4,
+              2,
+              3,
+              3
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.3113300719996914,
+          "tau": [
+            -2,
+            -1,
+            -1,
+            0,
+            2,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 12,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              2,
+              3,
+              1,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.32724525399953563,
+          "tau": [
+            -2,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 13,
+          "coefficient": 18,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              3,
+              1,
+              2,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.3120188050006618,
+          "tau": [
+            -2,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 14,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              3,
+              1,
+              2,
+              2,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.3031242500001099,
+          "tau": [
+            -2,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 15,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              0,
+              1,
+              1,
+              1,
+              0,
+              1
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0028972540003451286,
+          "tau": [
+            -2,
+            1,
+            -2,
+            1,
+            1,
+            1,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 16,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              3,
+              0,
+              2,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0020142550001764903,
+          "tau": [
+            -2,
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            1,
+            -5
+          ]
+        },
+        {
+          "certified_index": 17,
+          "coefficient": 9,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.002852673000234063,
+          "tau": [
+            -2,
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 18,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00012994899952900596,
+          "tau": [
+            -2,
+            1,
+            1,
+            1,
+            1,
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 19,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              0,
+              1,
+              0,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0022313179997581756,
+          "tau": [
+            -2,
+            1,
+            1,
+            4,
+            -5,
+            -2,
+            -5,
+            1
+          ]
+        },
+        {
+          "certified_index": 20,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00017475200002081692,
+          "tau": [
+            -2,
+            1,
+            1,
+            4,
+            -2,
+            -5,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 21,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              1,
+              0,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00039533699964522384,
+          "tau": [
+            -2,
+            1,
+            1,
+            4,
+            -2,
+            -5,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 22,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              5,
+              2,
+              2,
+              3,
+              4,
+              4,
+              0
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.007774118999805069,
+          "tau": [
+            -2,
+            2,
+            -1,
+            -1,
+            0,
+            1,
+            1,
+            -3
+          ]
+        },
+        {
+          "certified_index": 23,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              1,
+              1,
+              1,
+              2,
+              2,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0013076630002615275,
+          "tau": [
+            -2,
+            4,
+            -2,
+            -2,
+            -2,
+            1,
+            1,
+            -5
+          ]
+        },
+        {
+          "certified_index": 24,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00015729100050521083,
+          "tau": [
+            -2,
+            4,
+            -2,
+            1,
+            1,
+            -5,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 25,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              1,
+              2,
+              2,
+              0,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00047338999956991756,
+          "tau": [
+            -2,
+            4,
+            -2,
+            1,
+            1,
+            -5,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 26,
+          "coefficient": 3,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              1,
+              2,
+              2,
+              0,
+              2
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.018220832000224618,
+          "tau": [
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            2,
+            -4,
+            2
+          ]
+        },
+        {
+          "certified_index": 27,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              0,
+              2,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.014306392000435153,
+          "tau": [
+            -1,
+            -1,
+            -1,
+            2,
+            2,
+            -4,
+            2,
+            -4
+          ]
+        },
+        {
+          "certified_index": 28,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0002993600000991137,
+          "tau": [
+            -1,
+            -1,
+            -1,
+            2,
+            2,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 29,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              0,
+              2,
+              3,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.2803094170003533,
+          "tau": [
+            -1,
+            -1,
+            0,
+            -2,
+            0,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 30,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.11284761800015986,
+          "tau": [
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 31,
+          "coefficient": 12,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              0,
+              1,
+              1,
+              2,
+              1,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.12411019900082465,
+          "tau": [
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 32,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              3,
+              4,
+              4,
+              1,
+              5,
+              0
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.02422240000032616,
+          "tau": [
+            -1,
+            -1,
+            0,
+            1,
+            1,
+            -2,
+            2,
+            -3
+          ]
+        },
+        {
+          "certified_index": 33,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              3,
+              4,
+              5,
+              0,
+              4,
+              1
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.011647674999949231,
+          "tau": [
+            -1,
+            -1,
+            0,
+            1,
+            2,
+            -3,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 34,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00033873699976538774,
+          "tau": [
+            -1,
+            -1,
+            2,
+            -1,
+            -1,
+            2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 35,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              1,
+              2,
+              1,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00015789500048413174,
+          "tau": [
+            -1,
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 36,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00010735600062616868,
+          "tau": [
+            -1,
+            -1,
+            2,
+            2,
+            -1,
+            -1,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 37,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              2,
+              2,
+              1,
+              1,
+              0,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00014514299982693046,
+          "tau": [
+            -1,
+            -1,
+            2,
+            2,
+            -1,
+            -1,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 38,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              3,
+              4,
+              0,
+              1,
+              1,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0066643079999266774,
+          "tau": [
+            -1,
+            -1,
+            2,
+            5,
+            -7,
+            -4,
+            -4,
+            2
+          ]
+        },
+        {
+          "certified_index": 39,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.2614265850006632,
+          "tau": [
+            -1,
+            0,
+            -2,
+            -1,
+            0,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 40,
+          "coefficient": 18,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              0,
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.11852009599988378,
+          "tau": [
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 41,
+          "coefficient": 12,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              0,
+              1,
+              1,
+              2,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.12375677900035953,
+          "tau": [
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 42,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              1,
+              2,
+              0,
+              2,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005286657000397099,
+          "tau": [
+            -1,
+            0,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 43,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              0,
+              1,
+              2,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005068071999630774,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 44,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.010507820999919204,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 45,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              1,
+              3,
+              2,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00696217400036403,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "certified_index": 46,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              2,
+              1,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.01696376599920768,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 47,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              0,
+              2,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0018191700000897981,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            1,
+            -2,
+            0,
+            -2
+          ]
+        },
+        {
+          "certified_index": 48,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              0,
+              2,
+              1
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00374147799993807,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            1,
+            -2,
+            0,
+            -1
+          ]
+        },
+        {
+          "certified_index": 49,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              1,
+              0,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.003933459999643674,
+          "tau": [
+            -1,
+            0,
+            0,
+            1,
+            1,
+            -1,
+            -2,
+            0
+          ]
+        },
+        {
+          "certified_index": 50,
+          "coefficient": 4,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              0,
+              1,
+              1,
+              2,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005017953999413294,
+          "tau": [
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 51,
+          "coefficient": 8,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              2,
+              0,
+              1,
+              2,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.006648797000707418,
+          "tau": [
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 52,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              1,
+              2,
+              3,
+              2,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0033012269996106625,
+          "tau": [
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "certified_index": 53,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              2,
+              1,
+              2,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.003108967000116536,
+          "tau": [
+            -1,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 54,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              3,
+              2,
+              3,
+              0,
+              1,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0038146590004544123,
+          "tau": [
+            -1,
+            0,
+            1,
+            0,
+            1,
+            -2,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 55,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              4,
+              5,
+              0,
+              1,
+              2,
+              4
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.011983807999968121,
+          "tau": [
+            -1,
+            0,
+            1,
+            2,
+            -3,
+            -2,
+            -1,
+            1
+          ]
+        },
+        {
+          "certified_index": 56,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              2,
+              0,
+              1,
+              1,
+              1,
+              2,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004952661000061198,
+          "tau": [
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            0,
+            1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 57,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              1,
+              2,
+              2,
+              3,
+              2,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0030137479998302297,
+          "tau": [
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "certified_index": 58,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              3,
+              2,
+              1,
+              2,
+              2,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0031641619998481474,
+          "tau": [
+            -1,
+            1,
+            0,
+            -1,
+            0,
+            0,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 59,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0002699880005820887,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            -1
+          ]
+        },
+        {
+          "certified_index": 60,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              1,
+              1,
+              2,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00018092200025421334,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            -1,
+            2,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 61,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              1,
+              2,
+              1,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0001153799994426663,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            2,
+            -1,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 62,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              1,
+              2,
+              1,
+              0,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00015848700058995746,
+          "tau": [
+            -1,
+            2,
+            -1,
+            -1,
+            2,
+            -1,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 63,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 8.734299990464933e-05,
+          "tau": [
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -4,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 64,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00010564300009718863,
+          "tau": [
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -4,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 65,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              1,
+              2,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00015027500012365635,
+          "tau": [
+            -1,
+            2,
+            -1,
+            2,
+            -1,
+            -4,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 66,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              0,
+              1,
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.23884420300055353,
+          "tau": [
+            0,
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "certified_index": 67,
+          "coefficient": 6,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0995126159996289,
+          "tau": [
+            0,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 68,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              2,
+              3,
+              1,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.002994995999870298,
+          "tau": [
+            0,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 69,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              3,
+              1,
+              2,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00301708100050746,
+          "tau": [
+            0,
+            -1,
+            0,
+            1,
+            -1,
+            0,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 70,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              3,
+              1,
+              2,
+              2,
+              3,
+              0
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0037646829996447195,
+          "tau": [
+            0,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 71,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0001541379997433978,
+          "tau": [
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 72,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              1,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00029944699963380117,
+          "tau": [
+            0,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 73,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              0,
+              0,
+              1,
+              2,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005943679999290907,
+          "tau": [
+            0,
+            1,
+            -1,
+            -1,
+            -1,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 74,
+          "coefficient": 3,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              0,
+              1,
+              0,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.005526326999643061,
+          "tau": [
+            0,
+            1,
+            -1,
+            -1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 75,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              0,
+              1,
+              1,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00032755099982750835,
+          "tau": [
+            0,
+            1,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "certified_index": 76,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00010236300022370415,
+          "tau": [
+            0,
+            1,
+            -1,
+            0,
+            0,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 77,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              2,
+              0,
+              1,
+              1,
+              0,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00030593200062867254,
+          "tau": [
+            0,
+            1,
+            -1,
+            0,
+            0,
+            -1,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 78,
+          "coefficient": 3,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0023586100005559274,
+          "tau": [
+            1,
+            -2,
+            -2,
+            1,
+            1,
+            -2,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 79,
+          "coefficient": 3,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              1
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.010042173999863735,
+          "tau": [
+            1,
+            -2,
+            1,
+            -2,
+            -2,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "certified_index": 80,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00017562999983056216,
+          "tau": [
+            1,
+            -2,
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 81,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              3,
+              0,
+              0,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0021584030000667553,
+          "tau": [
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            -5,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 82,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              3,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00027007799963030266,
+          "tau": [
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            -2,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 83,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              2,
+              3,
+              0,
+              1,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0006788110003981274,
+          "tau": [
+            1,
+            -2,
+            1,
+            4,
+            -5,
+            -2,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 84,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00938423400020838,
+          "tau": [
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "certified_index": 85,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              2,
+              2,
+              3,
+              0,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0030039720004424453,
+          "tau": [
+            1,
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            -2,
+            0
+          ]
+        },
+        {
+          "certified_index": 86,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.017225685000084923,
+          "tau": [
+            1,
+            -1,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 87,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              0,
+              0,
+              0,
+              1,
+              1,
+              2
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.004060559000208741,
+          "tau": [
+            1,
+            0,
+            -1,
+            -1,
+            -1,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 88,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00014451900005951757,
+          "tau": [
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 89,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            "rhs": 3
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00045449600020219805,
+          "tau": [
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            -1,
+            0
+          ]
+        },
+        {
+          "certified_index": 90,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00011228099992877105,
+          "tau": [
+            1,
+            1,
+            -2,
+            -2,
+            1,
+            1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 91,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              3,
+              0,
+              1,
+              1,
+              2,
+              2,
+              2
+            ],
+            "rhs": 6
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0019490380000206642,
+          "tau": [
+            1,
+            1,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "certified_index": 92,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 8.503800017933827e-05,
+          "tau": [
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 93,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "rhs": 2
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00010761500016087666,
+          "tau": [
+            1,
+            1,
+            -2,
+            1,
+            -2,
+            -2,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 94,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              1,
+              3,
+              0,
+              0,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.000151984000694938,
+          "tau": [
+            1,
+            1,
+            -2,
+            4,
+            -5,
+            -5,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 95,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              1,
+              3,
+              0,
+              0,
+              1,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0004489459997785161,
+          "tau": [
+            1,
+            1,
+            -2,
+            4,
+            -5,
+            -5,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 96,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              4,
+              5,
+              0,
+              1,
+              2,
+              2,
+              4,
+              3
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.007225690000268514,
+          "tau": [
+            1,
+            2,
+            -3,
+            -2,
+            -1,
+            -1,
+            1,
+            0
+          ]
+        },
+        {
+          "certified_index": 97,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              4,
+              5,
+              0,
+              1,
+              2,
+              3,
+              2,
+              4
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0073324140003023786,
+          "tau": [
+            1,
+            2,
+            -3,
+            -2,
+            -1,
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "certified_index": 98,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              4,
+              5,
+              0,
+              2,
+              1,
+              2,
+              3,
+              4
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.007319770000322023,
+          "tau": [
+            1,
+            2,
+            -3,
+            -1,
+            -2,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 99,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0012564849994305405,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            -2,
+            -2,
+            1,
+            -2
+          ]
+        },
+        {
+          "certified_index": 100,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              1,
+              2,
+              0,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0016424320001533488,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            -2,
+            1,
+            -5,
+            1
+          ]
+        },
+        {
+          "certified_index": 101,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              1,
+              2,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.00034949800010508625,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            -2,
+            1,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 102,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              2,
+              0,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0018352970000705682,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            1,
+            -5,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 103,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              2,
+              1,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00019613200038293144,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            1,
+            -2,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 104,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              1,
+              2,
+              1,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.000395901999581838,
+          "tau": [
+            1,
+            4,
+            -5,
+            -2,
+            1,
+            -2,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 105,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              2,
+              0,
+              1,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0016800809999040212,
+          "tau": [
+            1,
+            4,
+            -5,
+            1,
+            -5,
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 106,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              2,
+              1,
+              0,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00016794499970274046,
+          "tau": [
+            1,
+            4,
+            -5,
+            1,
+            -2,
+            -5,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 107,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              3,
+              0,
+              2,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0004734089998237323,
+          "tau": [
+            1,
+            4,
+            -5,
+            1,
+            -2,
+            -5,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 108,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              5,
+              1,
+              2,
+              2,
+              3,
+              4,
+              0,
+              4
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.007997777000127826,
+          "tau": [
+            2,
+            -2,
+            -1,
+            -1,
+            0,
+            1,
+            -3,
+            1
+          ]
+        },
+        {
+          "certified_index": 109,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 9.788400075194659e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 110,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "rhs": 1
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0002560359998824424,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            2
+          ]
+        },
+        {
+          "certified_index": 111,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              1,
+              1,
+              2,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011542700030986452,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 112,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              1,
+              1,
+              2,
+              0,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.000157008999849495,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            2,
+            -4,
+            -1
+          ]
+        },
+        {
+          "certified_index": 113,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              2,
+              0,
+              1,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 8.698799956619041e-05,
+          "tau": [
+            2,
+            -1,
+            -1,
+            2,
+            -4,
+            -1,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 114,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              2,
+              0,
+              1,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00013810200016450835,
+          "tau": [
+            2,
+            -1,
+            -1,
+            2,
+            -4,
+            -1,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 115,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              1,
+              1,
+              2,
+              0,
+              1,
+              1,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00015245700069499435,
+          "tau": [
+            2,
+            -1,
+            -1,
+            2,
+            -4,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 116,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              5,
+              4,
+              0,
+              1,
+              2,
+              2,
+              3,
+              4
+            ],
+            "rhs": 9
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.005116887000440329,
+          "tau": [
+            2,
+            1,
+            -3,
+            -2,
+            -1,
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "certified_index": 117,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011176899988640798,
+          "tau": [
+            2,
+            2,
+            -4,
+            -1,
+            -1,
+            -1,
+            -4,
+            -4
+          ]
+        },
+        {
+          "certified_index": 118,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              0,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00011013899984391173,
+          "tau": [
+            2,
+            2,
+            -4,
+            -1,
+            -1,
+            -1,
+            -1,
+            -4
+          ]
+        },
+        {
+          "certified_index": 119,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              2,
+              2,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "rhs": 4
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00016538799991394626,
+          "tau": [
+            2,
+            2,
+            -4,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 120,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              3,
+              4,
+              0,
+              1,
+              2,
+              1,
+              3,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.004177063000497583,
+          "tau": [
+            2,
+            5,
+            -7,
+            -4,
+            -1,
+            -4,
+            2,
+            -1
+          ]
+        },
+        {
+          "certified_index": 121,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              3,
+              4,
+              0,
+              1,
+              2,
+              2,
+              1,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0041157599998769,
+          "tau": [
+            2,
+            5,
+            -7,
+            -4,
+            -1,
+            -1,
+            -4,
+            2
+          ]
+        },
+        {
+          "certified_index": 122,
+          "coefficient": 2,
+          "coefficient_one": false,
+          "constraint": {
+            "coeffs": [
+              3,
+              4,
+              0,
+              1,
+              2,
+              3,
+              0,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_nonunit",
+          "is_facet": false,
+          "seconds": 0.0013999539996802923,
+          "tau": [
+            2,
+            5,
+            -7,
+            -4,
+            -1,
+            2,
+            -7,
+            -1
+          ]
+        },
+        {
+          "certified_index": 123,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              4,
+              0,
+              2,
+              1,
+              1,
+              2,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.004645161000553344,
+          "tau": [
+            2,
+            5,
+            -7,
+            -1,
+            -4,
+            -4,
+            -1,
+            2
+          ]
+        },
+        {
+          "certified_index": 124,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              4,
+              0,
+              3,
+              0,
+              1,
+              2,
+              2
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0015906180005913484,
+          "tau": [
+            2,
+            5,
+            -7,
+            2,
+            -7,
+            -4,
+            -1,
+            -1
+          ]
+        },
+        {
+          "certified_index": 125,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              1,
+              1,
+              2,
+              0,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0015163460002440843,
+          "tau": [
+            4,
+            -2,
+            -2,
+            -2,
+            -2,
+            1,
+            -5,
+            1
+          ]
+        },
+        {
+          "certified_index": 126,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              2,
+              0,
+              1,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0016257389997917926,
+          "tau": [
+            4,
+            -2,
+            -2,
+            1,
+            -5,
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 127,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0001911469998958637,
+          "tau": [
+            4,
+            -2,
+            -2,
+            1,
+            -5,
+            1,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 128,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00044972499927098397,
+          "tau": [
+            4,
+            -2,
+            -2,
+            1,
+            -5,
+            1,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 129,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0010885629999393132,
+          "tau": [
+            4,
+            1,
+            -5,
+            -2,
+            -2,
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "certified_index": 130,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              1,
+              1,
+              2,
+              0,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00013609799952973844,
+          "tau": [
+            4,
+            1,
+            -5,
+            -2,
+            -2,
+            1,
+            -5,
+            -5
+          ]
+        },
+        {
+          "certified_index": 131,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              1,
+              1,
+              2,
+              0,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0003651750002973131,
+          "tau": [
+            4,
+            1,
+            -5,
+            -2,
+            -2,
+            1,
+            -5,
+            -2
+          ]
+        },
+        {
+          "certified_index": 132,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              2,
+              0,
+              1,
+              1,
+              0
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.0001498339997851872,
+          "tau": [
+            4,
+            1,
+            -5,
+            1,
+            -5,
+            -2,
+            -2,
+            -5
+          ]
+        },
+        {
+          "certified_index": 133,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              3,
+              2,
+              0,
+              2,
+              0,
+              1,
+              1,
+              1
+            ],
+            "rhs": 5
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": false,
+          "seconds": 0.00037561099998129066,
+          "tau": [
+            4,
+            1,
+            -5,
+            1,
+            -5,
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "certified_index": 134,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              4,
+              1,
+              2,
+              1,
+              2,
+              3,
+              0,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.00428665799972805,
+          "tau": [
+            5,
+            -4,
+            -1,
+            -4,
+            -1,
+            2,
+            -7,
+            2
+          ]
+        },
+        {
+          "certified_index": 135,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              4,
+              1,
+              2,
+              3,
+              0,
+              1,
+              2,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.004406744999869261,
+          "tau": [
+            5,
+            -4,
+            -1,
+            2,
+            -7,
+            -4,
+            -1,
+            2
+          ]
+        },
+        {
+          "certified_index": 136,
+          "coefficient": 1,
+          "coefficient_one": true,
+          "constraint": {
+            "coeffs": [
+              4,
+              3,
+              0,
+              1,
+              2,
+              1,
+              2,
+              3
+            ],
+            "rhs": 7
+          },
+          "cyclic_status": "coefficient_one",
+          "is_facet": true,
+          "seconds": 0.0083810589994755,
+          "tau": [
+            5,
+            2,
+            -7,
+            -4,
+            -1,
+            -4,
+            -1,
+            2
+          ]
+        }
+      ],
+      "screening_counts": {
+        "certified_rows": 137,
+        "cyclic_schubert_coefficient_one_rows": 0,
+        "cyclic_schubert_cross_checked_rows": 0,
+        "cyclic_schubert_deferred_rows": 137,
+        "cyclic_schubert_exact_coefficient_rows": 0,
+        "cyclic_schubert_nonzero_rows": 0,
+        "cyclic_schubert_unavailable_rows": 0,
+        "cyclic_schubert_zero_rows": 0,
+        "duplicate_or_rescaled_rows": 0,
+        "evaluation_unresolved_rows": 0,
+        "exact_rejected_rows": 6469,
+        "inadmissible_rows": 0,
+        "input_tau_rows": 6607,
+        "nonstructural_candidate_rows": 6606,
+        "normalized_tau_rows": 6607,
+        "resolved_candidate_rows": 6606,
+        "structural_rows": 1,
+        "symbolic_fallback_attempted_rows": 6469,
+        "symbolic_fallback_certified_rows": 0,
+        "symbolic_fallback_exception_unresolved_rows": 0,
+        "symbolic_fallback_resource_limited_rows": 0,
+        "symbolic_zero_rejected_rows": 6469,
+        "trace_rejected_rows": 0
+      },
+      "system": "(3,8)"
+    }
+  ],
+  "predictions": [
+    {
+      "id": "P1",
+      "independent_scope": 1,
+      "measured": {
+        "coefficient_nonunit_nonzero": 0,
+        "coefficient_one": 31,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1
+        ],
+        "ill_formed": 0,
+        "rows": 31,
+        "unresolved": 0
+      },
+      "scope": 31,
+      "statement": "every retained row at (3,8) has exact coefficient 1",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P2",
+      "independent_scope": 2,
+      "measured": {
+        "(3,7)": 23,
+        "(3,8)": 36
+      },
+      "scope": 151,
+      "statement": "at least one redundant certified row at (3,7) or (3,8) has coefficient 1, refuting coefficient-one implies facet",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P3",
+      "independent_scope": 1,
+      "measured": {
+        "coefficient_nonunit_nonzero": 70,
+        "coefficient_one": 36,
+        "coefficient_zero": 0,
+        "distinct_coefficients": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9,
+          12,
+          18
+        ],
+        "ill_formed": 0,
+        "rows": 106,
+        "unresolved": 0
+      },
+      "scope": 106,
+      "statement": "among redundant certified rows at (3,8), both coefficient-one and non-coefficient-one values occur",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P4",
+      "independent_scope": 2,
+      "measured": {
+        "(3,7)": {
+          "facet_zeros": 0,
+          "removed_zeros": 0
+        },
+        "(3,8)": {
+          "facet_zeros": 0,
+          "removed_zeros": 0
+        }
+      },
+      "scope": 186,
+      "statement": "no certified row at either rank has exact coefficient 0",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P5",
+      "independent_scope": 2,
+      "measured": {
+        "(3,7)": {
+          "facet_ill_formed": 0,
+          "removed_ill_formed": 0
+        },
+        "(3,8)": {
+          "facet_ill_formed": 0,
+          "removed_ill_formed": 0
+        }
+      },
+      "scope": 186,
+      "statement": "every certified row yields a well-formed cyclic problem, so no degree_mismatch and no rhs_not_exterior_weight",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P6",
+      "independent_scope": 4,
+      "measured": {
+        "(4,10)": {
+          "facets": 125,
+          "ratio": 0.12,
+          "shapes": 15
+        },
+        "(4,8)": {
+          "facets": 15,
+          "ratio": 0.2,
+          "shapes": 3
+        },
+        "(4,9)": {
+          "facets": 60,
+          "ratio": 0.21666666666666667,
+          "shapes": 13
+        },
+        "(5,10)": {
+          "facets": 161,
+          "ratio": 0.13043478260869565,
+          "shapes": 21
+        }
+      },
+      "scope": 4,
+      "statement": "for (4,8), (4,9), (4,10) and (5,10) the distinct sorted-tau shape count is at most one quarter of the facet count",
+      "verdict": "PASS"
+    }
+  ],
+  "preregistration": "docs/prereg_facet_index_stability.md",
+  "schema_version": 1,
+  "scope_caveat": "The cyclic test is one selected coefficient of one recurrence, not the general Belkale-Kumar or Ressayre deformed product. A negative result refutes THAT criterion only."
+}

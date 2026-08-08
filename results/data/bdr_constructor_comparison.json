@@ -1,0 +1,3023 @@
+{
+  "benchmark_completeness": {
+    "external_backend_executed": false,
+    "label": "INCOMPLETE",
+    "what_is_established_anyway": "an upper bound on the speedup any external candidate generator can deliver under the local certification requirement, plus a local recertification of every published row in the overlapping systems",
+    "what_prevented_it": [
+      "plmlab.math.cnrs.fr denied by the session egress proxy (403 CONNECT)",
+      "ea-icj.github.io, arxiv.org, cnrs.hal.science denied by the same policy",
+      "moment-cone is not published on PyPI",
+      "SageMath is not installed and must never be a package runtime dependency"
+    ]
+  },
+  "external_pin": {
+    "authors": [
+      "Michael Bulois (ICJ, AGL)",
+      "Roland Denis (INSMI-CNRS, ICJ)",
+      "Nicolas Ressayre (ICJ, AGL)"
+    ],
+    "benchmark_label": "INCOMPLETE",
+    "code_repository": "ea-icj/moment_cone at plmlab.math.cnrs.fr",
+    "executed_here": false,
+    "hal_record": "hal-05044759, version v3",
+    "landing_page": "https://ea-icj.github.io/",
+    "license": "not_verified_code_host_unreachable",
+    "name": "Bulois-Denis-Ressayre moment-cone algorithm",
+    "paper": "An Algorithm to compute the Kronecker cone and other moment cones",
+    "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca",
+    "preprint": "arXiv:2505.08812 (math.AG)",
+    "relevant_case": "fermionic cone, GL_d(C) acting on wedge^r C^d, here r = 3",
+    "runtime_environment": "Python-Sage (SageMath)",
+    "why_not_executed": [
+      "plmlab.math.cnrs.fr denied by the session egress proxy (403 CONNECT)",
+      "ea-icj.github.io, arxiv.org, cnrs.hal.science denied by the same policy",
+      "moment-cone is not published on PyPI",
+      "SageMath is not installed and must never be a package runtime dependency"
+    ]
+  },
+  "generator": "scripts/bdr_constructor_comparison.py",
+  "machine": {
+    "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.14.0rc2"
+  },
+  "measurement_caveat": "Wall clock on one machine, single worker, no equally optimized control for the external path because the external path could not be run. Timings are not averaged across machines.",
+  "predictions": [
+    {
+      "id": "P1",
+      "independent_scope": 3,
+      "measured": {
+        "certified": 36,
+        "other_statuses": []
+      },
+      "scope": 36,
+      "statement": "every published nonstructural row screens locally as certified",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P2",
+      "independent_scope": 2,
+      "measured": {
+        "(3,7)": {
+          "available": true,
+          "expected_count": 4,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 2",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 4
+        },
+        "(3,8)": {
+          "available": true,
+          "expected_count": 31,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 4",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 31
+        }
+      },
+      "scope": 2,
+      "statement": "the oracle path reproduces the published system exactly at every rank",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P3",
+      "independent_scope": 2,
+      "measured": {
+        "(3,7)": 0,
+        "(3,8)": 0
+      },
+      "scope": 2,
+      "statement": "exact ordered-slice reduction removes zero rows from each published system supplied alone",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P4",
+      "independent_scope": 1,
+      "measured": 0.9766502060000448,
+      "scope": 1,
+      "statement": "oracle total for (3,8) is under five seconds",
+      "verdict": "PASS"
+    },
+    {
+      "id": "P5",
+      "independent_scope": 1,
+      "measured": 0.3906232156931324,
+      "scope": 1,
+      "statement": "enumeration takes more than half the wall clock of the full (3,8) construction",
+      "verdict": "FAIL"
+    },
+    {
+      "id": "P6",
+      "independent_scope": 1,
+      "measured": 16.382992850153844,
+      "scope": 1,
+      "statement": "the (3,8) oracle ceiling is at least five",
+      "verdict": "PASS"
+    }
+  ],
+  "preregistration": "docs/prereg_bdr_constructor_comparison.md",
+  "schema_version": 1,
+  "systems": [
+    {
+      "ceiling": null,
+      "composition_exclusion_reason": "compose_candidate_system guards ranks 7 through 13; rank 6 is covered by the separate exhaustive reference gate in docs/stage1_ressayre_3_6.md, so this entry is screening only and is excluded from the ceiling",
+      "composition_supported": false,
+      "full_path": {
+        "counts": {
+          "admissible_hyperplanes": 362,
+          "certified_rows": 20,
+          "inadmissible_rows": 0,
+          "oriented_rows_total": 724,
+          "screened_candidate_rows": 63,
+          "structural_rows": 1,
+          "survivors_generated": 64,
+          "survivors_predicted_in_closed_form": 64,
+          "symbolic_zero_rejected_rows": 43,
+          "trace_rejected_never_materialised": 660,
+          "trace_rejected_rows": 0,
+          "unoriented_orbits": 8,
+          "unresolved_rows": 0
+        },
+        "method": "orbit_native_canonical_augmentation_screening_only",
+        "seconds": {
+          "composition": null,
+          "enumeration": 0.09017713000002914,
+          "screening": 0.09605257399994116,
+          "total": 0.1862297039999703
+        }
+      },
+      "oracle_path": {
+        "counts": {
+          "certified_rows": 1,
+          "inadmissible_rows": 0,
+          "screened_candidate_rows": 1,
+          "structural_rows": 0,
+          "symbolic_zero_rejected_rows": 0,
+          "trace_rejected_rows": 0,
+          "unresolved_rows": 0
+        },
+        "known_system_regression": {
+          "available": false,
+          "reason": "composition layer does not accept this rank"
+        },
+        "method": "published_minimal_rows_supplied_as_candidates_screening_only",
+        "recertification_ledger": [
+          {
+            "converted_tau": [
+              0,
+              0,
+              0,
+              1,
+              -1,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                0,
+                0,
+                1,
+                -1,
+                -1
+              ],
+              "published_source": "Borland-Dennis; AK2008 Table 1",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "839f66655c7c01180e6d7f1b71f3b65b5029f2a8040b51cdacd92fd4dfbc5dc2",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -1,
+                    -1,
+                    -1,
+                    5,
+                    5
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -5,
+                    -5,
+                    1,
+                    1,
+                    1,
+                    7
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 5,
+              "sorted_h": [
+                -5,
+                -5,
+                1,
+                1,
+                1,
+                7
+              ],
+              "z": 3
+            }
+          }
+        ],
+        "seconds": {
+          "composition": null,
+          "enumeration": 0.0,
+          "screening": 0.001962164000019584,
+          "total": 0.001962164000019584
+        },
+        "supplied_rows": 1
+      },
+      "particle_number": 3,
+      "rank": 6,
+      "system": "(3,6)"
+    },
+    {
+      "birationality_prefilter_path": {
+        "added_after_scoring": true,
+        "caveat": "an upper bound on the prefilter step alone; it leaves enumeration and composition untouched, and a real prefilter costs something to run",
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 4,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 2",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 4
+        },
+        "method": "local_enumeration_plus_perfect_determinant_zero_prefilter",
+        "models": "the one BDR step with no local counterpart: a birationality filter that rejects determinant-zero rows before they are screened. Local candidate generation is unchanged, so this isolates the prefilter.",
+        "retained_rows": 4,
+        "rows_removed_by_prefilter": 499,
+        "rows_screened": 49,
+        "seconds": {
+          "composition": 0.37805981200006045,
+          "enumeration": 0.7133184309999479,
+          "screening": 0.15269500799990965,
+          "total": 1.244073250999918
+        },
+        "speedup_if_external_enumeration_were_also_free": 3.4308283719401915,
+        "speedup_over_full": 1.4636828607450116,
+        "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
+      },
+      "ceiling": {
+        "candidate_rows_avoided": 544,
+        "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
+        "determinant_certifications_still_required": 4,
+        "value": 21.411956589632467
+      },
+      "composition_supported": true,
+      "cross_path_agreement": {
+        "full_only": [],
+        "oracle_only": [],
+        "retained_tau_sets_equal": true
+      },
+      "full_path": {
+        "counts": {
+          "admissible_hyperplanes": 5341,
+          "certified_rows": 49,
+          "inadmissible_rows": 0,
+          "oriented_rows_total": 10682,
+          "redundancy_input_rows": 49,
+          "redundant_rows": 45,
+          "retained_rows": 4,
+          "screened_candidate_rows": 548,
+          "structural_rows": 1,
+          "survivors_generated": 549,
+          "survivors_predicted_in_closed_form": 549,
+          "symbolic_fallback_attempted_rows": 499,
+          "symbolic_zero_rejected_rows": 499,
+          "trace_rejected_never_materialised": 10133,
+          "trace_rejected_rows": 0,
+          "unoriented_orbits": 19,
+          "unresolved_rows": 0
+        },
+        "enumeration_share_of_total": 0.39173331331350364,
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 4,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 2",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 4
+        },
+        "method": "orbit_native_canonical_augmentation",
+        "proved_complete": true,
+        "seconds": {
+          "composition": 0.43723277499998403,
+          "enumeration": 0.7133184309999479,
+          "screening": 0.6703700130000243,
+          "total": 1.8209286949999068
+        },
+        "status": "finalized_known_system_regression"
+      },
+      "oracle_path": {
+        "counts": {
+          "certified_rows": 4,
+          "inadmissible_rows": 0,
+          "redundancy_input_rows": 4,
+          "redundant_rows": 0,
+          "retained_rows": 4,
+          "screened_candidate_rows": 4,
+          "structural_rows": 0,
+          "symbolic_zero_rejected_rows": 0,
+          "trace_rejected_rows": 0,
+          "unresolved_rows": 0
+        },
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 4,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 2",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 4
+        },
+        "method": "published_minimal_rows_supplied_as_candidates",
+        "recertification_ledger": [
+          {
+            "converted_tau": [
+              -2,
+              1,
+              1,
+              1,
+              1,
+              -2,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 2",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "27adff8a82df4a4f7bdd9a16b00d0860c85f9713e4281e7b5948349f9e23c976",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    -3,
+                    4,
+                    4,
+                    4
+                  ],
+                  "z": -2
+                },
+                {
+                  "sorted_h": [
+                    -4,
+                    -4,
+                    -4,
+                    3,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": 2
+                }
+              ],
+              "matched": true,
+              "orbit_index": 7,
+              "sorted_h": [
+                -4,
+                -4,
+                -4,
+                3,
+                3,
+                3,
+                3
+              ],
+              "z": 2
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              -2,
+              1,
+              1,
+              -2,
+              1,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                0
+              ],
+              "published_source": "AK2008 Table 2",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "814894c0544d50c8c14326e744ec5fe1e79991d393d148eca80e2d8d5d4f9a18",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    -3,
+                    4,
+                    4,
+                    4
+                  ],
+                  "z": -2
+                },
+                {
+                  "sorted_h": [
+                    -4,
+                    -4,
+                    -4,
+                    3,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": 2
+                }
+              ],
+              "matched": true,
+              "orbit_index": 7,
+              "sorted_h": [
+                -4,
+                -4,
+                -4,
+                3,
+                3,
+                3,
+                3
+              ],
+              "z": 2
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              1,
+              -2,
+              1,
+              -2,
+              -2,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 2",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "c2835fad9bfbe63118989e049af502b2bb1bf35d45cc77ce458793d36d8b9989",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    -3,
+                    4,
+                    4,
+                    4
+                  ],
+                  "z": -2
+                },
+                {
+                  "sorted_h": [
+                    -4,
+                    -4,
+                    -4,
+                    3,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": 2
+                }
+              ],
+              "matched": true,
+              "orbit_index": 7,
+              "sorted_h": [
+                -4,
+                -4,
+                -4,
+                3,
+                3,
+                3,
+                3
+              ],
+              "z": 2
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              1,
+              -2,
+              -2,
+              1,
+              1,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                0,
+                0,
+                1,
+                1,
+                0
+              ],
+              "published_source": "AK2008 Table 2",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "4d583a613b830605d4c28aa895b8680b5c6fb09b030a7f86ceed2e91be703f9f",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    -3,
+                    4,
+                    4,
+                    4
+                  ],
+                  "z": -2
+                },
+                {
+                  "sorted_h": [
+                    -4,
+                    -4,
+                    -4,
+                    3,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": 2
+                }
+              ],
+              "matched": true,
+              "orbit_index": 7,
+              "sorted_h": [
+                -4,
+                -4,
+                -4,
+                3,
+                3,
+                3,
+                3
+              ],
+              "z": 2
+            }
+          }
+        ],
+        "seconds": {
+          "composition": 0.06901956699994116,
+          "enumeration": 0.0,
+          "screening": 0.01602150199994412,
+          "total": 0.08504261099994892
+        },
+        "status": "finalized_known_system_regression",
+        "supplied_rows": 4
+      },
+      "particle_number": 3,
+      "rank": 7,
+      "system": "(3,7)"
+    },
+    {
+      "birationality_prefilter_path": {
+        "added_after_scoring": true,
+        "caveat": "an upper bound on the prefilter step alone; it leaves enumeration and composition untouched, and a real prefilter costs something to run",
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 31,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 4",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 31
+        },
+        "method": "local_enumeration_plus_perfect_determinant_zero_prefilter",
+        "models": "the one BDR step with no local counterpart: a birationality filter that rejects determinant-zero rows before they are screened. Local candidate generation is unchanged, so this isolates the prefilter.",
+        "retained_rows": 31,
+        "rows_removed_by_prefilter": 6469,
+        "rows_screened": 137,
+        "seconds": {
+          "composition": 1.8682245930000363,
+          "enumeration": 6.250148536999973,
+          "screening": 0.6829234930000894,
+          "total": 8.801296623000098
+        },
+        "speedup_if_external_enumeration_were_also_free": 6.271863805086549,
+        "speedup_over_full": 1.8179654688817815,
+        "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
+      },
+      "ceiling": {
+        "candidate_rows_avoided": 6575,
+        "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
+        "determinant_certifications_still_required": 31,
+        "value": 16.382992850153844
+      },
+      "composition_supported": true,
+      "cross_path_agreement": {
+        "full_only": [],
+        "oracle_only": [],
+        "retained_tau_sets_equal": true
+      },
+      "full_path": {
+        "counts": {
+          "admissible_hyperplanes": 166420,
+          "certified_rows": 137,
+          "inadmissible_rows": 0,
+          "oriented_rows_total": 332840,
+          "redundancy_input_rows": 137,
+          "redundant_rows": 106,
+          "retained_rows": 31,
+          "screened_candidate_rows": 6606,
+          "structural_rows": 1,
+          "survivors_generated": 6607,
+          "survivors_predicted_in_closed_form": 6607,
+          "symbolic_fallback_attempted_rows": 6469,
+          "symbolic_zero_rejected_rows": 6469,
+          "trace_rejected_never_materialised": 326233,
+          "trace_rejected_rows": 0,
+          "unoriented_orbits": 56,
+          "unresolved_rows": 0
+        },
+        "enumeration_share_of_total": 0.3906232156931324,
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 31,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 4",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 31
+        },
+        "method": "orbit_native_canonical_augmentation",
+        "proved_complete": true,
+        "seconds": {
+          "composition": 2.111933663000059,
+          "enumeration": 6.250148536999973,
+          "screening": 7.6383659330000455,
+          "total": 16.000453342000014
+        },
+        "status": "finalized_known_system_regression"
+      },
+      "oracle_path": {
+        "counts": {
+          "certified_rows": 31,
+          "inadmissible_rows": 0,
+          "redundancy_input_rows": 31,
+          "redundant_rows": 0,
+          "retained_rows": 31,
+          "screened_candidate_rows": 31,
+          "structural_rows": 0,
+          "symbolic_zero_rejected_rows": 0,
+          "trace_rejected_rows": 0,
+          "unresolved_rows": 0
+        },
+        "known_system_regression": {
+          "available": true,
+          "expected_count": 31,
+          "generated_only": [],
+          "lookup_source": "AK2008 Table 4",
+          "oriented_sets_equal": true,
+          "passed": true,
+          "published_only": [],
+          "retained_count": 31
+        },
+        "method": "published_minimal_rows_supplied_as_candidates",
+        "recertification_ledger": [
+          {
+            "converted_tau": [
+              -2,
+              1,
+              1,
+              1,
+              1,
+              -2,
+              -2,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "eda78294411d900391e6d813e51b4ce0e740b18cfd20288d4ed6d73ddfee57b1",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 8,
+              "sorted_h": [
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              1,
+              -2,
+              1,
+              -2,
+              -2,
+              1,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "37a3dfee54ff15f47c56b2e8bdb8eb4fa97b07c3050e48b726640e55265f39db",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 8,
+              "sorted_h": [
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              -2,
+              1,
+              1,
+              -2,
+              1,
+              -2,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "ce09d22779a07cd8aa9340d1fe83c46f404f642171e1fd9828af80d6ba4067b3",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 8,
+              "sorted_h": [
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              1,
+              -2,
+              -2,
+              1,
+              1,
+              -2,
+              -2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "30309689b6033c565be3c14840c20e0e9b7dbb2d957fcfec04ed7d95ebe70245",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 8,
+              "sorted_h": [
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              2,
+              -4,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "afc78a1f2ba5597c8c6758cb0350e7e8aec2c470bdef252fce6af6aea8b9100a",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              -1,
+              2,
+              -1,
+              -1,
+              2,
+              -1,
+              -4,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "0303440403ec11ca4799b189d198559538a4fad748af60a4e869193a370c0fad",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              -1,
+              -1,
+              -1,
+              -1,
+              2,
+              -4,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "d9ab9e9a8ae794645af34738e5acf893702c616c5305768247004ee47897dafd",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              -1,
+              2,
+              -1,
+              2,
+              -1,
+              -4,
+              -1,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                0,
+                1,
+                0,
+                -1,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "a99c2bf4a0c1e2d06f3396cf4e0d243388542d953212e9a5f40e63f750c6d71c",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              -1,
+              -1,
+              2,
+              -4,
+              -1,
+              -1,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                0,
+                1,
+                -1,
+                0,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "f9ab0bd01cf5d81ba6b8a8f18993fc1705f9d94ed74e70771268726763726a5c",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              -1,
+              -1,
+              2,
+              2,
+              -1,
+              -1,
+              -4,
+              -1
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "97e6e5ba8f40423dc17e720884f86f19674e6b133ce5b83af2841541f593e071",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    9
+                  ],
+                  "z": -5
+                },
+                {
+                  "sorted_h": [
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7
+                  ],
+                  "z": 5
+                }
+              ],
+              "matched": true,
+              "orbit_index": 6,
+              "sorted_h": [
+                -9,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                7,
+                7
+              ],
+              "z": 5
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "522a852c4acc67209a8c082bbc323a3f52bc7269b97f0f68b2d45518dbaa7c57",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 3,
+              "sorted_h": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                3,
+                3
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              0,
+              1,
+              -1,
+              0,
+              0,
+              -1,
+              -1,
+              0
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                -1,
+                0,
+                0,
+                -1,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "79c1168b005696f6f2bbeb291210f0e9eb7eb673b7566d2960357d948ba9db82",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -5,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    1,
+                    5
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 10,
+              "sorted_h": [
+                -3,
+                -3,
+                -3,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              0,
+              0,
+              0,
+              1,
+              -1,
+              -1,
+              -1,
+              0
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                0,
+                0,
+                1,
+                -1,
+                -1,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "9bdbb4351e023fed875a573ce8ec06a3032fffab3be2aa7a5aba7797ea9bbcd3",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -5,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    1,
+                    5
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 10,
+              "sorted_h": [
+                -3,
+                -3,
+                -3,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              0,
+              -1,
+              0,
+              -1,
+              0,
+              -1,
+              0
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                -1,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "7474f654394ed9b7d3f398cd04a57e3e869e088aa64dd7fed3d73e8778234abe",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -5,
+                    -1,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3,
+                    3
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -3,
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    1,
+                    5
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 10,
+              "sorted_h": [
+                -3,
+                -3,
+                -3,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              -2,
+              1,
+              1,
+              4,
+              -5,
+              -2,
+              -5,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                1,
+                1,
+                2,
+                -1,
+                0,
+                -1,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "424391c6746482b044fad32888831661e91e1041fa54b0c967634dbf67d1dd8c",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -13,
+                    -5,
+                    -5,
+                    -5,
+                    3,
+                    3,
+                    11,
+                    11
+                  ],
+                  "z": -7
+                },
+                {
+                  "sorted_h": [
+                    -11,
+                    -11,
+                    -3,
+                    -3,
+                    5,
+                    5,
+                    5,
+                    13
+                  ],
+                  "z": 7
+                }
+              ],
+              "matched": true,
+              "orbit_index": 25,
+              "sorted_h": [
+                -13,
+                -5,
+                -5,
+                -5,
+                3,
+                3,
+                11,
+                11
+              ],
+              "z": -7
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              -2,
+              1,
+              4,
+              -5,
+              -5,
+              -2,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                1,
+                2,
+                -1,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "3ab19a5a4de34028823b6b4c7e0a7c186e192da9ea719c21559856ae27bddfaa",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -13,
+                    -5,
+                    -5,
+                    -5,
+                    3,
+                    3,
+                    11,
+                    11
+                  ],
+                  "z": -7
+                },
+                {
+                  "sorted_h": [
+                    -11,
+                    -11,
+                    -3,
+                    -3,
+                    5,
+                    5,
+                    5,
+                    13
+                  ],
+                  "z": 7
+                }
+              ],
+              "matched": true,
+              "orbit_index": 25,
+              "sorted_h": [
+                -13,
+                -5,
+                -5,
+                -5,
+                3,
+                3,
+                11,
+                11
+              ],
+              "z": -7
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              4,
+              -5,
+              1,
+              -5,
+              -2,
+              -2,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                2,
+                -1,
+                1,
+                -1,
+                0,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "cf2c69cb9ce3ba62656dcb4b2d047f8f4f5409d9cdb7c5228e2d49c9f85a790c",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -13,
+                    -5,
+                    -5,
+                    -5,
+                    3,
+                    3,
+                    11,
+                    11
+                  ],
+                  "z": -7
+                },
+                {
+                  "sorted_h": [
+                    -11,
+                    -11,
+                    -3,
+                    -3,
+                    5,
+                    5,
+                    5,
+                    13
+                  ],
+                  "z": 7
+                }
+              ],
+              "matched": true,
+              "orbit_index": 25,
+              "sorted_h": [
+                -13,
+                -5,
+                -5,
+                -5,
+                3,
+                3,
+                11,
+                11
+              ],
+              "z": -7
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              4,
+              -5,
+              -2,
+              1,
+              -5,
+              -2,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                2,
+                -1,
+                0,
+                1,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 2
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "a801335b85155eeed1f05762623c8fc36d5490dfeb9b73ba796c003e207ccd60",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -13,
+                    -5,
+                    -5,
+                    -5,
+                    3,
+                    3,
+                    11,
+                    11
+                  ],
+                  "z": -7
+                },
+                {
+                  "sorted_h": [
+                    -11,
+                    -11,
+                    -3,
+                    -3,
+                    5,
+                    5,
+                    5,
+                    13
+                  ],
+                  "z": 7
+                }
+              ],
+              "matched": true,
+              "orbit_index": 25,
+              "sorted_h": [
+                -13,
+                -5,
+                -5,
+                -5,
+                3,
+                3,
+                11,
+                11
+              ],
+              "z": -7
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              1,
+              -2,
+              -1,
+              -1,
+              0,
+              0,
+              0
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                1,
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "da52615726ce0e6cec5a7cc6802db6e5799e8eaf4f0ad48037b35342d1cba63e",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -5,
+                    -5,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3,
+                    7
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -7,
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    5,
+                    5
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 21,
+              "sorted_h": [
+                -7,
+                -3,
+                -3,
+                1,
+                1,
+                1,
+                5,
+                5
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              -1,
+              -1,
+              0,
+              0,
+              1,
+              -2,
+              0
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                -2,
+                0
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "fe2ce53ffa65224946cec92a0c411a49eb4c02b038f00b07b523339c4c61514a",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -5,
+                    -5,
+                    -1,
+                    -1,
+                    -1,
+                    3,
+                    3,
+                    7
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -7,
+                    -3,
+                    -3,
+                    1,
+                    1,
+                    1,
+                    5,
+                    5
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 21,
+              "sorted_h": [
+                -7,
+                -3,
+                -3,
+                1,
+                1,
+                1,
+                5,
+                5
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              0,
+              -1,
+              -1,
+              -1,
+              0,
+              0,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                0,
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "ee2cd2b9fbc0287e5d8b680f2c278a22fa5fe5500b2266abd85aa1ccddffee84",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -9,
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7,
+                    7
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    9,
+                    9
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 18,
+              "sorted_h": [
+                -7,
+                -7,
+                -7,
+                1,
+                1,
+                1,
+                9,
+                9
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              -1,
+              -1,
+              0,
+              0,
+              0,
+              -1,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                -1,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "c73ad44bb07b896e598f832c6da6bb77997e39bd391eec624863374d5346be67",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -9,
+                    -9,
+                    -1,
+                    -1,
+                    -1,
+                    7,
+                    7,
+                    7
+                  ],
+                  "z": -3
+                },
+                {
+                  "sorted_h": [
+                    -7,
+                    -7,
+                    -7,
+                    1,
+                    1,
+                    1,
+                    9,
+                    9
+                  ],
+                  "z": 3
+                }
+              ],
+              "matched": true,
+              "orbit_index": 18,
+              "sorted_h": [
+                -7,
+                -7,
+                -7,
+                1,
+                1,
+                1,
+                9,
+                9
+              ],
+              "z": 3
+            }
+          },
+          {
+            "converted_tau": [
+              5,
+              -4,
+              -1,
+              2,
+              -7,
+              -4,
+              -1,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                2,
+                -1,
+                0,
+                1,
+                -2,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "7b22c7abd076be35b8b7c119a3f4684772e625972d2c10b8b0578b2ae34f9472",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 43,
+              "sorted_h": [
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                1,
+                2
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              -1,
+              -1,
+              2,
+              5,
+              -7,
+              -4,
+              -4,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                0,
+                0,
+                1,
+                2,
+                -2,
+                -1,
+                -1,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "1498b6c64a188626ea5404ac80920ad76b97a9f6d9942a0d5c3ff3aac96db824",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 43,
+              "sorted_h": [
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                1,
+                2
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              5,
+              -4,
+              -1,
+              -4,
+              -1,
+              2,
+              -7,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                2,
+                -1,
+                0,
+                -1,
+                0,
+                1,
+                -2,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "01e3e1716b215f27f76b18f4432c710d470feea496af80eb0260c2e43f80e334",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 43,
+              "sorted_h": [
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                1,
+                2
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              5,
+              2,
+              -7,
+              -4,
+              -1,
+              -4,
+              -1,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                2,
+                1,
+                -2,
+                -1,
+                0,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "8189288518fa5cb5deefc3a0b5fff6086da41b2d89dc5b508b76f79dfd5d3b8a",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 43,
+              "sorted_h": [
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                1,
+                2
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              5,
+              -7,
+              -1,
+              -4,
+              -4,
+              -1,
+              2
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                2,
+                -2,
+                0,
+                -1,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 1
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "2b91a3fb3482ef0e6a0e2a63ca2d56a93a7cfe87cb1938bb8fa9e2d7518d22e4",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": -1
+                },
+                {
+                  "sorted_h": [
+                    -2,
+                    -1,
+                    -1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    2
+                  ],
+                  "z": 1
+                }
+              ],
+              "matched": true,
+              "orbit_index": 43,
+              "sorted_h": [
+                -2,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                1,
+                2
+              ],
+              "z": 1
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              -2,
+              -1,
+              -1,
+              0,
+              1,
+              -3,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                2,
+                -2,
+                -1,
+                -1,
+                0,
+                1,
+                -3,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "21c7591c2bd3758ca6d1a024fb31cbd1f6fc5ec9d26087fe9c97a9f0450c2659",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -19,
+                    -11,
+                    -11,
+                    -3,
+                    5,
+                    5,
+                    13,
+                    21
+                  ],
+                  "z": -9
+                },
+                {
+                  "sorted_h": [
+                    -21,
+                    -13,
+                    -5,
+                    -5,
+                    3,
+                    11,
+                    11,
+                    19
+                  ],
+                  "z": 9
+                }
+              ],
+              "matched": true,
+              "orbit_index": 47,
+              "sorted_h": [
+                -21,
+                -13,
+                -5,
+                -5,
+                3,
+                11,
+                11,
+                19
+              ],
+              "z": 9
+            }
+          },
+          {
+            "converted_tau": [
+              -1,
+              0,
+              1,
+              2,
+              -3,
+              -2,
+              -1,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                -1,
+                0,
+                1,
+                2,
+                -3,
+                -2,
+                -1,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "78f2a80541954b73197919124cbc73da77f6f2c76ae21d319245f217f5707d2c",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -19,
+                    -11,
+                    -11,
+                    -3,
+                    5,
+                    5,
+                    13,
+                    21
+                  ],
+                  "z": -9
+                },
+                {
+                  "sorted_h": [
+                    -21,
+                    -13,
+                    -5,
+                    -5,
+                    3,
+                    11,
+                    11,
+                    19
+                  ],
+                  "z": 9
+                }
+              ],
+              "matched": true,
+              "orbit_index": 47,
+              "sorted_h": [
+                -21,
+                -13,
+                -5,
+                -5,
+                3,
+                11,
+                11,
+                19
+              ],
+              "z": 9
+            }
+          },
+          {
+            "converted_tau": [
+              2,
+              1,
+              -3,
+              -2,
+              -1,
+              -1,
+              0,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                2,
+                1,
+                -3,
+                -2,
+                -1,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "27cfe9020785b7a62210ba7abb265a315a987b74018cd9740767e1681acddbe0",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -19,
+                    -11,
+                    -11,
+                    -3,
+                    5,
+                    5,
+                    13,
+                    21
+                  ],
+                  "z": -9
+                },
+                {
+                  "sorted_h": [
+                    -21,
+                    -13,
+                    -5,
+                    -5,
+                    3,
+                    11,
+                    11,
+                    19
+                  ],
+                  "z": 9
+                }
+              ],
+              "matched": true,
+              "orbit_index": 47,
+              "sorted_h": [
+                -21,
+                -13,
+                -5,
+                -5,
+                3,
+                11,
+                11,
+                19
+              ],
+              "z": 9
+            }
+          },
+          {
+            "converted_tau": [
+              1,
+              2,
+              -3,
+              -1,
+              -2,
+              -1,
+              0,
+              1
+            ],
+            "external_row": {
+              "coeffs": [
+                1,
+                2,
+                -3,
+                -1,
+                -2,
+                -1,
+                0,
+                1
+              ],
+              "published_source": "AK2008 Table 4",
+              "rhs": 0
+            },
+            "local_certificate_replayed_and_bound": true,
+            "local_certificate_sha256": "6d6151624970fc55789cfd23a2f9228c8e9b7bed872f8bd199aa40a98c5304b9",
+            "local_resolution_method": "deterministic_evaluation",
+            "local_status": "certified",
+            "matched_local_orbit": {
+              "candidate_keys": [
+                {
+                  "sorted_h": [
+                    -19,
+                    -11,
+                    -11,
+                    -3,
+                    5,
+                    5,
+                    13,
+                    21
+                  ],
+                  "z": -9
+                },
+                {
+                  "sorted_h": [
+                    -21,
+                    -13,
+                    -5,
+                    -5,
+                    3,
+                    11,
+                    11,
+                    19
+                  ],
+                  "z": 9
+                }
+              ],
+              "matched": true,
+              "orbit_index": 47,
+              "sorted_h": [
+                -21,
+                -13,
+                -5,
+                -5,
+                3,
+                11,
+                11,
+                19
+              ],
+              "z": 9
+            }
+          }
+        ],
+        "seconds": {
+          "composition": 0.8270706639999617,
+          "enumeration": 0.0,
+          "screening": 0.14957823700001427,
+          "total": 0.9766502060000448
+        },
+        "status": "finalized_known_system_regression",
+        "supplied_rows": 31
+      },
+      "particle_number": 3,
+      "rank": 8,
+      "system": "(3,8)"
+    }
+  ]
+}
