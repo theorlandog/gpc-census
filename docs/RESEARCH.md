@@ -205,8 +205,21 @@ results/data/infinite_wedge_tca_dependency.json]
 - ❌ AND NO ORDER-PRESERVING EMBEDDING RESCUES IT. 🔬 POST-HOC block: trying all
   `d+1` injections `[d] -> [d+1]` still leaves rows with no valid image at five
   of the six census pairs, and most of each higher system is not an OI image of
-  anything below it. There is no OI-module here for an OI-noetherianity theorem
-  to act on.
+  anything below it. There is no OI-module OF COEFFICIENT PATTERNS here for an
+  OI-noetherianity theorem to act on.
+- 🟦 CROSS-CONFIRMED, and corrected, against the ordered-representation-stability
+  campaign that landed independently. Its `naive_padding_control` reports the
+  SAME `10 of 31` at (3,8) to (3,9) from a separately written implementation,
+  and its Theorem 1 proves that only the TERMINAL insertion is a morphism at
+  all, so the non-trailing insertions above are not maps of the relevant
+  category and their failure is a theorem rather than a measurement. ⚠️ It also
+  corrects an overstatement: "no covariant map exists" is FALSE, since the TIGHT
+  extension is total and carries facets to facets 612 of 612. The correct and
+  narrower claim is that no covariant map given by a COEFFICIENT-LEVEL TEMPLATE
+  RULE exists; the tight extension optimizes against `Delta(N,d+1)`, the object a
+  constructor would be building, so it organizes known rows rather than
+  generating new ranks, and the NO-GO stands.
+  [docs/ordered_representation_stability.md]
 - 🟦 THE CONTRAVARIANT DIRECTION IS A THEOREM AND IS NOW REPLAYED.
   `Delta(N,d) = Delta(N,d+1) intersect {lambda_{d+1} = 0}`, so restriction
   carries the higher system onto the lower one. Complete at all six consecutive
@@ -488,6 +501,21 @@ plethysm criterion feed Problem 7 below.
   results/data/equivariant_khovanskii_sagbi.json;
   scripts/verify_equivariant_khovanskii_sagbi_standalone.py;
   tests/test_equivariant_khovanskii_sagbi.py]
+- facet_index_stability.md: the facet-index probe. Refutes the AK2008
+  coefficient-one facetness criterion with 59 counterexamples, refutes
+  trailing-zero padding as a map on facets, lands the normal-shape compression
+  census over all twelve published systems, and prices the surviving sound
+  prefilter at 1.66x and 1.79x on the reduction stage. Pre-registration in
+  prereg_facet_index_stability.md, all six predictions PASS; artifact
+  facet_index_stability.json; guard test tests/test_facet_index_stability.py.
+- bdr_constructor_comparison.md: the external-constructor comparison. Bounds
+  what any external candidate generator can remove under the local
+  certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
+  published rows of `(3,6)`, `(3,7)` and `(3,8)`, and labels the benchmark
+  INCOMPLETE because the pinned backend cannot be fetched or run.
+  Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
+  artifact bdr_constructor_comparison.json; guard test
+  tests/test_bdr_constructor_comparison.py.
 - infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
   theorem-dependency graph in machine-readable form. Answers the question of
   whether one `GL_infinity` object recovers every finite-rank moment polytope
@@ -1111,6 +1139,121 @@ plethysm criterion feed Problem 7 below.
 - bracket_3_12_stage0_inner.json: the (3,12) exact-plethysm inner cloud
   (scripts/plethysm_inner_hull.py); cloud-extremality is not vertexhood
   until convergence.
+
+## Facet-index stability: the coefficient-one criterion is refuted (2026-08-08)
+
+Follow-up to the BDR comparison, which identified redundancy elimination as the
+stage with the worst long-run scaling. The question was whether an intrinsic
+criterion can replace it.
+
+❌ DISPROVED, 59 exact counterexamples. The AK2008 coefficient-one criterion is
+NOT a facetness test. Exact cyclic-Schubert evaluation is deferred past
+reduction in the production pipeline, so the coefficients of the rows reduction
+REMOVES had never been computed at any rank. Computing them for every certified
+row at `(3,7)` and `(3,8)`, 49 and 137 rows: every facet has coefficient one
+(4 of 4, 31 of 31) and so do 23 of 45 and 36 of 106 removed rows. Coefficient
+one is necessary and not sufficient. The standing refusal in
+`docs/fixed_n3_generator_methodology.md` to use it as a facetness or
+irredundancy gate now has counterexamples behind it, not just caution. Scope:
+this is one selected cyclic coefficient, NOT the general Belkale-Kumar or
+Ressayre deformed product, which remains untested here.
+[docs/facet_index_stability.md; docs/prereg_facet_index_stability.md;
+results/data/facet_index_stability.json;
+tests/test_facet_index_stability.py]
+
+🟦 CONFIRMED at two ranks: the forward direction survives, which makes
+coefficient one a SOUND PREFILTER rather than a criterion. It cuts the
+reduction input from 49 to 27 and from 137 to 67, gives 1.66x and 1.79x on the
+reduction stage, and returns an identical retained set. NOT gate-eligible: its
+soundness rests on an observation at two ranks. THE NEXT THEOREM, named: every
+facet of the ordered wedge^N C^d moment polytope has cyclic-Schubert
+coefficient one. That forward-validity statement is the whole remaining gap
+between a measured 1.79x on the growing stage and a shippable gate.
+
+🟦 CONFIRMED at merge, 8 of 8 maps, three particle numbers, reconciling this
+with the ordered-stability campaign: a trailing-zero padded facet lands in the
+higher facet list EXACTLY when the trailing-zero extension coincides with that
+campaign's TIGHT extension `pi_pad` (counts 0, 4, 10, 37, 0, 8, 19, 0 on both
+sides). The two results read as contradictory only until one notices the maps
+differ. The trivial extension succeeds precisely where it was already tight, so
+what is dead is the trivial extension, not extension of normals as such. An
+earlier draft here overreached by concluding a stability theorem must act on
+something other than the normal vector.
+
+❌ DISPROVED: trailing-zero padding is not validity preserving on facets. Padded
+lower-rank rows are VIOLATED at the next rank in 7 of the 8 published maps where
+validity is decidable, including Borland-Dennis padded to rank 7. Expected once
+stated properly, since the rank-`d` polytope is a FACE of rank `d+1` and a facet
+of a face need not extend. Sharper structural fact, holding in every map across
+all three particle numbers: a padded facet is never merely redundant, the
+strictly-interior count is ZERO everywhere. So any stability theorem must act on
+something other than the normal vector.
+
+🟦 CONFIRMED across all twelve published systems: the normals compress. Facet
+counts run 1 to 161 while distinct sorted-`tau` shapes run 1 to 21, a ratio at
+or below 0.29 everywhere and at or below 0.22 wherever there are more than four
+facets. The explosion is in placement, not in shape. The `N=3` entry bound of 7
+at ranks 8 to 10 does NOT transfer across particle number (15 at `(4,10)`, 34 at
+`(5,10)`), exactly as `tau_i = N a_i - b` implies, so no entry bound uniform in
+`N` is claimed. Rank-9 and rank-10 rows are conditional on AK2008 completeness.
+
+Cheapest next experiment: the same census at `(3,9)`, `(4,8)` and `(4,9)`, which
+tests the forward direction at a third rank and a second particle number at
+once, and costs one run of an already-written script.
+
+## External constructor comparison: Bulois-Denis-Ressayre (2026-08-08)
+
+The question was whether the Bulois-Denis-Ressayre fixed-representation
+moment-cone algorithm (arXiv:2505.08812; code `ea-icj/moment_cone` pinned at
+`7ab347d9a7837d68d92bde9fac74606913f395ca`) can remove exact work from the
+constructor. It cannot be answered by running it here: the code host, the
+landing page, arXiv and HAL are all refused by the session egress policy, the
+package is not on PyPI, and it needs SageMath. The benchmark is labelled
+INCOMPLETE and no external runtime or candidate count is recorded anywhere.
+
+🟦 CONFIRMED, and this is what settles the practical question anyway. Under the
+standing rule that every published row carries a locally replayed certificate,
+the speedup available to ANY external candidate generator was bounded by direct
+measurement at `(3,8)`: 1.82x for a free and perfect birationality prefilter,
+6.27x if its candidate generation were also free, against a circular
+oracle-handed-the-answer figure of 16.38x. The 6.27x is the non-circular bound,
+because no generator can know which certified rows survive reduction without
+running the reduction. RECOMMENDATION: do not integrate, do not spend another
+sprint at ranks 7 and 8.
+[docs/bdr_constructor_comparison.md; docs/prereg_bdr_constructor_comparison.md;
+results/data/bdr_constructor_comparison.json;
+tests/test_bdr_constructor_comparison.py]
+
+🟦 CONFIRMED, 36 rows across 3 systems: every published nonstructural row of
+`(3,6)`, `(3,7)` and `(3,8)` converts to primitive `tau`, screens `certified`,
+replays and binds its certificate, and matches a local orbit. External output
+is usable as candidates here, and no external verdict is taken on citation.
+
+🔬 OPEN, and it is a correction to a shipped claim.
+`docs/orbit_native_constructor.md` states that orbit enumeration "is now the
+dominant stage". At `(3,8)` on this machine it is not: enumeration 6.25 s,
+screening 7.64 s, composition 2.11 s, so enumeration is 39.1 percent across
+three stable runs. That document measured 66.0 s for the same construction
+against 16.00 s here, so this is a different machine, not a refutation, and
+multi-machine results are never averaged. Re-measure on the original machine
+before quoting the claim again.
+
+🔬 OPEN trend, two points, explicitly NOT a statement about all `d`: the oracle
+ceiling FALLS from 21.41x at rank 7 to 16.38x at rank 8 while the row-reduction
+ratio rises from 137 to 213. The mechanism is that the oracle path is itself
+dominated by composition, which scales with the retained facet count (1, 4, 31,
+52, 93 at ranks 6 to 10). Smallest next experiment: the same three-path split at
+`(3,9)`, one run of an already-written script.
+
+Correspondence, from the in-repo call-graph audit in
+`docs/fixed_n3_generator_methodology.md` as a SECONDARY source, not a fresh
+source read: the two algorithms genuinely agree on the trace stage, where BDR's
+`List_Inv_Ws_Mod` and the local direct survivor generator are both inversion-set
+enumerations, and that is already the local pipeline's fastest stage. They
+differ on candidate generation (1-PS versus closed flats), admissibility
+(`is_sub_module` versus affine rank), and determinant handling (their
+birationality filter versus exact fail-closed certification). Neither algorithm
+claims anything uniform in `d`.
 
 ## Adjacent literature to respect
 

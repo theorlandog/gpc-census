@@ -165,6 +165,17 @@ SOURCES = {
                  "results/data/quantization_multiplicities.json",
         "checked": "in-repo artifact",
     },
+    "repo-ordered-stability": {
+        "what": "the fixed-N ordered category of mode embeddings degenerates to "
+                "a POSET (only the terminal insertion carries Delta(N,d) into "
+                "Delta(N,e)), so representation stability is vacuous there; "
+                "chamber-facing rows are not permutation stable; and the TIGHT "
+                "padding and frozen-core extensions are exact sections of the "
+                "restrictions, carrying facets to facets 612 of 612",
+        "where": "docs/ordered_representation_stability.md; "
+                 "results/data/ordered_representation_stability.json",
+        "checked": "in-repo artifact, landed on main during this campaign",
+    },
     "repo-screening-orbit": {
         "what": "screening is NOT a Weyl-orbit invariant: the dominant chamber "
                 "is a fundamental domain and so is exactly what the Weyl group "
@@ -363,12 +374,30 @@ def arrows(sanity: dict) -> list[dict]:
                          "valid row",
             "status": "FALSE",
             "counterexample": {"broken_pairs": broken_insertion},
-            "sources": ["repo-screening-orbit"],
+            "sources": ["repo-screening-orbit", "repo-ordered-stability"],
             "obstruction": "the inequality side of the census carries no "
-                           "covariant OI structure at all; it is a purely "
-                           "contravariant (restriction) functor",
+                           "covariant OI structure AT THE LEVEL OF COEFFICIENT "
+                           "PATTERNS; as a row functor it is contravariant",
             "note": "POST-HOC block, added after the pre-registered zero-padding "
                     "prediction failed",
+            "corrected_against": {
+                "source": "docs/ordered_representation_stability.md",
+                "replication": "its naive_padding_control independently reports "
+                               "the same 10 of 31 at (3,8) -> (3,9)",
+                "upgrade": "its Theorem 1 proves only the TERMINAL insertion is "
+                           "a morphism, so the fixed-N ordered category is a "
+                           "poset and the non-trailing insertions tested here "
+                           "are not morphisms at all",
+                "overstatement_retracted": "'no covariant map exists' is FALSE. "
+                                           "The TIGHT extension is total and "
+                                           "carries facets to facets 612 of 612. "
+                                           "It is not a coefficient-level "
+                                           "template rule: t* is defined by "
+                                           "optimizing against Delta(N,d+1), so "
+                                           "it organizes known rows rather than "
+                                           "generating new ranks, and the NO-GO "
+                                           "is unaffected",
+            },
         },
         {
             "id": "A9", "from": "facets_d", "to": "templates",
