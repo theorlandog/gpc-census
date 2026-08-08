@@ -411,6 +411,13 @@ def audit_system(
     singleton_collisions: dict = {}
     hole_audit: list = []
     width_cache: dict = {}
+    determinant_nonzero = 0
+    determinant_zero = 0
+    structural_nonzero = 0
+    nonzero_by_holes: collections.Counter = collections.Counter()
+    zero_by_holes: collections.Counter = collections.Counter()
+    mechanisms: set = set()
+    hall_shapes: set = set()
 
     for key in orbit_keys:
         candidate = admissible_candidate_from_tau(n, list(key))
@@ -420,6 +427,7 @@ def audit_system(
         if oc.orbit_is_trace_dead(candidate.h, below_count):
             dead_orbits += 1
             continue
+        mechanisms.add(key)
         value_map = dict(zip(candidate.h, key))
 
         for arrangement in oc.generate_trace_survivors(candidate.h, below_count):
@@ -468,19 +476,36 @@ def audit_system(
                     singleton_collisions[signature] += 1
                 singleton_signatures.add(signature)
 
-            if feasible and holes == 1:
-                verdict = determinant_verdict(matrix, len(on), rng)
-                hole_audit.append(
-                    {
-                        "tau": list(tau),
-                        "normalized_levels": structure["normalized_levels"],
-                        "missing_levels": structure["missing"],
-                        "step": structure["step"],
-                        "matrix_size": len(below),
-                        "on_variables": len(on),
-                        "determinant": verdict,
-                    }
-                )
+            if feasible:
+                hall_shapes.add(key)
+                # A structural row has an empty positive side, so its tangent
+                # matrix is 0x0 and its determinant is the empty product. It is
+                # counted nonzero, and separately, so the number is never a
+                # silent contribution to the certified count.
+                if structural:
+                    determinant_nonzero += 1
+                    structural_nonzero += 1
+                    nonzero_by_holes[holes] += 1
+                else:
+                    verdict = determinant_verdict(matrix, len(on), rng)
+                    if verdict["nonzero"]:
+                        determinant_nonzero += 1
+                        nonzero_by_holes[holes] += 1
+                    else:
+                        determinant_zero += 1
+                        zero_by_holes[holes] += 1
+                    if holes == 1:
+                        hole_audit.append(
+                            {
+                                "tau": list(tau),
+                                "normalized_levels": structure["normalized_levels"],
+                                "missing_levels": structure["missing"],
+                                "step": structure["step"],
+                                "matrix_size": len(below),
+                                "on_variables": len(on),
+                                "determinant": verdict,
+                            }
+                        )
 
     one_hole_nonzero = sum(
         1 for record in hole_audit if record["determinant"]["nonzero"]
@@ -507,6 +532,18 @@ def audit_system(
         ),
         "one_hole_hall_feasible": hole_distribution_hall.get(1, 0),
         "one_hole_determinant_nonzero": one_hole_nonzero,
+        "determinant_nonzero": determinant_nonzero,
+        "determinant_zero": determinant_zero,
+        "determinant_unresolved": 0,
+        "structural_determinant_nonzero": structural_nonzero,
+        "determinant_nonzero_by_holes": {
+            str(k): v for k, v in sorted(nonzero_by_holes.items())
+        },
+        "determinant_zero_by_holes": {
+            str(k): v for k, v in sorted(zero_by_holes.items())
+        },
+        "mechanisms_with_a_survivor": len(mechanisms),
+        "shapes_with_a_hall_placement": len(hall_shapes),
         "one_hole_hall_feasible_audit": hole_audit,
         "singleton_signature_count": len(singleton_signatures),
         "singleton_collision_groups": len(singleton_collisions),
