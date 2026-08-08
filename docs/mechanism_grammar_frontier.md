@@ -199,11 +199,11 @@ to a global statement. Specifically:
 - the one-hole grammar is a bounded-window and published-facet conjecture, not
   established for any rank above 10 or for any `N` above 5;
 - the full-population gates at ranks 7 and 8 (549 and 6,607 survivors, the
-  Hall split, the incidence injectivity) are re-read from the audit artifact
-  and cross-checked for internal consistency; the compact verifier
-  independently recomputes only the seven exceptional determinants, the
-  normalizations, and the matchings, because the generating enumeration was
-  not shipped with that bundle;
+  Hall split, the incidence injectivity) were re-read from the audit artifact
+  and cross-checked for internal consistency, because the generating
+  enumeration was not shipped with that bundle. RESOLVED: they are regenerated
+  from the repository's own machinery in `docs/rank9_compression_audit.md` and
+  agree exactly, column by column;
 - the bounded search is exhaustive only for primitive `N=3` normals with
   entries in `[-5,5]` at ranks 7, 8, 9;
 - no local Levi or slice calculation is promoted to a global GPC proof without
@@ -229,9 +229,40 @@ In priority order:
 5. a determinant-nonzero one-hole candidate at rank 7 or rank 8, which would
    move the onset rank below 9 and break the reconciliation above.
 
-The decisive next test is the same streaming full-population audit at rank 9,
-where the onset is predicted and where one-hole rows are already known to
-survive.
+## The decisive test has now been run: rank 9
+
+`docs/rank9_compression_audit.md` carries out the audit this document was
+waiting on, and it also regenerates the rank-7 and rank-8 gates that the scope
+note above flagged as re-read rather than recomputed. Those reproduce exactly,
+column by column, so the gap is closed.
+
+The rank-9 outcome sharpens two of the claims above and overturns none.
+
+- **Falsifier 1 was genuinely tested for the first time, and held.** At ranks 7
+  and 8 there were no multi-hole survivors at all, so Hall was never asked the
+  question and the at-most-one-hole conjecture was nearly vacuous on the full
+  population. Rank 9 produces 5,310 multi-hole survivors (1,227 with two holes,
+  4,083 with three) and Hall rejects every one. The Hall-feasible hole
+  distribution at rank 9 is `{0: 339, 1: 32}`.
+- **The rank-9 onset is confirmed on the complete population.** 32 one-hole
+  Hall-feasible rows at rank 9, of which exactly 3 have nonzero tangent
+  determinant, against 7 one-hole rows at rank 8 of which 0 do. The three
+  nonvanishing rows are exactly the bounded search's three certificates, so the
+  `[-5,5]` window missed nothing at rank 9.
+- Falsifier 3 held at 20x the population: incidence is injective on all 135,341
+  nonstructural rank-9 survivors. Falsifier 4 held: maximum optimal width grows
+  by one per rank, 3 then 4 then 5, and the width caveat is unchanged because
+  the rank-9 population is 99.7 percent Hall zeros with the same width profile.
+- Falsifier 5 did not fire: rank 8's one-hole rows are still all
+  determinant-zero, so the onset stays at 9.
+
+Every determinant verdict at ranks 7 to 9 is now a proof: 36 rows proved
+identically zero by exact expansion, 3 proved nonzero by modular certificate,
+none undecided.
+
+The next population that could break the conjecture is rank 10, where the
+augmentation enumerator reports 1,337 top orbits. Falsifier 2 remains open at
+`N = 4` and `N = 5`, which no `(3,d)` audit reaches.
 
 ## Verification
 
