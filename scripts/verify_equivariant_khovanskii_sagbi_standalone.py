@@ -328,6 +328,12 @@ def replay_particle_hole(tag: str, levels: dict[int, set]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    # The independent representation theory is the expensive half. Skipping it
+    # leaves the integer replay of every stored relation, which is what a
+    # tamper control actually exercises, so the negative controls in the guard
+    # test do not pay for a full Kostka recomputation they never inspect.
+    skip_independent = "--skip-independent" in argv
+    argv = [a for a in argv if a != "--skip-independent"]
     target = pathlib.Path(argv[0]) if argv else ARTIFACT
     if not target.exists():
         print(f"missing artifact {target}")
@@ -357,7 +363,7 @@ def main(argv: list[str] | None = None) -> int:
 
     # 3. independent representation theory
     covered = {}
-    for tag, block in sorted(by_system.items()):
+    for tag, block in (() if skip_independent else sorted(by_system.items())):
         n, d = (int(x) for x in tag.strip("()").split(","))
         cap = min(MULT_REPLAY_MAX.get(tag, 0), block["reached"])
         levels, _ = stored_levels(block)
@@ -369,7 +375,10 @@ def main(argv: list[str] | None = None) -> int:
                   f"{tag}: independent multiplicity route disagrees at degree {m}")
             checks += 1
         covered[tag] = cap
-    print(f"  independent multiplicity replay reached {covered}")
+    if skip_independent:
+        print("  independent multiplicity replay SKIPPED (--skip-independent)")
+    else:
+        print(f"  independent multiplicity replay reached {covered}")
 
     # 4. padding is exact, replayed on the stored generator lists
     for low, high in (("(3,6)", "(3,7)"), ("(3,7)", "(3,8)"), ("(3,8)", "(3,9)"),
@@ -386,7 +395,7 @@ def main(argv: list[str] | None = None) -> int:
         checks += 1
 
     # 5. the term-order side, rebuilt from scratch at (3,6)
-    for block in payload.get("raw_term_order", []):
+    for block in ([] if skip_independent else payload.get("raw_term_order", [])):
         if block["system"] != "(3,6)" or block["valuation"] != "v1":
             continue
         levels, _ = stored_levels(block)
