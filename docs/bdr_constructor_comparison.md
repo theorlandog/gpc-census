@@ -6,12 +6,29 @@ Pre-registration: `docs/prereg_bdr_constructor_comparison.md`, committed at
 `results/data/bdr_constructor_comparison.json`. Guard test:
 `tests/test_bdr_constructor_comparison.py`.
 
+> ## ❗ CORRECTION (2026-08-08), read before anything below
+>
+> This document claimed the pinned external implementation "could not be
+> fetched or run in this environment", and listed four blockers. **That
+> conclusion is false, and it was never tested.** The code is mirrored at
+> `github.com/ea-icj/moment_cone`, the session's repository-attachment path
+> serves it, the clone lands on the exact pinned revision
+> `7ab347d9a7837d68d92bde9fac74606913f395ca`, its licence is **MIT** (not
+> `not_verified`), and the upstream `passagemath` extra installs from PyPI into
+> a throwaway venv. The backend has been run. See
+> `docs/bdr_linear_triangular_gate.md` for the recipe and the results.
+>
+> The **INCOMPLETE** label below is still correct, for a different reason: this
+> benchmark measures wall clock and stage counts, and no BDR timing has been
+> taken even now. Everything measured here remains valid. What was wrong is the
+> stated reason, and the four blockers are restated accurately in the section
+> below.
+
 ## Headline
 
-🔬 The benchmark is **INCOMPLETE** and stays that way: the pinned external
-implementation could not be fetched or run in this environment. No BDR runtime,
-candidate count, or stage figure appears anywhere in this document or its
-artifact.
+🔬 The benchmark is **INCOMPLETE**: no BDR runtime, candidate count, or stage
+figure appears anywhere in this document or its artifact, because this
+benchmark never ran the external path.
 
 🟦 What was measured instead settles the practical question without it. Under
 the standing rule that every row entering a published system carries a locally
@@ -36,9 +53,9 @@ can remove without also deciding redundancy.
 worth **1.82x at rank 8 even when it is free and perfect**. That is the number
 that decides the sprint.
 
-## What could not be done, precisely
+## What was not done, precisely
 
-The external object is pinned but unreachable:
+The external object is pinned:
 
 ```text
 paper       An Algorithm to compute the Kronecker cone and other moment cones
@@ -46,29 +63,36 @@ authors     Michael Bulois (ICJ, AGL), Roland Denis (INSMI-CNRS, ICJ),
             Nicolas Ressayre (ICJ, AGL)
 preprint    arXiv:2505.08812 (math.AG); HAL hal-05044759 version v3
 code        ea-icj/moment_cone at plmlab.math.cnrs.fr; https://ea-icj.github.io/
+mirror      github.com/ea-icj/moment_cone  (this is the one that works here)
 revision    7ab347d9a7837d68d92bde9fac74606913f395ca
-runtime     Python-Sage (SageMath)
-license     NOT VERIFIED
+runtime     Python-Sage (SageMath), or the passagemath fork
+license     MIT, read from LICENSE at the pinned revision
 case        fermionic cone, GL_d(C) on wedge^r C^d, here r = 3
 ```
 
-Four independent blockers, each checked:
+Four blockers were listed. Restated accurately, after testing each:
 
 1. `plmlab.math.cnrs.fr` is refused by this session's egress proxy with a 403
-   on CONNECT, recorded by the proxy as a policy denial.
+   on CONNECT. **True, and not load bearing:** the code is mirrored on GitHub.
 2. `ea-icj.github.io`, `arxiv.org` and `cnrs.hal.science` are refused by the
-   same policy, so neither the code nor the paper text could be read here.
-3. `moment-cone` is not published on PyPI.
-4. SageMath is not installed, and installing it would violate the
-   minimum-dependency rule for a component that must never become a package
-   runtime dependency.
+   same policy, so the paper text could not be read here. **True, and not load
+   bearing:** none of them is needed to run the code.
+3. `moment-cone` is not published on PyPI. **True (404), and not load
+   bearing:** `pip install .` from the clone works.
+4. SageMath must never become a package runtime dependency. **True, and
+   unchanged:** the upstream ships a `passagemath` extra that installs into a
+   separate throwaway venv, touching neither `pyproject.toml` nor `uv.lock`.
 
-Consequence for the license line: it is recorded as `not_verified`, not
-guessed. Consequence for the correspondence table below: the BDR column is a
+The inference drawn from those four, that the backend could not be fetched or
+run, does not follow and is false here. Consequence for the correspondence
+table below: at the time it was written the BDR column was a
 **secondary source**, drawn from the call-graph audit already in
 `docs/fixed_n3_generator_methodology.md` (written in an earlier session that
 did have the code installed) plus the paper's published description. It is
-labelled as such per cell and must not be read as a fresh source read.
+labelled as such per cell and must not be read as a fresh source read. Those
+cells are now checkable against the source, and one of them has been checked:
+the `linear_triangular` filter, in `docs/bdr_linear_triangular_gate.md`. The
+rest stay marked secondary until someone reads them.
 
 ## Task 1: algorithm correspondence
 
@@ -320,8 +344,11 @@ candidate generation is attacking the smaller half of the work.
 
 **Does not establish.**
 
-- Anything at all about BDR's actual runtime, candidate counts, or memory. The
-  backend did not run. 🔬 OPEN.
+- Anything at all about BDR's actual runtime, candidate counts, or memory. This
+  benchmark did not run the backend. 🔬 OPEN, and now cheap to close: the
+  backend has since been fetched, installed and run for
+  `docs/bdr_linear_triangular_gate.md`, so the missing piece is a timing
+  harness, not access.
 - That BDR's candidate enumeration is or is not cheaper than the local
   closed-flat orbit enumeration. Priced at zero in the bound, unmeasured in
   fact.
@@ -333,17 +360,21 @@ candidate generation is attacking the smaller half of the work.
 ## Recommendation
 
 **Do not integrate, and do not spend another sprint on this route at ranks 7
-and 8.** The acceptance criteria are not met: the external code cannot be
-pinned and reproduced here, so criterion 5 fails before any mathematics. More
-usefully, even a free and perfect version of BDR's one distinctive step buys
+and 8.** Even a free and perfect version of BDR's one distinctive step buys
 1.82x at rank 8, and the full non-circular bound is 6.27x with everything
-external priced at zero.
+external priced at zero. That is the load-bearing reason and it is a
+measurement, not an availability complaint.
 
-The route is worth reopening only under a specific, checkable condition: if the
-composition and screening floor measured here stops dominating, or if an
-environment with network access to `plmlab.math.cnrs.fr` and SageMath becomes
-available AND the rank-11 bottleneck is shown to sit in candidate generation
-rather than in screening and reduction. On this machine at rank 8 it does not.
+The original recommendation also leaned on "the external code cannot be pinned
+and reproduced here, so criterion 5 fails before any mathematics". **That leg is
+withdrawn:** criterion 5 is satisfiable, the code pins and reproduces here, and
+`docs/bdr_linear_triangular_gate.md` does exactly that for one filter. The
+recommendation is unchanged because the 1.82x and 6.27x bounds are unchanged.
+
+The route is worth reopening under a checkable condition: if the composition and
+screening floor measured here stops dominating, or if the rank-11 bottleneck is
+shown to sit in candidate generation rather than in screening and reduction. On
+this machine at rank 8 it does not.
 
 ## Smallest next experiment justified by this result
 

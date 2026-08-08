@@ -537,10 +537,23 @@ plethysm criterion feed Problem 7 below.
   what any external candidate generator can remove under the local
   certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
   published rows of `(3,6)`, `(3,7)` and `(3,8)`, and labels the benchmark
-  INCOMPLETE because the pinned backend cannot be fetched or run.
+  INCOMPLETE because it took no BDR timing. ❗ Carries a correction: it
+  originally said the pinned backend could not be fetched or run here, which is
+  false and was never tested. See bdr_linear_triangular_gate.md.
   Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
   artifact bdr_constructor_comparison.json; guard test
   tests/test_bdr_constructor_comparison.py.
+- bdr_linear_triangular_gate.md: GATE 2, and the first time the upstream BDR
+  code has been executed in this repository. 🟦 The published irredundant
+  systems are confirmed against an independent source: set equality with the
+  upstream fermionic reference inequalities at (3,7), (4,7), (3,8) and (4,8),
+  4/4/31/15 rows, no published row missing, the only upstream extra being the
+  structural row. ❌ Refutes the untested claim that BDR's own filter is
+  strictly stronger than the DM `1 x 1` test: over 54 joined rows, 6 are DM
+  triangular and BDR-rejected while 6 are BDR-accepted with a single
+  irreducible block, so the criteria are incomparable. Artifacts
+  bdr_external_linear_triangular.json and bdr_linear_triangular_gate.json;
+  guard test tests/test_bdr_linear_triangular_gate.py.
 - infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
   theorem-dependency graph in machine-readable form. Answers the question of
   whether one `GL_infinity` object recovers every finite-rank moment polytope
@@ -582,12 +595,14 @@ plethysm criterion feed Problem 7 below.
   certified rather than assumed. Artifact closure_certificate.json; guard test
   tests/test_closure_certificate.py.
 - levi_triangularity_gate.md: GATE 4, and it REFUTES the strict form of the
-  Fermionic Levi Triangularity Conjecture. Fully triangular tangent systems are
-  14 of 48, 20 of 136 and 23 of 240 true facets at ranks 7, 8, 9, a fraction
-  that FALLS with rank, with a named rank-9 witness whose 16 by 16 matrix has
-  blocks [15,1]. The block-triangular reading survives but needs bounded block
-  size, and the largest block grows 9, 14, 15. Artifact
-  levi_triangularity_gate.json; guard test tests/test_levi_triangularity_gate.py.
+  Fermionic Levi Triangularity Conjecture. On the PUBLISHED irredundant systems
+  fully triangular tangent systems are 0 of 4, 5 of 31 and 5 of 52 at ranks 7,
+  8, 9, largest block 4, 7, 7. ⚠️ Carries a scope correction: the first version
+  called its wider population (48, 136, 240 determinant-nonzero candidates)
+  "true facets", which they are not, and the named [15,1] witness is a
+  candidate rather than a facet. The refutation survives on both populations.
+  Artifact levi_triangularity_gate.json; guard test
+  tests/test_levi_triangularity_gate.py.
 - root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
   REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
   mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
@@ -1710,9 +1725,11 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   half-filling specific. The earlier note that particle-hole duality applies at
   three of nine census systems was about `Theta` as an INTERNAL involution, not
   a claim that the architecture needs half filling.
-- 🔬 Claims resting on the BDR implementation remain unverified here;
-  bdr_constructor_comparison.md records that the pinned backend cannot be
-  fetched or run in this environment and labels that benchmark INCOMPLETE.
+- 🔬 Claims resting on the BDR implementation are verifiable here and mostly
+  still unverified. bdr_constructor_comparison.md said the pinned backend could
+  not be fetched or run in this environment; that is false, it was never tested,
+  and the backend has since been run for one filter. See
+  bdr_linear_triangular_gate.md.
 
 ## The closure certificate: the layer above the sandwich (2026-08-08)
 
@@ -1770,25 +1787,53 @@ exists. It fails. [docs/levi_triangularity_gate.md;
 results/data/levi_triangularity_gate.json;
 scripts/levi_triangularity_gate.py; tests/test_levi_triangularity_gate.py]
 
-- ❌ STRICT TRIANGULARITY IS REFUTED on the known true facets. For every
-  determinant-nonzero Hall-feasible row the tangent matrix is square with a
-  perfect matching; orienting by a matching and taking strongly connected
-  components gives the Dulmage-Mendelsohn irreducible blocks, and the system is
-  triangular exactly when all are `1 x 1`. Fully triangular rows: 14 of 48 at
-  (3,7), 20 of 136 at (3,8), 23 of 240 at (3,9). So 29 percent, then 15, then
-  **10**: strict triangularity is the exception and the exception is getting
-  rarer.
-- ❗ NAMED WITNESS at rank 9, and nothing about it is exotic:
-  `tau = (-1,-1,-1,-1,-1,2,2,-4,2)` has a 16 by 16 tangent matrix whose blocks
-  are `[15, 1]`. Three distinct levels, Hall-feasible, determinant nonzero,
-  exactly the kind of row the conjecture is about.
-- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES, but the premise it needs is not
-  supported: if the conjecture means block triangular with jointly solved
-  irreducible blocks, the operative question is bounded block size, and the
-  largest block grows 9, 14, 15 across the three ranks. ⚠️ Three points are not
-  a trend, and the largest block does not track matrix order monotonically (the
-  rank-9 maximum occurs at order 16, not at the largest order 36), so this is a
-  caution rather than a second refutation.
+- ❌ STRICT TRIANGULARITY IS REFUTED, on the PUBLISHED irredundant facets and
+  on the wider candidate population alike. For a Hall-feasible row the tangent
+  matrix is square with a perfect matching; orienting by a matching and taking
+  strongly connected components gives the Dulmage-Mendelsohn irreducible
+  blocks, and the system is triangular exactly when all are `1 x 1`. On the
+  published systems: **0 of 4** at (3,7) with block decompositions
+  `[4],[4],[3,1],[4]`, **5 of 31** at (3,8), **5 of 52** at (3,9), largest
+  block 4, 7, 7.
+- ⚠️ SCOPE CORRECTION, and it was an error of mine. The first version of this
+  gate called its population "true facets". It is not: it is every
+  Hall-feasible row with a nonzero Ressayre tangent determinant, 48, 136 and
+  240 rows against published systems of 4, 31 and 52, with no Farkas reduction,
+  no facet witness and no BDR birationality applied. Those counts are now
+  reported as CANDIDATES and the published rows are audited separately. The
+  refutation survives on both, so the conclusion did not depend on the
+  overstated scope, but the claim did.
+- ❗ AND THE NAMED WITNESS WAS NOT A FACET. `tau = (-1,-1,-1,-1,-1,2,2,-4,2)`
+  with blocks `[15,1]` is a determinant-nonzero CANDIDATE; its sorted shape is
+  not among the eight sorted-`tau` shapes of the published (3,9) system. Among
+  published facets the largest block is 7, not 15. The artifact now carries the
+  disclaimer in the witness record itself.
+- ❗ THE SHARP LESSON: Hall feasibility plus a nonzero determinant does NOT
+  imply scalar triangularity. A perfect matching says the support admits one, a
+  nonzero determinant says the system is generically nonsingular, and neither
+  says it decomposes into scalar equations.
+- ❗ A DEEPER CONFLATION, named because it would survive a positive result. A
+  nonzero tangent determinant is DIFFERENTIAL information, certifying that the
+  map is dominant and generically locally finite. BDR Condition A asks for
+  BIRATIONALITY, generic degree one, a global fiber-degree question. A locally
+  invertible map can have several generic preimages, so no tangent-support
+  theorem discharges Condition A on its own.
+- 🔬 WHAT IS NOT REFUTED: BDR's own recursive linear-triangular filter, which
+  analyses the full fiber-equation graph and eliminates variables iteratively.
+  It is an optional partial validator in that algorithm rather than its
+  birationality engine. Nothing here refutes BDR; it refutes a hoped-for
+  replacement of its hardest stage. The DM decomposition survives as a canonical
+  factorization useful for determinant factoring, modular evaluation, Schur
+  complements and caching, just not as the whole theorem.
+- ❗ AND A SECOND CORRECTION, same day, same error class. This entry also said
+  BDR's filter is "strictly stronger" than the DM `1 x 1` test. That was
+  asserted without running anything and is FALSE: the two criteria are
+  incomparable, witnessed in both directions. See the gate-2 entry below.
+- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES. On the published facets the largest
+  block is 7 at both (3,8) and (3,9), markedly better behaved than the
+  candidate population's 14 and 15, so bounded block size is MORE plausible on
+  the facet system than the candidate scan suggested. ⚠️ Three points are not a
+  trend either way.
 - 🟦 CANONICALITY CHECKED, NOT ASSUMED, since the verdict rests on it: the block
   multiset is matching-independent by the Dulmage-Mendelsohn theorem, re-checked
   at 40 rows per rank against four extra random matchings each with ZERO
@@ -1802,6 +1847,59 @@ scripts/levi_triangularity_gate.py; tests/test_levi_triangularity_gate.py]
   better known before the birationality stage is written than after.
 - 🔬 UNTOUCHED by this gate: the excitation theorem itself, which is proved, and
   the sparse generic-isotropy reduction, which is correct and separate.
+
+## Gate 2: the BDR backend was run, and it corrects us twice (2026-08-08)
+
+The upstream Bulois-Denis-Ressayre implementation was fetched at its pinned
+revision `7ab347d9a7837d68d92bde9fac74606913f395ca`, installed, and executed.
+[docs/bdr_linear_triangular_gate.md;
+results/data/bdr_external_linear_triangular.json;
+results/data/bdr_linear_triangular_gate.json;
+scripts/bdr_linear_triangular_gate.py;
+tests/test_bdr_linear_triangular_gate.py]
+
+- ❗ CORRECTION ONE, PROCESS. bdr_constructor_comparison.md said the backend
+  "could not be fetched or run in this environment" and listed four blockers.
+  Three of the four are individually true and none is load bearing: the code is
+  mirrored at github.com/ea-icj/moment_cone and served by the session's
+  repository-attachment path even though direct HTTPS to github.com is refused
+  by the egress proxy; `moment-cone` is genuinely not on PyPI but `pip install`
+  from the clone works; and the upstream `passagemath` extra installs into a
+  throwaway venv, so the minimum-dependency rule is untouched. The licence is
+  MIT, replacing the `not_verified` record. The claim of impossibility was never
+  tested. The INCOMPLETE label on that benchmark stands, for the correct reason:
+  it took no BDR timing.
+- 🟦 THE PUBLISHED SYSTEMS ARE EXTERNALLY CONFIRMED, for the first time. Joining
+  on primitive homogeneous `tau`, the repository's published irredundant systems
+  equal the upstream fermionic reference inequalities as sets at (3,7) 4 rows,
+  (4,7) 4 rows, (3,8) 31 rows and (4,8) 15 rows. No published row is absent
+  upstream. The only upstream extra is the structural row `(0,...,0,-1)`, which
+  is `lambda_d >= 0` and is stored separately here. The pipelines share no code
+  and enumerate different objects, so this is genuinely independent.
+- ❌ CORRECTION TWO, MATHEMATICAL. The claim that BDR's filter is "strictly
+  stronger" than the DM `1 x 1` test is REFUTED. Over 54 joined analysable rows:
+  4 triangular on both readings, 6 fully DM triangular and BDR-rejected, 6
+  BDR-accepted with a single irreducible DM block, 38 failing both. Both
+  off-diagonal cells are nonempty, so neither criterion implies the other.
+  Witnesses: `tau = (-2,1,1,1,1,-2,-2)` at (3,7) is BDR triangular with DM
+  blocks `[4]`; `tau = (2,-1,-1,2,-4,-1,-1,-1)` at (3,8) is fully DM triangular
+  and rejected.
+- ❗ WHY THEY DIFFER, so the two are never conflated again. They are different
+  objects. The local test factorizes the square Ressayre tangent matrix,
+  positive weights against inversion roots. BDR's filter works on the weight
+  graph of the whole representation, counts paths into the NON-POSITIVE weights,
+  calls an equation linear when every such path count is at most one, removes
+  exactly the roots those equations pin, and recurses until no root remains.
+- 🟦 GATE 4 IS UNAFFECTED. Its refutation is a statement about the tangent
+  matrix, which is the object the Levi Triangularity Conjecture is about. What
+  falls is one sentence relating that object to the upstream filter.
+- 🔬 BDR'S FILTER IS ALSO PARTIAL: it validates 1 of 4, 1 of 4, 3 of 31 and 5 of
+  15 published rows. So on both readings only a small minority of facets is
+  reachable by any linear-triangularity argument, which is the substantive
+  agreement underneath the disagreement about which minority it is.
+- ⚠️ SCOPE: four systems, all `d <= 8`, because those are the reference
+  inequalities upstream ships. (3,9) is not covered and nothing is uniform in
+  `d`.
 
 ## Adjacent literature to respect
 

@@ -1,0 +1,1572 @@
+{
+ "canonical_sha256_without_this_field": "3a10393fd3ba290b383d253e2cca8556de476b386751085a2828f59ea030b600",
+ "criteria_agree": false,
+ "dm_triangularity_is_necessary_for_bdr": false,
+ "dm_triangularity_is_sufficient_for_bdr": false,
+ "external_backend": {
+  "call_site": "LinearTriangularStep.apply in moment_cone/main_steps.py",
+  "entry_point": "moment_cone.linear_triangular.is_linear_triangular",
+  "executed_here": true,
+  "license": "MIT",
+  "mirror": "github.com/ea-icj/moment_cone",
+  "name": "Bulois-Denis-Ressayre moment_cone",
+  "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca",
+  "runtime": "passagemath (modularized SageMath fork) on CPython"
+ },
+ "external_verdicts_from": "results/data/bdr_external_linear_triangular.json",
+ "external_verdicts_sha256": "59abe8e0eece76eced4f19939cb482071aa4f692d099028dd16934806f9c853b",
+ "generated_by": "scripts/bdr_linear_triangular_gate.py",
+ "pooled_contingency": {
+  "bdr_triangular_only": 6,
+  "dm_triangular_and_bdr_triangular": 4,
+  "dm_triangular_only": 6,
+  "neither": 38,
+  "rows": 54
+ },
+ "schema_version": 1,
+ "status": "cross_implementation_comparison",
+ "systems": {
+  "(3,7)": {
+   "bdr_linear_triangular_rows": 1,
+   "contingency": {
+    "bdr_triangular_only": 1,
+    "dm_triangular_and_bdr_triangular": 0,
+    "dm_triangular_only": 0,
+    "neither": 3
+   },
+   "dm_fully_triangular_rows": 0,
+   "external_only": [],
+   "external_rows": 4,
+   "joined_analysable_rows": 4,
+   "orbitals": 7,
+   "particle_number": 3,
+   "published_only": [],
+   "published_rows": 4,
+   "rows": [
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1
+     ]
+    }
+   ],
+   "rows_in_both": 4,
+   "system": "(3,7)"
+  },
+  "(3,8)": {
+   "bdr_linear_triangular_rows": 3,
+   "contingency": {
+    "bdr_triangular_only": 2,
+    "dm_triangular_and_bdr_triangular": 1,
+    "dm_triangular_only": 4,
+    "neither": 24
+   },
+   "dm_fully_triangular_rows": 5,
+   "external_only": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     -1
+    ]
+   ],
+   "external_rows": 32,
+   "joined_analysable_rows": 31,
+   "orbitals": 8,
+   "particle_number": 3,
+   "published_only": [],
+   "published_rows": 31,
+   "rows": [
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 10,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 10,
+     "root_count": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      -1,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_inversion_count": 14,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 14,
+     "root_count": 14,
+     "tau": [
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 0,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": false,
+     "local_status": "structural",
+     "matrix_order": 0,
+     "root_count": 0,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 6,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 6,
+     "root_count": 6,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 6,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 6,
+     "root_count": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 10,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 10,
+     "root_count": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 11,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 11,
+     "root_count": 11,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      1,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 6,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 6,
+     "root_count": 6,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 11,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 11,
+     "root_count": 11,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_inversion_count": 14,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 14,
+     "root_count": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -1,
+      -2,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 10,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 10,
+     "root_count": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 10,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 10,
+     "root_count": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 14,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 14,
+     "root_count": 14,
+     "tau": [
+      2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -3,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 6,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 6,
+     "root_count": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 14,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 14,
+     "root_count": 14,
+     "tau": [
+      2,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_inversion_count": 5,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 5,
+     "root_count": 5,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7,
+      2
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_inversion_count": 12,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 12,
+     "root_count": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1,
+      2
+     ]
+    }
+   ],
+   "rows_in_both": 31,
+   "system": "(3,8)"
+  },
+  "(4,7)": {
+   "bdr_linear_triangular_rows": 1,
+   "contingency": {
+    "bdr_triangular_only": 1,
+    "dm_triangular_and_bdr_triangular": 0,
+    "dm_triangular_only": 0,
+    "neither": 3
+   },
+   "dm_fully_triangular_rows": 0,
+   "external_only": [],
+   "external_rows": 4,
+   "joined_analysable_rows": 4,
+   "orbitals": 7,
+   "particle_number": 4,
+   "published_only": [],
+   "published_rows": 4,
+   "rows": [
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1
+     ]
+    }
+   ],
+   "rows_in_both": 4,
+   "system": "(4,7)"
+  },
+  "(4,8)": {
+   "bdr_linear_triangular_rows": 5,
+   "contingency": {
+    "bdr_triangular_only": 2,
+    "dm_triangular_and_bdr_triangular": 3,
+    "dm_triangular_only": 2,
+    "neither": 8
+   },
+   "dm_fully_triangular_rows": 5,
+   "external_only": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     -1
+    ]
+   ],
+   "external_rows": 16,
+   "joined_analysable_rows": 15,
+   "orbitals": 8,
+   "particle_number": 4,
+   "published_only": [],
+   "published_rows": 15,
+   "rows": [
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_inversion_count": 0,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": false,
+     "local_status": "structural",
+     "matrix_order": 0,
+     "root_count": 0,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      0,
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      0,
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -3,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      -1,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -3,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 4,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "determinant_nonzero",
+     "matrix_order": 4,
+     "root_count": 4,
+     "tau": [
+      1,
+      1,
+      1,
+      -3,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_inversion_count": 0,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [],
+     "dm_fully_triangular": true,
+     "in_external_reference": true,
+     "in_published_system": true,
+     "local_status": "structural",
+     "matrix_order": 0,
+     "root_count": 0,
+     "tau": [
+      3,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   ],
+   "rows_in_both": 15,
+   "system": "(4,8)"
+  }
+ },
+ "verdict": {
+  "consequence": "The DM 1 x 1 test may not be used as a conservative stand-in for BDR's filter in either direction. Gate 4's refutation of strict triangularity stands on its own object and is unaffected; what falls is only the sentence relating it to the upstream filter.",
+  "cross_validation": "The repository's published irredundant systems and the upstream fermionic reference inequalities agree exactly as sets at (3,7), (4,7), (3,8) and (4,8), once the structural row (0,...,0,-1) is accounted for. That row is a GPC ordering constraint upstream carries in the same list and the repository stores separately.",
+  "documented_claim_status": "REFUTED. Strictly stronger would force bdr_triangular_only == 0, and it is 6. The two criteria are incomparable on the published fermionic rows: BDR certifies rows whose tangent matrix is a single irreducible DM block.",
+  "documented_claim_under_test": "docs/levi_triangularity_gate.md asserted, untested, that BDR's recursive linear-triangular filter is a STRICTLY STRONGER criterion than asking whether every DM block of the tangent matrix is 1 x 1.",
+  "why_they_differ": "They are computed on different objects. The local test factorizes the square Ressayre tangent matrix, indexed by positive weights against inversion roots. BDR's filter works on the full weight graph of the representation, counts paths into the NON-POSITIVE weights, and recursively removes the roots whose equations came out linear. Neither reading implies the other."
+ }
+}

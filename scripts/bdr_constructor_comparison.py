@@ -70,18 +70,43 @@ EXTERNAL_PIN: dict[str, Any] = {
     "preprint": "arXiv:2505.08812 (math.AG)",
     "hal_record": "hal-05044759, version v3",
     "code_repository": "ea-icj/moment_cone at plmlab.math.cnrs.fr",
+    "code_mirror": "github.com/ea-icj/moment_cone",
     "landing_page": "https://ea-icj.github.io/",
     "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca",
-    "runtime_environment": "Python-Sage (SageMath)",
-    "license": "not_verified_code_host_unreachable",
+    "runtime_environment": "Python-Sage (SageMath), or the passagemath fork",
+    "license": "MIT, read from the LICENSE file of the pinned revision",
     "relevant_case": "fermionic cone, GL_d(C) acting on wedge^r C^d, here r = 3",
     "executed_here": False,
     "why_not_executed": [
-        "plmlab.math.cnrs.fr denied by the session egress proxy (403 CONNECT)",
-        "ea-icj.github.io, arxiv.org, cnrs.hal.science denied by the same policy",
-        "moment-cone is not published on PyPI",
-        "SageMath is not installed and must never be a package runtime dependency",
+        "this benchmark measures wall clock and stage counts, and it was run "
+        "before the backend was ever fetched; no BDR timing appears in it",
     ],
+    "reachability_correction": {
+        "date": "2026-08-08",
+        "what_was_claimed": (
+            "that the pinned implementation could not be fetched or run in "
+            "this environment, on four blockers"
+        ),
+        "what_is_true": (
+            "the pinned revision was fetched and run. The GitHub mirror is "
+            "served by the session's repository-attachment path even though "
+            "direct HTTPS to github.com returns 403 through the egress proxy, "
+            "and the upstream passagemath extra installs from PyPI into a "
+            "throwaway virtual environment with no effect on this package's "
+            "locked dependencies."
+        ),
+        "blockers_as_restated": [
+            "plmlab.math.cnrs.fr, ea-icj.github.io, arxiv.org and "
+            "cnrs.hal.science are refused by the egress proxy: TRUE, and not "
+            "load bearing, because the code is mirrored on GitHub",
+            "moment-cone is not published on PyPI: TRUE (404), and not load "
+            "bearing, because pip installs it from the clone",
+            "SageMath must never be a package runtime dependency: TRUE, and "
+            "unchanged; the external stack lives in a separate venv",
+        ],
+        "evidence": "results/data/bdr_external_linear_triangular.json",
+        "gate": "docs/bdr_linear_triangular_gate.md",
+    },
     "benchmark_label": "INCOMPLETE",
 }
 
@@ -701,8 +726,8 @@ def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[
         },
         "measurement_caveat": (
             "Wall clock on one machine, single worker, no equally optimized "
-            "control for the external path because the external path could not "
-            "be run. Timings are not averaged across machines."
+            "control for the external path because this benchmark never ran "
+            "the external path. Timings are not averaged across machines."
         ),
         "systems": measurements,
         "predictions": predictions,
@@ -710,11 +735,18 @@ def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[
             "external_backend_executed": False,
             "label": "INCOMPLETE",
             "what_prevented_it": EXTERNAL_PIN["why_not_executed"],
+            "reachability_correction": EXTERNAL_PIN["reachability_correction"],
             "what_is_established_anyway": (
                 "an upper bound on the speedup any external candidate generator "
                 "can deliver under the local certification requirement, plus a "
                 "local recertification of every published row in the overlapping "
                 "systems"
+            ),
+            "what_is_still_missing": (
+                "BDR wall clock, candidate counts and per-stage figures. The "
+                "backend has since been run for the linear-triangular gate "
+                "(docs/bdr_linear_triangular_gate.md), but no timing "
+                "comparison has been made, so this benchmark stays INCOMPLETE."
             ),
         },
     }

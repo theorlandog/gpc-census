@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gate 4: are true fermionic facets linear triangular after DM factorization?
+"""Gate 4: are fermionic tangent systems linear triangular after DM factorization?
 
 THE CONJECTURE UNDER TEST. The Fermionic Levi Triangularity Conjecture says
 every minimal fermionic BDR facet becomes linear triangular after
@@ -8,9 +8,12 @@ components, grade ordering, and Dulmage-Mendelsohn decomposition of the linear
 tangent blocks. If it held, birationality would need no generic Groebner
 calculation: the tangent system would solve by back substitution.
 
-WHY THIS GATE IS RUNNABLE NOW, unlike the excitation-defect gate. It needs only
-tangent matrices of rows already known to be Hall-feasible with nonzero
-determinant, and the repository has every such row at ranks 7, 8 and 9.
+TWO POPULATIONS, KEPT APART. The wide population is every Hall-feasible row
+with a nonzero Ressayre tangent determinant: 48, 136 and 240 rows at ranks 7,
+8 and 9. Those are CANDIDATES, not facets. They have had no Farkas reduction,
+no facet witness and no BDR birationality test, and the published irredundant
+systems are much smaller, 4, 31 and 52 rows. The published rows are therefore
+audited separately, and the verdict is reported on both.
 
 WHAT IS MEASURED. For each determinant-nonzero Hall-feasible row, the tangent
 matrix is square and has a perfect matching. Orient it by any perfect matching
@@ -35,6 +38,7 @@ import collections
 import hashlib
 import importlib.util
 import json
+import math
 import pathlib
 import random
 import sys
@@ -141,8 +145,16 @@ def irreducible_blocks(matrix, match_row) -> list[int]:
     return sorted(components, reverse=True)
 
 
-def true_facet_rows(n: int, d: int, source: str, checkpoint_dir=None):
-    """Every Hall-feasible row with nonzero tangent determinant."""
+def determinant_nonzero_candidate_rows(n: int, d: int, source: str, checkpoint_dir=None):
+    """Every Hall-feasible row with nonzero tangent determinant.
+
+    NOT the final facets. These rows have passed the trace test, Hall
+    feasibility and a nonzero Ressayre tangent determinant, and nothing else:
+    no Farkas reduction, no facet witness, no BDR birationality. The published
+    irredundant systems are far smaller, 4, 31 and 52 rows against the 48, 136
+    and 240 counted here, so the two populations must never be conflated.
+    ``published_facet_rows`` audits the retained systems separately.
+    """
     from gpc_census.generation import orbit_canonical as oc
     from gpc_census.generation.exterior import exterior_weights
     from gpc_census.generation.ressayre import admissible_candidate_from_tau
@@ -177,6 +189,63 @@ def true_facet_rows(n: int, d: int, source: str, checkpoint_dir=None):
             yield tau, matrix
 
 
+def published_facet_rows(n: int, d: int):
+    """The published irredundant GPC rows, converted to homogeneous tau form.
+
+    A published row is ``coeffs . lambda <= rhs``. On the trace slice
+    ``sum lambda = N`` that is ``(N*coeffs - rhs*1) . lambda <= 0``, and the
+    primitive integer form of that vector is the ``tau`` the rest of the
+    pipeline uses.
+    """
+    from gpc_census.constraints import constraints
+
+    for inequality in constraints(n, d)["inequalities"]:
+        values = [n * c - inequality["rhs"] for c in inequality["coeffs"]]
+        divisor = 0
+        for value in values:
+            divisor = math.gcd(divisor, abs(value))
+        tau = tuple(value // (divisor or 1) for value in values)
+        _on, below, roots, matrix = AUDIT.tangent_matrix(tau, n)
+        yield tau, below, roots, matrix, _on
+
+
+def audit_published_facets(n: int, d: int) -> dict:
+    """The same block audit, restricted to the retained irredundant system."""
+    rng = random.Random(7)
+    rows = 0
+    structural = 0
+    fully_triangular = 0
+    largest_block = 0
+    blocks_by_row = []
+
+    for tau, below, roots, matrix, on in published_facet_rows(n, d):
+        if not below:
+            structural += 1
+            continue
+        if len(below) != len(roots) or AUDIT.maximum_matching(matrix) != len(below):
+            continue
+        if not AUDIT.determinant_verdict(matrix, len(on), rng)["nonzero"]:
+            continue
+        match_row = perfect_matching(matrix)
+        if match_row is None:
+            continue
+        blocks = irreducible_blocks(matrix, match_row)
+        rows += 1
+        fully_triangular += max(blocks) == 1
+        largest_block = max(largest_block, max(blocks))
+        blocks_by_row.append({"tau": list(tau), "blocks": blocks})
+
+    return {
+        "published_rows": rows + structural,
+        "structural_rows": structural,
+        "analysed_rows": rows,
+        "fully_triangular_rows": fully_triangular,
+        "fully_triangular_fraction": round(fully_triangular / rows, 4) if rows else 0,
+        "largest_irreducible_block": largest_block,
+        "blocks_by_row": blocks_by_row if rows <= 8 else blocks_by_row[:8],
+    }
+
+
 def audit_system(n: int, d: int, source: str, checkpoint_dir=None) -> dict:
     import time
 
@@ -192,7 +261,9 @@ def audit_system(n: int, d: int, source: str, checkpoint_dir=None) -> dict:
     matching_disagreements = 0
     witness = None
 
-    for tau, matrix in true_facet_rows(n, d, source, checkpoint_dir=checkpoint_dir):
+    for tau, matrix in determinant_nonzero_candidate_rows(
+        n, d, source, checkpoint_dir=checkpoint_dir
+    ):
         match_row = perfect_matching(matrix)
         if match_row is None:
             continue
@@ -207,7 +278,12 @@ def audit_system(n: int, d: int, source: str, checkpoint_dir=None) -> dict:
         if top > largest_block:
             largest_block = top
             order_of_largest_block = order
-            witness = {"tau": list(tau), "matrix_order": order, "blocks": blocks}
+            witness = {
+                "tau": list(tau),
+                "matrix_order": order,
+                "blocks": blocks,
+                "status": "determinant-nonzero candidate, NOT a published facet",
+            }
 
         # Canonicality spot check on a sample of rows.
         if matching_checks < 40:
@@ -235,7 +311,7 @@ def audit_system(n: int, d: int, source: str, checkpoint_dir=None) -> dict:
         "max_block_size_distribution": {
             str(k): v for k, v in sorted(block_distribution.items())
         },
-        "largest_block_witness": witness,
+        "largest_candidate_block_witness": witness,
         "matching_independence_rows_checked": matching_checks,
         "matching_independence_disagreements": matching_disagreements,
         "seconds": round(time.perf_counter() - started, 1),
@@ -257,13 +333,17 @@ def main() -> int:
     for n, d, source in CENSUS_SYSTEMS:
         print(f"({n},{d}) ...", flush=True)
         record = audit_system(n, d, source, checkpoint_dir=arguments.checkpoint_dir)
+        record["published_facets"] = audit_published_facets(n, d)
         systems[record["system"]] = record
         print(
             f"  rows {record['determinant_nonzero_hall_feasible_rows']} "
             f"fully triangular {record['fully_triangular_rows']} "
             f"({100 * record['fully_triangular_fraction']:.1f}%) "
             f"largest block {record['largest_irreducible_block']} "
-            f"of order {record['matrix_order_at_largest_block']} "
+            f"of order {record['matrix_order_at_largest_block']} | published "
+            f"{record['published_facets']['fully_triangular_rows']}"
+            f"/{record['published_facets']['analysed_rows']} triangular, "
+            f"largest {record['published_facets']['largest_irreducible_block']} "
             f"({record['seconds']}s)",
             flush=True,
         )
@@ -280,11 +360,18 @@ def main() -> int:
         ),
         "systems": systems,
         "verdict": {
+            "scope": (
+                "The candidate population is every Hall-feasible row with a "
+                "nonzero Ressayre tangent determinant, which is NOT the set of "
+                "final facets: 48, 136 and 240 rows against published systems "
+                "of 4, 31 and 52. The published rows are audited separately."
+            ),
             "strict_triangularity": (
-                "REFUTED for the majority of true facets. Fully triangular "
-                "rows, meaning every Dulmage-Mendelsohn block is 1x1 and back "
-                "substitution alone solves the system, are a minority at every "
-                "rank and the fraction FALLS with rank."
+                "REFUTED on both populations. Among determinant-nonzero "
+                "candidates fully triangular rows are a minority whose share "
+                "falls with rank. Among the PUBLISHED irredundant facets it is "
+                "0 of 4 at (3,7), 5 of 31 at (3,8) and 5 of 52 at (3,9), so "
+                "the no-go does not depend on the wider candidate scope."
             ),
             "block_triangular_reading": (
                 "Still open, but the premise it needs is not supported here. "
