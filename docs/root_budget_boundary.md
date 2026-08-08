@@ -1,9 +1,11 @@
-# The root-budget boundary layer: one half verified, one half refuted
+# The root-budget boundary layer: refuted per weight, repaired per profile
 
 **Status:** external claim, tested against the census before adoption. The
 positive-layer theorem is confirmed and is a real reduction. The zero-layer
-extension is refuted for non-regular normals, which is where essentially all
-known mechanisms live.
+extension is refuted **as a per-weight bound**, and then repaired by the
+weighted occupancy-profile formulation of the third memo, which holds 280 of
+280. The gap this document opened is therefore closed, by a statement about
+profiles rather than about individual determinants.
 
 **Artifact:** `results/data/root_budget_boundary.json`, written by
 `scripts/root_budget_boundary.py`.
@@ -165,12 +167,62 @@ The positive half survives the tightening everywhere. The zero half degrades
 from 22 failures out of 280 to 70 out of 280. So adopting the per-Levi budget
 is right, and it makes the sign-control claim worse rather than better.
 
+## The profile repair: the zero half, done correctly
+
+A third memo replaces the per-weight statement with one about Levi occupancy
+profiles, and that is the right object. For levels `l_1 > ... > l_s` with
+multiplicities `m_i`, a determinant is represented only by its profile `k`,
+with
+
+```text
+M(k) = prod_i binom(m_i, k_i)        multiplicity
+g(k) = sum_i l_i k_i                 grade
+Q(k) = sum over l >= k of M(l)       weighted upper-ideal mass
+```
+
+where `>=` is prefix-sum dominance. Strict dominance strictly raises the grade,
+so everything strictly above a nonnegative profile is strictly positive, giving
+
+```text
+g(k) >  0   =>   Q(k)        <= R_L
+g(k) == 0   =>   Q(k) - M(k) <= R_L
+```
+
+**Verified on the census, 280 of 280, on both branches**, with no excess at any
+mechanism. The profile-mass sum also reproduces the direct weight count of
+`Omega_+` at every mechanism, so the compression is lossless.
+
+The second law is exactly the repair. The per-weight version subtracted one
+weight (the "+1"); the profile version subtracts the profile's whole
+multiplicity `M(k)`. That is precisely the difference between a regular normal,
+where a zero weight is alone in its class, and a degenerate one, where a single
+zero profile can stand for an astronomical number of determinants. The zero law
+holds at every mechanism where the per-weight bound failed, including all 70
+that failed under the tightened per-Levi budget.
+
+So the correct sequence is: the per-weight zero bound is false off the regular
+stratum, the per-Levi tightening makes it fail more, and the profile
+formulation makes it true. Only the last belongs in an implementation.
+
+### The laws are conditional, and that is useful
+
+They assume the root budget, so they are not unconditional facts about a Levi
+type. Applied to `tau = (2,2,0,0,-1,-1,-1,-1)` at `N = 3` they fail, with
+`|Omega_+| = 24` against `R_L = 20`. That is the correct verdict: no
+arrangement of that multiset can pass the Ressayre trace test, so the normal is
+trace-dead. A violation therefore certifies trace-death, which makes the laws
+usable as a pruning test and not only as a bound. This is worth stating because
+a test written against an arbitrary invented normal will fail for a legitimate
+reason and look like a defect in the theorem.
+
 ## What this means for the proposed architecture
 
 - The positive-layer truncation stands and is the strongest part of the memo.
   A candidate's positive side at `(20,40)` genuinely lives in 15,359 weights.
-- Sign control does **not** follow at the stated strength, and the per-Levi
-  refinement widens rather than closes that gap. The zero weights
+- Sign control **does** follow, once stated per profile rather than per weight.
+  The per-weight route is false off the regular stratum and the per-Levi
+  tightening widens that gap; the weighted-profile laws close it, verified
+  280 of 280. The zero weights
   carry the tangent-matrix variables, and the uniform bound that was supposed
   to fence them is false off the regular stratum. Any implementation should use
   the per-Levi-type budget, or work with occupancy profiles in the Levi
@@ -182,6 +234,98 @@ is right, and it makes the sign-control claim worse rather than better.
   `docs/bdr_constructor_comparison.md` records that the pinned backend cannot
   be fetched or run in this environment and labels that benchmark INCOMPLETE;
   nothing in this document changes that.
+
+## The Levi excitation bound: proved, and vacuous where we can test it
+
+A fourth memo proposes bounding the excitation defect
+
+```text
+delta(k) = sum_i min(k_i, m_i - k_i)
+```
+
+of every positive occupancy profile by `floor(log2 R_L)`. The proof is correct.
+Condition (B) forces `M(k) <= R_L` for each positive profile, and
+
+```text
+binom(m_i, k_i) = binom(m_i, t_i) >= binom(2 t_i, t_i) >= 2^{t_i},
+    t_i = min(k_i, m_i - k_i)
+```
+
+so `M(k) >= 2^delta(k)` and hence `delta(k) <= floor(log2 R_L)`. Both
+inequalities are verified here, the second on 20,000 random profiles.
+
+**But the bound cannot be tested on anything this repository has.** Since
+`min(k_i, m_i - k_i) <= k_i` and `sum_i k_i = N`,
+
+```text
+delta(k) <= N        unconditionally, for every profile
+```
+
+So the theorem says nothing whenever `N <= floor(log2 R_L)`. On the census:
+
+| System | `N` | `floor(log2 R_L)` range | Mechanisms where the bound can bind | Violations | Max measured `delta` |
+| --- | ---: | --- | ---: | ---: | ---: |
+| `(3,7)` | 3 | 2 to 4 | **2 of 25** | 0 | 3 |
+| `(3,8)` | 3 | 2 to 4 | **2 of 64** | 0 | 3 |
+| `(3,9)` | 3 | 3 to 5 | **0 of 191** | 0 | 3 |
+
+276 of 280 mechanisms are vacuous, and rank 9 is entirely vacuous. The four
+non-vacuous cases pass, which is the total evidence available.
+
+The measured maxima of 3 are the structural ceiling `delta <= N = 3`, not a
+finding about facets. The same reading applies to the memo's own post-hoc check
+on 83 mechanisms: those systems have `N <= 5`, so "maximum defect 3 against a
+permitted 4 or 5" is consistent with the bound never having applied.
+
+**Consequence for the proposed gate.** The memo's first gate is "audit the
+defect bound on the complete rank-7 to rank-10 candidate populations". That
+audit cannot falsify the theorem: it is vacuous by construction at those
+particle numbers, and a pass would carry no information. At half filling the
+bound first bites at `d = 14`, since `N = 7 > 6 = floor(log2 binom(14,2))`, so
+the first testable systems are exactly the ones for which no data exists.
+
+None of this disputes the theorem. It is correct, and at `(20,40)` it is a
+genuine constraint, cutting a possible defect of 20 down to 9. It simply cannot
+be validated below the frontier it was designed for, and the audit that was
+proposed to validate it should be replaced or dropped rather than run and
+reported as a pass.
+
+## The gate ladder, pinned in the artifact
+
+The proposed validation ladder's entry numbers are recomputed here rather than
+quoted, so the ladder's premises are guarded in-repo:
+
+| System | Effective | Ambient `binom(d,N)` | Sign-control universe | Compression | Durfee | Transpose orbits |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `(13,17)` | `(4,17)` | 2,380 | 609 | 3.9x | 4 | n/a |
+| `(10,20)` | `(10,20)` | 184,756 | 1,940 | 95.2x | 4 | 993 |
+| `(15,30)` | `(15,30)` | 155,117,520 | 8,409 | 18,446.6x | 5 | 4,249 |
+| `(20,40)` | `(20,40)` | 137,846,528,820 | 22,817 | 6,041,395.8x | 5 | 11,478 |
+
+`(13,17)` is computed as `(4,17)` by particle-hole normalization, and only the
+half-filled rungs admit the internal transpose quotient. Every figure agrees
+with the source memo.
+
+What the ladder tests is the WEIGHT ORACLE, not the architecture. Gate A
+exercises rectangular geometry, particle-hole transport and weighted nonregular
+profiles, all of which are verified above. The Kostant inversion-diagram and
+birationality stages, which carry the minimal-facet claim, are exercised by no
+rung of this ladder as long as the pinned BDR backend cannot be run here.
+
+## Levi-type and root-budget class counts
+
+The proposal to bucket Levi types by root budget rests on counts that
+reproduce exactly:
+
+| `d` | Levi types, `p(d)` | Distinct `R_L` values |
+| ---: | ---: | ---: |
+| 17 | 297 | 83 |
+| 20 | 627 | 118 |
+| 30 | 5,604 | 284 |
+| 40 | **37,338** | **538** |
+
+So the 37,338 Levi types at `d = 40` really do collapse to 538 budget classes,
+and one boundary view can be shared across every type in a bucket.
 
 ## Provenance note on the uploaded bundle
 

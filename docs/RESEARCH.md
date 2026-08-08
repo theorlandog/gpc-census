@@ -581,6 +581,13 @@ plethysm criterion feed Problem 7 below.
   as a FACE (six rows, four faces at (3,6)) and why the affine hull must be
   certified rather than assumed. Artifact closure_certificate.json; guard test
   tests/test_closure_certificate.py.
+- levi_triangularity_gate.md: GATE 4, and it REFUTES the strict form of the
+  Fermionic Levi Triangularity Conjecture. Fully triangular tangent systems are
+  14 of 48, 20 of 136 and 23 of 240 true facets at ranks 7, 8, 9, a fraction
+  that FALLS with rank, with a named rank-9 witness whose 16 by 16 matrix has
+  blocks [15,1]. The block-triangular reading survives but needs bounded block
+  size, and the largest block grows 9, 14, 15. Artifact
+  levi_triangularity_gate.json; guard test tests/test_levi_triangularity_gate.py.
 - root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
   REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
   mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
@@ -1652,6 +1659,57 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   (280/280 for both the family size and every positive weight), while the zero
   half degrades from 22 failures out of 280 to 70 out of 280. Adopting the
   per-Levi budget is right AND it widens the sign-control gap.
+- 🟦 THE ZERO HALF IS REPAIRED, by profiles rather than by weights. A third memo
+  replaces the per-weight statement with weighted Levi occupancy profiles: with
+  `M(k) = prod binom(m_i,k_i)`, `g(k) = sum l_i k_i` and `Q(k)` the weighted
+  upper-ideal mass under prefix-sum dominance, `g(k) > 0` gives `Q(k) <= R_L`
+  and `g(k) = 0` gives `Q(k) - M(k) <= R_L`. VERIFIED 280 of 280 on both
+  branches, with the profile-mass sum reproducing the direct `Omega_+` count at
+  every mechanism, so the compression is lossless. The second law is exactly the
+  repair: the per-weight version subtracted ONE weight, the profile version
+  subtracts the whole multiplicity `M(k)`, which is the difference between a
+  regular normal and a degenerate one. It holds at every mechanism where the
+  per-weight bound failed, including all 70 under the tightened budget. So the
+  sequence is: per-weight false, per-Levi tightening makes it worse, profile
+  formulation true. Only the last belongs in an implementation.
+- ❗ THE LAWS ARE CONDITIONAL on the root budget, and that is useful rather than
+  a weakness. `tau = (2,2,0,0,-1,-1,-1,-1)` at `N=3` violates them with
+  `|Omega_+| = 24` against `R_L = 20`, which is correct: that normal is
+  trace-dead. A violation CERTIFIES trace-death, so the laws double as a pruning
+  test. A check written against an invented normal fails for a legitimate reason
+  and can be mistaken for a defect in the theorem.
+- 🟨 THE LEVI EXCITATION BOUND IS PROVED AND VACUOUS HERE, which is the finding.
+  Condition (B) gives `M(k) <= R_L` per positive profile, and
+  `binom(m,k) = binom(m,t) >= binom(2t,t) >= 2^t` with `t = min(k, m-k)` gives
+  `M(k) >= 2^delta(k)`, hence `delta(k) <= floor(log2 R_L)`. Both steps verified.
+  ❗ BUT `min(k_i, m_i-k_i) <= k_i` and `sum k_i = N` force `delta <= N`
+  UNCONDITIONALLY, so the bound says nothing while `N <= floor(log2 R_L)`. On
+  the census it can bind at 4 of 280 mechanisms and at NONE at rank 9; the
+  measured maxima of 3 are the structural ceiling `delta <= N = 3`, not a
+  finding. ❗ CONSEQUENCE: the proposed gate "audit the defect bound on the
+  rank-7 to rank-10 populations" CANNOT falsify it and should not be run as
+  evidence. At half filling the bound first bites at `d = 14`
+  (`N = 7 > 6 = floor(log2 binom(14,2))`), so the first testable systems are
+  exactly those with no data. The theorem is genuine at (20,40), cutting a
+  possible defect of 20 to 9; it just cannot be validated below its own
+  frontier. The same reading applies to the memo's post-hoc 83-mechanism check,
+  whose systems all have `N <= 5`.
+- 🟦 THE GATE LADDER IS PINNED IN THE ARTIFACT, every entry number recomputed
+  rather than quoted: (13,17) computed as (4,17), 2,380 ambient to 609
+  sign-control records (3.9x); (10,20) 184,756 to 1,940 (95.2x, 993 transpose
+  orbits); (15,30) 155,117,520 to 8,409 (18,446.6x, 4,249); (20,40)
+  137,846,528,820 to 22,817 (6,041,395.8x, 11,478). Only the half-filled rungs
+  admit the internal transpose quotient. ⚠️ The ladder tests the WEIGHT ORACLE,
+  not the architecture: no rung exercises the Kostant inversion-diagram or
+  birationality stages that carry the minimal-facet claim.
+- 🟦 LEVI-TYPE BUCKETING CONFIRMED: `p(d)` Levi types collapse to far fewer root
+  budgets, 297/83, 627/118, 5,604/284 and 37,338/**538** at `d = 17, 20, 30, 40`,
+  so one boundary view is shared across each bucket.
+- ⚠️ SCOPE, stated because the memo corrects an over-narrow reading: the method
+  is general in `(N,d)` under `n = min(N, d-N)`, and nothing verified here is
+  half-filling specific. The earlier note that particle-hole duality applies at
+  three of nine census systems was about `Theta` as an INTERNAL involution, not
+  a claim that the architecture needs half filling.
 - 🔬 Claims resting on the BDR implementation remain unverified here;
   bdr_constructor_comparison.md records that the pinned backend cannot be
   fetched or run in this environment and labels that benchmark INCOMPLETE.
@@ -1702,6 +1760,48 @@ tests/test_closure_certificate.py]
   says nothing about (20,40). The reverse-search vertex enumeration and the BDR
   coverage ledger, the two pieces a rank-40 closure would need, are not built
   here and are not implied by anything here.
+
+## Gate 4: strict linear triangularity is refuted (2026-08-08)
+
+The Levi excitation programme proposes four gates. Gate 1 cannot falsify
+anything (see the root-budget section: `delta <= N` makes it vacuous), gates 2
+and 3 are implementation, and gate 4 is the one that can fail on data that
+exists. It fails. [docs/levi_triangularity_gate.md;
+results/data/levi_triangularity_gate.json;
+scripts/levi_triangularity_gate.py; tests/test_levi_triangularity_gate.py]
+
+- ❌ STRICT TRIANGULARITY IS REFUTED on the known true facets. For every
+  determinant-nonzero Hall-feasible row the tangent matrix is square with a
+  perfect matching; orienting by a matching and taking strongly connected
+  components gives the Dulmage-Mendelsohn irreducible blocks, and the system is
+  triangular exactly when all are `1 x 1`. Fully triangular rows: 14 of 48 at
+  (3,7), 20 of 136 at (3,8), 23 of 240 at (3,9). So 29 percent, then 15, then
+  **10**: strict triangularity is the exception and the exception is getting
+  rarer.
+- ❗ NAMED WITNESS at rank 9, and nothing about it is exotic:
+  `tau = (-1,-1,-1,-1,-1,2,2,-4,2)` has a 16 by 16 tangent matrix whose blocks
+  are `[15, 1]`. Three distinct levels, Hall-feasible, determinant nonzero,
+  exactly the kind of row the conjecture is about.
+- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES, but the premise it needs is not
+  supported: if the conjecture means block triangular with jointly solved
+  irreducible blocks, the operative question is bounded block size, and the
+  largest block grows 9, 14, 15 across the three ranks. ⚠️ Three points are not
+  a trend, and the largest block does not track matrix order monotonically (the
+  rank-9 maximum occurs at order 16, not at the largest order 36), so this is a
+  caution rather than a second refutation.
+- 🟦 CANONICALITY CHECKED, NOT ASSUMED, since the verdict rests on it: the block
+  multiset is matching-independent by the Dulmage-Mendelsohn theorem, re-checked
+  at 40 rows per rank against four extra random matchings each with ZERO
+  disagreements, plus a separate 191-row sweep at (3,8).
+- ❗ CONSEQUENCE FOR THE BIRATIONALITY SKETCH. The proposed induction picks a
+  minimal positive profile, makes its block square by Hall equality, invertible
+  by nonvanishing, removes it and recurses. The measured structure says the
+  peeled object is usually a large irreducible block rather than a single
+  variable, so the induction must carry joint solves of blocks whose size is not
+  known to be bounded. That is materially harder than the sketch suggests, and
+  better known before the birationality stage is written than after.
+- 🔬 UNTOUCHED by this gate: the excitation theorem itself, which is proved, and
+  the sparse generic-isotropy reduction, which is correct and separate.
 
 ## Adjacent literature to respect
 

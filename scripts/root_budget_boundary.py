@@ -46,10 +46,10 @@ Run:
 from __future__ import annotations
 
 import argparse
+import collections
 import hashlib
 import itertools
 import json
-import collections
 import math
 import pathlib
 import sys
@@ -196,6 +196,208 @@ def levi_budget_matches_repository(trials: int = 400) -> dict:
     }
 
 
+def occupancy_profiles(multiplicities, n: int):
+    """All Levi occupancy profiles k with sum k_i = n and 0 <= k_i <= m_i."""
+    size = len(multiplicities)
+
+    def recurse(index: int, remaining: int, prefix: list[int]):
+        if index == size:
+            if remaining == 0:
+                yield tuple(prefix)
+            return
+        for taken in range(min(multiplicities[index], remaining) + 1):
+            yield from recurse(index + 1, remaining - taken, prefix + [taken])
+
+    return list(recurse(0, n, []))
+
+
+def dominates(upper, lower) -> bool:
+    """Prefix-sum dominance: more particles in the high-level blocks."""
+    a = b = 0
+    for x, y in zip(upper, lower):
+        a += x
+        b += y
+        if a < b:
+            return False
+    return True
+
+
+def profile_budget_laws(tau: tuple[int, ...], n: int) -> dict:
+    """The weighted occupancy-profile pruning laws, checked on one normal.
+
+    A determinant is represented only by its profile ``k``, with multiplicity
+    ``M(k) = prod binom(m_i, k_i)`` and grade ``g(k) = sum l_i k_i``. With
+    ``Q(k)`` the weighted mass of the upper dominance ideal, strict dominance
+    raises the grade, so everything strictly above a nonnegative profile is
+    strictly positive. Hence
+
+        g(k) > 0   =>   Q(k)        <= R_L
+        g(k) == 0  =>   Q(k) - M(k) <= R_L
+
+    The second law is the one that repairs the per-weight version: a zero
+    profile may stand for an astronomical number of determinants, and only its
+    strictly dominant mass has to fit inside the root budget.
+    """
+    counts = collections.Counter(tau)
+    levels = sorted(counts, reverse=True)
+    multiplicities = [counts[level] for level in levels]
+    budget = levi_budget(multiplicities, len(tau))
+    profiles = occupancy_profiles(multiplicities, n)
+
+    mass = {
+        profile: math.prod(
+            math.comb(multiplicities[i], profile[i]) for i in range(len(multiplicities))
+        )
+        for profile in profiles
+    }
+    grade = {
+        profile: sum(levels[i] * profile[i] for i in range(len(multiplicities)))
+        for profile in profiles
+    }
+    upper = {
+        profile: sum(mass[other] for other in profiles if dominates(other, profile))
+        for profile in profiles
+    }
+
+    positive_excess = max(
+        (upper[k] - budget for k in profiles if grade[k] > 0), default=None
+    )
+    zero_excess = max(
+        (upper[k] - mass[k] - budget for k in profiles if grade[k] == 0), default=None
+    )
+    return {
+        "levi_budget": budget,
+        "profiles": len(profiles),
+        "positive_family_mass": sum(mass[k] for k in profiles if grade[k] > 0),
+        "positive_law_holds": positive_excess is None or positive_excess <= 0,
+        "zero_law_holds": zero_excess is None or zero_excess <= 0,
+        "worst_positive_excess": positive_excess,
+        "worst_zero_excess": zero_excess,
+    }
+
+
+def excitation_defect(profile, multiplicities) -> int:
+    """Total particle-or-hole excitations away from the nearest Levi corner."""
+    return sum(
+        min(k, m - k) for k, m in zip(profile, multiplicities)
+    )
+
+
+def levi_excitation_audit(tau: tuple[int, ...], n: int) -> dict:
+    """The Levi excitation bound, and whether it can bind at this N.
+
+    THE THEOREM. Condition (B) forces ``M(k) <= R_L`` for every positive
+    profile, and ``M(k) >= 2^delta(k)`` because ``binom(m,k) = binom(m,t) >=
+    binom(2t,t) >= 2^t`` with ``t = min(k, m-k)``. Hence
+    ``delta(k) <= floor(log2 R_L)``.
+
+    THE CATCH. ``min(k_i, m_i - k_i) <= k_i`` and ``sum k_i = N``, so
+    ``delta <= N`` unconditionally. The bound therefore says nothing whenever
+    ``N <= floor(log2 R_L)``, which is the whole census.
+    """
+    counts = collections.Counter(tau)
+    levels = sorted(counts, reverse=True)
+    multiplicities = [counts[level] for level in levels]
+    d = len(tau)
+    budget = levi_budget(multiplicities, d)
+    bound = budget.bit_length() - 1 if budget else 0
+
+    profiles = occupancy_profiles(multiplicities, n)
+    grade = {
+        k: sum(levels[i] * k[i] for i in range(len(multiplicities))) for k in profiles
+    }
+    mass = {
+        k: math.prod(
+            math.comb(multiplicities[i], k[i]) for i in range(len(multiplicities))
+        )
+        for k in profiles
+    }
+    defect = {k: excitation_defect(k, multiplicities) for k in profiles}
+    positive = [k for k in profiles if grade[k] > 0]
+
+    available = set(profiles)
+    active_zero_defect = 0
+    for k in positive:
+        for i in range(len(multiplicities)):
+            for j in range(len(multiplicities)):
+                if i == j:
+                    continue
+                moved = list(k)
+                moved[i] += 1
+                moved[j] -= 1
+                candidate = tuple(moved)
+                if candidate in available and grade[candidate] == 0:
+                    active_zero_defect = max(active_zero_defect, defect[candidate])
+
+    return {
+        "levi_budget": budget,
+        "log2_bound": bound,
+        "particle_number": n,
+        "bound_can_bind": bound < n,
+        "max_positive_defect": max((defect[k] for k in positive), default=0),
+        "max_active_zero_defect": active_zero_defect,
+        "positive_defect_violations": sum(1 for k in positive if defect[k] > bound),
+        "mass_exceeds_budget": sum(1 for k in positive if mass[k] > budget),
+    }
+
+
+def excitation_vacuity_threshold(max_orbitals: int = 44) -> list[dict]:
+    """Smallest half-filled rank where the excitation bound is not vacuous."""
+    rows = []
+    for d in range(6, max_orbitals + 1, 2):
+        budget = math.comb(d, 2)
+        bound = budget.bit_length() - 1
+        rows.append(
+            {
+                "orbitals": d,
+                "half_filling_particles": d // 2,
+                "log2_bound": bound,
+                "bound_can_bind": d // 2 > bound,
+            }
+        )
+    return rows
+
+
+GATE_LADDER = (((13, 17), (4, 17)), ((10, 20), (10, 20)), ((15, 30), (15, 30)),
+               ((20, 40), (20, 40)))
+
+
+def gate_ladder_record(system, effective) -> dict:
+    """Entry numbers for one rung of the proposed validation ladder.
+
+    The sign-control universe is the zero-or-positive layer plus its minimal
+    excluded frontier, which is what certifies that everything deeper is
+    strictly negative. Compression is measured against the ambient
+    ``binom(d, N)`` of the ORIGINAL system, since particle-hole normalization
+    is what makes the effective system smaller.
+    """
+    original_n, d = system
+    effective_n, _ = effective
+    budget = math.comb(d, 2)
+    positive = truncated_layer(effective_n, d, budget)
+    nonnegative = truncated_layer(effective_n, d, budget + 1)
+    sign_control = (
+        nonnegative["accepted_weight_types"] + nonnegative["minimal_excluded_frontier"]
+    )
+    ambient = math.comb(d, original_n)
+    durfee = max(
+        (r for r in range(1, 12) if math.comb(2 * r, r) <= budget + 1), default=0
+    )
+    return {
+        "system": list(system),
+        "effective_system": list(effective),
+        "particle_hole_reduction_used": original_n != effective_n,
+        "ambient_weight_count": ambient,
+        "positive_layer": positive["accepted_weight_types"],
+        "zero_or_positive_layer": nonnegative["accepted_weight_types"],
+        "minimal_excluded_frontier": nonnegative["minimal_excluded_frontier"],
+        "sign_control_universe": sign_control,
+        "compression_factor": round(ambient / sign_control, 1),
+        "max_durfee_rank": durfee,
+        "transpose": transpose_orbit_counts(effective_n, d),
+    }
+
+
 def transpose_orbit_counts(particle_number: int, orbitals: int) -> dict:
     """Half-filling transpose quotient of the sign-control universe."""
     if 2 * particle_number != orbitals:
@@ -280,6 +482,13 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
     measured_durfee = 0
     levi_budget_min = None
     levi_budget_max = 0
+    profile_positive_law = 0
+    profile_zero_law = 0
+    profile_mass_matches = 0
+    excitation_can_bind = 0
+    excitation_violations = 0
+    max_excitation = 0
+    max_active_zero_excitation = 0
 
     for key in surviving_mechanisms(n, d, source, checkpoint_dir=checkpoint_dir):
         mechanisms += 1
@@ -330,6 +539,21 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
             measured_durfee = max(
                 measured_durfee, durfee_rank(subset_to_partition(member, n))
             )
+        excitation = levi_excitation_audit(tau, n)
+        if excitation["bound_can_bind"]:
+            excitation_can_bind += 1
+        excitation_violations += excitation["positive_defect_violations"]
+        max_excitation = max(max_excitation, excitation["max_positive_defect"])
+        max_active_zero_excitation = max(
+            max_active_zero_excitation, excitation["max_active_zero_defect"]
+        )
+        laws = profile_budget_laws(tau, n)
+        if laws["positive_law_holds"]:
+            profile_positive_law += 1
+        if laws["zero_law_holds"]:
+            profile_zero_law += 1
+        if laws["positive_family_mass"] == len(positive):
+            profile_mass_matches += 1
         if all(size <= budget + 1 for size in zero_ideals):
             zero_holds_uniform += 1
         elif len(uniform_violations) < 5:
@@ -369,6 +593,14 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
         "levi_positive_weight_bound_holds": levi_positive_bound,
         "levi_zero_weight_bound_holds": levi_zero_bound,
         "measured_max_durfee_rank_of_positive_weights": measured_durfee,
+        "excitation_bound_can_bind": excitation_can_bind,
+        "excitation_bound_violations": excitation_violations,
+        "max_positive_excitation_defect": max_excitation,
+        "max_active_zero_excitation_defect": max_active_zero_excitation,
+        "structural_defect_ceiling": n,
+        "profile_positive_law_holds": profile_positive_law,
+        "profile_zero_law_holds": profile_zero_law,
+        "profile_mass_matches_weight_count": profile_mass_matches,
         "durfee_rank_bound_from_global_budget": max(
             (r for r in range(1, 12) if math.comb(2 * r, r) <= budget), default=0
         ),
@@ -437,6 +669,10 @@ def main() -> int:
         "boundary_layers": layers,
         "census_validation": census,
         "levi_budget_identity": levi_budget_matches_repository(),
+        "excitation_vacuity_threshold": excitation_vacuity_threshold(),
+        "gate_ladder": [
+            gate_ladder_record(system, effective) for system, effective in GATE_LADDER
+        ],
         "half_filling_transpose": {
             f"({n},{d})": transpose_orbit_counts(n, d)
             for n, d in ((10, 20), (15, 30), (20, 40))
@@ -456,6 +692,21 @@ def main() -> int:
                 "Regular mechanisms are rare: none at ranks 7 and 8, three of "
                 "191 at rank 9. The regular stratum the (20,40) counts describe "
                 "is therefore not where the known mechanisms live."
+            ),
+            "levi_excitation_bound": (
+                "PROVED and correct, but VACUOUS on every population this "
+                "repository can test. delta <= N unconditionally, since "
+                "min(k_i, m_i-k_i) <= k_i and sum k_i = N, so the bound "
+                "delta <= floor(log2 R_L) says nothing while N <= that "
+                "quantity. It binds at 4 of 280 census mechanisms and at none "
+                "at rank 9. At half filling it first bites at d = 14."
+            ),
+            "weighted_occupancy_profile_laws": (
+                "HOLD, 280 of 280, on both branches. These repair the "
+                "per-weight zero bound: replacing the '+1' by the profile's "
+                "own multiplicity M(k) is exactly what the non-regular case "
+                "needs, and the zero law holds at every mechanism where the "
+                "per-weight version failed."
             ),
             "per_levi_budget": (
                 "SHARPENS the positive half and AGGRAVATES the zero half. "

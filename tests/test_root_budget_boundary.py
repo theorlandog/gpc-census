@@ -175,7 +175,125 @@ def test_transpose_is_an_involution_of_the_rectangle():
     assert MODULE.transpose_orbit_counts(3, 10)["applies"] is False
 
 
+def test_weighted_profile_laws_hold_everywhere():
+    """The repair: what the per-weight zero bound could not do, profiles do."""
+    total = 0
+    for record in _artifact()["census_validation"].values():
+        mechanisms = record["mechanisms"]
+        assert record["profile_positive_law_holds"] == mechanisms
+        assert record["profile_zero_law_holds"] == mechanisms
+        assert record["profile_mass_matches_weight_count"] == mechanisms
+        total += mechanisms
+    assert total == 280
+
+
+def test_profile_laws_hold_where_the_per_weight_bound_failed():
+    """Every per-weight failure is covered by the profile formulation."""
+    for record in _artifact()["census_validation"].values():
+        assert record["levi_zero_weight_bound_holds"] < record["mechanisms"]
+        assert record["profile_zero_law_holds"] == record["mechanisms"]
+
+
+def test_profile_laws_recompute_on_a_degenerate_surviving_normal():
+    """Recomputed, not read: a real (3,8) survivor with repeated levels."""
+    laws = MODULE.profile_budget_laws((2, 0, 0, 0, -1, -1, -1, -2), 3)
+    assert laws["positive_law_holds"]
+    assert laws["zero_law_holds"]
+    assert laws["positive_family_mass"] <= laws["levi_budget"]
+
+
+def test_profile_laws_are_conditional_and_detect_trace_dead_normals():
+    """The laws assume the root budget; violating them certifies trace-death.
+
+    tau = (2,2,-1,-1,-1,-1,0,0) has |Omega_+| = 24 against R_L = 20, so no
+    arrangement of it can pass the Ressayre trace test. The laws report failure,
+    which is the correct verdict and doubles as a pruning test.
+    """
+    laws = MODULE.profile_budget_laws((2, 2, 0, 0, -1, -1, -1, -1), 3)
+    assert laws["levi_budget"] == 20
+    assert laws["positive_family_mass"] == 24 > laws["levi_budget"]
+    assert not laws["positive_law_holds"]
+
+
+def test_dominance_and_profiles():
+    assert MODULE.dominates((2, 0, 0), (1, 1, 0))
+    assert not MODULE.dominates((0, 1, 1), (1, 1, 0))
+    profiles = MODULE.occupancy_profiles([2, 2], 2)
+    assert set(profiles) == {(0, 2), (1, 1), (2, 0)}
+
+
+def test_gate_ladder_table_reproduces():
+    """Every entry number of the proposed validation ladder, recomputed."""
+    expected = {
+        (13, 17): (2380, 609, 3.9, 4),
+        (10, 20): (184756, 1940, 95.2, 4),
+        (15, 30): (155117520, 8409, 18446.6, 5),
+        (20, 40): (137846528820, 22817, 6041395.8, 5),
+    }
+    ladder = {tuple(r["system"]): r for r in _artifact()["gate_ladder"]}
+    assert set(ladder) == set(expected)
+    for system, (ambient, sign, compression, durfee) in expected.items():
+        record = ladder[system]
+        assert record["ambient_weight_count"] == ambient
+        assert record["sign_control_universe"] == sign
+        assert record["compression_factor"] == compression
+        assert record["max_durfee_rank"] == durfee
+        assert (
+            record["zero_or_positive_layer"] + record["minimal_excluded_frontier"]
+            == sign
+        )
+
+
+def test_gate_ladder_particle_hole_normalization():
+    """(13,17) is computed as (4,17); the half-filled rungs are self-dual."""
+    ladder = {tuple(r["system"]): r for r in _artifact()["gate_ladder"]}
+    assert ladder[(13, 17)]["effective_system"] == [4, 17]
+    assert ladder[(13, 17)]["particle_hole_reduction_used"]
+    assert not ladder[(13, 17)]["transpose"]["applies"]
+    for system in ((10, 20), (15, 30), (20, 40)):
+        record = ladder[system]
+        assert record["effective_system"] == list(system)
+        assert not record["particle_hole_reduction_used"]
+        assert record["transpose"]["applies"]
+
+
+def test_excitation_bound_holds_but_is_vacuous_on_the_census():
+    """Proved and unviolated, yet it can bind at only 4 of 280 mechanisms."""
+    artifact = _artifact()["census_validation"]
+    can_bind = 0
+    total = 0
+    for record in artifact.values():
+        assert record["excitation_bound_violations"] == 0
+        assert record["max_positive_excitation_defect"] <= record[
+            "structural_defect_ceiling"
+        ]
+        can_bind += record["excitation_bound_can_bind"]
+        total += record["mechanisms"]
+    assert total == 280
+    assert can_bind == 4
+    assert artifact["(3,9)"]["excitation_bound_can_bind"] == 0
+
+
+def test_defect_is_bounded_by_particle_number_structurally():
+    """delta <= N always, which is why the log2 bound cannot bind at small N."""
+    assert MODULE.excitation_defect((1, 1, 1), [4, 4, 4]) == 3
+    assert MODULE.excitation_defect((0, 3, 0), [2, 3, 2]) == 0
+    assert MODULE.excitation_defect((2, 1), [2, 4]) == 1
+
+
+def test_excitation_bound_first_bites_at_fourteen_orbitals():
+    rows = _artifact()["excitation_vacuity_threshold"]
+    binding = [r for r in rows if r["bound_can_bind"]]
+    assert binding[0]["orbitals"] == 14
+    assert binding[0]["half_filling_particles"] == 7
+    for row in rows:
+        if row["orbitals"] <= 12:
+            assert not row["bound_can_bind"]
+
+
 def test_verdict_records_both_halves():
     verdict = _artifact()["verdict"]
     assert verdict["positive_layer_bound"].startswith("HOLDS")
     assert verdict["zero_layer_uniform_bound"].startswith("REFUTED")
+    assert verdict["weighted_occupancy_profile_laws"].startswith("HOLD")
+    assert "VACUOUS" in verdict["levi_excitation_bound"]
