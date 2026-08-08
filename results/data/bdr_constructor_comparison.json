@@ -2,12 +2,22 @@
   "benchmark_completeness": {
     "external_backend_executed": false,
     "label": "INCOMPLETE",
+    "reachability_correction": {
+      "blockers_as_restated": [
+        "plmlab.math.cnrs.fr, ea-icj.github.io, arxiv.org and cnrs.hal.science are refused by the egress proxy: TRUE, and not load bearing, because the code is mirrored on GitHub",
+        "moment-cone is not published on PyPI: TRUE (404), and not load bearing, because pip installs it from the clone",
+        "SageMath must never be a package runtime dependency: TRUE, and unchanged; the external stack lives in a separate venv"
+      ],
+      "date": "2026-08-08",
+      "evidence": "results/data/bdr_external_linear_triangular.json",
+      "gate": "docs/bdr_linear_triangular_gate.md",
+      "what_is_true": "the pinned revision was fetched and run. The GitHub mirror is served by the session's repository-attachment path even though direct HTTPS to github.com returns 403 through the egress proxy, and the upstream passagemath extra installs from PyPI into a throwaway virtual environment with no effect on this package's locked dependencies.",
+      "what_was_claimed": "that the pinned implementation could not be fetched or run in this environment, on four blockers"
+    },
     "what_is_established_anyway": "an upper bound on the speedup any external candidate generator can deliver under the local certification requirement, plus a local recertification of every published row in the overlapping systems",
+    "what_is_still_missing": "BDR wall clock, candidate counts and per-stage figures. The backend has since been run for the linear-triangular gate (docs/bdr_linear_triangular_gate.md), but no timing comparison has been made, so this benchmark stays INCOMPLETE.",
     "what_prevented_it": [
-      "plmlab.math.cnrs.fr denied by the session egress proxy (403 CONNECT)",
-      "ea-icj.github.io, arxiv.org, cnrs.hal.science denied by the same policy",
-      "moment-cone is not published on PyPI",
-      "SageMath is not installed and must never be a package runtime dependency"
+      "this benchmark measures wall clock and stage counts, and it was run before the backend was ever fetched; no BDR timing appears in it"
     ]
   },
   "external_pin": {
@@ -17,22 +27,32 @@
       "Nicolas Ressayre (ICJ, AGL)"
     ],
     "benchmark_label": "INCOMPLETE",
+    "code_mirror": "github.com/ea-icj/moment_cone",
     "code_repository": "ea-icj/moment_cone at plmlab.math.cnrs.fr",
     "executed_here": false,
     "hal_record": "hal-05044759, version v3",
     "landing_page": "https://ea-icj.github.io/",
-    "license": "not_verified_code_host_unreachable",
+    "license": "MIT, read from the LICENSE file of the pinned revision",
     "name": "Bulois-Denis-Ressayre moment-cone algorithm",
     "paper": "An Algorithm to compute the Kronecker cone and other moment cones",
     "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca",
     "preprint": "arXiv:2505.08812 (math.AG)",
+    "reachability_correction": {
+      "blockers_as_restated": [
+        "plmlab.math.cnrs.fr, ea-icj.github.io, arxiv.org and cnrs.hal.science are refused by the egress proxy: TRUE, and not load bearing, because the code is mirrored on GitHub",
+        "moment-cone is not published on PyPI: TRUE (404), and not load bearing, because pip installs it from the clone",
+        "SageMath must never be a package runtime dependency: TRUE, and unchanged; the external stack lives in a separate venv"
+      ],
+      "date": "2026-08-08",
+      "evidence": "results/data/bdr_external_linear_triangular.json",
+      "gate": "docs/bdr_linear_triangular_gate.md",
+      "what_is_true": "the pinned revision was fetched and run. The GitHub mirror is served by the session's repository-attachment path even though direct HTTPS to github.com returns 403 through the egress proxy, and the upstream passagemath extra installs from PyPI into a throwaway virtual environment with no effect on this package's locked dependencies.",
+      "what_was_claimed": "that the pinned implementation could not be fetched or run in this environment, on four blockers"
+    },
     "relevant_case": "fermionic cone, GL_d(C) acting on wedge^r C^d, here r = 3",
-    "runtime_environment": "Python-Sage (SageMath)",
+    "runtime_environment": "Python-Sage (SageMath), or the passagemath fork",
     "why_not_executed": [
-      "plmlab.math.cnrs.fr denied by the session egress proxy (403 CONNECT)",
-      "ea-icj.github.io, arxiv.org, cnrs.hal.science denied by the same policy",
-      "moment-cone is not published on PyPI",
-      "SageMath is not installed and must never be a package runtime dependency"
+      "this benchmark measures wall clock and stage counts, and it was run before the backend was ever fetched; no BDR timing appears in it"
     ]
   },
   "generator": "scripts/bdr_constructor_comparison.py",
@@ -41,7 +61,7 @@
     "processor": "x86_64",
     "python": "3.14.0rc2"
   },
-  "measurement_caveat": "Wall clock on one machine, single worker, no equally optimized control for the external path because the external path could not be run. Timings are not averaged across machines.",
+  "measurement_caveat": "Wall clock on one machine, single worker, no equally optimized control for the external path because this benchmark never ran the external path. Timings are not averaged across machines.",
   "predictions": [
     {
       "id": "P1",
@@ -97,7 +117,7 @@
     {
       "id": "P4",
       "independent_scope": 1,
-      "measured": 0.9766502060000448,
+      "measured": 0.9325761059999422,
       "scope": 1,
       "statement": "oracle total for (3,8) is under five seconds",
       "verdict": "PASS"
@@ -105,7 +125,7 @@
     {
       "id": "P5",
       "independent_scope": 1,
-      "measured": 0.3906232156931324,
+      "measured": 0.39216438857276903,
       "scope": 1,
       "statement": "enumeration takes more than half the wall clock of the full (3,8) construction",
       "verdict": "FAIL"
@@ -113,7 +133,7 @@
     {
       "id": "P6",
       "independent_scope": 1,
-      "measured": 16.382992850153844,
+      "measured": 15.88005722934652,
       "scope": 1,
       "statement": "the (3,8) oracle ceiling is at least five",
       "verdict": "PASS"
@@ -145,9 +165,9 @@
         "method": "orbit_native_canonical_augmentation_screening_only",
         "seconds": {
           "composition": null,
-          "enumeration": 0.09017713000002914,
-          "screening": 0.09605257399994116,
-          "total": 0.1862297039999703
+          "enumeration": 0.0903829969997787,
+          "screening": 0.09687996500042573,
+          "total": 0.18726296200020442
         }
       },
       "oracle_path": {
@@ -233,8 +253,8 @@
         "seconds": {
           "composition": null,
           "enumeration": 0.0,
-          "screening": 0.001962164000019584,
-          "total": 0.001962164000019584
+          "screening": 0.0019542370000635856,
+          "total": 0.0019542370000635856
         },
         "supplied_rows": 1
       },
@@ -262,20 +282,20 @@
         "rows_removed_by_prefilter": 499,
         "rows_screened": 49,
         "seconds": {
-          "composition": 0.37805981200006045,
-          "enumeration": 0.7133184309999479,
-          "screening": 0.15269500799990965,
-          "total": 1.244073250999918
+          "composition": 0.37047376000009535,
+          "enumeration": 0.6680123020000792,
+          "screening": 0.14091314100005548,
+          "total": 1.17939920300023
         },
-        "speedup_if_external_enumeration_were_also_free": 3.4308283719401915,
-        "speedup_over_full": 1.4636828607450116,
+        "speedup_if_external_enumeration_were_also_free": 3.4265191278326337,
+        "speedup_over_full": 1.485736969757583,
         "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
       },
       "ceiling": {
         "candidate_rows_avoided": 544,
         "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
         "determinant_certifications_still_required": 4,
-        "value": 21.411956589632467
+        "value": 22.388146537656397
       },
       "composition_supported": true,
       "cross_path_agreement": {
@@ -303,7 +323,7 @@
           "unoriented_orbits": 19,
           "unresolved_rows": 0
         },
-        "enumeration_share_of_total": 0.39173331331350364,
+        "enumeration_share_of_total": 0.38122528730474864,
         "known_system_regression": {
           "available": true,
           "expected_count": 4,
@@ -317,10 +337,10 @@
         "method": "orbit_native_canonical_augmentation",
         "proved_complete": true,
         "seconds": {
-          "composition": 0.43723277499998403,
-          "enumeration": 0.7133184309999479,
-          "screening": 0.6703700130000243,
-          "total": 1.8209286949999068
+          "composition": 0.4140589209996506,
+          "enumeration": 0.6680123020000792,
+          "screening": 0.6701993689998744,
+          "total": 1.7522769980000703
         },
         "status": "finalized_known_system_regression"
       },
@@ -623,10 +643,10 @@
           }
         ],
         "seconds": {
-          "composition": 0.06901956699994116,
+          "composition": 0.06263810900009048,
           "enumeration": 0.0,
-          "screening": 0.01602150199994412,
-          "total": 0.08504261099994892
+          "screening": 0.015628818000095634,
+          "total": 0.07826806900038719
         },
         "status": "finalized_known_system_regression",
         "supplied_rows": 4
@@ -655,20 +675,20 @@
         "rows_removed_by_prefilter": 6469,
         "rows_screened": 137,
         "seconds": {
-          "composition": 1.8682245930000363,
-          "enumeration": 6.250148536999973,
-          "screening": 0.6829234930000894,
-          "total": 8.801296623000098
+          "composition": 1.7497306109999045,
+          "enumeration": 5.8077043680000315,
+          "screening": 0.6570810790003634,
+          "total": 8.2145160580003
         },
-        "speedup_if_external_enumeration_were_also_free": 6.271863805086549,
-        "speedup_over_full": 1.8179654688817815,
+        "speedup_if_external_enumeration_were_also_free": 6.153103707917656,
+        "speedup_over_full": 1.8028282895103773,
         "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
       },
       "ceiling": {
         "candidate_rows_avoided": 6575,
         "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
         "determinant_certifications_still_required": 31,
-        "value": 16.382992850153844
+        "value": 15.88005722934652
       },
       "composition_supported": true,
       "cross_path_agreement": {
@@ -696,7 +716,7 @@
           "unoriented_orbits": 56,
           "unresolved_rows": 0
         },
-        "enumeration_share_of_total": 0.3906232156931324,
+        "enumeration_share_of_total": 0.39216438857276903,
         "known_system_regression": {
           "available": true,
           "expected_count": 31,
@@ -710,10 +730,10 @@
         "method": "orbit_native_canonical_augmentation",
         "proved_complete": true,
         "seconds": {
-          "composition": 2.111933663000059,
-          "enumeration": 6.250148536999973,
-          "screening": 7.6383659330000455,
-          "total": 16.000453342000014
+          "composition": 2.015722955000001,
+          "enumeration": 5.8077043680000315,
+          "screening": 6.985929412000132,
+          "total": 14.809361934000208
         },
         "status": "finalized_known_system_regression"
       },
@@ -3007,10 +3027,10 @@
           }
         ],
         "seconds": {
-          "composition": 0.8270706639999617,
+          "composition": 0.7858371799998167,
           "enumeration": 0.0,
-          "screening": 0.14957823700001427,
-          "total": 0.9766502060000448
+          "screening": 0.14673770299987154,
+          "total": 0.9325761059999422
         },
         "status": "finalized_known_system_regression",
         "supplied_rows": 31

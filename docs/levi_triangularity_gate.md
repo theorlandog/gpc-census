@@ -97,10 +97,20 @@ the facet system than the candidate scan suggested.
 
 **Also not refuted, and not tested here:** BDR's own recursive
 linear-triangular filter, which analyses the full fiber-equation graph and
-eliminates variables iteratively, is a strictly stronger criterion than asking
-whether every DM block of the tangent matrix is `1 x 1`. It is an optional
-partial validator in that algorithm, not its birationality engine. Nothing here
-refutes BDR; it refutes a hoped-for replacement of its hardest stage.
+eliminates variables iteratively. It is an optional partial validator in that
+algorithm, not its birationality engine. Nothing here refutes BDR; it refutes a
+hoped-for replacement of its hardest stage.
+
+> **CORRECTION (2026-08-08).** An earlier version of this paragraph asserted
+> that BDR's filter is a *strictly stronger* criterion than the DM `1 x 1`
+> test. That was never tested, and it is false. The upstream implementation has
+> since been fetched at its pinned revision and run on the published rows of
+> `(3,7)`, `(4,7)`, `(3,8)` and `(4,8)`: 6 rows are BDR triangular with a
+> single irreducible DM block, and 6 rows are fully DM triangular and rejected
+> by BDR. The two criteria are incomparable, because they are computed on
+> different objects. See `docs/bdr_linear_triangular_gate.md`. The refutation
+> below is unaffected; it is a statement about the tangent matrix, which is the
+> object the conjecture is about.
 
 **Untouched:** the excitation theorem itself, which is proved, and the sparse
 generic-isotropy argument, which is a separate and correct reduction. Gate 4

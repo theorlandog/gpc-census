@@ -1,0 +1,1393 @@
+{
+ "canonical_sha256_without_this_field": "b7847a733c3c1e7ec00ceb5cbf46faa8951984dd6b93b109fcbb514f8f2a20db",
+ "external_backend": {
+  "call_site": "LinearTriangularStep.apply in moment_cone/main_steps.py",
+  "entry_point": "moment_cone.linear_triangular.is_linear_triangular",
+  "executed_here": true,
+  "license": "MIT",
+  "mirror": "github.com/ea-icj/moment_cone",
+  "name": "Bulois-Denis-Ressayre moment_cone",
+  "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca",
+  "runtime": "passagemath (modularized SageMath fork) on CPython"
+ },
+ "generated_by": "scripts/bdr_linear_triangular_gate.py --external-out",
+ "machine": {
+  "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+  "python": "3.11.15"
+ },
+ "schema_version": 1,
+ "systems": {
+  "(3,7)": {
+   "bdr_linear_triangular_rows": 1,
+   "orbitals": 7,
+   "particle_number": 3,
+   "reference_module": "moment_cone.reference_datas.ineq_Fermion_7_p3",
+   "representation_dimension": 35,
+   "row_count": 4,
+   "rows": [
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1
+     ]
+    }
+   ],
+   "system": "(3,7)"
+  },
+  "(3,8)": {
+   "bdr_linear_triangular_rows": 4,
+   "orbitals": 8,
+   "particle_number": 3,
+   "reference_module": "moment_cone.reference_datas.ineq_Fermion_8_p3",
+   "representation_dimension": 56,
+   "row_count": 32,
+   "rows": [
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      4,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -5,
+      -5
+     ],
+     "inversion_count": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -7
+     ],
+     "inversion_count": 12,
+     "tau": [
+      -1,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -1,
+      -2,
+      -3
+     ],
+     "inversion_count": 14,
+     "tau": [
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ],
+     "inversion_count": 0,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 6,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      4,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -5,
+      -5
+     ],
+     "inversion_count": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 12,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -2
+     ],
+     "inversion_count": 11,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 12,
+     "tau": [
+      1,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 6,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -2
+     ],
+     "inversion_count": 11,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -1,
+      -2,
+      -3
+     ],
+     "inversion_count": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -1,
+      -2,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      4,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -5,
+      -5
+     ],
+     "inversion_count": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      4,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -5,
+      -5
+     ],
+     "inversion_count": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -1,
+      -2,
+      -3
+     ],
+     "inversion_count": 14,
+     "tau": [
+      2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -3,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      2,
+      1,
+      1,
+      0,
+      -1,
+      -1,
+      -2,
+      -3
+     ],
+     "inversion_count": 14,
+     "tau": [
+      2,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ],
+     "inversion_count": 5,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -7
+     ],
+     "inversion_count": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -7
+     ],
+     "inversion_count": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7,
+      2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -7
+     ],
+     "inversion_count": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      5,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -7
+     ],
+     "inversion_count": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1,
+      2
+     ]
+    }
+   ],
+   "system": "(3,8)"
+  },
+  "(4,7)": {
+   "bdr_linear_triangular_rows": 1,
+   "orbitals": 7,
+   "particle_number": 4,
+   "reference_module": "moment_cone.reference_datas.ineq_Fermion_7_p4",
+   "representation_dimension": 35,
+   "row_count": 4,
+   "rows": [
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1
+     ]
+    }
+   ],
+   "system": "(4,7)"
+  },
+  "(4,8)": {
+   "bdr_linear_triangular_rows": 6,
+   "orbitals": 8,
+   "particle_number": 4,
+   "reference_module": "moment_cone.reference_datas.ineq_Fermion_8_p4",
+   "representation_dimension": 70,
+   "row_count": 16,
+   "rows": [
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ],
+     "inversion_count": 0,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      0,
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      0,
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      -3
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -3,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      -1,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_linear_triangular": false,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -3,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3
+     ],
+     "inversion_count": 4,
+     "tau": [
+      1,
+      1,
+      1,
+      -3,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_linear_triangular": true,
+     "dominant_tau": [
+      3,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "inversion_count": 0,
+     "tau": [
+      3,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   ],
+   "system": "(4,8)"
+  }
+ }
+}
