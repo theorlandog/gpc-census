@@ -763,3 +763,183 @@ def symplectic_slice(record: dict) -> dict:
         "gate_levi_dim": bool(levi_dim == len(commutant) - (d * d - orbit_dim)),
         "slice_certifies_point": bool(slice_dim == 0),
     }
+
+
+def toral_component_period(record: dict, cap: int = 64) -> int | None:
+    """Obstruction from the DISCONNECTED part of the diagonal stabilizer.
+
+    `levi_permutation_stabilizer` searches permutations and so misses the
+    component group of the torus itself. Duality supplies it without ever
+    solving for a phase. Writing `u = (z, c)` in `U(1)^(d+1)`, a diagonal `h`
+    fixes the line exactly when `u^B = 1`, where `B` has rows `[A_S | -1]` over
+    the support, and the obstruction character is `u^(v_k)` with
+    `v_k = (-k lambda, k)`. By Pontryagin duality that character is trivial on
+    the whole stabilizer exactly when
+
+        v_k lies in the INTEGER rowspan of B,
+
+    and when it is not, it takes at least two values, so `k` is inadmissible.
+    The integer rowspan, not its saturation, is the point: the gap between them
+    is precisely the component group.
+
+    SCOPE, and it is not optional. This is valid only where the certified
+    state's 1-RDM is DIAGONAL, because the derivation needs `lambda` to be the
+    diagonal of `rho`, i.e. `lambda_o = sum_{S containing o} |psi_S|^2`. That
+    identity is what puts `v_k` in the RATIONAL rowspan in the first place:
+    `[lambda | -1] = sum_S |psi_S|^2 [A_S | -1]`. Measured across the census,
+    all 645 diagonal states satisfy it and all 49 states that fail it are among
+    the 154 whose 1-RDM is not diagonal, with zero counterexamples. For those
+    154 the support incidence matrix is written in the wrong basis and this
+    function returns None rather than a wrong answer.
+
+    Returns the least `k` divisible by the spectrum denominator that clears the
+    obstruction, or None when out of scope or beyond `cap` multiples.
+    """
+    from sympy.matrices.normalforms import hermite_normal_form
+
+    n, d = (int(x) for x in record["system"].strip("()").split(","))
+    q = int(record["denominator"] or 1)
+    form = [int(x) for x in record["integer_form"]]
+
+    rows = []
+    for det in record["closed_form"]["support_dets"]:
+        row = [0] * (d + 1)
+        for o in det:
+            row[o] += 1
+        row[d] = -1
+        rows.append(row)
+    m = sp.Matrix(rows).T
+
+    # Scope test, done directly rather than inferred. The derivation needs rho
+    # DIAGONAL, i.e. lambda_o = sum_{S containing o} |psi_S|^2, and the squared
+    # amplitudes are exactly the recorded weights over the state denominator.
+    # Testing the rational-span condition instead is NOT equivalent: a state
+    # with non-diagonal rho can pass that test by coincidence, and then the
+    # standard torus is not inside the commutant of rho and the obstruction
+    # does not apply to it.
+    cf = record["closed_form"]
+    occupancy = [sp.Integer(0)] * d
+    for pretty, det in zip(cf["pretty"], cf["support_dets"]):
+        amp = exact_amplitude(pretty)
+        weight = sp.simplify(sp.expand(amp * sp.conjugate(amp)))
+        for o in det:
+            occupancy[o] += weight
+    if any(sp.simplify(occupancy[o] - sp.Rational(form[o], q)) != 0 for o in range(d)):
+        return None                       # out of scope: rho is not diagonal
+
+    probe = sp.Matrix([[-q * a // q for a in form] + [q]]).T
+    if m.rank() != sp.Matrix.hstack(m, probe).rank():
+        return None
+
+    base = hermite_normal_form(m)
+    for step in range(1, cap + 1):
+        k = q * step
+        v = sp.Matrix([[-k * a // q for a in form] + [k]]).T
+        if hermite_normal_form(sp.Matrix.hstack(m, v)) == base:
+            return k
+    return None
+
+
+def natural_orbital_toral_period(record: dict, cap: int = 64, variants=("plain", "mixed")):
+    """Toral component-group obstruction for a state whose 1-RDM is NOT diagonal.
+
+    `toral_component_period` is valid only where `rho` is already diagonal,
+    because the derivation needs `lambda_o = sum_{S containing o} |psi_S|^2`.
+    For the 154 census states whose certified attainer has a non-diagonal 1-RDM
+    the support must first be rewritten in an eigenbasis of `rho`. That is done
+    here exactly: eigenspaces are rational nullspaces of `rho - lambda I`, and
+    the transformed support is read off from exact `n x n` minors of `U^-1`.
+
+    BASIS FREEDOM, and why it does not invalidate the answer. Within a
+    degenerate eigenvalue block the eigenbasis is only defined up to `GL(m_i)`,
+    and the transformed SUPPORT depends on that choice: at `(3,8)#10` the
+    rational nullspace basis gives support 8 where the shipped numerical
+    natural-orbital form gives 20. Every eigenbasis still yields a genuine
+    necessary condition, because the semi-invariant argument runs in the
+    COMPLEX Levi and so does not require the basis to be orthonormal. Different
+    choices therefore give different valid lower bounds in the divisibility
+    order, and the lcm over several is tighter than any one, which is why more
+    than one variant is computed and combined.
+
+    Returns None when no variant clears the rational-span check, rather than
+    returning a number that the derivation does not support.
+    """
+    n, d, basis, index, psi = state_vector(record)
+    h = len(basis)
+    q = int(record["denominator"] or 1)
+    form = [int(x) for x in record["integer_form"]]
+
+    e: dict[tuple[int, int], list[sp.Expr]] = {}
+    for p in range(d):
+        for r in range(d):
+            v = [sp.Integer(0)] * h
+            for k, s in enumerate(basis):
+                if psi[k] == 0:
+                    continue
+                out = excite(p, r, s)
+                if out:
+                    v[index[out[1]]] += out[0] * psi[k]
+            e[(p, r)] = v
+    rho = sp.Matrix(
+        d, d,
+        lambda p, r: sp.expand(sum(sp.conjugate(psi[k]) * e[(p, r)][k] for k in range(h))),
+    )
+
+    eigenblocks, seen = [], []
+    for a in form:
+        lam = sp.Rational(a, q)
+        if lam in seen:
+            continue
+        seen.append(lam)
+        eigenblocks.append((rho - lam * sp.eye(d)).nullspace())
+    if sum(len(b) for b in eigenblocks) != d:
+        return None
+
+    support = [index[tuple(s)] for s in record["closed_form"]["support_dets"]]
+    out: dict[str, int | None] = {}
+    for variant in variants:
+        cols = []
+        for block in eigenblocks:
+            if variant == "mixed" and len(block) > 1:
+                running = sp.zeros(block[0].rows, 1)
+                for vec in block:
+                    running = running + vec
+                    cols.append(sp.Matrix(running))
+            else:
+                cols.extend(block)
+        u_inv = sp.Matrix.hstack(*cols).inv()
+        rows = []
+        for target in basis:
+            amp = sum(u_inv[list(target), list(basis[s])].det() * psi[s] for s in support)
+            if sp.simplify(amp) == 0:
+                continue
+            row = [0] * (d + 1)
+            for o in target:
+                row[o] += 1
+            row[d] = -1
+            rows.append(row)
+        m = sp.Matrix(rows).T
+        probe = sp.Matrix([[-q * a // q for a in form] + [q]]).T
+        if m.rank() != sp.Matrix.hstack(m, probe).rank():
+            out[variant] = None                      # this basis is unusable
+            continue
+        from sympy.matrices.normalforms import hermite_normal_form
+        base = hermite_normal_form(m)
+        found = None
+        for step in range(1, cap + 1):
+            k = q * step
+            v = sp.Matrix([[-k * a // q for a in form] + [k]]).T
+            if hermite_normal_form(sp.Matrix.hstack(m, v)) == base:
+                found = k
+                break
+        out[variant] = found
+        out[f"{variant}_support"] = len(rows)
+
+    usable = [v for key, v in out.items() if not key.endswith("_support") and v]
+    if not usable:
+        return None
+    combined = q
+    for value in usable:
+        combined = combined * value // gcd(combined, value)
+    out["combined"] = combined
+    return out
