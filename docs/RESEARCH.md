@@ -574,6 +574,13 @@ plethysm criterion feed Problem 7 below.
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- closure_certificate.md: the exact verification layer above the `P = O`
+  sandwich. 🟦 Nine systems and all 799 vertices reproduce every published
+  invariant, with slack rank `m+1` everywhere and half-filling parity at the
+  three systems where it applies. ❗ Records why a facet must be canonicalized
+  as a FACE (six rows, four faces at (3,6)) and why the affine hull must be
+  certified rather than assumed. Artifact closure_certificate.json; guard test
+  tests/test_closure_certificate.py.
 - root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
   REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
   mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
@@ -1630,6 +1637,53 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
 - 🔬 Claims resting on the BDR implementation remain unverified here;
   bdr_constructor_comparison.md records that the pinned backend cannot be
   fetched or run in this environment and labels that benchmark INCOMPLETE.
+
+## The closure certificate: the layer above the sandwich (2026-08-08)
+
+`P = O` was already proved at nine systems by the inner/outer sandwich, which
+supplies COMPLETENESS. This adds the exact layer that catches an implementation
+slip rather than a mathematical gap. [docs/closure_certificate.md;
+results/data/closure_certificate.json; scripts/closure_certificate.py;
+tests/test_closure_certificate.py]
+
+- 🟦 NINE SYSTEMS, 799 VERTICES, ZERO MISMATCHES. Certified affine dimension,
+  facet count, vertex count, and minimum/maximum facets per vertex all
+  reproduce docs/polytope_invariants.json independently. Every one of the 799
+  census vertices passes `rank([E; A_active]) = d`, so each is a true vertex
+  and not a relative interior point of a face. The slack matrix is nonnegative,
+  its zero pattern reproduces the incidence relation entry by entry, and its
+  rank is `m + 1` at every system.
+- ❗ A FACET IS A FACE, NOT A ROW, and this bit on the first attempt. Counting
+  rows that pass the codimension-one test gave SIX facets at (3,6), which is
+  impossible for a 3-polytope with 4 vertices. At (3,6) the affine hull carries
+  THREE equations, the Borland-Dennis relations, so two rows differing by a hull
+  relation cut the same face: `lambda_1 >= lambda_2` and `lambda_5 >= lambda_6`
+  share the tight set, as do `lambda_2 >= lambda_3` and `lambda_4 >= lambda_5`.
+  Canonicalizing by the tight vertex set gives 4. (3,6) is the ONLY system where
+  the collapse happens, so an uncanonicalized check passes eight of nine and
+  fails silently on the degenerate one.
+- ❗ AND THE AFFINE HULL MUST BE CERTIFIED, NOT ASSUMED, for the same reason:
+  (3,6) sits in a 5-dimensional trace slice with polytope dimension 3, so a
+  hardcoded `m = d-1` is wrong at the first system. Every other census system
+  has exactly one hull equation.
+- ❗ VALIDITY IS WEAKER THAN FACETNESS, independently of canonicalization: (3,7)
+  has 11 valid rows and 10 facets, (3,6) has 7 valid and 6 codimension-one.
+  Redundant valid rows exist and the face test removes them.
+- 🟦 PARTICLE-HOLE PARITY HOLDS, at the three half-filled systems and only
+  there. `Theta(lambda)_i = 1 - lambda_{d+1-i}` maps (N,d) to (d-N,d), so it is
+  an involution of one system only when `2N = d`: (3,6), (4,8), (5,10). Vertex
+  sets are closed under it and `V = V_fix + 2 V_pair` holds exactly, with
+  4/0, 6/8 and 8/142. At (3,6) every vertex is self-dual, so a half-filled
+  system can still carry no parity information.
+- ⚠️ POLAR DUALITY IS DELIBERATELY NOT BUILT. `f_{m-1}(P) = f_0(P^o)` and
+  `f_0(P) = f_{m-1}(P^o)` are equivalent to the irredundancy and vertex-rank
+  tests already performed, so constructing the polar would re-derive them from
+  the same data and yield a number that LOOKS like a cross-check but is not.
+- 🔬 SCOPE. This does not re-prove `P = O` and does not make facet counts
+  theorem-level on its own; it makes them hard to get wrong by accident. It
+  says nothing about (20,40). The reverse-search vertex enumeration and the BDR
+  coverage ledger, the two pieces a rank-40 closure would need, are not built
+  here and are not implied by anything here.
 
 ## Adjacent literature to respect
 
