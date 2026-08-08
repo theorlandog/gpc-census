@@ -574,6 +574,29 @@ plethysm criterion feed Problem 7 below.
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- closure_certificate.md: the exact verification layer above the `P = O`
+  sandwich. 🟦 Nine systems and all 799 vertices reproduce every published
+  invariant, with slack rank `m+1` everywhere and half-filling parity at the
+  three systems where it applies. ❗ Records why a facet must be canonicalized
+  as a FACE (six rows, four faces at (3,6)) and why the affine hull must be
+  certified rather than assumed. Artifact closure_certificate.json; guard test
+  tests/test_closure_certificate.py.
+- root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
+  REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
+  mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
+  regularity. ❌ The zero-layer extension is refuted off the regular stratum,
+  which is 3 of 280 mechanisms here, and a corrected Levi-type-dependent bound
+  is supplied and verified. Artifact root_budget_boundary.json; guard test
+  tests/test_root_budget_boundary.py.
+- signed_chow_projection.md: THE INCIDENCE HASH BECOMES A THEOREM. Three proved
+  statements (c_+ determines the positive family; c_+ is order-monotone in tau;
+  the signed pair determines the normal ray when the zero family spans a
+  hyperplane), so every admissible candidate is carried by 2d integers rather
+  than a binom(d,N) sign pattern. Verified on 142,493 rows with exact rational
+  reconstruction and zero collisions. ❗ Keeps the span hypothesis, the
+  c_+-alone separation, and the absence of a decoder explicitly on the measured
+  side. Artifact signed_chow_projection.json; guard test
+  tests/test_signed_chow_projection.py.
 - rank9_compression_audit.md: THE DECISIVE TEST, run. Regenerates the rank-7
   and rank-8 population gates the previous bundle could only re-read, exactly,
   then classifies the complete rank-9 population: 135,343 trace survivors, 371
@@ -1502,12 +1525,165 @@ tests/test_rank9_compression_audit.py]
   `generate_trace_survivors` is output linear. 264 of the 455 orbits are killed
   by `orbit_is_trace_dead` before an arrangement is built, and the rank-9 pass
   costs 25 seconds against about 20 million oriented rows never visited.
+- 🟦 CROSS-VALIDATED against an independently written rank-9 direct-grammar
+  campaign produced outside this repository. Two implementations agree on NINE
+  quantities: 135,343 survivors, 371 Hall-feasible, 134,972 Hall-zero, 242
+  determinant-nonzero, 129 exact cancellation zeros, 2 structural among the
+  nonzero, 191 distinct mechanisms, 52 shapes carrying a Hall placement, and
+  the entire optimal width distribution. The audit now classifies EVERY
+  Hall-feasible row, not just the one-hole ones: 50/25 at (3,7), 138/55 at
+  (3,8), 242/129 at (3,9), zero unresolved.
+- ❗ A COINCIDENCE NOT TO READ AS STRUCTURE: that campaign reports both "52
+  grammar shapes with a Hall placement" and "52 retained facets". They are
+  different objects sharing a value. The 52 published `(3,9)` facet rows carry
+  only EIGHT distinct sorted-`tau` shapes, so the shape-to-facet map is not the
+  bijection the matching numbers suggest.
 - 🔬 STILL OPEN. `N = 3` only, so the published one-hole mechanisms at `(4,9)`,
   `(4,10)` and `(5,10)` are outside this population. Hall plus a nonzero
   determinant are necessary conditions in this pipeline, not facetness, and no
   `(3,9)` facet system is produced. The next population that could break the
   conjecture is rank 10, where the augmentation enumerator reports 1,337 top
   orbits.
+
+## The signed Chow projection: the incidence hash becomes a theorem (2026-08-08)
+
+The fixed-weight Chow-parameter theorem the incidence tomography kept
+motivating, proved, plus the exact separation of what is proved from what is
+measured. [docs/signed_chow_projection.md;
+results/data/signed_chow_projection.json;
+scripts/signed_chow_projection.py; tests/test_signed_chow_projection.py]
+
+- 🟨 T1 DETERMINATION, PROVED, and stronger than the threshold-pair statement.
+  For a primitive normal `tau`, let `c_+` be the orbital occupancy of the
+  positive family `B_+`. Then ANY fixed-weight family summing to `c_+` equals
+  `B_+`, with no threshold hypothesis on the competitor: `1 . c_+ = N|B_+|`
+  fixes the cardinality, and `0 = tau . (c_+ - sum F)` splits into a strictly
+  positive group and a nonpositive one, so the first difference is empty.
+- 🟨 T2 MONOTONICITY, PROVED, and it is the algorithmically useful one.
+  `tau_i >= tau_j` implies `c_+(tau)_i >= c_+(tau)_j`, by the exchange
+  injection `I -> I \ {j} u {i}`. So the sorted order of `c_+` recovers the
+  chamber order of `tau` up to ties: THE SHADOW ALREADY CARRIES THE PLACEMENT,
+  which makes it a candidate state variable for a placement descent and not
+  merely a deduplication key.
+- 🟨 T3 RECONSTRUCTION, PROVED conditionally. The signed pair determines `B_0`
+  by complement, and when `span(B_0)` has dimension `d-1` the normal ray is its
+  primitive annihilator. The generator's admissibility condition, affine rank
+  `d-2` on the zero weights, is EXACTLY that hypothesis, because every weight
+  has coordinate sum `N != 0` so the linear span is one larger than the affine
+  hull. Corollary: every admissible GPC candidate is determined by `2d`
+  integers, against a slice of size `binom(d,N)`.
+- 🟦 VERIFIED ON 142,493 ROWS, every nonstructural trace survivor at ranks 7, 8
+  and 9: exact rational reconstruction of `tau` at 547/547, 6,605/6,605 and
+  135,341/135,341, zero-family span full at every row, monotonicity at every
+  row, and zero collisions for both the signed pair and `c_+` alone.
+- ❗ WHAT IS STILL MEASURED, kept separate on purpose. That `span(B_0)` attains
+  `d-1` is verified, not proved. That `c_+` ALONE separates normals is
+  measured: T1 gives only `c_+ -> B_+`, and two normals sharing `B_+` while
+  differing on the `B_-`/`B_0` split are excluded by no theorem here. The
+  earlier audits' injectivity claim sits at exactly this level.
+- ❗ AND "ENCODED BY 2d INTEGERS" IS NOT A DECODER. T1 is uniqueness, not an
+  algorithm; inverting a bare `c_+` is the Chow-parameters problem and is not
+  solved here. T2 is the practical lever. Certificate VERIFICATION needs no
+  inversion: one pass over the slice recomputes the pair, and T3 upgrades a
+  match to uniqueness.
+
+## The root-budget boundary layer: half of an external claim survives (2026-08-08)
+
+An externally supplied rank-40 memo proposes replacing the flat/permutation
+constructor with BDR inversion diagrams plus a root-budget weight oracle. The
+oracle half was tested against the census before adoption.
+[docs/root_budget_boundary.md; results/data/root_budget_boundary.json;
+scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
+
+- 🟦 THE POSITIVE-LAYER BOUND HOLDS, and it is a real reduction. For dominant
+  `tau`, `Omega_+` is a dominance ideal, so every positive weight `I` has
+  `|down I| <= |Omega_+| <= binom(d,2)`; as a Young diagram in the
+  `N x (d-N)` rectangle that caps the subdiagram count, and the layer is
+  enumerable without materialising `binom(d,N)` weights. At `(20,40)`: 15,359
+  weights against an ambient 137,846,528,820, about a ninefold-million cut,
+  reproduced here in 7 seconds of standard library. Verified on EVERY surviving
+  mechanism at ranks 7, 8 and 9, 280 of 280, and the budget is ATTAINED
+  (`|Omega_+| = 36 = binom(9,2)` at rank 9), so the bound is tight.
+- ❗ REGULARITY IS NOT NEEDED for that half, contrary to the memo's framing:
+  below a positive weight everything is positive whether or not `tau` repeats.
+- ❗ AND IT IS A CONDITION THE REPO ALREADY ENFORCES, in other clothing.
+  `|Omega_+(tau)|` is the orbit invariant `B` of screening_orbit_structure.md,
+  and `B <= binom(d,2)` is exactly `orbit_is_trace_dead` being false. The new
+  content is the Young-diagram consequence, which turns a known bound into an
+  enumeration strategy.
+- ❌ THE ZERO-LAYER EXTENSION IS REFUTED off the regular stratum. The memo's
+  `|down I| <= binom(d,2)+1` for a zero weight needs `tau.J > tau.I` strictly,
+  hence `tau` REGULAR; with a repeated level a weight strictly below a zero
+  weight can itself be zero. Violated at 4 of 25, 10 of 64 and 8 of 191
+  mechanisms, worst case `|down I| = 56` against a bound of 37 at rank 9.
+- ❌ AND THE REGULAR STRATUM IS NEARLY EMPTY HERE, which is what makes the
+  refutation bite: 0 regular mechanisms at rank 7, 0 at rank 8, 3 of 191 at
+  rank 9, with max distinct `tau` levels 5, 7 and 9 out of `d`. The memo calls
+  the regular case "the largest full-resolution instance"; in the census it is
+  3 of 280, so the `(20,40)` zero-layer count describes a regime the census
+  suggests is not where the facets live.
+- 🟦 A CORRECTED BOUND, verified 280 of 280 with tightest slack 6, 9, 9: for
+  `tau.I >= 0`, `down I` sits inside `Omega_+ union Omega_0`, so
+  `|down I| <= binom(d,2) + |Omega_0|`. The correction term is the zero-grade
+  dimension the Levi-fusion audit already computes, available per Levi type in
+  closed form from the memo's own generating function. ⚠️ The cost is that it is
+  Levi-type dependent rather than diagram-only, so it does not support one
+  universal truncation and degrades where the zero-grade module is large.
+- ⚠️ PROVENANCE WART in the uploaded bundle: the shipped
+  `rank40_root_budget_boundary.json` lacks the `rectangle` and
+  `area_distribution` fields its own generator emits. Every shared key agrees
+  exactly, so it is a trimmed copy rather than a different computation, but its
+  SHA256SUMS pins a file the script does not reproduce.
+- 🔬 Claims resting on the BDR implementation remain unverified here;
+  bdr_constructor_comparison.md records that the pinned backend cannot be
+  fetched or run in this environment and labels that benchmark INCOMPLETE.
+
+## The closure certificate: the layer above the sandwich (2026-08-08)
+
+`P = O` was already proved at nine systems by the inner/outer sandwich, which
+supplies COMPLETENESS. This adds the exact layer that catches an implementation
+slip rather than a mathematical gap. [docs/closure_certificate.md;
+results/data/closure_certificate.json; scripts/closure_certificate.py;
+tests/test_closure_certificate.py]
+
+- 🟦 NINE SYSTEMS, 799 VERTICES, ZERO MISMATCHES. Certified affine dimension,
+  facet count, vertex count, and minimum/maximum facets per vertex all
+  reproduce docs/polytope_invariants.json independently. Every one of the 799
+  census vertices passes `rank([E; A_active]) = d`, so each is a true vertex
+  and not a relative interior point of a face. The slack matrix is nonnegative,
+  its zero pattern reproduces the incidence relation entry by entry, and its
+  rank is `m + 1` at every system.
+- ❗ A FACET IS A FACE, NOT A ROW, and this bit on the first attempt. Counting
+  rows that pass the codimension-one test gave SIX facets at (3,6), which is
+  impossible for a 3-polytope with 4 vertices. At (3,6) the affine hull carries
+  THREE equations, the Borland-Dennis relations, so two rows differing by a hull
+  relation cut the same face: `lambda_1 >= lambda_2` and `lambda_5 >= lambda_6`
+  share the tight set, as do `lambda_2 >= lambda_3` and `lambda_4 >= lambda_5`.
+  Canonicalizing by the tight vertex set gives 4. (3,6) is the ONLY system where
+  the collapse happens, so an uncanonicalized check passes eight of nine and
+  fails silently on the degenerate one.
+- ❗ AND THE AFFINE HULL MUST BE CERTIFIED, NOT ASSUMED, for the same reason:
+  (3,6) sits in a 5-dimensional trace slice with polytope dimension 3, so a
+  hardcoded `m = d-1` is wrong at the first system. Every other census system
+  has exactly one hull equation.
+- ❗ VALIDITY IS WEAKER THAN FACETNESS, independently of canonicalization: (3,7)
+  has 11 valid rows and 10 facets, (3,6) has 7 valid and 6 codimension-one.
+  Redundant valid rows exist and the face test removes them.
+- 🟦 PARTICLE-HOLE PARITY HOLDS, at the three half-filled systems and only
+  there. `Theta(lambda)_i = 1 - lambda_{d+1-i}` maps (N,d) to (d-N,d), so it is
+  an involution of one system only when `2N = d`: (3,6), (4,8), (5,10). Vertex
+  sets are closed under it and `V = V_fix + 2 V_pair` holds exactly, with
+  4/0, 6/8 and 8/142. At (3,6) every vertex is self-dual, so a half-filled
+  system can still carry no parity information.
+- ⚠️ POLAR DUALITY IS DELIBERATELY NOT BUILT. `f_{m-1}(P) = f_0(P^o)` and
+  `f_0(P) = f_{m-1}(P^o)` are equivalent to the irredundancy and vertex-rank
+  tests already performed, so constructing the polar would re-derive them from
+  the same data and yield a number that LOOKS like a cross-check but is not.
+- 🔬 SCOPE. This does not re-prove `P = O` and does not make facet counts
+  theorem-level on its own; it makes them hard to get wrong by accident. It
+  says nothing about (20,40). The reverse-search vertex enumeration and the BDR
+  coverage ledger, the two pieces a rank-40 closure would need, are not built
+  here and are not implied by anything here.
 
 ## Adjacent literature to respect
 

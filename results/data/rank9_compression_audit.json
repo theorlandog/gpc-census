@@ -1,5 +1,5 @@
 {
- "canonical_sha256_without_this_field_or_timings": "4dd001c2da7adb5fe0c9013e94bf1daa7c019906f7076c6d521df641fe66802e",
+ "canonical_sha256_without_this_field_or_timings": "bb028f54ca62a7c67b1dbcc0e3d651121c156b6f438c448604f267b7c91108cb",
  "determinant_policy": {
   "modular_prime": 1000003,
   "modular_samples": 4,
@@ -23,6 +23,15 @@
     "3": 315,
     "4": 150
    },
+   "determinant_nonzero": 50,
+   "determinant_nonzero_by_holes": {
+    "0": 50
+   },
+   "determinant_unresolved": 0,
+   "determinant_zero": 25,
+   "determinant_zero_by_holes": {
+    "0": 25
+   },
    "hall_feasible": 75,
    "hall_zero": 474,
    "hall_zero_optimal_width_distribution": {
@@ -37,6 +46,7 @@
    },
    "max_balanced_fusion_width": 4,
    "max_optimal_fusion_width": 3,
+   "mechanisms_with_a_survivor": 25,
    "multi_hole_hall_feasible": 0,
    "multi_hole_survivors": 0,
    "nonstructural_survivors": 547,
@@ -48,15 +58,17 @@
     "2": 73,
     "3": 465
    },
-   "orbit_seconds": 3.0,
+   "orbit_seconds": 5.2,
    "orbit_source": "flats",
    "orbits": 35,
    "particle_number": 3,
    "rank": 7,
-   "seconds": 3.0,
+   "seconds": 5.3,
+   "shapes_with_a_hall_placement": 20,
    "singleton_collision_groups": 0,
    "singleton_incidence_injective": true,
    "singleton_signature_count": 547,
+   "structural_determinant_nonzero": 2,
    "structural_survivors": 2,
    "system": "(3,7)",
    "trace_dead_orbits": 10,
@@ -69,6 +81,16 @@
     "3": 1816,
     "4": 3192,
     "5": 1360
+   },
+   "determinant_nonzero": 138,
+   "determinant_nonzero_by_holes": {
+    "0": 138
+   },
+   "determinant_unresolved": 0,
+   "determinant_zero": 55,
+   "determinant_zero_by_holes": {
+    "0": 48,
+    "1": 7
    },
    "hall_feasible": 193,
    "hall_zero": 6414,
@@ -88,6 +110,7 @@
    },
    "max_balanced_fusion_width": 5,
    "max_optimal_fusion_width": 4,
+   "mechanisms_with_a_survivor": 64,
    "multi_hole_hall_feasible": 0,
    "multi_hole_survivors": 0,
    "nonstructural_survivors": 6605,
@@ -318,15 +341,17 @@
     "3": 3964,
     "4": 2404
    },
-   "orbit_seconds": 128.1,
+   "orbit_seconds": 221.6,
    "orbit_source": "flats",
    "orbits": 109,
    "particle_number": 3,
    "rank": 8,
-   "seconds": 129.0,
+   "seconds": 223.2,
+   "shapes_with_a_hall_placement": 33,
    "singleton_collision_groups": 0,
    "singleton_incidence_injective": true,
    "singleton_signature_count": 6605,
+   "structural_determinant_nonzero": 2,
    "structural_survivors": 2,
    "system": "(3,8)",
    "trace_dead_orbits": 45,
@@ -340,6 +365,17 @@
     "4": 40785,
     "5": 63564,
     "6": 21779
+   },
+   "determinant_nonzero": 242,
+   "determinant_nonzero_by_holes": {
+    "0": 239,
+    "1": 3
+   },
+   "determinant_unresolved": 0,
+   "determinant_zero": 129,
+   "determinant_zero_by_holes": {
+    "0": 100,
+    "1": 29
    },
    "hall_feasible": 371,
    "hall_zero": 134972,
@@ -362,6 +398,7 @@
    },
    "max_balanced_fusion_width": 6,
    "max_optimal_fusion_width": 5,
+   "mechanisms_with_a_survivor": 191,
    "multi_hole_hall_feasible": 0,
    "multi_hole_survivors": 5310,
    "nonstructural_survivors": 135341,
@@ -409,16 +446,16 @@
       "nonzero": true,
       "prime": 1000003,
       "proves": "nonvanishing over the integers",
-      "residue": 298725,
+      "residue": 367241,
       "variable_values": [
-       238036,
-       734944,
-       930294,
-       90142,
-       81400,
-       77158,
-       560477,
-       782003
+       338897,
+       600498,
+       57555,
+       118255,
+       443632,
+       341903,
+       234691,
+       991306
       ]
      },
      "matrix_size": 36,
@@ -456,16 +493,16 @@
       "nonzero": true,
       "prime": 1000003,
       "proves": "nonvanishing over the integers",
-      "residue": 750627,
+      "residue": 892343,
       "variable_values": [
-       87059,
-       268636,
-       151597,
-       69838,
-       60236,
-       609000,
-       814897,
-       181494
+       380957,
+       228621,
+       535308,
+       59610,
+       830843,
+       457804,
+       488293,
+       288692
       ]
      },
      "matrix_size": 27,
@@ -1401,18 +1438,18 @@
       "nonzero": true,
       "prime": 1000003,
       "proves": "nonvanishing over the integers",
-      "residue": 526000,
+      "residue": 944602,
       "variable_values": [
-       945470,
-       419212,
-       393345,
-       871992,
-       969903,
-       29425,
-       600468,
-       684872,
-       677638,
-       390932
+       730169,
+       434856,
+       372445,
+       812257,
+       238747,
+       574585,
+       82975,
+       747849,
+       252594,
+       915178
       ]
      },
      "matrix_size": 15,
@@ -1447,15 +1484,17 @@
     "4": 90399,
     "5": 15614
    },
-   "orbit_seconds": 0.1,
+   "orbit_seconds": 0.2,
    "orbit_source": "augmentation",
    "orbits": 455,
    "particle_number": 3,
    "rank": 9,
-   "seconds": 24.5,
+   "seconds": 35.6,
+   "shapes_with_a_hall_placement": 52,
    "singleton_collision_groups": 0,
    "singleton_incidence_injective": true,
    "singleton_signature_count": 135341,
+   "structural_determinant_nonzero": 2,
    "structural_survivors": 2,
    "system": "(3,9)",
    "trace_dead_orbits": 264,

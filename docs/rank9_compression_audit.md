@@ -151,6 +151,52 @@ four are now proved identically zero: the expansion at size 21 completes
 immediately, because a vanishing determinant is the fast case. Nothing in the
 audit is left resting on a sample.
 
+## The full determinant split, and an independent campaign that agrees
+
+The audit classifies **every** Hall-feasible row, not only the one-hole ones:
+
+| System | Hall feasible | Determinant nonzero | Identically zero | Unresolved |
+| --- | ---: | ---: | ---: | ---: |
+| `(3,7)` | 75 | 50 | 25 | 0 |
+| `(3,8)` | 193 | 138 | 55 | 0 |
+| `(3,9)` | 371 | **242** | **129** | 0 |
+
+Two of the nonzero rows at each rank are structural: an empty positive side
+gives a `0x0` matrix whose determinant is the empty product. They are counted
+separately so they never inflate the certified count silently.
+
+An independently written rank-9 direct-grammar campaign
+(`rank9_direct_grammar_phase.md`, produced outside this repository) reports the
+same population from its own orbit-native reconstruction. The two agree on
+every quantity both computed:
+
+```text
+trace survivors            135,343   135,343
+Hall-feasible rows             371       371
+Hall-zero rows             134,972   134,972
+determinant nonzero            242       242
+exact cancellation zeros       129       129
+structural among nonzero         2         2
+distinct normal mechanisms     191       191
+shapes with a Hall placement    52        52
+optimal width distribution  {1:24, 2:580, 3:28726, 4:90399, 5:15614}  identical
+```
+
+That is two independent implementations agreeing on nine quantities including
+a 135,343-row population and a full width distribution, which is a stronger
+check on the rank-9 numbers than either campaign alone.
+
+### One coincidence worth not reading as structure
+
+Both "52 grammar shapes with a Hall placement" and "52 retained facets after
+exact reduction" appear in that campaign, and they are **different objects that
+happen to share a value**. This audit confirms 52 distinct sorted-`tau` shapes
+carry a Hall placement at rank 9. The published `(3,9)` system also has 52
+facet rows, but those 52 rows carry only **8** distinct sorted-`tau` shapes,
+per `levi_fusion_heldout_results.json`. So the coincidence must not be read as
+"each Hall shape yields one facet"; the shape-to-facet map is neither injective
+nor surjective in the way the matching numbers suggest.
+
 ## Result 3: incidence injectivity holds at 135,341 rows
 
 Labeled singleton incidence separates every nonstructural survivor at every

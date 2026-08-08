@@ -1,0 +1,78 @@
+{
+ "canonical_sha256_without_this_field_or_timings": "b618c5095bda4dc9135f9297918b0a3287c000deae02aa3ed05dc9f0c01ab44f",
+ "generated_by": "scripts/signed_chow_projection.py",
+ "measured_not_proved": {
+  "decoding": "Recovering B_+ from a bare c_+ is the Chow-parameters inversion problem and is not implemented. Certificate verification needs no inversion.",
+  "positive_shadow_alone": "That c_+ alone separates distinct normals is measured with zero collisions. T1 gives only that c_+ determines B_+; two normals sharing B_+ but differing on B_0 are not excluded by any theorem here.",
+  "span_hypothesis": "That span(B_0) attains dimension d-1 is verified on every nonstructural survivor of every system audited here, not proved in general."
+ },
+ "schema_version": 1,
+ "status": "theorem_backed_projection",
+ "systems": {
+  "(3,7)": {
+   "certificates_verified": 547,
+   "distinct_positive_shadows": 547,
+   "distinct_signed_shadows": 547,
+   "encoding_integers": 14,
+   "largest_shadow_entry": 14,
+   "monotone_rows": 547,
+   "nonstructural_survivors": 547,
+   "normal_reconstructed_exactly": 547,
+   "particle_number": 3,
+   "positive_shadow_collisions": 0,
+   "rank": 7,
+   "seconds": 5.4,
+   "signed_shadow_collisions": 0,
+   "slice_size": 35,
+   "structural_survivors": 2,
+   "system": "(3,7)",
+   "trace_survivors": 549,
+   "zero_family_spans_hyperplane": 547
+  },
+  "(3,8)": {
+   "certificates_verified": 6605,
+   "distinct_positive_shadows": 6605,
+   "distinct_signed_shadows": 6605,
+   "encoding_integers": 16,
+   "largest_shadow_entry": 20,
+   "monotone_rows": 6605,
+   "nonstructural_survivors": 6605,
+   "normal_reconstructed_exactly": 6605,
+   "particle_number": 3,
+   "positive_shadow_collisions": 0,
+   "rank": 8,
+   "seconds": 224.3,
+   "signed_shadow_collisions": 0,
+   "slice_size": 56,
+   "structural_survivors": 2,
+   "system": "(3,8)",
+   "trace_survivors": 6607,
+   "zero_family_spans_hyperplane": 6605
+  },
+  "(3,9)": {
+   "certificates_verified": 135341,
+   "distinct_positive_shadows": 135341,
+   "distinct_signed_shadows": 135341,
+   "encoding_integers": 18,
+   "largest_shadow_entry": 27,
+   "monotone_rows": 135341,
+   "nonstructural_survivors": 135341,
+   "normal_reconstructed_exactly": 135341,
+   "particle_number": 3,
+   "positive_shadow_collisions": 0,
+   "rank": 9,
+   "seconds": 161.9,
+   "signed_shadow_collisions": 0,
+   "slice_size": 84,
+   "structural_survivors": 2,
+   "system": "(3,9)",
+   "trace_survivors": 135343,
+   "zero_family_spans_hyperplane": 135341
+  }
+ },
+ "theorems": {
+  "T1_determination": "Any fixed-weight family summing to c_+(tau) equals B_+(tau). Proved; no threshold hypothesis on the competing family.",
+  "T2_monotonicity": "tau_i >= tau_j implies c_+(tau)_i >= c_+(tau)_j, by the exchange injection I -> I minus {j} union {i}. Proved.",
+  "T3_reconstruction": "B_0 is determined by the signed pair, and when span(B_0) has dimension d-1 the normal ray is its primitive annihilator. Proved."
+ }
+}
