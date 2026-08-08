@@ -46,10 +46,10 @@ Run:
 from __future__ import annotations
 
 import argparse
+import collections
 import hashlib
 import itertools
 import json
-import collections
 import math
 import pathlib
 import sys
