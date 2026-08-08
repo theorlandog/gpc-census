@@ -1671,6 +1671,14 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   trace-dead. A violation CERTIFIES trace-death, so the laws double as a pruning
   test. A check written against an invented normal fails for a legitimate reason
   and can be mistaken for a defect in the theorem.
+- 🟦 THE GATE LADDER IS PINNED IN THE ARTIFACT, every entry number recomputed
+  rather than quoted: (13,17) computed as (4,17), 2,380 ambient to 609
+  sign-control records (3.9x); (10,20) 184,756 to 1,940 (95.2x, 993 transpose
+  orbits); (15,30) 155,117,520 to 8,409 (18,446.6x, 4,249); (20,40)
+  137,846,528,820 to 22,817 (6,041,395.8x, 11,478). Only the half-filled rungs
+  admit the internal transpose quotient. ⚠️ The ladder tests the WEIGHT ORACLE,
+  not the architecture: no rung exercises the Kostant inversion-diagram or
+  birationality stages that carry the minimal-facet claim.
 - 🟦 LEVI-TYPE BUCKETING CONFIRMED: `p(d)` Levi types collapse to far fewer root
   budgets, 297/83, 627/118, 5,604/284 and 37,338/**538** at `d = 17, 20, 30, 40`,
   so one boundary view is shared across each bucket.

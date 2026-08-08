@@ -276,6 +276,46 @@ def profile_budget_laws(tau: tuple[int, ...], n: int) -> dict:
     }
 
 
+GATE_LADDER = (((13, 17), (4, 17)), ((10, 20), (10, 20)), ((15, 30), (15, 30)),
+               ((20, 40), (20, 40)))
+
+
+def gate_ladder_record(system, effective) -> dict:
+    """Entry numbers for one rung of the proposed validation ladder.
+
+    The sign-control universe is the zero-or-positive layer plus its minimal
+    excluded frontier, which is what certifies that everything deeper is
+    strictly negative. Compression is measured against the ambient
+    ``binom(d, N)`` of the ORIGINAL system, since particle-hole normalization
+    is what makes the effective system smaller.
+    """
+    original_n, d = system
+    effective_n, _ = effective
+    budget = math.comb(d, 2)
+    positive = truncated_layer(effective_n, d, budget)
+    nonnegative = truncated_layer(effective_n, d, budget + 1)
+    sign_control = (
+        nonnegative["accepted_weight_types"] + nonnegative["minimal_excluded_frontier"]
+    )
+    ambient = math.comb(d, original_n)
+    durfee = max(
+        (r for r in range(1, 12) if math.comb(2 * r, r) <= budget + 1), default=0
+    )
+    return {
+        "system": list(system),
+        "effective_system": list(effective),
+        "particle_hole_reduction_used": original_n != effective_n,
+        "ambient_weight_count": ambient,
+        "positive_layer": positive["accepted_weight_types"],
+        "zero_or_positive_layer": nonnegative["accepted_weight_types"],
+        "minimal_excluded_frontier": nonnegative["minimal_excluded_frontier"],
+        "sign_control_universe": sign_control,
+        "compression_factor": round(ambient / sign_control, 1),
+        "max_durfee_rank": durfee,
+        "transpose": transpose_orbit_counts(effective_n, d),
+    }
+
+
 def transpose_orbit_counts(particle_number: int, orbitals: int) -> dict:
     """Half-filling transpose quotient of the sign-control universe."""
     if 2 * particle_number != orbitals:
@@ -530,6 +570,9 @@ def main() -> int:
         "boundary_layers": layers,
         "census_validation": census,
         "levi_budget_identity": levi_budget_matches_repository(),
+        "gate_ladder": [
+            gate_ladder_record(system, effective) for system, effective in GATE_LADDER
+        ],
         "half_filling_transpose": {
             f"({n},{d})": transpose_orbit_counts(n, d)
             for n, d in ((10, 20), (15, 30), (20, 40))

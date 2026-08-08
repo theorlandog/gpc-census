@@ -1905,3 +1905,19 @@ trace-death and the laws double as a pruning test.
 
 LEVI-TYPE BUCKETING confirmed: `p(d)` Levi types collapse to 83, 118, 284 and
 538 distinct root budgets at `d = 17, 20, 30, 40`.
+
+## root_budget_boundary.json: the gate ladder (2026-08-08)
+
+The proposed validation ladder's entry numbers are recomputed in the artifact
+rather than quoted, so its premises are guarded in-repo: `(13,17)` computed as
+`(4,17)` by particle-hole normalization, 2,380 ambient weights to 609
+sign-control records; `(10,20)` 184,756 to 1,940 with 993 transpose orbits;
+`(15,30)` 155,117,520 to 8,409 with 4,249; `(20,40)` 137,846,528,820 to 22,817
+with 11,478. Compression factors and Durfee ranks agree with the source memo at
+every rung, and only the half-filled rungs admit the internal transpose
+quotient.
+
+SCOPE. The ladder exercises the weight oracle, not the architecture. No rung
+touches the Kostant inversion-diagram or birationality stages, which carry the
+minimal-facet claim and remain unrunnable here per the INCOMPLETE label in
+`docs/bdr_constructor_comparison.md`.

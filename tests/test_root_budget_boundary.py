@@ -222,6 +222,41 @@ def test_dominance_and_profiles():
     assert set(profiles) == {(0, 2), (1, 1), (2, 0)}
 
 
+def test_gate_ladder_table_reproduces():
+    """Every entry number of the proposed validation ladder, recomputed."""
+    expected = {
+        (13, 17): (2380, 609, 3.9, 4),
+        (10, 20): (184756, 1940, 95.2, 4),
+        (15, 30): (155117520, 8409, 18446.6, 5),
+        (20, 40): (137846528820, 22817, 6041395.8, 5),
+    }
+    ladder = {tuple(r["system"]): r for r in _artifact()["gate_ladder"]}
+    assert set(ladder) == set(expected)
+    for system, (ambient, sign, compression, durfee) in expected.items():
+        record = ladder[system]
+        assert record["ambient_weight_count"] == ambient
+        assert record["sign_control_universe"] == sign
+        assert record["compression_factor"] == compression
+        assert record["max_durfee_rank"] == durfee
+        assert (
+            record["zero_or_positive_layer"] + record["minimal_excluded_frontier"]
+            == sign
+        )
+
+
+def test_gate_ladder_particle_hole_normalization():
+    """(13,17) is computed as (4,17); the half-filled rungs are self-dual."""
+    ladder = {tuple(r["system"]): r for r in _artifact()["gate_ladder"]}
+    assert ladder[(13, 17)]["effective_system"] == [4, 17]
+    assert ladder[(13, 17)]["particle_hole_reduction_used"]
+    assert not ladder[(13, 17)]["transpose"]["applies"]
+    for system in ((10, 20), (15, 30), (20, 40)):
+        record = ladder[system]
+        assert record["effective_system"] == list(system)
+        assert not record["particle_hole_reduction_used"]
+        assert record["transpose"]["applies"]
+
+
 def test_verdict_records_both_halves():
     verdict = _artifact()["verdict"]
     assert verdict["positive_layer_bound"].startswith("HOLDS")

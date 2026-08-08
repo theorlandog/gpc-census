@@ -17,7 +17,7 @@
      3,
      37
     ],
-    "seconds": 0.145
+    "seconds": 0.15
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 3075,
@@ -34,7 +34,7 @@
      3,
      37
     ],
-    "seconds": 0.146
+    "seconds": 0.151
    }
   },
   {
@@ -54,7 +54,7 @@
      4,
      36
     ],
-    "seconds": 0.279
+    "seconds": 0.278
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 6175,
@@ -71,7 +71,7 @@
      4,
      36
     ],
-    "seconds": 0.27
+    "seconds": 0.282
    }
   },
   {
@@ -91,7 +91,7 @@
      5,
      35
     ],
-    "seconds": 0.411
+    "seconds": 0.401
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 9106,
@@ -108,7 +108,7 @@
      5,
      35
     ],
-    "seconds": 0.399
+    "seconds": 0.391
    }
   },
   {
@@ -128,7 +128,7 @@
      10,
      30
     ],
-    "seconds": 0.732
+    "seconds": 0.752
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 18106,
@@ -145,7 +145,7 @@
      10,
      30
     ],
-    "seconds": 0.734
+    "seconds": 0.775
    }
   },
   {
@@ -165,7 +165,7 @@
      20,
      20
     ],
-    "seconds": 1.052
+    "seconds": 1.144
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 22817,
@@ -182,11 +182,11 @@
      20,
      20
     ],
-    "seconds": 1.039
+    "seconds": 1.114
    }
   }
  ],
- "canonical_sha256_without_this_field_or_timings": "c4f3a8b8771ac10ff4543f93f563fa37403185ed3ba898c5664e30bed0691c3d",
+ "canonical_sha256_without_this_field_or_timings": "975d4d0751dd1f1b4aca34b6fac71f79ef73fde6e2f327e276b8294e7c1f2fe5",
  "census_validation": {
   "(3,7)": {
    "durfee_rank_bound_from_global_budget": 3,
@@ -211,7 +211,7 @@
    "rank": 7,
    "regular_mechanisms": 0,
    "root_budget": 21,
-   "seconds": 4.2,
+   "seconds": 4.4,
    "system": "(3,7)",
    "uniform_bound_violations": [
     {
@@ -307,7 +307,7 @@
    "rank": 8,
    "regular_mechanisms": 0,
    "root_budget": 28,
-   "seconds": 154.1,
+   "seconds": 150.9,
    "system": "(3,8)",
    "uniform_bound_violations": [
     {
@@ -524,6 +524,102 @@
    "zero_weight_uniform_bound_holds": 183
   }
  },
+ "gate_ladder": [
+  {
+   "ambient_weight_count": 2380,
+   "compression_factor": 3.9,
+   "effective_system": [
+    4,
+    17
+   ],
+   "max_durfee_rank": 4,
+   "minimal_excluded_frontier": 147,
+   "particle_hole_reduction_used": true,
+   "positive_layer": 459,
+   "sign_control_universe": 609,
+   "system": [
+    13,
+    17
+   ],
+   "transpose": {
+    "applies": false,
+    "reason": "transpose is an involution only when 2N = d"
+   },
+   "zero_or_positive_layer": 462
+  },
+  {
+   "ambient_weight_count": 184756,
+   "compression_factor": 95.2,
+   "effective_system": [
+    10,
+    20
+   ],
+   "max_durfee_rank": 4,
+   "minimal_excluded_frontier": 588,
+   "particle_hole_reduction_used": false,
+   "positive_layer": 1334,
+   "sign_control_universe": 1940,
+   "system": [
+    10,
+    20
+   ],
+   "transpose": {
+    "applies": true,
+    "self_conjugate": 46,
+    "sign_control_universe": 1940,
+    "transpose_orbits": 993
+   },
+   "zero_or_positive_layer": 1352
+  },
+  {
+   "ambient_weight_count": 155117520,
+   "compression_factor": 18446.6,
+   "effective_system": [
+    15,
+    30
+   ],
+   "max_durfee_rank": 5,
+   "minimal_excluded_frontier": 2691,
+   "particle_hole_reduction_used": false,
+   "positive_layer": 5706,
+   "sign_control_universe": 8409,
+   "system": [
+    15,
+    30
+   ],
+   "transpose": {
+    "applies": true,
+    "self_conjugate": 89,
+    "sign_control_universe": 8409,
+    "transpose_orbits": 4249
+   },
+   "zero_or_positive_layer": 5718
+  },
+  {
+   "ambient_weight_count": 137846528820,
+   "compression_factor": 6041395.8,
+   "effective_system": [
+    20,
+    40
+   ],
+   "max_durfee_rank": 5,
+   "minimal_excluded_frontier": 7446,
+   "particle_hole_reduction_used": false,
+   "positive_layer": 15359,
+   "sign_control_universe": 22817,
+   "system": [
+    20,
+    40
+   ],
+   "transpose": {
+    "applies": true,
+    "self_conjugate": 139,
+    "sign_control_universe": 22817,
+    "transpose_orbits": 11478
+   },
+   "zero_or_positive_layer": 15371
+  }
+ ],
  "generated_by": "scripts/root_budget_boundary.py",
  "half_filling_transpose": {
   "(10,20)": {

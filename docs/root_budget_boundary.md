@@ -235,6 +235,28 @@ reason and look like a defect in the theorem.
   be fetched or run in this environment and labels that benchmark INCOMPLETE;
   nothing in this document changes that.
 
+## The gate ladder, pinned in the artifact
+
+The proposed validation ladder's entry numbers are recomputed here rather than
+quoted, so the ladder's premises are guarded in-repo:
+
+| System | Effective | Ambient `binom(d,N)` | Sign-control universe | Compression | Durfee | Transpose orbits |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `(13,17)` | `(4,17)` | 2,380 | 609 | 3.9x | 4 | n/a |
+| `(10,20)` | `(10,20)` | 184,756 | 1,940 | 95.2x | 4 | 993 |
+| `(15,30)` | `(15,30)` | 155,117,520 | 8,409 | 18,446.6x | 5 | 4,249 |
+| `(20,40)` | `(20,40)` | 137,846,528,820 | 22,817 | 6,041,395.8x | 5 | 11,478 |
+
+`(13,17)` is computed as `(4,17)` by particle-hole normalization, and only the
+half-filled rungs admit the internal transpose quotient. Every figure agrees
+with the source memo.
+
+What the ladder tests is the WEIGHT ORACLE, not the architecture. Gate A
+exercises rectangular geometry, particle-hole transport and weighted nonregular
+profiles, all of which are verified above. The Kostant inversion-diagram and
+birationality stages, which carry the minimal-facet claim, are exercised by no
+rung of this ladder as long as the pinned BDR backend cannot be run here.
+
 ## Levi-type and root-budget class counts
 
 The proposal to bucket Levi types by root budget rests on counts that
