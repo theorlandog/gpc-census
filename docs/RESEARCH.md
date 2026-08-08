@@ -170,6 +170,19 @@ results/data/quantization_multiplicities.json]
   bounds and remain so. Ratio again always 1 or 2. ⚠️ Valid only for diagonal
   1-RDMs; all 49 out-of-scope states are non-diagonal, zero counterexamples.
   [results/data/toral_component_obstruction.json; docs/quantization_character.md]
+- 🟦 THE 154 ARE NOW CLOSED EXACTLY, and DESIGN-REAL survives. The states
+  whose 1-RDM is not diagonal had their supports rewritten in an exact
+  eigenbasis of rho (rational nullspaces, exact minors; the shipped numerical
+  natural-orbital file is NOT used). 152 of 154 resolved and the toral
+  component-group obstruction fires at NONE of them, ratio 1 everywhere, no
+  predicted period raised. So the 12 firing vertices remain exactly the
+  DESIGN-REAL class, and that correspondence is not an artifact of the earlier
+  scope restriction. ⚠️ Support is basis dependent inside a degenerate block
+  (support 8 vs the numerical 20 at (3,8)#10); every eigenbasis still gives a
+  valid bound because the semi-invariant argument runs in the COMPLEX Levi, and
+  two variants are combined by lcm. (5,10)#263 and #268 exceeded the budget and
+  are named, not dropped.
+  [results/data/natural_orbital_toral.json]
 - ⚠️ NOT CLAIMED: `dim M_lambda` from symplectic reduction. First-order tangent
   rank is vacuous at these ranks (`ker d(mu)` has dimension at least
   `2*binom(d,n) - d^2` for trivial reasons; the (3,6) Slater vertex, whose
