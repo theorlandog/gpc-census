@@ -171,6 +171,88 @@ results/data/quantization_multiplicities.json]
   505 and is what exposed it; it is now clean on all 799, as is the independent
   check `commutant_dim == sum m_i^2` against the vertex spectrum.
 
+## Stable-rank compression: the covariant route is REFUTED (2026-08-08)
+
+Whether one `GL_infinity` object compresses the GPC constraint system across
+the rank variable `d`, rather than accelerating it at each fixed `(N,d)`.
+[docs/infinite_wedge_tca_bridge.md; docs/prereg_infinite_wedge_tca_sanity.md;
+results/data/infinite_wedge_tca_sanity.json;
+results/data/infinite_wedge_tca_dependency.json]
+
+- 🟨 THE STABLE OBJECT EXISTS AND IS TRIVIAL, which is the finding, not the
+  win. The multiplicity of `V_lambda` in `Sym^k(wedge^N C^d)` is the plethysm
+  coefficient `<s_lambda, h_k[e_N]>`, which never mentions `d`, and
+  `S_lambda(C^d) = 0` exactly when `ell(lambda) > d`. So
+  `Sigma_{N,d} = Sigma_N^stab intersect {ell <= d}` is a literal length
+  truncation of one `d`-independent monoid, and since `{lambda_{d+1} = 0}` is a
+  face, `cone(Sigma_{N,d})` is a face-slice of one `d`-independent cone. Every
+  difficulty the compression idea hoped to import from stable representation
+  theory dissolves here; what is left is convex geometry that no noetherianity
+  theorem addresses.
+- 🟦 CONVENTION PINNED, 93 of 93, and not vacuously: plethysm, the Weyl
+  alternating sum and the stored artifact agree at every measured (vertex, `k`)
+  pair, while the conjugate and reversed-complement conventions differ at 77 of
+  the 93. Polytope recovery verified with BOTH inclusions at `(3,6)` and
+  `(3,7)`; `(3,7)` needs degree 8, so `m <= 7` is not enough.
+- ❌ ZERO PADDING DOES NOT PRESERVE VALIDITY, which kills the covariant
+  functoriality every FI/OI argument would need. Padding a published row and
+  testing it at every certified vertex one rank up is a test on the whole
+  polytope, because `P = O` holds at both ranks. Survivors: 4 of 4 at (3,7) to
+  (3,8), then 10 of 31, 44 of 52, 8 of 15 and 19 of 60. Named witness:
+  `lambda_1 + lambda_8 <= 1` is a (3,8) row and fails at the (3,9) vertex
+  `(1,1/4,...,1/4)` with slack `-1/4`. The pre-registered expectation was PASS
+  and it was wrong; the visibly nested 7 to 8 pair is the exception.
+- ❌ AND NO ORDER-PRESERVING EMBEDDING RESCUES IT. 🔬 POST-HOC block: trying all
+  `d+1` injections `[d] -> [d+1]` still leaves rows with no valid image at five
+  of the six census pairs, and most of each higher system is not an OI image of
+  anything below it. There is no OI-module OF COEFFICIENT PATTERNS here for an
+  OI-noetherianity theorem to act on.
+- 🟦 CROSS-CONFIRMED, and corrected, against the ordered-representation-stability
+  campaign that landed independently. Its `naive_padding_control` reports the
+  SAME `10 of 31` at (3,8) to (3,9) from a separately written implementation,
+  and its Theorem 1 proves that only the TERMINAL insertion is a morphism at
+  all, so the non-trailing insertions above are not maps of the relevant
+  category and their failure is a theorem rather than a measurement. ⚠️ It also
+  corrects an overstatement: "no covariant map exists" is FALSE, since the TIGHT
+  extension is total and carries facets to facets 612 of 612. The correct and
+  narrower claim is that no covariant map given by a COEFFICIENT-LEVEL TEMPLATE
+  RULE exists; the tight extension optimizes against `Delta(N,d+1)`, the object a
+  constructor would be building, so it organizes known rows rather than
+  generating new ranks, and the NO-GO stands.
+  [docs/ordered_representation_stability.md]
+- 🟦 THE CONTRAVARIANT DIRECTION IS A THEOREM AND IS NOW REPLAYED.
+  `Delta(N,d) = Delta(N,d+1) intersect {lambda_{d+1} = 0}`, so restriction
+  carries the higher system onto the lower one. Complete at all six consecutive
+  pairs by exact affine Farkas, so the published (3,10) system implies (3,9),
+  (3,8), (3,7) and (3,6) INCLUDING the three Borland-Dennis equalities, which
+  come out as consequences; and (4,10) implies (4,9) and (4,8).
+- ❌ `Sigma_{N,d}` IS NOT SATURATED. Four exact witnesses, `(3,6)#3`, `(3,7)#5`,
+  `(3,7)#7`, `(3,7)#8`, each a dominant lattice point of the cone with
+  multiplicity zero, and they are exactly the four period-`2q` vertices. So the
+  quantization character above is a saturation defect one level up, and
+  "finite generation of the semigroup" is strictly stronger than "finitely many
+  facets of the cone". ⚠️ The 54 census-wide witnesses are PREDICTED, inherited
+  from the character side; 4 are measured, 3 independent.
+- 🔬 THE SMALLEST MISSING THEOREM is bounded-arity facet templating for the
+  ambient cone, plus a polynomial-time rule deciding which instances are facets.
+  The second half is load bearing: 93 rows at (3,10) are only 16 symmetric
+  templates, so the orbit count is already small and the cost is in the ordered
+  instantiation. 🟨 Proved here: bounded-arity templating with maximum arity `a`
+  forces `O(d^a)` facets, so superpolynomial facet growth would refute it. ⚠️
+  Evidence is against it: measured maximum arity 3, 4, 7, 7, 8 at `d = 6..10`
+  tracks the rank rather than a constant, the template stock does not saturate,
+  and the Horn cone, whose facets ARE completely known, fails bounded-arity
+  templating. Not a proof either way.
+- ❗ RANK 40 IS DENIED EVEN IF THE MISSING THEOREM IS GRANTED. Instantiating the
+  16 measured (3,10) templates costs 8.2e6 candidate rows at rank 11, 2.4e7 at
+  rank 12, 5.8e9 at rank 20 and 3.5e12 at rank 40. For the physics membership
+  question a polynomial-time weak membership oracle already exists and needs no
+  facet list at all, so the program should say which of the two goals it wants.
+- ⚠️ CITATION CAVEAT: the literature audit was verified to abstract level only,
+  because the drafting environment blocked every primary host. The scope
+  conclusions are robust to sharpening; the attributions need a human check
+  before external use.
+
 ## The support taxonomy (adopted 2026-07; do not collapse these)
 
 Four different minima, with different lower bounds. Conflating them produced a
@@ -394,6 +476,14 @@ plethysm criterion feed Problem 7 below.
   Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
   artifact bdr_constructor_comparison.json; guard test
   tests/test_bdr_constructor_comparison.py.
+- infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
+  theorem-dependency graph in machine-readable form. Answers the question of
+  whether one `GL_infinity` object recovers every finite-rank moment polytope
+  (yes, trivially) and whether that compresses the facet system (no, and the
+  covariant functoriality it needs is refuted by exact counterexample). The
+  contravariant direction is proved and replayed instead. Pre-registration in
+  prereg_infinite_wedge_tca_sanity.md; artifacts infinite_wedge_tca_sanity.json
+  and infinite_wedge_tca_dependency.json.
 - quantization_character.md: the follow-up that closed the period question.
   The quantization period is the order of a finite isotropy character of the
   certified attainer, matched at 14 of 14 vertices. Pre-registration in
