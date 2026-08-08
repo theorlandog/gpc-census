@@ -1671,6 +1671,22 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   trace-dead. A violation CERTIFIES trace-death, so the laws double as a pruning
   test. A check written against an invented normal fails for a legitimate reason
   and can be mistaken for a defect in the theorem.
+- 🟨 THE LEVI EXCITATION BOUND IS PROVED AND VACUOUS HERE, which is the finding.
+  Condition (B) gives `M(k) <= R_L` per positive profile, and
+  `binom(m,k) = binom(m,t) >= binom(2t,t) >= 2^t` with `t = min(k, m-k)` gives
+  `M(k) >= 2^delta(k)`, hence `delta(k) <= floor(log2 R_L)`. Both steps verified.
+  ❗ BUT `min(k_i, m_i-k_i) <= k_i` and `sum k_i = N` force `delta <= N`
+  UNCONDITIONALLY, so the bound says nothing while `N <= floor(log2 R_L)`. On
+  the census it can bind at 4 of 280 mechanisms and at NONE at rank 9; the
+  measured maxima of 3 are the structural ceiling `delta <= N = 3`, not a
+  finding. ❗ CONSEQUENCE: the proposed gate "audit the defect bound on the
+  rank-7 to rank-10 populations" CANNOT falsify it and should not be run as
+  evidence. At half filling the bound first bites at `d = 14`
+  (`N = 7 > 6 = floor(log2 binom(14,2))`), so the first testable systems are
+  exactly those with no data. The theorem is genuine at (20,40), cutting a
+  possible defect of 20 to 9; it just cannot be validated below its own
+  frontier. The same reading applies to the memo's post-hoc 83-mechanism check,
+  whose systems all have `N <= 5`.
 - 🟦 THE GATE LADDER IS PINNED IN THE ARTIFACT, every entry number recomputed
   rather than quoted: (13,17) computed as (4,17), 2,380 ambient to 609
   sign-control records (3.9x); (10,20) 184,756 to 1,940 (95.2x, 993 transpose

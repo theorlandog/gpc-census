@@ -34,7 +34,7 @@
      3,
      37
     ],
-    "seconds": 0.151
+    "seconds": 0.15
    }
   },
   {
@@ -54,7 +54,7 @@
      4,
      36
     ],
-    "seconds": 0.278
+    "seconds": 0.281
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 6175,
@@ -71,7 +71,7 @@
      4,
      36
     ],
-    "seconds": 0.282
+    "seconds": 0.276
    }
   },
   {
@@ -91,7 +91,7 @@
      5,
      35
     ],
-    "seconds": 0.401
+    "seconds": 0.398
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 9106,
@@ -108,7 +108,7 @@
      5,
      35
     ],
-    "seconds": 0.391
+    "seconds": 0.394
    }
   },
   {
@@ -128,7 +128,7 @@
      10,
      30
     ],
-    "seconds": 0.752
+    "seconds": 0.751
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 18106,
@@ -145,7 +145,7 @@
      10,
      30
     ],
-    "seconds": 0.775
+    "seconds": 0.759
    }
   },
   {
@@ -165,7 +165,7 @@
      20,
      20
     ],
-    "seconds": 1.144
+    "seconds": 1.112
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 22817,
@@ -182,14 +182,16 @@
      20,
      20
     ],
-    "seconds": 1.114
+    "seconds": 1.089
    }
   }
  ],
- "canonical_sha256_without_this_field_or_timings": "975d4d0751dd1f1b4aca34b6fac71f79ef73fde6e2f327e276b8294e7c1f2fe5",
+ "canonical_sha256_without_this_field_or_timings": "4d4739d7c2436f36de0783dca5e9e21da09097e712057e144c9105ad2b88db75",
  "census_validation": {
   "(3,7)": {
    "durfee_rank_bound_from_global_budget": 3,
+   "excitation_bound_can_bind": 2,
+   "excitation_bound_violations": 0,
    "largest_positive_family": 18,
    "levi_budget_range": [
     6,
@@ -198,7 +200,9 @@
    "levi_positive_family_within_budget": 25,
    "levi_positive_weight_bound_holds": 25,
    "levi_zero_weight_bound_holds": 13,
+   "max_active_zero_excitation_defect": 3,
    "max_distinct_levels": 5,
+   "max_positive_excitation_defect": 3,
    "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 25,
    "particle_number": 3,
@@ -212,6 +216,7 @@
    "regular_mechanisms": 0,
    "root_budget": 21,
    "seconds": 4.4,
+   "structural_defect_ceiling": 3,
    "system": "(3,7)",
    "uniform_bound_violations": [
     {
@@ -286,6 +291,8 @@
   },
   "(3,8)": {
    "durfee_rank_bound_from_global_budget": 3,
+   "excitation_bound_can_bind": 2,
+   "excitation_bound_violations": 0,
    "largest_positive_family": 27,
    "levi_budget_range": [
     7,
@@ -294,7 +301,9 @@
    "levi_positive_family_within_budget": 64,
    "levi_positive_weight_bound_holds": 64,
    "levi_zero_weight_bound_holds": 43,
+   "max_active_zero_excitation_defect": 3,
    "max_distinct_levels": 7,
+   "max_positive_excitation_defect": 3,
    "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 64,
    "particle_number": 3,
@@ -307,7 +316,8 @@
    "rank": 8,
    "regular_mechanisms": 0,
    "root_budget": 28,
-   "seconds": 150.9,
+   "seconds": 149.6,
+   "structural_defect_ceiling": 3,
    "system": "(3,8)",
    "uniform_bound_violations": [
     {
@@ -403,6 +413,8 @@
   },
   "(3,9)": {
    "durfee_rank_bound_from_global_budget": 3,
+   "excitation_bound_can_bind": 0,
+   "excitation_bound_violations": 0,
    "largest_positive_family": 36,
    "levi_budget_range": [
     8,
@@ -411,7 +423,9 @@
    "levi_positive_family_within_budget": 191,
    "levi_positive_weight_bound_holds": 191,
    "levi_zero_weight_bound_holds": 154,
+   "max_active_zero_excitation_defect": 3,
    "max_distinct_levels": 9,
+   "max_positive_excitation_defect": 3,
    "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 191,
    "particle_number": 3,
@@ -424,7 +438,8 @@
    "rank": 9,
    "regular_mechanisms": 3,
    "root_budget": 36,
-   "seconds": 0.5,
+   "seconds": 0.6,
+   "structural_defect_ceiling": 3,
    "system": "(3,9)",
    "uniform_bound_violations": [
     {
@@ -524,6 +539,128 @@
    "zero_weight_uniform_bound_holds": 183
   }
  },
+ "excitation_vacuity_threshold": [
+  {
+   "bound_can_bind": false,
+   "half_filling_particles": 3,
+   "log2_bound": 3,
+   "orbitals": 6
+  },
+  {
+   "bound_can_bind": false,
+   "half_filling_particles": 4,
+   "log2_bound": 4,
+   "orbitals": 8
+  },
+  {
+   "bound_can_bind": false,
+   "half_filling_particles": 5,
+   "log2_bound": 5,
+   "orbitals": 10
+  },
+  {
+   "bound_can_bind": false,
+   "half_filling_particles": 6,
+   "log2_bound": 6,
+   "orbitals": 12
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 7,
+   "log2_bound": 6,
+   "orbitals": 14
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 8,
+   "log2_bound": 6,
+   "orbitals": 16
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 9,
+   "log2_bound": 7,
+   "orbitals": 18
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 10,
+   "log2_bound": 7,
+   "orbitals": 20
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 11,
+   "log2_bound": 7,
+   "orbitals": 22
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 12,
+   "log2_bound": 8,
+   "orbitals": 24
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 13,
+   "log2_bound": 8,
+   "orbitals": 26
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 14,
+   "log2_bound": 8,
+   "orbitals": 28
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 15,
+   "log2_bound": 8,
+   "orbitals": 30
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 16,
+   "log2_bound": 8,
+   "orbitals": 32
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 17,
+   "log2_bound": 9,
+   "orbitals": 34
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 18,
+   "log2_bound": 9,
+   "orbitals": 36
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 19,
+   "log2_bound": 9,
+   "orbitals": 38
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 20,
+   "log2_bound": 9,
+   "orbitals": 40
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 21,
+   "log2_bound": 9,
+   "orbitals": 42
+  },
+  {
+   "bound_can_bind": true,
+   "half_filling_particles": 22,
+   "log2_bound": 9,
+   "orbitals": 44
+  }
+ ],
  "gate_ladder": [
   {
    "ambient_weight_count": 2380,
@@ -652,6 +789,7 @@
  "schema_version": 1,
  "verdict": {
   "corrected_zero_bound": "|down I| <= binom(d,2) + |Omega_0| holds on every mechanism tested. It is Levi-type dependent rather than diagram-only, so it does not give the same uniform Young-lattice truncation.",
+  "levi_excitation_bound": "PROVED and correct, but VACUOUS on every population this repository can test. delta <= N unconditionally, since min(k_i, m_i-k_i) <= k_i and sum k_i = N, so the bound delta <= floor(log2 R_L) says nothing while N <= that quantity. It binds at 4 of 280 census mechanisms and at none at rank 9. At half filling it first bites at d = 14.",
   "per_levi_budget": "SHARPENS the positive half and AGGRAVATES the zero half. R_L = (d^2 - sum m_i^2)/2 is the repository's own _max_inversions, so orbit_is_trace_dead already applies it. Every positive bound still holds under R_L, which is strictly smaller than binom(d,2); the zero bound fails more often under R_L than under the global budget, exactly because the budget shrinks.",
   "positive_layer_bound": "HOLDS, and needs no regularity: below a positive weight every weight is positive. Verified on every surviving mechanism at ranks 7, 8 and 9.",
   "regularity_in_the_census": "Regular mechanisms are rare: none at ranks 7 and 8, three of 191 at rank 9. The regular stratum the (20,40) counts describe is therefore not where the known mechanisms live.",

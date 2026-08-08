@@ -257,8 +257,43 @@ def test_gate_ladder_particle_hole_normalization():
         assert record["transpose"]["applies"]
 
 
+def test_excitation_bound_holds_but_is_vacuous_on_the_census():
+    """Proved and unviolated, yet it can bind at only 4 of 280 mechanisms."""
+    artifact = _artifact()["census_validation"]
+    can_bind = 0
+    total = 0
+    for record in artifact.values():
+        assert record["excitation_bound_violations"] == 0
+        assert record["max_positive_excitation_defect"] <= record[
+            "structural_defect_ceiling"
+        ]
+        can_bind += record["excitation_bound_can_bind"]
+        total += record["mechanisms"]
+    assert total == 280
+    assert can_bind == 4
+    assert artifact["(3,9)"]["excitation_bound_can_bind"] == 0
+
+
+def test_defect_is_bounded_by_particle_number_structurally():
+    """delta <= N always, which is why the log2 bound cannot bind at small N."""
+    assert MODULE.excitation_defect((1, 1, 1), [4, 4, 4]) == 3
+    assert MODULE.excitation_defect((0, 3, 0), [2, 3, 2]) == 0
+    assert MODULE.excitation_defect((2, 1), [2, 4]) == 1
+
+
+def test_excitation_bound_first_bites_at_fourteen_orbitals():
+    rows = _artifact()["excitation_vacuity_threshold"]
+    binding = [r for r in rows if r["bound_can_bind"]]
+    assert binding[0]["orbitals"] == 14
+    assert binding[0]["half_filling_particles"] == 7
+    for row in rows:
+        if row["orbitals"] <= 12:
+            assert not row["bound_can_bind"]
+
+
 def test_verdict_records_both_halves():
     verdict = _artifact()["verdict"]
     assert verdict["positive_layer_bound"].startswith("HOLDS")
     assert verdict["zero_layer_uniform_bound"].startswith("REFUTED")
     assert verdict["weighted_occupancy_profile_laws"].startswith("HOLD")
+    assert "VACUOUS" in verdict["levi_excitation_bound"]

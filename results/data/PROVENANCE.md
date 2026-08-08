@@ -1921,3 +1921,29 @@ SCOPE. The ladder exercises the weight oracle, not the architecture. No rung
 touches the Kostant inversion-diagram or birationality stages, which carry the
 minimal-facet claim and remain unrunnable here per the INCOMPLETE label in
 `docs/bdr_constructor_comparison.md`.
+
+## root_budget_boundary.json: the Levi excitation bound (2026-08-08)
+
+A fourth external memo bounds the excitation defect
+`delta(k) = sum_i min(k_i, m_i - k_i)` of every positive occupancy profile by
+`floor(log2 R_L)`. The proof is correct and both of its inequalities are
+verified here, the multiplicative one on 20,000 random profiles.
+
+THE BOUND IS VACUOUS ON EVERY POPULATION THIS REPOSITORY HAS. Since
+`min(k_i, m_i - k_i) <= k_i` and `sum_i k_i = N`, the defect satisfies
+`delta <= N` unconditionally, so the theorem says nothing whenever
+`N <= floor(log2 R_L)`. On the census the bound can bind at 4 of 280
+mechanisms and at none of the 191 at rank 9, with zero violations. The measured
+maxima of 3 are the structural ceiling `delta <= N = 3` rather than a finding
+about facets.
+
+CONSEQUENCE FOR THE PROPOSED GATE. The memo's first gate, an audit of the
+defect bound over the rank-7 to rank-10 candidate populations, cannot falsify
+the theorem and a pass would carry no information. At half filling the bound
+first bites at `d = 14`, where `N = 7 > 6 = floor(log2 binom(14,2))`, so the
+first testable systems are exactly those for which no data exists. The same
+reading applies to the memo's own post-hoc check on 83 mechanisms, whose
+systems all have `N <= 5`.
+
+The theorem itself is not disputed. At `(20,40)` it is a real constraint,
+cutting a possible defect of 20 down to 9.

@@ -235,6 +235,61 @@ reason and look like a defect in the theorem.
   be fetched or run in this environment and labels that benchmark INCOMPLETE;
   nothing in this document changes that.
 
+## The Levi excitation bound: proved, and vacuous where we can test it
+
+A fourth memo proposes bounding the excitation defect
+
+```text
+delta(k) = sum_i min(k_i, m_i - k_i)
+```
+
+of every positive occupancy profile by `floor(log2 R_L)`. The proof is correct.
+Condition (B) forces `M(k) <= R_L` for each positive profile, and
+
+```text
+binom(m_i, k_i) = binom(m_i, t_i) >= binom(2 t_i, t_i) >= 2^{t_i},
+    t_i = min(k_i, m_i - k_i)
+```
+
+so `M(k) >= 2^delta(k)` and hence `delta(k) <= floor(log2 R_L)`. Both
+inequalities are verified here, the second on 20,000 random profiles.
+
+**But the bound cannot be tested on anything this repository has.** Since
+`min(k_i, m_i - k_i) <= k_i` and `sum_i k_i = N`,
+
+```text
+delta(k) <= N        unconditionally, for every profile
+```
+
+So the theorem says nothing whenever `N <= floor(log2 R_L)`. On the census:
+
+| System | `N` | `floor(log2 R_L)` range | Mechanisms where the bound can bind | Violations | Max measured `delta` |
+| --- | ---: | --- | ---: | ---: | ---: |
+| `(3,7)` | 3 | 2 to 4 | **2 of 25** | 0 | 3 |
+| `(3,8)` | 3 | 2 to 4 | **2 of 64** | 0 | 3 |
+| `(3,9)` | 3 | 3 to 5 | **0 of 191** | 0 | 3 |
+
+276 of 280 mechanisms are vacuous, and rank 9 is entirely vacuous. The four
+non-vacuous cases pass, which is the total evidence available.
+
+The measured maxima of 3 are the structural ceiling `delta <= N = 3`, not a
+finding about facets. The same reading applies to the memo's own post-hoc check
+on 83 mechanisms: those systems have `N <= 5`, so "maximum defect 3 against a
+permitted 4 or 5" is consistent with the bound never having applied.
+
+**Consequence for the proposed gate.** The memo's first gate is "audit the
+defect bound on the complete rank-7 to rank-10 candidate populations". That
+audit cannot falsify the theorem: it is vacuous by construction at those
+particle numbers, and a pass would carry no information. At half filling the
+bound first bites at `d = 14`, since `N = 7 > 6 = floor(log2 binom(14,2))`, so
+the first testable systems are exactly the ones for which no data exists.
+
+None of this disputes the theorem. It is correct, and at `(20,40)` it is a
+genuine constraint, cutting a possible defect of 20 down to 9. It simply cannot
+be validated below the frontier it was designed for, and the audit that was
+proposed to validate it should be replaced or dropped rather than run and
+reported as a pass.
+
 ## The gate ladder, pinned in the artifact
 
 The proposed validation ladder's entry numbers are recomputed here rather than

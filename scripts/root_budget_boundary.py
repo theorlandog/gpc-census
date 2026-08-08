@@ -276,6 +276,88 @@ def profile_budget_laws(tau: tuple[int, ...], n: int) -> dict:
     }
 
 
+def excitation_defect(profile, multiplicities) -> int:
+    """Total particle-or-hole excitations away from the nearest Levi corner."""
+    return sum(
+        min(k, m - k) for k, m in zip(profile, multiplicities)
+    )
+
+
+def levi_excitation_audit(tau: tuple[int, ...], n: int) -> dict:
+    """The Levi excitation bound, and whether it can bind at this N.
+
+    THE THEOREM. Condition (B) forces ``M(k) <= R_L`` for every positive
+    profile, and ``M(k) >= 2^delta(k)`` because ``binom(m,k) = binom(m,t) >=
+    binom(2t,t) >= 2^t`` with ``t = min(k, m-k)``. Hence
+    ``delta(k) <= floor(log2 R_L)``.
+
+    THE CATCH. ``min(k_i, m_i - k_i) <= k_i`` and ``sum k_i = N``, so
+    ``delta <= N`` unconditionally. The bound therefore says nothing whenever
+    ``N <= floor(log2 R_L)``, which is the whole census.
+    """
+    counts = collections.Counter(tau)
+    levels = sorted(counts, reverse=True)
+    multiplicities = [counts[level] for level in levels]
+    d = len(tau)
+    budget = levi_budget(multiplicities, d)
+    bound = budget.bit_length() - 1 if budget else 0
+
+    profiles = occupancy_profiles(multiplicities, n)
+    grade = {
+        k: sum(levels[i] * k[i] for i in range(len(multiplicities))) for k in profiles
+    }
+    mass = {
+        k: math.prod(
+            math.comb(multiplicities[i], k[i]) for i in range(len(multiplicities))
+        )
+        for k in profiles
+    }
+    defect = {k: excitation_defect(k, multiplicities) for k in profiles}
+    positive = [k for k in profiles if grade[k] > 0]
+
+    available = set(profiles)
+    active_zero_defect = 0
+    for k in positive:
+        for i in range(len(multiplicities)):
+            for j in range(len(multiplicities)):
+                if i == j:
+                    continue
+                moved = list(k)
+                moved[i] += 1
+                moved[j] -= 1
+                candidate = tuple(moved)
+                if candidate in available and grade[candidate] == 0:
+                    active_zero_defect = max(active_zero_defect, defect[candidate])
+
+    return {
+        "levi_budget": budget,
+        "log2_bound": bound,
+        "particle_number": n,
+        "bound_can_bind": bound < n,
+        "max_positive_defect": max((defect[k] for k in positive), default=0),
+        "max_active_zero_defect": active_zero_defect,
+        "positive_defect_violations": sum(1 for k in positive if defect[k] > bound),
+        "mass_exceeds_budget": sum(1 for k in positive if mass[k] > budget),
+    }
+
+
+def excitation_vacuity_threshold(max_orbitals: int = 44) -> list[dict]:
+    """Smallest half-filled rank where the excitation bound is not vacuous."""
+    rows = []
+    for d in range(6, max_orbitals + 1, 2):
+        budget = math.comb(d, 2)
+        bound = budget.bit_length() - 1
+        rows.append(
+            {
+                "orbitals": d,
+                "half_filling_particles": d // 2,
+                "log2_bound": bound,
+                "bound_can_bind": d // 2 > bound,
+            }
+        )
+    return rows
+
+
 GATE_LADDER = (((13, 17), (4, 17)), ((10, 20), (10, 20)), ((15, 30), (15, 30)),
                ((20, 40), (20, 40)))
 
@@ -403,6 +485,10 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
     profile_positive_law = 0
     profile_zero_law = 0
     profile_mass_matches = 0
+    excitation_can_bind = 0
+    excitation_violations = 0
+    max_excitation = 0
+    max_active_zero_excitation = 0
 
     for key in surviving_mechanisms(n, d, source, checkpoint_dir=checkpoint_dir):
         mechanisms += 1
@@ -453,6 +539,14 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
             measured_durfee = max(
                 measured_durfee, durfee_rank(subset_to_partition(member, n))
             )
+        excitation = levi_excitation_audit(tau, n)
+        if excitation["bound_can_bind"]:
+            excitation_can_bind += 1
+        excitation_violations += excitation["positive_defect_violations"]
+        max_excitation = max(max_excitation, excitation["max_positive_defect"])
+        max_active_zero_excitation = max(
+            max_active_zero_excitation, excitation["max_active_zero_defect"]
+        )
         laws = profile_budget_laws(tau, n)
         if laws["positive_law_holds"]:
             profile_positive_law += 1
@@ -499,6 +593,11 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
         "levi_positive_weight_bound_holds": levi_positive_bound,
         "levi_zero_weight_bound_holds": levi_zero_bound,
         "measured_max_durfee_rank_of_positive_weights": measured_durfee,
+        "excitation_bound_can_bind": excitation_can_bind,
+        "excitation_bound_violations": excitation_violations,
+        "max_positive_excitation_defect": max_excitation,
+        "max_active_zero_excitation_defect": max_active_zero_excitation,
+        "structural_defect_ceiling": n,
         "profile_positive_law_holds": profile_positive_law,
         "profile_zero_law_holds": profile_zero_law,
         "profile_mass_matches_weight_count": profile_mass_matches,
@@ -570,6 +669,7 @@ def main() -> int:
         "boundary_layers": layers,
         "census_validation": census,
         "levi_budget_identity": levi_budget_matches_repository(),
+        "excitation_vacuity_threshold": excitation_vacuity_threshold(),
         "gate_ladder": [
             gate_ladder_record(system, effective) for system, effective in GATE_LADDER
         ],
@@ -592,6 +692,14 @@ def main() -> int:
                 "Regular mechanisms are rare: none at ranks 7 and 8, three of "
                 "191 at rank 9. The regular stratum the (20,40) counts describe "
                 "is therefore not where the known mechanisms live."
+            ),
+            "levi_excitation_bound": (
+                "PROVED and correct, but VACUOUS on every population this "
+                "repository can test. delta <= N unconditionally, since "
+                "min(k_i, m_i-k_i) <= k_i and sum k_i = N, so the bound "
+                "delta <= floor(log2 R_L) says nothing while N <= that "
+                "quantity. It binds at 4 of 280 census mechanisms and at none "
+                "at rank 9. At half filling it first bites at d = 14."
             ),
             "weighted_occupancy_profile_laws": (
                 "HOLD, 280 of 280, on both branches. These repair the "
