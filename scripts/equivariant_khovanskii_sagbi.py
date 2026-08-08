@@ -119,25 +119,67 @@ def hw_support(n: int, d: int, m: int, deadline: float | None = None):
     return out
 
 
-def semigroup(n: int, d: int, max_m: int, budget: float, log=print):
-    """Return `(levels, reached, status, secs)` for `S(n,d)` up to `max_m`."""
+def _cache_paths(cache: pathlib.Path | None, n: int, d: int):
+    if cache is None:
+        return None, None
+    cache.mkdir(parents=True, exist_ok=True)
+    return cache / f"levels_{n}_{d}.json", cache / f"spent_{n}_{d}.json"
+
+
+def semigroup(n: int, d: int, max_m: int, budget: float, log=print,
+              cache: pathlib.Path | None = None):
+    """Return `(levels, reached, status, secs)` for `S(n,d)` up to `max_m`.
+
+    The budget is CUMULATIVE compute, not wall clock of one process. Levels are
+    exact and deterministic, so a cached level is replayed for free on a
+    resumed run, and the seconds actually spent producing new levels are
+    carried across resumes in the cache. Enforcing the budget against that
+    running total is what keeps a restarted run inside the declared scope
+    instead of silently buying more degrees every time it is relaunched.
+    """
+    levels_path, spent_path = _cache_paths(cache, n, d)
     levels: dict[int, dict[tuple[int, ...], int]] = {}
-    started = time.time()
-    deadline = started + budget
-    reached = 0
+    spent = 0.0
+    if levels_path is not None and levels_path.exists():
+        stored = json.loads(levels_path.read_text())
+        levels = {int(m): {tuple(row["lam"]): row["mult"] for row in rows}
+                  for m, rows in stored.items()}
+        spent = json.loads(spent_path.read_text())["seconds"] if \
+            spent_path.exists() else 0.0
+        if levels:
+            log(f"  ({n},{d}) resumed from cache: degrees <= {max(levels)}, "
+                f"{spent:.1f}s already spent")
+
+    def persist() -> None:
+        if levels_path is None:
+            return
+        levels_path.write_text(json.dumps(
+            {str(m): [{"lam": list(lam), "mult": mult}
+                      for lam, mult in sorted(level.items())]
+             for m, level in levels.items()}))
+        spent_path.write_text(json.dumps({"seconds": round(spent, 1)}))
+
+    reached = max(levels) if levels else 0
     for m in range(1, max_m + 1):
-        if time.time() > deadline:
+        if m in levels:
+            reached = m
+            continue
+        if spent >= budget:
             break
-        level = hw_support(n, d, m, deadline)
+        started = time.time()
+        level = hw_support(n, d, m, started + (budget - spent))
+        spent += time.time() - started
         if level is None:
             log(f"  ({n},{d}) m={m}: abandoned on budget, level discarded")
+            persist()
             break
         levels[m] = level
         reached = m
-        log(f"  ({n},{d}) m={m}: |S_m|={len(level)} "
-            f"[{time.time() - started:.1f}s]")
+        persist()
+        log(f"  ({n},{d}) m={m}: |S_m|={len(level)} [{spent:.1f}s cumulative]")
+    persist()
     status = "complete" if reached == max_m else "operational"
-    return levels, reached, status, round(time.time() - started, 1)
+    return levels, reached, status, round(spent, 1)
 
 
 # --------------------------------------------------------------------------
@@ -503,17 +545,32 @@ def leading_values(basis, kernel, key) -> list[tuple[int, ...]]:
 
 
 def term_order_semigroup(n: int, d: int, max_m: int, budget: float, name: str,
-                         log=print):
+                         log=print, cache: pathlib.Path | None = None):
     """Value semigroup of the term-order valuation `name`, with a gate count."""
     subs = subsets(n, d)
     index_of = {s: i for i, s in enumerate(subs)}
     key = order_key(name, subs)
     levels: dict[int, set] = {}
     gate_ok, gate_total = 0, 0
+    path = None
+    if cache is not None:
+        cache.mkdir(parents=True, exist_ok=True)
+        path = cache / f"term_{name}_{n}_{d}.json"
+        if path.exists():
+            stored = json.loads(path.read_text())
+            levels = {int(m): {tuple(v) for v in values}
+                      for m, values in stored["levels"].items()}
+            gate_ok, gate_total = stored["gate_ok"], stored["gate_total"]
+            if levels:
+                log(f"  ({n},{d}) {name} resumed from cache: "
+                    f"degrees <= {max(levels)}")
     started = time.time()
     deadline = started + budget
-    reached = 0
+    reached = max(levels) if levels else 0
     for m in range(1, max_m + 1):
+        if m in levels:
+            reached = m
+            continue
         if time.time() > deadline:
             break
         support = hw_support(n, d, m, deadline)
@@ -539,6 +596,11 @@ def term_order_semigroup(n: int, d: int, max_m: int, budget: float, name: str,
             break
         levels[m] = here
         reached = m
+        if path is not None:
+            path.write_text(json.dumps({
+                "levels": {str(k): [list(v) for v in sorted(value)]
+                           for k, value in levels.items()},
+                "gate_ok": gate_ok, "gate_total": gate_total}))
         log(f"  ({n},{d}) {name} m={m}: |values|={len(here)} "
             f"[{time.time() - started:.1f}s]")
     status = "complete" if reached == max_m else "operational"
@@ -640,6 +702,10 @@ def main() -> int:
                         help="short budgets for a smoke run; not the scored scope")
     parser.add_argument("--out", type=pathlib.Path, default=OUT,
                         help="write elsewhere; used to smoke-test the verifier")
+    parser.add_argument("--cache", type=pathlib.Path, default=None,
+                        help="resume from and write exact level checkpoints; "
+                             "the per-system budget stays cumulative across "
+                             "resumes, so a restart never buys extra degrees")
     args = parser.parse_args()
 
     v2_max = 8 if args.quick else V2_MAX_M
@@ -673,7 +739,8 @@ def main() -> int:
     raw_levels: dict = {}
     gens_by_system: dict = {}
     for n, d in v2_systems:
-        levels, reached, status, secs = semigroup(n, d, v2_max, v2_budget)
+        levels, reached, status, secs = semigroup(
+            n, d, v2_max, v2_budget, cache=args.cache)
         as_sets = {m: set(levels[m]) for m in levels}
         generators, violations = minimal_generators(as_sets, reached)
         raw_levels[(n, d)] = (as_sets, reached)
@@ -754,7 +821,7 @@ def main() -> int:
         for n, d in v13_systems:
             cap = V13_MAX_M[(n, d)]
             levels, reached, status, ok, total, secs = term_order_semigroup(
-                n, d, cap, v13_budget, name)
+                n, d, cap, v13_budget, name, cache=args.cache)
             generators, violations = minimal_generators(levels, reached)
             width = math.comb(d, n)
             term_rows.append(summarize(name, levels, reached, generators, reached,
