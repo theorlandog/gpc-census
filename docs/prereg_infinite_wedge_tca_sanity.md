@@ -198,5 +198,25 @@ science. P3 is scored but carries the ALREADY-KNOWN flag under R4.
 
 ## SCORED (2026-08-08, after running; predictions above are unedited)
 
-See `docs/infinite_wedge_tca_bridge.md`, section 7, and the `scorecard` block
-of `results/data/infinite_wedge_tca_sanity.json`.
+| prediction | verdict | scope | independent scope | measured |
+| --- | --- | --- | --- | --- |
+| P1 three routes agree | PASS | 93 pairs | 13 vertices | 93 of 93, 0 mismatches, 45 pairs with the Weyl route recomputed here |
+| P2 convention is load bearing | PASS | 93 pairs | 13 vertices | a wrong convention differs at 77 of 93 pairs |
+| P3 semigroup is not saturated | PASS | 14 vertices | 13 vertices | exactly the 4 predicted period-`2q` vertices |
+| P4 zero padding preserves validity above rank 6 | **FAIL** | 162 rows | 5 pairs | valid 4/4, 10/31, 44/52, 8/15, 19/60 at the five pairs above rank 6 |
+| P5 restriction is complete | PASS | 169 rows | 6 pairs | 6 of 6 pairs, 0 rows unimplied |
+| P6 no template saturation | PASS | 181 rows | 4 pairs | new symmetric templates 1, 1, 8, 6, 9 at `N = 3` |
+| P7 symmetric arity strictly increases | **FAIL** | 181 rows | 5 systems | 3, 4, 7, 7, 8 at `d = 6..10`; it repeats at 7 |
+
+P4 is the campaign's result and its expectation was wrong: the disclosed
+nesting at the 7 to 8 pair is the exception, not the rule. P7's FAIL is
+informative rather than fatal to its purpose: arity plateaus locally while
+growing overall, so the sharp question is the trend, not monotonicity.
+
+One POST-HOC block was added after P4 failed, clearly labeled as such in the
+artifact and in section 5 of the note: whether SOME order-preserving embedding
+carries a row up when the trailing one does not. It does not rescue P4; rows
+with no valid embedding at all exist at five of the six pairs.
+
+Full narrative: `docs/infinite_wedge_tca_bridge.md`, section 7, and the
+`scorecard` block of `results/data/infinite_wedge_tca_sanity.json`.

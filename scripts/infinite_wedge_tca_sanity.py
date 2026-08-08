@@ -424,6 +424,71 @@ def block_padding(ladders: list[list[tuple[int, int]]]) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# D2. every order-preserving embedding, not just the trailing one (POST-HOC)
+# ---------------------------------------------------------------------------
+
+def block_insertion(ladders: list[list[tuple[int, int]]]) -> dict:
+    """Is SOME order-preserving embedding valid, when the trailing one is not?
+
+    POST-HOC. This block was added after block D refuted zero padding, and is
+    not pre-registered. Zero padding is the single embedding
+    `[d] -> [d+1]`, `i -> i`, so a row that names the last orbital by position
+    is being asked to name a different orbital after padding. The honest
+    ordered-category question is whether ANY of the `d+1` order-preserving
+    injections carries the row, which is exactly the OI action on rows.
+    """
+    pairs = []
+    for n, d, d2 in consecutive_pairs(ladders):
+        ineqs, _ = published_rows(n, d)
+        verts = census_vertices(n, d2)
+        rows = []
+        for coeffs, rhs in ineqs:
+            valid_positions = []
+            for gap in range(d2):
+                embedded = list(coeffs[:gap]) + [0] + list(coeffs[gap:])
+                if all(sum(Fraction(c) * x for c, x in zip(embedded, v)) <= rhs
+                       for v in verts):
+                    valid_positions.append(gap)
+            rows.append({
+                "coeffs": coeffs, "rhs": rhs,
+                "valid_insertion_positions": valid_positions,
+                "some_embedding_is_valid": bool(valid_positions),
+                "trailing_embedding_is_valid": (d2 - 1) in valid_positions,
+            })
+        lower_images = set()
+        for coeffs, rhs in ineqs:
+            for gap in range(d2):
+                embedded = list(coeffs[:gap]) + [0] + list(coeffs[gap:])
+                lower_images.add(_normalize(embedded, rhs))
+        higher_ineqs, _ = published_rows(n, d2)
+        oi_derived = sum(1 for c, b in higher_ineqs
+                         if _normalize(c, b) in lower_images)
+        pairs.append({
+            "from": f"({n},{d})", "to": f"({n},{d2})",
+            "rows_tested": len(rows),
+            "rows_with_some_valid_embedding":
+                sum(1 for r in rows if r["some_embedding_is_valid"]),
+            "rows_with_no_valid_embedding":
+                [r for r in rows if not r["some_embedding_is_valid"]],
+            "every_row_has_some_valid_embedding":
+                all(r["some_embedding_is_valid"] for r in rows),
+            "higher_rows": len(higher_ineqs),
+            "higher_rows_that_are_oi_images_of_a_lower_row": oi_derived,
+            "higher_rows_genuinely_new_under_oi": len(higher_ineqs) - oi_derived,
+            "evidence": "exact",
+            "rows": rows,
+        })
+    return {
+        "what": "does SOME order-preserving embedding carry a published row up "
+                "one rank, when the trailing one does not, and how much of the "
+                "higher system is an OI image of the lower one",
+        "status": "POST-HOC, added after block D refuted zero padding; not "
+                  "pre-registered and not scored",
+        "pairs": pairs,
+    }
+
+
+# ---------------------------------------------------------------------------
 # E. restriction down the rank ladder
 # ---------------------------------------------------------------------------
 
@@ -510,6 +575,55 @@ def block_templates(systems: list[tuple[int, int]]) -> dict:
             "binom(d,a) * a! members. Unbounded arity is therefore the first "
             "observable symptom that no finite template list exists"),
         "per_system": per_system,
+    }
+
+
+# ---------------------------------------------------------------------------
+# G. what a template list would cost at rank 20 and rank 40 (PROJECTION)
+# ---------------------------------------------------------------------------
+
+def block_cost_projection(n: int = 3, d: int = 10,
+                          targets=(11, 12, 20, 40)) -> dict:
+    """Instance counts if the rank-`d` templates were the whole template list.
+
+    PROJECTION, not a prediction. It answers one question exactly: SUPPOSING the
+    missing templating theorem held with exactly the symmetric templates
+    observed at rank `d`, how many candidate rows would a constructor have to
+    consider at rank 20 and rank 40? An arity-`a` template with repeated
+    coefficients has `binom(D,a) * a! / prod(mult!)` ordered instances at rank
+    `D`, because the ordered chamber distinguishes arrangements.
+    """
+    from math import comb, factorial
+
+    ineqs, _ = published_rows(n, d)
+    templates = sorted({symmetric_template(c, b) for c, b in ineqs})
+    rows = []
+    for coeffs, rhs in templates:
+        arity = len(coeffs)
+        repeats = 1
+        for value in set(coeffs):
+            repeats *= factorial(coeffs.count(value))
+        arrangements = factorial(arity) // repeats
+        rows.append({
+            "template": list(coeffs), "rhs": rhs, "arity": arity,
+            "distinct_arrangements": arrangements,
+            "instances": {str(D): comb(D, arity) * arrangements for D in targets},
+        })
+    totals = {str(D): sum(r["instances"][str(D)] for r in rows) for D in targets}
+    return {
+        "what": "candidate-row count at higher rank IF the rank-%d symmetric "
+                "templates were the complete template list" % d,
+        "status": "PROJECTION, not a prediction, and an underestimate of the "
+                  "template list by construction: new templates appear at every "
+                  "rank measured",
+        "source_system": f"({n},{d})",
+        "templates": len(templates),
+        "per_template": rows,
+        "total_candidate_rows": totals,
+        "comparison": "the orbit-canonical enumerator reaches 10,004,154 "
+                      "admissible hyperplanes at (3,9) and did not finish (3,11) "
+                      "before streaming was added, so a candidate count above "
+                      "about 1e8 is not obviously an improvement",
     }
 
 
@@ -612,18 +726,29 @@ def main() -> int:
                          "the two-route check")
     ap.add_argument("--quick", action="store_true",
                     help="skip the recovery block, which dominates the runtime")
+    ap.add_argument("--reuse", action="store_true",
+                    help="reuse the convention and recovery blocks of an "
+                         "existing artifact instead of recomputing them")
     ap.add_argument("-o", "--out", default=str(OUT))
     args = ap.parse_args()
 
     started = time.time()
+    cached = (json.loads(pathlib.Path(args.out).read_text())
+              if args.reuse and pathlib.Path(args.out).exists() else None)
+
     print("A. convention ...", flush=True)
-    convention = block_convention(args.weyl_max_k, args.weyl_budget)
+    convention = (cached["convention"] if cached
+                  else block_convention(args.weyl_max_k, args.weyl_budget))
     print(f"   {convention['pairs']} pairs, all agree: {convention['all_agree']}",
           flush=True)
 
     print("B. recovery ...", flush=True)
-    recovery = ({"what": "skipped (--quick)", "systems": [], "all_recovered": None}
-                if args.quick else block_recovery())
+    if cached:
+        recovery = cached["recovery"]
+    elif args.quick:
+        recovery = {"what": "skipped (--quick)", "systems": [], "all_recovered": None}
+    else:
+        recovery = block_recovery()
     for rec in recovery["systems"]:
         print(f"   {rec['system']}: {rec['generated_points']} points, "
               f"hull equals polytope: {rec['hull_equals_polytope']}", flush=True)
@@ -639,6 +764,15 @@ def main() -> int:
         print(f"   {pair['from']} -> {pair['to']}: valid "
               f"{pair['rows_still_valid']}/{pair['rows_tested']}", flush=True)
 
+    print("D2. order-preserving embeddings (post-hoc) ...", flush=True)
+    insertion = block_insertion([LADDER_N3, LADDER_N4])
+    for pair in insertion["pairs"]:
+        print(f"   {pair['from']} -> {pair['to']}: some embedding valid for "
+              f"{pair['rows_with_some_valid_embedding']}/{pair['rows_tested']}, "
+              f"higher rows new under OI "
+              f"{pair['higher_rows_genuinely_new_under_oi']}/{pair['higher_rows']}",
+              flush=True)
+
     print("E. restriction ...", flush=True)
     restriction = block_restriction([LADDER_N3, LADDER_N4])
     for pair in restriction["pairs"]:
@@ -652,6 +786,11 @@ def main() -> int:
               f"{rec['distinct_symmetric_templates']} symmetric templates, "
               f"max arity {rec['max_symmetric_arity']}", flush=True)
 
+    print("G. cost projection ...", flush=True)
+    projection = block_cost_projection()
+    print(f"   candidate rows if the (3,10) templates were complete: "
+          f"{projection['total_candidate_rows']}", flush=True)
+
     payload = {
         "generated_by": "scripts/infinite_wedge_tca_sanity.py",
         "prereg": "docs/prereg_infinite_wedge_tca_sanity.md",
@@ -664,8 +803,10 @@ def main() -> int:
         "recovery": recovery,
         "saturation": saturation,
         "padding": padding,
+        "insertion_post_hoc": insertion,
         "restriction": restriction,
         "templates": templates,
+        "cost_projection": projection,
         "scorecard": scorecard(convention, recovery, saturation,
                                padding, restriction, templates),
         "wall_secs": round(time.time() - started, 1),
