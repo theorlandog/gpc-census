@@ -210,4 +210,40 @@ such.
 
 ## SCORED (2026-08-08, after running; predictions above are unedited)
 
-Filled in by the run. See `docs/bdr_constructor_comparison.md`.
+Artifact: `results/data/bdr_constructor_comparison.json`. Narrative:
+`docs/bdr_constructor_comparison.md`. Machine:
+`Linux-6.18.5-fc-v20-x86_64`, CPython 3.14.0rc2, single worker.
+
+| id | verdict | scope | independent scope | measured |
+|---|---|---|---|---|
+| P1 | PASS | 36 rows | 3 systems | 36 of 36 `certified`, every certificate replayed and bound |
+| P2 | PASS | 2 systems | 2 | oriented `tau` sets equal both ways at `(3,7)` and `(3,8)` |
+| P3 | PASS | 2 systems | 2 | 0 of 4 and 0 of 31 rows removed |
+| P4 | PASS | 1 | 1 | oracle total 0.98 s at `(3,8)` |
+| P5 | **FAIL** | 1 | 1 | enumeration share 0.391, not above 0.5 |
+| P6 | PASS | 1 | 1 | oracle ceiling 16.38x at `(3,8)` |
+
+`(3,6)` scores under P1 only. The composition layer guards ranks 7 through 13,
+so rank 6 has no composition stage to reduce or time, and it is excluded from
+P2 through P6 with the reason recorded in the artifact rather than dropped.
+
+### P5, the failed prediction, recorded as a finding
+
+The prediction was taken from `docs/orbit_native_constructor.md`, which states
+that orbit enumeration "is now the dominant stage". At `(3,8)` on this machine
+it is not: enumeration 6.25 s, screening 7.64 s, composition 2.11 s, so
+screening dominates and enumeration is 39.1 percent. Three runs gave 0.380,
+0.394 and 0.391, so the failure is not measurement noise.
+
+That document's measurement was taken on a different machine, where the same
+construction cost 66.0 s against 16.00 s here. Multi-machine results are
+reported per machine and never averaged, so this is not a refutation of it. The
+status is OPEN: the "enumeration dominates" claim does not reproduce here and
+needs re-measuring on the original machine before it is quoted again.
+
+### Added after scoring, and labelled as such
+
+The birationality-prefilter path in the artifact was added AFTER the six
+predictions were scored, and carries `added_after_scoring: true`. It is a
+measured quantity, not a retro-fitted prediction, and no prediction above was
+edited to accommodate it.

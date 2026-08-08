@@ -379,6 +379,14 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- bdr_constructor_comparison.md: the external-constructor comparison. Bounds
+  what any external candidate generator can remove under the local
+  certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
+  published rows of `(3,6)`, `(3,7)` and `(3,8)`, and labels the benchmark
+  INCOMPLETE because the pinned backend cannot be fetched or run.
+  Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
+  artifact bdr_constructor_comparison.json; guard test
+  tests/test_bdr_constructor_comparison.py.
 - quantization_character.md: the follow-up that closed the period question.
   The quantization period is the order of a finite isotropy character of the
   certified attainer, matched at 14 of 14 vertices. Pre-registration in
@@ -994,6 +1002,60 @@ plethysm criterion feed Problem 7 below.
 - bracket_3_12_stage0_inner.json: the (3,12) exact-plethysm inner cloud
   (scripts/plethysm_inner_hull.py); cloud-extremality is not vertexhood
   until convergence.
+
+## External constructor comparison: Bulois-Denis-Ressayre (2026-08-08)
+
+The question was whether the Bulois-Denis-Ressayre fixed-representation
+moment-cone algorithm (arXiv:2505.08812; code `ea-icj/moment_cone` pinned at
+`7ab347d9a7837d68d92bde9fac74606913f395ca`) can remove exact work from the
+constructor. It cannot be answered by running it here: the code host, the
+landing page, arXiv and HAL are all refused by the session egress policy, the
+package is not on PyPI, and it needs SageMath. The benchmark is labelled
+INCOMPLETE and no external runtime or candidate count is recorded anywhere.
+
+🟦 CONFIRMED, and this is what settles the practical question anyway. Under the
+standing rule that every published row carries a locally replayed certificate,
+the speedup available to ANY external candidate generator was bounded by direct
+measurement at `(3,8)`: 1.82x for a free and perfect birationality prefilter,
+6.27x if its candidate generation were also free, against a circular
+oracle-handed-the-answer figure of 16.38x. The 6.27x is the non-circular bound,
+because no generator can know which certified rows survive reduction without
+running the reduction. RECOMMENDATION: do not integrate, do not spend another
+sprint at ranks 7 and 8.
+[docs/bdr_constructor_comparison.md; docs/prereg_bdr_constructor_comparison.md;
+results/data/bdr_constructor_comparison.json;
+tests/test_bdr_constructor_comparison.py]
+
+🟦 CONFIRMED, 36 rows across 3 systems: every published nonstructural row of
+`(3,6)`, `(3,7)` and `(3,8)` converts to primitive `tau`, screens `certified`,
+replays and binds its certificate, and matches a local orbit. External output
+is usable as candidates here, and no external verdict is taken on citation.
+
+🔬 OPEN, and it is a correction to a shipped claim.
+`docs/orbit_native_constructor.md` states that orbit enumeration "is now the
+dominant stage". At `(3,8)` on this machine it is not: enumeration 6.25 s,
+screening 7.64 s, composition 2.11 s, so enumeration is 39.1 percent across
+three stable runs. That document measured 66.0 s for the same construction
+against 16.00 s here, so this is a different machine, not a refutation, and
+multi-machine results are never averaged. Re-measure on the original machine
+before quoting the claim again.
+
+🔬 OPEN trend, two points, explicitly NOT a statement about all `d`: the oracle
+ceiling FALLS from 21.41x at rank 7 to 16.38x at rank 8 while the row-reduction
+ratio rises from 137 to 213. The mechanism is that the oracle path is itself
+dominated by composition, which scales with the retained facet count (1, 4, 31,
+52, 93 at ranks 6 to 10). Smallest next experiment: the same three-path split at
+`(3,9)`, one run of an already-written script.
+
+Correspondence, from the in-repo call-graph audit in
+`docs/fixed_n3_generator_methodology.md` as a SECONDARY source, not a fresh
+source read: the two algorithms genuinely agree on the trace stage, where BDR's
+`List_Inv_Ws_Mod` and the local direct survivor generator are both inversion-set
+enumerations, and that is already the local pipeline's fastest stage. They
+differ on candidate generation (1-PS versus closed flats), admissibility
+(`is_sub_module` versus affine rank), and determinant handling (their
+birationality filter versus exact fail-closed certification). Neither algorithm
+claims anything uniform in `d`.
 
 ## Adjacent literature to respect
 
