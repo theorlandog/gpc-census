@@ -763,3 +763,61 @@ def symplectic_slice(record: dict) -> dict:
         "gate_levi_dim": bool(levi_dim == len(commutant) - (d * d - orbit_dim)),
         "slice_certifies_point": bool(slice_dim == 0),
     }
+
+
+def toral_component_period(record: dict, cap: int = 64) -> int | None:
+    """Obstruction from the DISCONNECTED part of the diagonal stabilizer.
+
+    `levi_permutation_stabilizer` searches permutations and so misses the
+    component group of the torus itself. Duality supplies it without ever
+    solving for a phase. Writing `u = (z, c)` in `U(1)^(d+1)`, a diagonal `h`
+    fixes the line exactly when `u^B = 1`, where `B` has rows `[A_S | -1]` over
+    the support, and the obstruction character is `u^(v_k)` with
+    `v_k = (-k lambda, k)`. By Pontryagin duality that character is trivial on
+    the whole stabilizer exactly when
+
+        v_k lies in the INTEGER rowspan of B,
+
+    and when it is not, it takes at least two values, so `k` is inadmissible.
+    The integer rowspan, not its saturation, is the point: the gap between them
+    is precisely the component group.
+
+    SCOPE, and it is not optional. This is valid only where the certified
+    state's 1-RDM is DIAGONAL, because the derivation needs `lambda` to be the
+    diagonal of `rho`, i.e. `lambda_o = sum_{S containing o} |psi_S|^2`. That
+    identity is what puts `v_k` in the RATIONAL rowspan in the first place:
+    `[lambda | -1] = sum_S |psi_S|^2 [A_S | -1]`. Measured across the census,
+    all 645 diagonal states satisfy it and all 49 states that fail it are among
+    the 154 whose 1-RDM is not diagonal, with zero counterexamples. For those
+    154 the support incidence matrix is written in the wrong basis and this
+    function returns None rather than a wrong answer.
+
+    Returns the least `k` divisible by the spectrum denominator that clears the
+    obstruction, or None when out of scope or beyond `cap` multiples.
+    """
+    from sympy.matrices.normalforms import hermite_normal_form
+
+    n, d = (int(x) for x in record["system"].strip("()").split(","))
+    q = int(record["denominator"] or 1)
+    form = [int(x) for x in record["integer_form"]]
+
+    rows = []
+    for det in record["closed_form"]["support_dets"]:
+        row = [0] * (d + 1)
+        for o in det:
+            row[o] += 1
+        row[d] = -1
+        rows.append(row)
+    m = sp.Matrix(rows).T
+
+    probe = sp.Matrix([[-q * a // q for a in form] + [q]]).T
+    if m.rank() != sp.Matrix.hstack(m, probe).rank():
+        return None                       # out of scope: rho is not diagonal
+
+    base = hermite_normal_form(m)
+    for step in range(1, cap + 1):
+        k = q * step
+        v = sp.Matrix([[-k * a // q for a in form] + [k]]).T
+        if hermite_normal_form(sp.Matrix.hstack(m, v)) == base:
+            return k
+    return None

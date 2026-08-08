@@ -158,6 +158,18 @@ results/data/quantization_multiplicities.json]
   in the artifact's `unfinished` field.
   [docs/symplectic_slice.md; docs/prereg_symplectic_slice.md;
   results/data/symplectic_slices.json]
+- ❗ CORRECTION (2026-08-08), and a new characterization of DESIGN-REAL. The
+  permutation-only isotropy search missed the component group of the diagonal
+  stabilizer. By duality the obstruction is that `v_k = (-k lambda, k)` must
+  lie in the INTEGER rowspan of the rows `[A_S | -1]`; the gap to its
+  saturation is the component group. It fires at exactly 12 of 750 in-scope
+  vertices and those 12 are EXACTLY the DESIGN-REAL class, whole and nothing
+  else, joining "all 12 are simplicial" as a second geometric characterization
+  of that class. Seven predicted periods rise from q to 2q. Nothing earlier was
+  false: a subgroup can only under-predict, so the old numbers were lower
+  bounds and remain so. Ratio again always 1 or 2. ⚠️ Valid only for diagonal
+  1-RDMs; all 49 out-of-scope states are non-diagonal, zero counterexamples.
+  [results/data/toral_component_obstruction.json; docs/quantization_character.md]
 - ⚠️ NOT CLAIMED: `dim M_lambda` from symplectic reduction. First-order tangent
   rank is vacuous at these ranks (`ker d(mu)` has dimension at least
   `2*binom(d,n) - d^2` for trivial reasons; the (3,6) Slater vertex, whose

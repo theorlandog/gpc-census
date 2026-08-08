@@ -117,6 +117,36 @@ matters and is not cosmetic:
 So the honest reading of the table is a rigorous lower bound in the
 divisibility order at 799 vertices, promoted to an equality at 14 of them.
 
+## CORRECTION (2026-08-08): the permutations were not the whole isotropy
+
+The search above covered lambda-preserving PERMUTATIONS only, and flagged that
+as the assumption the 785 unverified rows rest on. Attacking it found a real
+gap: the DISCONNECTED part of the diagonal stabilizer carries its own
+obstruction, and permutations cannot see it.
+
+Duality gives it with no phase-solving. Writing `u = (z, c)`, a diagonal
+element fixes the line exactly when `u^B = 1` with `B` the rows `[A_S | -1]`,
+and the obstruction character `u^(v_k)`, `v_k = (-k lambda, k)`, is trivial on
+the whole stabilizer exactly when `v_k` lies in the INTEGER rowspan of `B`. The
+gap between that lattice and its saturation IS the component group.
+
+It fires at exactly **12** of the 750 in-scope vertices, and those twelve are
+exactly the census's **DESIGN-REAL class**, all of it and nothing else. Seven
+of the 799 predicted periods are raised from `q` to `2q`; the other five were
+already flagged. The ratio is again 1 or 2 and never anything else.
+
+Nothing shipped earlier was false. A subgroup can only under-predict, so the
+permutation-only periods were lower bounds in the divisibility order and remain
+so; at seven vertices they were simply not tight. The corrected column is
+`combined_predicted_period` in `results/data/toral_component_obstruction.json`.
+
+SCOPE, established by measurement rather than assumed: the derivation needs
+`lambda_o = sum_{S containing o} |psi_S|^2`, so it is valid only where the
+1-RDM is diagonal. All 645 diagonal states satisfy the resulting rational-span
+condition; all 49 that fail it are among the 154 non-diagonal states, zero
+counterexamples. Those are marked out of scope. Closing them needs an exact
+natural-orbital form, which the census currently ships only numerically.
+
 ## What this does and does not settle
 
 Settled on this population: the period is not a property of the spectrum. Two
