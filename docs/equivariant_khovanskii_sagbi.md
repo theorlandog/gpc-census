@@ -9,7 +9,25 @@ import: `scripts/verify_equivariant_khovanskii_sagbi_standalone.py`.
 
 ## Result
 
-RESULT_HEADLINE
+NO-GO, with witnesses rather than with a budget. The highest-weight semigroup
+of `wedge^3 C^d` has a small, finite, degree-bounded generating set at `d = 6`
+and at NO larger rank in scope. In the common window `m <= 11` the minimal
+generator count runs 5, 29, 160, 340, 605 at `d = 6, 7, 8, 9, 10`, the
+primitive part (generators a lower rank cannot supply by padding) runs 3, 24,
+131, 180, 265, and from `d = 8` on the number of NEW generators is still
+strictly rising at the last degree the window reaches, 36, 85 and 175
+respectively. `(3,6)` is the only system whose generators stop: max degree 4,
+and its held-out degree test PASSES. Every other system fails held-out
+generation, in degree and in rank, and no tested valuation repairs it.
+
+Read through Agent B's specialization lemma the statement sharpens. Those are
+exact counts of minimal generators OF THE STABLE MONOID `Sigma_3^stab` under
+its length filtration, so any generating set of `Sigma_3^stab` has at least 605
+elements of degree `<= 11`, and a uniform bound on these counts is EQUIVALENT
+to finite generation of the stable monoid. The measured growth is therefore a
+direct attack on that finite generation, and it is exactly the "no uniformity
+in `d`" gap that Agent B's dependency table records against every theorem in
+the intended toolkit.
 
 ## The algebra and semigroup tested
 
@@ -119,11 +137,49 @@ is called one anywhere in this campaign.
 
 ## Scorecard
 
-SCORECARD_TABLE
+Nine predictions, scored from the artifact alone, unedited since `5d206c1`.
+
+| # | Prediction | Verdict | Scope | Independent scope |
+| --- | --- | --- | ---: | ---: |
+| P0 | kernel dimension equals plethysm multiplicity (code gate) | PASS | 292 weight spaces | gate, not evidence |
+| P1 | primitive generator count bounded in `d` | **FAIL** | 5 systems, `m <= 11` | 3, 24, 131, 180, 265 |
+| P2 | max generator degree at most `d - 2` | **FAIL** | 5 systems | holds at `(3,6)` only |
+| P3 | padding is an exact equality | PASS | 4 rank steps | bookkeeping gate |
+| P4 | particle-hole preserves the semigroup | PASS | 951 values, 3 self-dual systems | 3 systems |
+| P5 | held-out degrees generate | **FAIL** 7 of 8 | 8 systems | `(3,6)` PASS alone |
+| P6 | held-out rank generates | **FAIL** 4 of 4 | 4 rank steps | 24 to 265 misses |
+| P7 | `v1` and `v3` agree on generator count | **FAIL** | 3 systems | 6 vs 5, 15 vs 14, 15 vs 15 |
+| P8 | no term order beats `v2` on compression ratio | **FAIL** | 3 systems | see below |
+| P9 | realized multiples match the measured quantization period | PASS | 14 vertices | 14 |
+
+P8 FAILED, and the failure is a defect in the PREDICTION, not a finding about
+the mathematics. `v3` scores 0.0769 against `v2` at 0.082 at `(3,6)` and 0.2692
+against 0.2745 at `(3,7)`. Both have the SAME generator count there, 5 and 14;
+the ratio moves only because its denominator counts values, and a finer
+valuation splits one weight into as many values as its multiplicity, inflating
+the denominator. The ratio is the wrong statistic and P8 should have been
+written on the generator count, where `v3` ties `v2` at all three systems and
+`v1` is worse at two. Recorded as a FAIL rather than reinterpreted, per
+standing rule R5.
+
+P2's failure needs its own caveat, because the number that fails it is not a
+measurement of anything. At `(3,7)` and above the largest generator degree
+EQUALS the window, so the window ran out before the generators did; the
+artifact flags every such row with `generator_degree_saturates_window`. Only
+`(3,6)`, at max degree 4 against a window of 11, has an established bound.
 
 ## Rank growth: the headline table
 
 <!-- sync:khovanskii-rank-growth:start -->
+Common degree window `m <= 11`, all values exact.
+
+| System | Raw values | Minimal generators | Primitive | Primitive / raw |
+| --- | ---: | ---: | ---: | ---: |
+| `(3,6)` | 145 | 5 | 3 | 0.0207 |
+| `(3,7)` | 593 | 29 | 24 | 0.0405 |
+| `(3,8)` | 1284 | 160 | 131 | 0.102 |
+| `(3,9)` | 2205 | 340 | 180 | 0.0816 |
+| `(3,10)` | 3114 | 605 | 265 | 0.0851 |
 <!-- sync:khovanskii-rank-growth:end -->
 
 ## The three valuations compared
@@ -132,6 +188,17 @@ Reported on a fixed table rather than by narrative, and the winner is not
 chosen on the training set.
 
 <!-- sync:khovanskii-valuations:start -->
+| Valuation | System | Degrees | Status | Raw values | Minimal generators | Max generator degree | Compression |
+| --- | --- | ---: | --- | ---: | ---: | ---: | ---: |
+| `v1` | `(3,6)` | `m <= 8` | complete | 65 | 6 | 6 | 0.0923 |
+| `v1` | `(3,7)` | `m <= 6` | operational | 52 | 15 | 6 | 0.2885 |
+| `v1` | `(3,8)` | `m <= 5` | complete | 34 | 15 | 5 | 0.4412 |
+| `v2` | `(3,6)` | `m <= 12` | operational | 145 | 5 | 4 | 0.0345 |
+| `v2` | `(3,7)` | `m <= 11` | operational | 593 | 29 | 11 | 0.0489 |
+| `v2` | `(3,8)` | `m <= 11` | operational | 1284 | 160 | 11 | 0.1246 |
+| `v3` | `(3,6)` | `m <= 8` | complete | 65 | 5 | 4 | 0.0769 |
+| `v3` | `(3,7)` | `m <= 6` | operational | 52 | 14 | 6 | 0.2692 |
+| `v3` | `(3,8)` | `m <= 5` | complete | 34 | 15 | 5 | 0.4412 |
 <!-- sync:khovanskii-valuations:end -->
 
 ## The held-out degree test
@@ -141,6 +208,16 @@ degrees `K+1` and `K+2`. The fit degree was fixed in the pre-registration
 before any generator was computed.
 
 <!-- sync:khovanskii-held-out:start -->
+| System | Fit `m <=` | Test degrees | Fitted generators | Misses | Verdict |
+| --- | ---: | --- | ---: | ---: | --- |
+| `(3,6)` | 6 | 7, 8 | 5 | 0 | PASS |
+| `(3,7)` | 6 | 7, 8 | 14 | 13 | FAIL |
+| `(3,8)` | 6 | 7, 8 | 26 | 50 | FAIL |
+| `(3,9)` | 6 | 7, 8 | 37 | 102 | FAIL |
+| `(3,10)` | 6 | 7, 8 | 44 | 160 | FAIL |
+| `(4,8)` | 4 | 5, 6 | 10 | 34 | FAIL |
+| `(4,10)` | 4 | 5, 6 | 18 | 107 | FAIL |
+| `(5,10)` | 3 | 4, 5 | 9 | 67 | FAIL |
 <!-- sync:khovanskii-held-out:end -->
 
 SPURIOUS PREDICTIONS ARE EMPTY BY CONSTRUCTION on this test and are recorded
@@ -151,11 +228,107 @@ CAN over-predict is the saturation model below, and it does.
 
 ## The transports (Task 3)
 
-TRANSPORTS_SECTION
+**Padding, and it is exact.** `Gen(3,d) intersect {lambda_d = 0} = Gen(3,d-1)`
+holds at all four rank steps, at 5, 29, 160 and 340 inherited generators. This
+is a theorem twice over: elementarily, because coordinates are nonnegative so a
+sum with last coordinate zero has both summands with last coordinate zero; and
+as a corollary of Agent B's specialization lemma. It is also forced by the
+implementation, since the multiplicity of `s_lambda` in `h_m[e_n]` does not
+mention `d` once `ell(lambda) <= d`. So P3 is a BOOKKEEPING GATE and is not
+offered as evidence for anything.
+
+**Particle-hole, and it is a real test.** `lambda -> (m - lambda_d, ..., m -
+lambda_1)` is a self-map exactly when `2n = d`, because `wedge^n C^d` is its own
+dual twisted by `det` there and not otherwise. At the three self-dual systems
+in scope it holds with zero failures on 951 values: `(3,6)` 189, `(4,8)` 446,
+`(5,10)` 316. Unlike padding this is not forced by the code, since the two
+sides are separate Murnaghan-Nakayama evaluations. The other five systems are
+recorded NOT_APPLICABLE with the reason, because the complement lands in
+`(d-n,d)`, a different algebra that is not in scope.
+
+**Frozen-core lifting and ordered embeddings** are not separately tested here.
+Agent B's campaign covers the embedding direction and refutes covariant
+functoriality on facets while proving the contravariant restriction; nothing in
+this campaign contradicts either, and the padding result above is the monoid
+shadow of their restriction statement.
+
+**After removing inherited elements**, the primitive generator counts are 3,
+24, 131, 180 and 265. Padding therefore explains a shrinking share of the
+generators as rank grows, not a growing one: the inherited fraction is 40
+percent at `(3,7)` and 56 percent at `(3,10)`, but the absolute number of
+generators that padding CANNOT supply grows monotonically at every step.
 
 ## The obstruction (Task 6)
 
-OBSTRUCTION_SECTION
+The brief lists six candidate obstructions. The measurement selects two of
+them, excludes three, and leaves the sixth partly open.
+
+**NEW GENERATORS AT EVERY DEGREE. Selected.** Generators by degree, `(3,d)`,
+`m = 1..11`:
+
+| `d` | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 6 | 1 | 1 | 1 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 7 | 1 | 1 | 2 | 3 | 3 | 4 | 5 | 3 | 2 | 2 | 3 |
+| 8 | 1 | 1 | 2 | 4 | 7 | 11 | 16 | 22 | 28 | 32 | 36 |
+| 9 | 1 | 1 | 2 | 5 | 9 | 19 | 31 | 47 | 62 | 78 | 85 |
+| 10 | 1 | 1 | 2 | 5 | 10 | 25 | 45 | 79 | 108 | 154 | 175 |
+
+`(3,6)` stops at degree 4. Every other row is nonzero at every degree tested,
+and from `d = 8` the row is strictly increasing throughout, so the supply of
+new generators is accelerating rather than tailing off at the window edge.
+
+**NEW GENERATORS AT EVERY RANK. Selected, with explicit witnesses.** Fitting at
+rank `d` and predicting rank `d+1` by padding misses 24, 131, 180 and 265
+generators at the four steps. The lowest-degree witness at each step, which is
+a generator of `Sigma_3^stab` that no smaller rank contains:
+
+| step | degree | witness `lambda` |
+| --- | ---: | --- |
+| `(3,6) -> (3,7)` | 3 | `(3,1,1,1,1,1,1)` |
+| `(3,7) -> (3,8)` | 4 | `(3,2,2,1,1,1,1,1)` |
+| `(3,8) -> (3,9)` | 4 | `(4,1,1,1,1,1,1,1,1)` |
+| `(3,9) -> (3,10)` | 5 | `(4,2,2,1,1,1,1,1,1,1)` |
+
+**VALUATION INCOMPATIBILITY WITH EMBEDDINGS. Excluded.** Padding is an exact
+equality at every step, and both term orders were built to restrict correctly
+along `C^d subset C^{d+1}`. The failure is not a convention bug, which is what
+the abort criterion asked to be distinguished.
+
+**MULTIPLICITY LOST BY THE VALUATION. Excluded as the cause.** `v2` does
+collapse multiplicity spaces, and the run confirms it, with maximum
+multiplicity reaching 47 at `(3,10)`. But `v1` and `v3` retain multiplicity
+exactly, and on the matched window they produce the SAME or MORE generators, 5
+and 6 against `v2`'s 5 at `(3,6)`, 14 and 15 against 14 at `(3,7)`, 15 and 15
+against 15 at `(3,8)`. Refining the valuation cannot help, and not merely
+empirically: refining can only split a value, hence can only enlarge the value
+semigroup and weakly increase its minimal generating set.
+
+**NON-FINITE GENERATION OF THE SAMPLED SEMIGROUP. Excluded at fixed `d`, and
+now the live question at `d = infinity`.** Each `Sigma_{N,d}` IS finitely
+generated by Hadziev-Grosshans. What the data attacks is finite generation of
+the STABLE monoid: by the corollary above, a finite generating set `G` for
+`Sigma_3^stab` would bound every rank's minimal generator count by `|G|`
+uniformly, and the measured counts rise without flattening.
+
+**COMPUTATIONAL BUDGET ONLY. Excluded.** The separation appears at the smallest
+ranks in scope, where the computation is complete and cheap: `(3,6)` versus
+`(3,7)` is already the difference between 5 generators stopping at degree 4 and
+29 generators still arriving at degree 11. No larger budget can turn 29 back
+into 5.
+
+**AND A SEPARATE STRUCTURAL FINDING: THE SEMIGROUP IS NOT SATURATED, EVERYWHERE.**
+The one model in this campaign that CAN over-predict is the saturated model,
+which posits every lattice point of the cone. It over-predicts at all eight
+systems, 5, 9, 14, 20, 25, 10, 16 and 7 spurious values. The smallest witness
+is `(2, (1,1,1,1,1,1))` at `(3,6)`: `2 * lambda` lies in the semigroup at
+degree 4 while `lambda` does not lie in it at degree 2. That is the Borland-
+Dennis vertex, and it is the semigroup face of the quantization period 4 that
+`docs/quantization_character.md` explains as an isotropy character. So any
+compression scheme that models the semigroup by its cone is wrong before rank
+enters the picture, and P9 confirms the connection quantitatively: the realized
+multiples match the independently measured quantization period at 14 of 14
+vertices.
 
 ## What is NOT proved
 
@@ -189,17 +362,59 @@ Integration text for the shared ledgers, to be applied on the integration
 commit after rebasing onto the latest `main`, per the parallel-work discipline
 in the agent pack README.
 
-MERGE_NOTES_BODY
+Ledgers touched on integration, all regenerated rather than hand-edited:
+`results/data/SHA256SUMS` (new artifact), `results/data/PROVENANCE.md` (new
+block), `docs/RESEARCH.md` (one tagged finding with artifact pointers).
+`scripts/emit_doc_tables.py` gains three builders so no count in this note is
+typed twice; run `make emit` after any rerun.
+
+For `docs/RESEARCH.md`, under the source-documents list:
+
+> equivariant_khovanskii_sagbi.md: THE HIGHEST-WEIGHT SEMIGROUP DOES NOT
+> COMPRESS ACROSS RANK. 🟦 CONFIRMED in the window `m <= 11`: minimal
+> generators of `S(3,d)` run 5, 29, 160, 340, 605 at `d = 6..10` and the
+> primitive part runs 3, 24, 131, 180, 265, so `(3,6)` is the only system whose
+> generators stop, at degree 4. ❌ The preregistered rank-stabilization,
+> held-out-degree and held-out-rank predictions all FAIL, with explicit new
+> generators at every degree and every rank. ❗ Via Agent B's specialization
+> lemma these are minimal generators of the STABLE monoid under its length
+> filtration, so a uniform bound is equivalent to finite generation of
+> `Sigma_3^stab` and the growth attacks it directly. ❗ Refining the valuation
+> cannot repair this: `v1` and `v3` retain the multiplicities `v2` loses and
+> produce the same or more generators. 🟦 The semigroup is NOT SATURATED at all
+> eight systems, the smallest witness being `(2,(1,1,1,1,1,1))` at `(3,6)`,
+> which is the semigroup face of the quantization period the character campaign
+> explains. 🔬 Unbounded growth is MEASURED over five ranks, not proved.
 
 ## Final answer
 
 ```text
-ALGEBRA/SEMIGROUP TESTED:      FINAL_ALGEBRA
-VALUATIONS TESTED:             FINAL_VALUATIONS
-BEST COMPRESSION RATIO:        FINAL_COMPRESSION
-HELD-OUT RESULT:               FINAL_HELDOUT
-NEW GENERATOR OBSTRUCTION:     FINAL_OBSTRUCTION
-STABLE-BASIS CONJECTURE OR REFUTATION: FINAL_CONJECTURE
-RANK-20/RANK-40 IMPLICATION:   FINAL_RANK
-GO/NO-GO:                      FINAL_GONOGO
+ALGEBRA/SEMIGROUP TESTED:      Sym(wedge^N C^d)^U, the highest-weight algebra; its
+                               weight semigroup S(n,d), which is Agent B's
+                               Sigma_{N,d}. Preferred target, not the fallback.
+VALUATIONS TESTED:             three: highest weight (v2), graded lex on
+                               Pluecker monomials (v1), graded revlex in
+                               exterior colex order (v3). GT not computed,
+                               exact obstruction recorded.
+BEST COMPRESSION RATIO:        5 generators from 145 values at (3,6), the only
+                               system that compresses. 605 from 3114 at
+                               (3,10) and still rising at the window edge.
+HELD-OUT RESULT:               FAIL. Degree: 7 of 8 systems miss, (3,6) alone
+                               passes. Rank: 4 of 4 steps miss, 24 to 265
+                               generators, with named witnesses.
+NEW GENERATOR OBSTRUCTION:     new generators at EVERY degree and at EVERY rank,
+                               simultaneously. Not embeddings, not lost
+                               multiplicity, not budget.
+STABLE-BASIS CONJECTURE OR REFUTATION: REFUTATION. No stable finite basis is visible.
+                               Sharper: a uniform generator bound is
+                               equivalent to finite generation of
+                               Sigma_3^stab, and the counts attack it.
+RANK-20/RANK-40 IMPLICATION:   none, and that is the point. Nothing here
+                               extrapolates to rank 20 or 40; the growth over
+                               d = 6..10 forecloses the compression route
+                               rather than projecting it.
+GO/NO-GO:                      NO-GO. Abort criterion met: held-out failure is
+                               systematic across ranks, not a convention bug.
+                               Do not spend another sprint on a Khovanskii
+                               presentation of this algebra.
 ```

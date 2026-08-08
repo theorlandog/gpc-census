@@ -448,6 +448,46 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- equivariant_khovanskii_sagbi.md: THE HIGHEST-WEIGHT SEMIGROUP DOES NOT
+  COMPRESS ACROSS RANK, a pre-registered NO-GO with witnesses rather than a
+  budget. Target is the weight semigroup of `Sym(wedge^n C^d)^U`, which is the
+  `Sigma_{N,d}` of infinite_wedge_tca_bridge.md in the other pair order and the
+  same pinned convention. 🟦 CONFIRMED in the window `m <= 11`: minimal
+  generators of `S(3,d)` run 5, 29, 160, 340, 605 at `d = 6..10` with primitive
+  part 3, 24, 131, 180, 265, so `(3,6)` is the ONLY system whose generators
+  stop, at degree 4, and it is the only one whose held-out degree test passes.
+  From `d = 8` the count of new generators is still strictly RISING at the last
+  degree reached (36, 85, 175), so the supply accelerates rather than tails off.
+  ❌ The pre-registered rank-stabilization, degree-bound, held-out-degree and
+  held-out-rank predictions all FAIL, each with named witnesses; the lowest-
+  degree new generator at each rank step is recorded in the doc. ❗ THE COUNTS
+  ARE ABOUT THE STABLE MONOID: by the specialization lemma of
+  infinite_wedge_tca_bridge.md, the minimal generators of `Sigma_N^stab` with
+  `ell <= d` are EXACTLY those of `Sigma_{N,d}` (proof in the doc), so a
+  uniform bound on these counts is equivalent to finite generation of
+  `Sigma_3^stab` and the measured growth attacks it directly. This is the "no
+  uniformity in `d`" gap that campaign's dependency table records against
+  Hadziev-Grosshans, Vergne-Walter and Bulois-Denis-Ressayre alike.
+  ❗ REFINING THE VALUATION CANNOT REPAIR IT, and not just empirically: a
+  refinement can only split a value, so it can only enlarge the value semigroup.
+  Measured on a matched window, the two Pluecker term orders give the same or
+  MORE generators than the highest-weight valuation (5 and 6 against 5; 14 and
+  15 against 14; 15 and 15 against 15). Term order does matter, which refutes
+  the pre-registered P7. 🟦 THE SEMIGROUP IS NOT SATURATED at all eight systems;
+  the smallest witness is `(2,(1,1,1,1,1,1))` at `(3,6)`, where `2*lambda` is
+  realized at degree 4 and `lambda` is not realized at degree 2. That is the
+  Borland-Dennis vertex, and it is the semigroup face of the quantization
+  period 4 that quantization_character.md explains as an isotropy character;
+  the realized multiples match the independently measured period at 14 of 14
+  vertices. So any scheme that models the semigroup by its CONE is wrong before
+  rank enters. ⚠️ Gelfand-Tsetlin was NOT tested, with an exact obstruction
+  recorded rather than a budget excuse, so "no valuation compresses" is not the
+  claim. 🔬 Unbounded growth is MEASURED over five ranks, not proved.
+  [docs/prereg_equivariant_khovanskii_sagbi.md;
+  scripts/equivariant_khovanskii_sagbi.py;
+  results/data/equivariant_khovanskii_sagbi.json;
+  scripts/verify_equivariant_khovanskii_sagbi_standalone.py;
+  tests/test_equivariant_khovanskii_sagbi.py]
 - infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
   theorem-dependency graph in machine-readable form. Answers the question of
   whether one `GL_infinity` object recovers every finite-rank moment polytope
