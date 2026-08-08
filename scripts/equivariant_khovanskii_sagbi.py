@@ -572,7 +572,20 @@ def padding_report(gens_by_system: dict, n: int, ranks: list[int],
 
 def particle_hole_report(levels: dict[int, dict], n: int, d: int,
                          reached: int) -> dict:
-    """`lambda -> (m - lambda_d, ..., m - lambda_1)` must preserve `S(n,d)`."""
+    """`lambda -> (m - lambda_d, ..., m - lambda_1)` carries `S(n,d)` to `S(d-n,d)`.
+
+    It is a SELF-map only when `2n = d`, because
+    `wedge^n C^d` is `(wedge^n C^d)^*` twisted by `det` exactly there. At every
+    other system the complement lands in a different algebra, which is not in
+    scope, so the row is NOT_APPLICABLE and is never counted as a failure.
+    Running the self-map anyway and reporting its mismatches would report the
+    definition of the transport as if it were a defect.
+    """
+    if 2 * n != d:
+        return {"system": f"({n},{d})", "self_dual": False,
+                "verdict": "NOT_APPLICABLE", "checked": 0, "failures": 0,
+                "reason": f"the complement lands in ({d - n},{d}), not in scope",
+                "witnesses": []}
     checked, failures = 0, []
     for m in range(1, reached + 1):
         here = set(levels[m])
@@ -581,8 +594,10 @@ def particle_hole_report(levels: dict[int, dict], n: int, d: int,
             checked += 1
             if dual not in here:
                 failures.append([m, list(lam), list(dual)])
-    return {"system": f"({n},{d})", "checked": checked,
-            "failures": len(failures), "witnesses": failures[:5]}
+    return {"system": f"({n},{d})", "self_dual": True,
+            "verdict": "PASS" if not failures else "FAIL",
+            "checked": checked, "failures": len(failures),
+            "witnesses": failures[:5]}
 
 
 # --------------------------------------------------------------------------
@@ -607,6 +622,11 @@ def summarize(name: str, levels, reached, generators, window: int,
         "minimal_generators": len(inside),
         "primitive_generators": (len(primitive) if primitive is not None else None),
         "max_generator_degree": max((g[0] for g in inside), default=0),
+        # A maximum generator degree equal to the window is NOT a bound: it
+        # says the window ran out before the generators did. Only a strict
+        # inequality here establishes that the generating set is finished.
+        "generator_degree_saturates_window":
+            max((g[0] for g in inside), default=0) == window,
         "compression_ratio": (round(len(inside) / raw, 4) if raw else None),
         "generators_by_degree": {
             str(m): sum(1 for g in inside if g[0] == m) for m in range(1, window + 1)
@@ -728,6 +748,7 @@ def main() -> int:
 
     # ---- V1 and V3, the term-order valuations -----------------------------
     term_rows, term_gate, term_closure, term_heldout, term_raw = [], [], [], [], []
+    term_data: dict = {}
     for name in ("v1", "v3"):
         print(f"{name} term-order valuation")
         for n, d in v13_systems:
@@ -750,6 +771,7 @@ def main() -> int:
             test = [m for m in (fit + 1, fit + 2) if m <= reached]
             term_heldout.append({"system": f"({n},{d})", "valuation": name}
                                 | held_out(generators, levels, fit, test, width))
+            term_data[((n, d), name)] = (levels, reached, generators)
             term_raw.append({
                 "system": f"({n},{d})", "valuation": name, "reached": reached,
                 "value_width": width,
@@ -759,6 +781,22 @@ def main() -> int:
             })
     payload["v1_v3_by_system"] = term_rows
     payload["raw_term_order"] = term_raw
+    # A fair comparison needs the SAME degree window on all three valuations.
+    # The term orders stop earlier than the highest-weight side, so quoting
+    # each at its own reach would credit v2 with degrees v1 and v3 never saw.
+    matched = []
+    for (n, d), name in sorted(term_data, key=lambda k: (k[1], k[0])):
+        levels, reached, generators = term_data[((n, d), name)]
+        entry = v2.get((n, d))
+        if entry is None:
+            continue
+        window = min(reached, entry["reached"])
+        matched.append(summarize("v2", entry["levels"], entry["reached"],
+                                 entry["generators"], window, n, d,
+                                 weights=True))
+        matched.append(summarize(name, levels, reached, generators, window,
+                                 n, d, weights=False))
+    payload["valuation_comparison_matched_window"] = matched
     payload["hw_dimension_gate"] = term_gate
     payload["term_order_closure_gate"] = term_closure
     payload["held_out_degree_term_orders"] = term_heldout
