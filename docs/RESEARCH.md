@@ -574,6 +574,17 @@ plethysm criterion feed Problem 7 below.
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- rank9_compression_audit.md: THE DECISIVE TEST, run. Regenerates the rank-7
+  and rank-8 population gates the previous bundle could only re-read, exactly,
+  then classifies the complete rank-9 population: 135,343 trace survivors, 371
+  Hall-feasible. 🟦 The at-most-one-hole conjecture gets its first non-vacuous
+  test, because rank 9 is the first rank with multi-hole survivors at all, and
+  Hall rejects all 5,310 of them. 🟦 The rank-9 onset is confirmed on the
+  complete population, 3 nonvanishing one-hole rows against 0 at rank 8, and
+  they are exactly the bounded search's three certificates. Artifact
+  rank9_compression_audit.json; verifier
+  scripts/verify_rank9_compression_audit.py; guard test
+  tests/test_rank9_compression_audit.py.
 - levi_fusion_pilot.md: the discovery phase over (3,7), (3,8), (4,8). Refutes
   "primitive if and only if multi-sector" in BOTH directions (all four primitive
   (3,7) rows have fusion rank 1; every nonstructural (4,8) row has fusion rank 2
@@ -1426,19 +1437,77 @@ tests/test_mechanism_grammar_synthesis.py]
   maximum fusion ranks and maximum level counts directly from
   `results/data/ordered_representation_stability.json`, which closes the
   provenance gap left by the standalone verifier's embedded input rows.
-- 🔬 NEXT DECISIVE TEST: the same streaming full-population audit at rank 9,
-  where the onset is predicted and one-hole rows are already known to survive.
-  Falsifiers, in priority order: a Hall-feasible normal with two or more holes
-  anywhere; a published facet outside the at-most-one-hole grammar; two
-  nonstructural placements with equal labeled singleton incidence but different
-  normals; fast width growth on the rank-9 rejected population; a
-  determinant-nonzero one-hole candidate at rank 7 or 8, which would move the
-  onset below 9 and break the reconciliation.
+- 🟦 THE RANK-9 TEST IS RUN, and it is the first NON-VACUOUS confirmation of
+  the conjecture. See the section below.
 - This program is logically INDEPENDENT of the global no-go results above. The
   Khovanskii/SAGBI campaign refutes a uniform generating set for the stable
   highest-weight semigroup across `d`; this one asks whether each fixed system's
   normals come from a small local grammar. The refutation there does not touch
   the conjecture here.
+
+## The rank-9 full-population audit (2026-08-08)
+
+The decisive test the frontier section names, run, plus the closure of the
+scope gap it declared. `N = 3`, ranks 7 to 9, complete populations.
+[docs/rank9_compression_audit.md; results/data/rank9_compression_audit.json;
+scripts/rank9_compression_audit.py;
+scripts/verify_rank9_compression_audit.py;
+tests/test_rank9_compression_audit.py]
+
+- 🟦 THE SCOPE GAP IS CLOSED. The rank-7 and rank-8 population gates that
+  `full_rank78_compression_audit.json` could only re-read are now regenerated
+  from the repository's own machinery and agree EXACTLY, column by column:
+  549 and 6,607 survivors, 547 and 6,605 nonstructural, Hall 75/474 and
+  193/6,414, hole distributions, singleton signature counts, the optimal width
+  distributions including the 2,393 Hall zeros at width four, and the identical
+  seven one-hole `tau` rows. Orbit counts 35 and 109 and trace-dead counts 10
+  and 45 also reproduce screening_orbit_structure.md and
+  direct_survivor_generation.md.
+- 🟦 AND THE CONJECTURE'S FIRST REAL TEST PASSES. This is the finding, and it is
+  a change in the KIND of evidence. At ranks 7 and 8 there are ZERO multi-hole
+  survivors, so Hall was never asked the question and at-most-one-hole was
+  nearly vacuous on the full population. Rank 9 is the first rank where
+  multi-hole rows exist, and they are not scarce: hole distribution
+  `{0: 83885, 1: 46148, 2: 1227, 3: 4083}`, so 5,310 multi-hole survivors.
+  HALL REJECTS EVERY ONE. Hall-feasible holes at rank 9 are `{0: 339, 1: 32}`.
+  The three-hole rows OUTNUMBER the two-hole rows, 4,083 to 1,227, so this is
+  not a thin boundary that Hall might clip by accident.
+- 🟦 THE ONSET IS CONFIRMED ON THE COMPLETE POPULATION. One-hole Hall-feasible
+  rows and how many have nonzero tangent determinant: 0 and 0 at `(3,7)`, 7 and
+  **0** at `(3,8)`, 32 and **3** at `(3,9)`. Rank 9 is where a one-hole row
+  first survives to a nonzero determinant, so exact progressions are complete
+  through rank 8 and incomplete from rank 9, now MEASURED rather than inferred.
+- 🟦 THE BOUNDED WINDOW MISSED NOTHING AT RANK 9, a much stronger statement
+  about that window than the trial could make: the three nonvanishing rows of
+  the complete population are exactly, as a set, the three modular certificates
+  the `[-5,5]` search found.
+- 🟦 EVERY VERDICT IS A PROOF, 39 of 39. Modular evaluation runs first (a
+  nonzero residue proves nonvanishing over the integers) and exact signed
+  expansion runs only when every sample vanishes, which is the CHEAP case
+  because the expansion prunes to empty as soon as a level cancels. 36 rows
+  proved identically zero, 3 proved nonzero, 0 undecided. ❗ An earlier pass with
+  an exact-expansion size cutoff left four size-21 rows undecided on all-zero
+  sampling; they are now proved zero, and the cutoff is gone.
+- 🟦 INCIDENCE INJECTIVITY AT 20x THE POPULATION: 135,341 nonstructural rank-9
+  survivors, 135,341 distinct labeled singleton signatures, zero collisions.
+  Still measured injectivity on finite sets, still not a theorem.
+- 🟦 WIDTH GROWS BY ONE PER RANK: maximum optimal fusion width 3, 4, 5 at ranks
+  7, 8, 9. ❗ The caveat is UNCHANGED and must travel with the numbers: the
+  rank-9 population is 99.7 percent Hall zeros with the same width profile, so
+  small width still selects nothing.
+- ❗ HOW RANK 9 BECAME REACHABLE, since the audit is mostly an assembly of three
+  existing results: the trace test factors as `inv(sigma h) == B` with `B` an
+  `S_d` invariant; `enumerate_orbits_by_augmentation` reaches rank 9 with 231
+  unoriented top orbits, 455 oriented sorted-`tau` orbits here; and
+  `generate_trace_survivors` is output linear. 264 of the 455 orbits are killed
+  by `orbit_is_trace_dead` before an arrangement is built, and the rank-9 pass
+  costs 25 seconds against about 20 million oriented rows never visited.
+- 🔬 STILL OPEN. `N = 3` only, so the published one-hole mechanisms at `(4,9)`,
+  `(4,10)` and `(5,10)` are outside this population. Hall plus a nonzero
+  determinant are necessary conditions in this pipeline, not facetness, and no
+  `(3,9)` facet system is produced. The next population that could break the
+  conjecture is rank 10, where the augmentation enumerator reports 1,337 top
+  orbits.
 
 ## Adjacent literature to respect
 
