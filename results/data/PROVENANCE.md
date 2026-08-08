@@ -1848,3 +1848,32 @@ Where it applies the vertex set is closed and `V = V_fix + 2 V_pair` holds:
 POLAR DUALITY is deliberately not built: the two polar count identities are
 equivalent to the irredundancy and vertex-rank tests already performed, so
 constructing the polar would re-derive them from the same data.
+
+## root_budget_boundary.json: follow-up memo checks (2026-08-08)
+
+A second external memo (`frontier_orbital_stress.md`) proposes per-Levi
+budgets, a Durfee-rank bound and half-filling transpose orbits. All are checked
+in the same artifact.
+
+TRANSPOSE ORBITS reproduce exactly on the sign-control universe: 993, 4,249 and
+11,478 orbits at `(10,20)`, `(15,30)` and `(20,40)`, from universes of 1,940,
+8,409 and 22,817 with 46, 89 and 139 self-conjugate diagrams.
+
+THE DURFEE BOUND is correct and, unlike the zero layer, survives the refutation
+above: a diagram with Durfee square `r` contains the `r x r` square so its
+subdiagram count is at least `binom(2r,r)`, and the resulting `r <= 4,4,5,5` is
+the same whether the budget is `binom(d,2)` or `binom(d,2)+1`. The measured
+maximum Durfee rank of a positive weight on the census is 2 against a bound
+of 3.
+
+THE PER-LEVI BUDGET IS ALREADY IMPLEMENTED HERE. `R_L = (d^2 - sum m_i^2)/2` is
+`gpc_census.generation.orbit_canonical._max_inversions`, verified identical on
+400 random Levi types, and it is what `orbit_is_trace_dead` applies. It is
+therefore not a refinement to add but the sharp form the survivor generator has
+been using.
+
+AND IT CUTS BOTH WAYS. A smaller budget is a stronger claim on both sides. The
+positive half survives the tightening at 280 of 280 for both the family size
+and every positive weight; the zero half degrades from 22 failures out of 280
+under the global budget to 70 out of 280 under `R_L`. Adopting the per-Levi
+budget is correct and it widens the sign-control gap rather than closing it.

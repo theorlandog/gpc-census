@@ -118,11 +118,59 @@ function of the diagram alone and so supports one universal truncation; the
 corrected version needs a budget computed per Levi type. That is still
 implementable, and it degrades exactly where the zero-grade module is large.
 
+## The follow-up memo: per-Levi budget, Durfee rank, transpose orbits
+
+A second memo (`frontier_orbital_stress.md`) proposes four refinements. All are
+reproduced here; three are correct and one has a consequence its author does not
+draw.
+
+**Transpose orbits, confirmed exactly.** At half filling the sign-control
+universe is closed under partition transpose, since the subdiagram count is
+transpose invariant. Recomputed from scratch:
+
+| System | Sign-control universe | Self-conjugate | Transpose orbits | Claimed |
+| --- | ---: | ---: | ---: | ---: |
+| `(10,20)` | 1,940 | 46 | 993 | 993 |
+| `(15,30)` | 8,409 | 89 | 4,249 | 4,249 |
+| `(20,40)` | 22,817 | 139 | 11,478 | 11,478 |
+
+**The Durfee bound is correct, and it survives the zero-layer refutation.** A
+diagram with Durfee square `r` contains the `r x r` square, so its subdiagram
+count is at least `binom(2r,r)`, giving `binom(2r,r) <= budget`. That yields
+`r <= 4, 4, 5, 5` at `(13,17)`, `(10,20)`, `(15,30)`, `(20,40)`. Crucially the
+answer is the same whether the budget is `binom(d,2)` or `binom(d,2)+1`, so
+this claim does not depend on the zero-layer bound refuted above. On the census
+the measured maximum Durfee rank of a positive weight is 2 at all three ranks,
+against a bound of 3, so the fixed-width Frobenius encoding is sound with room.
+
+**The per-Levi budget is already in the repository.** The memo proposes
+replacing `binom(d,2)` by `R_L = sum_{i<j} m_i m_j = (d^2 - sum m_i^2)/2`. That
+is exactly `gpc_census.generation.orbit_canonical._max_inversions`, verified
+identical on 400 random Levi types, and it is what `orbit_is_trace_dead`
+already applies. So this is not a refinement to implement; it is the sharp form
+the survivor generator has been using, which is independent evidence that the
+budget is the right quantity.
+
+**And the per-Levi budget cuts both ways, which the memo does not say.** It
+strictly sharpens the positive half and strictly aggravates the zero half,
+because a smaller budget is a stronger claim on both sides:
+
+| System | `R_L` range | Positive family `<= R_L` | Positive weights `<= R_L` | Zero weights `<= R_L + 1` | (global budget was) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `(3,7)` | 6 to 19 | 25/25 | 25/25 | **13/25** | 21/25 |
+| `(3,8)` | 7 to 27 | 64/64 | 64/64 | **43/64** | 54/64 |
+| `(3,9)` | 8 to 36 | 191/191 | 191/191 | **154/191** | 183/191 |
+
+The positive half survives the tightening everywhere. The zero half degrades
+from 22 failures out of 280 to 70 out of 280. So adopting the per-Levi budget
+is right, and it makes the sign-control claim worse rather than better.
+
 ## What this means for the proposed architecture
 
 - The positive-layer truncation stands and is the strongest part of the memo.
   A candidate's positive side at `(20,40)` genuinely lives in 15,359 weights.
-- Sign control does **not** follow at the stated strength. The zero weights
+- Sign control does **not** follow at the stated strength, and the per-Levi
+  refinement widens rather than closes that gap. The zero weights
   carry the tangent-matrix variables, and the uniform bound that was supposed
   to fence them is false off the regular stratum. Any implementation should use
   the per-Levi-type budget, or work with occupancy profiles in the Levi

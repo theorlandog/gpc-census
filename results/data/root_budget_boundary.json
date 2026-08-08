@@ -17,7 +17,7 @@
      3,
      37
     ],
-    "seconds": 0.18
+    "seconds": 0.178
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 3075,
@@ -34,7 +34,7 @@
      3,
      37
     ],
-    "seconds": 0.182
+    "seconds": 0.179
    }
   },
   {
@@ -54,7 +54,7 @@
      4,
      36
     ],
-    "seconds": 0.34
+    "seconds": 0.336
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 6175,
@@ -71,7 +71,7 @@
      4,
      36
     ],
-    "seconds": 0.329
+    "seconds": 0.401
    }
   },
   {
@@ -91,7 +91,7 @@
      5,
      35
     ],
-    "seconds": 0.468
+    "seconds": 0.466
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 9106,
@@ -108,7 +108,7 @@
      5,
      35
     ],
-    "seconds": 0.457
+    "seconds": 0.476
    }
   },
   {
@@ -128,7 +128,7 @@
      10,
      30
     ],
-    "seconds": 0.87
+    "seconds": 0.916
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 18106,
@@ -145,7 +145,7 @@
      10,
      30
     ],
-    "seconds": 0.88
+    "seconds": 0.925
    }
   },
   {
@@ -165,7 +165,7 @@
      20,
      20
     ],
-    "seconds": 1.284
+    "seconds": 1.298
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 22817,
@@ -182,15 +182,24 @@
      20,
      20
     ],
-    "seconds": 1.292
+    "seconds": 1.272
    }
   }
  ],
- "canonical_sha256_without_this_field_or_timings": "a4c41aca850b70f0484ce2574dc1e833ae294dc2e0b7a5466f7ad13f952099cb",
+ "canonical_sha256_without_this_field_or_timings": "629307c83f75adb20eb2cc2871acf39f33558d280b40280770efebe4cc3ac1f7",
  "census_validation": {
   "(3,7)": {
+   "durfee_rank_bound_from_global_budget": 3,
    "largest_positive_family": 18,
+   "levi_budget_range": [
+    6,
+    19
+   ],
+   "levi_positive_family_within_budget": 25,
+   "levi_positive_weight_bound_holds": 25,
+   "levi_zero_weight_bound_holds": 13,
    "max_distinct_levels": 5,
+   "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 25,
    "particle_number": 3,
    "positive_family_is_a_dominance_ideal": 25,
@@ -199,7 +208,7 @@
    "rank": 7,
    "regular_mechanisms": 0,
    "root_budget": 21,
-   "seconds": 5.9,
+   "seconds": 6.2,
    "system": "(3,7)",
    "uniform_bound_violations": [
     {
@@ -273,8 +282,17 @@
    "zero_weight_uniform_bound_holds": 21
   },
   "(3,8)": {
+   "durfee_rank_bound_from_global_budget": 3,
    "largest_positive_family": 27,
+   "levi_budget_range": [
+    7,
+    27
+   ],
+   "levi_positive_family_within_budget": 64,
+   "levi_positive_weight_bound_holds": 64,
+   "levi_zero_weight_bound_holds": 43,
    "max_distinct_levels": 7,
+   "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 64,
    "particle_number": 3,
    "positive_family_is_a_dominance_ideal": 64,
@@ -283,7 +301,7 @@
    "rank": 8,
    "regular_mechanisms": 0,
    "root_budget": 28,
-   "seconds": 226.2,
+   "seconds": 223.0,
    "system": "(3,8)",
    "uniform_bound_violations": [
     {
@@ -378,8 +396,17 @@
    "zero_weight_uniform_bound_holds": 54
   },
   "(3,9)": {
+   "durfee_rank_bound_from_global_budget": 3,
    "largest_positive_family": 36,
+   "levi_budget_range": [
+    8,
+    36
+   ],
+   "levi_positive_family_within_budget": 191,
+   "levi_positive_weight_bound_holds": 191,
+   "levi_zero_weight_bound_holds": 154,
    "max_distinct_levels": 9,
+   "measured_max_durfee_rank_of_positive_weights": 2,
    "mechanisms": 191,
    "particle_number": 3,
    "positive_family_is_a_dominance_ideal": 191,
@@ -388,7 +415,7 @@
    "rank": 9,
    "regular_mechanisms": 3,
    "root_budget": 36,
-   "seconds": 0.5,
+   "seconds": 0.6,
    "system": "(3,9)",
    "uniform_bound_violations": [
     {
@@ -489,11 +516,38 @@
   }
  },
  "generated_by": "scripts/root_budget_boundary.py",
+ "half_filling_transpose": {
+  "(10,20)": {
+   "applies": true,
+   "self_conjugate": 46,
+   "sign_control_universe": 1940,
+   "transpose_orbits": 993
+  },
+  "(15,30)": {
+   "applies": true,
+   "self_conjugate": 89,
+   "sign_control_universe": 8409,
+   "transpose_orbits": 4249
+  },
+  "(20,40)": {
+   "applies": true,
+   "self_conjugate": 139,
+   "sign_control_universe": 22817,
+   "transpose_orbits": 11478
+  }
+ },
+ "levi_budget_identity": {
+  "identical_to_max_inversions": true,
+  "mismatches": 0,
+  "note": "The per-Levi budget is gpc_census.generation.orbit_canonical._max_inversions, which orbit_is_trace_dead already applies, so it is the sharp form the survivor generator uses rather than a new quantity to implement.",
+  "trials": 400
+ },
  "orbitals": 40,
  "root_budget": 780,
  "schema_version": 1,
  "verdict": {
   "corrected_zero_bound": "|down I| <= binom(d,2) + |Omega_0| holds on every mechanism tested. It is Levi-type dependent rather than diagram-only, so it does not give the same uniform Young-lattice truncation.",
+  "per_levi_budget": "SHARPENS the positive half and AGGRAVATES the zero half. R_L = (d^2 - sum m_i^2)/2 is the repository's own _max_inversions, so orbit_is_trace_dead already applies it. Every positive bound still holds under R_L, which is strictly smaller than binom(d,2); the zero bound fails more often under R_L than under the global budget, exactly because the budget shrinks.",
   "positive_layer_bound": "HOLDS, and needs no regularity: below a positive weight every weight is positive. Verified on every surviving mechanism at ranks 7, 8 and 9.",
   "regularity_in_the_census": "Regular mechanisms are rare: none at ranks 7 and 8, three of 191 at rank 9. The regular stratum the (20,40) counts describe is therefore not where the known mechanisms live.",
   "zero_layer_uniform_bound": "REFUTED for non-regular tau. The step from a zero weight needs strict increase, which fails when two entries of tau coincide. Violated on the census at every rank tested."
