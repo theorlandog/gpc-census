@@ -1,5 +1,5 @@
 {
- "canonical_sha256_without_this_field_or_timings": "48072f9f04af831c479d57ad2cefcc015a6cff16122840686913a8934c14792b",
+ "canonical_sha256_without_this_field_or_timings": "6c208844ba22040ab916e32973e1dd0aa572ba5d45af23f5bf13e5ef11d5bcc6",
  "conjecture": "Fermionic Levi Triangularity: every minimal fermionic BDR facet becomes linear triangular after determinant-twist removal, Levi-excitation decomposition, grade ordering and Dulmage-Mendelsohn factorization.",
  "generated_by": "scripts/levi_triangularity_gate.py",
  "schema_version": 1,
@@ -9,12 +9,13 @@
    "determinant_nonzero_hall_feasible_rows": 48,
    "fully_triangular_fraction": 0.2917,
    "fully_triangular_rows": 14,
-   "largest_block_witness": {
+   "largest_candidate_block_witness": {
     "blocks": [
      9,
      1
     ],
     "matrix_order": 10,
+    "status": "determinant-nonzero candidate, NOT a published facet",
     "tau": [
      -1,
      -1,
@@ -41,20 +42,88 @@
     "9": 1
    },
    "particle_number": 3,
+   "published_facets": {
+    "analysed_rows": 4,
+    "blocks_by_row": [
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       -2,
+       1,
+       1,
+       1,
+       1,
+       -2,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       1,
+       -2,
+       1,
+       1,
+       -2,
+       1,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       3,
+       1
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       1,
+       -2,
+       -2,
+       1
+      ]
+     },
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       -2,
+       1,
+       1,
+       -2
+      ]
+     }
+    ],
+    "fully_triangular_fraction": 0.0,
+    "fully_triangular_rows": 0,
+    "largest_irreducible_block": 4,
+    "published_rows": 4,
+    "structural_rows": 0
+   },
    "rank": 7,
-   "seconds": 3.4,
+   "seconds": 3.5,
    "system": "(3,7)"
   },
   "(3,8)": {
    "determinant_nonzero_hall_feasible_rows": 136,
    "fully_triangular_fraction": 0.1471,
    "fully_triangular_rows": 20,
-   "largest_block_witness": {
+   "largest_candidate_block_witness": {
     "blocks": [
      14,
      4
     ],
     "matrix_order": 18,
+    "status": "determinant-nonzero candidate, NOT a published facet",
     "tau": [
      0,
      -1,
@@ -86,20 +155,161 @@
     "9": 7
    },
    "particle_number": 3,
+   "published_facets": {
+    "analysed_rows": 31,
+    "blocks_by_row": [
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       -2,
+       1,
+       1,
+       1,
+       1,
+       -2,
+       -2,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       3,
+       1
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       1,
+       -2,
+       -2,
+       1,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       1,
+       -2,
+       1,
+       1,
+       -2,
+       1,
+       -2,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       4
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       -2,
+       1,
+       1,
+       -2,
+       -2
+      ]
+     },
+     {
+      "blocks": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       2,
+       2,
+       -4,
+       -1,
+       -1,
+       -1,
+       -1,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       4,
+       1
+      ],
+      "tau": [
+       -1,
+       2,
+       -1,
+       -1,
+       2,
+       -1,
+       -4,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       4,
+       1
+      ],
+      "tau": [
+       2,
+       -1,
+       -1,
+       -1,
+       -1,
+       2,
+       -4,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       2,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       -1,
+       2,
+       -1,
+       2,
+       -1,
+       -4,
+       -1,
+       -1
+      ]
+     }
+    ],
+    "fully_triangular_fraction": 0.1613,
+    "fully_triangular_rows": 5,
+    "largest_irreducible_block": 7,
+    "published_rows": 31,
+    "structural_rows": 0
+   },
    "rank": 8,
-   "seconds": 136.0,
+   "seconds": 136.5,
    "system": "(3,8)"
   },
   "(3,9)": {
    "determinant_nonzero_hall_feasible_rows": 240,
    "fully_triangular_fraction": 0.0958,
    "fully_triangular_rows": 23,
-   "largest_block_witness": {
+   "largest_candidate_block_witness": {
     "blocks": [
      15,
      1
     ],
     "matrix_order": 16,
+    "status": "determinant-nonzero candidate, NOT a published facet",
     "tau": [
      -1,
      -1,
@@ -133,14 +343,184 @@
     "9": 8
    },
    "particle_number": 3,
+   "published_facets": {
+    "analysed_rows": 52,
+    "blocks_by_row": [
+     {
+      "blocks": [
+       3,
+       3,
+       3,
+       1
+      ],
+      "tau": [
+       2,
+       2,
+       -4,
+       2,
+       -4,
+       -4,
+       -1,
+       -1,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       3,
+       2,
+       1
+      ],
+      "tau": [
+       1,
+       0,
+       -1,
+       0,
+       -1,
+       0,
+       -1,
+       0,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       3,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       0,
+       1,
+       -1,
+       0,
+       0,
+       -1,
+       -1,
+       0,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       3,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       0,
+       0,
+       0,
+       1,
+       -1,
+       -1,
+       -1,
+       0,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       6,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       0,
+       -1,
+       -1,
+       -1,
+       0,
+       0
+      ]
+     },
+     {
+      "blocks": [
+       6,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       1,
+       1,
+       -2,
+       -1,
+       -1,
+       0,
+       0,
+       0,
+       -1
+      ]
+     },
+     {
+      "blocks": [
+       6,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "tau": [
+       1,
+       0,
+       -1,
+       1,
+       -2,
+       -1,
+       -1,
+       0,
+       0
+      ]
+     },
+     {
+      "blocks": [
+       6,
+       3,
+       3
+      ],
+      "tau": [
+       1,
+       0,
+       -1,
+       -1,
+       -1,
+       0,
+       0,
+       1,
+       -2
+      ]
+     }
+    ],
+    "fully_triangular_fraction": 0.0962,
+    "fully_triangular_rows": 5,
+    "largest_irreducible_block": 7,
+    "published_rows": 52,
+    "structural_rows": 0
+   },
    "rank": 9,
-   "seconds": 21.8,
+   "seconds": 21.6,
    "system": "(3,9)"
   }
  },
  "verdict": {
   "block_triangular_reading": "Still open, but the premise it needs is not supported here. If the conjecture means block triangular with jointly solved irreducible blocks, the operative question is whether block size stays bounded, and the largest block grows across the three ranks.",
   "canonicality": "The block multiset is matching-independent, re-checked on a sample at every rank rather than assumed.",
-  "strict_triangularity": "REFUTED for the majority of true facets. Fully triangular rows, meaning every Dulmage-Mendelsohn block is 1x1 and back substitution alone solves the system, are a minority at every rank and the fraction FALLS with rank."
+  "scope": "The candidate population is every Hall-feasible row with a nonzero Ressayre tangent determinant, which is NOT the set of final facets: 48, 136 and 240 rows against published systems of 4, 31 and 52. The published rows are audited separately.",
+  "strict_triangularity": "REFUTED on both populations. Among determinant-nonzero candidates fully triangular rows are a minority whose share falls with rank. Among the PUBLISHED irredundant facets it is 0 of 4 at (3,7), 5 of 31 at (3,8) and 5 of 52 at (3,9), so the no-go does not depend on the wider candidate scope."
  }
 }

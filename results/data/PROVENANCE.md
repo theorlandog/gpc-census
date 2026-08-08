@@ -1981,3 +1981,36 @@ zero disagreements, plus a separate 191-row sweep at `(3,8)`.
 
 SCOPE. This constrains only the birationality step. The Levi excitation theorem
 is proved and untouched, as is the sparse generic-isotropy reduction.
+
+## levi_triangularity_gate.json: scope correction (2026-08-08)
+
+CORRECTION TO THE FIRST VERSION OF THIS ARTIFACT. It called its population
+"true facets". It is not. The generator, then named `true_facet_rows` and now
+`determinant_nonzero_candidate_rows`, yields every Hall-feasible row with a
+nonzero Ressayre tangent determinant: 48, 136 and 240 rows at ranks 7, 8 and 9,
+against published irredundant systems of 4, 31 and 52. Those rows have had no
+Farkas reduction, no facet witness and no BDR birationality test, so they are
+candidates and must not be described as facets.
+
+THE PUBLISHED ROWS ARE NOW AUDITED SEPARATELY, by converting each published
+`coeffs . lambda <= rhs` to the homogeneous primitive `tau = N*coeffs - rhs*1`
+on the trace slice. Result: 0 of 4 strictly triangular at `(3,7)` with block
+decompositions `[4]`, `[4]`, `[3,1]`, `[4]`; 5 of 31 at `(3,8)`; 5 of 52 at
+`(3,9)`; largest block 4, 7, 7.
+
+THE REFUTATION SURVIVES the correction, on both populations, so the conclusion
+did not depend on the overstated scope. The claim did, which is why the artifact
+now separates the two and the witness record carries its own disclaimer.
+
+THE NAMED WITNESS IS NOT A FACET. `tau = (-1,-1,-1,-1,-1,2,2,-4,2)` with blocks
+`[15,1]` is a determinant-nonzero candidate; its sorted shape is not among the
+eight sorted-`tau` shapes carried by the published `(3,9)` system, and among
+published facets the largest block is 7.
+
+WHAT IS NOT REFUTED, recorded so the no-go is not overread: BDR's own recursive
+linear-triangular filter is strictly stronger than asking whether every DM
+block is `1 x 1`, and is an optional partial validator rather than that
+algorithm's birationality engine. Separately, a nonzero tangent determinant is
+differential information certifying dominance and generic local finiteness,
+while Condition A asks for birationality, a global fiber-degree property that no
+tangent-support theorem settles.

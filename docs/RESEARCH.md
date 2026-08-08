@@ -582,12 +582,14 @@ plethysm criterion feed Problem 7 below.
   certified rather than assumed. Artifact closure_certificate.json; guard test
   tests/test_closure_certificate.py.
 - levi_triangularity_gate.md: GATE 4, and it REFUTES the strict form of the
-  Fermionic Levi Triangularity Conjecture. Fully triangular tangent systems are
-  14 of 48, 20 of 136 and 23 of 240 true facets at ranks 7, 8, 9, a fraction
-  that FALLS with rank, with a named rank-9 witness whose 16 by 16 matrix has
-  blocks [15,1]. The block-triangular reading survives but needs bounded block
-  size, and the largest block grows 9, 14, 15. Artifact
-  levi_triangularity_gate.json; guard test tests/test_levi_triangularity_gate.py.
+  Fermionic Levi Triangularity Conjecture. On the PUBLISHED irredundant systems
+  fully triangular tangent systems are 0 of 4, 5 of 31 and 5 of 52 at ranks 7,
+  8, 9, largest block 4, 7, 7. ⚠️ Carries a scope correction: the first version
+  called its wider population (48, 136, 240 determinant-nonzero candidates)
+  "true facets", which they are not, and the named [15,1] witness is a
+  candidate rather than a facet. The refutation survives on both populations.
+  Artifact levi_triangularity_gate.json; guard test
+  tests/test_levi_triangularity_gate.py.
 - root_budget_boundary.md: an external rank-40 claim, HALF VERIFIED and HALF
   REFUTED. 🟦 The positive-layer Young truncation holds on all 280 census
   mechanisms and cuts `(20,40)` from 1.4e11 weights to 15,359, needing no
@@ -1770,25 +1772,50 @@ exists. It fails. [docs/levi_triangularity_gate.md;
 results/data/levi_triangularity_gate.json;
 scripts/levi_triangularity_gate.py; tests/test_levi_triangularity_gate.py]
 
-- ❌ STRICT TRIANGULARITY IS REFUTED on the known true facets. For every
-  determinant-nonzero Hall-feasible row the tangent matrix is square with a
-  perfect matching; orienting by a matching and taking strongly connected
-  components gives the Dulmage-Mendelsohn irreducible blocks, and the system is
-  triangular exactly when all are `1 x 1`. Fully triangular rows: 14 of 48 at
-  (3,7), 20 of 136 at (3,8), 23 of 240 at (3,9). So 29 percent, then 15, then
-  **10**: strict triangularity is the exception and the exception is getting
-  rarer.
-- ❗ NAMED WITNESS at rank 9, and nothing about it is exotic:
-  `tau = (-1,-1,-1,-1,-1,2,2,-4,2)` has a 16 by 16 tangent matrix whose blocks
-  are `[15, 1]`. Three distinct levels, Hall-feasible, determinant nonzero,
-  exactly the kind of row the conjecture is about.
-- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES, but the premise it needs is not
-  supported: if the conjecture means block triangular with jointly solved
-  irreducible blocks, the operative question is bounded block size, and the
-  largest block grows 9, 14, 15 across the three ranks. ⚠️ Three points are not
-  a trend, and the largest block does not track matrix order monotonically (the
-  rank-9 maximum occurs at order 16, not at the largest order 36), so this is a
-  caution rather than a second refutation.
+- ❌ STRICT TRIANGULARITY IS REFUTED, on the PUBLISHED irredundant facets and
+  on the wider candidate population alike. For a Hall-feasible row the tangent
+  matrix is square with a perfect matching; orienting by a matching and taking
+  strongly connected components gives the Dulmage-Mendelsohn irreducible
+  blocks, and the system is triangular exactly when all are `1 x 1`. On the
+  published systems: **0 of 4** at (3,7) with block decompositions
+  `[4],[4],[3,1],[4]`, **5 of 31** at (3,8), **5 of 52** at (3,9), largest
+  block 4, 7, 7.
+- ⚠️ SCOPE CORRECTION, and it was an error of mine. The first version of this
+  gate called its population "true facets". It is not: it is every
+  Hall-feasible row with a nonzero Ressayre tangent determinant, 48, 136 and
+  240 rows against published systems of 4, 31 and 52, with no Farkas reduction,
+  no facet witness and no BDR birationality applied. Those counts are now
+  reported as CANDIDATES and the published rows are audited separately. The
+  refutation survives on both, so the conclusion did not depend on the
+  overstated scope, but the claim did.
+- ❗ AND THE NAMED WITNESS WAS NOT A FACET. `tau = (-1,-1,-1,-1,-1,2,2,-4,2)`
+  with blocks `[15,1]` is a determinant-nonzero CANDIDATE; its sorted shape is
+  not among the eight sorted-`tau` shapes of the published (3,9) system. Among
+  published facets the largest block is 7, not 15. The artifact now carries the
+  disclaimer in the witness record itself.
+- ❗ THE SHARP LESSON: Hall feasibility plus a nonzero determinant does NOT
+  imply scalar triangularity. A perfect matching says the support admits one, a
+  nonzero determinant says the system is generically nonsingular, and neither
+  says it decomposes into scalar equations.
+- ❗ A DEEPER CONFLATION, named because it would survive a positive result. A
+  nonzero tangent determinant is DIFFERENTIAL information, certifying that the
+  map is dominant and generically locally finite. BDR Condition A asks for
+  BIRATIONALITY, generic degree one, a global fiber-degree question. A locally
+  invertible map can have several generic preimages, so no tangent-support
+  theorem discharges Condition A on its own.
+- 🔬 WHAT IS NOT REFUTED: BDR's own recursive linear-triangular filter, which
+  analyses the full fiber-equation graph and eliminates variables iteratively,
+  is strictly stronger than asking whether every DM block is `1 x 1`, and it is
+  an optional partial validator in that algorithm rather than its birationality
+  engine. Nothing here refutes BDR; it refutes a hoped-for replacement of its
+  hardest stage. The DM decomposition survives as a canonical factorization
+  useful for determinant factoring, modular evaluation, Schur complements and
+  caching, just not as the whole theorem.
+- 🔬 THE BLOCK-TRIANGULAR READING SURVIVES. On the published facets the largest
+  block is 7 at both (3,8) and (3,9), markedly better behaved than the
+  candidate population's 14 and 15, so bounded block size is MORE plausible on
+  the facet system than the candidate scan suggested. ⚠️ Three points are not a
+  trend either way.
 - 🟦 CANONICALITY CHECKED, NOT ASSUMED, since the verdict rests on it: the block
   multiset is matching-independent by the Dulmage-Mendelsohn theorem, re-checked
   at 40 rows per rank against four extra random matchings each with ZERO

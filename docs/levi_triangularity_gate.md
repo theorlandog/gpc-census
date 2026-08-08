@@ -1,8 +1,16 @@
-# Gate 4: strict linear triangularity is refuted on the known true facets
+# Gate 4: strict linear triangularity is refuted, on candidates and on facets
 
-**Status:** conjecture test, run on every determinant-nonzero Hall-feasible row
-at ranks 7, 8 and 9. Strict triangularity fails for the large majority, and the
-failing fraction grows with rank.
+**Status:** conjecture test at ranks 7, 8 and 9, on two populations that are
+kept apart. Strict triangularity fails on both.
+
+**SCOPE CORRECTION (2026-08-08).** An earlier version of this document called
+the wide population "true facets". It is not. It is every Hall-feasible row
+with a nonzero Ressayre tangent determinant, which is a superset of the final
+system: 48, 136 and 240 rows against published irredundant systems of 4, 31 and
+52. Those rows have had no Farkas reduction, no facet witness and no BDR
+birationality test. The published rows are now audited separately, and the
+refutation is reported on both populations so it does not rest on the wider
+scope.
 
 **Artifact:** `results/data/levi_triangularity_gate.json`, written by
 `scripts/levi_triangularity_gate.py`.
@@ -16,7 +24,7 @@ particle numbers, as recorded in `docs/root_budget_boundary.md`. Gates 2 and 3
 are implementation rather than test.
 
 Gate 4 is the one that can fail on data that exists. It asks whether the
-tangent system of a true facet solves by back substitution, which is what would
+tangent system of a facet solves by back substitution, which is what would
 remove the generic Groebner calculation from birationality.
 
 ## What is measured
@@ -33,45 +41,78 @@ assumed: 40 rows per rank against four extra random matchings each, with **zero
 disagreements**, plus a separate 191-row sweep at `(3,8)` before this gate was
 written.
 
-## Result
+## Result on the published irredundant facets
 
-| System | True-facet rows | Fully triangular | Fraction | Largest block | Largest matrix order |
+This is the load-bearing table, because these rows are the actual facet system.
+
+| System | Published rows | Fully triangular | Largest block |
+| --- | ---: | ---: | ---: |
+| `(3,7)` | 4 | **0** | 4 |
+| `(3,8)` | 31 | **5** | 7 |
+| `(3,9)` | 52 | **5** | 7 |
+
+Every published `(3,7)` facet fails strict triangularity, with block
+decompositions `[4]`, `[4]`, `[3,1]`, `[4]`. At `(3,8)` and `(3,9)` only 5 rows
+of 31 and of 52 are strictly triangular.
+
+## Result on determinant-nonzero candidates
+
+The wider population, kept separate because it is not the facet system:
+
+| System | Candidate rows | Fully triangular | Fraction | Largest block | Largest matrix order |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `(3,7)` | 48 | 14 | **29.2%** | 9 | 14 |
-| `(3,8)` | 136 | 20 | **14.7%** | 14 | 22 |
-| `(3,9)` | 240 | 23 | **9.6%** | 15 | 36 |
+| `(3,7)` | 48 | 14 | 29.2% | 9 | 14 |
+| `(3,8)` | 136 | 20 | 14.7% | 14 | 22 |
+| `(3,9)` | 240 | 23 | 9.6% | 15 | 36 |
 
-Strict triangularity is the exception, not the rule, and the exception is
-getting rarer: 29 percent, then 15, then 10.
-
-A rank-9 witness, where a 16 by 16 tangent matrix has a single irreducible
-block of size 15 and one trivial block:
+The largest candidate block at rank 9 sits on
 
 ```text
 tau = (-1, -1, -1, -1, -1, 2, 2, -4, 2)
 matrix order 16, blocks [15, 1]
 ```
 
-Nothing about this row is exotic. It has three distinct levels, it is
-Hall-feasible, and its determinant is nonzero, so it is exactly the kind of row
-the conjecture is about.
+**This row is a candidate, not a facet.** Its sorted shape is not among the
+eight sorted-`tau` shapes carried by the published `(3,9)` system, so it must
+not be quoted as a facet witness. Among published facets the largest block is
+7, not 15.
 
 ## What this does and does not refute
 
-**Refuted:** the conjecture read strictly, that a true facet becomes linear
+**Refuted:** the conjecture read strictly, that a facet becomes linear
 triangular in the sense that back substitution alone solves the tangent system.
-That is false for 90 percent of rank-9 true facets.
+On the published irredundant systems that fails at 4 of 4, 26 of 31 and 47 of
+52 rows, so the no-go does not depend on the wider candidate population.
+
+The sharp statement is that Hall feasibility plus a nonzero determinant does
+not imply scalar triangularity. A perfect matching says the support admits one;
+a nonzero determinant says the system is generically nonsingular. Neither says
+it decomposes into scalar equations.
 
 **Not refuted:** the conjecture read as *block* triangular, with irreducible
-blocks solved jointly. That remains open. But the premise it would need is
-bounded block size, and the largest block grows across the three ranks, 9 then
-14 then 15. Three points are not a trend, and the block does not track the
-matrix order monotonically (the largest block at rank 9 occurs at order 16, not
-at the largest order 36), so this is a caution rather than a second refutation.
+blocks solved jointly. That remains open. On the published facets the largest
+block is 7 at both `(3,8)` and `(3,9)`, which is markedly better behaved than
+the candidate population's 14 and 15, so bounded block size is more plausible on
+the facet system than the candidate scan suggested.
+
+**Also not refuted, and not tested here:** BDR's own recursive
+linear-triangular filter, which analyses the full fiber-equation graph and
+eliminates variables iteratively, is a strictly stronger criterion than asking
+whether every DM block of the tangent matrix is `1 x 1`. It is an optional
+partial validator in that algorithm, not its birationality engine. Nothing here
+refutes BDR; it refutes a hoped-for replacement of its hardest stage.
 
 **Untouched:** the excitation theorem itself, which is proved, and the sparse
 generic-isotropy argument, which is a separate and correct reduction. Gate 4
 constrains only the birationality step.
+
+## What the DM decomposition is still good for
+
+The block multiset remains a canonical factorization of the tangent support
+into independent irreducible components, which is useful as a preconditioner:
+determinant factorization, modular evaluation, Schur complements, caching
+repeated component types, and distributing components. What died is the claim
+that every component is a scalar, not the decomposition itself.
 
 ## Consequence for the programme
 
@@ -79,10 +120,17 @@ The proof strategy sketched for the Levi Birationality Theorem is: pick a
 minimal positive profile, use the inversion diagrams to find the root variables
 reaching it, use Hall equality to make that block square, use nonvanishing to
 make it invertible, remove it and induct. The measured block structure says the
-peeled object is usually not a single variable but a large irreducible block, so
-the induction has to carry joint solves of blocks whose size is not yet known to
-be bounded. That is a materially harder theorem than the sketch suggests, and it
-is better to know before the birationality stage is written than after.
+peeled object is usually not a single variable but an irreducible block, so the
+induction has to carry joint solves. That is materially harder than the sketch
+suggests, and better known before the birationality stage is written than after.
+
+A second conflation is worth naming, because it is the deeper one. A nonzero
+tangent determinant is DIFFERENTIAL information: it certifies that the relevant
+map is dominant and generically locally finite. BDR Condition A asks for
+BIRATIONALITY, generic degree one, which is a global fiber-degree question. A
+locally invertible map can still have several generic preimages, and no
+statement about tangent support can exclude that. So even a positive
+triangularity result would not have discharged Condition A on its own.
 
 ## Verification
 
