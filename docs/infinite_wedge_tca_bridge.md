@@ -21,10 +21,15 @@ cones and hostile on FACETS. Every noetherianity theorem in the intended toolkit
 (topological noetherianity of polynomial functors, bounded Plucker varieties and
 the infinite wedge, FI/OI noetherianity, tca noetherianity) bounds EQUATIONS or
 MODULES up to symmetry, and a facet of a moment cone is neither. Worse, the
-covariant functoriality that any FI/OI argument would need does not exist: this
-campaign refutes it exactly, by showing that a published GPC row generally
-becomes INVALID at the next rank under zero padding, and also under every other
-order-preserving embedding. The one direction that does work is contravariant
+covariant functoriality that any FI/OI argument would need does not exist at the
+level of coefficient patterns: this campaign refutes it exactly, by showing that
+a published GPC row generally becomes INVALID at the next rank under zero
+padding, and also under every other order-preserving embedding.
+`docs/ordered_representation_stability.md` reaches the same refutation from the
+category side, reproduces the `10 of 31` control independently, and proves that
+the ordered category is a poset so that representation stability is vacuous
+there; see the correction in section 5, which also records what this campaign
+must NOT be read as claiming. The one direction that does work is contravariant
 and is now proved: restriction to `lambda_{d+1} = 0` carries the rank `d+1`
 system onto the rank `d` system exactly, at all six consecutive census pairs.
 
@@ -243,11 +248,45 @@ injections `[d] -> [d+1]` were tried, which is exactly the OI action:
 | (4,8) -> (4,9) | 8 | 15 | 8 of 60 |
 | (4,9) -> (4,10) | 35 | 60 | 19 of 125 |
 
-So the inequality side of the census carries NO covariant OI structure: rows
-with no valid embedding at all exist at five of the six pairs, and most of each
-higher system is not an OI image of anything below it. There is no OI-module
-here to which an OI-noetherianity theorem could be applied. That is the precise
-sense in which the FI/OI route is not merely insufficient but inapplicable.
+So the inequality side of the census carries no covariant OI structure AT THE
+LEVEL OF COEFFICIENT PATTERNS: rows with no valid embedding at all exist at five
+of the six pairs, and most of each higher system is not an OI image of anything
+below it. There is no OI-module of coefficient patterns here to which an
+OI-noetherianity theorem could be applied. That is the precise sense in which
+the FI/OI route is not merely insufficient but inapplicable.
+
+❗ CORRECTED AGAINST `docs/ordered_representation_stability.md`, which landed on
+`main` while this campaign was running, and which reaches the same place from
+the category side. Two adjustments, both of which sharpen rather than weaken the
+conclusion.
+
+1. 🟦 INDEPENDENT REPLICATION of the refutation. That campaign's
+   `naive_padding_control` reports zero padding valid for **10 of 31** rows at
+   `(3,8) -> (3,9)`, which is exactly the number measured here by a separately
+   written implementation, and it adds `0 of 31` at `(5,8) -> (5,9)`.
+2. ✅ AND ITS THEOREM 1 EXPLAINS THE POST-HOC BLOCK ABOVE. For non-degenerate
+   `(N,d)` the only order-preserving injection whose empty-mode insertion
+   carries `Delta(N,d)` into `Delta(N,e)` is the TERMINAL one, because dominance
+   forces a mode inserted before an occupied one to vanish identically. So the
+   fixed-`N` ordered category has exactly one morphism `[d] -> [e]` and is a
+   POSET, not `OI` and not `FI`. The non-trailing insertions tested above are
+   therefore not morphisms of the relevant category at all, and their failure is
+   now a theorem rather than a measurement. Representation stability is vacuous
+   in this layer for that reason, which is a second and independent route to the
+   same NO-GO.
+
+⚠️ WHAT THIS CAMPAIGN MUST NOT BE READ AS SAYING, and an earlier draft of this
+section did overstate it. "No covariant map exists" is FALSE.
+`docs/ordered_representation_stability.md` exhibits a total one, the TIGHT
+extension `pi(tau) = prim(q*tau, p)` that replaces the padded zero by the
+largest last coefficient keeping the row valid, and it carries facets to facets
+in 612 of 612 nonstructural instances. The correct statement is narrower and is
+what the compression question actually needs: no covariant map given by a
+COEFFICIENT-LEVEL TEMPLATE RULE exists, and the tight extension is not one,
+because `t*` is defined by optimizing against `Delta(N,d+1)`, the very object a
+constructor would be trying to build. So the tight extension is an inheritance
+law for organizing rows already known, not a generator of new ranks, and the
+NO-GO on compression stands unchanged.
 
 🟦 WHAT DOES WORK, AND IT IS A THEOREM. Restriction is complete downward.
 `Delta(N,d) = Delta(N,d+1) intersect {lambda_{d+1} = 0}`, because an orbital of
