@@ -149,4 +149,48 @@ coefficient claim or into evidence for either direction of P2.
 
 ## SCORED (2026-08-08, after running; predictions above are unedited)
 
-Filled in by the run. See `docs/facet_index_stability.md`.
+Artifact: `results/data/facet_index_stability.json`. Narrative:
+`docs/facet_index_stability.md`. Machine: `Linux-6.18.5-fc-v20-x86_64`,
+CPython 3.14.0rc2.
+
+| id | verdict | scope | independent scope | measured |
+|---|---|---|---|---|
+| P1 | PASS | 31 rows | 1 system | 31 of 31 retained rows at `(3,8)` have coefficient 1 |
+| P2 | PASS | 151 rows | 2 systems | 23 removed rows at `(3,7)` and 36 at `(3,8)` have coefficient 1 |
+| P3 | PASS | 106 rows | 1 system | 36 with coefficient 1, 70 without, at `(3,8)` |
+| P4 | PASS | 186 rows | 2 systems | zero coefficient-0 rows at either rank |
+| P5 | PASS | 186 rows | 2 systems | zero ill-formed cyclic problems |
+| P6 | PASS | 4 systems | 4 | ratios 0.20, 0.22, 0.12, 0.13 against a 0.25 bound |
+
+Part A carries the verdict LANDED, which is not a score. The artifact records
+exact agreement between the scratch and landed values for padding violations,
+entry bounds and shape counts.
+
+### What P2 decided
+
+P2 was the prediction designed to be decisive and it refutes the criterion.
+Coefficient one is NECESSARY and NOT SUFFICIENT for facetness on certified
+rows: every facet has it, and so do 59 rows that exact reduction removes. The
+standing refusal in `docs/fixed_n3_generator_methodology.md` to use coefficient
+one as a facetness or irredundancy gate now has exact counterexamples behind it.
+
+The forward direction survived at both ranks, which is what makes coefficient
+one a sound PREFILTER rather than a criterion. That prefilter is measured in
+the artifact under `coefficient_one_prefilter`, cuts the reduction input by 45
+and 51 percent, and returns an identical retained set.
+
+### All six passed, which is a weakness worth naming
+
+A preregistration where nothing fails is weaker evidence of a sharp hypothesis
+than one where something does. Four of the six here were low-risk
+(P1 by analogy with an established rank-7 result, P4 and P5 as scope checks,
+P6 as an extension of an observed ratio). P2 and P3 carried the real risk and
+both resolved against the criterion, which is the direction that changes what
+the project does next.
+
+### Added after scoring, and labelled as such
+
+The `coefficient_one_prefilter` block in the artifact was added AFTER the six
+predictions were scored and carries `added_after_scoring: true`. It is a
+measured quantity, not a retro-fitted prediction, and no prediction above was
+edited to accommodate it.

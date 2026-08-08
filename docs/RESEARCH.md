@@ -379,6 +379,13 @@ plethysm criterion feed Problem 7 below.
 
 ## Source documents in docs/
 
+- facet_index_stability.md: the facet-index probe. Refutes the AK2008
+  coefficient-one facetness criterion with 59 counterexamples, refutes
+  trailing-zero padding as a map on facets, lands the normal-shape compression
+  census over all twelve published systems, and prices the surviving sound
+  prefilter at 1.66x and 1.79x on the reduction stage. Pre-registration in
+  prereg_facet_index_stability.md, all six predictions PASS; artifact
+  facet_index_stability.json; guard test tests/test_facet_index_stability.py.
 - bdr_constructor_comparison.md: the external-constructor comparison. Bounds
   what any external candidate generator can remove under the local
   certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
@@ -1002,6 +1009,57 @@ plethysm criterion feed Problem 7 below.
 - bracket_3_12_stage0_inner.json: the (3,12) exact-plethysm inner cloud
   (scripts/plethysm_inner_hull.py); cloud-extremality is not vertexhood
   until convergence.
+
+## Facet-index stability: the coefficient-one criterion is refuted (2026-08-08)
+
+Follow-up to the BDR comparison, which identified redundancy elimination as the
+stage with the worst long-run scaling. The question was whether an intrinsic
+criterion can replace it.
+
+❌ DISPROVED, 59 exact counterexamples. The AK2008 coefficient-one criterion is
+NOT a facetness test. Exact cyclic-Schubert evaluation is deferred past
+reduction in the production pipeline, so the coefficients of the rows reduction
+REMOVES had never been computed at any rank. Computing them for every certified
+row at `(3,7)` and `(3,8)`, 49 and 137 rows: every facet has coefficient one
+(4 of 4, 31 of 31) and so do 23 of 45 and 36 of 106 removed rows. Coefficient
+one is necessary and not sufficient. The standing refusal in
+`docs/fixed_n3_generator_methodology.md` to use it as a facetness or
+irredundancy gate now has counterexamples behind it, not just caution. Scope:
+this is one selected cyclic coefficient, NOT the general Belkale-Kumar or
+Ressayre deformed product, which remains untested here.
+[docs/facet_index_stability.md; docs/prereg_facet_index_stability.md;
+results/data/facet_index_stability.json;
+tests/test_facet_index_stability.py]
+
+🟦 CONFIRMED at two ranks: the forward direction survives, which makes
+coefficient one a SOUND PREFILTER rather than a criterion. It cuts the
+reduction input from 49 to 27 and from 137 to 67, gives 1.66x and 1.79x on the
+reduction stage, and returns an identical retained set. NOT gate-eligible: its
+soundness rests on an observation at two ranks. THE NEXT THEOREM, named: every
+facet of the ordered wedge^N C^d moment polytope has cyclic-Schubert
+coefficient one. That forward-validity statement is the whole remaining gap
+between a measured 1.79x on the growing stage and a shippable gate.
+
+❌ DISPROVED: trailing-zero padding is not validity preserving on facets. Padded
+lower-rank rows are VIOLATED at the next rank in 7 of the 8 published maps where
+validity is decidable, including Borland-Dennis padded to rank 7. Expected once
+stated properly, since the rank-`d` polytope is a FACE of rank `d+1` and a facet
+of a face need not extend. Sharper structural fact, holding in every map across
+all three particle numbers: a padded facet is never merely redundant, the
+strictly-interior count is ZERO everywhere. So any stability theorem must act on
+something other than the normal vector.
+
+🟦 CONFIRMED across all twelve published systems: the normals compress. Facet
+counts run 1 to 161 while distinct sorted-`tau` shapes run 1 to 21, a ratio at
+or below 0.29 everywhere and at or below 0.22 wherever there are more than four
+facets. The explosion is in placement, not in shape. The `N=3` entry bound of 7
+at ranks 8 to 10 does NOT transfer across particle number (15 at `(4,10)`, 34 at
+`(5,10)`), exactly as `tau_i = N a_i - b` implies, so no entry bound uniform in
+`N` is claimed. Rank-9 and rank-10 rows are conditional on AK2008 completeness.
+
+Cheapest next experiment: the same census at `(3,9)`, `(4,8)` and `(4,9)`, which
+tests the forward direction at a third rank and a second particle number at
+once, and costs one run of an already-written script.
 
 ## External constructor comparison: Bulois-Denis-Ressayre (2026-08-08)
 
