@@ -149,6 +149,27 @@ def test_padding_is_not_validity_preserving(report: dict) -> None:
         assert entry["violation_examples"]
 
 
+def test_zero_padding_lands_a_facet_exactly_when_it_is_already_tight(
+    report: dict,
+) -> None:
+    """Reconciles this campaign with the ordered-stability branch.
+
+    That branch's padding extension is total and exact; this one's fails. The
+    maps differ, and facet membership tracks agreement between them exactly.
+    """
+    decidable = [
+        entry
+        for entry in report["part_a_padding_census"]
+        if entry.get("validity_available")
+    ]
+    assert len(decidable) == 8
+    for entry in decidable:
+        assert entry["facet_membership_matches_tight_agreement"] is True, entry["map"]
+        assert entry["present_in_higher_facet_list"] == (
+            entry["agrees_with_tight_extension"]
+        ), entry["map"]
+
+
 def test_a_padded_facet_is_never_merely_redundant(report: dict) -> None:
     """The sharper structural fact: violated or supporting, never interior."""
     for entry in report["part_a_padding_census"]:

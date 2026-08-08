@@ -1040,6 +1040,16 @@ facet of the ordered wedge^N C^d moment polytope has cyclic-Schubert
 coefficient one. That forward-validity statement is the whole remaining gap
 between a measured 1.79x on the growing stage and a shippable gate.
 
+🟦 CONFIRMED at merge, 8 of 8 maps, three particle numbers, reconciling this
+with the ordered-stability campaign: a trailing-zero padded facet lands in the
+higher facet list EXACTLY when the trailing-zero extension coincides with that
+campaign's TIGHT extension `pi_pad` (counts 0, 4, 10, 37, 0, 8, 19, 0 on both
+sides). The two results read as contradictory only until one notices the maps
+differ. The trivial extension succeeds precisely where it was already tight, so
+what is dead is the trivial extension, not extension of normals as such. An
+earlier draft here overreached by concluding a stability theorem must act on
+something other than the normal vector.
+
 ❌ DISPROVED: trailing-zero padding is not validity preserving on facets. Padded
 lower-rank rows are VIOLATED at the next rank in 7 of the 8 published maps where
 validity is decidable, including Borland-Dennis padded to rank 7. Expected once

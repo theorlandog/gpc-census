@@ -77,8 +77,45 @@ Two structural facts fall out.
    becomes invalid. That is a sharper statement than the violation counts and it
    holds across all three particle numbers.
 
-Any stability theorem must therefore act on something other than the normal
-vector, because the obvious map on normals is not even validity preserving.
+### Reconciliation with the ordered-stability campaign
+
+`docs/ordered_representation_stability.md` reports a padding extension that is
+total and exact, 612 of 612, which reads as a flat contradiction of the table
+above until one notices that **the two maps are different**. That campaign's
+`pi_pad` appends the largest last entry keeping the row valid. This one appends
+zero in affine coordinates. Neither result is wrong and the pair is sharper
+than either alone.
+
+Checked at merge time, importing `pi_pad` rather than reimplementing it so the
+two campaigns cannot drift:
+
+| map | in higher facet list | zero-padding agrees with tight |
+|---|---|---|
+| (3,6) to (3,7) | 0 | 0 |
+| (3,7) to (3,8) | 4 | 4 |
+| (3,8) to (3,9) | 10 | 10 |
+| (3,9) to (3,10) | 37 | 37 |
+| (4,7) to (4,8) | 0 | 0 |
+| (4,8) to (4,9) | 8 | 8 |
+| (4,9) to (4,10) | 19 | 19 |
+| (5,9) to (5,10) | 0 | 0 |
+
+🟦 CONFIRMED, 8 of 8 maps, three particle numbers: **a trailing-zero padded
+facet lands in the higher facet list exactly when the trailing-zero extension
+coincides with the tight extension.** The naive map succeeds precisely on the
+rows where it was already tight, and fails everywhere else. So the correct
+statement is not that padding fails, it is that the trivial extension is the
+wrong one and tightening is the repair.
+
+This also corrects an overreach in an earlier draft of this document, which
+concluded that a stability theorem must act on something other than the normal
+vector. The ordered-stability branch shows the repair does act on normals, by
+tightening the new entry rather than by leaving it zero. What is dead is the
+trivial extension, not extension of normals as such.
+
+Note the joint scope limit, which neither branch removes: that branch's
+Theorem 1 closes the finite-generation route in this category regardless, so an
+exact inheritance law is what the pair delivers, not a stable template theorem.
 
 ### The normals compress
 

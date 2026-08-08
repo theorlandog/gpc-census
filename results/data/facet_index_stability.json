@@ -89,6 +89,8 @@
   },
   "part_a_padding_census": [
     {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 1,
       "map": "(3,6)->(3,7)",
       "padding_is_a_valid_map": false,
@@ -126,6 +128,8 @@
       ]
     },
     {
+      "agrees_with_tight_extension": 4,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 4,
       "map": "(3,7)->(3,8)",
       "padding_is_a_valid_map": true,
@@ -137,6 +141,8 @@
       "violation_examples": []
     },
     {
+      "agrees_with_tight_extension": 10,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 31,
       "map": "(3,8)->(3,9)",
       "padding_is_a_valid_map": false,
@@ -236,6 +242,8 @@
       ]
     },
     {
+      "agrees_with_tight_extension": 37,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 52,
       "map": "(3,9)->(3,10)",
       "padding_is_a_valid_map": false,
@@ -341,6 +349,8 @@
       ]
     },
     {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 4,
       "map": "(4,7)->(4,8)",
       "padding_is_a_valid_map": false,
@@ -434,6 +444,8 @@
       ]
     },
     {
+      "agrees_with_tight_extension": 8,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 15,
       "map": "(4,8)->(4,9)",
       "padding_is_a_valid_map": false,
@@ -533,6 +545,8 @@
       ]
     },
     {
+      "agrees_with_tight_extension": 19,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 60,
       "map": "(4,9)->(4,10)",
       "padding_is_a_valid_map": false,
@@ -645,6 +659,8 @@
       "validity_available": false
     },
     {
+      "agrees_with_tight_extension": 0,
+      "facet_membership_matches_tight_agreement": true,
       "lower_facets": 60,
       "map": "(5,9)->(5,10)",
       "padding_is_a_valid_map": false,
@@ -905,10 +921,10 @@
         "input_reduction_fraction": 0.44897959183673475,
         "reduction_input_rows_after": 27,
         "reduction_input_rows_before": 49,
-        "reduction_stage_speedup": 1.6566263714825433,
+        "reduction_stage_speedup": 1.632951657535514,
         "retained_sets_identical": true,
-        "seconds_after": 0.1442183029998887,
-        "seconds_before": 0.2389158440000756,
+        "seconds_after": 0.1545034629998554,
+        "seconds_before": 0.25229668600059085,
         "soundness_basis": "every facet has coefficient one at this rank, measured not proved"
       },
       "criterion": {
@@ -1091,7 +1107,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0017861320002339198,
+          "seconds": 0.001937839999300195,
           "tau": [
             -4,
             -1,
@@ -1120,7 +1136,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0018278180000379507,
+          "seconds": 0.0016870649997144938,
           "tau": [
             -4,
             2,
@@ -1149,7 +1165,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.004815835000044899,
+          "seconds": 0.004581778000101622,
           "tau": [
             -4,
             5,
@@ -1178,7 +1194,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0019484860004013171,
+          "seconds": 0.001953622999280924,
           "tau": [
             -2,
             -2,
@@ -1207,7 +1223,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.002157223999802227,
+          "seconds": 0.0021087129998704768,
           "tau": [
             -2,
             1,
@@ -1236,7 +1252,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00011594800025704899,
+          "seconds": 0.00011429000005591661,
           "tau": [
             -2,
             1,
@@ -1265,7 +1281,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00011479399972813553,
+          "seconds": 0.00015798099957464729,
           "tau": [
             -2,
             1,
@@ -1294,7 +1310,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.014131967000139412,
+          "seconds": 0.013810589000058826,
           "tau": [
             -2,
             2,
@@ -1323,7 +1339,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00020016799999211798,
+          "seconds": 0.00019410200002312195,
           "tau": [
             -2,
             4,
@@ -1352,7 +1368,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.014179294999848935,
+          "seconds": 0.01433309999993071,
           "tau": [
             -1,
             -1,
@@ -1381,7 +1397,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00850924299993494,
+          "seconds": 0.008580038000218337,
           "tau": [
             -1,
             -1,
@@ -1410,7 +1426,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00017752599978848593,
+          "seconds": 0.00018330299917579396,
           "tau": [
             -1,
             -1,
@@ -1439,7 +1455,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.663099990575574e-05,
+          "seconds": 9.776800015970366e-05,
           "tau": [
             -1,
             -1,
@@ -1468,7 +1484,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0036974889999328298,
+          "seconds": 0.0034334089996264083,
           "tau": [
             -1,
             0,
@@ -1497,7 +1513,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0032203880000452045,
+          "seconds": 0.0035351890001038555,
           "tau": [
             -1,
             0,
@@ -1526,7 +1542,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.001841441999658855,
+          "seconds": 0.001722795000205224,
           "tau": [
             -1,
             0,
@@ -1555,7 +1571,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.003140875000099186,
+          "seconds": 0.0040281729998241644,
           "tau": [
             -1,
             0,
@@ -1584,7 +1600,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0032416490003015497,
+          "seconds": 0.0034895190001407173,
           "tau": [
             -1,
             0,
@@ -1613,7 +1629,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.003703758000028756,
+          "seconds": 0.004437013999449846,
           "tau": [
             -1,
             1,
@@ -1642,7 +1658,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0033164599999508937,
+          "seconds": 0.004057404999912251,
           "tau": [
             -1,
             1,
@@ -1671,7 +1687,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0001946389998011,
+          "seconds": 0.00019311000050947769,
           "tau": [
             -1,
             2,
@@ -1700,7 +1716,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00013043599983575405,
+          "seconds": 9.755700011737645e-05,
           "tau": [
             -1,
             2,
@@ -1729,7 +1745,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 7.607600036863005e-05,
+          "seconds": 7.230700066429563e-05,
           "tau": [
             -1,
             2,
@@ -1758,7 +1774,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.43640002333268e-05,
+          "seconds": 0.00010633700003381819,
           "tau": [
             -1,
             2,
@@ -1787,7 +1803,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0029385620000539348,
+          "seconds": 0.003032108999832417,
           "tau": [
             0,
             -1,
@@ -1816,7 +1832,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.003311426999971445,
+          "seconds": 0.003639173000010487,
           "tau": [
             0,
             -1,
@@ -1845,7 +1861,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0032500770003025536,
+          "seconds": 0.0035193759995308938,
           "tau": [
             0,
             -1,
@@ -1874,7 +1890,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.187700015900191e-05,
+          "seconds": 0.00011792800069088116,
           "tau": [
             0,
             0,
@@ -1903,7 +1919,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00025648800010458217,
+          "seconds": 0.00022878399977344088,
           "tau": [
             0,
             1,
@@ -1932,7 +1948,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 7.849999974496313e-05,
+          "seconds": 7.128400011424674e-05,
           "tau": [
             0,
             1,
@@ -1961,7 +1977,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 9.167300004264689e-05,
+          "seconds": 9.570500060362974e-05,
           "tau": [
             1,
             -2,
@@ -1990,7 +2006,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.000122611999813671,
+          "seconds": 0.0001208080002470524,
           "tau": [
             1,
             -2,
@@ -2019,7 +2035,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 7.182299987107399e-05,
+          "seconds": 6.943199969100533e-05,
           "tau": [
             1,
             0,
@@ -2048,7 +2064,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 8.870500005286885e-05,
+          "seconds": 8.762899960856885e-05,
           "tau": [
             1,
             1,
@@ -2077,7 +2093,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 5.989999999655993e-05,
+          "seconds": 5.6988999858731404e-05,
           "tau": [
             1,
             1,
@@ -2106,7 +2122,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 9.11100000848819e-05,
+          "seconds": 8.909799998946255e-05,
           "tau": [
             1,
             1,
@@ -2135,7 +2151,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00013673100011146744,
+          "seconds": 0.00013326299995242152,
           "tau": [
             1,
             1,
@@ -2164,7 +2180,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00035872900025424315,
+          "seconds": 0.00035482100065564737,
           "tau": [
             1,
             4,
@@ -2193,7 +2209,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00013019400012126425,
+          "seconds": 0.00013090299944451544,
           "tau": [
             1,
             4,
@@ -2222,7 +2238,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00020976599989808165,
+          "seconds": 0.00020281599972804543,
           "tau": [
             1,
             4,
@@ -2251,7 +2267,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 5.961600027148961e-05,
+          "seconds": 5.838800007040845e-05,
           "tau": [
             2,
             -1,
@@ -2280,7 +2296,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.093000016946462e-05,
+          "seconds": 8.928999977797503e-05,
           "tau": [
             2,
             -1,
@@ -2309,7 +2325,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 6.984399988141377e-05,
+          "seconds": 6.873999973322498e-05,
           "tau": [
             2,
             -1,
@@ -2338,7 +2354,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.396799987371196e-05,
+          "seconds": 8.854899988364195e-05,
           "tau": [
             2,
             -1,
@@ -2367,7 +2383,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 6.992200042077457e-05,
+          "seconds": 0.00011376600014045835,
           "tau": [
             2,
             2,
@@ -2396,7 +2412,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00011979000009887386,
+          "seconds": 9.827699977904558e-05,
           "tau": [
             2,
             2,
@@ -2425,7 +2441,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00017047899973476888,
+          "seconds": 0.00012720199993054848,
           "tau": [
             4,
             -2,
@@ -2454,7 +2470,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0001262360001419438,
+          "seconds": 0.00011271499988652067,
           "tau": [
             4,
             1,
@@ -2483,7 +2499,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00012775400000464288,
+          "seconds": 0.00012380599946482107,
           "tau": [
             4,
             1,
@@ -2530,10 +2546,10 @@
         "input_reduction_fraction": 0.5109489051094891,
         "reduction_input_rows_after": 67,
         "reduction_input_rows_before": 137,
-        "reduction_stage_speedup": 1.7941549070798652,
+        "reduction_stage_speedup": 1.8197003597194445,
         "retained_sets_identical": true,
-        "seconds_after": 0.554739821000112,
-        "seconds_before": 0.995289171999957,
+        "seconds_after": 0.5470001539997611,
+        "seconds_before": 0.9953763769999568,
         "soundness_basis": "every facet has coefficient one at this rank, measured not proved"
       },
       "criterion": {
@@ -2734,7 +2750,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005311882000114565,
+          "seconds": 0.005212399999436457,
           "tau": [
             -4,
             -1,
@@ -2765,7 +2781,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005067720000170084,
+          "seconds": 0.005033615000684222,
           "tau": [
             -4,
             -1,
@@ -2796,7 +2812,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005531306000193581,
+          "seconds": 0.005121304999192944,
           "tau": [
             -4,
             -1,
@@ -2827,7 +2843,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.001532467999822984,
+          "seconds": 0.001496055000643537,
           "tau": [
             -4,
             -1,
@@ -2858,7 +2874,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005651241000123264,
+          "seconds": 0.005692095000085828,
           "tau": [
             -4,
             2,
@@ -2889,7 +2905,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0016590869995525281,
+          "seconds": 0.0016511859994352562,
           "tau": [
             -4,
             2,
@@ -2920,7 +2936,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0042987580000044545,
+          "seconds": 0.004286757999580004,
           "tau": [
             -4,
             5,
@@ -2951,7 +2967,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.010377779000009468,
+          "seconds": 0.010226692999822262,
           "tau": [
             -2,
             -2,
@@ -2982,7 +2998,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0019556659999580006,
+          "seconds": 0.0020497519999480573,
           "tau": [
             -2,
             -2,
@@ -3013,7 +3029,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.26809322600001906,
+          "seconds": 0.27953292500023963,
           "tau": [
             -2,
             -1,
@@ -3044,7 +3060,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.26704605699978856,
+          "seconds": 0.28060414099945774,
           "tau": [
             -2,
             -1,
@@ -3075,7 +3091,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.28432560099963666,
+          "seconds": 0.3113300719996914,
           "tau": [
             -2,
             -1,
@@ -3106,7 +3122,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.332762184999865,
+          "seconds": 0.32724525399953563,
           "tau": [
             -2,
             -1,
@@ -3137,7 +3153,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.3097333629998502,
+          "seconds": 0.3120188050006618,
           "tau": [
             -2,
             -1,
@@ -3168,7 +3184,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.3022775660001571,
+          "seconds": 0.3031242500001099,
           "tau": [
             -2,
             -1,
@@ -3199,7 +3215,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.002908466999997472,
+          "seconds": 0.0028972540003451286,
           "tau": [
             -2,
             1,
@@ -3230,7 +3246,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.002048977999947965,
+          "seconds": 0.0020142550001764903,
           "tau": [
             -2,
             1,
@@ -3261,7 +3277,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0028253890000087267,
+          "seconds": 0.002852673000234063,
           "tau": [
             -2,
             1,
@@ -3292,7 +3308,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00012931599985677167,
+          "seconds": 0.00012994899952900596,
           "tau": [
             -2,
             1,
@@ -3323,7 +3339,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0023794339999767544,
+          "seconds": 0.0022313179997581756,
           "tau": [
             -2,
             1,
@@ -3354,7 +3370,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00015172199982771417,
+          "seconds": 0.00017475200002081692,
           "tau": [
             -2,
             1,
@@ -3385,7 +3401,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0003515759999572765,
+          "seconds": 0.00039533699964522384,
           "tau": [
             -2,
             1,
@@ -3416,7 +3432,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.007878107000124146,
+          "seconds": 0.007774118999805069,
           "tau": [
             -2,
             2,
@@ -3447,7 +3463,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0012676970000029542,
+          "seconds": 0.0013076630002615275,
           "tau": [
             -2,
             4,
@@ -3478,7 +3494,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00021102400023664813,
+          "seconds": 0.00015729100050521083,
           "tau": [
             -2,
             4,
@@ -3509,7 +3525,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0004785780001839157,
+          "seconds": 0.00047338999956991756,
           "tau": [
             -2,
             4,
@@ -3540,7 +3556,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.017852618000233633,
+          "seconds": 0.018220832000224618,
           "tau": [
             -1,
             -1,
@@ -3571,7 +3587,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.014346393999858265,
+          "seconds": 0.014306392000435153,
           "tau": [
             -1,
             -1,
@@ -3602,7 +3618,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00027559099999052705,
+          "seconds": 0.0002993600000991137,
           "tau": [
             -1,
             -1,
@@ -3633,7 +3649,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.2793856489997779,
+          "seconds": 0.2803094170003533,
           "tau": [
             -1,
             -1,
@@ -3664,7 +3680,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.10921153300023434,
+          "seconds": 0.11284761800015986,
           "tau": [
             -1,
             -1,
@@ -3695,7 +3711,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.12006582799995158,
+          "seconds": 0.12411019900082465,
           "tau": [
             -1,
             -1,
@@ -3726,7 +3742,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.023868066999966686,
+          "seconds": 0.02422240000032616,
           "tau": [
             -1,
             -1,
@@ -3757,7 +3773,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.011573207999845181,
+          "seconds": 0.011647674999949231,
           "tau": [
             -1,
             -1,
@@ -3788,7 +3804,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0003122069997516519,
+          "seconds": 0.00033873699976538774,
           "tau": [
             -1,
             -1,
@@ -3819,7 +3835,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00015429600034622126,
+          "seconds": 0.00015789500048413174,
           "tau": [
             -1,
             -1,
@@ -3850,7 +3866,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00010661700025593746,
+          "seconds": 0.00010735600062616868,
           "tau": [
             -1,
             -1,
@@ -3881,7 +3897,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00014644999964730232,
+          "seconds": 0.00014514299982693046,
           "tau": [
             -1,
             -1,
@@ -3912,7 +3928,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.006770767000034539,
+          "seconds": 0.0066643079999266774,
           "tau": [
             -1,
             -1,
@@ -3943,7 +3959,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.25560819299971627,
+          "seconds": 0.2614265850006632,
           "tau": [
             -1,
             0,
@@ -3974,7 +3990,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.12182239100002334,
+          "seconds": 0.11852009599988378,
           "tau": [
             -1,
             0,
@@ -4005,7 +4021,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.12037372100030552,
+          "seconds": 0.12375677900035953,
           "tau": [
             -1,
             0,
@@ -4036,7 +4052,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.004970345999936399,
+          "seconds": 0.005286657000397099,
           "tau": [
             -1,
             0,
@@ -4067,7 +4083,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005175800999950297,
+          "seconds": 0.005068071999630774,
           "tau": [
             -1,
             0,
@@ -4098,7 +4114,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.009919256000102905,
+          "seconds": 0.010507820999919204,
           "tau": [
             -1,
             0,
@@ -4129,7 +4145,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.006450729999869509,
+          "seconds": 0.00696217400036403,
           "tau": [
             -1,
             0,
@@ -4160,7 +4176,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005254003000118246,
+          "seconds": 0.01696376599920768,
           "tau": [
             -1,
             0,
@@ -4191,7 +4207,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.013199236000218662,
+          "seconds": 0.0018191700000897981,
           "tau": [
             -1,
             0,
@@ -4222,7 +4238,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0037197289998402994,
+          "seconds": 0.00374147799993807,
           "tau": [
             -1,
             0,
@@ -4253,7 +4269,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0036220739998498175,
+          "seconds": 0.003933459999643674,
           "tau": [
             -1,
             0,
@@ -4284,7 +4300,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005004319000363466,
+          "seconds": 0.005017953999413294,
           "tau": [
             -1,
             0,
@@ -4315,7 +4331,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.006643401000019367,
+          "seconds": 0.006648797000707418,
           "tau": [
             -1,
             0,
@@ -4346,7 +4362,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0031486099996982375,
+          "seconds": 0.0033012269996106625,
           "tau": [
             -1,
             0,
@@ -4377,7 +4393,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.003093393000199285,
+          "seconds": 0.003108967000116536,
           "tau": [
             -1,
             0,
@@ -4408,7 +4424,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0036082690003240714,
+          "seconds": 0.0038146590004544123,
           "tau": [
             -1,
             0,
@@ -4439,7 +4455,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.011118219000309182,
+          "seconds": 0.011983807999968121,
           "tau": [
             -1,
             0,
@@ -4470,7 +4486,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005147618999671977,
+          "seconds": 0.004952661000061198,
           "tau": [
             -1,
             1,
@@ -4501,7 +4517,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0031426059999830613,
+          "seconds": 0.0030137479998302297,
           "tau": [
             -1,
             1,
@@ -4532,7 +4548,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.003250438000122813,
+          "seconds": 0.0031641619998481474,
           "tau": [
             -1,
             1,
@@ -4563,7 +4579,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0003017330000147922,
+          "seconds": 0.0002699880005820887,
           "tau": [
             -1,
             2,
@@ -4594,7 +4610,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00016087099993455922,
+          "seconds": 0.00018092200025421334,
           "tau": [
             -1,
             2,
@@ -4625,7 +4641,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00011470900017229724,
+          "seconds": 0.0001153799994426663,
           "tau": [
             -1,
             2,
@@ -4656,7 +4672,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00015264700004991028,
+          "seconds": 0.00015848700058995746,
           "tau": [
             -1,
             2,
@@ -4687,7 +4703,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 8.621300003142096e-05,
+          "seconds": 8.734299990464933e-05,
           "tau": [
             -1,
             2,
@@ -4718,7 +4734,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00010464300021340023,
+          "seconds": 0.00010564300009718863,
           "tau": [
             -1,
             2,
@@ -4749,7 +4765,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00018786300006468082,
+          "seconds": 0.00015027500012365635,
           "tau": [
             -1,
             2,
@@ -4780,7 +4796,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.2391521939998711,
+          "seconds": 0.23884420300055353,
           "tau": [
             0,
             -2,
@@ -4811,7 +4827,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.09763382900018769,
+          "seconds": 0.0995126159996289,
           "tau": [
             0,
             -1,
@@ -4842,7 +4858,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0029337649998524284,
+          "seconds": 0.002994995999870298,
           "tau": [
             0,
             -1,
@@ -4873,7 +4889,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0030255500000748725,
+          "seconds": 0.00301708100050746,
           "tau": [
             0,
             -1,
@@ -4904,7 +4920,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0032170629997381184,
+          "seconds": 0.0037646829996447195,
           "tau": [
             0,
             -1,
@@ -4935,7 +4951,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00015180799982772442,
+          "seconds": 0.0001541379997433978,
           "tau": [
             0,
             0,
@@ -4966,7 +4982,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00027069800034951186,
+          "seconds": 0.00029944699963380117,
           "tau": [
             0,
             0,
@@ -4997,7 +5013,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.005717311999887897,
+          "seconds": 0.005943679999290907,
           "tau": [
             0,
             1,
@@ -5028,7 +5044,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00542985599986423,
+          "seconds": 0.005526326999643061,
           "tau": [
             0,
             1,
@@ -5059,7 +5075,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00027061999981015106,
+          "seconds": 0.00032755099982750835,
           "tau": [
             0,
             1,
@@ -5090,7 +5106,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.320199978901655e-05,
+          "seconds": 0.00010236300022370415,
           "tau": [
             0,
             1,
@@ -5121,7 +5137,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00028395099980116356,
+          "seconds": 0.00030593200062867254,
           "tau": [
             0,
             1,
@@ -5152,7 +5168,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.002487773000211746,
+          "seconds": 0.0023586100005559274,
           "tau": [
             1,
             -2,
@@ -5183,7 +5199,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0024621610000394867,
+          "seconds": 0.010042173999863735,
           "tau": [
             1,
             -2,
@@ -5214,7 +5230,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0001324360000580782,
+          "seconds": 0.00017562999983056216,
           "tau": [
             1,
             -2,
@@ -5245,7 +5261,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.009928752999712742,
+          "seconds": 0.0021584030000667553,
           "tau": [
             1,
             -2,
@@ -5276,7 +5292,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00018251299979965552,
+          "seconds": 0.00027007799963030266,
           "tau": [
             1,
             -2,
@@ -5307,7 +5323,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0003792049997173308,
+          "seconds": 0.0006788110003981274,
           "tau": [
             1,
             -2,
@@ -5338,7 +5354,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00480041099990558,
+          "seconds": 0.00938423400020838,
           "tau": [
             1,
             -1,
@@ -5369,7 +5385,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.007561062999684509,
+          "seconds": 0.0030039720004424453,
           "tau": [
             1,
             -1,
@@ -5400,7 +5416,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.01732975799995984,
+          "seconds": 0.017225685000084923,
           "tau": [
             1,
             -1,
@@ -5431,7 +5447,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.004094880000138801,
+          "seconds": 0.004060559000208741,
           "tau": [
             1,
             0,
@@ -5462,7 +5478,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00011824600005638786,
+          "seconds": 0.00014451900005951757,
           "tau": [
             1,
             0,
@@ -5493,7 +5509,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0003080980000049749,
+          "seconds": 0.00045449600020219805,
           "tau": [
             1,
             0,
@@ -5524,7 +5540,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00013759000012214528,
+          "seconds": 0.00011228099992877105,
           "tau": [
             1,
             1,
@@ -5555,7 +5571,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.002023008999913145,
+          "seconds": 0.0019490380000206642,
           "tau": [
             1,
             1,
@@ -5586,7 +5602,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.18959999580693e-05,
+          "seconds": 8.503800017933827e-05,
           "tau": [
             1,
             1,
@@ -5617,7 +5633,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00011679600038405624,
+          "seconds": 0.00010761500016087666,
           "tau": [
             1,
             1,
@@ -5648,7 +5664,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0001525389998278115,
+          "seconds": 0.000151984000694938,
           "tau": [
             1,
             1,
@@ -5679,7 +5695,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0004268259999662405,
+          "seconds": 0.0004489459997785161,
           "tau": [
             1,
             1,
@@ -5710,7 +5726,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.007243915999879391,
+          "seconds": 0.007225690000268514,
           "tau": [
             1,
             2,
@@ -5741,7 +5757,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0072853159999795025,
+          "seconds": 0.0073324140003023786,
           "tau": [
             1,
             2,
@@ -5772,7 +5788,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.007264137000220217,
+          "seconds": 0.007319770000322023,
           "tau": [
             1,
             2,
@@ -5803,7 +5819,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0012027059997308243,
+          "seconds": 0.0012564849994305405,
           "tau": [
             1,
             4,
@@ -5834,7 +5850,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.001671910999903048,
+          "seconds": 0.0016424320001533488,
           "tau": [
             1,
             4,
@@ -5865,7 +5881,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.00042269799996574875,
+          "seconds": 0.00034949800010508625,
           "tau": [
             1,
             4,
@@ -5896,7 +5912,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0016594859998804168,
+          "seconds": 0.0018352970000705682,
           "tau": [
             1,
             4,
@@ -5927,7 +5943,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0001418500000909262,
+          "seconds": 0.00019613200038293144,
           "tau": [
             1,
             4,
@@ -5958,7 +5974,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00040905599962570705,
+          "seconds": 0.000395901999581838,
           "tau": [
             1,
             4,
@@ -5989,7 +6005,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0016839849999996659,
+          "seconds": 0.0016800809999040212,
           "tau": [
             1,
             4,
@@ -6020,7 +6036,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00019071199994868948,
+          "seconds": 0.00016794499970274046,
           "tau": [
             1,
             4,
@@ -6051,7 +6067,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00043874899984075455,
+          "seconds": 0.0004734089998237323,
           "tau": [
             1,
             4,
@@ -6082,7 +6098,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.007837704999928974,
+          "seconds": 0.007997777000127826,
           "tau": [
             2,
             -2,
@@ -6113,7 +6129,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.396799987371196e-05,
+          "seconds": 9.788400075194659e-05,
           "tau": [
             2,
             -1,
@@ -6144,7 +6160,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0002704909998101357,
+          "seconds": 0.0002560359998824424,
           "tau": [
             2,
             -1,
@@ -6175,7 +6191,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00010909399998126901,
+          "seconds": 0.00011542700030986452,
           "tau": [
             2,
             -1,
@@ -6206,7 +6222,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00018237799986309255,
+          "seconds": 0.000157008999849495,
           "tau": [
             2,
             -1,
@@ -6237,7 +6253,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 9.303299975726986e-05,
+          "seconds": 8.698799956619041e-05,
           "tau": [
             2,
             -1,
@@ -6268,7 +6284,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00010573700001259567,
+          "seconds": 0.00013810200016450835,
           "tau": [
             2,
             -1,
@@ -6299,7 +6315,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00015923199998724158,
+          "seconds": 0.00015245700069499435,
           "tau": [
             2,
             -1,
@@ -6330,7 +6346,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.0048867870000322,
+          "seconds": 0.005116887000440329,
           "tau": [
             2,
             1,
@@ -6361,7 +6377,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0001118289997066313,
+          "seconds": 0.00011176899988640798,
           "tau": [
             2,
             2,
@@ -6392,7 +6408,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00010910700029853615,
+          "seconds": 0.00011013899984391173,
           "tau": [
             2,
             2,
@@ -6423,7 +6439,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00015328099971156917,
+          "seconds": 0.00016538799991394626,
           "tau": [
             2,
             2,
@@ -6454,7 +6470,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.004140337000080763,
+          "seconds": 0.004177063000497583,
           "tau": [
             2,
             5,
@@ -6485,7 +6501,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0041348159998051415,
+          "seconds": 0.0041157599998769,
           "tau": [
             2,
             5,
@@ -6516,7 +6532,7 @@
           },
           "cyclic_status": "coefficient_nonunit",
           "is_facet": false,
-          "seconds": 0.0014446979998865572,
+          "seconds": 0.0013999539996802923,
           "tau": [
             2,
             5,
@@ -6547,7 +6563,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.004072004000136076,
+          "seconds": 0.004645161000553344,
           "tau": [
             2,
             5,
@@ -6578,7 +6594,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0015608559997417615,
+          "seconds": 0.0015906180005913484,
           "tau": [
             2,
             5,
@@ -6609,7 +6625,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0012756000000990753,
+          "seconds": 0.0015163460002440843,
           "tau": [
             4,
             -2,
@@ -6640,7 +6656,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0012816180001209432,
+          "seconds": 0.0016257389997917926,
           "tau": [
             4,
             -2,
@@ -6671,7 +6687,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00015340399977503694,
+          "seconds": 0.0001911469998958637,
           "tau": [
             4,
             -2,
@@ -6702,7 +6718,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.000447901999905298,
+          "seconds": 0.00044972499927098397,
           "tau": [
             4,
             -2,
@@ -6733,7 +6749,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0010204109998994682,
+          "seconds": 0.0010885629999393132,
           "tau": [
             4,
             1,
@@ -6764,7 +6780,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00014085099974181503,
+          "seconds": 0.00013609799952973844,
           "tau": [
             4,
             1,
@@ -6795,7 +6811,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.00034810000033758115,
+          "seconds": 0.0003651750002973131,
           "tau": [
             4,
             1,
@@ -6826,7 +6842,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0001448439998057438,
+          "seconds": 0.0001498339997851872,
           "tau": [
             4,
             1,
@@ -6857,7 +6873,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": false,
-          "seconds": 0.0004092700000910554,
+          "seconds": 0.00037561099998129066,
           "tau": [
             4,
             1,
@@ -6888,7 +6904,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.004245616999924096,
+          "seconds": 0.00428665799972805,
           "tau": [
             5,
             -4,
@@ -6919,7 +6935,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.00914579100026458,
+          "seconds": 0.004406744999869261,
           "tau": [
             5,
             -4,
@@ -6950,7 +6966,7 @@
           },
           "cyclic_status": "coefficient_one",
           "is_facet": true,
-          "seconds": 0.002907228999902145,
+          "seconds": 0.0083810589994755,
           "tau": [
             5,
             2,

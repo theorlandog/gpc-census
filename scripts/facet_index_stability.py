@@ -115,6 +115,17 @@ def shape_census(n: int, d: int) -> dict[str, Any]:
     }
 
 
+def _tight_padding():
+    """Return the ordered-stability branch's tight padding extension.
+
+    Imported rather than reimplemented so the two campaigns cannot drift.
+    """
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    from ordered_representation_stability import pi_pad
+
+    return pi_pad
+
+
 def padding_census(n: int, d: int) -> dict[str, Any]:
     """Test trailing-zero padding of ``(n,d)`` facets against ``(n,d+1)``.
 
@@ -147,6 +158,17 @@ def padding_census(n: int, d: int) -> dict[str, Any]:
             ),
         }
 
+    # Reconciliation with the ordered-stability branch, added at merge time.
+    # That campaign found a TIGHT padding extension that is total and exact
+    # (docs/ordered_representation_stability.md), which reads as a
+    # contradiction of the failure measured here until one notices the maps
+    # differ: this one appends zero in affine coordinates, that one appends the
+    # largest last entry keeping the row valid. Its function is imported rather
+    # than reimplemented, so there stays one generator per number.
+    tight_extension = _tight_padding()
+    lower_vertices_available = True
+    agrees_with_tight = 0
+
     violated = tight = interior = in_facet_list = 0
     examples: list[dict[str, Any]] = []
     for row in lower:
@@ -167,6 +189,11 @@ def padding_census(n: int, d: int) -> dict[str, Any]:
             interior += 1
         if is_facet:
             in_facet_list += 1
+        if lower_vertices_available:
+            row_tau = tau_from_constraint(row, n)
+            tight_tau = tight_extension(row_tau, [list(v) for v in higher_vertices])
+            if tight_tau is not None and tuple(tight_tau) == tuple(padded_tau):
+                agrees_with_tight += 1
         if is_violated and len(examples) < 3:
             worst = max(values)
             examples.append(
@@ -187,6 +214,10 @@ def padding_census(n: int, d: int) -> dict[str, Any]:
         "valid_but_strictly_interior": interior,
         "present_in_higher_facet_list": in_facet_list,
         "padding_is_a_valid_map": violated == 0,
+        "agrees_with_tight_extension": agrees_with_tight,
+        "facet_membership_matches_tight_agreement": (
+            in_facet_list == agrees_with_tight
+        ),
         "violation_examples": examples,
     }
 
