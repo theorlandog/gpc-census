@@ -101,6 +101,27 @@ def test_every_one_hole_verdict_is_a_proof():
                 assert verdict["coefficient_count"] == 0
 
 
+def test_every_hall_feasible_row_has_a_determinant_verdict():
+    """The audit classifies all Hall-feasible rows, not just the one-hole ones."""
+    for record in _audit()["systems"].values():
+        total = record["determinant_nonzero"] + record["determinant_zero"]
+        assert total == record["hall_feasible"]
+        assert record["determinant_unresolved"] == 0
+        assert record["structural_determinant_nonzero"] == 2
+
+
+def test_rank_nine_determinant_split():
+    """Independently reproduces the uploaded rank-9 direct-grammar campaign."""
+    rank9 = _audit()["systems"]["(3,9)"]
+    assert rank9["hall_feasible"] == 371
+    assert rank9["determinant_nonzero"] == 242
+    assert rank9["determinant_zero"] == 129
+    assert rank9["mechanisms_with_a_survivor"] == 191
+    assert rank9["shapes_with_a_hall_placement"] == 52
+    assert rank9["determinant_nonzero_by_holes"] == {"0": 239, "1": 3}
+    assert rank9["determinant_zero_by_holes"] == {"0": 100, "1": 29}
+
+
 def test_singleton_incidence_injective_at_every_rank():
     audit = _audit()
     for record in audit["systems"].values():

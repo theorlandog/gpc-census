@@ -574,6 +574,15 @@ plethysm criterion feed Problem 7 below.
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- signed_chow_projection.md: THE INCIDENCE HASH BECOMES A THEOREM. Three proved
+  statements (c_+ determines the positive family; c_+ is order-monotone in tau;
+  the signed pair determines the normal ray when the zero family spans a
+  hyperplane), so every admissible candidate is carried by 2d integers rather
+  than a binom(d,N) sign pattern. Verified on 142,493 rows with exact rational
+  reconstruction and zero collisions. ❗ Keeps the span hypothesis, the
+  c_+-alone separation, and the absence of a decoder explicitly on the measured
+  side. Artifact signed_chow_projection.json; guard test
+  tests/test_signed_chow_projection.py.
 - rank9_compression_audit.md: THE DECISIVE TEST, run. Regenerates the rank-7
   and rank-8 population gates the previous bundle could only re-read, exactly,
   then classifies the complete rank-9 population: 135,343 trace survivors, 371
@@ -1502,12 +1511,67 @@ tests/test_rank9_compression_audit.py]
   `generate_trace_survivors` is output linear. 264 of the 455 orbits are killed
   by `orbit_is_trace_dead` before an arrangement is built, and the rank-9 pass
   costs 25 seconds against about 20 million oriented rows never visited.
+- 🟦 CROSS-VALIDATED against an independently written rank-9 direct-grammar
+  campaign produced outside this repository. Two implementations agree on NINE
+  quantities: 135,343 survivors, 371 Hall-feasible, 134,972 Hall-zero, 242
+  determinant-nonzero, 129 exact cancellation zeros, 2 structural among the
+  nonzero, 191 distinct mechanisms, 52 shapes carrying a Hall placement, and
+  the entire optimal width distribution. The audit now classifies EVERY
+  Hall-feasible row, not just the one-hole ones: 50/25 at (3,7), 138/55 at
+  (3,8), 242/129 at (3,9), zero unresolved.
+- ❗ A COINCIDENCE NOT TO READ AS STRUCTURE: that campaign reports both "52
+  grammar shapes with a Hall placement" and "52 retained facets". They are
+  different objects sharing a value. The 52 published `(3,9)` facet rows carry
+  only EIGHT distinct sorted-`tau` shapes, so the shape-to-facet map is not the
+  bijection the matching numbers suggest.
 - 🔬 STILL OPEN. `N = 3` only, so the published one-hole mechanisms at `(4,9)`,
   `(4,10)` and `(5,10)` are outside this population. Hall plus a nonzero
   determinant are necessary conditions in this pipeline, not facetness, and no
   `(3,9)` facet system is produced. The next population that could break the
   conjecture is rank 10, where the augmentation enumerator reports 1,337 top
   orbits.
+
+## The signed Chow projection: the incidence hash becomes a theorem (2026-08-08)
+
+The fixed-weight Chow-parameter theorem the incidence tomography kept
+motivating, proved, plus the exact separation of what is proved from what is
+measured. [docs/signed_chow_projection.md;
+results/data/signed_chow_projection.json;
+scripts/signed_chow_projection.py; tests/test_signed_chow_projection.py]
+
+- 🟨 T1 DETERMINATION, PROVED, and stronger than the threshold-pair statement.
+  For a primitive normal `tau`, let `c_+` be the orbital occupancy of the
+  positive family `B_+`. Then ANY fixed-weight family summing to `c_+` equals
+  `B_+`, with no threshold hypothesis on the competitor: `1 . c_+ = N|B_+|`
+  fixes the cardinality, and `0 = tau . (c_+ - sum F)` splits into a strictly
+  positive group and a nonpositive one, so the first difference is empty.
+- 🟨 T2 MONOTONICITY, PROVED, and it is the algorithmically useful one.
+  `tau_i >= tau_j` implies `c_+(tau)_i >= c_+(tau)_j`, by the exchange
+  injection `I -> I \ {j} u {i}`. So the sorted order of `c_+` recovers the
+  chamber order of `tau` up to ties: THE SHADOW ALREADY CARRIES THE PLACEMENT,
+  which makes it a candidate state variable for a placement descent and not
+  merely a deduplication key.
+- 🟨 T3 RECONSTRUCTION, PROVED conditionally. The signed pair determines `B_0`
+  by complement, and when `span(B_0)` has dimension `d-1` the normal ray is its
+  primitive annihilator. The generator's admissibility condition, affine rank
+  `d-2` on the zero weights, is EXACTLY that hypothesis, because every weight
+  has coordinate sum `N != 0` so the linear span is one larger than the affine
+  hull. Corollary: every admissible GPC candidate is determined by `2d`
+  integers, against a slice of size `binom(d,N)`.
+- 🟦 VERIFIED ON 142,493 ROWS, every nonstructural trace survivor at ranks 7, 8
+  and 9: exact rational reconstruction of `tau` at 547/547, 6,605/6,605 and
+  135,341/135,341, zero-family span full at every row, monotonicity at every
+  row, and zero collisions for both the signed pair and `c_+` alone.
+- ❗ WHAT IS STILL MEASURED, kept separate on purpose. That `span(B_0)` attains
+  `d-1` is verified, not proved. That `c_+` ALONE separates normals is
+  measured: T1 gives only `c_+ -> B_+`, and two normals sharing `B_+` while
+  differing on the `B_-`/`B_0` split are excluded by no theorem here. The
+  earlier audits' injectivity claim sits at exactly this level.
+- ❗ AND "ENCODED BY 2d INTEGERS" IS NOT A DECODER. T1 is uniqueness, not an
+  algorithm; inverting a bare `c_+` is the Chow-parameters problem and is not
+  solved here. T2 is the practical lever. Certificate VERIFICATION needs no
+  inversion: one pass over the slice recomputes the pair, and T3 upgrades a
+  match to uniqueness.
 
 ## Adjacent literature to respect
 

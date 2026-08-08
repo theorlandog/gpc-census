@@ -183,13 +183,18 @@ be GPC facets, so that number prices verification of a specified normal and
 nothing else. And 2,393 *rejected* rank-8 Hall zeros also reach width 4, so
 small width does not select facets.
 
-**Incidence tomography is a hash, not a theorem.** The labeled
+**Incidence tomography is a hash, and now partly a theorem.** The labeled
 singleton-incidence vector is injective on all three populations, at 83 of 83
 mechanisms, 547 of 547 nonstructural `(3,7)` survivors and 6,605 of 6,605 at
 `(3,8)`, with zero nonstructural cross-shape collisions and no additional
-resolution from pair incidence. That licenses it as the first canonical key
-and motivates a fixed-weight Chow-parameter theorem attempt. It is measured
-injectivity on finite sets.
+resolution from pair incidence. UPDATED: the fixed-weight Chow-parameter
+theorem this motivated is now proved in `docs/signed_chow_projection.md`. The
+incidence vector `c_+` provably determines the positive family `B_+`, and the
+signed pair `(c_+, c_-)` provably determines the normal ray whenever the zero
+family spans a hyperplane, which it does on all 142,493 rows tested. What
+remains measured rather than proved is the narrower claim that `c_+` ALONE
+separates normals, since two normals could share `B_+` and differ in how the
+remainder splits.
 
 ## Evidence boundary
 
