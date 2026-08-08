@@ -562,6 +562,54 @@ plethysm criterion feed Problem 7 below.
   prereg_symplectic_invariants.md; artifacts symplectic_invariants.json and
   quantization_multiplicities.json; standalone replay in
   scripts/verify_symplectic_invariants_standalone.py.
+- mechanism_grammar_frontier.md: THE SYNTHESIS, and the entry point for the
+  local-grammar arc. Reconciles the four campaigns below, which are consistent
+  once separated by rank: the exact-arithmetic-progression grammar is complete
+  through rank 8 on the full population, and the one hole switches on at rank 9,
+  witnessed both by three modular-nonzero rank-9 certificates and, independently
+  of any window, by five one-hole mechanisms among published rank-9 and rank-10
+  facets. Proves `g | N` rather than measuring it, records `r <= 2N` as REFUTED,
+  and keeps two caveats attached: fusion width is an evaluation cost and not a
+  facetness discriminator, and incidence injectivity is a hash and not a
+  theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
+  scripts/verify_mechanism_grammar_synthesis.py; guard test
+  tests/test_mechanism_grammar_synthesis.py.
+- levi_fusion_pilot.md: the discovery phase over (3,7), (3,8), (4,8). Refutes
+  "primitive if and only if multi-sector" in BOTH directions (all four primitive
+  (3,7) rows have fusion rank 1; every nonstructural (4,8) row has fusion rank 2
+  across both classes) and lands mechanism compression. Counts include
+  structural rows, unlike the held-out phase. Artifact levi_fusion_pilot.json;
+  guard test tests/test_levi_fusion_audit.py.
+- levi_fusion_heldout_results.md: the preregistered held-out test over (3,9),
+  (3,10), (4,9), (4,10), (5,10). ❌ P1 FAILS at (3,10) and (4,10): the number of
+  Levi blocks reaches the orbital rank. P2-P6 PASS, P2 confirmatorily.
+  Pre-registration in prereg_levi_fusion_heldout.md; artifact
+  levi_fusion_heldout_results.json; standalone replay in
+  scripts/verify_levi_fusion_heldout_standalone.py; guard test
+  tests/test_levi_fusion_heldout_results.py.
+- generator_compression_trial.md: the bounded go/no-go on three constructor
+  ideas. GO on target-aware fusion trees, NO-GO on exact-progressions-only,
+  TENTATIVE GO on bounded holes, GO FOR A THEOREM ATTEMPT on incidence
+  tomography, NOT YET on full generator replacement. Exhaustive ONLY for
+  primitive N=3 normals with entries in [-5,5] at ranks 7, 8, 9. Artifact
+  generator_compression_trial.json; verifier
+  scripts/verify_generator_compression_trial.py, which recomputes the three
+  modular residues rather than reading them.
+- full_rank78_compression_audit.md: the same classification over the COMPLETE
+  (3,7) and (3,8) trace-survivor populations, 7,156 rows. Establishes that the
+  1,019 one-hole survivors yield exactly 7 Hall-feasible rows and that all 7
+  have identically zero tangent determinant, which is why exact progressions
+  suffice through rank 8. ⚠️ The population gates are re-read and
+  internally cross-checked, not regenerated: the generating enumeration was not
+  shipped. Artifact full_rank78_compression_audit.json; compact verifier
+  scripts/verify_full_rank78_compression_audit.py.
+- arithmetic_level_audit.md: the post-hoc arithmetic structure of the 83 known
+  mechanisms, 78 exact progressions and 5 one-hole, none with two holes. Its
+  "step divides N at 83/83" is entailed by an elementary lemma, so it functions
+  as a consistency check rather than evidence. Artifact
+  arithmetic_level_audit.json; generator scripts/arithmetic_level_audit.py,
+  written here because the source shipped the numbers with no script, and
+  `--check` reproduces the stored artifact exactly.
 - sine_field.md: THEOREM F, and the SINE FIELD, an object the arithmetic arc
   recorded but never used. 🟦 PROVED: with A_ab = Im(z_a conj(z_b)) the signed
   area, the Gram entry and the area are the real and imaginary parts of ONE
@@ -1279,6 +1327,118 @@ differ on candidate generation (1-PS versus closed flats), admissibility
 (`is_sub_module` versus affine rank), and determinant handling (their
 birationality filter versus exact fail-closed certification). Neither algorithm
 claims anything uniform in `d`.
+
+## The mechanism-grammar frontier: the hole switches on at rank 9 (2026-08-08)
+
+Whether the facet normals of a fixed system are drawn from a small local
+grammar, as opposed to the global compression question that the
+Khovanskii/SAGBI and infinite-wedge campaigns answered NO. Four campaigns, one
+synthesis, and the two whose headlines look contradictory are separated by rank.
+[docs/mechanism_grammar_frontier.md; docs/levi_fusion_pilot.md;
+docs/prereg_levi_fusion_heldout.md; docs/levi_fusion_heldout_results.md;
+docs/generator_compression_trial.md; docs/full_rank78_compression_audit.md;
+docs/arithmetic_level_audit.md;
+results/data/mechanism_grammar_synthesis.json;
+results/data/levi_fusion_pilot.json;
+results/data/levi_fusion_heldout_results.json;
+results/data/generator_compression_trial.json;
+results/data/full_rank78_compression_audit.json;
+results/data/arithmetic_level_audit.json;
+scripts/verify_mechanism_grammar_synthesis.py;
+tests/test_mechanism_grammar_synthesis.py]
+
+- ❌ BOUNDED LEVI BLOCKS ARE NOT THE THEOREM. The preregistered P1, `r <= 2N`
+  for the number of distinct `tau` levels, FAILS at `(3,10)` and `(4,10)`. The
+  witness is a `(4,10)` row with every entry distinct,
+  `tau = (0,1,2,-3,3,-6,-4,-5,-2,-1)`, so `r = 10 > 8 = 2N` while `f = 9` and
+  `dim W_0 = 9` out of an ambient 210. The synthesis verifier recomputes that
+  descriptor from `tau` alone. The block count reaching the orbital rank does
+  not damage the program: `f` and `dim W_0` are the quantities that stay small,
+  P5 (`f_max(3,d) <= d-3`) passes and is saturated at `d = 10`, and P6 holds the
+  zero-grade density at or below `7/15`. P2 through P6 pass, P2 only
+  confirmatorily because the sorted-`tau` shape census had already landed it.
+- 🟦 THE RECONCILIATION, and it is the finding. "Exact arithmetic progressions
+  only is a NO-GO" (bounded trial) and "every determinant-nonzero rank-7/rank-8
+  candidate has an exact progression level set" (full population) are both
+  exact and are about different ranks. Through rank 8 the exact-progression
+  grammar is COMPLETE on the full 7,156-row trace-survivor population, and not
+  vacuously: 1,019 one-hole survivors exist at `(3,8)`, exactly 7 are
+  Hall-feasible, and all 7 have identically zero tangent determinant by exact
+  signed sparse expansion. From rank 9 the hole is load-bearing.
+- 🟦 AND THE ONSET IS WITNESSED TWICE, the second way independent of every
+  window and conjecture: three modular-nonzero one-hole certificates at rank 9
+  in the bounded search, AND five of the 83 published Levi mechanisms are
+  one-hole progressions, at `(3,10)`, `(4,9)`, `(4,10)` and `(5,10)` twice.
+  Those are certified facets of published polytopes whose level sets are not
+  arithmetic progressions, so a grammar without the hole cannot generate the
+  rank-9 facet system. This second route was not stated in the source documents.
+- 🟨 `g | N` IS A THEOREM, not the measurement the audit reported as 83/83.
+  Levels in `a+g*Z` with `gcd(a,g)=1` and a zero-grade allocation give
+  `N*a+g*S=0`, hence `g | N*a`, hence `g | N`; primitivity of a published row
+  supplies `gcd(a,g)=1`, because normalizing by `g` makes the gcd of the
+  normalized levels 1. So the divisor restriction is FREE for a constructor
+  rather than a conjecture to validate, and the 83/83 count is a pipeline
+  consistency check. Visible in the step distribution: only 1 and 5 at `N=5`,
+  only 1 and 3 at `N=3`, with 2 appearing at `N=4`.
+- 🟦 CROSS-REALIZATION AGREEMENT at rank 8, and the window was not chosen to
+  produce it: the bounded `[-5,5]` search and the full trace-survivor population
+  independently isolate the SAME single one-hole Hall-feasible shape,
+  `(-2,-1,-1,-1,0,0,0,2)`, normalized `[0,1,2,4]` with 3 missing, carrying the
+  same 7 Hall-feasible placements.
+- 🔬 THE SURVIVING CONJECTURE, and the only one worth a proof attempt: every
+  Hall-feasible candidate normal has arithmetic-progression levels with AT MOST
+  ONE missing point. Zero counterexamples across three independently scoped
+  populations (83 published mechanisms, 537 bounded Hall-feasible placements,
+  7,156 full rank-7/rank-8 survivors). In the bounded search 135 multi-hole
+  trace placements do exist and Hall rejects every one, so the matching
+  condition is doing the work, not the enumeration window. Established for no
+  rank above 10 and no `N` above 5.
+- ❗ FUSION WIDTH IS AN EVALUATION COST, NOT A FACETNESS TEST, and quoting it as
+  a discriminator would be the easy error here. Pruning is real (unpruned state
+  sets reach 105 against optimal width at most 5 over the 83 mechanisms and at
+  most 4 on the full rank-7/rank-8 populations; the synthetic stress test bounds
+  one consecutive-level `(20,40)` family at 449 balanced-tree states rather than
+  all 20-subsets of 40 orbitals, and those synthetic normals are NOT claimed to
+  be facets), but 2,393 REJECTED rank-8 Hall zeros also reach width 4. It prices
+  verification of a specified normal and selects nothing.
+- ❗ INCIDENCE TOMOGRAPHY IS A HASH, NOT A THEOREM. Labeled singleton incidence
+  is injective at 83 of 83 mechanisms, 547 of 547 nonstructural `(3,7)`
+  survivors and 6,605 of 6,605 at `(3,8)`, with zero nonstructural cross-shape
+  collisions and no extra resolution from pair incidence. Measured injectivity
+  on finite sets; it licenses a canonical first key and a fixed-weight
+  Chow-parameter theorem attempt.
+- ⚠️ SCOPE GAP, declared rather than hidden. The full rank-7/rank-8 population
+  gates (549, 6,607, the Hall split, the incidence counts) are re-read from the
+  artifact and cross-checked for internal consistency; the compact verifier
+  independently recomputes only the seven exceptional determinants, the level
+  normalizations and the matchings, because the generating enumeration was not
+  shipped with that bundle. The bounded search is exhaustive only for primitive
+  `N=3` normals with entries in `[-5,5]` at ranks 7, 8, 9.
+- ⚠️ SCOPE SHIFT between the two Levi phases, which explains an apparent
+  disagreement in the docs: the pilot counts signatures over ALL rows including
+  structural ones and reports 3 at `(4,8)`, while the held-out phase is
+  nonstructural-only and reports 2. Of the 83 mechanisms exactly one, the
+  `(4,8)` shape, is structural.
+- 🟦 A DEFECT FIXED, not inherited. `scripts/levi_fusion_audit.py` used
+  `Fraction` without importing it, so a full run crashed in `score_heldout` and
+  the shipped artifact had to come from another path. With the import added, the
+  script regenerates the held-out per-system row counts, signature counts,
+  maximum fusion ranks and maximum level counts directly from
+  `results/data/ordered_representation_stability.json`, which closes the
+  provenance gap left by the standalone verifier's embedded input rows.
+- 🔬 NEXT DECISIVE TEST: the same streaming full-population audit at rank 9,
+  where the onset is predicted and one-hole rows are already known to survive.
+  Falsifiers, in priority order: a Hall-feasible normal with two or more holes
+  anywhere; a published facet outside the at-most-one-hole grammar; two
+  nonstructural placements with equal labeled singleton incidence but different
+  normals; fast width growth on the rank-9 rejected population; a
+  determinant-nonzero one-hole candidate at rank 7 or 8, which would move the
+  onset below 9 and break the reconciliation.
+- This program is logically INDEPENDENT of the global no-go results above. The
+  Khovanskii/SAGBI campaign refutes a uniform generating set for the stable
+  highest-weight semigroup across `d`; this one asks whether each fixed system's
+  normals come from a small local grammar. The refutation there does not touch
+  the conjecture here.
 
 ## Adjacent literature to respect
 
