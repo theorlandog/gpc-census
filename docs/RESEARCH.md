@@ -205,8 +205,21 @@ results/data/infinite_wedge_tca_dependency.json]
 - ❌ AND NO ORDER-PRESERVING EMBEDDING RESCUES IT. 🔬 POST-HOC block: trying all
   `d+1` injections `[d] -> [d+1]` still leaves rows with no valid image at five
   of the six census pairs, and most of each higher system is not an OI image of
-  anything below it. There is no OI-module here for an OI-noetherianity theorem
-  to act on.
+  anything below it. There is no OI-module OF COEFFICIENT PATTERNS here for an
+  OI-noetherianity theorem to act on.
+- 🟦 CROSS-CONFIRMED, and corrected, against the ordered-representation-stability
+  campaign that landed independently. Its `naive_padding_control` reports the
+  SAME `10 of 31` at (3,8) to (3,9) from a separately written implementation,
+  and its Theorem 1 proves that only the TERMINAL insertion is a morphism at
+  all, so the non-trailing insertions above are not maps of the relevant
+  category and their failure is a theorem rather than a measurement. ⚠️ It also
+  corrects an overstatement: "no covariant map exists" is FALSE, since the TIGHT
+  extension is total and carries facets to facets 612 of 612. The correct and
+  narrower claim is that no covariant map given by a COEFFICIENT-LEVEL TEMPLATE
+  RULE exists; the tight extension optimizes against `Delta(N,d+1)`, the object a
+  constructor would be building, so it organizes known rows rather than
+  generating new ranks, and the NO-GO stands.
+  [docs/ordered_representation_stability.md]
 - 🟦 THE CONTRAVARIANT DIRECTION IS A THEOREM AND IS NOW REPLAYED.
   `Delta(N,d) = Delta(N,d+1) intersect {lambda_{d+1} = 0}`, so restriction
   carries the higher system onto the lower one. Complete at all six consecutive

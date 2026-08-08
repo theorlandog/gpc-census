@@ -189,6 +189,12 @@
    "to": "facets_d"
   },
   {
+   "corrected_against": {
+    "overstatement_retracted": "'no covariant map exists' is FALSE. The TIGHT extension is total and carries facets to facets 612 of 612. It is not a coefficient-level template rule: t* is defined by optimizing against Delta(N,d+1), so it organizes known rows rather than generating new ranks, and the NO-GO is unaffected",
+    "replication": "its naive_padding_control independently reports the same 10 of 31 at (3,8) -> (3,9)",
+    "source": "docs/ordered_representation_stability.md",
+    "upgrade": "its Theorem 1 proves only the TERMINAL insertion is a morphism, so the fixed-N ordered category is a poset and the non-trailing insertions tested here are not morphisms at all"
+   },
    "counterexample": {
     "broken_pairs": [
      "(3,6) -> (3,7): 1 of 1 rows have NO valid embedding",
@@ -202,9 +208,10 @@
    "from": "facets_d",
    "id": "A8oi",
    "note": "POST-HOC block, added after the pre-registered zero-padding prediction failed",
-   "obstruction": "the inequality side of the census carries no covariant OI structure at all; it is a purely contravariant (restriction) functor",
+   "obstruction": "the inequality side of the census carries no covariant OI structure AT THE LEVEL OF COEFFICIENT PATTERNS; as a row functor it is contravariant",
    "sources": [
-    "repo-screening-orbit"
+    "repo-screening-orbit",
+    "repo-ordered-stability"
    ],
    "statement": "for a valid row at rank d there is SOME order-preserving injection [d] -> [d+1] carrying it to a valid row",
    "status": "FALSE",
@@ -490,6 +497,11 @@
    "checked": "in-repo artifact",
    "what": "P = O at all nine census systems, so validity on the certified vertex set is validity on the polytope",
    "where": "docs/census_inner_sandwich.md; results/data/census_inner_sandwich.json"
+  },
+  "repo-ordered-stability": {
+   "checked": "in-repo artifact, landed on main during this campaign",
+   "what": "the fixed-N ordered category of mode embeddings degenerates to a POSET (only the terminal insertion carries Delta(N,d) into Delta(N,e)), so representation stability is vacuous there; chamber-facing rows are not permutation stable; and the TIGHT padding and frozen-core extensions are exact sections of the restrictions, carrying facets to facets 612 of 612",
+   "where": "docs/ordered_representation_stability.md; results/data/ordered_representation_stability.json"
   },
   "repo-quantization": {
    "checked": "in-repo artifact",
