@@ -108,7 +108,10 @@ def hw_support(n: int, d: int, m: int, deadline: float | None = None):
     for index, lam in enumerate(partitions(n * m, maxpart=m)):
         if len(lam) > d:
             continue
-        if deadline is not None and not index % 64 and time.time() > deadline:
+        # Checked often, because one Murnaghan-Nakayama evaluation at the top
+        # of the range costs seconds: a coarse stride overshoots the budget by
+        # minutes rather than by the intended fraction of a degree.
+        if deadline is not None and not index % 4 and time.time() > deadline:
             return None
         mult = sum(
             coefficient * mn(lam, tuple(sorted(mu, reverse=True)))
