@@ -1,0 +1,325 @@
+{
+  "canonical_sha256_without_this_field": "24960b237a2c072f80b2650e1c75f3476849786c49fd127ca4b614ba852907f0",
+  "definitions": {
+    "arithmetic_holes": "Normalize the distinct entries of tau by their gcd gap; count absent integers between the smallest and largest normalized levels.",
+    "fusion_width": "Minimum, over binary trees on distinct normal-level blocks, of the maximum number of target-compatible partial (particle_count, weight_sum) states at a node.",
+    "singleton_signature": "The labeled vector c_i counting positive-side N-subsets containing orbital i."
+  },
+  "evidence_boundary": "The compact verifier replays all seven exceptional tangent determinants and all internal count identities. The full 549/6607 population generation was performed against the source-bound orbit-native implementation and hard-gated to the published survivor and Hall counts.",
+  "schema_version": 1,
+  "source_commit": "058e0a34834b2ff3eacfab258d8030264db7d2b3",
+  "source_repository": "theorlandog/gpc-census",
+  "status": "exact_full_population_audit",
+  "summary": {
+    "any_multi_hole_hall_feasible": false,
+    "any_multi_hole_trace_survivor": false,
+    "any_nonzero_determinant_candidate_with_holes": false,
+    "arithmetic_progression_suffices_after_exact_determinant_at_rank7_rank8": true,
+    "max_balanced_fusion_width": 4,
+    "max_optimal_fusion_width": 4,
+    "one_hole_hall_feasible": 7,
+    "one_hole_hall_feasible_exact_cancellation": 7,
+    "total_nonstructural_survivors": 7152,
+    "total_pair_collision_groups": 0,
+    "total_singleton_collision_groups": 0,
+    "total_trace_survivors": 7156
+  },
+  "systems": {
+    "(3,7)": {
+      "balanced_fusion_width_distribution_all": {
+        "1": 11,
+        "2": 73,
+        "3": 465
+      },
+      "distinct_tau_shapes": 25,
+      "hall_feasible": 75,
+      "hall_zero": 474,
+      "hole_distribution_all": {
+        "0": 549
+      },
+      "hole_distribution_hall_feasible": {
+        "0": 75
+      },
+      "max_balanced_fusion_width": 3,
+      "max_optimal_fusion_width": 3,
+      "nonstructural_survivors": 547,
+      "one_hole_hall_feasible_exact_audit": [],
+      "optimal_fusion_width_distribution_all": {
+        "1": 11,
+        "2": 73,
+        "3": 465
+      },
+      "optimal_fusion_width_distribution_hall_feasible": {
+        "1": 11,
+        "2": 32,
+        "3": 32
+      },
+      "optimal_fusion_width_distribution_hall_zero": {
+        "2": 41,
+        "3": 433
+      },
+      "orbit_counts_by_affine_rank": [
+        1,
+        1,
+        3,
+        10,
+        25,
+        36,
+        19
+      ],
+      "pair_collision_groups": 0,
+      "pair_signature_count": 547,
+      "singleton_collision_groups": 0,
+      "singleton_signature_count": 547,
+      "top_orbits": 19,
+      "trace_survivors": 549
+    },
+    "(3,8)": {
+      "balanced_fusion_width_distribution_all": {
+        "1": 17,
+        "2": 222,
+        "3": 3964,
+        "4": 2404
+      },
+      "distinct_tau_shapes": 64,
+      "hall_feasible": 193,
+      "hall_zero": 6414,
+      "hole_distribution_all": {
+        "0": 5588,
+        "1": 1019
+      },
+      "hole_distribution_hall_feasible": {
+        "0": 186,
+        "1": 7
+      },
+      "max_balanced_fusion_width": 4,
+      "max_optimal_fusion_width": 4,
+      "nonstructural_survivors": 6605,
+      "one_hole_hall_feasible_exact_audit": [
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1575,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -1,
+            -2,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1576,
+          "tau": [
+            2,
+            -1,
+            -1,
+            -2,
+            0,
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1578,
+          "tau": [
+            2,
+            -1,
+            -2,
+            -1,
+            0,
+            0,
+            -1,
+            0
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1579,
+          "tau": [
+            2,
+            -2,
+            0,
+            -1,
+            -1,
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1580,
+          "tau": [
+            2,
+            -2,
+            -1,
+            0,
+            -1,
+            0,
+            -1,
+            0
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1581,
+          "tau": [
+            2,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "determinant_coefficient_count": 0,
+          "determinant_nonzero": false,
+          "matrix_size": 12,
+          "missing_levels": [
+            3
+          ],
+          "normalized_levels": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "on_variables": 7,
+          "perfect_matching": true,
+          "survivor_index": 1582,
+          "tau": [
+            0,
+            2,
+            -2,
+            -1,
+            -1,
+            -1,
+            0,
+            0
+          ]
+        }
+      ],
+      "optimal_fusion_width_distribution_all": {
+        "1": 17,
+        "2": 222,
+        "3": 3964,
+        "4": 2404
+      },
+      "optimal_fusion_width_distribution_hall_feasible": {
+        "1": 16,
+        "2": 51,
+        "3": 115,
+        "4": 11
+      },
+      "optimal_fusion_width_distribution_hall_zero": {
+        "1": 1,
+        "2": 171,
+        "3": 3849,
+        "4": 2393
+      },
+      "orbit_counts_by_affine_rank": [
+        1,
+        1,
+        3,
+        11,
+        37,
+        87,
+        118,
+        56
+      ],
+      "pair_collision_groups": 0,
+      "pair_signature_count": 6605,
+      "singleton_collision_groups": 0,
+      "singleton_signature_count": 6605,
+      "top_orbits": 56,
+      "trace_survivors": 6607
+    }
+  }
+}

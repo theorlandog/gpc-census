@@ -1,0 +1,6809 @@
+{
+ "definition": {
+  "fusion_rank": "number of bounded allocations n_a with sum n_a=N and sum h_a*n_a=0 over equal-tau Levi blocks",
+  "signature": "particle number plus sorted primitive tau shape, modulo overall orientation for the census count",
+  "zero_grade_dimension": "sum over active allocations of product_a binomial(m_a,n_a)"
+ },
+ "generated_at": "2026-08-08",
+ "schema_version": 1,
+ "scientific_reading": [
+  "A fixed 2N bound on the number of Levi blocks is false.",
+  "At (4,10) a primitive facet has ten distinct tau levels, one per orbital.",
+  "The zero-grade modules remain sparse despite unbounded-looking block complexity.",
+  "Primitive rows are more fusion-complex on average than inherited rows at both held-out N=3 ranks.",
+  "Levi signature alone does not determine primitivity because primitive and inherited rows share mechanisms in every held-out system.",
+  "The viable theorem target is a parametrized family of sparse active Levi sectors plus chamber placement and a normal semi-invariant, not a finite bounded-block catalog."
+ ],
+ "scope": {
+  "heldout_systems": [
+   "(3,9)",
+   "(3,10)",
+   "(4,9)",
+   "(4,10)",
+   "(5,10)"
+  ],
+  "row_level_audit": "complete",
+  "state_sector_audit": "not_run_in_this_connector_only_execution",
+  "state_sector_reason": "The scored preregistration is row-level. The optional shipped-state support sector audit requires the full states.jsonl and attainer-gate files in a local checkout."
+ },
+ "scorecard": {
+  "P1_distinct_tau_levels_at_most_2N": {
+   "system_results": {
+    "(3,10)": {
+     "bound": 6,
+     "max_distinct_levels": 8,
+     "passes": false
+    },
+    "(3,9)": {
+     "bound": 6,
+     "max_distinct_levels": 6,
+     "passes": true
+    },
+    "(4,10)": {
+     "bound": 8,
+     "max_distinct_levels": 10,
+     "passes": false
+    },
+    "(4,9)": {
+     "bound": 8,
+     "max_distinct_levels": 7,
+     "passes": true
+    },
+    "(5,10)": {
+     "bound": 10,
+     "max_distinct_levels": 10,
+     "passes": true
+    }
+   },
+   "verdict": "FAIL",
+   "violating_systems": [
+    "(3,10)",
+    "(4,10)"
+   ],
+   "witnesses": [
+    {
+     "bound": 6,
+     "distinct_levels": 8,
+     "fusion_rank": 7,
+     "index": 69,
+     "label": "PRIMITIVE",
+     "level_multiplicities": [
+      [
+       -5,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "system": "(3,10)",
+     "tau": [
+      3,
+      2,
+      -5,
+      -3,
+      -2,
+      -1,
+      -2,
+      -1,
+      0,
+      1
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "bound": 8,
+     "distinct_levels": 10,
+     "fusion_rank": 9,
+     "index": 40,
+     "label": "PRIMITIVE",
+     "level_multiplicities": [
+      [
+       -6,
+       1
+      ],
+      [
+       -5,
+       1
+      ],
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "system": "(4,10)",
+     "tau": [
+      0,
+      1,
+      2,
+      -3,
+      3,
+      -6,
+      -4,
+      -5,
+      -2,
+      -1
+     ],
+     "zero_grade_dimension": 9
+    }
+   ]
+  },
+  "P2_zero_grade_mechanisms_compress_rows_by_at_least_2x": {
+   "evidence_role": "confirmatory_cross_realization_check",
+   "system_results": {
+    "(3,10)": {
+     "distinct_nonstructural_signatures": 16,
+     "nonstructural_rows": 93,
+     "passes": true,
+     "ratio": [
+      16,
+      93
+     ]
+    },
+    "(3,9)": {
+     "distinct_nonstructural_signatures": 8,
+     "nonstructural_rows": 52,
+     "passes": true,
+     "ratio": [
+      8,
+      52
+     ]
+    },
+    "(4,10)": {
+     "distinct_nonstructural_signatures": 14,
+     "nonstructural_rows": 124,
+     "passes": true,
+     "ratio": [
+      14,
+      124
+     ]
+    },
+    "(4,9)": {
+     "distinct_nonstructural_signatures": 12,
+     "nonstructural_rows": 59,
+     "passes": true,
+     "ratio": [
+      12,
+      59
+     ]
+    },
+    "(5,10)": {
+     "distinct_nonstructural_signatures": 20,
+     "nonstructural_rows": 160,
+     "passes": true,
+     "ratio": [
+      20,
+      160
+     ]
+    }
+   },
+   "verdict": "PASS"
+  },
+  "P3_N3_primitive_mean_fusion_exceeds_inherited": {
+   "system_results": {
+    "(3,10)": {
+     "inherited_mean": [
+      42,
+      13
+     ],
+     "passes": true,
+     "primitive_mean": [
+      4,
+      1
+     ]
+    },
+    "(3,9)": {
+     "inherited_mean": [
+      88,
+      31
+     ],
+     "passes": true,
+     "primitive_mean": [
+      80,
+      21
+     ]
+    }
+   },
+   "verdict": "PASS"
+  },
+  "P4_primitive_and_inherited_mechanisms_overlap": {
+   "system_results": {
+    "(3,10)": {
+     "overlap_count": 2,
+     "passes": true
+    },
+    "(3,9)": {
+     "overlap_count": 3,
+     "passes": true
+    },
+    "(4,10)": {
+     "overlap_count": 5,
+     "passes": true
+    },
+    "(4,9)": {
+     "overlap_count": 3,
+     "passes": true
+    },
+    "(5,10)": {
+     "overlap_count": 7,
+     "passes": true
+    }
+   },
+   "verdict": "PASS"
+  },
+  "P5_N3_max_fusion_rank_at_most_d_minus_3": {
+   "system_results": {
+    "(3,10)": {
+     "bound": 7,
+     "max_fusion_rank": 7,
+     "passes": true
+    },
+    "(3,9)": {
+     "bound": 6,
+     "max_fusion_rank": 5,
+     "passes": true
+    }
+   },
+   "verdict": "PASS"
+  },
+  "P6_nonstructural_zero_grade_density_at_most_55_percent": {
+   "system_results": {
+    "(3,10)": {
+     "ambient_dimension": 120,
+     "density": [
+      7,
+      15
+     ],
+     "max_zero_grade_dimension": 56,
+     "passes": true
+    },
+    "(3,9)": {
+     "ambient_dimension": 84,
+     "density": [
+      31,
+      84
+     ],
+     "max_zero_grade_dimension": 31,
+     "passes": true
+    },
+    "(4,10)": {
+     "ambient_dimension": 210,
+     "density": [
+      5,
+      21
+     ],
+     "max_zero_grade_dimension": 50,
+     "passes": true
+    },
+    "(4,9)": {
+     "ambient_dimension": 126,
+     "density": [
+      5,
+      14
+     ],
+     "max_zero_grade_dimension": 45,
+     "passes": true
+    },
+    "(5,10)": {
+     "ambient_dimension": 252,
+     "density": [
+      5,
+      21
+     ],
+     "max_zero_grade_dimension": 60,
+     "passes": true
+    }
+   },
+   "verdict": "PASS"
+  }
+ },
+ "scorecard_summary": {
+  "failed_predictions": [
+   "P1_distinct_tau_levels_at_most_2N"
+  ],
+  "note": "The interim live update called the two system-level P1 violations two hypothesis failures. The exact scored result is one failed hypothesis, P1, with two violating systems.",
+  "passed_predictions": [
+   "P2_zero_grade_mechanisms_compress_rows_by_at_least_2x",
+   "P3_N3_primitive_mean_fusion_exceeds_inherited",
+   "P4_primitive_and_inherited_mechanisms_overlap",
+   "P5_N3_max_fusion_rank_at_most_d_minus_3",
+   "P6_nonstructural_zero_grade_density_at_most_55_percent"
+  ]
+ },
+ "source": {
+  "independent_shape_census_path": "results/data/facet_index_stability.json",
+  "main_commit": "4ffe48e60f1699ff240f1ed931bd98f9a721475b",
+  "method": "exact reconstruction from published primitive tau rows and exact labels",
+  "ordered_representation_stability_git_blob_sha": "323264c12907f8f9a8f636be8db428a05b8ffc15",
+  "ordered_representation_stability_path": "results/data/ordered_representation_stability.json",
+  "repository": "theorlandog/gpc-census"
+ },
+ "systems": {
+  "(3,10)": {
+   "ambient_dimension": 120,
+   "distinct_unoriented_signatures": 16,
+   "fusion_rank_distribution": {
+    "1": 5,
+    "2": 13,
+    "3": 31,
+    "4": 20,
+    "5": 20,
+    "7": 4
+   },
+   "label_counts": {
+    "PADDING": 52,
+    "PRIMITIVE": 41
+   },
+   "max_distinct_levels": 8,
+   "max_fusion_rank": 7,
+   "max_zero_grade_density": [
+    7,
+    15
+   ],
+   "max_zero_grade_dimension": 56,
+   "mean_fusion_by_label": {
+    "PADDING": [
+     42,
+     13
+    ],
+    "PRIMITIVE": [
+     4,
+     1
+    ]
+   },
+   "nonstructural_rows": 93,
+   "particle_number": 3,
+   "primitive_inherited_signature_overlap": 2,
+   "rank": 10,
+   "rows": 93,
+   "signature_records": [
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "label_counts": {
+      "PADDING": 15
+     },
+     "levels": [
+      [
+       -7,
+       2
+      ],
+      [
+       -4,
+       3
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       5,
+       1
+      ]
+     ],
+     "representative_index": 76,
+     "representative_tau": [
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -4,
+      -1,
+      2,
+      -7,
+      -4
+     ],
+     "row_count": 15,
+     "shape": [
+      -7,
+      -7,
+      -4,
+      -4,
+      -4,
+      -1,
+      -1,
+      2,
+      2,
+      5
+     ],
+     "zero_grade_dimension": 15
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "label_counts": {
+      "PRIMITIVE": 5
+     },
+     "levels": [
+      [
+       -7,
+       1
+      ],
+      [
+       -4,
+       3
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       5,
+       1
+      ]
+     ],
+     "representative_index": 71,
+     "representative_tau": [
+      5,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1,
+      2
+     ],
+     "row_count": 5,
+     "shape": [
+      -7,
+      -4,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      5
+     ],
+     "zero_grade_dimension": 20
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 9,
+       "occupancies": [
+        0,
+        1,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PADDING": 4
+     },
+     "levels": [
+      [
+       -5,
+       3
+      ],
+      [
+       -2,
+       3
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "representative_index": 32,
+     "representative_tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      1,
+      -5,
+      -2
+     ],
+     "row_count": 4,
+     "shape": [
+      -5,
+      -5,
+      -5,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      4
+     ],
+     "zero_grade_dimension": 21
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        1,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PRIMITIVE": 3
+     },
+     "levels": [
+      [
+       -5,
+       2
+      ],
+      [
+       -2,
+       4
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "representative_index": 48,
+     "representative_tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      1
+     ],
+     "row_count": 3,
+     "shape": [
+      -5,
+      -5,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      4
+     ],
+     "zero_grade_dimension": 24
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 8,
+     "fusion_rank": 7,
+     "label_counts": {
+      "PRIMITIVE": 2
+     },
+     "levels": [
+      [
+       -5,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "representative_index": 69,
+     "representative_tau": [
+      3,
+      2,
+      -5,
+      -3,
+      -2,
+      -1,
+      -2,
+      -1,
+      0,
+      1
+     ],
+     "row_count": 2,
+     "shape": [
+      -5,
+      -3,
+      -2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 18,
+       "occupancies": [
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PADDING": 1
+     },
+     "levels": [
+      [
+       -4,
+       3
+      ],
+      [
+       -1,
+       4
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     "representative_index": 0,
+     "representative_tau": [
+      2,
+      2,
+      -4,
+      2,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "row_count": 1,
+     "shape": [
+      -4,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      2
+     ],
+     "zero_grade_dimension": 27
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 8,
+     "fusion_rank": 7,
+     "label_counts": {
+      "PRIMITIVE": 2
+     },
+     "levels": [
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "representative_index": 91,
+     "representative_tau": [
+      3,
+      -3,
+      -2,
+      -1,
+      -2,
+      -1,
+      0,
+      1,
+      -4,
+      2
+     ],
+     "row_count": 2,
+     "shape": [
+      -4,
+      -3,
+      -2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 42,
+       "occupancies": [
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PADDING": 7
+     },
+     "levels": [
+      [
+       -4,
+       1
+      ],
+      [
+       -1,
+       7
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "representative_index": 36,
+     "representative_tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "row_count": 7,
+     "shape": [
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2
+     ],
+     "zero_grade_dimension": 43
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "label_counts": {
+      "PADDING": 8,
+      "PRIMITIVE": 10
+     },
+     "levels": [
+      [
+       -3,
+       2
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "representative_index": 51,
+     "representative_tau": [
+      1,
+      2,
+      -3,
+      -1,
+      -2,
+      -1,
+      0,
+      1,
+      -3,
+      -2
+     ],
+     "row_count": 18,
+     "shape": [
+      -3,
+      -3,
+      -2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2
+     ],
+     "zero_grade_dimension": 13
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 8,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "label_counts": {
+      "PRIMITIVE": 2
+     },
+     "levels": [
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "representative_index": 4,
+     "representative_tau": [
+      2,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      1
+     ],
+     "row_count": 2,
+     "shape": [
+      -3,
+      -2,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2
+     ],
+     "zero_grade_dimension": 18
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 36,
+       "occupancies": [
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "label_counts": {
+      "PADDING": 4
+     },
+     "levels": [
+      [
+       -2,
+       6
+      ],
+      [
+       1,
+       4
+      ]
+     ],
+     "representative_index": 6,
+     "representative_tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ],
+     "row_count": 4,
+     "shape": [
+      -2,
+      -2,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 36
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 24,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PADDING": 10,
+      "PRIMITIVE": 12
+     },
+     "levels": [
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "representative_index": 10,
+     "representative_tau": [
+      1,
+      -1,
+      0,
+      1,
+      -2,
+      0,
+      -1,
+      -1,
+      -1,
+      0
+     ],
+     "row_count": 22,
+     "shape": [
+      -2,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 26
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 24,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PRIMITIVE": 2
+     },
+     "levels": [
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "representative_index": 43,
+     "representative_tau": [
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      -2,
+      0
+     ],
+     "row_count": 2,
+     "shape": [
+      -2,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 29
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 56,
+       "occupancies": [
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "label_counts": {
+      "PRIMITIVE": 1
+     },
+     "levels": [
+      [
+       -1,
+       8
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "representative_index": 1,
+     "representative_tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2
+     ],
+     "row_count": 1,
+     "shape": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2
+     ],
+     "zero_grade_dimension": 56
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 10,
+       "occupancies": [
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 20,
+       "occupancies": [
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PADDING": 3
+     },
+     "levels": [
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "representative_index": 45,
+     "representative_tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0
+     ],
+     "row_count": 3,
+     "shape": [
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     "zero_grade_dimension": 30
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 32,
+       "occupancies": [
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PRIMITIVE": 2
+     },
+     "levels": [
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "representative_index": 2,
+     "representative_tau": [
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      1
+     ],
+     "row_count": 2,
+     "shape": [
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 36
+    }
+   ]
+  },
+  "(3,9)": {
+   "ambient_dimension": 84,
+   "distinct_unoriented_signatures": 8,
+   "fusion_rank_distribution": {
+    "1": 4,
+    "2": 11,
+    "3": 14,
+    "4": 15,
+    "5": 8
+   },
+   "label_counts": {
+    "PADDING": 31,
+    "PRIMITIVE": 21
+   },
+   "max_distinct_levels": 6,
+   "max_fusion_rank": 5,
+   "max_zero_grade_density": [
+    31,
+    84
+   ],
+   "max_zero_grade_dimension": 31,
+   "mean_fusion_by_label": {
+    "PADDING": [
+     88,
+     31
+    ],
+    "PRIMITIVE": [
+     80,
+     21
+    ]
+   },
+   "nonstructural_rows": 52,
+   "particle_number": 3,
+   "primitive_inherited_signature_overlap": 3,
+   "rank": 9,
+   "rows": 52,
+   "signature_records": [
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "label_counts": {
+      "PADDING": 5,
+      "PRIMITIVE": 10
+     },
+     "levels": [
+      [
+       -7,
+       2
+      ],
+      [
+       -4,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       5,
+       1
+      ]
+     ],
+     "representative_index": 37,
+     "representative_tau": [
+      5,
+      2,
+      -7,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1
+     ],
+     "row_count": 15,
+     "shape": [
+      -7,
+      -7,
+      -4,
+      -4,
+      -1,
+      -1,
+      2,
+      2,
+      5
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        1,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PADDING": 4
+     },
+     "levels": [
+      [
+       -5,
+       3
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "representative_index": 33,
+     "representative_tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5
+     ],
+     "row_count": 4,
+     "shape": [
+      -5,
+      -5,
+      -5,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      4
+     ],
+     "zero_grade_dimension": 16
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 9,
+       "occupancies": [
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PRIMITIVE": 1
+     },
+     "levels": [
+      [
+       -4,
+       3
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     "representative_index": 0,
+     "representative_tau": [
+      2,
+      2,
+      -4,
+      2,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1
+     ],
+     "row_count": 1,
+     "shape": [
+      -4,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      2
+     ],
+     "zero_grade_dimension": 18
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 30,
+       "occupancies": [
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PADDING": 7
+     },
+     "levels": [
+      [
+       -4,
+       1
+      ],
+      [
+       -1,
+       6
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "representative_index": 26,
+     "representative_tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "row_count": 7,
+     "shape": [
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2
+     ],
+     "zero_grade_dimension": 31
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "label_counts": {
+      "PADDING": 4,
+      "PRIMITIVE": 4
+     },
+     "levels": [
+      [
+       -3,
+       2
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "representative_index": 18,
+     "representative_tau": [
+      2,
+      1,
+      -3,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0
+     ],
+     "row_count": 8,
+     "shape": [
+      -3,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2
+     ],
+     "zero_grade_dimension": 11
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 30,
+       "occupancies": [
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "label_counts": {
+      "PADDING": 4
+     },
+     "levels": [
+      [
+       -2,
+       5
+      ],
+      [
+       1,
+       4
+      ]
+     ],
+     "representative_index": 14,
+     "representative_tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      -2,
+      -2
+     ],
+     "row_count": 4,
+     "shape": [
+      -2,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 30
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 18,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "label_counts": {
+      "PADDING": 4,
+      "PRIMITIVE": 6
+     },
+     "levels": [
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "representative_index": 4,
+     "representative_tau": [
+      1,
+      1,
+      -2,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0
+     ],
+     "row_count": 10,
+     "shape": [
+      -2,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "zero_grade_dimension": 20
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 16,
+       "occupancies": [
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "label_counts": {
+      "PADDING": 3
+     },
+     "levels": [
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "representative_index": 1,
+     "representative_tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1
+     ],
+     "row_count": 3,
+     "shape": [
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     "zero_grade_dimension": 20
+    }
+   ]
+  },
+  "(4,10)": {
+   "ambient_dimension": 210,
+   "distinct_unoriented_signatures": 14,
+   "label_counts": {
+    "FROZEN-CORE": 20,
+    "PADDING": 59,
+    "PRIMITIVE": 45,
+    "STRUCTURAL": 1
+   },
+   "max_distinct_levels": 10,
+   "max_fusion_rank": 9,
+   "max_zero_grade_density": [
+    5,
+    21
+   ],
+   "max_zero_grade_dimension": 50,
+   "nonstructural_rows": 124,
+   "particle_number": 4,
+   "primitive_inherited_signature_overlap": 5,
+   "rank": 10,
+   "rows": 125,
+   "signature_records": [
+    {
+     "allocations": [
+      {
+       "dimension": 50,
+       "occupancies": [
+        1,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -3,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     "tau": [
+      1,
+      1,
+      1,
+      -3,
+      1,
+      -3,
+      -3,
+      -3,
+      1,
+      -3
+     ],
+     "zero_grade_dimension": 50
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -11,
+       2
+      ],
+      [
+       -7,
+       2
+      ],
+      [
+       -3,
+       2
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       5,
+       2
+      ]
+     ],
+     "tau": [
+      1,
+      1,
+      5,
+      -7,
+      5,
+      -11,
+      -7,
+      -11,
+      -3,
+      -3
+     ],
+     "zero_grade_dimension": 16
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       2
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "tau": [
+      0,
+      1,
+      1,
+      -2,
+      2,
+      -4,
+      -3,
+      -3,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        1,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -9,
+       3
+      ],
+      [
+       -5,
+       2
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       7,
+       1
+      ]
+     ],
+     "tau": [
+      7,
+      -1,
+      3,
+      -9,
+      -5,
+      -1,
+      -9,
+      -5,
+      -1,
+      -9
+     ],
+     "zero_grade_dimension": 17
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 45,
+       "occupancies": [
+        0,
+        2,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -3,
+       1
+      ],
+      [
+       -1,
+       6
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "tau": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -3,
+      -1,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 46
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        4,
+        0
+       ]
+      },
+      {
+       "dimension": 30,
+       "occupancies": [
+        1,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -1,
+       5
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      0,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 31
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 8,
+       "occupancies": [
+        0,
+        3,
+        1
+       ]
+      },
+      {
+       "dimension": 16,
+       "occupancies": [
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -5,
+       4
+      ],
+      [
+       -1,
+       4
+      ],
+      [
+       3,
+       2
+      ]
+     ],
+     "tau": [
+      3,
+      -1,
+      -1,
+      -1,
+      3,
+      -5,
+      -5,
+      -5,
+      -1,
+      -5
+     ],
+     "zero_grade_dimension": 24
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        1,
+        3,
+        0
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        0,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -7,
+       3
+      ],
+      [
+       -3,
+       3
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       5,
+       1
+      ]
+     ],
+     "tau": [
+      5,
+      1,
+      1,
+      -7,
+      1,
+      -7,
+      -7,
+      -3,
+      -3,
+      -3
+     ],
+     "zero_grade_dimension": 21
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 10,
+     "fusion_rank": 9,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -6,
+       1
+      ],
+      [
+       -5,
+       1
+      ],
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      0,
+      1,
+      2,
+      -3,
+      3,
+      -6,
+      -4,
+      -5,
+      -2,
+      -1
+     ],
+     "zero_grade_dimension": 9
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 9,
+       "occupancies": [
+        1,
+        0,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -2,
+       3
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "tau": [
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -2,
+      -1,
+      0,
+      -2
+     ],
+     "zero_grade_dimension": 22
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        0,
+        2,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 18,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -5,
+       1
+      ],
+      [
+       -3,
+       3
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      1,
+      -1,
+      3,
+      -3,
+      -1,
+      1,
+      -5,
+      -3,
+      -3,
+      -1
+     ],
+     "zero_grade_dimension": 23
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -4,
+       2
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      0,
+      0,
+      1,
+      -1,
+      3,
+      -4,
+      -4,
+      -3,
+      -2,
+      -2
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -3,
+       2
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "tau": [
+      1,
+      2,
+      0,
+      -3,
+      0,
+      -3,
+      -1,
+      -2,
+      -2,
+      -1
+     ],
+     "zero_grade_dimension": 14
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -15,
+       2
+      ],
+      [
+       -11,
+       1
+      ],
+      [
+       -7,
+       2
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       5,
+       1
+      ],
+      [
+       9,
+       1
+      ]
+     ],
+     "tau": [
+      1,
+      5,
+      9,
+      -15,
+      1,
+      -7,
+      -15,
+      -11,
+      -7,
+      -3
+     ],
+     "zero_grade_dimension": 13
+    }
+   ]
+  },
+  "(4,9)": {
+   "ambient_dimension": 126,
+   "distinct_unoriented_signatures": 12,
+   "label_counts": {
+    "FROZEN-CORE": 21,
+    "PADDING": 14,
+    "PRIMITIVE": 24,
+    "STRUCTURAL": 1
+   },
+   "max_distinct_levels": 7,
+   "max_fusion_rank": 6,
+   "max_zero_grade_density": [
+    5,
+    14
+   ],
+   "max_zero_grade_dimension": 45,
+   "nonstructural_rows": 59,
+   "particle_number": 4,
+   "primitive_inherited_signature_overlap": 3,
+   "rank": 9,
+   "rows": 60,
+   "signature_records": [
+    {
+     "allocations": [
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        0,
+        2,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -5,
+       1
+      ],
+      [
+       -3,
+       2
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      3,
+      1,
+      1,
+      -5,
+      -3,
+      -3,
+      -1,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 17
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 45,
+       "occupancies": [
+        2,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -1,
+       6
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "tau": [
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1
+     ],
+     "zero_grade_dimension": 45
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        4,
+        0
+       ]
+      },
+      {
+       "dimension": 24,
+       "occupancies": [
+        1,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "tau": [
+      1,
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      0,
+      -1
+     ],
+     "zero_grade_dimension": 25
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 40,
+       "occupancies": [
+        1,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -3,
+       4
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     "tau": [
+      1,
+      1,
+      1,
+      -3,
+      1,
+      -3,
+      -3,
+      -3,
+      1
+     ],
+     "zero_grade_dimension": 40
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        1,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -9,
+       2
+      ],
+      [
+       -5,
+       2
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       7,
+       1
+      ]
+     ],
+     "tau": [
+      7,
+      -1,
+      3,
+      -9,
+      -1,
+      -9,
+      -5,
+      -5,
+      -1
+     ],
+     "zero_grade_dimension": 14
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "tau": [
+      2,
+      1,
+      -2,
+      -1,
+      0,
+      -3,
+      -2,
+      -1,
+      0
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 30,
+       "occupancies": [
+        0,
+        2,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -3,
+       1
+      ],
+      [
+       -1,
+       5
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "tau": [
+      1,
+      1,
+      1,
+      -3,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 31
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 8,
+       "occupancies": [
+        0,
+        3,
+        1
+       ]
+      },
+      {
+       "dimension": 12,
+       "occupancies": [
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -5,
+       3
+      ],
+      [
+       -1,
+       4
+      ],
+      [
+       3,
+       2
+      ]
+     ],
+     "tau": [
+      3,
+      3,
+      -1,
+      -5,
+      -1,
+      -5,
+      -1,
+      -5,
+      -1
+     ],
+     "zero_grade_dimension": 20
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 3,
+       "occupancies": [
+        0,
+        2,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        3,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 18,
+       "occupancies": [
+        1,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -3,
+       3
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      3,
+      1,
+      -1,
+      -3,
+      -3,
+      -3,
+      -1,
+      -1,
+      1
+     ],
+     "zero_grade_dimension": 22
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        1,
+        0,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "tau": [
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -2,
+      -1,
+      0
+     ],
+     "zero_grade_dimension": 19
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -3,
+       2
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "tau": [
+      2,
+      0,
+      1,
+      -3,
+      0,
+      -3,
+      -2,
+      -1,
+      -1
+     ],
+     "zero_grade_dimension": 11
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "tau": [
+      3,
+      1,
+      0,
+      -4,
+      -3,
+      -2,
+      -2,
+      -1,
+      0
+     ],
+     "zero_grade_dimension": 10
+    }
+   ]
+  },
+  "(5,10)": {
+   "ambient_dimension": 252,
+   "distinct_unoriented_signatures": 20,
+   "label_counts": {
+    "FROZEN-CORE": 45,
+    "PADDING": 59,
+    "PRIMITIVE": 56,
+    "STRUCTURAL": 1
+   },
+   "max_distinct_levels": 10,
+   "max_fusion_rank": 9,
+   "max_zero_grade_density": [
+    5,
+    21
+   ],
+   "max_zero_grade_dimension": 60,
+   "nonstructural_rows": 160,
+   "particle_number": 5,
+   "primitive_inherited_signature_overlap": 7,
+   "rank": 10,
+   "rows": 161,
+   "signature_records": [
+    {
+     "allocations": [
+      {
+       "dimension": 60,
+       "occupancies": [
+        1,
+        4
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -4,
+       4
+      ],
+      [
+       1,
+       6
+      ]
+     ],
+     "tau": [
+      -4,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -4,
+      -4,
+      -4
+     ],
+     "zero_grade_dimension": 60
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 60,
+       "occupancies": [
+        2,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 2,
+     "fusion_rank": 1,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -3,
+       6
+      ],
+      [
+       2,
+       4
+      ]
+     ],
+     "tau": [
+      2,
+      2,
+      2,
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      -3,
+      2
+     ],
+     "zero_grade_dimension": 60
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        3,
+        2
+       ]
+      },
+      {
+       "dimension": 12,
+       "occupancies": [
+        1,
+        1,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -7,
+       3
+      ],
+      [
+       -2,
+       4
+      ],
+      [
+       3,
+       3
+      ]
+     ],
+     "tau": [
+      -2,
+      3,
+      3,
+      3,
+      -7,
+      -2,
+      -2,
+      -2,
+      -7,
+      -7
+     ],
+     "zero_grade_dimension": 24
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -16,
+       1
+      ],
+      [
+       -11,
+       2
+      ],
+      [
+       -6,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       9,
+       1
+      ]
+     ],
+     "tau": [
+      4,
+      4,
+      9,
+      -11,
+      -6,
+      -11,
+      -6,
+      -1,
+      -16,
+      -1
+     ],
+     "zero_grade_dimension": 16
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        2
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -17,
+       2
+      ],
+      [
+       -12,
+       1
+      ],
+      [
+       -7,
+       2
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       8,
+       2
+      ]
+     ],
+     "tau": [
+      -2,
+      3,
+      -2,
+      8,
+      -7,
+      8,
+      -7,
+      -17,
+      -17,
+      -12
+     ],
+     "zero_grade_dimension": 13
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 10,
+     "fusion_rank": 9,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -29,
+       1
+      ],
+      [
+       -24,
+       1
+      ],
+      [
+       -19,
+       1
+      ],
+      [
+       -14,
+       1
+      ],
+      [
+       -9,
+       1
+      ],
+      [
+       -4,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       6,
+       1
+      ],
+      [
+       11,
+       1
+      ],
+      [
+       16,
+       1
+      ]
+     ],
+     "tau": [
+      6,
+      11,
+      16,
+      -4,
+      -29,
+      -24,
+      -19,
+      -14,
+      -9,
+      1
+     ],
+     "zero_grade_dimension": 9
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        0,
+        2,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        1,
+        1,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        2,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -14,
+       1
+      ],
+      [
+       -9,
+       2
+      ],
+      [
+       -4,
+       3
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       6,
+       2
+      ]
+     ],
+     "tau": [
+      1,
+      6,
+      -4,
+      6,
+      -9,
+      -4,
+      1,
+      -14,
+      -9,
+      -4
+     ],
+     "zero_grade_dimension": 20
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        3,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 12,
+       "occupancies": [
+        0,
+        1,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        1,
+        0,
+        1,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 5,
+     "fusion_rank": 4,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -12,
+       2
+      ],
+      [
+       -7,
+       2
+      ],
+      [
+       -2,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       8,
+       1
+      ]
+     ],
+     "tau": [
+      -2,
+      8,
+      -7,
+      -2,
+      -2,
+      3,
+      3,
+      -7,
+      -12,
+      -12
+     ],
+     "zero_grade_dimension": 20
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 40,
+       "occupancies": [
+        0,
+        2,
+        3
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        4
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -8,
+       1
+      ],
+      [
+       -3,
+       5
+      ],
+      [
+       2,
+       4
+      ]
+     ],
+     "tau": [
+      -3,
+      2,
+      2,
+      2,
+      -3,
+      2,
+      -3,
+      -3,
+      -3,
+      -8
+     ],
+     "zero_grade_dimension": 41
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        5,
+        0
+       ]
+      },
+      {
+       "dimension": 40,
+       "occupancies": [
+        1,
+        3,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 3,
+     "fusion_rank": 2,
+     "labels": [
+      "FROZEN-CORE",
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -1,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "tau": [
+      0,
+      1,
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      0,
+      -1
+     ],
+     "zero_grade_dimension": 41
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        2,
+        0
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        2,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -16,
+       2
+      ],
+      [
+       -11,
+       1
+      ],
+      [
+       -6,
+       2
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       9,
+       1
+      ]
+     ],
+     "tau": [
+      -6,
+      4,
+      -1,
+      4,
+      -1,
+      9,
+      -6,
+      -16,
+      -16,
+      -11
+     ],
+     "zero_grade_dimension": 14
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        2
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 6,
+     "fusion_rank": 5,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -17,
+       1
+      ],
+      [
+       -12,
+       2
+      ],
+      [
+       -7,
+       2
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       8,
+       2
+      ]
+     ],
+     "tau": [
+      8,
+      3,
+      8,
+      -12,
+      -7,
+      -7,
+      -12,
+      -2,
+      -17,
+      -2
+     ],
+     "zero_grade_dimension": 14
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        2,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 8,
+     "fusion_rank": 7,
+     "labels": [
+      "FROZEN-CORE",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -22,
+       1
+      ],
+      [
+       -17,
+       1
+      ],
+      [
+       -12,
+       2
+      ],
+      [
+       -7,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       8,
+       1
+      ],
+      [
+       13,
+       1
+      ]
+     ],
+     "tau": [
+      -2,
+      3,
+      8,
+      13,
+      -22,
+      -12,
+      -7,
+      -2,
+      -17,
+      -12
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 8,
+     "fusion_rank": 7,
+     "labels": [
+      "PADDING",
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -23,
+       1
+      ],
+      [
+       -18,
+       1
+      ],
+      [
+       -13,
+       1
+      ],
+      [
+       -8,
+       2
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       7,
+       1
+      ],
+      [
+       12,
+       1
+      ]
+     ],
+     "tau": [
+      2,
+      7,
+      -8,
+      -3,
+      2,
+      12,
+      -23,
+      -18,
+      -13,
+      -8
+     ],
+     "zero_grade_dimension": 12
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 6,
+       "occupancies": [
+        0,
+        2,
+        2,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        3,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 18,
+       "occupancies": [
+        1,
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "FROZEN-CORE"
+     ],
+     "levels": [
+      [
+       -9,
+       3
+      ],
+      [
+       -4,
+       3
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       6,
+       2
+      ]
+     ],
+     "tau": [
+      6,
+      6,
+      1,
+      -4,
+      -9,
+      -9,
+      -9,
+      -4,
+      -4,
+      1
+     ],
+     "zero_grade_dimension": 25
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 18,
+       "occupancies": [
+        0,
+        1,
+        2,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        2,
+        0,
+        3
+       ]
+      },
+      {
+       "dimension": 6,
+       "occupancies": [
+        1,
+        0,
+        1,
+        3
+       ]
+      }
+     ],
+     "distinct_levels": 4,
+     "fusion_rank": 3,
+     "labels": [
+      "PADDING"
+     ],
+     "levels": [
+      [
+       -11,
+       2
+      ],
+      [
+       -6,
+       2
+      ],
+      [
+       -1,
+       3
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "tau": [
+      -6,
+      4,
+      -1,
+      -1,
+      -1,
+      4,
+      4,
+      -6,
+      -11,
+      -11
+     ],
+     "zero_grade_dimension": 25
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 10,
+     "fusion_rank": 9,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -6,
+       1
+      ],
+      [
+       -5,
+       1
+      ],
+      [
+       -4,
+       1
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "tau": [
+      -2,
+      4,
+      -3,
+      -1,
+      0,
+      1,
+      2,
+      -6,
+      -5,
+      -4
+     ],
+     "zero_grade_dimension": 9
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 10,
+     "fusion_rank": 9,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -34,
+       1
+      ],
+      [
+       -24,
+       1
+      ],
+      [
+       -19,
+       1
+      ],
+      [
+       -14,
+       1
+      ],
+      [
+       -9,
+       1
+      ],
+      [
+       -4,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       6,
+       1
+      ],
+      [
+       11,
+       1
+      ],
+      [
+       16,
+       1
+      ]
+     ],
+     "tau": [
+      6,
+      11,
+      16,
+      -24,
+      -19,
+      -14,
+      -9,
+      1,
+      -34,
+      -4
+     ],
+     "zero_grade_dimension": 9
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 2,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        1,
+        0
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        2,
+        0,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -18,
+       2
+      ],
+      [
+       -13,
+       1
+      ],
+      [
+       -8,
+       2
+      ],
+      [
+       -3,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       7,
+       1
+      ],
+      [
+       12,
+       1
+      ]
+     ],
+     "tau": [
+      -8,
+      -3,
+      2,
+      2,
+      7,
+      12,
+      -8,
+      -18,
+      -18,
+      -13
+     ],
+     "zero_grade_dimension": 13
+    },
+    {
+     "allocations": [
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        0,
+        2,
+        1,
+        1
+       ]
+      },
+      {
+       "dimension": 4,
+       "occupancies": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        2
+       ]
+      },
+      {
+       "dimension": 1,
+       "occupancies": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        2
+       ]
+      },
+      {
+       "dimension": 2,
+       "occupancies": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        2
+       ]
+      }
+     ],
+     "distinct_levels": 7,
+     "fusion_rank": 6,
+     "labels": [
+      "PRIMITIVE"
+     ],
+     "levels": [
+      [
+       -21,
+       1
+      ],
+      [
+       -16,
+       1
+      ],
+      [
+       -11,
+       2
+      ],
+      [
+       -6,
+       1
+      ],
+      [
+       -1,
+       2
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       9,
+       2
+      ]
+     ],
+     "tau": [
+      4,
+      9,
+      9,
+      -1,
+      -21,
+      -16,
+      -11,
+      -11,
+      -6,
+      -1
+     ],
+     "zero_grade_dimension": 13
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,1878 @@
+{
+  "lemma": {
+    "proof": "For a zero-grade allocation, N*a + g*S = 0 for an integer S. Thus g divides N*a; gcd(a,g)=1 implies g divides N.",
+    "statement": "If the distinct levels are a+gJ with gcd(a,g)=1 and at least one N-particle zero-grade allocation exists, then g divides N."
+  },
+  "records": [
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,7)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -2,
+        1,
+        4
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -4,
+        -1,
+        2,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 3,
+      "source": "pilot",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 4,
+      "source": "pilot",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "pilot",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -1,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "pilot",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,8)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -4,
+        -1,
+        2,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -4,
+        -1,
+        2,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -2,
+        1,
+        4
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -2,
+        1,
+        4
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": false,
+      "levels": [
+        -5,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "missing_progression_points": [
+        1
+      ],
+      "normalized_levels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -4,
+        -1,
+        2,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -2,
+        1,
+        4
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 3,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 3,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(3,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -11,
+        -7,
+        -3,
+        1,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -9,
+        -5,
+        -1,
+        3,
+        7
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -1,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -3,
+        1,
+        5
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -3,
+        -1,
+        1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": false,
+      "levels": [
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        3
+      ],
+      "missing_progression_points": [
+        6
+      ],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -15,
+        -11,
+        -7,
+        -3,
+        1,
+        5,
+        9
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -3,
+        -1,
+        1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -9,
+        -5,
+        -1,
+        3,
+        7
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -1,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -5,
+        -1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 4,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -1,
+        1,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 2,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": false,
+      "levels": [
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        3
+      ],
+      "missing_progression_points": [
+        6
+      ],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "particle_number": 4,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(4,9)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -4,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -3,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -7,
+        -2,
+        3
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -16,
+        -11,
+        -6,
+        -1,
+        4,
+        9
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -17,
+        -12,
+        -7,
+        -2,
+        3,
+        8
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -29,
+        -24,
+        -19,
+        -14,
+        -9,
+        -4,
+        1,
+        6,
+        11,
+        16
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -14,
+        -9,
+        -4,
+        1,
+        6
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -12,
+        -7,
+        -2,
+        3,
+        8
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -8,
+        -3,
+        2
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -1,
+        0,
+        1
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -16,
+        -11,
+        -6,
+        -1,
+        4,
+        9
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -17,
+        -12,
+        -7,
+        -2,
+        3,
+        8
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -22,
+        -17,
+        -12,
+        -7,
+        -2,
+        3,
+        8,
+        13
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -23,
+        -18,
+        -13,
+        -8,
+        -3,
+        2,
+        7,
+        12
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -9,
+        -4,
+        1,
+        6
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -11,
+        -6,
+        -1,
+        4
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": false,
+      "levels": [
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        4
+      ],
+      "missing_progression_points": [
+        9
+      ],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 1,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": false,
+      "levels": [
+        -34,
+        -24,
+        -19,
+        -14,
+        -9,
+        -4,
+        1,
+        6,
+        11,
+        16
+      ],
+      "missing_progression_points": [
+        1
+      ],
+      "normalized_levels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -18,
+        -13,
+        -8,
+        -3,
+        2,
+        7,
+        12
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    },
+    {
+      "is_complete_arithmetic_progression": true,
+      "levels": [
+        -21,
+        -16,
+        -11,
+        -6,
+        -1,
+        4,
+        9
+      ],
+      "missing_progression_points": [],
+      "normalized_levels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "particle_number": 5,
+      "source": "heldout",
+      "step": 5,
+      "step_divides_particle_number": true,
+      "system": "(5,10)"
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "complete_arithmetic_progressions": 78,
+    "mechanisms": 83,
+    "more_than_one_point_missing": 0,
+    "one_point_deleted_progressions": 5,
+    "scope": "Distinct zero-grade Levi mechanisms from the rank-7/rank-8 pilot and the rank-9/rank-10 held-out artifact.",
+    "status": "post_hoc_exploratory_audit",
+    "step_distribution_by_N": {
+      "3": {
+        "1": 15,
+        "3": 19
+      },
+      "4": {
+        "1": 12,
+        "2": 7,
+        "4": 10
+      },
+      "5": {
+        "1": 2,
+        "5": 18
+      }
+    },
+    "step_divides_N": 83
+  }
+}

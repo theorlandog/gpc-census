@@ -1,0 +1,149 @@
+{
+ "block_count_refutation": {
+  "failed_prediction": "P1_distinct_tau_levels_at_most_2N",
+  "surviving_complexity_measure": "Not the block count r, which reaches the orbital rank d. The small quantities are the fusion rank f and dim W_0, which stay at 9 out of an ambient 210 at the very row where r is largest.",
+  "violating_systems": [
+   "(3,10)",
+   "(4,10)"
+  ],
+  "witness_ambient_dimension": 210,
+  "witness_blocks": 10,
+  "witness_bound_2N": 8,
+  "witness_fusion_rank": 9,
+  "witness_tau": [
+   0,
+   1,
+   2,
+   -3,
+   3,
+   -6,
+   -4,
+   -5,
+   -2,
+   -1
+  ],
+  "witness_zero_grade_dimension": 9
+ },
+ "divisibility": {
+  "mechanisms_checked": 83,
+  "offset_coprime_to_step": 83,
+  "primitive_level_sets": 83,
+  "statement": "Levels in a+g*Z with gcd(a,g)=1 and a zero-grade allocation force g | N. Primitivity of a published row gives gcd(a,g)=1, so the 83/83 observation is entailed rather than measured.",
+  "status": "theorem_consequence_not_evidence",
+  "step_divides_particle_number": 83
+ },
+ "evidence_boundary": "Nothing here is a GPC proof. The reconciliation is exact on three finite populations: 83 published Levi mechanisms, the bounded N=3 normal window at ranks 7 to 9, and the full rank-7/rank-8 trace survivors. The one-hole grammar and the incidence separation both remain conjectures outside those windows, and fusion width is an evaluation cost rather than a facetness test.",
+ "fusion_width": {
+  "caveat": "Width is an evaluation-cost result, not a facetness discriminator: 2393 rejected rank-8 Hall zeros also reach width four, so a small width does not select facets.",
+  "full_rank7_rank8_max_optimal_width": 4,
+  "known_mechanism_max_balanced_width": 6,
+  "known_mechanism_max_optimal_width": 5,
+  "rank8_hall_zero_candidates_at_width_four": 2393,
+  "status": "evaluation_compression_only"
+ },
+ "generated_by": "scripts/verify_mechanism_grammar_synthesis.py",
+ "hole_budget": {
+  "multi_hole_survivors_anywhere": 0,
+  "populations": [
+   {
+    "exact_progressions": 78,
+    "multi_hole": 0,
+    "one_hole": 5,
+    "population": "published Levi mechanisms",
+    "size": 83
+   },
+   {
+    "multi_hole": 0,
+    "multi_hole_trace_placements_rejected_by_hall": 135,
+    "one_hole": 38,
+    "population": "bounded N=3 Hall-feasible placements, ranks 7 to 9",
+    "size": 537
+   },
+   {
+    "multi_hole": 0,
+    "one_hole": 1019,
+    "population": "full rank-7/rank-8 trace survivors",
+    "size": 7156
+   }
+  ],
+  "surviving_conjecture": "Every Hall-feasible GPC candidate normal has arithmetic-progression levels with at most one missing point."
+ },
+ "hole_onset": {
+  "onset_rank": 9,
+  "published_one_hole_mechanisms": 5,
+  "published_one_hole_ranks": [
+   9,
+   10
+  ],
+  "published_one_hole_systems": [
+   "(3,10)",
+   "(4,10)",
+   "(4,9)",
+   "(5,10)",
+   "(5,10)"
+  ],
+  "rank7_rank8_one_hole_determinant_nonzero": 0,
+  "rank7_rank8_one_hole_hall_feasible": 7,
+  "rank9_one_hole_modular_nonzero_certificates": 3,
+  "reconciliation": "Exact arithmetic progressions are complete on the full rank-7 and rank-8 populations because all seven one-hole Hall-feasible rows have identically zero tangent determinant. From rank 9 the hole is load-bearing, established twice over: three modular-nonzero certificates in the bounded search, and five one-hole mechanisms among published facets at ranks 9 and 10. The trial NO-GO and the rank-7/rank-8 sufficiency are therefore consistent, separated by rank rather than in conflict."
+ },
+ "inputs": [
+  "results/data/arithmetic_level_audit.json",
+  "results/data/full_rank78_compression_audit.json",
+  "results/data/generator_compression_trial.json",
+  "results/data/levi_fusion_heldout_results.json",
+  "results/data/levi_fusion_pilot.json"
+ ],
+ "mechanism_population": {
+  "agrees_with_trial_projection": true,
+  "agrees_with_trial_tomography": true,
+  "heldout_mechanisms": 70,
+  "mechanisms": 83,
+  "pilot_mechanisms": 13,
+  "structural_mechanisms": 1,
+  "structural_note": "The pilot contributes its (4,8) STRUCTURAL shape, so 82 of the 83 mechanisms are nonstructural. Every one-hole mechanism is nonstructural and held out."
+ },
+ "rank8_bounded_full_agreement": {
+  "hall_feasible_placements": 7,
+  "missing_levels": [
+   3
+  ],
+  "normalized_levels": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "note": "The bounded window [-5,5] and the full repository trace-survivor population independently isolate the same single rank-8 one-hole shape with the same seven Hall-feasible placements.",
+  "shape": [
+   -2,
+   -1,
+   -1,
+   -1,
+   0,
+   0,
+   0,
+   2
+  ]
+ },
+ "schema_version": 1,
+ "status": "cross_artifact_reconciliation",
+ "tomography": {
+  "caveat": "Injectivity is measured on three finite populations. It licenses the incidence vector as a canonical hash and a fixed-weight Chow-parameter theorem attempt, not a proved separation.",
+  "full_population_injectivity": [
+   {
+    "distinct_singleton_signatures": 547,
+    "nonstructural_survivors": 547,
+    "system": "(3,7)"
+   },
+   {
+    "distinct_singleton_signatures": 6605,
+    "nonstructural_survivors": 6605,
+    "system": "(3,8)"
+   }
+  ],
+  "known_mechanism_collisions": 0,
+  "known_mechanisms_separated": 83,
+  "status": "no_theorem_yet"
+ }
+}
