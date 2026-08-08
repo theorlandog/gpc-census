@@ -169,6 +169,14 @@ def semigroup(n: int, d: int, max_m: int, budget: float, log=print,
             continue
         if spent >= budget:
             break
+        # Charge the whole remaining budget to the cache BEFORE attempting the
+        # degree, then refund the unused part when it returns. A process killed
+        # mid-degree therefore resumes with the budget already exhausted, so a
+        # boundary degree gets exactly one attempt no matter how many times the
+        # run is interrupted. Without this the killed time is unrecorded and
+        # each relaunch silently buys another full attempt.
+        if spent_path is not None:
+            spent_path.write_text(json.dumps({"seconds": round(budget, 1)}))
         started = time.time()
         level = hw_support(n, d, m, started + (budget - spent))
         spent += time.time() - started
