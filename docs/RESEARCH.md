@@ -1652,6 +1652,33 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   (280/280 for both the family size and every positive weight), while the zero
   half degrades from 22 failures out of 280 to 70 out of 280. Adopting the
   per-Levi budget is right AND it widens the sign-control gap.
+- 🟦 THE ZERO HALF IS REPAIRED, by profiles rather than by weights. A third memo
+  replaces the per-weight statement with weighted Levi occupancy profiles: with
+  `M(k) = prod binom(m_i,k_i)`, `g(k) = sum l_i k_i` and `Q(k)` the weighted
+  upper-ideal mass under prefix-sum dominance, `g(k) > 0` gives `Q(k) <= R_L`
+  and `g(k) = 0` gives `Q(k) - M(k) <= R_L`. VERIFIED 280 of 280 on both
+  branches, with the profile-mass sum reproducing the direct `Omega_+` count at
+  every mechanism, so the compression is lossless. The second law is exactly the
+  repair: the per-weight version subtracted ONE weight, the profile version
+  subtracts the whole multiplicity `M(k)`, which is the difference between a
+  regular normal and a degenerate one. It holds at every mechanism where the
+  per-weight bound failed, including all 70 under the tightened budget. So the
+  sequence is: per-weight false, per-Levi tightening makes it worse, profile
+  formulation true. Only the last belongs in an implementation.
+- ❗ THE LAWS ARE CONDITIONAL on the root budget, and that is useful rather than
+  a weakness. `tau = (2,2,0,0,-1,-1,-1,-1)` at `N=3` violates them with
+  `|Omega_+| = 24` against `R_L = 20`, which is correct: that normal is
+  trace-dead. A violation CERTIFIES trace-death, so the laws double as a pruning
+  test. A check written against an invented normal fails for a legitimate reason
+  and can be mistaken for a defect in the theorem.
+- 🟦 LEVI-TYPE BUCKETING CONFIRMED: `p(d)` Levi types collapse to far fewer root
+  budgets, 297/83, 627/118, 5,604/284 and 37,338/**538** at `d = 17, 20, 30, 40`,
+  so one boundary view is shared across each bucket.
+- ⚠️ SCOPE, stated because the memo corrects an over-narrow reading: the method
+  is general in `(N,d)` under `n = min(N, d-N)`, and nothing verified here is
+  half-filling specific. The earlier note that particle-hole duality applies at
+  three of nine census systems was about `Theta` as an INTERNAL involution, not
+  a claim that the architecture needs half filling.
 - 🔬 Claims resting on the BDR implementation remain unverified here;
   bdr_constructor_comparison.md records that the pinned backend cannot be
   fetched or run in this environment and labels that benchmark INCOMPLETE.

@@ -1877,3 +1877,31 @@ positive half survives the tightening at 280 of 280 for both the family size
 and every positive weight; the zero half degrades from 22 failures out of 280
 under the global budget to 70 out of 280 under `R_L`. Adopting the per-Levi
 budget is correct and it widens the sign-control gap rather than closing it.
+
+## root_budget_boundary.json: the profile repair (2026-08-08)
+
+A third external memo replaces the per-weight zero bound with weighted Levi
+occupancy profiles, and that formulation closes the gap this artifact had
+recorded as open.
+
+With levels `l_1 > ... > l_s` and multiplicities `m_i`, a determinant is
+represented only by its profile `k`, carrying `M(k) = prod binom(m_i, k_i)` and
+grade `g(k) = sum l_i k_i`. With `Q(k)` the weighted mass of the upper
+dominance ideal under prefix sums, `g(k) > 0` forces `Q(k) <= R_L` and
+`g(k) = 0` forces `Q(k) - M(k) <= R_L`.
+
+VERIFIED 280 of 280 on both branches, with no excess at any mechanism, and the
+profile-mass sum reproduces the direct `Omega_+` weight count everywhere, so
+the compression is lossless. The second law is the repair: the per-weight
+version subtracted one weight, the profile version subtracts the profile's
+whole multiplicity, which is exactly the difference between a regular normal
+and a degenerate one. It holds at every mechanism where the per-weight bound
+failed, including all 70 failures under the tightened per-Levi budget.
+
+THE LAWS ARE CONDITIONAL on the root budget. `tau = (2,2,0,0,-1,-1,-1,-1)` at
+`N = 3` violates them, with `|Omega_+| = 24` against `R_L = 20`, and that is
+the correct verdict: the normal is trace-dead. A violation therefore certifies
+trace-death and the laws double as a pruning test.
+
+LEVI-TYPE BUCKETING confirmed: `p(d)` Levi types collapse to 83, 118, 284 and
+538 distinct root budgets at `d = 17, 20, 30, 40`.

@@ -196,6 +196,86 @@ def levi_budget_matches_repository(trials: int = 400) -> dict:
     }
 
 
+def occupancy_profiles(multiplicities, n: int):
+    """All Levi occupancy profiles k with sum k_i = n and 0 <= k_i <= m_i."""
+    size = len(multiplicities)
+
+    def recurse(index: int, remaining: int, prefix: list[int]):
+        if index == size:
+            if remaining == 0:
+                yield tuple(prefix)
+            return
+        for taken in range(min(multiplicities[index], remaining) + 1):
+            yield from recurse(index + 1, remaining - taken, prefix + [taken])
+
+    return list(recurse(0, n, []))
+
+
+def dominates(upper, lower) -> bool:
+    """Prefix-sum dominance: more particles in the high-level blocks."""
+    a = b = 0
+    for x, y in zip(upper, lower):
+        a += x
+        b += y
+        if a < b:
+            return False
+    return True
+
+
+def profile_budget_laws(tau: tuple[int, ...], n: int) -> dict:
+    """The weighted occupancy-profile pruning laws, checked on one normal.
+
+    A determinant is represented only by its profile ``k``, with multiplicity
+    ``M(k) = prod binom(m_i, k_i)`` and grade ``g(k) = sum l_i k_i``. With
+    ``Q(k)`` the weighted mass of the upper dominance ideal, strict dominance
+    raises the grade, so everything strictly above a nonnegative profile is
+    strictly positive. Hence
+
+        g(k) > 0   =>   Q(k)        <= R_L
+        g(k) == 0  =>   Q(k) - M(k) <= R_L
+
+    The second law is the one that repairs the per-weight version: a zero
+    profile may stand for an astronomical number of determinants, and only its
+    strictly dominant mass has to fit inside the root budget.
+    """
+    counts = collections.Counter(tau)
+    levels = sorted(counts, reverse=True)
+    multiplicities = [counts[level] for level in levels]
+    budget = levi_budget(multiplicities, len(tau))
+    profiles = occupancy_profiles(multiplicities, n)
+
+    mass = {
+        profile: math.prod(
+            math.comb(multiplicities[i], profile[i]) for i in range(len(multiplicities))
+        )
+        for profile in profiles
+    }
+    grade = {
+        profile: sum(levels[i] * profile[i] for i in range(len(multiplicities)))
+        for profile in profiles
+    }
+    upper = {
+        profile: sum(mass[other] for other in profiles if dominates(other, profile))
+        for profile in profiles
+    }
+
+    positive_excess = max(
+        (upper[k] - budget for k in profiles if grade[k] > 0), default=None
+    )
+    zero_excess = max(
+        (upper[k] - mass[k] - budget for k in profiles if grade[k] == 0), default=None
+    )
+    return {
+        "levi_budget": budget,
+        "profiles": len(profiles),
+        "positive_family_mass": sum(mass[k] for k in profiles if grade[k] > 0),
+        "positive_law_holds": positive_excess is None or positive_excess <= 0,
+        "zero_law_holds": zero_excess is None or zero_excess <= 0,
+        "worst_positive_excess": positive_excess,
+        "worst_zero_excess": zero_excess,
+    }
+
+
 def transpose_orbit_counts(particle_number: int, orbitals: int) -> dict:
     """Half-filling transpose quotient of the sign-control universe."""
     if 2 * particle_number != orbitals:
@@ -280,6 +360,9 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
     measured_durfee = 0
     levi_budget_min = None
     levi_budget_max = 0
+    profile_positive_law = 0
+    profile_zero_law = 0
+    profile_mass_matches = 0
 
     for key in surviving_mechanisms(n, d, source, checkpoint_dir=checkpoint_dir):
         mechanisms += 1
@@ -330,6 +413,13 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
             measured_durfee = max(
                 measured_durfee, durfee_rank(subset_to_partition(member, n))
             )
+        laws = profile_budget_laws(tau, n)
+        if laws["positive_law_holds"]:
+            profile_positive_law += 1
+        if laws["zero_law_holds"]:
+            profile_zero_law += 1
+        if laws["positive_family_mass"] == len(positive):
+            profile_mass_matches += 1
         if all(size <= budget + 1 for size in zero_ideals):
             zero_holds_uniform += 1
         elif len(uniform_violations) < 5:
@@ -369,6 +459,9 @@ def validate_on_census(n: int, d: int, source: str, checkpoint_dir=None) -> dict
         "levi_positive_weight_bound_holds": levi_positive_bound,
         "levi_zero_weight_bound_holds": levi_zero_bound,
         "measured_max_durfee_rank_of_positive_weights": measured_durfee,
+        "profile_positive_law_holds": profile_positive_law,
+        "profile_zero_law_holds": profile_zero_law,
+        "profile_mass_matches_weight_count": profile_mass_matches,
         "durfee_rank_bound_from_global_budget": max(
             (r for r in range(1, 12) if math.comb(2 * r, r) <= budget), default=0
         ),
@@ -456,6 +549,13 @@ def main() -> int:
                 "Regular mechanisms are rare: none at ranks 7 and 8, three of "
                 "191 at rank 9. The regular stratum the (20,40) counts describe "
                 "is therefore not where the known mechanisms live."
+            ),
+            "weighted_occupancy_profile_laws": (
+                "HOLD, 280 of 280, on both branches. These repair the "
+                "per-weight zero bound: replacing the '+1' by the profile's "
+                "own multiplicity M(k) is exactly what the non-regular case "
+                "needs, and the zero law holds at every mechanism where the "
+                "per-weight version failed."
             ),
             "per_levi_budget": (
                 "SHARPENS the positive half and AGGRAVATES the zero half. "

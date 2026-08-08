@@ -17,7 +17,7 @@
      3,
      37
     ],
-    "seconds": 0.178
+    "seconds": 0.145
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 3075,
@@ -34,7 +34,7 @@
      3,
      37
     ],
-    "seconds": 0.179
+    "seconds": 0.146
    }
   },
   {
@@ -54,7 +54,7 @@
      4,
      36
     ],
-    "seconds": 0.336
+    "seconds": 0.279
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 6175,
@@ -71,7 +71,7 @@
      4,
      36
     ],
-    "seconds": 0.401
+    "seconds": 0.27
    }
   },
   {
@@ -91,7 +91,7 @@
      5,
      35
     ],
-    "seconds": 0.466
+    "seconds": 0.411
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 9106,
@@ -108,7 +108,7 @@
      5,
      35
     ],
-    "seconds": 0.476
+    "seconds": 0.399
    }
   },
   {
@@ -128,7 +128,7 @@
      10,
      30
     ],
-    "seconds": 0.916
+    "seconds": 0.732
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 18106,
@@ -145,7 +145,7 @@
      10,
      30
     ],
-    "seconds": 0.925
+    "seconds": 0.734
    }
   },
   {
@@ -165,7 +165,7 @@
      20,
      20
     ],
-    "seconds": 1.298
+    "seconds": 1.052
    },
    "zero_or_positive_layer": {
     "accepted_plus_frontier": 22817,
@@ -182,11 +182,11 @@
      20,
      20
     ],
-    "seconds": 1.272
+    "seconds": 1.039
    }
   }
  ],
- "canonical_sha256_without_this_field_or_timings": "629307c83f75adb20eb2cc2871acf39f33558d280b40280770efebe4cc3ac1f7",
+ "canonical_sha256_without_this_field_or_timings": "c4f3a8b8771ac10ff4543f93f563fa37403185ed3ba898c5664e30bed0691c3d",
  "census_validation": {
   "(3,7)": {
    "durfee_rank_bound_from_global_budget": 3,
@@ -205,10 +205,13 @@
    "positive_family_is_a_dominance_ideal": 25,
    "positive_family_within_root_budget": 25,
    "positive_weight_bound_holds": 25,
+   "profile_mass_matches_weight_count": 25,
+   "profile_positive_law_holds": 25,
+   "profile_zero_law_holds": 25,
    "rank": 7,
    "regular_mechanisms": 0,
    "root_budget": 21,
-   "seconds": 6.2,
+   "seconds": 4.2,
    "system": "(3,7)",
    "uniform_bound_violations": [
     {
@@ -298,10 +301,13 @@
    "positive_family_is_a_dominance_ideal": 64,
    "positive_family_within_root_budget": 64,
    "positive_weight_bound_holds": 64,
+   "profile_mass_matches_weight_count": 64,
+   "profile_positive_law_holds": 64,
+   "profile_zero_law_holds": 64,
    "rank": 8,
    "regular_mechanisms": 0,
    "root_budget": 28,
-   "seconds": 223.0,
+   "seconds": 154.1,
    "system": "(3,8)",
    "uniform_bound_violations": [
     {
@@ -412,10 +418,13 @@
    "positive_family_is_a_dominance_ideal": 191,
    "positive_family_within_root_budget": 191,
    "positive_weight_bound_holds": 191,
+   "profile_mass_matches_weight_count": 191,
+   "profile_positive_law_holds": 191,
+   "profile_zero_law_holds": 191,
    "rank": 9,
    "regular_mechanisms": 3,
    "root_budget": 36,
-   "seconds": 0.6,
+   "seconds": 0.5,
    "system": "(3,9)",
    "uniform_bound_violations": [
     {
@@ -550,6 +559,7 @@
   "per_levi_budget": "SHARPENS the positive half and AGGRAVATES the zero half. R_L = (d^2 - sum m_i^2)/2 is the repository's own _max_inversions, so orbit_is_trace_dead already applies it. Every positive bound still holds under R_L, which is strictly smaller than binom(d,2); the zero bound fails more often under R_L than under the global budget, exactly because the budget shrinks.",
   "positive_layer_bound": "HOLDS, and needs no regularity: below a positive weight every weight is positive. Verified on every surviving mechanism at ranks 7, 8 and 9.",
   "regularity_in_the_census": "Regular mechanisms are rare: none at ranks 7 and 8, three of 191 at rank 9. The regular stratum the (20,40) counts describe is therefore not where the known mechanisms live.",
+  "weighted_occupancy_profile_laws": "HOLD, 280 of 280, on both branches. These repair the per-weight zero bound: replacing the '+1' by the profile's own multiplicity M(k) is exactly what the non-regular case needs, and the zero law holds at every mechanism where the per-weight version failed.",
   "zero_layer_uniform_bound": "REFUTED for non-regular tau. The step from a zero weight needs strict increase, which fails when two entries of tau coincide. Violated on the census at every rank tested."
  }
 }

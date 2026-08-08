@@ -175,7 +175,55 @@ def test_transpose_is_an_involution_of_the_rectangle():
     assert MODULE.transpose_orbit_counts(3, 10)["applies"] is False
 
 
+def test_weighted_profile_laws_hold_everywhere():
+    """The repair: what the per-weight zero bound could not do, profiles do."""
+    total = 0
+    for record in _artifact()["census_validation"].values():
+        mechanisms = record["mechanisms"]
+        assert record["profile_positive_law_holds"] == mechanisms
+        assert record["profile_zero_law_holds"] == mechanisms
+        assert record["profile_mass_matches_weight_count"] == mechanisms
+        total += mechanisms
+    assert total == 280
+
+
+def test_profile_laws_hold_where_the_per_weight_bound_failed():
+    """Every per-weight failure is covered by the profile formulation."""
+    for record in _artifact()["census_validation"].values():
+        assert record["levi_zero_weight_bound_holds"] < record["mechanisms"]
+        assert record["profile_zero_law_holds"] == record["mechanisms"]
+
+
+def test_profile_laws_recompute_on_a_degenerate_surviving_normal():
+    """Recomputed, not read: a real (3,8) survivor with repeated levels."""
+    laws = MODULE.profile_budget_laws((2, 0, 0, 0, -1, -1, -1, -2), 3)
+    assert laws["positive_law_holds"]
+    assert laws["zero_law_holds"]
+    assert laws["positive_family_mass"] <= laws["levi_budget"]
+
+
+def test_profile_laws_are_conditional_and_detect_trace_dead_normals():
+    """The laws assume the root budget; violating them certifies trace-death.
+
+    tau = (2,2,-1,-1,-1,-1,0,0) has |Omega_+| = 24 against R_L = 20, so no
+    arrangement of it can pass the Ressayre trace test. The laws report failure,
+    which is the correct verdict and doubles as a pruning test.
+    """
+    laws = MODULE.profile_budget_laws((2, 2, 0, 0, -1, -1, -1, -1), 3)
+    assert laws["levi_budget"] == 20
+    assert laws["positive_family_mass"] == 24 > laws["levi_budget"]
+    assert not laws["positive_law_holds"]
+
+
+def test_dominance_and_profiles():
+    assert MODULE.dominates((2, 0, 0), (1, 1, 0))
+    assert not MODULE.dominates((0, 1, 1), (1, 1, 0))
+    profiles = MODULE.occupancy_profiles([2, 2], 2)
+    assert set(profiles) == {(0, 2), (1, 1), (2, 0)}
+
+
 def test_verdict_records_both_halves():
     verdict = _artifact()["verdict"]
     assert verdict["positive_layer_bound"].startswith("HOLDS")
     assert verdict["zero_layer_uniform_bound"].startswith("REFUTED")
+    assert verdict["weighted_occupancy_profile_laws"].startswith("HOLD")
