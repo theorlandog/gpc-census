@@ -115,3 +115,33 @@ def test_the_remedy_targets_exist():
     assert "\nchecksums:" in makefile
     assert "\nchecksums-check:" in makefile
     assert "--check" in makefile
+
+
+def test_duplicate_manifest_entries_are_an_error(tmp_path):
+    """Keeping the last of two lines would hide a stale digest behind a fresh one."""
+    data = _fixture(tmp_path)
+    _write_manifest(data)
+    manifest = data / "SHA256SUMS"
+    first = manifest.read_text().splitlines()[0]
+    manifest.write_text(manifest.read_text() + first + "\n")
+
+    with pytest.raises(mod.DuplicateManifestEntry):
+        mod._entries(manifest.read_text().splitlines())
+
+
+def test_check_reports_a_duplicated_manifest_entry(tmp_path, capsys):
+    data = _fixture(tmp_path)
+    _write_manifest(data)
+    manifest = data / "SHA256SUMS"
+    first = manifest.read_text().splitlines()[0]
+    manifest.write_text(manifest.read_text() + first + "\n")
+
+    assert mod.check(data) == 1
+    assert "more than once" in capsys.readouterr().err
+
+
+def test_verify_data_runs_the_manifest_check():
+    """The gate is only useful if the standing verification actually runs it."""
+    makefile = (ROOT / "Makefile").read_text()
+    body = makefile.split("verify-data:", 1)[1].split("\n\n", 1)[0]
+    assert "update_data_checksums.py --check" in body

@@ -60,6 +60,7 @@ verify-paper:
 # keep their own gate here.
 verify-data:
 	$(UV) run python scripts/check_data_consistency.py
+	$(UV) run python scripts/update_data_checksums.py --check
 	$(UV) run python scripts/audit_data_completeness.py
 	$(UV) run python scripts/build_census_master.py --check
 	$(UV) run python scripts/emit_doc_tables.py --check

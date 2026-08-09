@@ -142,3 +142,70 @@ def test_guard_reference_exemptions_are_documented():
     for name, reason in mod.GUARD_REFERENCE_EXEMPTIONS.items():
         assert name.strip()
         assert isinstance(reason, str) and reason.strip()
+
+
+def test_wrong_directory_same_basename_is_orphaned(tmp_path, monkeypatch):
+    """A same-named file elsewhere must not satisfy a directory-qualified ref.
+
+    Resolving by basename would recreate the silent skip this direction exists
+    to remove: the guard would look satisfied while checking nothing.
+    """
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    (data / "bar").mkdir(parents=True)
+    tests.mkdir()
+    (data / "bar" / "mine.json").write_text("{}")
+    wanted = "foo/mine.json"
+    (tests / "test_fake.py").write_text('X = DATA / "%s"' % wanted)
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    findings = {f["artifact"]: f["why"] for f in mod.orphaned_guards()}
+    assert set(findings) == {wanted}
+    assert "same basename" in findings[wanted]
+
+
+def test_ambiguous_basename_reference_is_orphaned(tmp_path, monkeypatch):
+    """Two artifacts sharing a basename make a bare reference ambiguous."""
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    (data / "one").mkdir(parents=True)
+    (data / "two").mkdir(parents=True)
+    tests.mkdir()
+    (data / "one" / "shared.json").write_text("{}")
+    (data / "two" / "shared.json").write_text("{}")
+    (tests / "test_fake.py").write_text('X = DATA / "%s"' % "shared.json")
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    findings = {f["artifact"]: f["why"] for f in mod.orphaned_guards()}
+    assert set(findings) == {"shared.json"}
+    assert "ambiguous" in findings["shared.json"]
+
+
+def test_unique_basename_reference_still_resolves(tmp_path, monkeypatch):
+    """The legitimate case: exactly one artifact carries that basename."""
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    (data / "only").mkdir(parents=True)
+    tests.mkdir()
+    (data / "only" / "unique.json").write_text("{}")
+    (tests / "test_fake.py").write_text('X = DATA / "%s"' % "unique.json")
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    assert mod.orphaned_guards() == []
+
+
+def test_single_quoted_references_are_scanned(tmp_path, monkeypatch):
+    """A guard using single quotes must not slip past the scan."""
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    data.mkdir()
+    tests.mkdir()
+    absent = "absent.json"
+    (tests / "test_fake.py").write_text("X = DATA / %r" % absent)
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    assert {f["artifact"] for f in mod.orphaned_guards()} == {absent}

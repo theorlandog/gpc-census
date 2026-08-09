@@ -1,9 +1,12 @@
 """Guards for the three-way birationality audit.
 
-The load-bearing claim is the zero-false-negative one: every published facet
-passes BDR's birationality test. The second claim is its converse failing, which
-is what keeps redundancy elimination irreducible. Both are pinned here, and the
-local column is recomputed rather than read back.
+WHICH DIRECTION CARRIES EVIDENCE. `Is_Ram_contracted` searches for a
+non-contraction witness and returns False the moment it finds one, so False is
+the exact, certificate-bearing verdict and True only records that the random
+search came up empty. An earlier version of this audit asserted the reverse,
+which inverted both headlines. These guards pin the corrected reading: the
+strong claim is that 228 rows are witnessed NOT birational and none of them is a
+published facet; the Monte Carlo claim is separate and labelled as such.
 """
 
 from __future__ import annotations
@@ -12,6 +15,8 @@ import hashlib
 import importlib.util
 import json
 import pathlib
+
+import pytest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATA = ROOT / "results" / "data"
@@ -22,7 +27,7 @@ EXTERNAL = DATA / "bdr_birationality_external.json"
 CANDIDATES = DATA / "bdr_birationality_candidates.json"
 
 SYSTEMS = ("(3,7)", "(3,8)", "(3,9)")
-CRITERIA = ("bdr_birational", "bdr_linear_triangular", "dm_fully_triangular")
+CRITERIA = ("no_obstruction_found", "bdr_linear_triangular", "dm_fully_triangular")
 
 
 def _load(name: str):
@@ -40,51 +45,117 @@ def _artifact() -> dict:
     return json.loads(AUDIT.read_text())
 
 
-def test_every_published_facet_is_birational():
-    """The headline: zero false negatives, on every system and pooled."""
+def test_no_published_facet_is_ever_witnessed_non_birational():
+    """The strong direction: False is a witness, and no facet produced one."""
     artifact = _artifact()
     for name in SYSTEMS:
-        score = artifact["systems"][name]["scores"]["bdr_birational"]
-        assert score["fn"] == 0, name
-        assert score["recall_on_facets"] == 1.0, name
-    pooled = artifact["pooled_scores"]["bdr_birational"]
-    assert pooled["fn"] == 0
-    assert pooled["recall_on_facets"] == 1.0
+        record = artifact["systems"][name]
+        assert record["witnessed_non_birational_facets"] == 0, name
+    strong = artifact["strong_direction"]
+    assert strong["witnessed_non_birational_facets"] == 0
+    assert strong["witnessed_non_birational_rows"] == 228
+
+
+def test_the_witnessed_rows_are_all_non_facets():
+    """228 rows carry an actual obstruction, and every one is a non-facet."""
+    artifact = _artifact()
+    witnessed = [
+        row
+        for record in artifact["systems"].values()
+        for row in record["rows"]
+        if row["non_birational_witnessed"]
+    ]
+    assert len(witnessed) == 228
+    assert not any(row["is_published_facet"] for row in witnessed)
+
+
+def test_the_monte_carlo_direction_is_labelled_not_proved():
+    """87 facets and 109 non-facets survived the search; that is not a proof."""
+    artifact = _artifact()
+    pooled = artifact["pooled_scores"]["no_obstruction_found"]
     assert pooled["tp"] == 87
-
-
-def test_birationality_is_not_sufficient():
-    """If it were, redundancy elimination would not be the irreducible step."""
-    pooled = _artifact()["pooled_scores"]["bdr_birational"]
     assert pooled["fp"] == 109
-    assert 0.4 < pooled["precision"] < 0.5
-    assert pooled["separates_facets_exactly"] is False
+    assert pooled["fn"] == 0
+    assert pooled["tn"] == 228
+    assert pooled["unknown"] == 0
+    assert pooled["recall_on_facets"] == 1.0
+    verdict = artifact["verdict"]
+    assert "EMPIRICALLY SUPPORTED, not proved" in verdict["monte_carlo_result"]
+    assert "CANDIDATE claim" in verdict["monte_carlo_result"]
 
 
-def test_precision_climbs_with_rank_while_recall_holds():
-    systems = _artifact()["systems"]
-    precisions = [systems[name]["scores"]["bdr_birational"]["precision"] for name in SYSTEMS]
-    assert precisions[0] < precisions[1] < precisions[2]
-    for name in SYSTEMS:
-        assert systems[name]["scores"]["bdr_birational"]["recall_on_facets"] == 1.0
+def test_the_evidence_direction_is_recorded_as_false():
+    """The correction that motivated this revision must not silently regress."""
+    artifact = _artifact()
+    assert artifact["verdict"]["which_direction_is_evidence"].startswith("False")
+    backend = artifact["external_backend"]
+    assert backend["which_direction_is_evidence"].startswith("False")
+    assert backend["upstream_default_random_deep"] == 1
 
 
-def test_both_triangularity_readings_are_poor_facet_tests():
-    """Each misses roughly nine facets in ten."""
-    pooled = _artifact()["pooled_scores"]
-    for column in ("bdr_linear_triangular", "dm_fully_triangular"):
-        score = pooled[column]
-        assert score["fn"] > 70, column
-        assert score["recall_on_facets"] < 0.2, column
-        assert score["precision"] < 0.4, column
+def test_sampling_is_explicit_and_deeper_than_the_upstream_default():
+    """random_deep must never be left to the upstream default of one trial."""
+    artifact = _artifact()
+    sampling = artifact["sampling"]
+    assert sampling["random_deep"] == MODULE.RANDOM_DEEP >= 8
+    assert sampling["seeds"] == list(MODULE.SEEDS)
+    assert len(sampling["seeds"]) >= 3
+    external = json.loads(EXTERNAL.read_text())
+    assert external["external_backend"]["random_deep"] == sampling["random_deep"]
+    assert external["external_backend"]["seeds"] == sampling["seeds"]
 
 
-def test_birationality_beats_both_triangularity_readings():
-    pooled = _artifact()["pooled_scores"]
-    birational = pooled["bdr_birational"]
-    for column in ("bdr_linear_triangular", "dm_fully_triangular"):
-        assert birational["recall_on_facets"] > pooled[column]["recall_on_facets"]
-        assert birational["precision"] > pooled[column]["precision"]
+def test_every_row_carries_a_trial_per_seed():
+    external = json.loads(EXTERNAL.read_text())
+    for record in external["systems"].values():
+        for row in record["rows"]:
+            assert len(row["trials"]) == len(MODULE.SEEDS)
+            assert {t["seed"] for t in row["trials"]} == set(MODULE.SEEDS)
+            assert all(t["random_deep"] == MODULE.RANDOM_DEEP for t in row["trials"])
+
+
+def test_the_verdicts_are_stable_across_seeds():
+    """Zero disagreement is what makes the Monte Carlo half worth reporting."""
+    artifact = _artifact()
+    assert artifact["strong_direction"]["seed_disagreement_rows"] == 0
+    for record in artifact["systems"].values():
+        assert record["seed_disagreement_rows"] == 0
+
+
+def test_the_join_is_bound_to_its_candidate_input():
+    """Fail closed: the external half must name the exact candidates it saw."""
+    artifact = _artifact()
+    candidates_digest = hashlib.sha256(CANDIDATES.read_bytes()).hexdigest()
+    assert artifact["candidates_sha256"] == candidates_digest
+    external = json.loads(EXTERNAL.read_text())
+    assert external["candidates_sha256"] == candidates_digest
+
+
+def test_binding_rejects_a_mismatched_candidate_file():
+    """The guard must actually refuse, not just record a hash."""
+    external = json.loads(EXTERNAL.read_text())
+    with pytest.raises(SystemExit) as raised:
+        MODULE.check_binding(b'{"systems": {}}', external)
+    assert "different candidate file" in str(raised.value)
+
+
+def test_binding_rejects_a_missing_external_row():
+    """A dropped row must fail, never be scored as unknown and excluded."""
+    candidates_bytes = CANDIDATES.read_bytes()
+    external = json.loads(EXTERNAL.read_text())
+    external["systems"]["(3,7)"]["rows"] = external["systems"]["(3,7)"]["rows"][1:]
+    with pytest.raises(SystemExit) as raised:
+        MODULE.check_binding(candidates_bytes, external)
+    assert "do not cover the candidates" in str(raised.value)
+
+
+def test_binding_rejects_an_errored_row():
+    candidates_bytes = CANDIDATES.read_bytes()
+    external = json.loads(EXTERNAL.read_text())
+    external["systems"]["(3,7)"]["rows"][0]["bdr_error"] = "boom"
+    with pytest.raises(SystemExit) as raised:
+        MODULE.check_binding(candidates_bytes, external)
+    assert "errored" in str(raised.value)
 
 
 def test_every_published_facet_is_in_the_candidate_population():
@@ -105,7 +176,8 @@ def test_no_row_errored_in_the_external_pass():
         assert record["errored_rows"] == 0
         for row in record["rows"]:
             assert row["bdr_error"] is None
-            assert row["bdr_birational"] in (True, False)
+            assert row["no_obstruction_found"] in (True, False)
+            assert row["non_birational_witnessed"] in (True, False)
 
 
 def test_scores_recompute_from_the_rows():
@@ -128,15 +200,15 @@ def test_the_local_column_recomputes_on_a_named_row():
     assert match_row is not None
     assert gate.irreducible_blocks(matrix, match_row) == stored["dm_blocks"]
     assert stored["is_published_facet"] is True
-    assert stored["bdr_birational"] is True
+    assert stored["non_birational_witnessed"] is False
 
 
 def test_the_probabilistic_arm_is_named_in_the_verdict():
     """The caveat must ship with the numbers."""
     artifact = _artifact()
     assert "probabilistic" in artifact["external_backend"]["birationality_arm"]
-    assert "probabilistic" in artifact["verdict"]["arm_caveat"]
-    assert "weaker evidence" in artifact["verdict"]["arm_caveat"]
+    assert "Monte Carlo" in artifact["verdict"]["which_direction_is_evidence"]
+    assert "exact arm" in artifact["verdict"]["what_would_settle_it"]
 
 
 def test_external_artifact_is_bound_by_hash():

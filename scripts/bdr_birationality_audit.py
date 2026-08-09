@@ -41,12 +41,29 @@ that must never become a dependency of this package:
 Pass 3 recomputes the local column from scratch and reads the external column
 from the recorded artifact, so it runs on a machine with no Sage.
 
-CAVEAT THAT TRAVELS WITH EVERY BDR VERDICT HERE. ``Is_Ram_contracted`` runs its
-probabilistic arm, which is the upstream default; its exact arm does not run in
-this environment, for the reason measured in
-`results/data/bdr_external_benchmark.json`. A probabilistic birationality test
-can in principle reject a valid row, so a `False` is weaker evidence than a
-`True`.
+WHICH DIRECTION THE RANDOMNESS FAVOURS, because getting this backwards inverts
+every conclusion. ``Is_Ram_contracted`` SEARCHES FOR A NON-CONTRACTION WITNESS.
+``is_not_contracted`` samples matrices over ``Q[i]`` and returns True the moment
+one has full column rank, breaking early; ``Is_Ram_contracted`` returns
+``False`` as soon as any divisor yields such a witness, and returns ``True``
+only after the search is exhausted without finding one. Therefore:
+
+    False  =  a witness was found        =>  NOT birational, and this is the
+                                             direction carrying evidence
+    True   =  no witness found in the
+              random search              =>  Monte Carlo only; absence of a
+                                             witness is not a proof
+
+Upstream's ``random_deep`` defaults to 1, a single trial, so a True verdict at
+the default depth is very weak indeed. This audit therefore fixes
+``random_deep`` explicitly and repeats the whole sweep across several
+independent seeds, and reports the two directions separately:
+
+- ``non_birational_witnessed``  any trial returned False. Evidence bearing.
+- ``no_obstruction_found``      every trial returned True. Monte Carlo.
+
+The exact arm, which would settle it, does not run in this environment; see
+`results/data/bdr_external_benchmark.json` for the measured reason.
 """
 
 from __future__ import annotations
@@ -67,7 +84,13 @@ AUDIT_DEFAULT = ROOT / "results/data/bdr_birationality_audit.json"
 
 SYSTEMS = ((3, 7, "flats"), (3, 8, "flats"), (3, 9, "augmentation"))
 PINNED_REVISION = "7ab347d9a7837d68d92bde9fac74606913f395ca"
-SEED = 20260809
+
+# The probabilistic arm searches for a non-contraction witness. Upstream's
+# default depth is 1, which is a single trial, so a True verdict at that depth
+# is very weak. These are the sampling parameters this audit uses instead, and
+# they are serialized into the artifact rather than left implicit.
+SEEDS = (20260809, 20260810, 20260811)
+RANDOM_DEEP = 8
 
 
 # --------------------------------------------------------------------------
@@ -163,8 +186,14 @@ def build_candidates() -> dict:
 # --------------------------------------------------------------------------
 
 
-def external_verdicts(candidates: dict) -> dict:
-    """Upstream linear-triangular and birationality verdicts, per row."""
+def external_verdicts(candidates: dict, candidates_sha256: str) -> dict:
+    """Upstream linear-triangular and birationality verdicts, per row.
+
+    The birationality arm is a randomized SEARCH FOR A NON-CONTRACTION WITNESS,
+    so False is the evidence-bearing direction and True only means the search
+    came up empty. Every row is therefore evaluated once per seed at an explicit
+    depth, and both directions are recorded separately.
+    """
     import platform
     import time
 
@@ -180,10 +209,17 @@ def external_verdicts(candidates: dict) -> dict:
     systems = {}
     for name, record in candidates["systems"].items():
         group = LinearGroup([record["orbitals"]])
-        representation = FermionRepresentation(
-            group, particle_cnt=record["particle_number"], seed=SEED
-        )
-        representation.T_Pi_3D  # noqa: B018  (precomputed once, as the pipeline does)
+        representations = []
+        for seed in SEEDS:
+            representation = FermionRepresentation(
+                group,
+                particle_cnt=record["particle_number"],
+                seed=seed,
+                random_deep=RANDOM_DEEP,
+            )
+            assert representation.random_deep == RANDOM_DEEP
+            representation.T_Pi_3D  # noqa: B018  (precomputed, as the pipeline does)
+            representations.append((seed, representation))
 
         rows = []
         started = time.perf_counter()
@@ -195,26 +231,60 @@ def external_verdicts(candidates: dict) -> dict:
                 inversions = list(inequality.inversions)
                 entry["inversion_count"] = len(inversions)
                 entry["bdr_linear_triangular"] = bool(
-                    is_linear_triangular(representation, inequality.tau, inversions)
-                )
-                entry["bdr_birational"] = bool(
-                    Is_Ram_contracted(
-                        inequality, representation, "probabilistic", "probabilistic"
+                    is_linear_triangular(
+                        representations[0][1], inequality.tau, inversions
                     )
+                )
+                trials = []
+                for seed, representation in representations:
+                    trials.append(
+                        {
+                            "seed": seed,
+                            "random_deep": RANDOM_DEEP,
+                            "birational": bool(
+                                Is_Ram_contracted(
+                                    inequality,
+                                    representation,
+                                    "probabilistic",
+                                    "probabilistic",
+                                )
+                            ),
+                        }
+                    )
+                entry["trials"] = trials
+                # False means a witness was found, which is the strong verdict.
+                entry["non_birational_witnessed"] = any(
+                    not trial["birational"] for trial in trials
+                )
+                entry["no_obstruction_found"] = all(
+                    trial["birational"] for trial in trials
                 )
                 entry["bdr_error"] = None
             except Exception as error:  # noqa: BLE001  (record, never swallow)
                 entry["inversion_count"] = None
                 entry["bdr_linear_triangular"] = None
-                entry["bdr_birational"] = None
+                entry["trials"] = []
+                entry["non_birational_witnessed"] = None
+                entry["no_obstruction_found"] = None
                 entry["bdr_error"] = f"{type(error).__name__}: {error}"
             rows.append(entry)
 
+        witnessed = sum(row["non_birational_witnessed"] is True for row in rows)
+        unstable = sum(
+            1
+            for row in rows
+            if row["trials"]
+            and len({trial["birational"] for trial in row["trials"]}) > 1
+        )
         systems[name] = {
             "system": name,
             "rows": rows,
             "row_count": len(rows),
-            "bdr_birational_rows": sum(row["bdr_birational"] is True for row in rows),
+            "non_birational_witnessed_rows": witnessed,
+            "no_obstruction_found_rows": sum(
+                row["no_obstruction_found"] is True for row in rows
+            ),
+            "seed_disagreement_rows": unstable,
             "bdr_linear_triangular_rows": sum(
                 row["bdr_linear_triangular"] is True for row in rows
             ),
@@ -223,16 +293,18 @@ def external_verdicts(candidates: dict) -> dict:
         }
         print(
             f"{name}: {len(rows)} rows, "
-            f"{systems[name]['bdr_birational_rows']} birational, "
-            f"{systems[name]['bdr_linear_triangular_rows']} linear triangular, "
+            f"{witnessed} witnessed NOT birational, "
+            f"{systems[name]['no_obstruction_found_rows']} no obstruction found, "
+            f"{unstable} disagreeing across seeds, "
             f"{systems[name]['errored_rows']} errored "
             f"({systems[name]['seconds']}s)",
             flush=True,
         )
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_by": "scripts/bdr_birationality_audit.py --external-out",
+        "candidates_sha256": candidates_sha256,
         "external_backend": {
             "name": "Bulois-Denis-Ressayre moment_cone",
             "mirror": "github.com/ea-icj/moment_cone",
@@ -242,7 +314,16 @@ def external_verdicts(candidates: dict) -> dict:
                 "moment_cone.ramification.Is_Ram_contracted",
                 "moment_cone.linear_triangular.is_linear_triangular",
             ],
-            "birationality_arm": "probabilistic (the upstream default)",
+            "birationality_arm": "probabilistic (the upstream default arm)",
+            "seeds": list(SEEDS),
+            "random_deep": RANDOM_DEEP,
+            "upstream_default_random_deep": 1,
+            "which_direction_is_evidence": (
+                "False. Is_Ram_contracted searches for a non-contraction "
+                "witness and returns False as soon as one is found, so False "
+                "certifies non-birationality up to exact arithmetic while True "
+                "only records that the random search came up empty."
+            ),
             "executed_here": True,
         },
         "machine": {
@@ -287,6 +368,55 @@ def _score(rows: list[dict], column: str) -> dict:
     }
 
 
+COLUMNS = (
+    "dm_fully_triangular",
+    "bdr_linear_triangular",
+    "no_obstruction_found",
+)
+
+
+def check_binding(candidates_bytes: bytes, external: dict) -> None:
+    """Refuse to score anything unless the two halves provably match.
+
+    Fail closed. A missing external row would otherwise be scored as unknown
+    and dropped from the denominators, so an incomplete external run would
+    quietly look better than a complete one.
+    """
+    recorded = external.get("candidates_sha256")
+    actual = hashlib.sha256(candidates_bytes).hexdigest()
+    if recorded != actual:
+        raise SystemExit(
+            "external verdicts were produced against a different candidate "
+            f"file: recorded {recorded}, supplied {actual}. Re-run "
+            "--external-out against this candidates artifact."
+        )
+
+    candidates = json.loads(candidates_bytes)
+    if set(candidates["systems"]) != set(external["systems"]):
+        raise SystemExit(
+            "system sets differ: "
+            f"{sorted(candidates['systems'])} against "
+            f"{sorted(external['systems'])}"
+        )
+
+    for name, record in candidates["systems"].items():
+        wanted = {tuple(row["tau"]) for row in record["rows"]}
+        got = {tuple(row["tau"]) for row in external["systems"][name]["rows"]}
+        if wanted != got:
+            raise SystemExit(
+                f"{name}: external rows do not cover the candidates. "
+                f"missing {sorted(wanted - got)[:3]}, "
+                f"unexpected {sorted(got - wanted)[:3]}"
+            )
+        for row in external["systems"][name]["rows"]:
+            if row.get("bdr_error") is not None:
+                raise SystemExit(f"{name}: external row {row['tau']} errored")
+            if row.get("no_obstruction_found") is None:
+                raise SystemExit(f"{name}: external row {row['tau']} has no verdict")
+            if not row.get("trials"):
+                raise SystemExit(f"{name}: external row {row['tau']} has no trials")
+
+
 def join(candidates: dict, external: dict) -> dict:
     gate = _gate_module()
     systems = {}
@@ -316,10 +446,13 @@ def join(candidates: dict, external: dict) -> dict:
                 "dm_fully_triangular": bool(blocks) and max(blocks) == 1,
                 "is_published_facet": row["is_published_facet"],
             }
-            outside = external_rows.get(tau, {})
-            merged["bdr_linear_triangular"] = outside.get("bdr_linear_triangular")
-            merged["bdr_birational"] = outside.get("bdr_birational")
-            merged["bdr_error"] = outside.get("bdr_error")
+            # check_binding has already proved every tau is present, so a
+            # KeyError here is a bug rather than a tolerable gap.
+            outside = external_rows[tau]
+            merged["bdr_linear_triangular"] = outside["bdr_linear_triangular"]
+            merged["non_birational_witnessed"] = outside["non_birational_witnessed"]
+            merged["no_obstruction_found"] = outside["no_obstruction_found"]
+            merged["trials"] = outside["trials"]
             rows.append(merged)
 
         pooled.extend(rows)
@@ -330,49 +463,83 @@ def join(candidates: dict, external: dict) -> dict:
             "candidate_rows": len(rows),
             "published_facets_among_them": sum(row["is_published_facet"] for row in rows),
             "published_facets_not_candidates": record["published_facets_not_candidates"],
-            "scores": {
-                column: _score(rows, column)
-                for column in (
-                    "dm_fully_triangular",
-                    "bdr_linear_triangular",
-                    "bdr_birational",
-                )
-            },
+            "witnessed_non_birational_rows": sum(
+                row["non_birational_witnessed"] for row in rows
+            ),
+            "witnessed_non_birational_facets": sum(
+                row["non_birational_witnessed"] and row["is_published_facet"]
+                for row in rows
+            ),
+            "seed_disagreement_rows": sum(
+                len({trial["birational"] for trial in row["trials"]}) > 1
+                for row in rows
+            ),
+            "scores": {column: _score(rows, column) for column in COLUMNS},
             "rows": rows,
         }
 
     return {
         "systems": systems,
-        "pooled_scores": {
-            column: _score(pooled, column)
-            for column in (
-                "dm_fully_triangular",
-                "bdr_linear_triangular",
-                "bdr_birational",
-            )
-        },
+        "pooled_scores": {column: _score(pooled, column) for column in COLUMNS},
         "pooled_rows": len(pooled),
+        "strong_direction": {
+            "meaning": (
+                "Is_Ram_contracted returns False only when it has found a "
+                "non-contraction witness, so False is the direction that "
+                "carries evidence and True only records an empty search."
+            ),
+            "witnessed_non_birational_rows": sum(
+                row["non_birational_witnessed"] for row in pooled
+            ),
+            "witnessed_non_birational_facets": sum(
+                row["non_birational_witnessed"] and row["is_published_facet"]
+                for row in pooled
+            ),
+            "seed_disagreement_rows": sum(
+                len({trial["birational"] for trial in row["trials"]}) > 1
+                for row in pooled
+            ),
+        },
     }
 
 
 def verdict(joined: dict) -> dict:
     pooled = joined["pooled_scores"]
-    birational = pooled["bdr_birational"]
+    weak = pooled["no_obstruction_found"]
+    strong = joined["strong_direction"]
     return {
         "question": (
             "Among determinant-nonzero Hall-feasible candidates, which of the "
             "three criteria separates a published facet from a non-facet?"
         ),
-        "bdr_birationality": (
-            f"recall {birational['recall_on_facets']}, precision "
-            f"{birational['precision']}, false positives {birational['fp']}, "
-            f"false negatives {birational['fn']}"
+        "which_direction_is_evidence": (
+            "False. Is_Ram_contracted searches for a non-contraction witness "
+            "and returns False the moment one is found, so False certifies "
+            "non-birationality up to exact arithmetic. True records only that "
+            "the random search came up empty and is Monte Carlo."
         ),
-        "arm_caveat": (
-            "Is_Ram_contracted ran its probabilistic arm, the upstream default; "
-            "its exact arm does not run in this environment. A probabilistic "
-            "birationality test can reject a valid row, so a False verdict is "
-            "weaker evidence than a True one."
+        "strong_result": (
+            f"{strong['witnessed_non_birational_rows']} rows are witnessed NOT "
+            f"birational, of which {strong['witnessed_non_birational_facets']} "
+            "are published facets. Those verdicts carry evidence."
+        ),
+        "monte_carlo_result": (
+            f"{weak['tp']} facets and {weak['fp']} non-facets survived the "
+            "search with no obstruction found. Necessity is therefore "
+            "EMPIRICALLY SUPPORTED, not proved, and insufficiency is a "
+            "CANDIDATE claim: some of those non-facet survivors could be "
+            "false positives of the random search rather than genuinely "
+            "birational rows."
+        ),
+        "sampling": (
+            f"{len(SEEDS)} independent seeds at random_deep={RANDOM_DEEP}, "
+            f"against the upstream default of 1. "
+            f"{strong['seed_disagreement_rows']} rows disagreed across seeds, "
+            "which measures how much the verdict still moves with sampling."
+        ),
+        "what_would_settle_it": (
+            "the exact arm of Is_Ram_contracted, which does not run in this "
+            "environment; see results/data/bdr_external_benchmark.json."
         ),
         "scope": (
             "Three systems, and the candidate population is not the full "
@@ -402,8 +569,11 @@ def main() -> int:
     arguments = parser.parse_args()
 
     if arguments.external_out is not None:
-        candidates = json.loads(arguments.candidates.read_text())
-        payload = external_verdicts(candidates)
+        candidates_bytes = arguments.candidates.read_bytes()
+        candidates = json.loads(candidates_bytes)
+        payload = external_verdicts(
+            candidates, hashlib.sha256(candidates_bytes).hexdigest()
+        )
         payload["canonical_sha256_without_this_field_or_timings"] = _canonical(payload)
         arguments.external_out.parent.mkdir(parents=True, exist_ok=True)
         arguments.external_out.write_text(
@@ -423,8 +593,10 @@ def main() -> int:
         print(f"wrote {arguments.candidates_out}")
         return 0
 
-    candidates = json.loads(arguments.candidates.read_text())
+    candidates_bytes = arguments.candidates.read_bytes()
     external = json.loads(arguments.external.read_text())
+    check_binding(candidates_bytes, external)
+    candidates = json.loads(candidates_bytes)
     joined = join(candidates, external)
 
     payload = {
@@ -435,9 +607,21 @@ def main() -> int:
         "external_verdicts_sha256": hashlib.sha256(
             arguments.external.read_bytes()
         ).hexdigest(),
+        "candidates_sha256": hashlib.sha256(candidates_bytes).hexdigest(),
+        "binding": (
+            "scored only after proving the external verdicts were produced "
+            "against this exact candidates artifact, that the tau sets are "
+            "equal, and that no row errored or lacks a verdict"
+        ),
         "systems": joined["systems"],
         "pooled_scores": joined["pooled_scores"],
         "pooled_rows": joined["pooled_rows"],
+        "strong_direction": joined["strong_direction"],
+        "sampling": {
+            "seeds": list(SEEDS),
+            "random_deep": RANDOM_DEEP,
+            "upstream_default_random_deep": 1,
+        },
         "verdict": verdict(joined),
     }
     payload["canonical_sha256_without_this_field_or_timings"] = _canonical(payload)
@@ -445,15 +629,18 @@ def main() -> int:
     arguments.out.parent.mkdir(parents=True, exist_ok=True)
     arguments.out.write_text(json.dumps(payload, indent=1, sort_keys=True) + "\n")
     for name, record in sorted(payload["systems"].items()):
-        scores = record["scores"]["bdr_birational"]
+        scores = record["scores"]["no_obstruction_found"]
         print(
             f"{name}: {record['candidate_rows']} candidates, "
-            f"{record['published_facets_among_them']} facets, birational "
-            f"tp {scores['tp']} fp {scores['fp']} fn {scores['fn']} "
-            f"tn {scores['tn']}",
+            f"{record['published_facets_among_them']} facets | "
+            f"witnessed NOT birational {record['witnessed_non_birational_rows']} "
+            f"(facets {record['witnessed_non_birational_facets']}) | "
+            f"no obstruction found tp {scores['tp']} fp {scores['fp']} "
+            f"fn {scores['fn']} tn {scores['tn']}",
             flush=True,
         )
-    print(f"pooled {payload['pooled_scores']['bdr_birational']}")
+    print(f"pooled (Monte Carlo) {payload['pooled_scores']['no_obstruction_found']}")
+    print(f"strong direction {payload['strong_direction']}")
     print(f"wrote {arguments.out}")
     return 0
 

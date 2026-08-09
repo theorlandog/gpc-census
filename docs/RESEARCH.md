@@ -668,12 +668,13 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
-- bdr_birationality_audit.md: PHASE 1, the three-way criterion audit. 🟦 Every
-  published facet passes BDR's birationality test, zero false negatives over 424
-  candidate rows at (3,7), (3,8) and (3,9), an independent cross-check on the
-  criterion that actually decides. ❌ It is necessary and not sufficient:
-  precision 0.444, because redundancy is not a birationality property. ❌ Both
-  triangularity readings are poor facet tests, recall 0.080 and 0.115. Artifacts
+- bdr_birationality_audit.md: PHASE 1, the three-way criterion audit. 🟦 228 of
+  424 candidate rows are WITNESSED not birational and none is a published facet,
+  which is the exact half of the result. ⚠️ Necessity is empirically supported
+  rather than proved and insufficiency is a candidate claim, because a True
+  verdict is Monte Carlo: see the correction, the first version had the
+  direction backwards. ❌ Both triangularity readings are poor facet tests,
+  recall 0.080 and 0.115. Artifacts
   bdr_birationality_audit.json, bdr_birationality_external.json and
   bdr_birationality_candidates.json; guard test
   tests/test_bdr_birationality_audit.py.
@@ -2071,15 +2072,24 @@ results/data/bdr_birationality_external.json;
 results/data/bdr_birationality_candidates.json;
 scripts/bdr_birationality_audit.py; tests/test_bdr_birationality_audit.py]
 
-- 🟦 EVERY PUBLISHED FACET IS BIRATIONAL. Zero false negatives over 424 rows at
-  (3,7), (3,8) and (3,9), recall 1.000 on every system. This repository's
-  published systems were produced without BDR and the two pipelines share no
-  code, so this is an independent cross-check on the criterion that decides.
-- ❌ BIRATIONALITY IS NOT SUFFICIENT: 109 non-facets pass it too, precision
-  0.444 pooled. Redundancy is not a birationality property, and separating the
-  survivors is Farkas reduction, which is exactly the irreducible step measured
-  in bdr_constructor_comparison. Precision climbs with rank, 0.154, 0.470,
-  0.500, while recall stays at 1.000.
+- ❗ CORRECTION, SAME DAY. The first version of this entry had the probabilistic
+  evidence exactly backwards, calling a False verdict weak and a True verdict
+  strong. `Is_Ram_contracted` SEARCHES FOR A NON-CONTRACTION WITNESS and returns
+  FALSE the moment one is found, returning True only after the search is
+  exhausted. So False is exact and evidence bearing; True is Monte Carlo. The
+  first run also left `random_deep` at the upstream default of 1.
+- 🟦 THE STRONG RESULT: 228 of 424 rows are WITNESSED not birational, and NONE
+  of them is a published facet (22/48, 70/136, 136/240, zero facets at every
+  system). Those verdicts are exact. No published facet ever produced a witness,
+  an independent cross-check since these systems were built without BDR.
+- ⚠️ THE MONTE CARLO RESULT, kept separate: 87 facets and 109 non-facets
+  survived with no obstruction found. Necessity is EMPIRICALLY SUPPORTED, not
+  proved. Insufficiency, that those 109 are genuinely birational, is a CANDIDATE
+  claim, since they are True verdicts and could be search false positives. The
+  first version stated it as established.
+- 🟦 STABILITY: three seeds at random_deep 8, a 24-fold increase over the first
+  run, moved no verdict at all. Per-system survivor counts identical (26, 66,
+  104) and zero seed disagreement.
 - ❌ BOTH TRIANGULARITY READINGS ARE POOR FACET TESTS. BDR's own
   linear-triangular filter scores recall 0.080 and precision 0.304; the local DM
   `1 x 1` test scores 0.115 and 0.175. Each misses roughly nine facets in ten.
@@ -2090,11 +2100,15 @@ scripts/bdr_birationality_audit.py; tests/test_bdr_birationality_audit.py]
 - 🟦 EVERY PUBLISHED FACET IS INSIDE THE CANDIDATE POPULATION at all three
   systems, so the scoring is not distorted by facets the enumeration never
   produced.
-- ⚠️ ARM CAVEAT. `Is_Ram_contracted` ran its probabilistic arm, the upstream
-  default; the exact arm does not run here. A False verdict is therefore weaker
-  evidence than a True one. The asymmetry favours the headline: both the
-  zero-false-negative result and the 109 false positives are built from True
-  verdicts, and only the negative column is the weak one.
+- ⚠️ ARM CAVEAT, corrected. `Is_Ram_contracted` ran its probabilistic arm; the
+  exact arm does not run here. The asymmetry cuts AGAINST the headline: the 228
+  witnessed rows are exact, while everything resting on True verdicts, both the
+  87 facets and the 109 non-facets, is Monte Carlo. The exact arm would settle
+  it and this environment cannot run it.
+- 🟦 THE JOIN FAILS CLOSED: it refuses to score until it has proved the external
+  artifact names the sha256 of the exact candidates file, the tau sets are equal
+  per system, and no row errored or lacks a verdict. A dropped row would
+  otherwise be scored unknown and silently improve the denominators.
 - ⚠️ SCOPE: three systems, and the population is already filtered by the trace
   test, Hall feasibility and a nonzero determinant.
 
