@@ -2348,12 +2348,14 @@ misses any of these exits nonzero.
 
 CONDITIONALITY. The enumeration is complete only up to a bound on the level
 spread. Theorem S proves such a bound exists at every rank and gives it
-explicitly, `2 sqrt(r-1) (N sqrt 2)^(r-2)`; that quantity is about `2.8e6` at
-rank 11 against a realized maximum of 20, so it settles decidability and buys no
-completeness here. Every run below therefore stops at an affordable spread
-rather than a proved one, and the saturation protocol still carries the claim.
-It plateaus at the known orbit count at ranks 6 to 10, with realized maxima
-3, 4, 6, 10 and 14.
+explicitly, `2 sqrt(r-1) (N sqrt 2)^(r-2)`, which every row now records as
+`proved_spread_bound`; that quantity is about `2.8e6` at rank 11 against a
+realized maximum of 20, so it settles decidability and buys no completeness
+here. Every run therefore stops at an affordable spread rather than a proved
+one, and `tests/test_profiles.py` pins each row strictly inside its own proved
+bound so the two cannot quietly be conflated. The saturation protocol still
+carries the claim. It plateaus at the known orbit count at ranks 6 to 10, with
+realized maxima 3, 4, 6, 10 and 14.
 It does NOT plateau at rank 11 by spread 20, so the rank 11, 12 and 13 rows are
 lower bounds on the candidate populations, not closed counts, and the
 `(3,11)` candidate universe is not closed by this artifact.
