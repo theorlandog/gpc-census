@@ -92,6 +92,14 @@ treated as closed infrastructure per the revised brief.
 
 What this does change for Route B is the cost model, below.
 
+One rank-11 check does hold unconditionally, because it does not depend on the
+bound. All four level-five `(3,11)` rows with exact Ressayre certificates appear
+in the enumeration, at level spread 2, and 12 of the 13 Altunbulak-Klyachko
+partial-family rows appear. The one absence is a correct rejection: the WEAK row
+`lambda_1 + lambda_11 <= 6/5` has normal `(3,-2,...,-2,3)`, whose entry triples
+sum to 4, -1 or -6 and never to 0, so it touches no weight and is not a
+supporting hyperplane at all.
+
 ## Priority 10: rank 11, 12 and 13 stage ledger
 
 Measured with the profile enumerator, all conditional on the spread bound

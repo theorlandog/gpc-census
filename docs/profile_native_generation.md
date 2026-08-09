@@ -181,6 +181,24 @@ Two stronger checks than counting run as well.
 `(4,7)` and `(4,8)` matter because they are a different particle number, so the
 reduction is not an `N = 3` accident.
 
+## A target-rank check that does not need the spread bound
+
+Whatever the spread bound turns out to be, rows the repository has already
+certified at rank 11 must appear in the enumeration, and they do.
+
+- The four level-five `(3,11)` rows carrying exact Ressayre certificates
+  (`results/data/level5_ressayre_3_11.json`) are all present, at level spread 2.
+- Of the 13 Altunbulak-Klyachko partial-family rows for `(3,11)`
+  (`docs/partial_families_3_11_3_12.json`), 12 are present.
+
+The single absence is a correct rejection rather than a gap. The missing row is
+the one tagged WEAK, `lambda_1 + lambda_11 <= 6/5`, whose primitive normal is
+`tau = (3,-2,-2,-2,-2,-2,-2,-2,-2,-2,3)`. No triple of its entries sums to zero,
+since the available sums are `4`, `-1` and `-6`, so it touches no weight, is not
+a supporting hyperplane, and cannot be a Ressayre element. It is a valid
+inequality that is not tight anywhere, which is exactly what its WEAK tag says.
+Both halves are pinned in `tests/test_profiles.py`.
+
 ## Refuted: the bounded-hole arithmetic-level grammar is not a completeness rule
 
 `docs/arithmetic_level_audit.md` found 78 of 83 facet mechanisms to be exact

@@ -358,3 +358,55 @@ def test_profile_native_survivor_taus_match_the_lattice_route():
         assert len(mine) == expected
         assert set(mine) == set(lattice.survivor_taus)
         assert counts["oriented_orbits"] == ORIENTED_ORBITS[d]
+
+
+def test_known_rank_eleven_rows_appear_as_candidate_orbits():
+    """Target-rank cross-check against rows the repository already certified.
+
+    The four level-five `(3,11)` rows carry exact Ressayre certificates
+    (`results/data/level5_ressayre_3_11.json`), and the Altunbulak-Klyachko
+    partial families are necessary conditions
+    (`docs/partial_families_3_11_3_12.json`).  Every one of them that is a
+    supporting hyperplane at all must be in the enumeration.
+
+    The single exception is instructive rather than a miss: the WEAK row
+    `lambda_1 + lambda_11 <= 6/5` has `tau = (3,-2,...,-2,3)`, which has NO
+    zero-sum weight, so it is not a supporting hyperplane and cannot be a
+    Ressayre element. It is correctly absent.
+    """
+    from fractions import Fraction
+
+    root = pathlib.Path(__file__).resolve().parents[1]
+    orbits = {
+        _canonical_tau(profile.tau)
+        for profile in enumerate_admissible_profiles(3, 11, 8)
+    }
+
+    certified = json.loads(
+        (root / "results" / "data" / "level5_ressayre_3_11.json").read_text()
+    )["rank_eleven"]["rows"]
+    assert len(certified) == 4
+    for row in certified:
+        assert _canonical_tau(tuple(row["tau"])) in orbits
+
+    families = json.loads(
+        (root / "docs" / "partial_families_3_11_3_12.json").read_text()
+    )["systems"]["(3,11)"]
+    assert len(families) == 13
+    absent = []
+    for entry in families:
+        rhs = Fraction(entry["rhs"])
+        tau = tuple(
+            3 * rhs.denominator * (1 if (i + 1) in entry["indices"] else 0)
+            - rhs.numerator
+            for i in range(11)
+        )
+        divisor = 0
+        for value in tau:
+            divisor = _gcd(divisor, abs(value))
+        tau = tuple(value // divisor for value in tau)
+        if _canonical_tau(tau) not in orbits:
+            absent.append((entry["tag"], tau))
+    assert len(absent) == 1
+    assert absent[0][0] == "WEAK"
+    assert weight_affine_rank(3, absent[0][1]) == 0
