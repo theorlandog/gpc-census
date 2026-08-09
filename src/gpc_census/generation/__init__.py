@@ -49,6 +49,15 @@ from .full_dimension import (
     verify_full_dimension_certificate,
 )
 from .model import GeneratedSystem, IntegralConstraint, RessayreCertificate
+from .profiles import (
+    ValueProfile,
+    enumerate_admissible_profiles,
+    orbit_normals,
+    profile_is_admissible,
+    profile_normal,
+    spread_saturation,
+    weight_affine_rank,
+)
 from .redundancy import (
     CertificateSearchError,
     FacetWitnessCertificate,
@@ -95,6 +104,7 @@ __all__ = [
     "ShadowUniquenessError",
     "SignedDecoding",
     "StructuralPauliRow",
+    "ValueProfile",
     "SymbolicFallbackOutcome",
     "UnresolvedCandidatesError",
     "certify_ordered_slice_redundancy",
@@ -102,16 +112,22 @@ __all__ = [
     "decode_shadow",
     "decode_signed_pair",
     "enumerate_admissible_hyperplanes_by_flats",
+    "enumerate_admissible_profiles",
     "enumerate_cocircuit_hyperplanes",
     "full_dimension_certificate",
     "generate_3_6",
     "generate_fixed_n3_reference_rank",
+    "orbit_normals",
     "ordered_pauli_inequalities",
+    "profile_is_admissible",
+    "profile_normal",
     "rank_preserving_modulus",
     "require_full_dimension",
     "screen_bdr_export",
     "screen_tau_candidates",
+    "spread_saturation",
     "verify_full_dimension_certificate",
     "verify_ordered_slice_reduction_certificate",
     "verify_reference_manifest",
+    "weight_affine_rank",
 ]

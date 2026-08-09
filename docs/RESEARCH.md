@@ -1082,6 +1082,41 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   make screening an S_d invariant, which stays refuted.
   [docs/prereg_direct_survivor_generation.md;
   src/gpc_census/generation/orbit_canonical.py; tests/test_orbit_canonical.py]
+- profile_native_generation.md: THE ORBIT STAGE WITHOUT THE FLAT LATTICE, and
+  the measurement that moves the bottleneck to the arrangement layer.
+  ✅ Theorem A: Ressayre admissibility of tau depends only on its VALUE PROFILE,
+  and is decided in R^r by rank(S) = r-1 on the occupancy patterns of zero value
+  sum plus a mobility condition per repeated class. Proved by splitting the
+  difference span along the class projection; the mobility half is not
+  decoration, since tau = (1,1,0,0,0,-2) at d=6 passes the rank half and has
+  weight rank 2, not 5. ✅ Lemma L: a profile is named by a multiplicity
+  composition, an integer level set and one target, with value gap dividing N,
+  which recovers the divisibility lemma of arithmetic_level_audit.md. An orbit
+  is a sorted multiset, so nothing is canonicalized and the rank-9
+  canonicalizer's 841,328 top-level leaves do not occur.
+  🟦 Calibrated exactly against every independently known population at ranks 6
+  to 10: unoriented orbits 8/19/56/231/1337, oriented 15/35/109, self-paired
+  1/3/3, trace-alive 25/64/191, trace survivors 64/549/6607, plus set-for-set
+  agreement at (3,6), (3,7), (4,7) and zero Theorem A disagreements against the
+  materialised weight rank on every profile at ranks 6 to 9 and (4,7), (4,8).
+  ❌ The bounded-hole arithmetic-level grammar is REFUTED as a candidate
+  completeness rule: one hole reaches 838 of 1337 orbits at rank 10 and three
+  holes reach 1244. It describes facets, not candidates, and must not be used to
+  prune. 🔬 The level SPREAD is unbounded as far as anything proved here goes,
+  and that single hypothesis is now the entire gap to a candidate-coverage
+  theorem; the saturation protocol plateaus at the known count at ranks 6 to 10
+  (realized spreads 3/4/6/10/14) and does NOT plateau at rank 11 by spread 20,
+  so (3,11) candidate coverage is OPEN and its numbers are lower bounds.
+  🟦 New stage ledger, conditional on that bound: rank 11/12/13 give 10,859 /
+  67,939 / 368,044 unoriented orbits, 2,805 / 11,397 / 43,719 trace-alive
+  orbits, and 1.1e8 / 3.1e9 / 8.6e10 trace survivors. Survivors per alive orbit
+  grow about 30x per rank against 4x for orbits, so the binding constraint is
+  now per-arrangement determinant certification, which cannot be lifted to the
+  orbit because screening_orbit_structure.md proves verdicts are not orbit
+  invariants.
+  [docs/profile_native_generation.md; docs/generator_frontier_refinement.md;
+  src/gpc_census/generation/profiles.py; scripts/profile_native_frontier.py;
+  results/data/generator_frontier_refinement.json; tests/test_profiles.py]
 - census_inner_sandwich.md: COMPLETENESS WITHOUT CANDIDATE EXHAUSTIVENESS, and
   the one to read before spending any more effort on exhaustive enumeration.
   The claim ladder allows "an exhaustive-enumeration proof OR an independent

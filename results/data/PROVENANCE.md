@@ -2320,3 +2320,37 @@ population.
 complete at `(4,8)` inside a stated node budget. It deliberately stores no
 partial hyperplane count: a truncated reverse search has visited some subtrees
 and not others, so its running total estimates nothing.
+
+## generator_frontier_refinement.json (profile-native candidate enumeration)
+
+EXACT where it is calibrated, CONDITIONAL where it is not, and the artifact says
+which per row. Written by `scripts/profile_native_frontier.py`, guarded by
+`tests/test_profiles.py`, documented in `docs/profile_native_generation.md` and
+`docs/generator_frontier_refinement.md`. It enumerates the `S_d` orbits of
+admissible exterior-weight hyperplanes from their value profiles rather than by
+walking the closed-flat lattice, using two proved reductions: Theorem A, which
+decides Ressayre admissibility in `R^r` from the occupancy patterns of zero
+value sum plus a mobility condition, and Lemma L, which names a profile by a
+multiplicity composition, an integer level set and one target.
+
+CALIBRATION. Ranks 6 to 10 reproduce every independently known population
+exactly, from routes sharing no code: unoriented orbits 8, 19, 56, 231, 1337 and
+oriented 15, 35, 109 and self-paired 1, 3, 3 from
+`docs/orbit_canonical_flats.md`; trace-alive orbits 25, 64, 191 from
+`docs/levi_triangularity_gate.md`; trace survivors 64, 549, 6607 from
+`docs/screening_orbit_structure.md`. Set-for-set agreement with the exhaustive
+closed-flat enumerator holds at `(3,6)`, `(3,7)` and `(4,7)`, and Theorem A is
+re-tested against the materialized weight affine rank on every profile at ranks
+6 to 9 and at `(4,7)`, `(4,8)`, with no disagreement. A run whose calibration
+misses any of these exits nonzero.
+
+CONDITIONALITY. The enumeration is complete only up to a bound on the level
+spread, and no such bound is proved. The saturation protocol plateaus at the
+known orbit count at ranks 6 to 10, with realized maxima 3, 4, 6, 10 and 14. It
+does NOT plateau at rank 11 by spread 20, so the rank 11, 12 and 13 rows are
+lower bounds on the candidate populations, not closed counts, and the
+`(3,11)` candidate universe is not closed by this artifact.
+
+REFUTATION carried in the same file: a bounded-hole arithmetic-level grammar is
+not a candidate-completeness rule. At rank 10 a one-hole budget reaches 838 of
+1337 orbits and a four-hole budget still misses 36.
