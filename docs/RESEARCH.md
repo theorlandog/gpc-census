@@ -545,13 +545,16 @@ plethysm criterion feed Problem 7 below.
   tests/test_bdr_constructor_comparison.py.
 - bdr_linear_triangular_gate.md: GATE 2, and the first time the upstream BDR
   code has been executed in this repository. 🟦 The published irredundant
-  systems are confirmed against an independent source: set equality with the
-  upstream fermionic reference inequalities at (3,7), (4,7), (3,8) and (4,8),
-  4/4/31/15 rows, no published row missing, the only upstream extra being the
-  structural row. ❌ Refutes the untested claim that BDR's own filter is
-  strictly stronger than the DM `1 x 1` test: over 54 joined rows, 6 are DM
-  triangular and BDR-rejected while 6 are BDR-accepted with a single
-  irreducible block, so the criteria are incomparable. Artifacts
+  systems are confirmed against an independent source at seven of the nine
+  census systems: set equality at (3,7), (4,7), (3,8), (4,8), (3,9), (4,9) and
+  (3,10), 4/4/31/15/52/60/93 rows, no published row missing, the only extra being the
+  structural row, and (3,6) is declined by the upstream algorithm itself on BDR
+  Condition C. ❌ Refutes the untested claim that BDR's own filter is strictly
+  stronger than the DM `1 x 1` test: over 259 joined rows, 16 are DM triangular
+  and BDR-rejected while 12 are BDR-accepted with a larger irreducible block, so
+  the criteria are incomparable, and the disagreeing shapes recur at every rank.
+  ❗ BDR's filter validates 3 of 93 rows at (3,10), so linear triangularity
+  reaches a vanishing share of facets as rank rises. Artifacts
   bdr_external_linear_triangular.json and bdr_linear_triangular_gate.json;
   guard test tests/test_bdr_linear_triangular_gate.py.
 - infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
@@ -1869,21 +1872,42 @@ tests/test_bdr_linear_triangular_gate.py]
   MIT, replacing the `not_verified` record. The claim of impossibility was never
   tested. The INCOMPLETE label on that benchmark stands, for the correct reason:
   it took no BDR timing.
-- 🟦 THE PUBLISHED SYSTEMS ARE EXTERNALLY CONFIRMED, for the first time. Joining
-  on primitive homogeneous `tau`, the repository's published irredundant systems
-  equal the upstream fermionic reference inequalities as sets at (3,7) 4 rows,
-  (4,7) 4 rows, (3,8) 31 rows and (4,8) 15 rows. No published row is absent
-  upstream. The only upstream extra is the structural row `(0,...,0,-1)`, which
-  is `lambda_d >= 0` and is stored separately here. The pipelines share no code
-  and enumerate different objects, so this is genuinely independent.
+- 🟦 THE PUBLISHED SYSTEMS ARE EXTERNALLY CONFIRMED, for the first time, at
+  SEVEN of the nine census systems. Joining on primitive homogeneous `tau`, the
+  published irredundant systems equal the upstream ones as sets at (3,7) 4,
+  (4,7) 4, (3,8) 31, (4,8) 15, (3,9) 52, (4,9) 60 and (3,10) 93 rows. No
+  published row is absent upstream anywhere. The only upstream extra, from
+  `d = 8` on, is the structural row `(0,...,0,-1)`, which is `lambda_d >= 0` and
+  is stored separately here. Four systems come from shipped reference data;
+  (3,9), (4,9) and (3,10) were computed by running the upstream pipeline end to
+  end under a fixed seed. The pipelines share no code, enumerate different
+  objects, and certify by different criteria, so this is genuinely independent.
+- ⚠️ (3,6) IS DECLINED BY THE UPSTREAM ALGORITHM, which says so itself:
+  `GeneralStabilizerDimensionCheck` raises because the generic stabilizer of K
+  in `wedge^3 C^6` has dimension 2, violating BDR Condition C (generic isotropy
+  of dimension one). Borland-Dennis is outside their scope and inside ours,
+  covered by the exhaustive reference gate. (4,10) and (5,10) are not covered
+  yet. Recorded in the artifact under `out_of_scope_upstream`.
 - ❌ CORRECTION TWO, MATHEMATICAL. The claim that BDR's filter is "strictly
-  stronger" than the DM `1 x 1` test is REFUTED. Over 54 joined analysable rows:
-  4 triangular on both readings, 6 fully DM triangular and BDR-rejected, 6
-  BDR-accepted with a single irreducible DM block, 38 failing both. Both
+  stronger" than the DM `1 x 1` test is REFUTED. Over 259 joined analysable
+  rows: 9 triangular on both readings, 16 fully DM triangular and BDR-rejected,
+  12 BDR-accepted with a larger irreducible DM block, 222 failing both. Both
   off-diagonal cells are nonempty, so neither criterion implies the other.
   Witnesses: `tau = (-2,1,1,1,1,-2,-2)` at (3,7) is BDR triangular with DM
   blocks `[4]`; `tau = (2,-1,-1,2,-4,-1,-1,-1)` at (3,8) is fully DM triangular
   and rejected.
+- 🟦 THE DISAGREEMENT IS STRUCTURAL, NOT SPORADIC. The same shapes disagree at
+  every rank with trailing entries extended: `(-2,1,1,1,1,-2,...)` is BDR-only
+  at all four `N = 3` systems with DM blocks `[4]` every time;
+  `(2,-1,...,-1,2,...)` is BDR-only with the DM block growing 6, 6, 8;
+  `(2,-1,-1,2,-4,-1,...)` is DM-only at orders 5, 6, 7. A larger census would
+  not wash this out.
+- ❗ BDR'S FILTER DOES NOT SCALE WITH THE SYSTEM: 1, 1, 3, 5, 3, 5 and 3 rows
+  validated out of published systems of 4, 4, 31, 15, 52, 60 and 93. At (3,10)
+  that is 3 of 93. Linear triangularity, on EITHER reading, reaches a vanishing
+  share of facets as rank rises, so it cannot be how the birationality stage is
+  discharged in general. Consistent with the upstream leaving `LinearTriangular`
+  out of its default filter list.
 - ❗ WHY THEY DIFFER, so the two are never conflated again. They are different
   objects. The local test factorizes the square Ressayre tangent matrix,
   positive weights against inversion roots. BDR's filter works on the weight
@@ -1897,9 +1921,20 @@ tests/test_bdr_linear_triangular_gate.py]
   15 published rows. So on both readings only a small minority of facets is
   reachable by any linear-triangularity argument, which is the substantive
   agreement underneath the disagreement about which minority it is.
-- ⚠️ SCOPE: four systems, all `d <= 8`, because those are the reference
-  inequalities upstream ships. (3,9) is not covered and nothing is uniform in
-  `d`.
+- 🔬 THE PIPELINE, recorded because the plan assumed it was unavailable. Seven
+  stages in `MomentConeStep.apply`: `GeneralStabilizerDimensionCheck`,
+  `TauCandidatesStep` (`find_1PS`), `SubModuleConditionStep`,
+  `StabilizerConditionStep`, `InequalityCandidatesStep` (`List_Inv_Ws_Mod`),
+  `TPiPreComputationStep`, the chosen filters, `ExportStep`. The filters are a
+  menu (`PiDominancy`, `LinearTriangular`, `BKRCondition`, `Birationality`,
+  `Grobner`) defaulting to `PiDominancy` then `Birationality`. Birationality is
+  `Is_Ram_contracted`: full column RANK of a rectangular matrix sliced from the
+  `T_Pi` tensor, probabilistic by default with symbolic available. That is a
+  different object from the square Ressayre tangent matrix used here, which is
+  part of why the two triangularity criteria came out incomparable. Clean
+  single-job wall clock: (3,7) 4.7 s, (3,8) 9.6 s, (3,9) 19.6 s, (3,10) 155 s,
+  (4,8) 8 s, (4,9) 80 s.
+- ⚠️ SCOPE: seven of nine census systems, and nothing is uniform in `d`.
 
 ## Adjacent literature to respect
 

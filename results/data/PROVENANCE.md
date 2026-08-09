@@ -2029,11 +2029,34 @@ in `docs/bdr_linear_triangular_gate.md`, guarded by
 
 WHAT IT IS. The verdicts of the upstream Bulois-Denis-Ressayre
 `moment_cone.linear_triangular.is_linear_triangular`, run at pinned revision
-`7ab347d9a7837d68d92bde9fac74606913f395ca` on every fermionic reference
-inequality that revision ships: `(3,7)` 4 rows, `(4,7)` 4 rows, `(3,8)` 32
-rows, `(4,8)` 16 rows. It is recorded rather than recomputed because the
-upstream needs a SageMath runtime, which must never become a dependency of this
-package.
+`7ab347d9a7837d68d92bde9fac74606913f395ca` on seven census systems. Four come
+from the reference inequalities that revision ships: `(3,7)` 4 rows, `(4,7)` 4
+rows, `(3,8)` 32 rows, `(4,8)` 16 rows. Three are not shipped and were computed
+by running the upstream pipeline `moment_cone(V)` end to end under a fixed seed
+(the default `PiDominancy` and `Birationality` methods are probabilistic):
+`(3,9)` 53 rows, `(4,9)` 61 rows, `(3,10)` 94 rows. It is recorded rather than
+recomputed because the upstream needs a SageMath runtime, which must never
+become a dependency of this package.
+
+OUT OF SCOPE UPSTREAM, recorded rather than left as a silent hole. `(3,6)` is
+declined by the upstream algorithm itself: `GeneralStabilizerDimensionCheck`
+raises because the generic stabilizer of K in wedge^3 C^6 has dimension 2, and
+the method requires generic isotropy of dimension one (BDR Condition C).
+Borland-Dennis is outside their scope and inside ours, covered by the exhaustive
+reference gate in `docs/stage1_ressayre_3_6.md`. `(4,10)` and `(5,10)` are
+simply not covered yet.
+
+THE PIPELINE, for the record. Seven stages in `MomentConeStep.apply`:
+`GeneralStabilizerDimensionCheck`, `TauCandidatesStep` (`find_1PS`),
+`SubModuleConditionStep`, `StabilizerConditionStep`, `InequalityCandidatesStep`
+(`List_Inv_Ws_Mod`), `TPiPreComputationStep`, the chosen filters, `ExportStep`.
+The filter list is a menu, defaulting to `PiDominancy` then `Birationality`;
+`LinearTriangular` is off by default. Birationality is `Is_Ram_contracted`,
+which asks for full column rank of a rectangular matrix sliced from the `T_Pi`
+tensor, a different object from the square Ressayre tangent matrix used here.
+Clean single-job wall clock at `(3,7)` 4.7 s, `(3,8)` 9.6 s, `(3,9)` 19.6 s,
+`(3,10)` 155 s, `(4,8)` 8 s, `(4,9)` 80 s. Timings recorded inside the artifact
+were taken under CPU contention and are excluded from the canonical hash.
 
 HOW IT WAS OBTAINED, and why the previous record said it could not be. The
 earlier `bdr_constructor_comparison` artifact recorded that the backend "could
@@ -2056,20 +2079,36 @@ every run; the external column is read from
 
 RESULT 1, EXTERNAL CONFIRMATION OF THE PUBLISHED SYSTEMS. Joining on the
 primitive homogeneous `tau`, the repository's published irredundant systems and
-the upstream reference inequalities are equal as sets at `(3,7)` 4 rows,
-`(4,7)` 4 rows, `(3,8)` 31 rows and `(4,8)` 15 rows. No published row is absent
-upstream. The only upstream extra is the structural row `(0,...,0,-1)`, which is
+the upstream systems are equal as sets at seven of the nine census systems:
+`(3,7)` 4, `(4,7)` 4, `(3,8)` 31, `(4,8)` 15, `(3,9)` 52, `(4,9)` 60 and
+`(3,10)` 93 rows. No published row is absent upstream anywhere. The only
+upstream extra, from `d = 8` on, is the structural row `(0,...,0,-1)`, which is
 `lambda_d >= 0`, carried in the same list upstream and stored separately here.
-The two pipelines share no code and enumerate different objects, so this is an
-independent confirmation, the first these systems have had.
+The two pipelines share no code, enumerate different objects and certify by
+different criteria (a rank condition on a rectangular ramification matrix
+upstream against an exact Ressayre determinant with a replayed certificate
+here), so this is an independent confirmation, the first these systems have had.
 
-RESULT 2, THE TWO CRITERIA ARE INCOMPARABLE. Over the 54 joined analysable
-rows: 4 are triangular on both readings, 6 are fully DM triangular and rejected
-by BDR, 6 are accepted by BDR with a single irreducible DM block, and 38 fail
+RESULT 2, THE TWO CRITERIA ARE INCOMPARABLE. Over the 259 joined analysable
+rows: 9 are triangular on both readings, 16 are fully DM triangular and rejected
+by BDR, 12 are accepted by BDR with a larger irreducible DM block, and 222 fail
 both. Both off-diagonal cells are nonempty, so neither criterion implies the
 other, and the earlier "strictly stronger" claim is REFUTED. Witnesses:
 `tau = (-2,1,1,1,1,-2,-2)` at `(3,7)` is BDR triangular with DM blocks `[4]`;
 `tau = (2,-1,-1,2,-4,-1,-1,-1)` at `(3,8)` is fully DM triangular and rejected.
+
+THE DISAGREEMENT IS STABLE ACROSS RANK, not sporadic. The same shapes recur with
+trailing entries extended: `(-2,1,1,1,1,-2,...)` is BDR-only at all four `N = 3`
+systems with DM blocks `[4]` every time; `(2,-1,...,-1,2,...)` is BDR-only with
+the DM block growing 6, 6, 8; `(2,-1,-1,2,-4,-1,...)` is DM-only with orders 5,
+6, 7. The gap between the criteria is a structural feature, not sampling noise.
+
+BDR'S FILTER DOES NOT SCALE WITH THE SYSTEM. It validates 1, 1, 3, 5, 3, 5 and 3
+rows of published systems of 4, 4, 31, 15, 52, 60 and 93. At `(3,10)` that is 3
+of 93. Linear triangularity, on either reading, reaches a vanishing share of
+facets as rank rises, so it cannot be how the birationality stage is discharged
+in general. That is consistent with the upstream leaving `LinearTriangular` out
+of its default filter list.
 
 WHY THEY DIFFER. The local test factorizes the square Ressayre tangent matrix,
 positive weights against inversion roots. BDR's filter works on the weight graph
@@ -2078,7 +2117,6 @@ an equation linear when every such path count is at most one, removes exactly
 the roots those equations pin, and recurses. Different objects, not two readings
 of one.
 
-SCOPE. Four systems, all `d <= 8`, because those are the reference inequalities
-upstream ships. `(3,9)` is not covered. Nothing here is uniform in `d`. BDR's
-filter validates only 1, 1, 3 and 5 rows of the four published systems, so it is
-a partial validator upstream too.
+SCOPE. Seven of nine census systems. `(3,6)` is declined by the upstream
+algorithm; `(4,10)` and `(5,10)` are not covered. Nothing here is uniform in
+`d`.
