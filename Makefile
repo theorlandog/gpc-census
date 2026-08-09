@@ -30,13 +30,24 @@ PANDOC_IMAGE := docker.io/pandoc/extra:3.6.4@sha256:6a53f5ac29999b2084691b133546
 PANDOC_RUN ?= $(CONTAINER) run --rm -v $(CURDIR):/data:Z -w /data $(PANDOC_IMAGE)
 PANDOC_FLAGS := --citeproc --number-sections
 
-.PHONY: sync test verify-paper verify-data emit note paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
+.PHONY: sync test checksums checksums-check verify-paper verify-data emit note paper1-supplement paper1-supplement-locked supplementary-material lint build sdist wheel srpm rpm report report-tex anonymize report-anon report-anon-tex upgrade clean
 
 sync:
 	$(UV) sync
 
 test:
 	$(UV) run pytest
+
+# Regenerate the data manifest. This is the resolution whenever SHA256SUMS is
+# reported stale: never edit the file, rebuild it.
+checksums:
+	$(UV) run python scripts/update_data_checksums.py
+
+# Fail if the manifest is stale, without rewriting it. Cheap enough to run
+# before pushing, and the fast way to catch a merge that resolved the manifest
+# textually while the files it describes merged independently.
+checksums-check:
+	$(UV) run python scripts/update_data_checksums.py --check
 
 verify-paper:
 	$(UV) run python $(STATE_VERIFIER) results/data/states.jsonl

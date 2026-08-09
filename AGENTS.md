@@ -73,6 +73,8 @@ lives in `results/report/main.md`; computed data results live under
 ```sh
 make sync     # uv sync (create .venv, install dev deps)
 make test     # uv run pytest
+make checksums       # regenerate results/data/SHA256SUMS
+make checksums-check # fail if the manifest is stale, without rewriting it
 make verify-paper # run the Paper 1 object and manuscript checks
 make verify-data  # pin the campaign artifacts Paper 1 no longer quotes
 make paper1-supplement # build and extract-test the minimal supplement
@@ -119,6 +121,14 @@ make upgrade  # upgrade locked deps, excluding releases newer than 14 days
 - Sdist contents are pinned explicitly in `[tool.hatch.build.targets.sdist]`.
   Files that must ship in the sdist (e.g. for the RPM build) go in that list.
 - `CLAUDE.md` is a symlink to this file. Edit `AGENTS.md` only.
+- `results/data/SHA256SUMS` can go stale without anyone editing it. A merge
+  resolves the manifest independently of the files whose digests it records, so
+  a force-resolved conflict leaves a digest describing content that no longer
+  hashes to it. `PROVENANCE.md` is the usual casualty, since nearly every
+  change touches it, and both sides of a merge will have rewritten its line.
+  This is not hypothetical: merge `1756d17` landed a stale manifest on `main`,
+  and CI caught it only after the merge. Run `make checksums-check` before
+  pushing, and `make checksums` to repair. Never hand-edit the manifest.
 
 ## Research context
 
