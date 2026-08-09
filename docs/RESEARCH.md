@@ -1107,13 +1107,14 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   theorem; the saturation protocol plateaus at the known count at ranks 6 to 10
   (realized spreads 3/4/6/10/14) and does NOT plateau at rank 11 by spread 20,
   so (3,11) candidate coverage is OPEN and its numbers are lower bounds.
-  🟦 New stage ledger, conditional on that bound: rank 11/12/13 give 10,859 /
-  67,939 / 368,044 unoriented orbits, 2,805 / 11,397 / 43,719 trace-alive
-  orbits, and 1.1e8 / 3.1e9 / 8.6e10 trace survivors. Survivors per alive orbit
-  grow about 30x per rank against 4x for orbits, so the binding constraint is
-  now per-arrangement determinant certification, which cannot be lifted to the
-  orbit because screening_orbit_structure.md proves verdicts are not orbit
-  invariants.
+  🟦 New stage ledger, conditional on that bound: rank 11 and 12 give 10,859 and
+  67,939 unoriented orbits, 2,805 and 11,397 trace-alive orbits, and 1.1e8 and
+  3.1e9 trace survivors. Survivors per alive orbit grow about 30x per rank
+  against 4x for orbits, so the binding constraint is now per-arrangement
+  determinant certification, which cannot be lifted to the orbit because
+  screening_orbit_structure.md proves verdicts are not orbit invariants. Rank 13
+  is reachable by the same script but is not in the shipped artifact, so its
+  scratch numbers are not quoted as a result.
   [docs/profile_native_generation.md; docs/generator_frontier_refinement.md;
   src/gpc_census/generation/profiles.py; scripts/profile_native_frontier.py;
   results/data/generator_frontier_refinement.json; tests/test_profiles.py]

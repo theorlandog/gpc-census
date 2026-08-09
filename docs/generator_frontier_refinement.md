@@ -100,10 +100,10 @@ partial-family rows appear. The one absence is a correct rejection: the WEAK row
 sum to 4, -1 or -6 and never to 0, so it touches no weight and is not a
 supporting hyperplane at all.
 
-## Priority 10: rank 11, 12 and 13 stage ledger
+## Priority 10: rank 11 and 12 stage ledger
 
 Measured with the profile enumerator, all conditional on the spread bound
-(rank 11 at bound 20, ranks 12 and 13 at bound 14):
+(rank 11 at bound 20, rank 12 at bound 14):
 
 | rank | oriented orbits | unoriented | trace-alive orbits | trace survivors |
 | ---: | ---: | ---: | ---: | ---: |
@@ -112,23 +112,26 @@ Measured with the profile enumerator, all conditional on the spread bound
 | 10 | 2,667 | 1,337 | 655 | 3,723,147 |
 | 11 | 21,699 | 10,859 | 2,805 | 108,541,487 |
 | 12 | 135,856 | 67,939 | 11,397 | 3,051,122,527 |
-| 13 | 736,023 | 368,044 | 43,719 | 85,528,688,633 |
 
-Whole run, calibration and frontier together, is about ninety minutes on four
-cores, against a closed-flat route that does not finish rank 11 at all. Per-row
-timings are in the artifact rather than here, because they are machine
-dependent.
+Rank 13 is reachable by the same command with `--frontier-ranks 11,12,13` and
+roughly triples the run. It is left out of the shipped artifact deliberately: a
+scratch run measured 736,023 oriented orbits, 43,719 trace-alive orbits and
+8.6e10 trace survivors there, which is another point on the trend below rather
+than a different conclusion, and it is not quoted as a result because nothing
+in the shipped artifact backs it. Per-row timings are in the artifact rather
+than here, because they are machine dependent.
 
 ## The bottleneck has moved, and this is the session's most actionable finding
 
-Survivors per trace-alive orbit: 103, 709, 5,684, 38,696, 267,712, 1,956,328 at
-ranks 8 through 13.
+Survivors per trace-alive orbit: 103, 709, 5,684, 38,696 and 267,712 at ranks 8
+through 12.
 
 The ORBIT layer grows by about four per rank. The ARRANGEMENT layer grows by
 about thirty, because an alive orbit contributes every arrangement of its
 multiset with a prescribed inversion number, and that count is a Gaussian
 multinomial coefficient. At rank 11 the pipeline would have to push at least
-1.1e8 rows through the Ressayre tangent determinant; at rank 13, at least 8.6e10.
+1.1e8 rows through the Ressayre tangent determinant; at rank 12, at least
+3.1e9.
 
 So the binding constraint is no longer candidate enumeration. It is per-row
 determinant certification. `docs/direct_survivor_generation.md` removed the row

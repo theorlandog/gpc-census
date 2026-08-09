@@ -15,12 +15,14 @@ Three things are recorded and they carry different proof labels.
    for a plateau.  Where the truth is known the plateau equals it, and the
    realized maximum spread stays strictly inside the bound.
 
-3. FRONTIER, ranks 11 to 13.  The same measurement with no oracle to check it
-   against.  These numbers are labelled conditional on the spread bound and are
-   not a claim that the candidate universe is closed.
+3. FRONTIER, ranks 11 and 12 by default.  The same measurement with no oracle to
+   check it against.  These numbers are labelled conditional on the spread bound
+   and are not a claim that the candidate universe is closed.
 
-The heavy ranks are opt in.  Defaults keep the run under a couple of minutes;
-``--frontier`` adds ranks 11 to 13 and takes about ninety minutes.
+The heavy ranks are opt in.  ``--frontier`` adds them.  Rank 13 is reachable with
+``--frontier-ranks 11,12,13`` and roughly triples the run, which is why it is not
+the default: it is another data point on a trend the first two already establish,
+not a different conclusion.
 """
 
 from __future__ import annotations
@@ -167,9 +169,14 @@ def main() -> int:
     parser.add_argument(
         "--frontier",
         action="store_true",
-        help="also measure ranks 11 to 13; adds roughly ninety minutes",
+        help="also measure the frontier ranks; see --frontier-ranks",
     )
     parser.add_argument("--frontier-spread", type=int, default=14)
+    parser.add_argument(
+        "--frontier-ranks",
+        default="11,12",
+        help="comma separated ambient ranks to measure past the census",
+    )
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
 
@@ -212,7 +219,7 @@ def main() -> int:
             3, 11, (12, 14, 16, 18, RANK_ELEVEN_SPREAD), level_cache=cache
         ):
             rank_eleven_ladder.append({"rank": 11, **entry})
-        for d in (11, 12, 13):
+        for d in (int(value) for value in args.frontier_ranks.split(",")):
             spread = RANK_ELEVEN_SPREAD if d == 11 else args.frontier_spread
             row, _ = measure(3, d, spread, cache, verify_rank=False)
             frontier.append(row)

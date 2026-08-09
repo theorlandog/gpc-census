@@ -339,6 +339,9 @@ def test_generator_frontier_refinement_records_the_rank_eleven_non_saturation():
     frontier = {row["rank"]: row for row in artifact["frontier"]}
     assert frontier[11]["max_spread"] == ladder[-1]["max_spread"]
     assert not frontier[11]["spread_bound_is_slack"]
+    # every frontier row is a lower bound, so none may claim a slack bound
+    # except by the same evidence the calibrated ranks give
+    assert frontier[11]["unoriented_orbits"] > UNORIENTED_ORBITS[10]
 
 
 def test_profile_native_survivor_taus_match_the_lattice_route():

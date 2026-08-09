@@ -323,10 +323,12 @@ With the orbit stage cheap, the next wall is visible in the same run.
 | 10 | 655 | 3,723,147 | 5,684 |
 | 11 | 2,805 | 108,541,487 | 38,696 |
 | 12 | 11,397 | 3,051,122,527 | 267,712 |
-| 13 | 43,719 | 85,528,688,633 | 1,956,328 |
 
-Ranks 11 through 13 are conditional on the spread bound, 11 at bound 20 and 12
-and 13 at bound 14, so they are lower bounds on the true populations.
+Ranks 11 and 12 are conditional on the spread bound, 11 at bound 20 and 12 at
+bound 14, so they are lower bounds on the true populations. Rank 13 is reachable
+with `--frontier-ranks 11,12,13`; a scratch run put it at 43,719 trace-alive
+orbits and 8.6e10 survivors, continuing the trend, but it is not in the shipped
+artifact and so is not quoted as a result.
 
 The orbit layer grows by a factor of about four per rank. The ARRANGEMENT layer
 grows by a factor of about thirty, because each alive orbit contributes every
