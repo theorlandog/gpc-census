@@ -275,8 +275,8 @@ REALIZED_SPREAD_IN_ARTIFACT = {6: 3, 7: 4, 8: 6, 9: 10, 10: 14}
 
 
 def _artifact() -> dict:
-    if not ARTIFACT.is_file():
-        pytest.skip("frontier artifact absent; run scripts/profile_native_frontier.py")
+    # No skip-if-absent fallback: a guard that skips is an orphaned guard, which
+    # scripts/audit_data_completeness.py rejects. The artifact has to ship.
     return json.loads(ARTIFACT.read_text())
 
 
