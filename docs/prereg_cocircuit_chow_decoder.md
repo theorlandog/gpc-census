@@ -177,6 +177,7 @@ of magnitude by rank 10. The recommendation is declined in
 `docs/cocircuit_chow_decoder.md` and in `AGENT_PLAN.md` T2d.
 
 **One measurement error was made and caught before scoring**, recorded per R5.
+(A second one, in round 2, is recorded there.)
 The first run of the P5 gate compared the decoded normal against a
 sign-normalized representative of the true normal, which discards the
 orientation the decoder is supposed to recover, and reported 31, 365 and 4,956
@@ -184,3 +185,128 @@ orientation the decoder is supposed to recover, and reported 31, 365 and 4,956
 of the decoder: with oriented equality the count is 0 at every rank. The gate
 now compares oriented tuples, which is the stronger check, and the wrong first
 reading is recorded here rather than deleted.
+
+---
+
+# ROUND 2: arbitrary particle number (2026-08-09)
+
+Round 1 above is closed and unedited. This is a separate round with its own
+predictions, written after round 1 was committed and before
+`scripts/cocircuit_chow_higher_n.py` was run. Certifying artifacts:
+`scripts/cocircuit_chow_higher_n.py`,
+`results/data/cocircuit_chow_higher_n.json`,
+`tests/test_cocircuit_chow_higher_n.py`.
+
+## Disclosure
+
+A second external bundle arrived claiming the whole route generalizes beyond
+`N = 3`, with its own C++ backend and decoder. As in round 1 the predictions
+are INFORMED rather than blind: the bundle's headline numbers were read before
+this was written. Unlike round 1, no part of the bundle was executed here. The
+in-repo modules were already written for general `n`, so what is under test is
+whether that generality is real or merely typed, and one prediction below is
+written specifically to contradict the bundle.
+
+R1 shortfall is the same as round 1 and for the same reason: this section and
+the script are committed together after the run.
+
+## What is being tested
+
+**G1 (generality).** C1, T1 to T5 hold at arbitrary `N`, since C1 needs only
+`1 . chi_I = N != 0` and T1 to T5 are fixed-weight statements. Operationally:
+the existing modules, written with an `n` parameter, are correct at `n != 3`.
+
+**G2 (particle-hole shadow).** An `n`-uniform family `F` of size `m` with
+shadow `c` has complement family `F^c` in the `(d-n)` layer with shadow
+`m - c`, so decoding either layer is exact.
+
+## Holdout and its provenance
+
+`(4,7)` and `(5,8)` are particle-hole duals of `(3,7)` and `(3,8)`, so their
+populations are DETERMINED by round 1 and carry independent sample size zero.
+The published higher-N representatives at `(4,8)`, `(4,9)`, `(4,10)` and
+`(5,10)` are census rows this work has never touched, so they are independent
+of everything in round 1, and they are the only rows here that are. Three of
+those four systems store one representative per Levi signature class rather
+than every facet row; that is stated here, before scoring, so a PASS is not
+read as a complete-population result.
+
+## Power caveat, stated before scoring
+
+A PASS on G1 says the code is `N`-general on the systems tested. It does not
+produce a single new higher-N population, and it must not be read as progress
+toward a new complete system at any `N`.
+
+## Predictions
+
+P9. `(4,7)` and `(5,8)` reproduce 5,341 and 166,420 admissible hyperplanes, 19
+and 56 orbits, 549 and 6,607 trace survivors, agreeing with the flat lattice
+pair for pair. Expectation: PASS, forced by particle-hole duality if the code
+is correct.
+
+P10. Every published higher-N representative passes the whole chain, including
+ORIENTED reconstruction of the primitive normal. Expectation: PASS. This is the
+prediction with real content, because these rows come from a different campaign
+and were never used to develop the decoder.
+
+P11. The particle-hole reduction leaves the profile VARIABLE COUNT unchanged on
+every row. Expectation: PASS, and it CONTRADICTS the handoff, which describes
+decoding in the smaller layer as something that can dramatically reduce the
+profile search. `k -> m - k` is a bijection between the two layers' profiles
+over the same blocks, so the count cannot change. If instead the counts differ
+anywhere, my reading of the bijection is wrong and the handoff is right.
+
+P12. The particle-hole route nonetheless reduces total branch states, because
+the coefficients and target differ. Expectation: PASS as a constant-factor
+effect only, with some rows getting dearer rather than cheaper.
+
+P13. Exact trace survivors at `(5,10)` and `(6,12)` decode with zero failures,
+and the largest profile problem stays far below the slice size. Expectation:
+PASS.
+
+P14. `(4,8)` does NOT complete inside a 2,000,000-node reverse search.
+Expectation: PASS, meaning the wall arrives earlier at half filling than the
+`N=3` ladder suggests. A FAIL here would be good news and would reopen the
+direct route.
+
+## Scoring rules
+
+As round 1. Verdicts are decided by
+`results/data/cocircuit_chow_higher_n.json` alone.
+
+## SCORED (2026-08-09, after running; predictions above are unedited)
+
+| id | verdict | scope | independent scope | measured |
+| --- | --- | ---: | ---: | --- |
+| P9 | **PASS** | 2 systems | 0 | `(4,7)` 5,341/19/549 and `(5,8)` 166,420/56/6,607, both pair-for-pair |
+| P10 | **PASS** | 61 rows | 61 | 61/61 on span, trace, both sign families, oriented `tau` |
+| P11 | **PASS**, contradicting the handoff | 104 shadows | 104 | variable counts differ on 0 rows at `(5,8)`, `(6,9)`, `(7,10)` |
+| P12 | **PASS**, constant factor | 104 shadows | 104 | states 317 to 183, 499 to 269, 1,578 to 354; 51 rows cheaper, 4 dearer |
+| P13 | **PASS** | 30 rows | 30 | 0 failures; 38 profile variables against a 252 slice at `(5,10)`, 40 against 924 at `(6,12)` |
+| P14 | **PASS** | 1 system | 1 | `(4,8)` did not complete in 2,000,000 nodes (304.5 s), no partial count recorded |
+
+Six for six, and again the informative ones are the ones that push back. P11
+was written to be falsifiable against the handoff's own description and the
+handoff loses: the reduction is exact and is not a size reduction. P14 says the
+direct route's wall arrives two ranks earlier at half filling than the `N=3`
+ladder suggests.
+
+**An unpredicted finding, which is the most useful thing in round 2.** P10
+passed, but the profile counts inside it are the story: the worst `(4,10)`
+representative needed 210 profile variables against a slice of `C(10,4) = 210`,
+and the worst `(5,10)` one needed 252 against `C(10,5) = 252`. T4 compresses a
+shadow exactly as much as that shadow is degenerate, and on those two published
+rows it compresses nothing at all. No prediction covered this because the
+`N=3` populations are degenerate enough that the question never arose. It is
+recorded in `docs/cocircuit_chow_decoder.md` and in the "what is not claimed"
+list rather than left in the artifact for someone to notice.
+
+**A second measurement error, caught before scoring**, recorded per R5. The
+P13 harness first reported 8 failures at `(5,10)` and 4 at `(6,12)`. Every one
+was a sampled normal whose content exceeded one being compared against the
+decoder's primitive output; the decoder had recovered the correct ray with the
+correct orientation on all of them. The harness now divides the content out
+before comparing, which is what the comparison always meant, and the wrong
+first reading is recorded here rather than deleted. This is the same class of
+mistake as round 1's orientation slip: both times the decoder was right and the
+comparison was wrong.

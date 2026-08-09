@@ -395,7 +395,116 @@ def cocircuit_stress() -> str:
     return "\n".join(lines)
 
 
+def _higher_n_payload():
+    return read_json(DATA / "cocircuit_chow_higher_n.json")
+
+
+def cocircuit_higher_n() -> str:
+    """The particle-hole dual gates at N = 4 and N = 5."""
+    payload = _higher_n_payload()
+    dual = payload.get("dual_populations") or {}
+    if not dual:
+        return "_The artifact was written with `--skip-dual`; no dual gate recorded._"
+    lines = [
+        "| System | Dual of | Weights | Hyperplanes | `S_d` orbits | "
+        "Reverse-search nodes | Trace survivors | Nonstructural | "
+        "Pairwise match | Decode failures | `tau` failures |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |",
+    ]
+    for key in sorted(dual, key=system_key):
+        row = dual[key]
+        lines.append(
+            f"| `{row['system']}` | `{row['particle_hole_dual']}` | "
+            f"{row['exterior_weights']} | {row['admissible_hyperplanes']} | "
+            f"{row['sd_unoriented_orbits']} | {row['reverse_search_nodes']} | "
+            f"{row['trace_survivors']} | {row['nonstructural_trace_survivors']} | "
+            f"{'yes' if row['agrees_with_flat_lattice_pairwise'] else 'NO'} | "
+            f"{row['decode_failures']} | {row['tau_reconstruction_failures']} |"
+        )
+    return "\n".join(lines)
+
+
+def cocircuit_published_higher_n() -> str:
+    """Published higher-N representative normals, put through the whole chain."""
+    payload = _higher_n_payload()
+    published = payload.get("published_higher_n") or {}
+    lines = [
+        "| System | Representatives | Zero span is `d-1` | Trace identity | "
+        "Both sides decoded | Oriented `tau` | Max profile variables |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for key in sorted(published, key=system_key):
+        row = published[key]
+        lines.append(
+            f"| `{row['system']}` | {row['representatives']} | "
+            f"{row['span_is_hyperplane']} | {row['trace_identity']} | "
+            f"{row['decoded']} | {row['tau_reconstructed_oriented']} | "
+            f"{row['max_profile_variables']} |"
+        )
+    return "\n".join(lines)
+
+
+def cocircuit_particle_hole() -> str:
+    """What the particle-hole reduction costs and what it buys."""
+    payload = _higher_n_payload()
+    records = payload.get("particle_hole") or {}
+    lines = [
+        "| System | Shadows | Answers differ | Variable counts differ | "
+        "Branch states, literal layer | Branch states, reduced layer | "
+        "Rows cheaper | Rows dearer |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for key in sorted(records, key=system_key):
+        row = records[key]
+        lines.append(
+            f"| `{row['system']}` | {row['shadows_checked']} | "
+            f"{row['answer_mismatches']} | "
+            f"{row['rows_where_variable_count_differs']} | "
+            f"{row['total_states_literal_layer']} | "
+            f"{row['total_states_reduced_layer']} | "
+            f"{row['rows_reduced_cheaper']} | {row['rows_reduced_dearer']} |"
+        )
+    return "\n".join(lines)
+
+
+def cocircuit_trace_stress() -> str:
+    """Exact trace-survivor stress at higher N, plus the half-filling wall."""
+    payload = _higher_n_payload()
+    stress = payload.get("trace_survivor_stress") or {}
+    lines = [
+        "| System | Slice size | Exact trace survivors decoded | Failures | "
+        "Max profile variables | Max states per side |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for key in sorted(stress, key=system_key):
+        row = stress[key]
+        lines.append(
+            f"| `{row['system']}` | {row['slice_size']} | "
+            f"{row['exact_trace_survivors_decoded']} | {row['failures']} | "
+            f"{row['max_profile_variables']} | "
+            f"{row['max_search_states_per_side']} |"
+        )
+    wall = payload.get("half_filling_wall") or {}
+    if wall:
+        verdict = "COMPLETED" if wall["completed"] else "DID NOT COMPLETE"
+        lines.append("")
+        lines.append(
+            f"Half-filling wall: `{wall['system']}`, {wall['exterior_weights']} "
+            f"weights, **{verdict}** within {wall['node_budget']} reverse-search "
+            f"nodes."
+        )
+    return "\n".join(lines)
+
+
 BLOCKS = {
+    "cocircuit-higher-n": (
+        DOCS / "cocircuit_chow_decoder.md", cocircuit_higher_n),
+    "cocircuit-published-higher-n": (
+        DOCS / "cocircuit_chow_decoder.md", cocircuit_published_higher_n),
+    "cocircuit-particle-hole": (
+        DOCS / "cocircuit_chow_decoder.md", cocircuit_particle_hole),
+    "cocircuit-trace-stress": (
+        DOCS / "cocircuit_chow_decoder.md", cocircuit_trace_stress),
     "cocircuit-populations": (
         DOCS / "cocircuit_chow_decoder.md", cocircuit_populations),
     "cocircuit-cost": (DOCS / "cocircuit_chow_decoder.md", cocircuit_cost),

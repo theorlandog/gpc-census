@@ -55,7 +55,14 @@ class ShadowUniquenessError(RuntimeError):
 
 @dataclass(frozen=True)
 class ShadowDecoding:
-    """One side of a signed shadow, decoded back into its family."""
+    """One side of a signed shadow, decoded back into its family.
+
+    ``particle_hole_layer`` is the particle number the profile search actually
+    ran in. It differs from the caller's ``n`` exactly when the complementary
+    layer was smaller, and it is recorded because ``profiles``,
+    ``profile_variables`` and ``search_states`` all describe THAT layer, so a
+    benchmark that ignores it would compare two different problems.
+    """
 
     family: frozenset[tuple[int, ...]]
     profiles: tuple[tuple[int, ...], ...]
@@ -63,6 +70,7 @@ class ShadowDecoding:
     block_degrees: tuple[int, ...]
     profile_variables: int
     search_states: int
+    particle_hole_layer: int
 
 
 @dataclass(frozen=True)
@@ -169,8 +177,45 @@ def _expand(blocks, profiles) -> frozenset[tuple[int, ...]]:
     return frozenset(family)
 
 
+def complement_shadow(shadow: tuple[int, ...], n: int):
+    """Return the ``(d-n)``-layer shadow of the complement family, and its size.
+
+    PARTICLE-HOLE REDUCTION. Let ``F`` be an ``n``-uniform family of size ``m``
+    with shadow ``c``, and let ``F^c = {[d] \\ I : I in F}``, which is
+    ``(d-n)``-uniform of the same size. Orbital ``i`` occurs in ``[d] \\ I``
+    exactly when it does not occur in ``I``, so
+
+        c'(F^c)_i = m - c(F)_i,        m = sum(c) / n.
+
+    Complementation is a bijection between the two layers, so decoding ``c'``
+    in the ``(d-n)`` layer and complementing the answer back is exact, not an
+    approximation. It is worth doing when ``n > d - n``, because the profile
+    count grows with the particle number.
+
+    THE ORDER FLIPS, AND THAT IS WHY IT STILL WORKS. Since ``c' = m - c``, the
+    equal-degree blocks are the same sets in the REVERSE order, which is what
+    ``degree_blocks`` produces from ``c'`` on its own. Writing ``M_j`` and
+    ``K_j`` for the block-size and profile prefix sums in the original order,
+    the prefix sums of the complement profile in the reversed order are
+    ``(M - M_j) - (n - K_j)``, which is increasing in ``K_j``. So dominance is
+    preserved rather than reversed, and the complement family is an upper ideal
+    in its own layer exactly when the original is one in its layer.
+    """
+    if sum(shadow) % n:
+        return None, 0
+    cardinality = sum(shadow) // n
+    complement = tuple(cardinality - value for value in shadow)
+    if any(value < 0 for value in complement):
+        return None, cardinality
+    return complement, cardinality
+
+
 def decode_shadow(
-    shadow: tuple[int, ...], n: int, *, max_states: int = DEFAULT_MAX_STATES
+    shadow: tuple[int, ...],
+    n: int,
+    *,
+    max_states: int = DEFAULT_MAX_STATES,
+    particle_hole: bool = True,
 ) -> ShadowDecoding | None:
     """Decode one positive Chow shadow into the unique family that induces it.
 
@@ -179,12 +224,41 @@ def decode_shadow(
     Raises ``DecoderBudgetError`` past ``max_states`` and
     ``ShadowUniquenessError`` if a second solution appears, which T1 forbids
     for a realizable shadow and which therefore acts as a self-check.
+
+    ``particle_hole`` routes the search through the smaller layer when that is
+    the complementary one; see :func:`complement_shadow`. Pass ``False`` to
+    force the literal layer, which is what the guard test uses to check that
+    the reduction changes the cost and not the answer.
     """
     d = len(shadow)
     if any(value < 0 for value in shadow):
         return None
     if sum(shadow) % n:
         return None
+
+    if particle_hole and n > d - n:
+        complement, _cardinality = complement_shadow(shadow, n)
+        if complement is None:
+            return None
+        dual = decode_shadow(
+            complement, d - n, max_states=max_states, particle_hole=False
+        )
+        if dual is None:
+            return None
+        universe = frozenset(range(d))
+        return ShadowDecoding(
+            family=frozenset(
+                tuple(sorted(universe - frozenset(subset)))
+                for subset in dual.family
+            ),
+            profiles=dual.profiles,
+            blocks=dual.blocks,
+            block_degrees=dual.block_degrees,
+            profile_variables=dual.profile_variables,
+            search_states=dual.search_states,
+            particle_hole_layer=d - n,
+        )
+
     if not any(shadow):
         return ShadowDecoding(
             family=frozenset(),
@@ -193,6 +267,7 @@ def decode_shadow(
             block_degrees=(0,),
             profile_variables=1,
             search_states=1,
+            particle_hole_layer=n,
         )
 
     blocks, levels = degree_blocks(shadow)
@@ -341,6 +416,7 @@ def decode_shadow(
         block_degrees=levels,
         profile_variables=len(profiles),
         search_states=states,
+        particle_hole_layer=n,
     )
 
 
@@ -415,6 +491,7 @@ def decode_signed_pair(
     n: int,
     *,
     max_states: int = DEFAULT_MAX_STATES,
+    particle_hole: bool = True,
 ) -> SignedDecoding | None:
     """Decode both sides of a signed shadow and rebuild the primitive normal.
 
@@ -427,8 +504,12 @@ def decode_signed_pair(
     d = len(positive_shadow)
     if len(negative_shadow) != d:
         raise ValueError("the two shadows must have the same length")
-    positive = decode_shadow(positive_shadow, n, max_states=max_states)
-    negative = decode_shadow(negative_shadow, n, max_states=max_states)
+    positive = decode_shadow(
+        positive_shadow, n, max_states=max_states, particle_hole=particle_hole
+    )
+    negative = decode_shadow(
+        negative_shadow, n, max_states=max_states, particle_hole=particle_hole
+    )
     if positive is None or negative is None:
         return None
     if positive.family & negative.family:

@@ -166,8 +166,12 @@ membership of a determinant depends only on its occupancy profile
 `k = (k_1, ..., k_r)` with `sum k_a = N` and `0 <= k_a <= m_a`. The unknown is a
 subset of the PROFILES, not a subset of the `binom(d,N)` determinants.
 
-This is where the size collapses. At `(3,8)` the slice has 56 determinants and
-the profile count never exceeded 41.
+This is where the size collapses, WHEN the shadow is degenerate. At `(3,8)` the
+slice has 56 determinants and the profile count never exceeded 41. That ratio
+is a property of the population, not of the theorem: a shadow with all
+coordinates distinct has singleton blocks and gains nothing at all. The
+higher-N section below exhibits two published rows where the compression is
+exactly zero.
 
 ## T5. A block-constant separator exists, and it orders the blocks
 
@@ -265,6 +269,154 @@ points do not fix an asymptotic either way. The implementation also
 precomputes the profile-dominance relation quadratically in the number of
 profiles, which is fine at 442 profiles and would not be at high rank.
 
+## Arbitrary particle number (round 2, 2026-08-09)
+
+None of the three theorems uses `N = 3`. C1 needs only that every exterior
+weight has coordinate sum `N != 0`; T1 to T5 are fixed-weight statements about
+`N`-uniform families and never touch the value of `N`. So the mathematics is
+general, and the question worth testing is whether the CODE inherits that
+generality, which is a separate claim and the one that can fail.
+
+Certifying artifacts for this section: `scripts/cocircuit_chow_higher_n.py`,
+`results/data/cocircuit_chow_higher_n.json`,
+`tests/test_cocircuit_chow_higher_n.py`.
+
+### The particle-hole dual populations
+
+`(4,7)` and `(5,8)` are the particle-hole duals of `(3,7)` and `(3,8)`, so
+complementation is a bijection on the slice and the two populations must
+coincide. They do, and again pair for pair rather than by count.
+
+<!-- sync:cocircuit-higher-n:start -->
+| System | Dual of | Weights | Hyperplanes | `S_d` orbits | Reverse-search nodes | Trace survivors | Nonstructural | Pairwise match | Decode failures | `tau` failures |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |
+| `(4,7)` | `(3,7)` | 35 | 5341 | 19 | 61368 | 549 | 547 | yes | 0 | 0 |
+| `(5,8)` | `(3,8)` | 56 | 166420 | 56 | 1946562 | 6607 | 6605 | yes | 0 | 0 |
+<!-- sync:cocircuit-higher-n:end -->
+
+The reverse-search node counts differ from their `N=3` duals even though the
+populations agree, which is right rather than suspicious: complementation is
+not order preserving, so the lexicographic search tree is a different tree over
+an isomorphic matroid.
+
+### Published higher-N rows
+
+Every representative normal the Levi-fusion audits stored at `N >= 4` goes
+through the whole chain: zero-family rank, the trace identity, both decoded
+sign families, and ORIENTED reconstruction of the primitive normal. These are
+census rows rather than synthetic ones, so this is the gate that ties the
+general code to published data.
+
+<!-- sync:cocircuit-published-higher-n:start -->
+| System | Representatives | Zero span is `d-1` | Trace identity | Both sides decoded | Oriented `tau` | Max profile variables |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `(4,8)` | 15 | 15 | 15 | 15 | 15 | 8 |
+| `(4,9)` | 12 | 12 | 12 | 12 | 12 | 66 |
+| `(4,10)` | 14 | 14 | 14 | 14 | 14 | 210 |
+| `(5,10)` | 20 | 20 | 20 | 20 | 20 | 252 |
+<!-- sync:cocircuit-published-higher-n:end -->
+
+Scope, and it is not uniform across the four: `(4,8)` is the complete 15-row
+pilot system, while the `(4,9)`, `(4,10)` and `(5,10)` rows are one
+representative per exact Levi signature class rather than every facet row. So
+three of the four are representative-level gates and are not claimed as
+complete-population gates.
+
+**And this table contains the sharpest limitation T4 found so far.** The
+profile count is not a compression ratio, it is a function of how DEGENERATE
+`c_+` is. A shadow with all coordinates distinct has singleton blocks, so its
+profiles are its determinants and T4 buys exactly nothing. That is not
+hypothetical: the worst `(4,10)` representative needs 210 profile variables
+against a slice of `C(10,4) = 210`, and the worst `(5,10)` one needs 252
+against `C(10,5) = 252`. Both are total losses of compression, on published
+rows. The `N=3` census rows are degenerate enough to hide this, at 41 profiles
+against 56 determinants at `(3,8)` and 8 against 70 at `(4,8)`.
+
+So the honest statement of what T4 and T5 give is: an exact decoder whose
+search space is the profile lattice, whose SIZE is the degeneracy of the
+shadow, and which degrades to the ambient problem in the non-degenerate case.
+The decoder still terminated on every one of those rows, with at most 175
+branch states at `(5,10)`, so the arithmetic pruning is carrying the cases
+where the symmetry is not.
+
+### The particle-hole reduction, and a correction to it
+
+**Theorem.** Let `F` be an `n`-uniform family of size `m` with shadow `c`. Its
+complement family `F^c = {[d] \ I : I in F}` is `(d-n)`-uniform of the same
+size, and orbital `i` lies in `[d] \ I` exactly when it does not lie in `I`, so
+
+```text
+c(F^c)_i = m - c(F)_i,        m = sum(c) / n.
+```
+
+Complementation is a bijection between the layers, so decoding either side is
+exact. The block structure survives too: `c' = m - c` has the same equal-degree
+blocks in the reverse order, which is what `degree_blocks` produces from `c'`
+unaided, and Abel summation on the reversed prefix sums shows dominance is
+preserved rather than reversed, so the complement family is an upper ideal in
+its own layer exactly when the original is one in its layer.
+
+**And it is not a size reduction, which is a correction to how it arrived.**
+The handoff describes decoding in the smaller layer as something that "can
+dramatically reduce the profile search". It cannot reduce the number of
+variables at all: `k -> m - k` is a bijection between the two layers'
+occupancy profiles over the same blocks, so the profile count is *identical*.
+What differs is the coefficient matrix `q_a(k)` and the target, so the
+arithmetic pruning differs and the branch count moves. Measured on the same
+shadows through both routes:
+
+<!-- sync:cocircuit-particle-hole:start -->
+| System | Shadows | Answers differ | Variable counts differ | Branch states, literal layer | Branch states, reduced layer | Rows cheaper | Rows dearer |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `(5,8)` | 35 | 0 | 0 | 317 | 183 | 14 | 3 |
+| `(6,9)` | 35 | 0 | 0 | 499 | 269 | 17 | 0 |
+| `(7,10)` | 34 | 0 | 0 | 1578 | 354 | 20 | 1 |
+<!-- sync:cocircuit-particle-hole:end -->
+
+Same answers everywhere, same variable count on every single row, and a real
+but constant-factor reduction in branch states that is a win on most rows and
+a loss on a few. The reduction is worth having and is enabled by default. It is
+not the asymptotic lever the handoff describes, and the artifact records that
+under `measured_not_proved`.
+
+### A stress that is relevant, replacing one that was not
+
+The `N=3` stress above draws uniform random normals. That is a fair criticism
+of it: most uniform normals violate the Ressayre trace budget and no generator
+would ever see them, so the population being stressed is not the population
+that matters. The higher-N stress instead builds EXACT trace survivors, by
+sampling a degenerate level multiset of the kind real candidates have,
+computing the orbit-invariant positive-weight count, and asking the
+repository's own `generate_trace_survivors` for an arrangement with exactly
+that inversion number. Only rows whose zero family spans a hyperplane are kept.
+
+<!-- sync:cocircuit-trace-stress:start -->
+| System | Slice size | Exact trace survivors decoded | Failures | Max profile variables | Max states per side |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `(5,10)` | 252 | 18 | 0 | 38 | 15 |
+| `(6,12)` | 924 | 12 | 0 | 40 | 7 |
+
+Half-filling wall: `(4,8)`, 70 weights, **DID NOT COMPLETE** within 2000000 reverse-search nodes.
+<!-- sync:cocircuit-trace-stress:end -->
+
+`(6,12)` is the informative row: the ambient fixed-weight layer has
+`C(12,6) = 924` determinants, and the largest profile problem encountered had
+tens of variables and single-digit branch counts.
+
+### The wall, which is where the route actually stops
+
+Near half filling the unsymmetric reverse search stops finishing. `(4,8)`, 70
+exterior weights, does not complete inside the node budget recorded above. The
+artifact records completion or non-completion and NO partial hyperplane count,
+because a truncated reverse search has visited some subtrees and not others and
+its running total estimates nothing.
+
+This sharpens the refusal in the cost section rather than softening it. The
+`N=3` measurement said the direct route is outscaled by the orbit enumerator;
+the `N=4` measurement says it stops working entirely two ranks earlier than the
+`N=3` ladder does. The generalization is real, and what it generalizes includes
+the bottleneck.
+
 ## What is not claimed
 
 - **Facetness, redundancy, birationality, completeness.** Cocircuit output is
@@ -277,6 +429,15 @@ profiles, which is fine at 442 profiles and would not be at high rank.
 - **Decoder complexity.** Measured, not bounded. See above.
 - **New information about the polytopes.** The populations reproduced are
   sealed. The decoder rows are the new part.
+- **Anything at `N >= 4` beyond what the gates cover.** `(4,7)` and `(5,8)` are
+  duals of known systems, three of the four published gates are
+  representative-level rather than complete-row, and `(4,8)` does not finish.
+  No higher-N population is enumerated here that was not already known.
+- **That the particle-hole reduction shrinks the decoding problem.** It does
+  not. It is exact and it moves a constant factor.
+- **That T4 compresses every shadow.** It compresses degenerate ones. On a
+  shadow with distinct coordinates the profile lattice is the ambient problem,
+  and two published higher-N representatives are exactly that case.
 
 ## The next gate, and an honest assessment of it
 

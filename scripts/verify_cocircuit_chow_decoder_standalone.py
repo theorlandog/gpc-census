@@ -29,9 +29,18 @@ Four replays, in increasing order of how much they would hurt if they failed.
    strictly ordered the same way as `c_+`, and whose selected occupancy
    profiles form an upper ideal in prefix-sum dominance.
 
-What this file does NOT replay: the full-population decoding at `(3,7)` and
-`(3,8)`. Those runs need the decoder itself, and are covered by
-`scripts/cocircuit_chow_decoder.py` and `tests/test_cocircuit_chow_decoder.py`.
+Then the same replays at arbitrary particle number, because none of the proofs
+uses `N = 3`: brute force and exhaustive T1 at `(4,6)` with its `(2,6)` dual,
+T4 and T5 at `(4,8)` and `(5,9)`, and the particle-hole shadow identity
+`c(F^c) = m - c(F)` checked against the complement family itself. When
+`results/data/cocircuit_chow_higher_n.json` is present, its dual-population
+rows are cross-read against the `N=3` artifact and its half-filling wall is
+checked to publish no partial count.
+
+What this file does NOT replay: the full-population decoding at `(3,7)`,
+`(3,8)` and `(5,8)`. Those runs need the decoder itself, and are covered by
+`scripts/cocircuit_chow_decoder.py`, `scripts/cocircuit_chow_higher_n.py` and
+their guard tests.
 
 Run:
 
@@ -51,6 +60,10 @@ from fractions import Fraction
 DEFAULT_ARTIFACT = (
     pathlib.Path(__file__).resolve().parents[1]
     / "results/data/cocircuit_chow_decoder.json"
+)
+DEFAULT_HIGHER_N_ARTIFACT = (
+    pathlib.Path(__file__).resolve().parents[1]
+    / "results/data/cocircuit_chow_higher_n.json"
 )
 
 
@@ -322,9 +335,35 @@ def check_t5(trials: int, n: int, d: int, seed: int) -> int:
     return checked
 
 
+def check_particle_hole(trials: int, n: int, d: int, seed: int) -> int:
+    """`c(F^c) = m - c(F)`, checked against the complement family itself."""
+    rng = random.Random(seed)
+    universe = frozenset(range(d))
+    checked = 0
+    for _ in range(trials):
+        tau = tuple(rng.randint(-6, 6) for _ in range(d))
+        family = positive_family(tau, n)
+        if not family:
+            continue
+        counts = shadow(family, d)
+        complement = frozenset(
+            tuple(sorted(universe - frozenset(subset))) for subset in family
+        )
+        expected = tuple(len(family) - value for value in counts)
+        if shadow(complement, d) != expected:
+            raise AssertionError(f"particle-hole shadow failed at tau={tau}")
+        checked += 1
+    return checked
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--artifact", type=pathlib.Path, default=DEFAULT_ARTIFACT)
+    parser.add_argument(
+        "--higher-n-artifact",
+        type=pathlib.Path,
+        default=DEFAULT_HIGHER_N_ARTIFACT,
+    )
     arguments = parser.parse_args()
     recorded = json.loads(arguments.artifact.read_text())["cocircuit"]
 
@@ -354,6 +393,59 @@ def main() -> int:
         print(f"T4 verified on {pairs} equal-degree transpositions at (3,{d})")
         rows = check_t5(60, 3, d, seed=50 + d)
         print(f"T5 verified on {rows} random normals at (3,{d})")
+
+    # ---------------------------------------------------------- arbitrary N
+    higher = None
+    if arguments.higher_n_artifact.exists():
+        higher = json.loads(arguments.higher_n_artifact.read_text())
+
+    found = brute_force_hyperplanes(4, 6)
+    survivors, nonstructural = trace_counts(4, 6, found)
+    orbits = len({orbit_key(tau) for tau in found})
+    dual = brute_force_hyperplanes(2, 6)
+    assert len(dual) == len(found), "particle-hole duals disagree at rank 6"
+    print(
+        f"(4,6) brute force: {len(found)} hyperplanes, {orbits} orbits, "
+        f"{survivors} trace survivors, {nonstructural} nonstructural; "
+        f"(2,6) dual agrees at {len(dual)}"
+    )
+
+    checked = exhaustive_t1(4, 6)
+    print(f"T1 exhaustive at (4,6): {checked} threshold shadows, each with one "
+          "preimage among all 32,768 subfamilies")
+
+    for n, d in ((4, 8), (5, 9)):
+        pairs = check_t4(40, n, d, seed=60 + d)
+        print(f"T4 verified on {pairs} equal-degree transpositions at ({n},{d})")
+        rows = check_t5(40, n, d, seed=70 + d)
+        print(f"T5 verified on {rows} random normals at ({n},{d})")
+
+    for n, d in ((5, 8), (7, 10)):
+        rows = check_particle_hole(40, n, d, seed=80 + d)
+        print(f"particle-hole shadow identity verified on {rows} families at ({n},{d})")
+
+    if higher is not None:
+        for system, row in sorted(higher.get("dual_populations", {}).items()):
+            n, d = (int(part) for part in system.strip("()").split(","))
+            partner = recorded.get(str(d))
+            if partner is None:
+                continue
+            assert row["admissible_hyperplanes"] == partner["admissible_hyperplanes"]
+            assert row["trace_survivors"] == partner["trace_survivors"]
+            print(
+                f"{system} matches its dual ({d - n},{d}) at "
+                f"{row['admissible_hyperplanes']} hyperplanes and "
+                f"{row['trace_survivors']} trace survivors"
+            )
+        wall = higher.get("half_filling_wall") or {}
+        if wall and not wall.get("completed", True):
+            assert wall.get("admissible_hyperplanes") is None, (
+                "a non-completing reverse search must publish no population"
+            )
+            print(
+                f"{wall['system']} recorded as not completing within "
+                f"{wall['node_budget']} nodes, with no partial count"
+            )
 
     print("STANDALONE VERIFICATION PASSED")
     return 0

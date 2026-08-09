@@ -1782,6 +1782,62 @@ tests/test_cocircuit_chow_decoder.py]
   beta. Any such backend stays optional discovery infrastructure whose output
   is re-derived locally, since CI cannot install it under the house rules.
 
+### Round 2, arbitrary particle number (2026-08-09)
+
+A second bundle claimed the whole route generalizes beyond `N = 3`. It does,
+and the in-repo modules were already written with an `n` parameter, so what was
+tested is whether that generality is real rather than typed.
+[docs/cocircuit_chow_decoder.md, "Arbitrary particle number";
+docs/prereg_cocircuit_chow_decoder.md ROUND 2;
+results/data/cocircuit_chow_higher_n.json;
+scripts/cocircuit_chow_higher_n.py; tests/test_cocircuit_chow_higher_n.py]
+
+- 🟨 GENERALITY, PROVED and now also gated. C1 uses only `1 . chi_I = N != 0`
+  and T1 to T5 are fixed-weight statements, so none of them touches the value
+  of `N`. `(4,7)` and `(5,8)` reproduce their `(3,7)` and `(3,8)` duals exactly,
+  pair for pair in the `(h,z)` convention: 5,341 and 166,420 hyperplanes, 19 and
+  56 orbits, 549 and 6,607 trace survivors, zero decode failures, zero oriented
+  `tau` failures. Node counts differ from the duals, which is correct rather
+  than suspicious: complementation is not order preserving, so the
+  lexicographic search tree differs over an isomorphic matroid.
+- 🟦 THE ONLY INDEPENDENT ROWS HERE, and they pass: all 61 published higher-N
+  representative normals from the Levi-fusion audits, at `(4,8)`, `(4,9)`,
+  `(4,10)` and `(5,10)`, pass zero-family rank, the trace identity, both decoded
+  sign families, and ORIENTED primitive-`tau` reconstruction. `(4,8)` is the
+  complete 15-row pilot system; the other three store one representative per
+  Levi signature class, so they are representative-level gates.
+- ❗ AND THOSE ROWS EXPOSE T4's SHARPEST LIMIT. The profile count is not a
+  compression ratio, it is the degeneracy of `c_+`: a shadow with all
+  coordinates distinct has singleton blocks and its profiles ARE its
+  determinants. The worst published `(4,10)` representative needs 210 profile
+  variables against a slice of 210, and the worst `(5,10)` one needs 252
+  against 252. Total loss of compression, on published rows. The `N=3` census
+  rows are degenerate enough to hide it, 41 against 56 at `(3,8)`. The decoder
+  still terminated on all of them, at most 175 branch states, so the arithmetic
+  pruning carries the cases where the symmetry does not.
+- 🟨 PARTICLE-HOLE SHADOW, PROVED. An `n`-uniform family of size `m` with
+  shadow `c` has complement family in the `(d-n)` layer with shadow `m - c`, so
+  decoding either layer is exact, and the reversed block order preserves rather
+  than reverses prefix dominance.
+- ❌ BUT IT IS NOT A SIZE REDUCTION, which contradicts the handoff. `k -> m-k`
+  is a bijection between the two layers' occupancy profiles over the same
+  blocks, so the profile VARIABLE COUNT is identical in both layers, measured
+  identical on every row tested at `(5,8)`, `(6,9)` and `(7,10)`. The handoff
+  describes it as something that "can dramatically reduce the profile search".
+  It reduces branch states by a constant factor, a win on most rows and a loss
+  on a few, and nothing else.
+- ❗ THE WALL ARRIVES EARLIER AT HALF FILLING. `(4,8)`, 70 exterior weights,
+  does NOT complete a 2,000,000-node unsymmetric reverse search. The artifact
+  records completion or non-completion and no partial hyperplane count, because
+  a truncated reverse search estimates nothing. This sharpens the round-1
+  refusal rather than softening it: what generalizes includes the bottleneck.
+- ❗ A SECOND MEASUREMENT ERROR, caught before scoring and recorded per R5. The
+  higher-N stress first reported failures at `(5,10)` and `(6,12)`. Every one
+  was a sampled normal with content greater than one being compared against the
+  decoder's primitive output; the decoder had recovered the right ray with the
+  right orientation on all of them. The harness now divides out the content
+  before comparing, which is what the comparison always meant.
+
 ## The root-budget boundary layer: half of an external claim survives (2026-08-08)
 
 An externally supplied rank-40 memo proposes replacing the flat/permutation

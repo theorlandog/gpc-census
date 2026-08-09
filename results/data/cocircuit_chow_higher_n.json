@@ -1,0 +1,209 @@
+{
+ "canonical_sha256_without_this_field_or_timings": "5419bb25a44f79734a7d05e0d160f77b44acbc432f8e4e252707273197d5aa41",
+ "dual_populations": {
+  "(4,7)": {
+   "admissible_hyperplanes": 5341,
+   "agrees_with_flat_lattice_pairwise": true,
+   "cocircuit_seconds": 5.8,
+   "decode_failures": 0,
+   "exterior_weights": 35,
+   "flat_lattice_hyperplanes": 5341,
+   "flat_lattice_seconds": 3.4,
+   "max_profile_variables": 18,
+   "max_search_states_per_side": 5,
+   "nonstructural_trace_survivors": 547,
+   "particle_hole_dual": "(3,7)",
+   "particle_number": 4,
+   "rank": 7,
+   "reverse_search_nodes": 61368,
+   "sd_unoriented_orbits": 19,
+   "system": "(4,7)",
+   "tau_reconstruction_failures": 0,
+   "trace_survivors": 549
+  },
+  "(5,8)": {
+   "admissible_hyperplanes": 166420,
+   "agrees_with_flat_lattice_pairwise": true,
+   "cocircuit_seconds": 254.7,
+   "decode_failures": 0,
+   "exterior_weights": 56,
+   "flat_lattice_hyperplanes": 166420,
+   "flat_lattice_seconds": 145.8,
+   "max_profile_variables": 41,
+   "max_search_states_per_side": 37,
+   "nonstructural_trace_survivors": 6605,
+   "particle_hole_dual": "(3,8)",
+   "particle_number": 5,
+   "rank": 8,
+   "reverse_search_nodes": 1946562,
+   "sd_unoriented_orbits": 56,
+   "system": "(5,8)",
+   "tau_reconstruction_failures": 0,
+   "trace_survivors": 6607
+  }
+ },
+ "generated_by": "scripts/cocircuit_chow_higher_n.py",
+ "half_filling_wall": {
+  "admissible_hyperplanes": null,
+  "completed": false,
+  "exterior_weights": 70,
+  "node_budget": 2000000,
+  "note": "no partial hyperplane count is recorded: a truncated reverse search is not a population",
+  "particle_number": 4,
+  "rank": 8,
+  "seconds": 304.5,
+  "system": "(4,8)"
+ },
+ "machine": {
+  "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "python": "3.14.0rc2"
+ },
+ "measured_not_proved": {
+  "half_filling_wall": "The unsymmetric reverse search does not finish at (4,8) inside the recorded node budget. This is an operational measurement of one implementation, not a theorem about the problem.",
+  "particle_hole_is_not_a_size_reduction": "k -> m - k is a bijection between the two layers' occupancy profiles, so the profile VARIABLE COUNT is identical in both layers. The reduction changes only the coefficients and the target, and its effect on branch count is measured here. It is not a size reduction.",
+  "published_gate_scope": "(4,8) is the complete 15-row pilot system. The (4,9), (4,10) and (5,10) rows are one representative per Levi signature class, not every facet row, so those three are representative-level gates."
+ },
+ "particle_hole": {
+  "(5,8)": {
+   "answer_mismatches": 0,
+   "particle_number": 5,
+   "rank": 8,
+   "reduced_layer": 3,
+   "rows_reduced_cheaper": 14,
+   "rows_reduced_dearer": 3,
+   "rows_where_variable_count_differs": 0,
+   "seconds": 0.1,
+   "shadows_checked": 35,
+   "system": "(5,8)",
+   "total_states_literal_layer": 317,
+   "total_states_reduced_layer": 183
+  },
+  "(6,9)": {
+   "answer_mismatches": 0,
+   "particle_number": 6,
+   "rank": 9,
+   "reduced_layer": 3,
+   "rows_reduced_cheaper": 17,
+   "rows_reduced_dearer": 0,
+   "rows_where_variable_count_differs": 0,
+   "seconds": 0.1,
+   "shadows_checked": 35,
+   "system": "(6,9)",
+   "total_states_literal_layer": 499,
+   "total_states_reduced_layer": 269
+  },
+  "(7,10)": {
+   "answer_mismatches": 0,
+   "particle_number": 7,
+   "rank": 10,
+   "reduced_layer": 3,
+   "rows_reduced_cheaper": 20,
+   "rows_reduced_dearer": 1,
+   "rows_where_variable_count_differs": 0,
+   "seconds": 0.4,
+   "shadows_checked": 34,
+   "system": "(7,10)",
+   "total_states_literal_layer": 1578,
+   "total_states_reduced_layer": 354
+  }
+ },
+ "published_higher_n": {
+  "(4,10)": {
+   "decoded": 14,
+   "max_profile_variables": 210,
+   "max_search_states_per_side": 109,
+   "particle_number": 4,
+   "rank": 10,
+   "representatives": 14,
+   "seconds": 0.3,
+   "source_artifact": "results/data/levi_fusion_heldout_results.json",
+   "source_sha256": "f046bd98d90e1eb4b0dfafaa6777ead04de3d361f1ef9d4e418621a15c2c20b2",
+   "span_is_hyperplane": 14,
+   "system": "(4,10)",
+   "tau_reconstructed_oriented": 14,
+   "trace_identity": 14
+  },
+  "(4,8)": {
+   "decoded": 15,
+   "max_profile_variables": 8,
+   "max_search_states_per_side": 1,
+   "particle_number": 4,
+   "rank": 8,
+   "representatives": 15,
+   "seconds": 0.0,
+   "source_artifact": "results/data/levi_fusion_pilot.json",
+   "source_sha256": "587e71ae5682ca14437c0a50b0dc741337c51058e9736c783afb1b1b95f25111",
+   "span_is_hyperplane": 15,
+   "system": "(4,8)",
+   "tau_reconstructed_oriented": 15,
+   "trace_identity": 15
+  },
+  "(4,9)": {
+   "decoded": 12,
+   "max_profile_variables": 66,
+   "max_search_states_per_side": 21,
+   "particle_number": 4,
+   "rank": 9,
+   "representatives": 12,
+   "seconds": 0.1,
+   "source_artifact": "results/data/levi_fusion_heldout_results.json",
+   "source_sha256": "f046bd98d90e1eb4b0dfafaa6777ead04de3d361f1ef9d4e418621a15c2c20b2",
+   "span_is_hyperplane": 12,
+   "system": "(4,9)",
+   "tau_reconstructed_oriented": 12,
+   "trace_identity": 12
+  },
+  "(5,10)": {
+   "decoded": 20,
+   "max_profile_variables": 252,
+   "max_search_states_per_side": 175,
+   "particle_number": 5,
+   "rank": 10,
+   "representatives": 20,
+   "seconds": 1.1,
+   "source_artifact": "results/data/levi_fusion_heldout_results.json",
+   "source_sha256": "f046bd98d90e1eb4b0dfafaa6777ead04de3d361f1ef9d4e418621a15c2c20b2",
+   "span_is_hyperplane": 20,
+   "system": "(5,10)",
+   "tau_reconstructed_oriented": 20,
+   "trace_identity": 20
+  }
+ },
+ "schema_version": 1,
+ "status": "arbitrary_particle_number_gates",
+ "theorems": {
+  "generality": "C1 needs only that every exterior weight has coordinate sum N != 0, and T1 to T5 are fixed-weight statements, so none of them uses N = 3. Proved.",
+  "particle_hole_shadow": "An n-uniform family F of size m with shadow c has complement family F^c in the (d-n) layer with shadow m - c. Complementation is a bijection between the layers, so decoding either side is exact. Proved."
+ },
+ "trace_survivor_stress": {
+  "(5,10)": {
+   "attempts": 4000,
+   "exact_trace_survivors_decoded": 18,
+   "failures": 0,
+   "max_profile_variables": 38,
+   "max_search_states_per_side": 15,
+   "particle_number": 5,
+   "rank": 10,
+   "requested": 24,
+   "seconds": 33.2,
+   "seed": 20260809,
+   "slice_size": 252,
+   "system": "(5,10)"
+  },
+  "(6,12)": {
+   "attempts": 1267,
+   "exact_trace_survivors_decoded": 12,
+   "failures": 0,
+   "max_profile_variables": 40,
+   "max_search_states_per_side": 7,
+   "particle_number": 6,
+   "rank": 12,
+   "requested": 12,
+   "seconds": 45.9,
+   "seed": 20260809,
+   "slice_size": 924,
+   "system": "(6,12)"
+  }
+ }
+}
