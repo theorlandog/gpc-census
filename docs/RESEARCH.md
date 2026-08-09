@@ -1102,11 +1102,22 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   ❌ The bounded-hole arithmetic-level grammar is REFUTED as a candidate
   completeness rule: one hole reaches 838 of 1337 orbits at rank 10 and three
   holes reach 1244. It describes facets, not candidates, and must not be used to
-  prune. 🔬 The level SPREAD is unbounded as far as anything proved here goes,
-  and that single hypothesis is now the entire gap to a candidate-coverage
-  theorem; the saturation protocol plateaus at the known count at ranks 6 to 10
-  (realized spreads 3/4/6/10/14) and does NOT plateau at rank 11 by spread 20,
-  so (3,11) candidate coverage is OPEN and its numbers are lower bounds.
+  prune. ✅ The level SPREAD IS BOUNDED at every rank (Theorem S,
+  docs/profile_native_generation.md, guarded by tests/test_profiles.py): the
+  pattern differences span V = 1^perp n v^perp, so V^perp = span{1, v} and the
+  pattern set determines the values up to the reparametrization Lemma L already
+  quotients out. S ranges over the finite P(m), so each rank carries finitely
+  many level vectors and candidate coverage is DECIDABLE, not open. Cramer and
+  Hadamard make it explicit: spread <= 2 sqrt(r-1) (N sqrt 2)^(r-2). Recovering
+  the levels from S alone reproduces all 3,281 profiles at ranks 6 to 10 and the
+  318 at (4,7) and (4,8), zero failures.
+  🔬 The bound is NOT runnable, and that is the surviving open problem: 2.8e6 at
+  r = 11 against a realized maximum of 20. So the saturation protocol still
+  carries the shipped numbers, plateauing at the known count at ranks 6 to 10
+  (realized spreads 3/4/6/10/14) and NOT plateauing at rank 11 by spread 20, and
+  every (3,11) number remains a lower bound. The question is now quantitative,
+  whether the true maximum spread is polynomial in r; the multiplicity-budget
+  argument is the natural route to that and is no longer needed for finiteness.
   🟦 New stage ledger, conditional on that bound: rank 11 and 12 give 10,859 and
   67,939 unoriented orbits, 2,805 and 11,397 trace-alive orbits, and 1.1e8 and
   3.1e9 trace survivors. Survivors per alive orbit grow about 30x per rank

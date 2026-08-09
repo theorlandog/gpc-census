@@ -1,9 +1,11 @@
-"""Guards for the spread-cost table behind Conjecture S.
+"""Guards for the spread-cost table.
 
-The table is evidence for an UNRESOLVED conjecture, so the thing most worth
-protecting is its label. A ceiling that gets read as a floor would turn
-"the mechanism is visible" into "the bound is proved", which is exactly the
-upgrade this repository's discipline forbids.
+The table measures how fast ``D(W)`` climbs. It never bounded the spread, and
+since Theorem S proves a bound by an unrelated route it does not have to. The
+thing most worth protecting is still its label: a ceiling read as a floor would
+turn "the rate is visible" into "the bound is proved here", and the bound that
+IS proved is exponential, so borrowing this table's linear-looking rate to stand
+in for it would be the same error wearing a theorem's clothes.
 """
 
 from __future__ import annotations
@@ -40,18 +42,22 @@ def test_cost_climbs_with_spread_which_is_the_whole_point():
     costs = [row["cost"] for row in rows]
     assert artifact["cost_is_nondecreasing"]
     assert costs == sorted(costs)
-    # flat would leave Conjecture S with no mechanism at all
+    # flat would leave the rate claim with no content at all
     assert costs[-1] > costs[0]
 
 
 def test_the_ceiling_is_labelled_as_a_ceiling():
     labels = _artifact()["proof_labels"]
-    assert labels["conjecture_s"].startswith("UNRESOLVED")
     assert labels["restricted_cost_is_an_upper_bound_on_D"].startswith("PROVED")
     assert labels["cost_is_nondecreasing_in_spread"].startswith(
         "EXACTLY VERIFIED ON FINITE POPULATION"
     )
-    assert any("does not prove Conjecture S" in claim
+    # the spread bound is proved, but NOT by this table, and the label has to
+    # keep those two apart
+    spread = labels["spread_is_bounded_at_each_rank"]
+    assert spread.startswith("PROVED by Theorem S")
+    assert "independently of this table" in spread
+    assert any("does not bound the spread" in claim
                for claim in _artifact()["nonclaims"])
 
 
