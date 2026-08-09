@@ -10,10 +10,13 @@ Three things are recorded and they carry different proof labels.
    and oriented orbit counts, self-paired orbits, trace-alive orbits, and
    Ressayre trace-survivor totals.  Agreement is exact or the run fails.
 
-2. SATURATION, ranks 6 to 10.  The enumerator is complete only up to a level
-   spread bound, which is not proved.  The protocol raises the bound and looks
-   for a plateau.  Where the truth is known the plateau equals it, and the
-   realized maximum spread stays strictly inside the bound.
+2. SATURATION, ranks 6 to 10.  The enumerator is run up to a level spread bound.
+   Theorem S proves the spread is bounded at every rank, but by a quantity five
+   orders of magnitude above anything runnable, so the bound used here is the
+   affordable one and completeness past it still rests on a plateau.  The
+   protocol raises the bound and looks for one.  Where the truth is known the
+   plateau equals it, and the realized maximum spread stays strictly inside the
+   bound.
 
 3. FRONTIER, ranks 11 and 12 by default.  The same measurement with no oracle to
    check it against.  These numbers are labelled conditional on the spread bound
@@ -46,6 +49,7 @@ from gpc_census.generation.orbit_canonical import (  # noqa: E402
 from gpc_census.generation.profiles import (  # noqa: E402
     enumerate_admissible_profiles,
     profile_normal,
+    spread_bound,
     spread_saturation,
     verify_profile_against_weights,
 )
@@ -112,6 +116,9 @@ def measure(n, d, max_spread, cache, *, verify_rank):
         "trace_survivors": survivors,
         "realized_max_spread": max(spread_histogram),
         "spread_bound_is_slack": max(spread_histogram) < max_spread,
+        # Theorem S, for scale: the spread IS bounded, by this, which is why the
+        # run uses an affordable bound instead and reports a plateau.
+        "proved_spread_bound": spread_bound(n, d),
         "max_abs_tau": max(max(abs(v) for v in t) for t in unoriented),
         "spread_histogram": dict(sorted(spread_histogram.items())),
         "class_histogram": dict(sorted(class_histogram.items())),
@@ -256,8 +263,12 @@ def main() -> int:
             "lemma_l_level_reparametrisation": "PROVED",
             "monotonicity_in_multiplicity": "PROVED",
             "calibration_agreement": "EXACTLY VERIFIED ON FINITE POPULATION",
-            "spread_bound": "UNRESOLVED, and it is the only gap between this "
-            "enumeration and a candidate-coverage theorem",
+            "spread_bound": "PROVED FINITE by Theorem S (the pattern set "
+            "determines the values), with the explicit bound "
+            "2 sqrt(r-1) (n sqrt 2)^(r-2); that bound is about 2.8e6 at r = 11 "
+            "against a realized maximum of 20, so it settles decidability and "
+            "not tractability, and the runs below still stop at an affordable "
+            "spread rather than at a proved one",
             "bounded_hole_grammar_as_completeness_rule": "REFUTED",
             "rank_11_to_13_candidate_universe": "CONDITIONAL on the spread bound",
         },

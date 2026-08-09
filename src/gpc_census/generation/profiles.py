@@ -58,14 +58,34 @@ set, and one integer target.  A corollary drops out for free: ``gcd(v_1, B) = 1`
 and ``B | N v_1`` give ``B | N``, which is the divisibility lemma of
 ``docs/arithmetic_level_audit.md``, so for ``N = 3`` the value gap is 1 or 3.
 
-WHAT IS NOT PROVED, stated once and carried into every artifact this module
-writes.  Lemma L makes the search finite in the level SPREAD ``l_r``, and
-nothing here bounds that spread in terms of ``d``.  The enumerator therefore
-takes ``max_spread`` as an argument and its output is complete only for profiles
-within it.  See ``spread_saturation`` for the measurement protocol, and
-``docs/profile_native_generation.md`` for what the measurement does and does not
-license.  The realized maxima are 3, 4, 6, 10 and 14 at ranks 6 through 10,
-against known-complete orbit counts of 8, 19, 56, 231 and 1337.
+Theorem S (determination, and the spread bound).  Let ``V`` be the span of the
+differences ``c - c'`` of elements of ``S``.  Condition (i) says exactly that
+``dim V = r - 2``, and ``V`` is contained in both ``1^perp`` and ``v^perp``,
+which already cut out an ``(r-2)``-dimensional space.  So
+
+    V = 1^perp  n  v^perp,   hence   V^perp = span{1, v}.
+
+The pattern set therefore DETERMINES the values, up to the reparametrization
+``v -> a v + b 1`` that Lemma L already quotients out.  Since ``S`` is a subset
+of the finite set ``P(m)``, which depends on ``m`` and not on the values, each
+multiplicity vector carries finitely many admissible level vectors, and the
+level SPREAD is bounded at every rank.  Cramer and Hadamard make that explicit:
+
+    spread  <=  2 sqrt(r - 1) (n sqrt 2)^(r - 2),
+
+which is ``spread_bound`` below.  ``level_vector_from_patterns`` runs the
+determination backwards, recovering the levels from the pattern set alone.
+
+WHAT THIS DOES AND DOES NOT LICENSE, stated once and carried into every artifact
+this module writes.  The spread is bounded, so the search is finite and
+candidate coverage is decidable at every rank.  The bound is far too large to
+enumerate against: at ``n = 3, r = 11`` it is about ``2.8e6`` against a realized
+maximum of 20.  The enumerator therefore still takes ``max_spread`` as an
+argument, and its output is complete only for profiles within it, so ranks whose
+``max_spread`` sits below ``spread_bound`` still report lower bounds.  See
+``spread_saturation`` for the measurement protocol.  The realized maxima are
+3, 4, 6, 10 and 14 at ranks 6 through 10, against known-complete orbit counts of
+8, 19, 56, 231 and 1337.
 """
 
 from __future__ import annotations
@@ -73,6 +93,7 @@ from __future__ import annotations
 import itertools
 import math
 from dataclasses import dataclass
+from fractions import Fraction
 from functools import lru_cache
 
 from .exterior import exterior_weights
@@ -263,6 +284,133 @@ def weight_affine_rank(n: int, tau: tuple[int, ...]) -> int:
     if not rows:
         return 0
     return _rank_mod(rows, d)
+
+
+# --- Theorem S: the pattern set determines the values ------------------------
+
+
+def _nullspace(rows, columns: int) -> tuple[tuple[int, ...], ...]:
+    """Exact rational nullspace of an integer matrix, as primitive integer vectors.
+
+    Exact rather than modular: ``_rank_mod`` only has to certify a rank, but a
+    recovered level vector is an answer, and a modular one would be a residue.
+    """
+    matrix = [[Fraction(value) for value in row] for row in rows]
+    pivots: list[int] = []
+    pivot_row = 0
+    for column in range(columns):
+        pivot = next(
+            (index for index in range(pivot_row, len(matrix)) if matrix[index][column]),
+            None,
+        )
+        if pivot is None:
+            continue
+        matrix[pivot_row], matrix[pivot] = matrix[pivot], matrix[pivot_row]
+        scale = matrix[pivot_row][column]
+        matrix[pivot_row] = [value / scale for value in matrix[pivot_row]]
+        head = matrix[pivot_row]
+        for index in range(len(matrix)):
+            factor = matrix[index][column]
+            if index != pivot_row and factor:
+                matrix[index] = [
+                    left - factor * right
+                    for left, right in zip(matrix[index], head, strict=True)
+                ]
+        pivots.append(column)
+        pivot_row += 1
+        if pivot_row == len(matrix):
+            break
+    basis: list[tuple[int, ...]] = []
+    for free in (column for column in range(columns) if column not in pivots):
+        vector = [Fraction(0)] * columns
+        vector[free] = Fraction(1)
+        for index, column in enumerate(pivots):
+            vector[column] = -matrix[index][free]
+        denominator = 1
+        for value in vector:
+            denominator = denominator * value.denominator // math.gcd(
+                denominator, value.denominator
+            )
+        basis.append(_primitive(tuple(int(value * denominator) for value in vector)))
+    return tuple(basis)
+
+
+def level_vector_from_patterns(
+    patterns: tuple[tuple[int, ...], ...],
+) -> tuple[tuple[int, ...], int] | None:
+    """Theorem S run backwards: recover ``(levels, target)`` from ``S`` alone.
+
+    The values never enter.  Returns ``None`` when the pattern set fails
+    condition (i) of Theorem A, or when the recovered levels are not strictly
+    increasing, which is the same failure seen from the other side: a pattern set
+    that does not pin a hyperplane is not the zero set of one.
+    """
+    if not patterns:
+        return None
+    r = len(patterns[0])
+    if any(len(pattern) != r for pattern in patterns):
+        raise ValueError("patterns must all have one entry per value class")
+    base = patterns[0]
+    differences = [
+        tuple(left - right for left, right in zip(pattern, base, strict=True))
+        for pattern in patterns[1:]
+    ]
+    basis = _nullspace(differences, r)
+    if len(basis) != 2:
+        return None
+    ones = (1,) * r
+    witness = next(
+        (vector for vector in basis if vector != ones and vector != (-1,) * r), None
+    )
+    if witness is None:
+        return None
+    raw = tuple(witness[0] - value for value in witness)
+    divisor = _content(raw)
+    if divisor == 0:
+        return None
+    levels = tuple(value // divisor for value in raw)
+    if all(left > right for left, right in zip(levels, levels[1:])):
+        levels = tuple(-value for value in levels)
+    if any(left >= right for left, right in zip(levels, levels[1:])):
+        return None
+    targets = {
+        sum(count * level for count, level in zip(pattern, levels, strict=True))
+        for pattern in patterns
+    }
+    if len(targets) != 1:
+        return None
+    return levels, targets.pop()
+
+
+def spread_bound(n: int, r: int) -> int:
+    """Theorem S: no admissible profile with ``r`` classes exceeds this spread.
+
+    Pick ``r - 2`` independent pattern differences as the rows of ``A`` and
+    append the all-ones row.  The kernel of the result is the line through
+    ``r v - (sum v) 1``, so Cramer writes a generator as the signed maximal
+    minors of an ``(r-1)`` by ``r`` matrix whose pattern rows have Euclidean
+    norm at most ``n sqrt 2`` (entries bounded by ``n``, absolute values summing
+    to at most ``2n``) and whose last row has norm ``sqrt(r - 1)``.  Hadamard
+    bounds each minor, and the spread is at most the difference of the first and
+    last coordinates of that generator.
+
+    True but enormous: 12 at ``(3, 3)``, about ``2.8e6`` at ``(3, 11)`` against a
+    realized maximum of 20.  It settles finiteness, not tractability.
+    """
+    if type(n) is not int or type(r) is not int or n < 1 or r < 2:
+        raise ValueError("require integer parameters with n >= 1 and r >= 2")
+    squared = 4 * (r - 1) * 2 ** (r - 2) * n ** (2 * (r - 2))
+    root = math.isqrt(squared)
+    return root if root * root == squared else root + 1
+
+
+def determination_holds(n: int, profile: ValueProfile) -> bool:
+    """Check Theorem S on one profile: does ``S`` alone give back its levels?"""
+    patterns = zero_patterns(n, profile.multiplicities, profile.values)
+    return level_vector_from_patterns(patterns) == (
+        profile.levels,
+        profile.level_target,
+    )
 
 
 def profile_normal(profile: ValueProfile) -> tuple[tuple[int, ...], int]:

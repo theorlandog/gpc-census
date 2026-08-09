@@ -21,11 +21,14 @@ from gpc_census.generation.orbit_canonical import trace_survivor_count
 from gpc_census.generation.profiles import (
     ValueProfile,
     capped_patterns,
+    determination_holds,
     enumerate_admissible_profiles,
     incidence_agrees,
+    level_vector_from_patterns,
     occupancy_patterns,
     profile_is_admissible,
     profile_normal,
+    spread_bound,
     spread_saturation,
     verify_profile_against_weights,
     weight_affine_rank,
@@ -212,6 +215,78 @@ def test_lemma_l_value_gap_divides_the_particle_number():
         assert sums == {profile.level_target}
 
 
+# --- Theorem S: the pattern set determines the values ------------------------
+
+
+@pytest.mark.parametrize("n,d", [(3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (4, 7), (4, 8)])
+def test_theorem_s_pattern_set_determines_the_levels(n, d, cache):
+    """Recover the levels from ``S`` alone and check they are the ones enumerated.
+
+    ``level_vector_from_patterns`` never sees the values.  Theorem S says the
+    pattern set already contains them, so this is the theorem run backwards on
+    every profile the enumerator emits.
+    """
+    profiles = profiles_for(n, d, SPREAD, cache)
+    assert profiles
+    for profile in profiles:
+        assert determination_holds(n, profile)
+
+
+@pytest.mark.parametrize("d", [6, 7, 8, 9, 10])
+def test_theorem_s_makes_the_pattern_set_a_fingerprint(d, cache):
+    """Same multiplicities plus same pattern set must mean the same profile.
+
+    This is the contrapositive face of Theorem S, and it is what makes the
+    enumeration finite: the values cannot range freely once ``S`` is fixed.
+    """
+    seen: dict = {}
+    for profile in profiles_for(3, d, SPREAD, cache):
+        key = (profile.multiplicities, zero_patterns(3, profile.multiplicities, profile.values))
+        assert seen.setdefault(key, profile.values) == profile.values
+
+
+@pytest.mark.parametrize("d,realized", [(6, 3), (7, 4), (8, 6), (9, 10), (10, 14)])
+def test_spread_bound_dominates_every_realized_spread(d, realized, cache):
+    """The proved bound has to hold, and it is nowhere near tight."""
+    bound = spread_bound(3, d)
+    assert realized <= bound
+    for profile in profiles_for(3, d, SPREAD, cache):
+        assert profile.spread <= spread_bound(3, profile.classes) <= bound
+    # true, and useless as a search parameter, which is the whole point
+    assert bound > 100 * realized
+
+
+def test_spread_bound_is_the_hadamard_expression():
+    """Pin the formula so it cannot drift into something unproved."""
+    assert [spread_bound(3, r) for r in range(2, 12)] == [
+        2, 12, 63, 306, 1449, 6735, 30861, 139968, 629856, 2816802
+    ]
+    assert spread_bound(4, 3) == 16
+    with pytest.raises(ValueError):
+        spread_bound(3, 1)
+
+
+def test_level_recovery_rejects_pattern_sets_that_pin_no_hyperplane():
+    """Condition (i) failing is exactly recovery failing, from the other side."""
+    # a single pattern constrains nothing: the nullspace is everything
+    assert level_vector_from_patterns(((3, 0, 0, 0),)) is None
+    # two patterns whose difference leaves the levels non-monotone
+    assert level_vector_from_patterns(((3, 0, 0), (0, 3, 0))) is None
+    assert level_vector_from_patterns(()) is None
+
+
+def test_theorem_s_is_about_rank_not_mobility():
+    """The mobility counterexample still has a well determined level vector.
+
+    ``tau = (1,1,0,0,0,-2)`` fails Theorem A on condition (ii), not (i), so
+    Theorem S applies to it and returns its levels.  Recovery is not an
+    admissibility test and must not be mistaken for one.
+    """
+    patterns = zero_patterns(3, (2, 3, 1), (1, 0, -2))
+    assert level_vector_from_patterns(patterns) == ((0, 1, 3), 3)
+    assert not profile_is_admissible(3, (2, 3, 1), (1, 0, -2))
+
+
 @pytest.mark.parametrize("d,realized", [(6, 3), (7, 4), (8, 6), (9, 10), (10, 14)])
 def test_spread_saturation_plateaus_at_the_known_orbit_count(d, realized, cache):
     """The saturation protocol is calibrated where the truth is known.
@@ -304,7 +379,12 @@ def test_generator_frontier_refinement_calibration_is_exact():
 
 
 def test_generator_frontier_refinement_keeps_its_labels_honest():
-    """The spread bound stays UNRESOLVED and rank 11+ stays CONDITIONAL."""
+    """The spread bound stays UNRESOLVED and rank 11+ stays CONDITIONAL.
+
+    Theorem S settles the spread bound, but the shipped artifact predates it.
+    The label flips, and gains a ``proved_spread_bound`` per row, when the
+    artifact is regenerated; this guard moves with it, not before it.
+    """
     labels = _artifact()["proof_labels"]
     assert labels["spread_bound"].startswith("UNRESOLVED")
     assert labels["bounded_hole_grammar_as_completeness_rule"] == "REFUTED"

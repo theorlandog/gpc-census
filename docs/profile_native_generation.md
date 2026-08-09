@@ -1,13 +1,13 @@
 # Profile-native candidate generation: the orbit stage without the lattice
 
-**Status:** two proved reductions, one exact cross-algorithm calibration against
-five independently known populations, one refutation, and one clearly named
-open problem that is now the whole gap.
+**Status:** three proved reductions, one exact cross-algorithm calibration
+against five independently known populations, one refutation, and one quantified
+gap between a spread bound that is proved and a spread bound that can be run.
 
 **Artifacts:** `src/gpc_census/generation/profiles.py`,
 `scripts/profile_native_frontier.py`,
 `results/data/generator_frontier_refinement.json`, `tests/test_profiles.py`,
-and for Conjecture S `scripts/profile_spread_cost.py`,
+and for the spread-cost table `scripts/profile_spread_cost.py`,
 `results/data/profile_spread_cost.json`, `tests/test_profile_spread_cost.py`.
 
 ## What was blocking, and what this removes
@@ -227,8 +227,8 @@ Two things this does NOT license. It is not a claim that the cocircuit work is
 superseded: that document's decoder and its two theorems are about a different
 object, and its cocircuit backend remains an independent low-rank cross-check
 of exactly the population enumerated here. And a faster orbit stage does not
-close `(3,11)`, because the spread bound below is unproved and the arrangement
-layer past it is untouched.
+close `(3,11)`, because the spread bound below, though proved, is far too large
+to enumerate against, and the arrangement layer past it is untouched.
 
 ## A target-rank check that does not need the spread bound
 
@@ -280,11 +280,19 @@ the one a coverage theorem has to cover.
 
 ## The remaining gap, stated exactly
 
-Lemma L makes the enumeration finite once the level spread is bounded. **Nothing
-here bounds the spread in terms of `d`.** That single unproved hypothesis is now
-the entire distance between this module and a candidate-coverage theorem, which
-is a considerable narrowing of the obligation recorded in
-`docs/fixed_n3_generator_methodology.md`, but it is not a closure.
+Lemma L makes the enumeration finite once the level spread is bounded, and
+Theorem S below bounds it. The candidate universe at each rank is therefore a
+finite object that this enumerator exhausts in principle, and candidate coverage
+is decidable rather than open. That discharges the obligation recorded in
+`docs/fixed_n3_generator_methodology.md` as a question of principle.
+
+**What is not closed is the distance between the bound that is proved and the
+bound that can be run.** Theorem S gives spread at most `2 sqrt(r-1) (N sqrt 2)^(r-2)`,
+which is about `2.8e6` at `N = 3, r = 11`, against a realized maximum of 20 and a
+run that already costs 1,227 seconds at bound 20. So every rank-11 number below
+is still a lower bound. The reason has changed rather than disappeared: the run
+stops at spread 20 because 20 is affordable, not because anything proves 20 is
+enough.
 
 The protocol used instead is saturation, and it is calibrated where the truth is
 known. Raise the bound; if the population stops growing and the realized maximum
@@ -313,37 +321,83 @@ a lower bound, conditional on the spread bound in exactly that way.
 
 Two routes out, both well posed:
 
-1. **Prove a spread bound.** See Conjecture S below.
+1. **Sharpen the bound** until it is runnable. Theorem S bounds the spread, but
+   five orders of magnitude above the realized maximum. The gap is the work.
 2. **Bypass it.** Exact inner and outer closure never needs candidate
    exhaustiveness, and is how ranks 6 through 10 are already closed.
 
-## Conjecture S, which is the exact statement to prove or kill
+## Theorem S: the pattern set determines the values
 
-Define `D(W)` as the least ambient rank `d` carrying an admissible profile of
-level spread `W`. Then the maximum spread at rank `d` is
-`max{ W : D(W) <= d }`, and the enumeration is complete at rank `d` once the
-bound passes that value.
+The budget argument this document previously proposed is not needed. The
+statement follows from Theorem A by a dimension count, in four lines.
 
-**Conjecture S.** `D` is unbounded. Equivalently, at each rank the admissible
-profiles have bounded level spread.
+**Theorem S.** Let `tau` be admissible with `r >= 2` distinct values `v` and
+multiplicities `m`, and let `V = span{ c - c' : c, c' in S }`. Then
 
-The mechanism is visible in Theorem A and is a budget argument. A wide level set
-has gaps, gaps have to be bridged by patterns that use one class more than once,
-and a pattern with `c_a >= 2` forces `m_a >= 2`, while mobility forces
-`m_a >= c_a + 1` when `c_a` is the least positive occupancy of class `a`. Those
-multiplicities are paid out of `sum_a m_a = d`. Making that quantitative, as a
-lower bound on `sum_a min(m_a, N + 1)` in terms of the spread, proves the
-conjecture and closes candidate coverage at every rank at once.
+```text
+V = 1^perp  n  v^perp,   hence   V^perp = span{1, v}.
+```
 
-Two pieces of evidence, with different scopes.
+So `S` determines `v` up to the reparametrization `v -> a v + b 1` that Lemma L
+already quotients out, and hence determines the primitive level vector `l`
+exactly.
 
-**Exact, from the complete enumerations.** `D` inverted at the ranks where the
-enumeration is closed gives maximum spreads 3, 4, 6, 10 and 14 at ranks 6 through
-10. That is exact, not a bound, and it is strictly increasing.
+*Proof.* Every `c` in `S` has `<1, c> = N`, which is nonzero, so no element of
+`S` lies in `V` and `rank_Q(S) = dim V + 1`. Condition (i) of Theorem A is
+therefore exactly `dim V = r - 2`. Differences of patterns have coordinate sum
+zero, so `V` is contained in `1^perp`; every `c` in `S` has `<c, v> = 0`, so `V`
+is contained in `v^perp`. The values are distinct and `r >= 2`, so `v` is not a
+multiple of `1` and the two conditions cut out a space of dimension exactly
+`r - 2`. A subspace of dimension `r - 2` contained in a space of dimension
+`r - 2` is that space. QED
 
-**Upper bound on `D`, restricted to `r <= 7` classes.** Minimizing
-`sum_a min(m_a, N + 1)` over level profiles with at most seven classes gives, for
-`W = 1` to `22`:
+**Corollary (Conjecture S, settled affirmatively).** `S` is a subset of `P(m)`,
+which is finite and depends on `m` alone, not on the values. So each
+multiplicity vector carries at most `2^|P(m)|` admissible level vectors, and
+`sum_a m_a = d` leaves finitely many `m` per rank. The level spread is bounded at
+every rank, the enumeration is finite without a spread parameter, and candidate
+coverage is decidable.
+
+**Corollary (explicit bound).** Pick `r - 2` independent differences as the rows
+of `A` and append the all-ones row to get `A'`. Then `ker A = span{1, v}` by the
+theorem, and `ker A' = ker A n 1^perp` is the line through `u = r v - (sum v) 1`,
+so Cramer spans it by the vector `g` of signed maximal minors of `A'`. Since
+`gcd(u)` divides `r B`, where `B` is the value gap of Lemma L, and `g` is an
+integer multiple of the primitive generator, the spread satisfies
+`W <= |g_1 - g_r|`. Each pattern row has entries bounded by `N` with absolute
+values summing to at most `2N`, hence Euclidean norm at most `N sqrt 2`, and the
+appended row has norm `sqrt(r - 1)`. Hadamard then gives
+
+```text
+spread  <=  2 sqrt(r - 1) (N sqrt 2)^(r - 2).
+```
+
+That is `spread_bound(n, r)` in `profiles.py`. It is true and it is useless as a
+search parameter: 12 at `r = 3`, 629,856 at `r = 10` where the realized maximum
+is 14, and 2,816,802 at `r = 11` where the realized maximum is at least 20.
+
+**Checked, not assumed.** `level_vector_from_patterns` runs the determination
+backwards, recovering `(levels, target)` from the pattern set with the values
+never entering. It reproduces the levels of all 3,281 profiles at ranks 6
+through 10 and of the 318 at `(4,7)` and `(4,8)`, with no failures. At every one
+of those ranks no two profiles sharing a multiplicity vector share a pattern
+set, which is the same statement seen from the other side.
+`tests/test_profiles.py` pins both.
+
+**What the theorem does not do.** It does not close `(3,11)`. The bound is five
+orders of magnitude above what can be enumerated, so the shipped rank-11 numbers
+remain lower bounds at the spread actually run. The open problem is no longer
+"is the spread bounded" but "is the true bound polynomial in `r`", and the
+evidence below is about that question rather than about finiteness.
+
+**Exact, from the complete enumerations.** Maximum spread at the ranks where the
+enumeration is closed is 3, 4, 6, 10 and 14 at ranks 6 through 10. That is exact,
+not a bound, and it is strictly increasing and far below Theorem S.
+
+**Upper bound on `D`, restricted to `r <= 7` classes.** Writing `D(W)` for the
+least ambient rank carrying an admissible profile of level spread `W`, and
+minimizing `sum_a min(m_a, N + 1)` over level profiles with at most seven
+classes, gives for `W = 1` to `22`:
 
 ```text
 W     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22
@@ -353,9 +407,9 @@ D<=7  4  5  6  7  8  8  9  9  9 10 10 10 11 11 11 12 12 12  -  12 12 13
 with `W = 19` carrying no primitive profile at all in that range. This is an
 upper bound on `D`, since a cheaper profile may use more classes, and indeed the
 true `D(14) <= 10` while the table reads 11. What it shows is the shape: the cost
-of a wide level set does climb with the width, monotonically over the whole
-measured range, which is what Conjecture S asserts and what a proof has to make
-quantitative.
+of a wide level set climbs with the width, monotonically over the whole measured
+range, and it climbs roughly linearly rather than at the exponential rate
+Theorem S permits.
 
 That table is regenerated by `scripts/profile_spread_cost.py` into
 `results/data/profile_spread_cost.json`, with each row carrying the witness
@@ -368,9 +422,16 @@ against the exact realized maxima 3, 4, 6, 10, 14 at ranks 6 to 10 from
 `D(W) <= d`, so the ceiling must never sit below a realized rank, and it does
 not. The two computations share the Theorem A predicate and nothing else.
 
-A counterexample family, an infinite set of admissible profiles of unbounded
-spread at fixed `d`, would kill the candidate-coverage route outright and is
-worth keeping as a test if anyone finds one.
+That gap is now the whole question, and it is a quantitative one. A counterexample
+family of unbounded spread at fixed `d` is ruled out by Theorem S, so nothing can
+kill the candidate-coverage route outright any more, and the spread-cost table
+stops being evidence that a bound exists and becomes evidence about how big it
+is. What is still open is whether the true maximum spread at rank `d` is
+polynomial, which the exact maxima 3, 4, 6, 10, 14 and the table above both
+suggest and neither proves. The budget argument this document previously proposed
+as a route to finiteness is still the natural route to a POLYNOMIAL bound: make
+`sum_a min(m_a, N + 1) >= f(W)` quantitative and the enumeration becomes
+runnable, not merely finite.
 
 ## The bottleneck moved, and the measurement says where
 

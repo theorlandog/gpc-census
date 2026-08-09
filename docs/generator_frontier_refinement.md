@@ -20,7 +20,8 @@ which.
 | Admissibility is monotone in the multiplicity vector and sees `m` only through `min(m_a, N+1)` | **PROVED** |
 | The enumerator reproduces all five independently known populations exactly at ranks 6 to 10 | **EXACTLY VERIFIED ON FINITE POPULATION** |
 | A bounded-hole arithmetic-level grammar is a candidate-completeness rule | **REFUTED** |
-| The level spread of an admissible profile is bounded by a function of `d` | **UNRESOLVED**, and it is now the whole gap |
+| Theorem S: the pattern set determines the values, so the level spread of an admissible profile is bounded by a function of `d` | **PROVED**, with the explicit bound `2 sqrt(r-1) (N sqrt 2)^(r-2)`, and the recovery checked on every profile at ranks 6 to 10 and at `(4,7)`, `(4,8)` |
+| That bound is small enough to enumerate against | **NO**, it is about `2.8e6` at rank 11 against a realized maximum of 20, and closing that gap is the surviving open problem |
 | `(3,11)` candidate universe is closed | **NO.** The saturation protocol does not plateau by spread 20 |
 | `(3,11)` complete irredundant H-system | **NOT REACHED** |
 
@@ -221,20 +222,22 @@ representation Priority 7 asks the ramification machinery to consume.
 
 ## Where the next session should start
 
-1. **Prove or refute Conjecture S**, stated precisely in
-   `docs/profile_native_generation.md`: the least rank `D(W)` carrying an
-   admissible profile of level spread `W` is unbounded. The mechanism is a budget
-   argument visible in Theorem A, a wide level set needs repeated-class patterns
-   to bridge its gaps, repeated classes force multiplicities through mobility,
-   and multiplicities are paid out of `sum_a m_a = d`. Exact evidence: maximum
-   spread is 3, 4, 6, 10, 14 at ranks 6 through 10, strictly increasing, and a
+1. **Make the spread bound runnable.** Conjecture S is settled affirmatively by
+   Theorem S in `docs/profile_native_generation.md`: the pattern set determines
+   the values, so the spread is bounded at every rank and candidate coverage is
+   decidable. The proved bound is `2 sqrt(r-1) (N sqrt 2)^(r-2)`, about `2.8e6`
+   at `r = 11` against a realized maximum of 20, so it settles finiteness and
+   nothing else. The open problem is now quantitative: is the true maximum spread
+   polynomial in `r`? The budget argument that was proposed as a route to
+   finiteness is still the natural route here, a lower bound on
+   `sum_a min(m_a, N+1)` in terms of the spread. Exact evidence: maximum spread
+   is 3, 4, 6, 10, 14 at ranks 6 through 10, strictly increasing, and a
    restricted minimization over profiles with at most seven classes has `D`
-   climbing monotonically from 4 to 13 as `W` goes from 1 to 22. A lower bound on
-   `sum_a min(m_a, N+1)` in terms of the spread proves it and closes candidate
-   coverage at every rank at once. A counterexample family kills the route and
-   should be kept as a test.
+   climbing monotonically from 4 to 13 as `W` goes from 1 to 22. A counterexample
+   family of unbounded spread at fixed `d` is no longer possible.
 2. **Attack the arrangement layer**, per the next gate above. It is the binding
-   constraint from rank 11 onward whether or not the spread bound is proved.
+   constraint from rank 11 onward whether or not the spread bound becomes
+   runnable.
 3. **Route B remains open and is not blocked by either.** Inner and outer closure
    never needs candidate exhaustiveness. A valid outer system for `(3,11)` can be
    assembled from certified rows alone, and the 19 settled bracket vertices are
