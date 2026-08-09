@@ -115,4 +115,19 @@ def test_sha256sums_match_data_files():
         for p in DATA.rglob("*")
         if p.is_file() and p.name != "SHA256SUMS"
     }
-    assert on_disk == listed
+    if on_disk != listed:
+        missing = sorted(set(on_disk) - set(listed))
+        extra = sorted(set(listed) - set(on_disk))
+        changed = sorted(
+            name
+            for name in set(on_disk) & set(listed)
+            if on_disk[name] != listed[name]
+        )
+        raise AssertionError(
+            "results/data/SHA256SUMS is out of date. Run `make checksums`.\n"
+            f"  unlisted on disk: {missing}\n"
+            f"  listed but absent: {extra}\n"
+            f"  digest mismatch:  {changed}\n"
+            "A mismatch on PROVENANCE.md alone usually means a merge resolved "
+            "the manifest textually; see .gitattributes."
+        )
