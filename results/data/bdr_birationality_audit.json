@@ -1,0 +1,10919 @@
+{
+ "canonical_sha256_without_this_field_or_timings": "9573104bb57d1e23c6b52bb69ee59a9ed646f310fa44e251f7ee019599453e93",
+ "external_backend": {
+  "birationality_arm": "probabilistic (the upstream default)",
+  "entry_points": [
+   "moment_cone.ramification.Is_Ram_contracted",
+   "moment_cone.linear_triangular.is_linear_triangular"
+  ],
+  "executed_here": true,
+  "license": "MIT",
+  "mirror": "github.com/ea-icj/moment_cone",
+  "name": "Bulois-Denis-Ressayre moment_cone",
+  "pinned_revision": "7ab347d9a7837d68d92bde9fac74606913f395ca"
+ },
+ "external_verdicts_sha256": "4eb40a1a232ef69ed3fd923655f3b3bbac37e5019e6f889ba9b143fc4046da2b",
+ "generated_by": "scripts/bdr_birationality_audit.py",
+ "pooled_rows": 424,
+ "pooled_scores": {
+  "bdr_birational": {
+   "decided_rows": 424,
+   "fn": 0,
+   "fp": 109,
+   "precision": 0.44387755102040816,
+   "recall_on_facets": 1.0,
+   "separates_facets_exactly": false,
+   "tn": 228,
+   "tp": 87,
+   "unknown": 0
+  },
+  "bdr_linear_triangular": {
+   "decided_rows": 424,
+   "fn": 80,
+   "fp": 16,
+   "precision": 0.30434782608695654,
+   "recall_on_facets": 0.08045977011494253,
+   "separates_facets_exactly": false,
+   "tn": 321,
+   "tp": 7,
+   "unknown": 0
+  },
+  "dm_fully_triangular": {
+   "decided_rows": 424,
+   "fn": 77,
+   "fp": 47,
+   "precision": 0.17543859649122806,
+   "recall_on_facets": 0.11494252873563218,
+   "separates_facets_exactly": false,
+   "tn": 290,
+   "tp": 10,
+   "unknown": 0
+  }
+ },
+ "schema_version": 1,
+ "status": "three_way_criterion_audit",
+ "systems": {
+  "(3,7)": {
+   "candidate_rows": 48,
+   "orbitals": 7,
+   "particle_number": 3,
+   "published_facets_among_them": 4,
+   "published_facets_not_candidates": [],
+   "rows": [
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      5,
+      -1,
+      -4,
+      -1,
+      2,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      -2,
+      1,
+      4,
+      1,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -2,
+      2,
+      -1,
+      -1,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -2,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      0,
+      -1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 1,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2
+     ]
+    }
+   ],
+   "scores": {
+    "bdr_birational": {
+     "decided_rows": 48,
+     "fn": 0,
+     "fp": 22,
+     "precision": 0.15384615384615385,
+     "recall_on_facets": 1.0,
+     "separates_facets_exactly": false,
+     "tn": 22,
+     "tp": 4,
+     "unknown": 0
+    },
+    "bdr_linear_triangular": {
+     "decided_rows": 48,
+     "fn": 3,
+     "fp": 5,
+     "precision": 0.16666666666666666,
+     "recall_on_facets": 0.25,
+     "separates_facets_exactly": false,
+     "tn": 39,
+     "tp": 1,
+     "unknown": 0
+    },
+    "dm_fully_triangular": {
+     "decided_rows": 48,
+     "fn": 4,
+     "fp": 14,
+     "precision": 0.0,
+     "recall_on_facets": 0.0,
+     "separates_facets_exactly": false,
+     "tn": 30,
+     "tp": 0,
+     "unknown": 0
+    }
+   },
+   "system": "(3,7)"
+  },
+  "(3,8)": {
+   "candidate_rows": 136,
+   "orbitals": 8,
+   "particle_number": 3,
+   "published_facets_among_them": 31,
+   "published_facets_not_candidates": [],
+   "rows": [
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      2,
+      5,
+      -7,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      2,
+      5,
+      -4,
+      -7,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      5,
+      -1,
+      -4,
+      -1,
+      2,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -2,
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      -2,
+      1,
+      4,
+      1,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      7,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      7,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      6,
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      2,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      4,
+      4,
+      4,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      7,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      7,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      -2,
+      1,
+      1,
+      1,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -2,
+      2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      -2,
+      4,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      12,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      6,
+      4,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -1,
+      -1,
+      0,
+      -2,
+      0,
+      1,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -2,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      6,
+      4,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -1,
+      0,
+      -2,
+      -1,
+      0,
+      1,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      -1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      1,
+      -2,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      4,
+      4,
+      4,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      0,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      0,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      0,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 11,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 11,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 1,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      -1,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      0,
+      -1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -1,
+      -2,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -3,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -4,
+      2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -1,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      2,
+      -7,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      2,
+      5,
+      -7,
+      2,
+      -7,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      -5,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7,
+      2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1,
+      2
+     ]
+    }
+   ],
+   "scores": {
+    "bdr_birational": {
+     "decided_rows": 136,
+     "fn": 0,
+     "fp": 35,
+     "precision": 0.4696969696969697,
+     "recall_on_facets": 1.0,
+     "separates_facets_exactly": false,
+     "tn": 70,
+     "tp": 31,
+     "unknown": 0
+    },
+    "bdr_linear_triangular": {
+     "decided_rows": 136,
+     "fn": 28,
+     "fp": 5,
+     "precision": 0.375,
+     "recall_on_facets": 0.0967741935483871,
+     "separates_facets_exactly": false,
+     "tn": 100,
+     "tp": 3,
+     "unknown": 0
+    },
+    "dm_fully_triangular": {
+     "decided_rows": 136,
+     "fn": 26,
+     "fp": 15,
+     "precision": 0.25,
+     "recall_on_facets": 0.16129032258064516,
+     "separates_facets_exactly": false,
+     "tn": 90,
+     "tp": 5,
+     "unknown": 0
+    }
+   },
+   "system": "(3,8)"
+  },
+  "(3,9)": {
+   "candidate_rows": 240,
+   "orbitals": 9,
+   "particle_number": 3,
+   "published_facets_among_them": 52,
+   "published_facets_not_candidates": [],
+   "rows": [
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 23,
+     "tau": [
+      -7,
+      8,
+      -4,
+      -4,
+      -1,
+      -7,
+      -1,
+      2,
+      5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 23,
+     "tau": [
+      -7,
+      8,
+      -1,
+      -7,
+      -4,
+      -4,
+      -1,
+      2,
+      5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      5,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 36,
+     "tau": [
+      -5,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      2,
+      5,
+      -4,
+      -7,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -1,
+      -7,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      -1,
+      2,
+      5,
+      2,
+      -7,
+      -1,
+      -7,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -1,
+      -7,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      2,
+      -1,
+      2,
+      5,
+      -7,
+      -1,
+      -7,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      2,
+      2,
+      5,
+      -1,
+      -7,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 27,
+     "tau": [
+      -4,
+      4,
+      -3,
+      -2,
+      -2,
+      -1,
+      0,
+      3,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -4,
+      5,
+      -1,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      5,
+      -1,
+      -4,
+      -1,
+      2,
+      2,
+      -7,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -4,
+      5,
+      -1,
+      2,
+      2,
+      -7,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 25,
+     "tau": [
+      -3,
+      3,
+      -2,
+      -1,
+      -2,
+      -1,
+      0,
+      2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 25,
+     "tau": [
+      -3,
+      3,
+      -2,
+      -1,
+      -1,
+      -2,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 25,
+     "tau": [
+      -3,
+      3,
+      -1,
+      -2,
+      -2,
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -2,
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -2,
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      -2,
+      1,
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      7,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2,
+      0,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      7,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      0,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      6,
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      -1,
+      0,
+      2,
+      0,
+      1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      4,
+      4,
+      4,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      7,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      7,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -2,
+      0,
+      1,
+      1,
+      2,
+      -3,
+      -1,
+      -3,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      -2,
+      1,
+      1,
+      1,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      -2,
+      1,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      -2,
+      1,
+      1,
+      4,
+      -2,
+      -5,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      4,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -2,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -2,
+      2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -3,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      -2,
+      4,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      -2,
+      4,
+      -2,
+      1,
+      1,
+      -5,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 16,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      12,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -4,
+      2,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      6,
+      4,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -1,
+      -1,
+      0,
+      -2,
+      0,
+      1,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -2,
+      2,
+      -3,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      1,
+      -2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      -1,
+      0,
+      2,
+      1,
+      -3,
+      1,
+      -3,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      -1,
+      2,
+      2,
+      -1,
+      -1,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      -1,
+      2,
+      5,
+      -7,
+      -4,
+      -4,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      6,
+      4,
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      -1,
+      0,
+      -2,
+      -1,
+      0,
+      1,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      0,
+      -1,
+      1,
+      2,
+      -3,
+      1,
+      -3,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      0,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      0,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0,
+      -1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -2,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -1,
+      -2,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -1,
+      -2,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      0,
+      1,
+      1,
+      -1,
+      -1,
+      -2,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      0,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      0,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      -1,
+      0,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      -1,
+      0,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      1,
+      -2,
+      -1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      1,
+      -2,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      0,
+      1,
+      -1,
+      -2,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      1,
+      -1,
+      0,
+      -2,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      0,
+      1,
+      1,
+      0,
+      -2,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      -1,
+      0,
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      12,
+      4,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      15,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 19,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      -1,
+      1,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      1,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      -1,
+      1,
+      0,
+      0,
+      1,
+      -2,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      2,
+      -1,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      -1,
+      2,
+      -1,
+      2,
+      -1,
+      -4,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      4,
+      4,
+      4,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 22,
+     "tau": [
+      0,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      2,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      14,
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 18,
+     "tau": [
+      0,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      -1,
+      0,
+      1,
+      -1,
+      0,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      0,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      0,
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      4,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      -1,
+      0,
+      1,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      0,
+      -1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      -1,
+      0,
+      1,
+      -2,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      9,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      0,
+      1,
+      -1,
+      0,
+      0,
+      -1,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      1,
+      -2,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      0,
+      1,
+      -1,
+      1,
+      -1,
+      -2,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 15,
+     "tau": [
+      0,
+      2,
+      -2,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      -2,
+      1,
+      -2,
+      1,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      -2,
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -5,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      -2,
+      1,
+      4,
+      -5,
+      -2,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -1,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      0,
+      -1,
+      0,
+      1,
+      -2,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      -1,
+      0,
+      1,
+      -2,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      3,
+      3
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      0,
+      -1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      -2,
+      1,
+      1,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      -1,
+      0,
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      1,
+      -2,
+      -1,
+      0,
+      -1,
+      0,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      1,
+      1,
+      -2,
+      0,
+      -1,
+      -1,
+      -1,
+      0,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 1,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 4,
+     "tau": [
+      1,
+      1,
+      -2,
+      1,
+      -2,
+      -2,
+      1,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      1,
+      -2,
+      2,
+      -3,
+      -3,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      1,
+      -2,
+      4,
+      -5,
+      -5,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 16,
+     "tau": [
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      -1,
+      1,
+      0,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -2,
+      -1,
+      0,
+      -1,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      -1,
+      -2,
+      -1,
+      0,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      1,
+      -3,
+      -2,
+      -1,
+      0,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      1,
+      2,
+      -3,
+      1,
+      -2,
+      -3,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 11,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      -2,
+      1,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      8,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      -2,
+      1,
+      -2,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -5,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      4,
+      -5,
+      -2,
+      1,
+      -2,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      10,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 13,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      7,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -5,
+      -2,
+      1,
+      -5,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      1,
+      4,
+      -5,
+      1,
+      -2,
+      -5,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      -4,
+      2,
+      5,
+      -7,
+      -1,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -3,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      6
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      4
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      2,
+      -1,
+      -1,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0,
+      1,
+      -3
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      1,
+      -3,
+      1,
+      -3,
+      -2,
+      -1,
+      -1,
+      0
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 3,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -4,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 4,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": true,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": true,
+     "matrix_order": 6,
+     "tau": [
+      2,
+      2,
+      -4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      3,
+      3,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 10,
+     "tau": [
+      2,
+      2,
+      -4,
+      2,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      2,
+      -4,
+      5,
+      -7,
+      -7,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 14,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -4,
+      2,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      5,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      -1,
+      -4,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      2,
+      -7,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      2,
+      -7,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": false,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      -1,
+      2,
+      -4,
+      -7,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -4,
+      2,
+      -1,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      -1,
+      -4,
+      -4,
+      -1,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 10,
+     "tau": [
+      2,
+      5,
+      -7,
+      2,
+      -7,
+      -4,
+      -1,
+      -1,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      2,
+      -7,
+      -4,
+      -1,
+      -1,
+      -4
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      2,
+      5,
+      -7,
+      2,
+      -4,
+      -7,
+      -1,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      4,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      -2,
+      -2,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      4,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      -2,
+      1,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": true,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      1,
+      -5,
+      -2,
+      -2,
+      1,
+      -5,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 5,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -5,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 7,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      -5
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": false,
+     "matrix_order": 9,
+     "tau": [
+      4,
+      1,
+      -5,
+      1,
+      -5,
+      -2,
+      -2,
+      -2,
+      -2
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      -4,
+      -1,
+      2,
+      -7,
+      2,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1,
+      2,
+      -7
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      -4,
+      -1,
+      2,
+      -7,
+      -4,
+      -1
+     ]
+    },
+    {
+     "bdr_birational": true,
+     "bdr_error": null,
+     "bdr_linear_triangular": false,
+     "dm_blocks": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "dm_fully_triangular": false,
+     "is_published_facet": true,
+     "matrix_order": 12,
+     "tau": [
+      5,
+      2,
+      -7,
+      2,
+      -7,
+      -4,
+      -1,
+      -4,
+      -1
+     ]
+    }
+   ],
+   "scores": {
+    "bdr_birational": {
+     "decided_rows": 240,
+     "fn": 0,
+     "fp": 52,
+     "precision": 0.5,
+     "recall_on_facets": 1.0,
+     "separates_facets_exactly": false,
+     "tn": 136,
+     "tp": 52,
+     "unknown": 0
+    },
+    "bdr_linear_triangular": {
+     "decided_rows": 240,
+     "fn": 49,
+     "fp": 6,
+     "precision": 0.3333333333333333,
+     "recall_on_facets": 0.057692307692307696,
+     "separates_facets_exactly": false,
+     "tn": 182,
+     "tp": 3,
+     "unknown": 0
+    },
+    "dm_fully_triangular": {
+     "decided_rows": 240,
+     "fn": 47,
+     "fp": 18,
+     "precision": 0.21739130434782608,
+     "recall_on_facets": 0.09615384615384616,
+     "separates_facets_exactly": false,
+     "tn": 170,
+     "tp": 5,
+     "unknown": 0
+    }
+   },
+   "system": "(3,9)"
+  }
+ },
+ "verdict": {
+  "arm_caveat": "Is_Ram_contracted ran its probabilistic arm, the upstream default; its exact arm does not run in this environment. A probabilistic birationality test can reject a valid row, so a False verdict is weaker evidence than a True one.",
+  "bdr_birationality": "recall 1.0, precision 0.44387755102040816, false positives 109, false negatives 0",
+  "question": "Among determinant-nonzero Hall-feasible candidates, which of the three criteria separates a published facet from a non-facet?",
+  "scope": "Three systems, and the candidate population is not the full Ressayre-admissible population: it is already filtered by the trace test, Hall feasibility and a nonzero tangent determinant."
+ }
+}

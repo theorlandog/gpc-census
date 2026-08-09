@@ -1,9 +1,16 @@
-"""Enforce the completeness half of the sync invariant.
+"""Enforce the completeness half of the sync invariant, in both directions.
 
-Every file under ``results/data/`` must carry a SHA256SUMS entry, a
+Forward: every file under ``results/data/`` must carry a SHA256SUMS entry, a
 PROVENANCE.md row, a named generating script, and at least one guard test.
 An artifact missing any of those is an orphan: a number nobody can regenerate
 or check, which is how published data quietly goes stale.
+
+Reverse: every artifact a guard test names must be on disk. A test naming a
+missing artifact SKIPS rather than fails, so without this direction a study can
+ship its script, its documentation and its guards while the numbers those
+guards would check were never committed. That happened: nine guards for the
+chemistry study sat inert until its artifact landed, and the forward audit
+reported clean throughout.
 
 The audit found 52 orphans on first run, including two defects worth naming:
 ``census_master.csv`` had no generator, was malformed CSV, and was missing an
@@ -72,3 +79,66 @@ def test_the_generating_script_waiver_is_used_only_where_declared():
         if rule.get("script") == mod.UNREGENERABLE_NO_GENERATOR
     }
     assert waived == {"cyclic_window_benchmark.json", "entangling_window_hamiltonian.json"}
+
+
+def test_no_orphaned_guards(report):
+    """Reverse direction: a guard naming a missing artifact only skips."""
+    orphaned = report["orphaned_guards"]
+    detail = "\n".join(
+        f"  {o['artifact']}: named by {', '.join(o['referenced_by'])}"
+        for o in orphaned
+    )
+    assert not orphaned, f"{len(orphaned)} orphaned guard(s):\n{detail}"
+
+
+def test_the_reverse_check_actually_scanned_the_tests(report):
+    """A pattern table that matched nothing would pass the check vacuously."""
+    assert report["guard_references_checked"] > 40
+
+
+def test_the_reverse_check_catches_a_missing_artifact(tmp_path, monkeypatch):
+    """The failure it exists for, exercised rather than assumed.
+
+    A test file that names an artifact absent from the data directory must be
+    reported. Run against temporary directories so the real dataset is never
+    touched.
+    """
+    present, absent = "present.json", "absent.json"
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    data.mkdir()
+    tests.mkdir()
+    (data / present).write_text("{}")
+    # Built by interpolation, never as a literal: this file is itself scanned
+    # by the real audit, and a verbatim fixture would report as an orphan here.
+    (tests / "test_fake.py").write_text(
+        "\n".join('X = DATA / "%s"' % name for name in (present, absent))
+    )
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    findings = {finding["artifact"] for finding in mod.orphaned_guards()}
+    assert findings == {absent}
+
+
+def test_the_reverse_check_ignores_interpolated_family_names(tmp_path, monkeypatch):
+    """f-string paths are the documented families; FAMILY_RULES covers those."""
+    data = tmp_path / "data"
+    tests = tmp_path / "tests"
+    data.mkdir()
+    tests.mkdir()
+    interpolated = "vertices_{n}_{d}.json"
+    (tests / "test_fake.py").write_text(
+        'P = DATA / "vertices" / f"%s"' % interpolated
+    )
+    monkeypatch.setattr(mod, "DATA", data)
+    monkeypatch.setattr(mod, "TESTS", tests)
+
+    assert mod.orphaned_guards() == []
+
+
+def test_guard_reference_exemptions_are_documented():
+    """An exemption without a reason is a hole; the table must stay honest."""
+    for name, reason in mod.GUARD_REFERENCE_EXEMPTIONS.items():
+        assert name.strip()
+        assert isinstance(reason, str) and reason.strip()

@@ -23,6 +23,16 @@ marker that must be present, so renaming a generator or deleting a provenance
 block still fails the audit. A family rule that stops matching any file is
 itself an error, so the table cannot rot silently.
 
+The audit also runs in reverse. The forward direction catches an artifact that
+nobody can regenerate or check. The reverse direction catches the opposite
+failure, which is just as bad and was invisible until it happened: a guard test
+that names an artifact which does not exist. Such a test does not fail, it
+SKIPS, so a study can ship its script, its documentation and its guards while
+the numbers those guards would check are absent from the repository. That is
+how nine guards for the chemistry study sat inert on main. A skipping guard
+proves nothing, so an artifact referenced by a test and missing from disk is an
+orphaned guard and fails this audit.
+
 Exit status is 0 when there are no orphans and 1 otherwise, so the same code
 backs ``tests/test_data_completeness.py``.
 """
@@ -32,6 +42,7 @@ from __future__ import annotations
 import argparse
 import fnmatch
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -44,6 +55,29 @@ TESTS = ROOT / "tests"
 
 # The bookkeeping itself, not artifacts it describes.
 SELF = {"SHA256SUMS", "PROVENANCE.md"}
+
+# Artifact-shaped names a test may reference without the file existing, each
+# with the reason. Anything not listed here that a test names must be on disk.
+# Empty on purpose: nothing is currently exempt. Add an entry only with a
+# reason, and only for a test that deliberately asserts an artifact's absence.
+GUARD_REFERENCE_EXEMPTIONS: dict[str, str] = {}
+
+# Suffixes that identify a published artifact rather than an incidental path.
+ARTIFACT_SUFFIXES = (".json", ".jsonl", ".csv", ".txt")
+
+# How tests name an artifact under results/data. Interpolated names (f-strings)
+# are deliberately not matched: those are the documented families, and the
+# forward direction already covers them through FAMILY_RULES.
+GUARD_REFERENCE_PATTERNS = (
+    # DATA / "name.json"  and  DATA / "sub" / "name.json"
+    re.compile(r'DATA\s*/\s*"([^"{}]+?)"(?:\s*/\s*"([^"{}]+?)")?'),
+    # ROOT / "results" / "data" / "name.json"
+    re.compile(
+        r'"results"\s*/\s*"data"\s*/\s*"([^"{}]+?)"(?:\s*/\s*"([^"{}]+?)")?'
+    ),
+    # a literal path fragment, "results/data/name.json"
+    re.compile(r'results/data/([\w./-]+)'),
+)
 
 # glob -> the marker that must appear in each of provenance, scripts, tests.
 # A None marker means the default literal file-name check still applies.
@@ -124,6 +158,56 @@ def rule_for(relative: str):
     return None
 
 
+def guard_references() -> dict[str, list[str]]:
+    """Artifact names each guard test claims to check, mapped to the tests."""
+    references: dict[str, list[str]] = {}
+    for test in sorted(TESTS.rglob("*.py")):
+        text = test.read_text(errors="ignore")
+        for pattern in GUARD_REFERENCE_PATTERNS:
+            for match in pattern.findall(text):
+                parts = [part for part in _as_tuple(match) if part]
+                if not parts:
+                    continue
+                relative = "/".join(parts)
+                if not relative.endswith(ARTIFACT_SUFFIXES):
+                    continue
+                references.setdefault(relative, []).append(test.name)
+    return references
+
+
+def _as_tuple(match) -> tuple:
+    return match if isinstance(match, tuple) else (match,)
+
+
+def orphaned_guards() -> list[dict]:
+    """Guards naming an artifact that is not on disk.
+
+    Such a test skips rather than fails, so without this check the repository
+    can carry a study whose numbers were never committed and still report a
+    clean audit.
+    """
+    findings = []
+    for relative, tests in sorted(guard_references().items()):
+        name = relative.split("/")[-1]
+        if name in SELF or name in GUARD_REFERENCE_EXEMPTIONS:
+            continue
+        if (DATA / relative).is_file():
+            continue
+        if any(path.name == name for path in artifacts()):
+            continue
+        findings.append(
+            {
+                "artifact": relative,
+                "referenced_by": sorted(set(tests)),
+                "why": (
+                    "a guard test names this artifact and it is not under "
+                    "results/data, so the guard skips instead of checking"
+                ),
+            }
+        )
+    return findings
+
+
 def audit() -> dict:
     sums = checksum_names()
     corpus = {
@@ -159,12 +243,15 @@ def audit() -> dict:
             findings.append({"artifact": relative, "missing": missing})
 
     stale = [rule["glob"] for rule in FAMILY_RULES if rule["glob"] not in used_rules]
+    guards = orphaned_guards()
     return {
         "artifacts_audited": len(found),
         "checksum_entries": len(sums),
         "family_rules": len(FAMILY_RULES),
         "stale_family_rules": stale,
         "orphans": findings,
+        "guard_references_checked": len(guard_references()),
+        "orphaned_guards": guards,
     }
 
 
@@ -175,19 +262,39 @@ def main() -> int:
     report = audit()
     if args.json:
         print(json.dumps(report, indent=2, sort_keys=True))
-        return 0 if not report["orphans"] and not report["stale_family_rules"] else 1
+        return (
+            0
+            if not report["orphans"]
+            and not report["stale_family_rules"]
+            and not report["orphaned_guards"]
+            else 1
+        )
     print(f"audited {report['artifacts_audited']} artifacts under results/data")
     print(f"SHA256SUMS entries: {report['checksum_entries']}")
     print(f"family rules: {report['family_rules']}")
     for glob in report["stale_family_rules"]:
         print(f"  STALE family rule matches nothing: {glob}")
+    print(f"guard references checked: {report['guard_references_checked']}")
     if not report["orphans"]:
         print("no orphans: every artifact has checksum, provenance, generator, guard test")
     else:
         print(f"ORPHANS: {len(report['orphans'])}")
         for finding in report["orphans"]:
             print(f"  {finding['artifact']}: missing {', '.join(finding['missing'])}")
-    return 0 if not report["orphans"] and not report["stale_family_rules"] else 1
+    if not report["orphaned_guards"]:
+        print("no orphaned guards: every artifact a test names is on disk")
+    else:
+        print(f"ORPHANED GUARDS: {len(report['orphaned_guards'])}")
+        for finding in report["orphaned_guards"]:
+            tests = ", ".join(finding["referenced_by"])
+            print(f"  {finding['artifact']}: named by {tests}, not on disk")
+    return (
+        0
+        if not report["orphans"]
+        and not report["stale_family_rules"]
+        and not report["orphaned_guards"]
+        else 1
+    )
 
 
 if __name__ == "__main__":

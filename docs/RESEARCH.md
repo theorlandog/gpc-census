@@ -668,6 +668,15 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   theorem. Artifact mechanism_grammar_synthesis.json; cross-artifact verifier
   scripts/verify_mechanism_grammar_synthesis.py; guard test
   tests/test_mechanism_grammar_synthesis.py.
+- bdr_birationality_audit.md: PHASE 1, the three-way criterion audit. 🟦 Every
+  published facet passes BDR's birationality test, zero false negatives over 424
+  candidate rows at (3,7), (3,8) and (3,9), an independent cross-check on the
+  criterion that actually decides. ❌ It is necessary and not sufficient:
+  precision 0.444, because redundancy is not a birationality property. ❌ Both
+  triangularity readings are poor facet tests, recall 0.080 and 0.115. Artifacts
+  bdr_birationality_audit.json, bdr_birationality_external.json and
+  bdr_birationality_candidates.json; guard test
+  tests/test_bdr_birationality_audit.py.
 - closure_certificate.md: the exact verification layer above the `P = O`
   sandwich. 🟦 Nine systems and all 799 vertices reproduce every published
   invariant, with slack rank `m+1` everywhere and half-filling parity at the
@@ -2051,6 +2060,43 @@ scripts/bdr_external_benchmark.py; tests/test_bdr_external_benchmark.py]
 - ⚠️ POST HOC. The pre-registration scored P1 to P6 on the local half only;
   nothing external is scored against it, and a guard test asserts no prediction
   record mentions BDR.
+
+## Phase 1: the three-way birationality audit (2026-08-09)
+
+BDR's birationality test, the one its pipeline actually decides on, run on every
+determinant-nonzero Hall-feasible candidate and scored against published
+facethood alongside the two triangularity readings.
+[docs/bdr_birationality_audit.md; results/data/bdr_birationality_audit.json;
+results/data/bdr_birationality_external.json;
+results/data/bdr_birationality_candidates.json;
+scripts/bdr_birationality_audit.py; tests/test_bdr_birationality_audit.py]
+
+- 🟦 EVERY PUBLISHED FACET IS BIRATIONAL. Zero false negatives over 424 rows at
+  (3,7), (3,8) and (3,9), recall 1.000 on every system. This repository's
+  published systems were produced without BDR and the two pipelines share no
+  code, so this is an independent cross-check on the criterion that decides.
+- ❌ BIRATIONALITY IS NOT SUFFICIENT: 109 non-facets pass it too, precision
+  0.444 pooled. Redundancy is not a birationality property, and separating the
+  survivors is Farkas reduction, which is exactly the irreducible step measured
+  in bdr_constructor_comparison. Precision climbs with rank, 0.154, 0.470,
+  0.500, while recall stays at 1.000.
+- ❌ BOTH TRIANGULARITY READINGS ARE POOR FACET TESTS. BDR's own
+  linear-triangular filter scores recall 0.080 and precision 0.304; the local DM
+  `1 x 1` test scores 0.115 and 0.175. Each misses roughly nine facets in ten.
+  This is the quantitative form of the gate-4 refutation and extends it: neither
+  notion is usable as a facet criterion in either direction, and neither is a
+  conservative prefilter. Consistent with the upstream leaving
+  `LinearTriangular` out of its default filter list.
+- 🟦 EVERY PUBLISHED FACET IS INSIDE THE CANDIDATE POPULATION at all three
+  systems, so the scoring is not distorted by facets the enumeration never
+  produced.
+- ⚠️ ARM CAVEAT. `Is_Ram_contracted` ran its probabilistic arm, the upstream
+  default; the exact arm does not run here. A False verdict is therefore weaker
+  evidence than a True one. The asymmetry favours the headline: both the
+  zero-false-negative result and the 109 false positives are built from True
+  verdicts, and only the negative column is the weak one.
+- ⚠️ SCOPE: three systems, and the population is already filtered by the trace
+  test, Hall feasibility and a nonzero determinant.
 
 ## Adjacent literature to respect
 
