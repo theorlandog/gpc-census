@@ -1,7 +1,8 @@
 # Gate 2: the BDR backend was fetched, run, and compared row by row
 
-**Status:** cross-implementation comparison at `(3,7)`, `(4,7)`, `(3,8)` and
-`(4,8)`. Two results, one of them a correction to this repository.
+**Status:** cross-implementation comparison at seven of the nine census
+systems: `(3,7)`, `(4,7)`, `(3,8)`, `(4,8)`, `(3,9)`, `(4,9)` and `(3,10)`.
+Two results, one of them a correction to this repository.
 
 **Artifacts:** `results/data/bdr_external_linear_triangular.json` (the upstream
 verdicts, recorded because they need a SageMath runtime to recompute) and
@@ -56,24 +57,39 @@ correction alongside the original benchmark.
 
 ## Result 1: the published systems are externally confirmed
 
-The repository's published irredundant systems have never before been checked
-against an independently computed source at these ranks. They are now.
+The repository's published irredundant systems had never been checked against
+an independently computed source. Seven of the nine census systems now are.
 
-| System | published rows | upstream reference rows | in both | published only | upstream only |
-| --- | ---: | ---: | ---: | ---: | --- |
-| `(3,7)` | 4 | 4 | 4 | 0 | none |
-| `(4,7)` | 4 | 4 | 4 | 0 | none |
-| `(3,8)` | 31 | 32 | 31 | 0 | `(0,0,0,0,0,0,0,-1)` |
-| `(4,8)` | 15 | 16 | 15 | 0 | `(0,0,0,0,0,0,0,-1)` |
+| System | published rows | upstream rows | in both | published only | upstream only | upstream source |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| `(3,7)` | 4 | 4 | 4 | 0 | none | shipped |
+| `(4,7)` | 4 | 4 | 4 | 0 | none | shipped |
+| `(3,8)` | 31 | 32 | 31 | 0 | structural | shipped |
+| `(4,8)` | 15 | 16 | 15 | 0 | structural | shipped |
+| `(3,9)` | 52 | 53 | 52 | 0 | structural | computed |
+| `(4,9)` | 60 | 61 | 60 | 0 | structural | computed |
+| `(3,10)` | 93 | 94 | 93 | 0 | structural | computed |
 
-The sets are equal. The single upstream extra at rank 8 is the structural row
-`lambda_d >= 0`, which upstream keeps in the same list and this repository
-stores separately from the GPC rows; the convention map in
-`docs/bdr_constructor_comparison.md` already named it.
+**Every set is equal.** `published_only` is empty at all seven, and the single
+upstream extra from `d = 8` on is the structural row `lambda_d >= 0`, which
+upstream keeps in the same list and this repository stores separately from the
+GPC rows; the convention map in `docs/bdr_constructor_comparison.md` already
+named it.
+
+"Shipped" rows come from the reference data the pinned revision carries.
+"Computed" rows come from running `moment_cone(V)` end to end, under a fixed
+seed because the default birationality methods are probabilistic. The computed
+systems reproduce the published row counts exactly, which is a check on the
+seed as much as on the mathematics.
 
 This is a genuinely independent confirmation. The two pipelines share no code,
 enumerate different objects (1-PS against closed flats of the augmented
-exterior weights) and certify by different criteria.
+exterior weights), and certify by different criteria: a rank condition on a
+rectangular ramification matrix upstream, an exact Ressayre determinant with a
+replayed certificate here.
+
+`(4,10)` and `(5,10)` are the two census systems not covered. `(3,6)` is
+declined by the upstream algorithm itself; see the scope section.
 
 ## Result 2: BDR's filter and the DM test are incomparable
 
@@ -82,16 +98,17 @@ BDR's recursive linear-triangular filter "is a strictly stronger criterion than
 asking whether every DM block of the tangent matrix is `1 x 1`". Strictly
 stronger would mean every BDR-triangular row is DM-triangular. It is not.
 
-Pooled over the 54 rows that are in both systems and analysable on the local
+Pooled over the 259 rows that are in both systems and analysable on the local
 side:
 
 | | BDR triangular | BDR not triangular |
 | --- | ---: | ---: |
-| **DM all blocks `1 x 1`** | 4 | 6 |
-| **DM has a larger block** | 6 | 38 |
+| **DM all blocks `1 x 1`** | 9 | 16 |
+| **DM has a larger block** | 12 | 222 |
 
 Both off-diagonal cells are nonempty, so neither criterion implies the other.
-The claim is **REFUTED**.
+The claim is **REFUTED**, and the disagreement is witnessed in both directions
+at every system with more than four rows.
 
 Per system:
 
@@ -101,6 +118,9 @@ Per system:
 | `(4,7)` | 4 | 1 | 0 | 1 | 0 |
 | `(3,8)` | 31 | 3 | 5 | 2 | 4 |
 | `(4,8)` | 15 | 5 | 5 | 2 | 2 |
+| `(3,9)` | 52 | 3 | 5 | 2 | 4 |
+| `(4,9)` | 60 | 5 | 8 | 2 | 5 |
+| `(3,10)` | 93 | 3 | 2 | 2 | 1 |
 
 Named witnesses, one per direction:
 
@@ -113,6 +133,24 @@ DM fully triangular, BDR rejects
     tau = (2, -1, -1, 2, -4, -1, -1, -1)    at (3,8), order 5,  blocks all 1
     tau = (1, 2, -3, -1, -2, -1, 0, 1)      at (3,8), order 14, blocks all 1
 ```
+
+### The disagreement is stable across rank, not sporadic
+
+Reading the disagreeing rows across the four `N = 3` systems, the same shapes
+recur with trailing entries extended:
+
+| shape | `(3,7)` | `(3,8)` | `(3,9)` | `(3,10)` | direction |
+| --- | --- | --- | --- | --- | --- |
+| `(-2,1,1,1,1,-2,...)` | order 4, `[4]` | order 4, `[4]` | order 4, `[4]` | order 4, `[4]` | BDR only |
+| `(2,-1,...,-1,2,...)` | absent | order 6, `[6]` | order 6, `[6]` | order 8, `[8]` | BDR only |
+| `(2,-1,-1,2,-4,-1,...)` | absent | order 5, all `1` | order 6, all `1` | order 7, all `1` | DM only |
+
+So the two criteria do not disagree at random on hard rows. They disagree on
+identifiable families, each of which persists as `d` grows, one of them with the
+DM block size growing with `d` while BDR keeps accepting it. That is a stronger
+statement than the pooled counts alone: it says the gap between the criteria is
+a structural feature of the objects, not sampling noise that a larger census
+would wash out.
 
 ### Why they differ
 
@@ -150,26 +188,31 @@ and 9.
 upstream filter. The DM `1 x 1` test is not a conservative under-approximation
 of BDR's filter and may not be used as one in either direction.
 
-**New and worth naming:** BDR's own filter validates only 1 of 4, 1 of 4, 3 of
-31 and 5 of 15 published rows. It is a partial validator upstream too, by
-design, and the rows it cannot settle go on to the birationality machinery. So
-the fraction of facets that any linear-triangularity argument can reach is
-small on both readings, which is the substantive agreement underneath the
-disagreement about which small set it is.
+**New and worth naming, and it sharpens with scale:** BDR's own filter validates
+1, 1, 3, 5, 3, 5 and 3 rows of published systems of 4, 4, 31, 15, 52, 60 and 93.
+The count does not grow with the system. At `(3,10)` it settles **3 of 93**.
+
+That is the substantive result underneath the disagreement about which small set
+each criterion picks. Linear triangularity, on either reading, reaches a
+vanishing share of facets as rank rises, so it cannot be the route by which the
+birationality stage is discharged in general. It is a cheap partial validator,
+which is exactly how the upstream treats it: `LinearTriangular` is not in the
+default filter list, and the rows it cannot settle go on to the full
+birationality machinery.
 
 ## Scope
 
-Nothing here is uniform in `d`.
+Seven of the nine census systems are covered. `(3,6)` is declined by the
+upstream algorithm, for a reason recorded below. `(4,10)` and `(5,10)` are not
+covered here: `(4,10)` was still running when this was written and `(5,10)` had
+not started. Nothing here is uniform in `d`.
 
 > **SCOPE CORRECTION (2026-08-09), one day later.** The first version of this
 > section said four systems at `d <= 8`, because `(3,9)` "would mean running the
 > full BDR pipeline rather than one filter". That is true and it is not an
-> obstacle: the full pipeline runs `(3,9)` in about 20 seconds. The gate is
-> being extended to every census system the upstream algorithm accepts, with
-> rows for the unshipped ones computed by running `moment_cone(V)` end to end.
-> The section below records the pipeline and the one system it declines; the
-> comparison tables above still cover only the four shipped systems until the
-> extended artifact lands.
+> obstacle: the full pipeline runs `(3,9)` in about 20 seconds. The gate now
+> covers seven systems rather than four, with rows for the three unshipped ones
+> computed by running `moment_cone(V)` end to end.
 
 ## Running the whole pipeline, and what it costs
 

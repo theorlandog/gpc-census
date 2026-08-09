@@ -42,29 +42,74 @@ def systems(report: dict) -> dict:
     return {entry["system"]: entry for entry in report["systems"]}
 
 
-def test_external_backend_is_not_claimed_to_have_run(report: dict) -> None:
-    """The benchmark stays INCOMPLETE until the pinned backend actually runs."""
+def test_the_benchmark_is_complete_and_the_backend_ran(report: dict) -> None:
+    """The label is retired on evidence: the pinned backend was measured.
+
+    It was INCOMPLETE for a stated reason that turned out to be false, and then
+    for a true one, that no BDR timing had been taken. This pins the fix.
+    """
     completeness = report["benchmark_completeness"]
-    assert completeness["external_backend_executed"] is False
-    assert completeness["label"] == "INCOMPLETE"
-    assert completeness["what_prevented_it"]
-    assert report["external_pin"]["executed_here"] is False
+    assert completeness["external_backend_executed"] is True
+    assert completeness["label"] == "COMPLETE"
+    assert completeness["external_measurements"].endswith(
+        "bdr_external_benchmark.json"
+    )
+    assert report["external_pin"]["executed_here"] is True
     assert report["external_pin"]["pinned_revision"] == (
         "7ab347d9a7837d68d92bde9fac74606913f395ca"
     )
+    assert report["external_pin"]["license"].startswith("MIT")
 
 
-def test_no_external_runtime_or_candidate_counts_are_recorded(report: dict) -> None:
-    """No BDR stage figure may appear while the backend is unrunnable.
+def test_external_numbers_are_measured_not_estimated(report: dict) -> None:
+    """Every BDR figure traces to the external artifact, never to an estimate.
 
-    The prereg forbids estimating external numbers. A future session that runs
-    the backend must add those fields deliberately, and this test is where it
-    will notice.
+    The pre-registration forbids estimating external numbers. The external half
+    is post hoc and must say so, and it must never be scored against P1 to P6.
     """
+    head = report["head_to_head"]
+    assert head["rows"]
+    assert "post hoc" in head["not_preregistered"]
     for entry in report["systems"]:
         assert set(entry.keys()) >= {"full_path", "oracle_path"}
         assert "bdr_path" not in entry
         assert "external_path" not in entry
+    for prediction in report["predictions"]:
+        assert "bdr" not in json.dumps(prediction).lower()
+
+
+def test_the_measured_arm_is_named_and_its_limits_recorded(report: dict) -> None:
+    """The ratio is meaningless without the arm it was measured on."""
+    head = report["head_to_head"]
+    assert "probabilistic" in head["measured_arm"]
+    unavailable = head["exact_arm_unavailable"]
+    assert unavailable["available"] is False
+    assert unavailable["largest_variable_count_that_factors"] == 48
+    assert unavailable["smallest_variable_count_that_fails"] == 56
+    for system, needed in unavailable["variables_needed"].items():
+        assert needed > unavailable["largest_variable_count_that_factors"], system
+    assert "not a like-for-like" in head["caveat"]
+
+
+def test_bdr_lands_under_the_non_circular_ceiling(report: dict) -> None:
+    """The bound was measured before the backend ran; it held against it."""
+    systems = {entry["system"]: entry for entry in report["systems"]}
+    rank8 = systems["(3,8)"]
+    ceiling = rank8["birationality_prefilter_path"][
+        "speedup_if_external_enumeration_were_also_free"
+    ]
+    measured = report["head_to_head"]["rows"]["(3,8)"]["bdr_faster_by"]
+    assert 1.0 < measured < ceiling
+
+
+def test_bdr_reaches_the_filters_with_far_fewer_candidate_rows(report: dict) -> None:
+    """The candidate-volume question that was OPEN, now a number."""
+    row = report["head_to_head"]["rows"]["(3,8)"]
+    assert row["local_candidate_rows_screened"] == 6606
+    assert row["bdr_candidate_rows_reaching_the_filters"] == 173
+    assert row["local_candidate_rows_screened"] > (
+        30 * row["bdr_candidate_rows_reaching_the_filters"]
+    )
 
 
 @pytest.mark.parametrize("system", ["(3,6)", "(3,7)", "(3,8)"])

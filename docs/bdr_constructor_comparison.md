@@ -6,31 +6,35 @@ Pre-registration: `docs/prereg_bdr_constructor_comparison.md`, committed at
 `results/data/bdr_constructor_comparison.json`. Guard test:
 `tests/test_bdr_constructor_comparison.py`.
 
-> ## ❗ CORRECTION (2026-08-08), read before anything below
+> ## ❗ CORRECTION AND COMPLETION (2026-08-08 and 2026-08-09)
 >
 > This document claimed the pinned external implementation "could not be
 > fetched or run in this environment", and listed four blockers. **That
-> conclusion is false, and it was never tested.** The code is mirrored at
+> conclusion was false, and it was never tested.** The code is mirrored at
 > `github.com/ea-icj/moment_cone`, the session's repository-attachment path
 > serves it, the clone lands on the exact pinned revision
 > `7ab347d9a7837d68d92bde9fac74606913f395ca`, its licence is **MIT** (not
 > `not_verified`), and the upstream `passagemath` extra installs from PyPI into
-> a throwaway venv. The backend has been run. See
-> `docs/bdr_linear_triangular_gate.md` for the recipe and the results.
+> a throwaway venv.
 >
-> The **INCOMPLETE** label below is still correct, for a different reason: this
-> benchmark measures wall clock and stage counts, and no BDR timing has been
-> taken even now. Everything measured here remains valid. What was wrong is the
-> stated reason, and the four blockers are restated accurately in the section
-> below.
+> The backend has since been fetched, installed, and **measured**. The
+> **INCOMPLETE** label is retired: see "The external half, measured" below,
+> `results/data/bdr_external_benchmark.json`, and
+> `scripts/bdr_external_benchmark.py`. Everything measured before remains valid;
+> what was wrong is the stated reason, and the four blockers are restated
+> accurately in the section below.
+>
+> The external measurements are **post hoc**. The pre-registration scored P1 to
+> P6 on the local half only, and nothing in the external half is scored against
+> it.
 
 ## Headline
 
-🔬 The benchmark is **INCOMPLETE**: no BDR runtime, candidate count, or stage
-figure appears anywhere in this document or its artifact, because this
-benchmark never ran the external path.
+🟦 The benchmark is **COMPLETE**. Both halves are measured on one machine: the
+local pipeline and the pinned BDR backend running as its authors ship it.
 
-🟦 What was measured instead settles the practical question without it. Under
+🟦 The local half settles the practical question, and settled it before the
+external half existed. Under
 the standing rule that every row entering a published system carries a locally
 replayed exact certificate, the maximum speedup available to ANY external
 candidate generator was measured at ranks 7 and 8, and it is much smaller than
@@ -40,18 +44,95 @@ the raw candidate-count reduction suggests:
 
 | bound at `(3,8)` | speedup | what it assumes |
 |---|---|---|
-| perfect birationality prefilter alone | **1.82x** | local enumeration kept, every determinant-zero row removed for free |
-| plus free external candidate generation | **6.27x** | non-circular: the generator must still emit at least the certified rows |
-| oracle handed the final 31 facets | 16.38x | circular, unreachable at a new rank |
+| perfect birationality prefilter alone | **1.84x** | local enumeration kept, every determinant-zero row removed for free |
+| plus free external candidate generation | **5.80x** | non-circular: the generator must still emit at least the certified rows |
+| oracle handed the final 31 facets | 15.89x | circular, unreachable at a new rank |
 
 The middle row is the honest ceiling. It assumes the external generator is both
-free and perfect, and it is still only 6.27x, because the irreducible work is
-screening and reducing the 137 Ressayre-certified rows, which no external tool
-can remove without also deciding redundancy.
+free and perfect, and it is still under 6x, because the irreducible work is
+screening and reducing the Ressayre-certified rows, which no external tool can
+remove without also deciding redundancy.
 
 ❌ The one BDR step with no local counterpart, the birationality filter, is
-worth **1.82x at rank 8 even when it is free and perfect**. That is the number
+worth **1.84x at rank 8 even when it is free and perfect**. That is the number
 that decides the sprint.
+
+🟦 **And BDR, measured, lands inside those bounds.** Running as shipped it
+completes `(3,8)` in 6.80 s against this repository's 19.87 s, a factor of
+**2.92x**, comfortably under the 5.80x non-circular ceiling predicted before it
+was ever run. The prediction held against the real thing.
+
+❗ **But the comparison is not like for like, and the ratio must never be
+quoted without this.** The arm that runs here is BDR's probabilistic default;
+its exact arm cannot run in this environment at all. This repository is exact
+everywhere and ships a replayable certificate per row. BDR is faster partly
+because it did not pay for exactness.
+
+## The external half, measured
+
+Generating script: `scripts/bdr_external_benchmark.py`. Artifact:
+`results/data/bdr_external_benchmark.json`. Protocol matches the local half:
+one machine, single worker (the upstream default executor is Sequential), three
+repeats, reported with the spread, never averaged across machines. The machine
+was idle; every competing job was stopped first.
+
+| | `(3,7)` | `(3,8)` | `(3,9)` |
+|---|---:|---:|---:|
+| BDR total, median of 3 | **0.81 s** | **6.80 s** | **40.43 s** |
+| spread across repeats | 0.25 s | 0.83 s | 3.18 s |
+| local total | 2.35 s | 19.87 s | not measured |
+| BDR faster by | 2.90x | 2.92x | n/a |
+| BDR rows out | 4 | 32 | 53 |
+| local rows out | 4 | 31 | 52 |
+
+The row counts differ by exactly the structural row `lambda_d >= 0`, which
+upstream carries in the same list; the systems are set-equal, as
+`docs/bdr_linear_triangular_gate.md` establishes independently.
+
+### The candidate-volume question, which was OPEN, is now answered
+
+This was the sharpest unknown in the first version: whether BDR's 1-PS
+enumeration is cheaper than the local closed-flat enumeration, priced at zero
+in the bound and unmeasured in fact. It is not zero, and it is dramatically
+leaner in rows:
+
+| at `(3,8)` | local | BDR |
+|---|---:|---:|
+| candidate rows reaching the filters | 6,606 | **173** |
+| time to produce them | 7.40 s (enumeration) | 2.55 s (1-PS, submodule, stabilizer, inversions) |
+| time in the deciding filter | 9.73 s (exact screening) | 3.72 s (birationality) |
+
+BDR reaches the filters with **38x fewer candidate rows**. That is a real
+architectural difference, not a constant factor, and it is the reason its total
+is lower despite a slower runtime stack.
+
+❗ It does not overturn the recommendation, and the reason is the one the local
+half already established. Even priced at zero, external candidate generation
+tops out at 5.80x here, because screening and reducing the certified rows is
+the irreducible work. BDR's measured 2.92x sits below that ceiling, and BDR is
+not paying for exact certificates.
+
+### The exact arm does not run in this environment
+
+The like-for-like comparison would use BDR's `symbolic` methods. It cannot be
+made here, and this is measured rather than assumed. `Is_Ram_contracted`
+factorizes a univariate polynomial over the fraction field of `V.QV2`, a
+polynomial ring in `2 * binom(d, N)` variables: 70 at `(3,7)`, 112 at `(3,8)`,
+168 at `(3,9)`. libSingular in this passagemath build fails above roughly 48
+variables, on a polynomial as trivial as `z^2 - 1`:
+
+| variables | 16 | 32 | 40 | 48 | 56 | 70 | 112 |
+|---|---|---|---|---|---|---|---|
+| `(z^2 - 1).factor()` | ok | ok | ok | ok | **NotImplementedError** | fails | fails |
+
+At 64 and above it does not merely raise: Singular crashes and restarts.
+`symbolic_int` is not a third option, since `Is_Ram_contracted` and
+`is_not_contracted` both reject it with a `ValueError`.
+
+So the measured arm is BDR's probabilistic default. That is a legitimate thing
+to price, being what its authors ship and what a user would run. It is not a
+statement about which algorithm is faster at equal rigour, and this environment
+cannot make that statement.
 
 ## What was not done, precisely
 
@@ -101,7 +182,7 @@ rest stay marked secondary until someone reads them.
 | candidate generation | `TauCandidatesStep` calls `tau.find_1PS`, a recursive enumeration of one-parameter subgroups [secondary] | orbit-canonical closed-flat enumeration, one exact `(h,z)` per top-level `S_d` orbit (`generation.orbit_native`) | **No.** Different constructions of the same target set. Ours enumerates flats of the augmented exterior weights; theirs enumerates 1-PS. Neither is derived from the other here. |
 | admissibility | `SubModuleConditionStep` filters by `Tau.is_sub_module` [secondary] | affine rank `d-1` of the on-hyperplane exterior weights, by a modular nonzero minor with exact rational fallback | **No.** Both exact, different criteria. The local one is Ressayre admissibility directly. |
 | trace condition | `InequalityCandidatesStep` calls `List_Inv_Ws_Mod`, a deterministic partition recursion over compatible inversion sets [secondary] | `inv(sigma h) == B` with `B` an orbit invariant; survivors generated directly as arrangements of the multiset `h` with `B` inversions | **Yes, and this is the striking one.** Both are inversion-set enumerations over the same combinatorial object. |
-| determinant / birationality | `PiDominancy` and birationality filters, characterised by the in-repo audit as explicitly probabilistic in the pinned revision [secondary] | exact Bareiss determinant at a deterministic integer point, Hall matching pre-test, exact symbolic fallback; failure is `unresolved`, never a rejection | **No, and not adoptable as-is.** Theirs decides; ours must be fail-closed and exact. |
+| determinant / birationality | `PiDominancy` and `Is_Ram_contracted`, probabilistic by default (`random_deep` retries over `Q[i]`, break on full rank), with a `symbolic` flag that does not run in this environment [**source read, and executed**] | exact Bareiss determinant at a deterministic integer point, Hall matching pre-test, exact symbolic fallback; failure is `unresolved`, never a rejection | **No, and not adoptable as-is.** Theirs decides; ours must be fail-closed and exact. |
 | Weyl chamber orientation | dominant chamber, `H.lambda >= z` form | ordered slice `lambda_1 >= ... >= lambda_d`, `lambda_1 <= 1`, `lambda_d >= 0`, as a fundamental domain; negative type-A roots `e_j - e_i`, `i < j` | **Equivalent** under the convention map below. |
 | redundancy / minimality | produces the minimal list of inequalities for the representation | exact Farkas multipliers plus rational facet witnesses on the ordered slice, replayed in removal order | **Same claim, different evidence.** Only the local one ships a replayable certificate per removal and per retained row. |
 | completeness statement | minimal list for one fixed representation | fixed `(N,d)` completeness from `S_d` orbit coverage plus closed-form survivor count conservation | **Both fixed-representation.** Neither is uniform in `d`. See Task 6. |
@@ -214,11 +295,15 @@ averaged with any other machine, per the standing benchmark rule.
 
 Does the external method avoid the named work?
 
-- **Lower-flat enumeration.** Unknown, and the honest answer is 🔬 OPEN: BDR
-  enumerates 1-PS, not flats, so its cost is not comparable without running it.
-  The bound above prices it at zero and still lands at 6.27x.
-- **Top-level orbit canonicalization.** No evidence either way [secondary
-  source silent]. 🔬 OPEN.
+- **Lower-flat enumeration.** 🟦 **CLOSED, measured.** BDR enumerates 1-PS, not
+  flats. Its candidate generation costs 2.55 s at `(3,8)` against the local
+  7.40 s, and delivers 173 candidate rows to the filters against 6,606. So it
+  is both cheaper and far leaner, and the bound above, which priced it at zero,
+  was generous rather than unfair.
+- **Top-level orbit canonicalization.** 🔬 Still OPEN as a like-for-like
+  question. BDR has no separate canonicalization stage to time; its
+  `SetOfTauCpp` deduplicates inside `TauCandidatesStep`, which is included in
+  the 2.55 s above. There is no isolated number to compare.
 - **Trace-rejected orientations.** ❌ Already removed locally. The local
   constructor never materialises 326,233 of 332,840 rows at rank 8. There is no
   work here for BDR to take.
@@ -230,13 +315,20 @@ Does the external method avoid the named work?
 - **Redundant valid rows.** ❌ Cannot be avoided by any external generator that
   is not circular. Deciding that 106 of the 137 certified rows are redundant
   IS the reduction step.
-- **Determinant algebra.** Partly, and this is BDR's real offer: 1.82x at rank
-  8 when free and perfect.
+- **Determinant algebra.** Partly, and this is BDR's real offer: 1.84x at rank
+  8 when free and perfect. Measured, its birationality filter costs 3.72 s at
+  `(3,8)`, which is not free; and it is the probabilistic arm, so it is not
+  buying the same thing as the local exact screen.
 
 The single most useful number: the local pipeline already avoids **98.0
 percent** of the oriented rows at rank 8 before any screening happens. The
 candidate-count reduction an external generator can still offer is bounded by
 the 6,606 rows that remain, and 6,469 of those are determinant zeros.
+
+Measured, BDR takes almost all of that remaining reduction: it reaches the
+filters with 173 rows, not 6,606. The bound says taking it is worth at most
+5.80x, and BDR realises 2.92x of that while running a probabilistic filter
+where this repository runs an exact one.
 
 ## Task 5: the hybrid, and why it is not integrable
 
@@ -331,6 +423,10 @@ candidate generation is attacking the smaller half of the work.
 
 **Establishes.**
 
+- BDR's measured end-to-end cost, per-stage timings and candidate counts at
+  `(3,7)`, `(3,8)` and `(3,9)`, on the same idle machine as the local half.
+- That the pre-registered non-circular ceiling of 5.80x bounds the real thing:
+  BDR measured at 2.92x sits below it.
 - The exact convention map between the two representations, exercised on 36
   published rows with round trips that never use a sign flip.
 - That every published row of `(3,6)`, `(3,7)` and `(3,8)` recertifies locally
@@ -344,17 +440,18 @@ candidate generation is attacking the smaller half of the work.
 
 **Does not establish.**
 
-- Anything at all about BDR's actual runtime, candidate counts, or memory. This
-  benchmark did not run the backend. 🔬 OPEN, and now cheap to close: the
-  backend has since been fetched, installed and run for
-  `docs/bdr_linear_triangular_gate.md`, so the missing piece is a timing
-  harness, not access.
+- Memory, for either pipeline. 🔬 OPEN, and not measured here.
+- Anything about which algorithm is faster **at equal rigour**. BDR's exact arm
+  does not run in this environment, so the head-to-head is its probabilistic
+  default against the local exact pipeline. 🔬 OPEN, and not closable here.
 - That BDR's candidate enumeration is or is not cheaper than the local
   closed-flat orbit enumeration. Priced at zero in the bound, unmeasured in
   fact.
-- That the pinned revision's birationality filter is or is not probabilistic.
-  That characterisation is from the in-repo secondary audit and needs a source
-  read to confirm.
+- ~~That the pinned revision's birationality filter is or is not
+  probabilistic.~~ 🟦 **CLOSED by source read and by running it.** It is
+  probabilistic by default: `Is_Ram_contracted` and `is_not_contracted` both
+  default to `probabilistic` and retry `random_deep` times over `Q[i]`,
+  breaking on full rank. `symbolic` exists as a flag but does not run here.
 - Any statement uniform in `d`. Two ranks are two ranks.
 
 ## Recommendation
@@ -367,9 +464,11 @@ measurement, not an availability complaint.
 
 The original recommendation also leaned on "the external code cannot be pinned
 and reproduced here, so criterion 5 fails before any mathematics". **That leg is
-withdrawn:** criterion 5 is satisfiable, the code pins and reproduces here, and
-`docs/bdr_linear_triangular_gate.md` does exactly that for one filter. The
-recommendation is unchanged because the 1.82x and 6.27x bounds are unchanged.
+fully withdrawn:** criterion 5 is met. The code pins, installs, reproduces every
+published system it accepts, and has now been benchmarked end to end. The
+recommendation stands on the bounds alone, which is where it should always have
+stood, and it survives contact with the measured backend: 2.92x at rank 8, under
+the 5.80x ceiling, with a probabilistic filter where this repository is exact.
 
 The route is worth reopening under a checkable condition: if the composition and
 screening floor measured here stops dominating, or if the rank-11 bottleneck is

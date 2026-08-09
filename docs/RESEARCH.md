@@ -610,22 +610,29 @@ tests/test_chemistry_gpc_value_test.py; plots/]
 - bdr_constructor_comparison.md: the external-constructor comparison. Bounds
   what any external candidate generator can remove under the local
   certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
-  published rows of `(3,6)`, `(3,7)` and `(3,8)`, and labels the benchmark
-  INCOMPLETE because it took no BDR timing. ❗ Carries a correction: it
-  originally said the pinned backend could not be fetched or run here, which is
-  false and was never tested. See bdr_linear_triangular_gate.md.
+  published rows of `(3,6)`, `(3,7)` and `(3,8)`. 🟦 Now COMPLETE: the pinned
+  backend has been benchmarked end to end and BDR lands at 2.92x at (3,8),
+  under the 5.80x non-circular ceiling predicted before it ran. ❗ Carries a
+  correction: it originally said the pinned backend could not be fetched or run
+  here, which is false and was never tested. ⚠️ The measured arm is BDR's
+  probabilistic default because its exact arm does not run in this environment,
+  so the ratio is not like-for-like against this repository's exact pipeline.
   Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
-  artifact bdr_constructor_comparison.json; guard test
-  tests/test_bdr_constructor_comparison.py.
+  artifacts bdr_constructor_comparison.json and bdr_external_benchmark.json;
+  guard tests tests/test_bdr_constructor_comparison.py and
+  tests/test_bdr_external_benchmark.py.
 - bdr_linear_triangular_gate.md: GATE 2, and the first time the upstream BDR
   code has been executed in this repository. 🟦 The published irredundant
-  systems are confirmed against an independent source: set equality with the
-  upstream fermionic reference inequalities at (3,7), (4,7), (3,8) and (4,8),
-  4/4/31/15 rows, no published row missing, the only upstream extra being the
-  structural row. ❌ Refutes the untested claim that BDR's own filter is
-  strictly stronger than the DM `1 x 1` test: over 54 joined rows, 6 are DM
-  triangular and BDR-rejected while 6 are BDR-accepted with a single
-  irreducible block, so the criteria are incomparable. Artifacts
+  systems are confirmed against an independent source at seven of the nine
+  census systems: set equality at (3,7), (4,7), (3,8), (4,8), (3,9), (4,9) and
+  (3,10), 4/4/31/15/52/60/93 rows, no published row missing, the only extra being the
+  structural row, and (3,6) is declined by the upstream algorithm itself on BDR
+  Condition C. ❌ Refutes the untested claim that BDR's own filter is strictly
+  stronger than the DM `1 x 1` test: over 259 joined rows, 16 are DM triangular
+  and BDR-rejected while 12 are BDR-accepted with a larger irreducible block, so
+  the criteria are incomparable, and the disagreeing shapes recur at every rank.
+  ❗ BDR's filter validates 3 of 93 rows at (3,10), so linear triangularity
+  reaches a vanishing share of facets as rank rises. Artifacts
   bdr_external_linear_triangular.json and bdr_linear_triangular_gate.json;
   guard test tests/test_bdr_linear_triangular_gate.py.
 - infinite_wedge_tca_bridge.md: the stable-rank compression audit, with the
@@ -1799,11 +1806,12 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   half-filling specific. The earlier note that particle-hole duality applies at
   three of nine census systems was about `Theta` as an INTERNAL involution, not
   a claim that the architecture needs half filling.
-- 🔬 Claims resting on the BDR implementation are verifiable here and mostly
-  still unverified. bdr_constructor_comparison.md said the pinned backend could
-  not be fetched or run in this environment; that is false, it was never tested,
-  and the backend has since been run for one filter. See
-  bdr_linear_triangular_gate.md.
+- 🟦 Claims resting on the BDR implementation are now verifiable AND largely
+  verified. bdr_constructor_comparison.md said the pinned backend could not be
+  fetched or run in this environment; that is false and was never tested. The
+  backend has since been fetched, run across seven census systems, and
+  benchmarked end to end. See bdr_linear_triangular_gate.md and the benchmark
+  entry below.
 
 ## The closure certificate: the layer above the sandwich (2026-08-08)
 
@@ -1943,21 +1951,42 @@ tests/test_bdr_linear_triangular_gate.py]
   MIT, replacing the `not_verified` record. The claim of impossibility was never
   tested. The INCOMPLETE label on that benchmark stands, for the correct reason:
   it took no BDR timing.
-- 🟦 THE PUBLISHED SYSTEMS ARE EXTERNALLY CONFIRMED, for the first time. Joining
-  on primitive homogeneous `tau`, the repository's published irredundant systems
-  equal the upstream fermionic reference inequalities as sets at (3,7) 4 rows,
-  (4,7) 4 rows, (3,8) 31 rows and (4,8) 15 rows. No published row is absent
-  upstream. The only upstream extra is the structural row `(0,...,0,-1)`, which
-  is `lambda_d >= 0` and is stored separately here. The pipelines share no code
-  and enumerate different objects, so this is genuinely independent.
+- 🟦 THE PUBLISHED SYSTEMS ARE EXTERNALLY CONFIRMED, for the first time, at
+  SEVEN of the nine census systems. Joining on primitive homogeneous `tau`, the
+  published irredundant systems equal the upstream ones as sets at (3,7) 4,
+  (4,7) 4, (3,8) 31, (4,8) 15, (3,9) 52, (4,9) 60 and (3,10) 93 rows. No
+  published row is absent upstream anywhere. The only upstream extra, from
+  `d = 8` on, is the structural row `(0,...,0,-1)`, which is `lambda_d >= 0` and
+  is stored separately here. Four systems come from shipped reference data;
+  (3,9), (4,9) and (3,10) were computed by running the upstream pipeline end to
+  end under a fixed seed. The pipelines share no code, enumerate different
+  objects, and certify by different criteria, so this is genuinely independent.
+- ⚠️ (3,6) IS DECLINED BY THE UPSTREAM ALGORITHM, which says so itself:
+  `GeneralStabilizerDimensionCheck` raises because the generic stabilizer of K
+  in `wedge^3 C^6` has dimension 2, violating BDR Condition C (generic isotropy
+  of dimension one). Borland-Dennis is outside their scope and inside ours,
+  covered by the exhaustive reference gate. (4,10) and (5,10) are not covered
+  yet. Recorded in the artifact under `out_of_scope_upstream`.
 - ❌ CORRECTION TWO, MATHEMATICAL. The claim that BDR's filter is "strictly
-  stronger" than the DM `1 x 1` test is REFUTED. Over 54 joined analysable rows:
-  4 triangular on both readings, 6 fully DM triangular and BDR-rejected, 6
-  BDR-accepted with a single irreducible DM block, 38 failing both. Both
+  stronger" than the DM `1 x 1` test is REFUTED. Over 259 joined analysable
+  rows: 9 triangular on both readings, 16 fully DM triangular and BDR-rejected,
+  12 BDR-accepted with a larger irreducible DM block, 222 failing both. Both
   off-diagonal cells are nonempty, so neither criterion implies the other.
   Witnesses: `tau = (-2,1,1,1,1,-2,-2)` at (3,7) is BDR triangular with DM
   blocks `[4]`; `tau = (2,-1,-1,2,-4,-1,-1,-1)` at (3,8) is fully DM triangular
   and rejected.
+- 🟦 THE DISAGREEMENT IS STRUCTURAL, NOT SPORADIC. The same shapes disagree at
+  every rank with trailing entries extended: `(-2,1,1,1,1,-2,...)` is BDR-only
+  at all four `N = 3` systems with DM blocks `[4]` every time;
+  `(2,-1,...,-1,2,...)` is BDR-only with the DM block growing 6, 6, 8;
+  `(2,-1,-1,2,-4,-1,...)` is DM-only at orders 5, 6, 7. A larger census would
+  not wash this out.
+- ❗ BDR'S FILTER DOES NOT SCALE WITH THE SYSTEM: 1, 1, 3, 5, 3, 5 and 3 rows
+  validated out of published systems of 4, 4, 31, 15, 52, 60 and 93. At (3,10)
+  that is 3 of 93. Linear triangularity, on EITHER reading, reaches a vanishing
+  share of facets as rank rises, so it cannot be how the birationality stage is
+  discharged in general. Consistent with the upstream leaving `LinearTriangular`
+  out of its default filter list.
 - ❗ WHY THEY DIFFER, so the two are never conflated again. They are different
   objects. The local test factorizes the square Ressayre tangent matrix,
   positive weights against inversion roots. BDR's filter works on the weight
@@ -1971,9 +2000,57 @@ tests/test_bdr_linear_triangular_gate.py]
   15 published rows. So on both readings only a small minority of facets is
   reachable by any linear-triangularity argument, which is the substantive
   agreement underneath the disagreement about which minority it is.
-- ⚠️ SCOPE: four systems, all `d <= 8`, because those are the reference
-  inequalities upstream ships. (3,9) is not covered and nothing is uniform in
-  `d`.
+- 🔬 THE PIPELINE, recorded because the plan assumed it was unavailable. Seven
+  stages in `MomentConeStep.apply`: `GeneralStabilizerDimensionCheck`,
+  `TauCandidatesStep` (`find_1PS`), `SubModuleConditionStep`,
+  `StabilizerConditionStep`, `InequalityCandidatesStep` (`List_Inv_Ws_Mod`),
+  `TPiPreComputationStep`, the chosen filters, `ExportStep`. The filters are a
+  menu (`PiDominancy`, `LinearTriangular`, `BKRCondition`, `Birationality`,
+  `Grobner`) defaulting to `PiDominancy` then `Birationality`. Birationality is
+  `Is_Ram_contracted`: full column RANK of a rectangular matrix sliced from the
+  `T_Pi` tensor, probabilistic by default with symbolic available. That is a
+  different object from the square Ressayre tangent matrix used here, which is
+  part of why the two triangularity criteria came out incomparable. Clean
+  single-job wall clock: (3,7) 4.7 s, (3,8) 9.6 s, (3,9) 19.6 s, (3,10) 155 s,
+  (4,8) 8 s, (4,9) 80 s.
+- ⚠️ SCOPE: seven of nine census systems, and nothing is uniform in `d`.
+
+## The constructor benchmark is complete: BDR measured (2026-08-09)
+
+The gap that made `bdr_constructor_comparison` INCOMPLETE was BDR wall clock,
+candidate counts and stage figures. All three are now measured.
+[docs/bdr_constructor_comparison.md; results/data/bdr_external_benchmark.json;
+scripts/bdr_external_benchmark.py; tests/test_bdr_external_benchmark.py]
+
+- 🟦 MEASURED, idle machine, single worker, three repeats with the spread
+  reported. BDR totals (3,7) 0.81 s, (3,8) 6.80 s, (3,9) 40.43 s against local
+  2.35 s and 19.87 s at the first two: BDR is 2.90x and 2.92x faster end to end.
+- 🟦 THE PRE-REGISTERED BOUND HELD AGAINST THE REAL THING. The non-circular
+  ceiling on any external candidate generator was measured at 5.80x at (3,8)
+  before BDR was ever run. BDR measured 2.92x, inside it. The recommendation
+  not to integrate stands on the bounds, and the bounds survived contact.
+- 🟦 THE CANDIDATE-VOLUME QUESTION, previously OPEN, IS ANSWERED. At (3,8) BDR
+  reaches its filters with 173 candidate rows against this repository's 6,606,
+  taking 2.55 s against 7.40 s of local enumeration. That is an architectural
+  difference, not a constant factor, and it is why its total is lower despite a
+  slower runtime stack.
+- ⚠️ NOT LIKE FOR LIKE, and this travels with every ratio above. The arm that
+  runs is BDR's probabilistic default; this repository is exact everywhere and
+  ships a replayable certificate per row. BDR is faster partly because it did
+  not pay for exactness.
+- ❌ THE EXACT ARM DOES NOT RUN HERE, measured rather than assumed.
+  `Is_Ram_contracted` factorizes a univariate polynomial over the fraction field
+  of `V.QV2`, a ring in `2*binom(d,N)` variables (70, 112, 168 at the three
+  systems). libSingular in this passagemath build fails above 48 variables on
+  `z^2 - 1` itself and crashes outright from 64. `symbolic_int` is rejected by
+  both `Is_Ram_contracted` and `is_not_contracted`. So "which is faster at equal
+  rigour" is 🔬 OPEN and not closable in this environment.
+- 🟦 CLOSED BY SOURCE READ AND EXECUTION: the pinned revision's birationality
+  filter IS probabilistic by default, retrying `random_deep` times over `Q[i]`
+  and breaking on full rank. That was previously a secondary-source claim.
+- ⚠️ POST HOC. The pre-registration scored P1 to P6 on the local half only;
+  nothing external is scored against it, and a guard test asserts no prediction
+  record mentions BDR.
 
 ## Adjacent literature to respect
 
