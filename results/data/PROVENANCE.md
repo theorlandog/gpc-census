@@ -2354,3 +2354,32 @@ lower bounds on the candidate populations, not closed counts, and the
 REFUTATION carried in the same file: a bounded-hole arithmetic-level grammar is
 not a candidate-completeness rule. At rank 10 a one-hole budget reaches 838 of
 1337 orbits and a four-hole budget still misses 36.
+
+## profile_spread_cost.json (the rank cost of a wide level set)
+
+EVIDENCE FOR AN UNRESOLVED CONJECTURE, and labelled as such in the artifact.
+Written by `scripts/profile_spread_cost.py`, guarded by
+`tests/test_profile_spread_cost.py`, documented in
+`docs/profile_native_generation.md`. It measures `D(W)`, the least ambient rank
+carrying an admissible profile of level spread `W`, by minimising
+`sum_a min(m_a, N+1)` over every level profile of that spread. Theorem A makes
+that the right quantity: admissibility sees the multiplicity vector only through
+that cap and is monotone in it, so the minimum is exact for the profiles
+searched.
+
+SCOPE, and its direction is the whole point. The minimum is taken over profiles
+with at most `max_classes` classes, seven by default. A profile with more
+classes could be cheaper, so the table is an UPPER bound on `D` and cannot prove
+a spread bound at any rank on its own. What it shows is the mechanism behind
+Conjecture S: cost climbs monotonically from 4 at `W = 1` to 13 at `W = 22`,
+over 21 spreads with no dip, so a wide level set does cost rank rather than
+being free. `W = 19` carries no primitive profile at all in that range.
+
+CROSS-CHECK against `generator_frontier_refinement.json`, which records the
+exact realized maximum spread at ranks 6 to 10 as 3, 4, 6, 10 and 14. A profile
+of spread `W` existing at rank `d` forces the true `D(W) <= d`, so the ceiling
+must never sit below a realized rank. Zero violations. The two computations
+share the Theorem A predicate and nothing else.
+
+NOT CLAIMED. This does not prove Conjecture S, and it says nothing about
+facets: a profile is a candidate orbit.
