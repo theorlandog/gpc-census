@@ -6,6 +6,20 @@ from .admissible_flats import (
     rank_preserving_modulus,
 )
 
+from .chow_decoder import (
+    DecoderBudgetError,
+    ShadowDecoding,
+    ShadowUniquenessError,
+    SignedDecoding,
+    decode_shadow,
+    decode_signed_pair,
+)
+from .cocircuit import (
+    CocircuitEnumeration,
+    NodeLimitExceeded,
+    enumerate_cocircuit_hyperplanes,
+)
+
 from .candidate_pipeline import (
     CandidateScreeningCounts,
     CandidateScreeningResult,
@@ -62,6 +76,8 @@ __all__ = [
     "CandidateSystemInvariantError",
     "CandidateSystemResult",
     "CertificateSearchError",
+    "CocircuitEnumeration",
+    "DecoderBudgetError",
     "FacetWitnessCertificate",
     "FlatHyperplaneEnumeration",
     "FarkasRemovalCertificate",
@@ -71,15 +87,22 @@ __all__ = [
     "GeneratedSystem",
     "IntegralConstraint",
     "KnownSystemRegression",
+    "NodeLimitExceeded",
     "OrderedSliceReductionCertificate",
     "RessayreCertificate",
     "ScreenedCandidateRow",
+    "ShadowDecoding",
+    "ShadowUniquenessError",
+    "SignedDecoding",
     "StructuralPauliRow",
     "SymbolicFallbackOutcome",
     "UnresolvedCandidatesError",
     "certify_ordered_slice_redundancy",
     "compose_candidate_system",
+    "decode_shadow",
+    "decode_signed_pair",
     "enumerate_admissible_hyperplanes_by_flats",
+    "enumerate_cocircuit_hyperplanes",
     "full_dimension_certificate",
     "generate_3_6",
     "generate_fixed_n3_reference_rank",

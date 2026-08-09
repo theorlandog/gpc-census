@@ -180,6 +180,34 @@ Strict order, one gate per session minimum, prereg per gate:
    stage, which is where the next work goes.
    [docs/orbit_native_constructor.md; src/gpc_census/generation/orbit_native.py;
    tests/test_orbit_native.py]
+2d. DIRECT COCIRCUIT ENUMERATION, evaluated and NOT adopted as the production
+   route. Admissible-hyperplane enumeration is provably cocircuit enumeration
+   (C1), and a rank-pruned reverse search reproduces d = 5..8 pair for pair in
+   the `(h,z)` convention, with node counts matching an independent C++
+   prototype exactly. But it is unsymmetric: at (3,8) it emits 166,420
+   hyperplanes and visits 2,042,570 nodes where the augmentation enumerator
+   holds 313 orbit representatives, and the gap widens to 889,205,792 against
+   2,705 at rank 10. Keep it as an independent low-rank cross-check. An
+   external symmetry-native backend (TOPCOM 1.2.0b, Rambau arXiv:2607.05967)
+   would first produce something new only at (3,11), cannot be installed in CI
+   under the house rules, and its every output would need local re-derivation;
+   the cheaper move is to attack the augmentation enumerator's known cost
+   concentration, 78 percent of (3,9) time in the top level. Also landed here:
+   T4, T5 and the exact signed-Chow decoder, which closes the inversion gap
+   signed_chow_projection.md left open.
+   ROUND 2, arbitrary N: the theorems and the code are N-general. (4,7) and
+   (5,8) reproduce their (3,7)/(3,8) duals pair for pair, and all 61 published
+   higher-N representative normals at (4,8), (4,9), (4,10), (5,10) pass the
+   whole chain with oriented tau reconstruction. Two corrections came out of
+   it: the particle-hole reduction is exact but is NOT a size reduction, since
+   k -> m-k is a bijection on profiles, and the direct search does not complete
+   at (4,8) in 2,000,000 nodes, so the wall arrives earlier at half filling
+   than the N=3 ladder suggests.
+   [docs/cocircuit_chow_decoder.md; docs/prereg_cocircuit_chow_decoder.md;
+   results/data/cocircuit_chow_decoder.json;
+   results/data/cocircuit_chow_higher_n.json;
+   src/gpc_census/generation/cocircuit.py;
+   src/gpc_census/generation/chow_decoder.py]
 3. (3,8) gate: first rank with interference vertices; the honest stress test.
    Flat lattice already enumerated,
    [1, 56, 1540, 21420, 147630, 467082, 565208, 166420], 166,420 admissible

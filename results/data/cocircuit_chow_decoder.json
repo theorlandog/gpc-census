@@ -1,0 +1,225 @@
+{
+ "canonical_sha256_without_this_field_or_timings": "9d17d48de6bd2123d2a850194a9cac7563e29b6bc85b8350a8dd67fba5943e05",
+ "cocircuit": {
+  "5": {
+   "admissible_hyperplanes": 30,
+   "agrees_with_centered_convention_test": true,
+   "agrees_with_flat_lattice_pairwise": true,
+   "distinct_affine_pairs": 30,
+   "exterior_weights": 10,
+   "flat_lattice_hyperplanes": 30,
+   "nonstructural_trace_survivors": 8,
+   "particle_number": 3,
+   "rank": 5,
+   "rank_preserving_modulus": 257,
+   "reverse_search_nodes": 154,
+   "sd_unoriented_orbits": 4,
+   "seconds": 0.0,
+   "system": "(3,5)",
+   "trace_survivors": 10
+  },
+  "6": {
+   "admissible_hyperplanes": 362,
+   "agrees_with_centered_convention_test": true,
+   "agrees_with_flat_lattice_pairwise": true,
+   "distinct_affine_pairs": 362,
+   "exterior_weights": 20,
+   "flat_lattice_hyperplanes": 362,
+   "nonstructural_trace_survivors": 62,
+   "particle_number": 3,
+   "rank": 6,
+   "rank_preserving_modulus": 257,
+   "reverse_search_nodes": 2775,
+   "sd_unoriented_orbits": 8,
+   "seconds": 0.2,
+   "system": "(3,6)",
+   "trace_survivors": 64
+  },
+  "7": {
+   "admissible_hyperplanes": 5341,
+   "agrees_with_centered_convention_test": true,
+   "agrees_with_flat_lattice_pairwise": true,
+   "distinct_affine_pairs": 5341,
+   "exterior_weights": 35,
+   "flat_lattice_hyperplanes": 5341,
+   "nonstructural_trace_survivors": 547,
+   "particle_number": 3,
+   "rank": 7,
+   "rank_preserving_modulus": 257,
+   "reverse_search_nodes": 63136,
+   "sd_unoriented_orbits": 19,
+   "seconds": 5.8,
+   "system": "(3,7)",
+   "trace_survivors": 549
+  },
+  "8": {
+   "admissible_hyperplanes": 166420,
+   "agrees_with_centered_convention_test": true,
+   "agrees_with_flat_lattice_pairwise": true,
+   "distinct_affine_pairs": 166420,
+   "exterior_weights": 56,
+   "flat_lattice_hyperplanes": 166420,
+   "nonstructural_trace_survivors": 6605,
+   "particle_number": 3,
+   "rank": 8,
+   "rank_preserving_modulus": 257,
+   "reverse_search_nodes": 2042570,
+   "sd_unoriented_orbits": 56,
+   "seconds": 278.7,
+   "system": "(3,8)",
+   "trace_survivors": 6607
+  }
+ },
+ "cost_comparison": {
+  "cocircuit_hyperplanes": 166420,
+  "cocircuit_reverse_search_nodes": 2042570,
+  "cocircuit_seconds": 278.7,
+  "flat_lattice_flats_by_rank": [
+   1,
+   56,
+   1540,
+   21420,
+   147630,
+   467082,
+   565208,
+   166420
+  ],
+  "flat_lattice_seconds": 140.3,
+  "flat_lattice_stored_objects": 1369357,
+  "orbit_augmentation_hyperplanes": 166420,
+  "orbit_augmentation_orbits_by_rank": [
+   1,
+   1,
+   3,
+   11,
+   37,
+   87,
+   118,
+   56
+  ],
+  "orbit_augmentation_seconds": 10.1,
+  "orbit_augmentation_stored_objects": 314,
+  "system": "(3,8)"
+ },
+ "decoder": {
+  "6": {
+   "decode_failures": 0,
+   "degree_block_histogram_both_sides": {
+    "2": 14,
+    "3": 40,
+    "4": 70
+   },
+   "max_profile_variables": 10,
+   "max_search_states_per_side": 3,
+   "mean_search_states_per_side": 1.5645,
+   "particle_number": 3,
+   "rank": 6,
+   "rows": 62,
+   "seconds": 0.0,
+   "system": "(3,6)",
+   "tau_reconstruction_failures": 0
+  },
+  "7": {
+   "decode_failures": 0,
+   "degree_block_histogram_both_sides": {
+    "2": 18,
+    "3": 146,
+    "4": 502,
+    "5": 428
+   },
+   "max_profile_variables": 18,
+   "max_search_states_per_side": 5,
+   "mean_search_states_per_side": 2.1664,
+   "particle_number": 3,
+   "rank": 7,
+   "rows": 547,
+   "seconds": 0.6,
+   "system": "(3,7)",
+   "tau_reconstruction_failures": 0
+  },
+  "8": {
+   "decode_failures": 0,
+   "degree_block_histogram_both_sides": {
+    "2": 30,
+    "3": 444,
+    "4": 2654,
+    "5": 5348,
+    "6": 3976,
+    "7": 758
+   },
+   "max_profile_variables": 41,
+   "max_search_states_per_side": 37,
+   "mean_search_states_per_side": 6.5361,
+   "particle_number": 3,
+   "rank": 8,
+   "rows": 6605,
+   "seconds": 19.5,
+   "system": "(3,8)",
+   "tau_reconstruction_failures": 0
+  }
+ },
+ "decoder_stress": {
+  "10": {
+   "failures": 0,
+   "max_profile_variables": 120,
+   "max_search_states": 137,
+   "mean_search_states": 21.3667,
+   "rank": 10,
+   "seconds": 2.0,
+   "seed": 20260809,
+   "system": "(3,10)",
+   "trials": 300
+  },
+  "12": {
+   "failures": 0,
+   "max_profile_variables": 175,
+   "max_search_states": 253,
+   "mean_search_states": 46.82,
+   "rank": 12,
+   "seconds": 4.4,
+   "seed": 20260809,
+   "system": "(3,12)",
+   "trials": 200
+  },
+  "20": {
+   "failures": 0,
+   "max_profile_variables": 442,
+   "max_search_states": 1717,
+   "mean_search_states": 314.92,
+   "rank": 20,
+   "seconds": 18.5,
+   "seed": 20260809,
+   "system": "(3,20)",
+   "trials": 50
+  },
+  "8": {
+   "failures": 0,
+   "max_profile_variables": 56,
+   "max_search_states": 53,
+   "mean_search_states": 7.54,
+   "rank": 8,
+   "seconds": 0.7,
+   "seed": 20260809,
+   "system": "(3,8)",
+   "trials": 500
+  }
+ },
+ "generated_by": "scripts/cocircuit_chow_decoder.py",
+ "machine": {
+  "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "python": "3.14.0rc2"
+ },
+ "measured_not_proved": {
+  "decoder_complexity": "No worst-case bound is claimed for the profile search. The stress block records how the maximum state count grows with rank and it grows; treat it as a measurement, never a bound.",
+  "downstream_gates_untouched": "Cocircuit output is discovery data. Facetness, Hall, exact determinant, BDR birationality, redundancy and completeness are unchanged and still mandatory.",
+  "symmetric_cocircuit_enumeration": "The direct search here is unsymmetric, so it emits every hyperplane rather than every orbit. Cocircuit enumeration up to S_d is not implemented and rank 9 and above remain orbit_canonical's job."
+ },
+ "schema_version": 1,
+ "status": "independent_backend_and_constructive_decoder",
+ "theorems": {
+  "C1_cocircuit_equivalence": "Every exterior weight has coordinate sum n, so the affine hull of the slice misses the origin and affine rank d-2 is linear rank d-1. An admissible zero family is therefore a maximal coplanar subset of linear rank d-1, that is a cocircuit zero set, and conversely. Proved.",
+  "T4_block_symmetry": "If c_+(tau)_i == c_+(tau)_j then transposing orbitals i and j fixes c_+, so by T1 it fixes B_+ itself. B_+ is a union of occupancy profiles over the equal-degree blocks. Proved.",
+  "T5_block_constant_separator": "Averaging a separator over the product of symmetric groups on the equal-degree blocks preserves the strict-positive family and is block constant; T2 orders its levels by c_+; Abel summation then makes the selected profiles an upper ideal in prefix-sum dominance. Proved."
+ }
+}

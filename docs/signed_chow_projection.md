@@ -109,14 +109,31 @@ a measurement, with zero collisions on 142,493 rows, and the earlier audits'
 injectivity claim sits at exactly this conjectural level. The signed pair, by
 contrast, determines the normal by theorem.
 
-**Decoding.** T1 is an existence-and-uniqueness statement, not an algorithm.
-Recovering `B_+` from a bare `c_+` is the Chow-parameters inversion problem and
-is not solved here. This is the one place where "encoded by `2d` integers" can
-mislead: the encoding is information-theoretically complete, while inversion is
-a separate and nontrivial problem. T2 is the practical lever, since it fixes
-the orbital order before any search begins. Certificate *verification* needs no
-inversion at all: given a claimed `tau` and a shadow, one pass over the slice
-recomputes the pair, and T3 turns a match into uniqueness.
+**Decoding. SOLVED SINCE, 2026-08-09; see
+`docs/cocircuit_chow_decoder.md`.** The paragraph below is kept as written
+because it states the problem correctly, and because the shape of the gap is
+what the solution had to fill.
+
+> T1 is an existence-and-uniqueness statement, not an algorithm. Recovering
+> `B_+` from a bare `c_+` is the Chow-parameters inversion problem and is not
+> solved here. This is the one place where "encoded by `2d` integers" can
+> mislead: the encoding is information-theoretically complete, while inversion
+> is a separate and nontrivial problem. T2 is the practical lever, since it
+> fixes the orbital order before any search begins. Certificate *verification*
+> needs no inversion at all: given a claimed `tau` and a shadow, one pass over
+> the slice recomputes the pair, and T3 turns a match into uniqueness.
+
+Two further theorems close it. T4: equal coordinates of `c_+` force the
+corresponding orbital transposition to fix `B_+` itself, by T1, so `B_+` is a
+union of occupancy profiles over the equal-degree blocks. T5: averaging a
+separator over the symmetric groups of those blocks preserves `B_+` and gives a
+block-constant separator whose levels are `c_+`-ordered by T2, so the selected
+profiles form an upper ideal in prefix-sum dominance. What remains is an exact
+0/1 system in the profiles, solved by
+`gpc_census.generation.chow_decoder.decode_signed_pair` with zero failures on
+every nonstructural trace survivor at ranks 6, 7 and 8, and with the primitive
+`tau` reconstructed on every row. There is still no complexity bound, and the
+absence of one is measured rather than glossed.
 
 ## Verification
 
