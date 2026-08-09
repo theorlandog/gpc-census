@@ -48,14 +48,40 @@ EXTERNAL_DEFAULT = ROOT / "results/data/bdr_external_linear_triangular.json"
 GATE_DEFAULT = ROOT / "results/data/bdr_linear_triangular_gate.json"
 
 # Upstream ships fermionic reference inequalities for exactly these systems.
-EXTERNAL_SYSTEMS = (
+SHIPPED_SYSTEMS = (
     ("(3,7)", "ineq_Fermion_7_p3", 3, 7),
     ("(4,7)", "ineq_Fermion_7_p4", 4, 7),
     ("(3,8)", "ineq_Fermion_8_p3", 3, 8),
     ("(4,8)", "ineq_Fermion_8_p4", 4, 8),
 )
 
+# Census systems with no shipped reference data. The upstream pipeline computes
+# them from scratch, which is what ``--compute`` does. ``(3,6)`` is deliberately
+# absent: the upstream algorithm refuses it, because the generic isotropy of K
+# in wedge^3 C^6 is two dimensional and BDR Condition C fails. That is a scope
+# limit of their method, not a disagreement, and it is recorded as such.
+COMPUTED_SYSTEMS: tuple[tuple[str, int, int], ...] = (
+    ("(3,9)", 3, 9),
+    ("(4,9)", 4, 9),
+    ("(3,10)", 3, 10),
+)
+
+# Systems the upstream algorithm declines, with its own message. Recorded so the
+# gap in the cross-validation is a documented scope limit and not a silent hole.
+OUT_OF_SCOPE_UPSTREAM = {
+    "(3,6)": (
+        "GeneralStabilizerDimensionCheck raises: the general stabilizer of K "
+        "in V is of dimension 2, and the upstream algorithm requires generic "
+        "isotropy of dimension one (BDR Condition C). (3,6) is Borland-Dennis, "
+        "covered here by the exhaustive reference gate in "
+        "docs/stage1_ressayre_3_6.md."
+    ),
+}
+
+EXTERNAL_SYSTEMS = SHIPPED_SYSTEMS
+
 PINNED_REVISION = "7ab347d9a7837d68d92bde9fac74606913f395ca"
+PIPELINE_SEED = 20260809
 
 
 # --------------------------------------------------------------------------
@@ -63,49 +89,90 @@ PINNED_REVISION = "7ab347d9a7837d68d92bde9fac74606913f395ca"
 # --------------------------------------------------------------------------
 
 
-def external_verdicts() -> dict:
-    """Run upstream ``is_linear_triangular`` on every shipped fermionic row."""
-    import importlib
-    import platform
-
+def _rows_from_inequalities(representation, inequalities) -> list[dict]:
     from moment_cone.linear_triangular import is_linear_triangular  # type: ignore
 
-    systems = {}
-    for name, module_name, particles, orbitals in EXTERNAL_SYSTEMS:
-        reference = importlib.import_module(
-            f"moment_cone.reference_datas.{module_name}"
+    rows = []
+    for inequality in inequalities:
+        inversions = list(inequality.inversions)
+        rows.append(
+            {
+                "tau": [int(value) for value in str(inequality.wtau).split()],
+                "dominant_tau": [int(value) for value in str(inequality.tau).split()],
+                "inversion_count": len(inversions),
+                "bdr_linear_triangular": bool(
+                    is_linear_triangular(representation, inequality.tau, inversions)
+                ),
+            }
         )
-        representation = reference.V
-        rows = []
-        for inequality in reference.inequalities:
-            inversions = list(inequality.inversions)
-            rows.append(
-                {
-                    "tau": [int(value) for value in str(inequality.wtau).split()],
-                    "dominant_tau": [
-                        int(value) for value in str(inequality.tau).split()
-                    ],
-                    "inversion_count": len(inversions),
-                    "bdr_linear_triangular": bool(
-                        is_linear_triangular(
-                            representation, inequality.tau, inversions
-                        )
-                    ),
-                }
-            )
-        rows.sort(key=lambda row: row["tau"])
-        systems[name] = {
-            "system": name,
-            "particle_number": particles,
-            "orbitals": orbitals,
-            "reference_module": f"moment_cone.reference_datas.{module_name}",
-            "representation_dimension": int(representation.dim),
-            "rows": rows,
-            "row_count": len(rows),
-            "bdr_linear_triangular_rows": sum(
-                row["bdr_linear_triangular"] for row in rows
-            ),
-        }
+    rows.sort(key=lambda row: row["tau"])
+    return rows
+
+
+def _system_record(name, particles, orbitals, representation, rows, source) -> dict:
+    return {
+        "system": name,
+        "particle_number": particles,
+        "orbitals": orbitals,
+        "source": source,
+        "representation_dimension": int(representation.dim),
+        "rows": rows,
+        "row_count": len(rows),
+        "bdr_linear_triangular_rows": sum(row["bdr_linear_triangular"] for row in rows),
+    }
+
+
+def external_verdicts() -> dict:
+    """Run upstream ``is_linear_triangular`` on every fermionic row we can get.
+
+    Rows come from two places. Systems upstream ships as reference data are read
+    from it. Systems it does not ship are computed by running the upstream
+    pipeline end to end, which is `moment_cone(V)` with its default filters,
+    `PiDominancy` then `Birationality`. Both paths then go through the same
+    criterion, so the join downstream does not care which produced a row.
+    """
+    import importlib
+    import platform
+    import time
+
+    systems = {}
+    for name, module_name, particles, orbitals in SHIPPED_SYSTEMS:
+        reference = importlib.import_module(f"moment_cone.reference_datas.{module_name}")
+        record = _system_record(
+            name,
+            particles,
+            orbitals,
+            reference.V,
+            _rows_from_inequalities(reference.V, reference.inequalities),
+            f"shipped reference data: moment_cone.reference_datas.{module_name}",
+        )
+        systems[name] = record
+
+    for name, particles, orbitals in COMPUTED_SYSTEMS:
+        from moment_cone import FermionRepresentation, LinearGroup, moment_cone
+        from moment_cone.parallel import Parallel
+
+        Parallel.configure()
+        # A fixed seed, because the default PiDominancy and Birationality
+        # methods are probabilistic. Their failure mode is rejecting a valid
+        # row, so a fixed seed makes the recorded system reproducible; the set
+        # comparison against the published system is what checks it.
+        representation = FermionRepresentation(
+            LinearGroup([orbitals]), particle_cnt=particles, seed=PIPELINE_SEED
+        )
+        started = time.perf_counter()
+        dataset = moment_cone(representation, quiet=True)
+        seconds = time.perf_counter() - started
+        record = _system_record(
+            name,
+            particles,
+            orbitals,
+            representation,
+            _rows_from_inequalities(representation, list(dataset.validated())),
+            "computed by the upstream pipeline (default filters)",
+        )
+        record["pipeline_seconds"] = round(seconds, 1)
+        systems[name] = record
 
     return {
         "schema_version": 1,
@@ -118,12 +185,15 @@ def external_verdicts() -> dict:
             "entry_point": "moment_cone.linear_triangular.is_linear_triangular",
             "call_site": "LinearTriangularStep.apply in moment_cone/main_steps.py",
             "runtime": "passagemath (modularized SageMath fork) on CPython",
+            "pipeline_entry_point": "moment_cone.moment_cone",
+            "pipeline_default_filters": ["PiDominancy", "Birationality"],
             "executed_here": True,
         },
         "machine": {
             "platform": platform.platform(),
             "python": platform.python_version(),
         },
+        "out_of_scope_upstream": OUT_OF_SCOPE_UPSTREAM,
         "systems": systems,
     }
 
@@ -200,8 +270,9 @@ def compare(external: dict) -> dict:
     systems = {}
     agreement: collections.Counter = collections.Counter()
 
-    for name, _module, particles, orbitals in EXTERNAL_SYSTEMS:
-        external_system = external["systems"][name]
+    for name, external_system in sorted(external["systems"].items()):
+        particles = external_system["particle_number"]
+        orbitals = external_system["orbitals"]
         external_by_tau = {
             tuple(row["tau"]): row for row in external_system["rows"]
         }
@@ -243,6 +314,7 @@ def compare(external: dict) -> dict:
             "system": name,
             "particle_number": particles,
             "orbitals": orbitals,
+            "external_source": external_system.get("source", "shipped reference data"),
             "published_rows": len(local_set),
             "external_rows": len(external_set),
             "rows_in_both": len(local_set & external_set),
@@ -400,8 +472,17 @@ def main() -> int:
 
 
 def _canonical(payload: dict) -> str:
+    """Stable hash over the mathematics, excluding machine and wall clock.
+
+    Timings are excluded for the same reason the gate-4 script excludes them:
+    a rerun that reproduces every number should hash identically, and wall
+    clock never does. Contention with other jobs on the same box would
+    otherwise change the hash without changing a single verdict.
+    """
     hashable = json.loads(json.dumps(payload))
     hashable.pop("machine", None)
+    for record in hashable.get("systems", {}).values():
+        record.pop("pipeline_seconds", None)
     return hashlib.sha256(
         json.dumps(hashable, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
