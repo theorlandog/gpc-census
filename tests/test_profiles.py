@@ -379,17 +379,36 @@ def test_generator_frontier_refinement_calibration_is_exact():
 
 
 def test_generator_frontier_refinement_keeps_its_labels_honest():
-    """The spread bound stays UNRESOLVED and rank 11+ stays CONDITIONAL.
+    """Theorem S bounds the spread; it does NOT make rank 11 unconditional.
 
-    Theorem S settles the spread bound, but the shipped artifact predates it.
-    The label flips, and gains a ``proved_spread_bound`` per row, when the
-    artifact is regenerated; this guard moves with it, not before it.
+    The label says PROVED FINITE, because it is, but the proved bound is five
+    orders of magnitude above the spread these runs use, so the frontier rows
+    stay conditional and have to keep saying so. The pairing is the point: a
+    bound that is proved and a bound that is used are different objects here.
     """
     labels = _artifact()["proof_labels"]
-    assert labels["spread_bound"].startswith("UNRESOLVED")
+    assert labels["spread_bound"].startswith("PROVED FINITE")
     assert labels["bounded_hole_grammar_as_completeness_rule"] == "REFUTED"
     assert labels["rank_11_to_13_candidate_universe"].startswith("CONDITIONAL")
     assert _artifact()["frontier_is_conditional_on_spread_bound"]
+
+
+def test_generator_frontier_refinement_runs_below_the_proved_bound():
+    """Every row records the proved bound, and every run sits strictly inside it.
+
+    A row whose ``max_spread`` reached ``proved_spread_bound`` would be
+    unconditionally complete, which no run in this artifact is. If one ever is,
+    this is where it stops being invisible.
+    """
+    artifact = _artifact()
+    rows = artifact["calibration"] + artifact["cross_particle_number"]
+    rows += artifact["frontier"]
+    assert rows
+    for row in rows:
+        proved = row["proved_spread_bound"]
+        assert proved == spread_bound(row["particle_number"], row["rank"])
+        assert row["realized_max_spread"] <= proved
+        assert row["max_spread"] < proved
 
 
 def test_generator_frontier_refinement_records_the_hole_refutation():
