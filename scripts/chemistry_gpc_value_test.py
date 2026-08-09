@@ -1612,26 +1612,39 @@ def main(argv=None):
     payload = {"generated_by": "scripts/chemistry_gpc_value_test.py",
                "quick": args.quick}
     t0 = time.time()
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+
+    def checkpoint():
+        """Write after every section: a late failure must not discard the work."""
+        payload["seconds"] = round(time.time() - t0, 1)
+        tmp = args.out + ".part"
+        with open(tmp, "w") as fh:
+            json.dump(payload, fh, indent=1, sort_keys=True)
+        os.replace(tmp, args.out)
+
     for part in args.merge:
         with open(part) as fh:
             payload.update(json.load(fh))
+    payload["selection_subspace_scaling"] = selection_subspace_census()
+    checkpoint()
     if args.only in ("all", "e0"):
         payload["experiment0_selection_rule"] = experiment0(args.quick)
+        checkpoint()
     if args.only in ("all", "e123"):
         recs, fails = run_batteries(args.quick)
         payload["records"] = recs
         payload["failures"] = fails
+        for r in recs:
+            r["simple_diagnostics"] = simple_diagnostics(np.array(r["lambda"]),
+                                                         r["n"])
+        checkpoint()
+    payload["experiment5_spin_forced_facets"] = experiment5(args.quick)
+    checkpoint()
+    payload["experiment6_spin_polytope"] = experiment6(args.quick)
+    checkpoint()
     if args.only in ("all", "e3"):
         payload["experiment3_quasipinning"] = experiment3(args.quick)
-    payload["selection_subspace_scaling"] = selection_subspace_census()
-    payload["experiment5_spin_forced_facets"] = experiment5(args.quick)
-    payload["experiment6_spin_polytope"] = experiment6(args.quick)
-    for r in payload.get("records", []):
-        r["simple_diagnostics"] = simple_diagnostics(np.array(r["lambda"]), r["n"])
-    payload["seconds"] = round(time.time() - t0, 1)
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    with open(args.out, "w") as fh:
-        json.dump(payload, fh, indent=1, sort_keys=True)
+        checkpoint()
     made = make_plots(payload, args.plots)
     print(f"wrote {args.out} in {payload['seconds']}s; plots: {made}")
     return 0
@@ -1788,8 +1801,6 @@ def experiment5(quick: bool = False) -> list[dict]:
     return out
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
 
 
 # ---------------------------------------------------------------------------
@@ -1910,3 +1921,7 @@ def experiment6(quick: bool = False) -> dict:
             "worst_direction": rows[int(np.argmax(gaps))]["c"] if rows else None,
         })
     return out
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
