@@ -289,7 +289,118 @@ def khovanskii_held_out() -> str:
     return "\n".join(lines)
 
 
+def _cocircuit_payload():
+    return read_json(DATA / "cocircuit_chow_decoder.json")
+
+
+def cocircuit_populations() -> str:
+    """Populations found by direct cocircuit reverse search, per rank."""
+    payload = _cocircuit_payload()
+    lines = [
+        "| System | Weights | Admissible hyperplanes | `S_d` orbits | "
+        "Reverse-search nodes | Trace survivors | Nonstructural | "
+        "Pairwise match | Trace test match |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+    ]
+    for key in sorted(payload["cocircuit"], key=int):
+        row = payload["cocircuit"][key]
+        convention = row["agrees_with_centered_convention_test"]
+        lines.append(
+            f"| `{row['system']}` | {row['exterior_weights']} | "
+            f"{row['admissible_hyperplanes']} | {row['sd_unoriented_orbits']} | "
+            f"{row['reverse_search_nodes']} | {row['trace_survivors']} | "
+            f"{row['nonstructural_trace_survivors']} | "
+            f"{'yes' if row['agrees_with_flat_lattice_pairwise'] else 'NO'} | "
+            f"{'yes' if convention else 'not run' if convention is None else 'NO'} |"
+        )
+    return "\n".join(lines)
+
+
+def cocircuit_cost() -> str:
+    """The three enumerators that reach the same rank-`d-1` objects."""
+    payload = _cocircuit_payload()
+    cost = payload.get("cost_comparison") or {}
+    if not cost:
+        return "_The artifact was written with `--skip-cost`; no comparison recorded._"
+    machine = payload.get("machine") or {}
+    lines = [
+        f"At `{cost['system']}`, one machine, all three reaching the same "
+        "codimension-one objects:",
+        "",
+        "| Enumerator | Objects it must hold | Seconds |",
+        "| --- | ---: | ---: |",
+        f"| direct cocircuit reverse search | "
+        f"{cost['cocircuit_reverse_search_nodes']} search nodes, "
+        f"{cost['cocircuit_hyperplanes']} hyperplanes | "
+        f"{_fmt(cost['cocircuit_seconds'])} |",
+        f"| materialising closed-flat lattice | "
+        f"{cost['flat_lattice_stored_objects']} flats | "
+        f"{_fmt(cost['flat_lattice_seconds'])} |",
+        f"| orbit-canonical augmentation | "
+        f"{cost['orbit_augmentation_stored_objects']} orbit representatives | "
+        f"{_fmt(cost['orbit_augmentation_seconds'])} |",
+        "",
+        f"Flat lattice by rank: `{cost['flat_lattice_flats_by_rank']}`. "
+        f"Orbits by rank: `{cost['orbit_augmentation_orbits_by_rank']}`, "
+        f"expanding to {cost['orbit_augmentation_hyperplanes']} hyperplanes.",
+        "",
+        f"_Machine: {machine.get('platform')}, Python {machine.get('python')}. "
+        "Reported per machine, never averaged._",
+        "",
+        "_Caveat, stated because it cuts against the conclusion: the cocircuit "
+        "backend is a first implementation and the other two have been "
+        "optimized repeatedly, so the seconds column flatters neither side "
+        "fairly. The object counts do not depend on optimization effort, and "
+        "they are the finding._",
+    ]
+    return "\n".join(lines)
+
+
+def cocircuit_decoder() -> str:
+    """Full-population signed-Chow decoding, per system."""
+    payload = _cocircuit_payload()
+    lines = [
+        "| System | Signed rows | Decode failures | Primitive-`tau` failures | "
+        "Max profile variables | Max states per side | Mean states per side |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for key in sorted(payload["decoder"], key=int):
+        row = payload["decoder"][key]
+        lines.append(
+            f"| `{row['system']}` | {row['rows']} | {row['decode_failures']} | "
+            f"{row['tau_reconstruction_failures']} | "
+            f"{row['max_profile_variables']} | "
+            f"{row['max_search_states_per_side']} | "
+            f"{_fmt(row['mean_search_states_per_side'], '%.4g')} |"
+        )
+    return "\n".join(lines)
+
+
+def cocircuit_stress() -> str:
+    """Random threshold-shadow stress, which is not a candidate count."""
+    payload = _cocircuit_payload()
+    stress = payload.get("decoder_stress") or {}
+    if not stress:
+        return "_The artifact was written with `--skip-stress`; no stress recorded._"
+    lines = [
+        "| System | Trials | Failures | Max search states | Max profile variables |",
+        "| --- | ---: | ---: | ---: | ---: |",
+    ]
+    for key in sorted(stress, key=int):
+        row = stress[key]
+        lines.append(
+            f"| `{row['system']}` | {row['trials']} | {row['failures']} | "
+            f"{row['max_search_states']} | {row['max_profile_variables']} |"
+        )
+    return "\n".join(lines)
+
+
 BLOCKS = {
+    "cocircuit-populations": (
+        DOCS / "cocircuit_chow_decoder.md", cocircuit_populations),
+    "cocircuit-cost": (DOCS / "cocircuit_chow_decoder.md", cocircuit_cost),
+    "cocircuit-decoder": (DOCS / "cocircuit_chow_decoder.md", cocircuit_decoder),
+    "cocircuit-stress": (DOCS / "cocircuit_chow_decoder.md", cocircuit_stress),
     "khovanskii-rank-growth": (
         DOCS / "equivariant_khovanskii_sagbi.md", khovanskii_rank_growth),
     "khovanskii-valuations": (

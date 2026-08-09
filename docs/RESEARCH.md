@@ -709,7 +709,20 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   reconstruction and zero collisions. ❗ Keeps the span hypothesis, the
   c_+-alone separation, and the absence of a decoder explicitly on the measured
   side. Artifact signed_chow_projection.json; guard test
-  tests/test_signed_chow_projection.py.
+  tests/test_signed_chow_projection.py. The decoder gap is CLOSED by
+  cocircuit_chow_decoder.md; the other two caveats stand.
+- cocircuit_chow_decoder.md: T4, T5 and the decoder that closes the Chow
+  inversion gap, plus C1, which says admissible-hyperplane enumeration IS
+  cocircuit enumeration, plus an independent reverse-search backend agreeing
+  pair for pair at ranks 5 to 8. Also the scored refusal: the direct route is
+  unsymmetric and therefore a low-rank cross-check, not a replacement for the
+  orbit-canonical enumerator, and the recommendation to stop improving the
+  latter is declined with a cost table. Pre-registration in
+  prereg_cocircuit_chow_decoder.md, which discloses that it is INFORMED rather
+  than blind; artifact cocircuit_chow_decoder.json; standalone replay in
+  scripts/verify_cocircuit_chow_decoder_standalone.py, which brute-forces the
+  low ranks and evaluates T1 exhaustively over all 2^20 subfamilies at (3,6);
+  guard test tests/test_cocircuit_chow_decoder.py.
 - rank9_compression_audit.md: THE DECISIVE TEST, run. Regenerates the rank-7
   and rank-8 population gates the previous bundle could only re-read, exactly,
   then classifies the complete rank-9 population: 135,343 trace survivors, 371
@@ -1698,7 +1711,76 @@ scripts/signed_chow_projection.py; tests/test_signed_chow_projection.py]
   algorithm; inverting a bare `c_+` is the Chow-parameters problem and is not
   solved here. T2 is the practical lever. Certificate VERIFICATION needs no
   inversion: one pass over the slice recomputes the pair, and T3 upgrades a
-  match to uniqueness.
+  match to uniqueness. SUPERSEDED 2026-08-09 by T4 and T5, below: there is now
+  a decoder, and it is exact.
+
+## The Chow decoder, and a cocircuit route that is a cross-check and not a replacement (2026-08-09)
+
+An external bundle proposed two things: reformulate admissible-hyperplane
+discovery as direct cocircuit enumeration, and decode the signed Chow shadow
+constructively. It was replayed in full first, its `(3,7)` and `(3,8)` survivor
+sets are SET-IDENTICAL to this repository's own, and both halves were then
+reimplemented here from the mathematics. One half is adopted, the other is
+scored down. [docs/cocircuit_chow_decoder.md;
+docs/prereg_cocircuit_chow_decoder.md;
+results/data/cocircuit_chow_decoder.json;
+scripts/cocircuit_chow_decoder.py;
+scripts/verify_cocircuit_chow_decoder_standalone.py;
+tests/test_cocircuit_chow_decoder.py]
+
+- 🟨 T4 BLOCK SYMMETRY, PROVED, and it is one line given T1. If
+  `c_+(tau)_i = c_+(tau)_j` then the transposition of `i` and `j` fixes `c_+`,
+  so the permuted family has the same shadow, so T1 forces it to BE `B_+`.
+  Hence `B_+` is invariant under the full product of symmetric groups on the
+  equal-degree blocks, and membership depends only on a determinant's occupancy
+  profile across those blocks. The unknown collapses from a subset of
+  `binom(d,N)` determinants to a subset of the profiles: at most 41 of them at
+  `(3,8)`, against a 56-element slice.
+- 🟨 T5 BLOCK-CONSTANT SEPARATOR, PROVED. Averaging a separator over that group
+  preserves the strict-positive family and is block constant; T2 orders its
+  levels by `c_+`; Abel summation then makes the value monotone in prefix-sum
+  dominance, so the selected profiles are an UPPER IDEAL. That is the search
+  space, and it is a theorem rather than a heuristic restriction.
+- 🟦 THE DECODER WORKS, 7,214 signed rows, every nonstructural trace survivor
+  at `(3,6)`, `(3,7)` and `(3,8)`: zero decode failures, zero primitive-`tau`
+  reconstruction failures. The exact 0/1 system is
+  `sum_k q_a(k) x_k = c_a` with
+  `q_a(k) = C(m_a-1,k_a-1) prod_{b!=a} C(m_b,k_b)`, solved with upper-ideal
+  propagation and integer bounds. It cannot return a wrong answer: a solution
+  induces a family with the given shadow, and T1 admits only one.
+- 🟨 C1 COCIRCUIT EQUIVALENCE, PROVED. Admissibility (affine rank `d-2`) is
+  linear rank `d-1` because every weight has coordinate sum `N != 0`, so an
+  admissible zero family is exactly a cocircuit zero set. A search may
+  therefore go straight to codimension one.
+- 🟦 AND THE INDEPENDENT BACKEND AGREES EXACTLY. A rank-pruned reverse search
+  sharing no code with the flat lattice reproduces 30, 362, 5,341 and 166,420
+  hyperplanes at `d = 5..8`, PAIR FOR PAIR in the `(h,z)` convention and not
+  merely by count, with orbit counts 8, 19, 56 from bare coordinate multisets
+  and no canonicalizer, and survivor counts 10, 64, 549, 6,607. Its
+  reverse-search node counts match the external C++ prototype exactly, which is
+  the strongest evidence available that the two are the same algorithm.
+- ❌ THE ARCHITECTURAL RECOMMENDATION IS DECLINED, and this is the finding. The
+  handoff asked for the direct route to become the preferred pipeline and for
+  work on the flat lattice to stop. Measured on one machine at `(3,8)`: direct
+  cocircuit 2,042,570 search nodes and 166,420 emitted hyperplanes, the
+  materialising lattice 1,369,357 stored flats, the orbit-canonical
+  augmentation 314 stored representatives. The direct search is UNSYMMETRIC, so
+  its object count is the raw hyperplane count, which is 10,004,154 at rank 9
+  and 889,205,792 at rank 10 against 494 and 2,705 orbits. It is an independent
+  cross-check at low rank and nothing more.
+- ❗ NO COMPLEXITY BOUND, measured rather than asserted. On random threshold
+  shadows the maximum branch count grows with rank, and the implementation's
+  profile-dominance precomputation is quadratic in the profile count. The
+  stress rows are decoding measurements and NOT candidate counts: the normals
+  are drawn uniformly and are not admissible.
+- ❗ THE PROPOSED NEXT GATE IS ALREADY IN THE REPOSITORY. The handoff's blind
+  orbit ladder 8, 19, 56, 231, 1337 for a symmetry-native external backend is
+  exactly `orbit_canonical_flats.json`. Reproducing it would test the external
+  backend, not the polytopes; the first rank where such a run would produce
+  anything new is `(3,11)`. Rambau arXiv:2607.05967 (July 2026) is real and
+  TOPCOM ships `1.2.0b`, a beta, so "implemented in TOPCOM 1.2" means in a
+  beta. Any such backend stays optional discovery infrastructure whose output
+  is re-derived locally, since CI cannot install it under the house rules.
 
 ## The root-budget boundary layer: half of an external claim survives (2026-08-08)
 
