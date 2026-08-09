@@ -29,13 +29,31 @@ def manifest_lines(data: Path) -> list[str]:
     ]
 
 
+class DuplicateManifestEntry(ValueError):
+    """The manifest lists one path twice.
+
+    Silently keeping the last of two entries would let a merge that duplicated
+    a line hide a stale digest behind a fresh one, which is the same class of
+    failure this checker exists to catch.
+    """
+
+
 def _entries(lines: list[str]) -> dict[str, str]:
-    entries = {}
+    entries: dict[str, str] = {}
+    duplicates: list[str] = []
     for line in lines:
         if not line.strip():
             continue
         digest, name = line.split(None, 1)
-        entries[name.strip().lstrip("*").removeprefix("./")] = digest
+        key = name.strip().lstrip("*").removeprefix("./")
+        if key in entries:
+            duplicates.append(key)
+        entries[key] = digest
+    if duplicates:
+        raise DuplicateManifestEntry(
+            "manifest lists these paths more than once: "
+            + ", ".join(sorted(set(duplicates)))
+        )
     return entries
 
 
@@ -46,7 +64,12 @@ def check(data: Path) -> int:
         return 1
 
     expected = _entries(manifest_lines(data))
-    recorded = _entries(manifest.read_text(encoding="utf-8").splitlines())
+    try:
+        recorded = _entries(manifest.read_text(encoding="utf-8").splitlines())
+    except DuplicateManifestEntry as error:
+        print(f"{manifest} is malformed: {error}", file=sys.stderr)
+        print("Run `make checksums`.", file=sys.stderr)
+        return 1
     if expected == recorded:
         print(f"{len(expected)} checksums match {data}")
         return 0

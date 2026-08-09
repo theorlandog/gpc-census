@@ -68,15 +68,26 @@ ARTIFACT_SUFFIXES = (".json", ".jsonl", ".csv", ".txt")
 # How tests name an artifact under results/data. Interpolated names (f-strings)
 # are deliberately not matched: those are the documented families, and the
 # forward direction already covers them through FAMILY_RULES.
+#
+# Both quote styles are accepted, because a guard written with single quotes
+# must not be able to slip past the scan. An AST walk would be exact; this is
+# the cheap ninety percent, and the ambiguity rule in ``orphaned_guards``
+# makes the residue fail loudly rather than pass silently.
+_QUOTE = r"[\"']"
+_SEGMENT = r"([^\"'{}]+?)"
 GUARD_REFERENCE_PATTERNS = (
     # DATA / "name.json"  and  DATA / "sub" / "name.json"
-    re.compile(r'DATA\s*/\s*"([^"{}]+?)"(?:\s*/\s*"([^"{}]+?)")?'),
+    re.compile(
+        rf"DATA\s*/\s*{_QUOTE}{_SEGMENT}{_QUOTE}"
+        rf"(?:\s*/\s*{_QUOTE}{_SEGMENT}{_QUOTE})?"
+    ),
     # ROOT / "results" / "data" / "name.json"
     re.compile(
-        r'"results"\s*/\s*"data"\s*/\s*"([^"{}]+?)"(?:\s*/\s*"([^"{}]+?)")?'
+        rf"{_QUOTE}results{_QUOTE}\s*/\s*{_QUOTE}data{_QUOTE}\s*/\s*"
+        rf"{_QUOTE}{_SEGMENT}{_QUOTE}(?:\s*/\s*{_QUOTE}{_SEGMENT}{_QUOTE})?"
     ),
     # a literal path fragment, "results/data/name.json"
-    re.compile(r'results/data/([\w./-]+)'),
+    re.compile(r"results/data/([\w./-]+)"),
 )
 
 # glob -> the marker that must appear in each of provenance, scripts, tests.
@@ -191,18 +202,42 @@ def orphaned_guards() -> list[dict]:
         name = relative.split("/")[-1]
         if name in SELF or name in GUARD_REFERENCE_EXEMPTIONS:
             continue
+        # An exact relative path is the only unambiguous form. Resolving
+        # "foo/mine.json" by finding "bar/mine.json" would recreate exactly the
+        # silent skip this direction exists to remove, so a reference carrying
+        # a directory must match that directory.
         if (DATA / relative).is_file():
             continue
-        if any(path.name == name for path in artifacts()):
-            continue
+        if "/" in relative:
+            why = (
+                "a guard test names this exact path and it is not under "
+                "results/data; a file with the same basename in another "
+                "directory does not satisfy it"
+            )
+        else:
+            matches = sorted(
+                path.relative_to(DATA).as_posix()
+                for path in artifacts()
+                if path.name == name
+            )
+            if len(matches) == 1:
+                continue
+            if len(matches) > 1:
+                why = (
+                    "a guard test names this artifact by basename alone and "
+                    f"{len(matches)} files match ({', '.join(matches)}), so "
+                    "which one the guard checks is ambiguous"
+                )
+            else:
+                why = (
+                    "a guard test names this artifact and it is not under "
+                    "results/data, so the guard skips instead of checking"
+                )
         findings.append(
             {
                 "artifact": relative,
                 "referenced_by": sorted(set(tests)),
-                "why": (
-                    "a guard test names this artifact and it is not under "
-                    "results/data, so the guard skips instead of checking"
-                ),
+                "why": why,
             }
         )
     return findings

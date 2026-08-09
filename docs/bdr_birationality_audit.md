@@ -4,6 +4,31 @@
 determinant-nonzero Hall-feasible candidate rows with published facethood as
 ground truth.
 
+> ## ❗ CORRECTION (2026-08-09), read before the numbers
+>
+> The first version of this document had the probabilistic evidence **exactly
+> backwards**. It claimed a `False` birationality verdict was weak and a `True`
+> was the strong side. The pinned source says the reverse.
+>
+> `is_not_contracted` samples matrices over `Q[i]` and returns True the moment
+> one has full column rank, breaking early. `Is_Ram_contracted` returns
+> **`False` as soon as any divisor yields such a witness**, and returns `True`
+> only after the search is exhausted without finding one. So:
+>
+> - **`False` = a witness was found.** Exact, and the direction that carries
+>   evidence. The sampling only affects whether the witness is *found*, never
+>   whether it is valid: a full-rank evaluation at a specific rational point is
+>   an exact lower bound on the generic rank.
+> - **`True` = no witness found.** Monte Carlo only.
+>
+> Worse, the first run left `random_deep` at the upstream default of **1**, a
+> single trial. The old headline "every published facet is birational" therefore
+> meant "one trial failed to find an obstruction for each facet".
+>
+> This version fixes the direction, sets `random_deep = 8` explicitly, and
+> repeats the whole sweep across three independent seeds. The claims are now
+> separated into the direction that proves and the direction that does not.
+
 **Artifacts:** `results/data/bdr_birationality_candidates.json` (the candidate
 population and the local column), `results/data/bdr_birationality_external.json`
 (the upstream verdicts, recorded because they need a SageMath runtime) and
@@ -31,45 +56,56 @@ is not distorted by facets the enumeration never produced.
 
 ## Result
 
-Pooled over 424 rows, with facethood as ground truth:
+### The strong direction: 228 rows carry an actual obstruction
+
+A `False` verdict is a found witness, so these rows are non-birational up to
+exact arithmetic, not merely suspected:
+
+| system | candidates | facets | witnessed NOT birational | of which facets |
+| --- | ---: | ---: | ---: | ---: |
+| `(3,7)` | 48 | 4 | 22 | **0** |
+| `(3,8)` | 136 | 31 | 70 | **0** |
+| `(3,9)` | 240 | 52 | 136 | **0** |
+| **pooled** | **424** | **87** | **228** | **0** |
+
+🟦 **No published facet ever produced a non-contraction witness**, across three
+seeds at depth 8. Every one of the 228 witnessed rows is a non-facet. That is
+the part of the result that carries evidence, and it is a genuine cross-check:
+this repository's published systems were produced without BDR, and the two
+pipelines share no code.
+
+### The Monte Carlo direction: what survived the search
+
+The remaining 196 rows returned `True` on every trial, meaning only that no
+obstruction was found:
 
 | criterion | tp | fp | fn | tn | recall on facets | precision |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `bdr_birational` | 87 | 109 | **0** | 228 | **1.000** | 0.444 |
+| `no_obstruction_found` | 87 | 109 | 0 | 228 | 1.000 | 0.444 |
 | `bdr_linear_triangular` | 7 | 16 | 80 | 321 | 0.080 | 0.304 |
 | `dm_fully_triangular` | 10 | 47 | 77 | 290 | 0.115 | 0.175 |
 
-Per system:
+⚠️ **What this does and does not license.**
 
-| system | criterion | tp | fp | fn | recall | precision |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `(3,7)` | birational | 4 | 22 | 0 | 1.000 | 0.154 |
-| | linear triangular | 1 | 5 | 3 | 0.250 | 0.167 |
-| | DM `1 x 1` | 0 | 14 | 4 | 0.000 | 0.000 |
-| `(3,8)` | birational | 31 | 35 | 0 | 1.000 | 0.470 |
-| | linear triangular | 3 | 5 | 28 | 0.097 | 0.375 |
-| | DM `1 x 1` | 5 | 15 | 26 | 0.161 | 0.250 |
-| `(3,9)` | birational | 52 | 52 | 0 | 1.000 | 0.500 |
-| | linear triangular | 3 | 6 | 49 | 0.058 | 0.333 |
-| | DM `1 x 1` | 5 | 18 | 47 | 0.096 | 0.217 |
+- **Necessity** (every facet is birational) is **empirically supported, not
+  proved**. 0 of 87 facets produced a witness under 3 seeds at depth 8, with
+  zero seed disagreement, which is meaningful evidence. It is not a proof,
+  because absence of a witness is not absence of an obstruction.
+- **Insufficiency** (109 non-facets are birational) is a **candidate claim
+  only**. Those are `True` verdicts, which is the weak direction, so some could
+  be false positives of the random search rather than genuinely birational rows.
+  The earlier document stated this as established. It is not.
 
-### Birationality is necessary, and it is not sufficient
+🟦 **Stability, which is why the Monte Carlo half is worth reporting at all.**
+Raising the depth from 1 to 8 and sweeping three independent seeds changed
+**nothing**: the per-system counts are identical to the single-trial run
+(26/66/104 survivors), and **zero rows disagreed across seeds**. A 24-fold
+increase in sampling moved no verdict. That does not convert Monte Carlo into
+proof, but it does say the residual uncertainty is small and concentrated
+somewhere sampling does not reach.
 
-🟦 **Zero false negatives, 87 of 87 facets, across all three systems.** Every
-published facet passes BDR's birationality test. The two pipelines share no code
-and this repository's published systems were produced without it, so this is an
-independent cross-check of both, on the criterion that actually decides.
-
-❌ **109 non-facets also pass**, so precision is 0.444 pooled. Birationality
-does not separate a facet from a valid-but-redundant row, because redundancy is
-not a birationality property. Deciding which of the birational rows survive is
-Farkas reduction, which is exactly the irreducible work
-`docs/bdr_constructor_comparison.md` measured: the step no external generator
-can remove without becoming circular.
-
-Precision climbs with rank, 0.154 to 0.470 to 0.500, while recall stays pinned
-at 1.000. So the criterion gets more useful as systems grow, and never at the
-cost of a missed facet in this scope.
+Precision on the surviving direction still climbs with rank, 0.154 to 0.470 to
+0.500, while recall stays at 1.000.
 
 ### Both triangularity readings are poor facet tests
 
@@ -93,13 +129,15 @@ exact arm does not run in this environment, for the reason measured and bisected
 in `results/data/bdr_external_benchmark.json`: libSingular fails above roughly
 48 ring variables and every system here needs 70 or more.
 
-A probabilistic birationality test can in principle reject a valid row, so a
-`False` verdict is weaker evidence than a `True` one. That asymmetry cuts in the
-favourable direction for the headline: the zero-false-negative result is built
-entirely from `True` verdicts on facets, which is the strong side. The 109 false
-positives are also `True` verdicts, so they are not an artefact of randomness
-either. Only the `False` column, which carries the negative results, is the
-weaker one.
+The asymmetry is the one stated in the correction above and it cuts **against**
+the headline, not for it. The 228 witnessed rows are exact. Everything built on
+`True` verdicts, which is both the 87 facets and the 109 non-facets, is Monte
+Carlo. Running the exact arm is what would settle it, and this environment
+cannot.
+
+Sampling used here: seeds `20260809`, `20260810`, `20260811` at
+`random_deep = 8`, against the upstream default of 1. Both are serialized into
+the artifact rather than left implicit.
 
 ## Scope
 
@@ -108,6 +146,19 @@ Hall feasibility and a nonzero tangent determinant, so these are not scores
 against the full Ressayre-admissible population; they are scores against the
 rows a screening pipeline actually has to decide between. Nothing here is
 uniform in `d`.
+
+## Binding, and why the join fails closed
+
+A missing external row would otherwise be scored as `unknown` and dropped from
+the recall and precision denominators, so an incomplete external run would look
+statistically better than a complete one. The join therefore refuses to score
+anything until it has proved, in `check_binding`:
+
+- the external artifact records the sha256 of the exact candidates file supplied;
+- the tau sets are equal in both directions, per system;
+- no row errored, and every row carries a verdict and a trial per seed.
+
+Any of those failing is a hard exit, not a downgrade.
 
 ## Verification
 
