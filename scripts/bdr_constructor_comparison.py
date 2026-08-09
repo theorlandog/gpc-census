@@ -76,10 +76,13 @@ EXTERNAL_PIN: dict[str, Any] = {
     "runtime_environment": "Python-Sage (SageMath), or the passagemath fork",
     "license": "MIT, read from the LICENSE file of the pinned revision",
     "relevant_case": "fermionic cone, GL_d(C) acting on wedge^r C^d, here r = 3",
+    # Both of these are overwritten at emit time from the completeness block,
+    # which is decided by whether the external measurements exist. They are the
+    # values that hold when they do not.
     "executed_here": False,
     "why_not_executed": [
-        "this benchmark measures wall clock and stage counts, and it was run "
-        "before the backend was ever fetched; no BDR timing appears in it",
+        "the external measurements artifact is absent; run "
+        "scripts/bdr_external_benchmark.py in a venv that has moment_cone",
     ],
     "reachability_correction": {
         "date": "2026-08-08",
@@ -593,6 +596,93 @@ def measure_system(n: int, d: int, *, workers: int = 1) -> dict[str, Any]:
     }
 
 
+EXTERNAL_BENCHMARK = REPO_ROOT / "results" / "data" / "bdr_external_benchmark.json"
+
+
+def _external_benchmark() -> dict[str, Any] | None:
+    """The BDR measurements, if they have been taken.
+
+    They live in a separate artifact because taking them needs a SageMath
+    runtime this package must never depend on. Their absence is what made this
+    benchmark INCOMPLETE; their presence is what retires that label.
+    """
+    if not EXTERNAL_BENCHMARK.is_file():
+        return None
+    return json.loads(EXTERNAL_BENCHMARK.read_text(encoding="utf-8"))
+
+
+def _head_to_head(by_system: dict[str, Any], external: dict[str, Any]) -> dict[str, Any]:
+    """End-to-end wall clock, this pipeline against BDR, on one machine.
+
+    NOT LIKE FOR LIKE, and the ratio must never be quoted without this. The
+    measured BDR arm is its probabilistic default, which is what its authors
+    ship; its exact arm cannot run in this environment, for a reason recorded
+    and bisected in the external artifact. This repository is exact everywhere
+    and ships a replayable certificate per row. The comparison therefore
+    favours BDR by the cost of the exactness it did not pay.
+    """
+    rows = {}
+    for system, arms in external["systems"].items():
+        local = by_system.get(system)
+        if local is None or not local["composition_supported"]:
+            continue
+        measured = arms["probabilistic"]
+        local_total = local["full_path"]["seconds"]["total"]
+
+        def _stage(record: dict[str, Any], name: str) -> float:
+            for stage in record["stages"]:
+                if stage["stage"] == name:
+                    return stage["wall_seconds"]
+            return 0.0
+
+        def _count(record: dict[str, Any], name: str) -> int | None:
+            for entry in record["stage_counts"]:
+                if entry["stage"] == name:
+                    return entry["pending"] + entry["validated"]
+            return None
+
+        candidate_generation = sum(
+            _stage(measured, name)
+            for name in (
+                "TauCandidatesStep",
+                "SubModuleConditionStep",
+                "StabilizerConditionStep",
+                "InequalityCandidatesStep",
+            )
+        )
+        rows[system] = {
+            "local_total_seconds": local_total,
+            "local_retained_rows": local["full_path"]["counts"]["retained_rows"],
+            "bdr_total_seconds": measured["total_wall_seconds_median"],
+            "bdr_total_seconds_spread": measured["total_wall_seconds_spread"],
+            "bdr_retained_rows": measured["retained_rows"],
+            "bdr_faster_by": local_total / measured["total_wall_seconds_median"],
+            "bdr_candidate_generation_seconds": round(candidate_generation, 4),
+            "bdr_candidate_rows_reaching_the_filters": _count(
+                measured, "TPiPreComputationStep"
+            ),
+            "bdr_birationality_seconds": _stage(measured, "BirationalityStep"),
+            "local_enumeration_seconds": local["full_path"]["seconds"]["enumeration"],
+            "local_screening_seconds": local["full_path"]["seconds"]["screening"],
+            "local_candidate_rows_screened": local["full_path"]["counts"][
+                "screened_candidate_rows"
+            ],
+        }
+    return {
+        "rows": rows,
+        "measured_arm": "probabilistic (the upstream default)",
+        "exact_arm_unavailable": external["protocol"]["exact_arm_unavailable"],
+        "caveat": external["protocol"]["caveat"],
+        "not_preregistered": external["not_preregistered"],
+        "how_to_read_it": (
+            "As the end-to-end cost of running each tool as shipped, on one "
+            "machine. Not as a statement about which algorithm is faster at "
+            "equal rigour, which this environment cannot measure because BDR's "
+            "exact arm does not run here."
+        ),
+    }
+
+
 def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[str, Any]:
     """Measure every requested system and score the pre-registered predictions."""
     measurements = [measure_system(n, d, workers=workers) for n, d in systems]
@@ -615,6 +705,54 @@ def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[
     rank8 = by_system.get("(3,8)")
     if rank8 is not None and not rank8["composition_supported"]:
         rank8 = None
+
+    external = _external_benchmark()
+    head_to_head = None if external is None else _head_to_head(by_system, external)
+    if head_to_head is None or not head_to_head["rows"]:
+        completeness = {
+            "external_backend_executed": False,
+            "label": "INCOMPLETE",
+            "what_prevented_it": EXTERNAL_PIN["why_not_executed"],
+            "reachability_correction": EXTERNAL_PIN["reachability_correction"],
+            "what_is_established_anyway": (
+                "an upper bound on the speedup any external candidate generator "
+                "can deliver under the local certification requirement, plus a "
+                "local recertification of every published row in the overlapping "
+                "systems"
+            ),
+            "what_is_still_missing": (
+                "BDR wall clock, candidate counts and per-stage figures. Run "
+                "scripts/bdr_external_benchmark.py in a virtual environment "
+                "that has moment_cone; see docs/bdr_linear_triangular_gate.md."
+            ),
+        }
+    else:
+        completeness = {
+            "external_backend_executed": True,
+            "label": "COMPLETE",
+            "external_measurements": "results/data/bdr_external_benchmark.json",
+            "external_generator": "scripts/bdr_external_benchmark.py",
+            "how_the_gap_was_closed": (
+                "The pinned backend was fetched at its revision, installed into "
+                "a throwaway virtual environment, and run end to end with every "
+                "stage of MomentConeStep timed and counted, in both its default "
+                "probabilistic arm and the symbolic arm that is comparable to "
+                "this repository's exact pipeline."
+            ),
+            "what_the_original_label_said": (
+                "that the backend could not be fetched or run in this "
+                "environment. That was false and untested; the accurate "
+                "statement was that this benchmark had not run it."
+            ),
+            "reachability_correction": EXTERNAL_PIN["reachability_correction"],
+            "what_remains_out_of_scope": (
+                "memory, and any statement uniform in d. The external arm is "
+                "also not an equally optimized control: different runtime, "
+                "different CPython, different algorithm. Wall clock is "
+                "comparable as end-to-end cost on one machine, not as a "
+                "measure of algorithmic quality."
+            ),
+        }
 
     predictions = [
         {
@@ -718,7 +856,11 @@ def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[
         "schema_version": SCHEMA_VERSION,
         "preregistration": "docs/prereg_bdr_constructor_comparison.md",
         "generator": "scripts/bdr_constructor_comparison.py",
-        "external_pin": EXTERNAL_PIN,
+        "external_pin": {
+            **EXTERNAL_PIN,
+            "executed_here": completeness["external_backend_executed"],
+            "benchmark_label": completeness["label"],
+        },
         "machine": {
             "platform": platform.platform(),
             "processor": platform.processor(),
@@ -731,24 +873,8 @@ def build_report(systems: tuple[tuple[int, int], ...], *, workers: int) -> dict[
         ),
         "systems": measurements,
         "predictions": predictions,
-        "benchmark_completeness": {
-            "external_backend_executed": False,
-            "label": "INCOMPLETE",
-            "what_prevented_it": EXTERNAL_PIN["why_not_executed"],
-            "reachability_correction": EXTERNAL_PIN["reachability_correction"],
-            "what_is_established_anyway": (
-                "an upper bound on the speedup any external candidate generator "
-                "can deliver under the local certification requirement, plus a "
-                "local recertification of every published row in the overlapping "
-                "systems"
-            ),
-            "what_is_still_missing": (
-                "BDR wall clock, candidate counts and per-stage figures. The "
-                "backend has since been run for the linear-triangular gate "
-                "(docs/bdr_linear_triangular_gate.md), but no timing "
-                "comparison has been made, so this benchmark stays INCOMPLETE."
-            ),
-        },
+        "benchmark_completeness": completeness,
+        "head_to_head": head_to_head,
     }
 
 

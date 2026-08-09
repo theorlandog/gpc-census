@@ -536,13 +536,17 @@ plethysm criterion feed Problem 7 below.
 - bdr_constructor_comparison.md: the external-constructor comparison. Bounds
   what any external candidate generator can remove under the local
   certification rule (1.82x, 6.27x, 16.38x at `(3,8)`), recertifies all 36
-  published rows of `(3,6)`, `(3,7)` and `(3,8)`, and labels the benchmark
-  INCOMPLETE because it took no BDR timing. ❗ Carries a correction: it
-  originally said the pinned backend could not be fetched or run here, which is
-  false and was never tested. See bdr_linear_triangular_gate.md.
+  published rows of `(3,6)`, `(3,7)` and `(3,8)`. 🟦 Now COMPLETE: the pinned
+  backend has been benchmarked end to end and BDR lands at 2.92x at (3,8),
+  under the 5.80x non-circular ceiling predicted before it ran. ❗ Carries a
+  correction: it originally said the pinned backend could not be fetched or run
+  here, which is false and was never tested. ⚠️ The measured arm is BDR's
+  probabilistic default because its exact arm does not run in this environment,
+  so the ratio is not like-for-like against this repository's exact pipeline.
   Pre-registration in prereg_bdr_constructor_comparison.md, P5 FAIL recorded;
-  artifact bdr_constructor_comparison.json; guard test
-  tests/test_bdr_constructor_comparison.py.
+  artifacts bdr_constructor_comparison.json and bdr_external_benchmark.json;
+  guard tests tests/test_bdr_constructor_comparison.py and
+  tests/test_bdr_external_benchmark.py.
 - bdr_linear_triangular_gate.md: GATE 2, and the first time the upstream BDR
   code has been executed in this repository. 🟦 The published irredundant
   systems are confirmed against an independent source at seven of the nine
@@ -1728,11 +1732,12 @@ scripts/root_budget_boundary.py; tests/test_root_budget_boundary.py]
   half-filling specific. The earlier note that particle-hole duality applies at
   three of nine census systems was about `Theta` as an INTERNAL involution, not
   a claim that the architecture needs half filling.
-- 🔬 Claims resting on the BDR implementation are verifiable here and mostly
-  still unverified. bdr_constructor_comparison.md said the pinned backend could
-  not be fetched or run in this environment; that is false, it was never tested,
-  and the backend has since been run for one filter. See
-  bdr_linear_triangular_gate.md.
+- 🟦 Claims resting on the BDR implementation are now verifiable AND largely
+  verified. bdr_constructor_comparison.md said the pinned backend could not be
+  fetched or run in this environment; that is false and was never tested. The
+  backend has since been fetched, run across seven census systems, and
+  benchmarked end to end. See bdr_linear_triangular_gate.md and the benchmark
+  entry below.
 
 ## The closure certificate: the layer above the sandwich (2026-08-08)
 
@@ -1935,6 +1940,43 @@ tests/test_bdr_linear_triangular_gate.py]
   single-job wall clock: (3,7) 4.7 s, (3,8) 9.6 s, (3,9) 19.6 s, (3,10) 155 s,
   (4,8) 8 s, (4,9) 80 s.
 - ⚠️ SCOPE: seven of nine census systems, and nothing is uniform in `d`.
+
+## The constructor benchmark is complete: BDR measured (2026-08-09)
+
+The gap that made `bdr_constructor_comparison` INCOMPLETE was BDR wall clock,
+candidate counts and stage figures. All three are now measured.
+[docs/bdr_constructor_comparison.md; results/data/bdr_external_benchmark.json;
+scripts/bdr_external_benchmark.py; tests/test_bdr_external_benchmark.py]
+
+- 🟦 MEASURED, idle machine, single worker, three repeats with the spread
+  reported. BDR totals (3,7) 0.81 s, (3,8) 6.80 s, (3,9) 40.43 s against local
+  2.35 s and 19.87 s at the first two: BDR is 2.90x and 2.92x faster end to end.
+- 🟦 THE PRE-REGISTERED BOUND HELD AGAINST THE REAL THING. The non-circular
+  ceiling on any external candidate generator was measured at 5.80x at (3,8)
+  before BDR was ever run. BDR measured 2.92x, inside it. The recommendation
+  not to integrate stands on the bounds, and the bounds survived contact.
+- 🟦 THE CANDIDATE-VOLUME QUESTION, previously OPEN, IS ANSWERED. At (3,8) BDR
+  reaches its filters with 173 candidate rows against this repository's 6,606,
+  taking 2.55 s against 7.40 s of local enumeration. That is an architectural
+  difference, not a constant factor, and it is why its total is lower despite a
+  slower runtime stack.
+- ⚠️ NOT LIKE FOR LIKE, and this travels with every ratio above. The arm that
+  runs is BDR's probabilistic default; this repository is exact everywhere and
+  ships a replayable certificate per row. BDR is faster partly because it did
+  not pay for exactness.
+- ❌ THE EXACT ARM DOES NOT RUN HERE, measured rather than assumed.
+  `Is_Ram_contracted` factorizes a univariate polynomial over the fraction field
+  of `V.QV2`, a ring in `2*binom(d,N)` variables (70, 112, 168 at the three
+  systems). libSingular in this passagemath build fails above 48 variables on
+  `z^2 - 1` itself and crashes outright from 64. `symbolic_int` is rejected by
+  both `Is_Ram_contracted` and `is_not_contracted`. So "which is faster at equal
+  rigour" is 🔬 OPEN and not closable in this environment.
+- 🟦 CLOSED BY SOURCE READ AND EXECUTION: the pinned revision's birationality
+  filter IS probabilistic by default, retrying `random_deep` times over `Q[i]`
+  and breaking on full rank. That was previously a secondary-source claim.
+- ⚠️ POST HOC. The pre-registration scored P1 to P6 on the local half only;
+  nothing external is scored against it, and a guard test asserts no prediction
+  record mentions BDR.
 
 ## Adjacent literature to respect
 

@@ -1,7 +1,10 @@
 {
   "benchmark_completeness": {
-    "external_backend_executed": false,
-    "label": "INCOMPLETE",
+    "external_backend_executed": true,
+    "external_generator": "scripts/bdr_external_benchmark.py",
+    "external_measurements": "results/data/bdr_external_benchmark.json",
+    "how_the_gap_was_closed": "The pinned backend was fetched at its revision, installed into a throwaway virtual environment, and run end to end with every stage of MomentConeStep timed and counted, in both its default probabilistic arm and the symbolic arm that is comparable to this repository's exact pipeline.",
+    "label": "COMPLETE",
     "reachability_correction": {
       "blockers_as_restated": [
         "plmlab.math.cnrs.fr, ea-icj.github.io, arxiv.org and cnrs.hal.science are refused by the egress proxy: TRUE, and not load bearing, because the code is mirrored on GitHub",
@@ -14,11 +17,8 @@
       "what_is_true": "the pinned revision was fetched and run. The GitHub mirror is served by the session's repository-attachment path even though direct HTTPS to github.com returns 403 through the egress proxy, and the upstream passagemath extra installs from PyPI into a throwaway virtual environment with no effect on this package's locked dependencies.",
       "what_was_claimed": "that the pinned implementation could not be fetched or run in this environment, on four blockers"
     },
-    "what_is_established_anyway": "an upper bound on the speedup any external candidate generator can deliver under the local certification requirement, plus a local recertification of every published row in the overlapping systems",
-    "what_is_still_missing": "BDR wall clock, candidate counts and per-stage figures. The backend has since been run for the linear-triangular gate (docs/bdr_linear_triangular_gate.md), but no timing comparison has been made, so this benchmark stays INCOMPLETE.",
-    "what_prevented_it": [
-      "this benchmark measures wall clock and stage counts, and it was run before the backend was ever fetched; no BDR timing appears in it"
-    ]
+    "what_remains_out_of_scope": "memory, and any statement uniform in d. The external arm is also not an equally optimized control: different runtime, different CPython, different algorithm. Wall clock is comparable as end-to-end cost on one machine, not as a measure of algorithmic quality.",
+    "what_the_original_label_said": "that the backend could not be fetched or run in this environment. That was false and untested; the accurate statement was that this benchmark had not run it."
   },
   "external_pin": {
     "authors": [
@@ -26,10 +26,10 @@
       "Roland Denis (INSMI-CNRS, ICJ)",
       "Nicolas Ressayre (ICJ, AGL)"
     ],
-    "benchmark_label": "INCOMPLETE",
+    "benchmark_label": "COMPLETE",
     "code_mirror": "github.com/ea-icj/moment_cone",
     "code_repository": "ea-icj/moment_cone at plmlab.math.cnrs.fr",
-    "executed_here": false,
+    "executed_here": true,
     "hal_record": "hal-05044759, version v3",
     "landing_page": "https://ea-icj.github.io/",
     "license": "MIT, read from the LICENSE file of the pinned revision",
@@ -52,10 +52,96 @@
     "relevant_case": "fermionic cone, GL_d(C) acting on wedge^r C^d, here r = 3",
     "runtime_environment": "Python-Sage (SageMath), or the passagemath fork",
     "why_not_executed": [
-      "this benchmark measures wall clock and stage counts, and it was run before the backend was ever fetched; no BDR timing appears in it"
+      "the external measurements artifact is absent; run scripts/bdr_external_benchmark.py in a venv that has moment_cone"
     ]
   },
   "generator": "scripts/bdr_constructor_comparison.py",
+  "head_to_head": {
+    "caveat": "Not an equally optimized control, and not a like-for-like one. The measured arm is BDR's probabilistic default while this repository is exact everywhere and ships a replayable certificate per row, so the comparison favours BDR by the cost of the exactness it did not pay. The exact arm could not be run here; see exact_arm_unavailable. Separately the stacks differ (CPython 3.11 under passagemath against CPython 3.14 with numpy and scipy) and the algorithms differ, so wall clock is an end-to-end cost on one machine, not a measure of algorithmic quality.",
+    "exact_arm_unavailable": {
+      "available": false,
+      "largest_variable_count_that_factors": 48,
+      "probe": [
+        {
+          "error": null,
+          "factors": true,
+          "variables": 16
+        },
+        {
+          "error": null,
+          "factors": true,
+          "variables": 32
+        },
+        {
+          "error": null,
+          "factors": true,
+          "variables": 40
+        },
+        {
+          "error": null,
+          "factors": true,
+          "variables": 48
+        },
+        {
+          "error": "NotImplementedError",
+          "factors": false,
+          "variables": 56
+        },
+        {
+          "error": "SingularError",
+          "factors": false,
+          "variables": 70
+        },
+        {
+          "error": "NotImplementedError",
+          "factors": false,
+          "variables": 112
+        }
+      ],
+      "smallest_variable_count_that_fails": 56,
+      "symbolic_int_is_not_an_alternative": "Is_Ram_contracted and is_not_contracted both raise ValueError for symbolic_int; it is not accepted by these code paths.",
+      "test_polynomial": "z^2 - 1 over Frac(QQ[x_0..x_n])",
+      "variables_needed": {
+        "(3,7)": 70,
+        "(3,8)": 112,
+        "(3,9)": 168
+      },
+      "why_it_matters": "Is_Ram_contracted factorizes a univariate polynomial over the fraction field of V.QV2, which has 2*binom(d,N) variables. Every system measured here needs more than the limit, so the exact arm of the upstream birationality test cannot be run in this environment."
+    },
+    "how_to_read_it": "As the end-to-end cost of running each tool as shipped, on one machine. Not as a statement about which algorithm is faster at equal rigour, which this environment cannot measure because BDR's exact arm does not run here.",
+    "measured_arm": "probabilistic (the upstream default)",
+    "not_preregistered": "These measurements are post hoc. The pre-registration in docs/prereg_bdr_constructor_comparison.md scored P1 to P6 on the local half only, and nothing here is scored against it.",
+    "rows": {
+      "(3,7)": {
+        "bdr_birationality_seconds": 0.2321,
+        "bdr_candidate_generation_seconds": 0.4559,
+        "bdr_candidate_rows_reaching_the_filters": 27,
+        "bdr_faster_by": 3.0824779314171677,
+        "bdr_retained_rows": 4,
+        "bdr_total_seconds": 0.8107,
+        "bdr_total_seconds_spread": 0.251,
+        "local_candidate_rows_screened": 548,
+        "local_enumeration_seconds": 0.9918139860001247,
+        "local_retained_rows": 4,
+        "local_screening_seconds": 0.8866685840002901,
+        "local_total_seconds": 2.498964858999898
+      },
+      "(3,8)": {
+        "bdr_birationality_seconds": 3.7183,
+        "bdr_candidate_generation_seconds": 2.551,
+        "bdr_candidate_rows_reaching_the_filters": 173,
+        "bdr_faster_by": 2.947263323918056,
+        "bdr_retained_rows": 32,
+        "bdr_total_seconds": 6.7974,
+        "bdr_total_seconds_spread": 0.8305,
+        "local_candidate_rows_screened": 6606,
+        "local_enumeration_seconds": 7.63937075100057,
+        "local_retained_rows": 31,
+        "local_screening_seconds": 9.678511154000262,
+        "local_total_seconds": 20.03372771800059
+      }
+    }
+  },
   "machine": {
     "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
     "processor": "x86_64",
@@ -117,7 +203,7 @@
     {
       "id": "P4",
       "independent_scope": 1,
-      "measured": 0.9325761059999422,
+      "measured": 1.227990790000149,
       "scope": 1,
       "statement": "oracle total for (3,8) is under five seconds",
       "verdict": "PASS"
@@ -125,7 +211,7 @@
     {
       "id": "P5",
       "independent_scope": 1,
-      "measured": 0.39216438857276903,
+      "measured": 0.3813254756445794,
       "scope": 1,
       "statement": "enumeration takes more than half the wall clock of the full (3,8) construction",
       "verdict": "FAIL"
@@ -133,7 +219,7 @@
     {
       "id": "P6",
       "independent_scope": 1,
-      "measured": 15.88005722934652,
+      "measured": 16.314232876289047,
       "scope": 1,
       "statement": "the (3,8) oracle ceiling is at least five",
       "verdict": "PASS"
@@ -165,9 +251,9 @@
         "method": "orbit_native_canonical_augmentation_screening_only",
         "seconds": {
           "composition": null,
-          "enumeration": 0.0903829969997787,
-          "screening": 0.09687996500042573,
-          "total": 0.18726296200020442
+          "enumeration": 0.11738152599991736,
+          "screening": 0.11970094699972833,
+          "total": 0.2370824729996457
         }
       },
       "oracle_path": {
@@ -253,8 +339,8 @@
         "seconds": {
           "composition": null,
           "enumeration": 0.0,
-          "screening": 0.0019542370000635856,
-          "total": 0.0019542370000635856
+          "screening": 0.002375591999225435,
+          "total": 0.002375591999225435
         },
         "supplied_rows": 1
       },
@@ -282,20 +368,20 @@
         "rows_removed_by_prefilter": 499,
         "rows_screened": 49,
         "seconds": {
-          "composition": 0.37047376000009535,
-          "enumeration": 0.6680123020000792,
-          "screening": 0.14091314100005548,
-          "total": 1.17939920300023
+          "composition": 0.49894907100042474,
+          "enumeration": 0.9918139860001247,
+          "screening": 0.1905485220004266,
+          "total": 1.681311579000976
         },
-        "speedup_if_external_enumeration_were_also_free": 3.4265191278326337,
-        "speedup_over_full": 1.485736969757583,
+        "speedup_if_external_enumeration_were_also_free": 3.6243271686037812,
+        "speedup_over_full": 1.4863187110653016,
         "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
       },
       "ceiling": {
         "candidate_rows_avoided": 544,
         "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
         "determinant_certifications_still_required": 4,
-        "value": 22.388146537656397
+        "value": 20.460013889826858
       },
       "composition_supported": true,
       "cross_path_agreement": {
@@ -323,7 +409,7 @@
           "unoriented_orbits": 19,
           "unresolved_rows": 0
         },
-        "enumeration_share_of_total": 0.38122528730474864,
+        "enumeration_share_of_total": 0.39688992921535327,
         "known_system_regression": {
           "available": true,
           "expected_count": 4,
@@ -337,10 +423,10 @@
         "method": "orbit_native_canonical_augmentation",
         "proved_complete": true,
         "seconds": {
-          "composition": 0.4140589209996506,
-          "enumeration": 0.6680123020000792,
-          "screening": 0.6701993689998744,
-          "total": 1.7522769980000703
+          "composition": 0.6204743590005819,
+          "enumeration": 0.9918139860001247,
+          "screening": 0.8866685840002901,
+          "total": 2.498964858999898
         },
         "status": "finalized_known_system_regression"
       },
@@ -643,10 +729,10 @@
           }
         ],
         "seconds": {
-          "composition": 0.06263810900009048,
+          "composition": 0.10160174499924324,
           "enumeration": 0.0,
-          "screening": 0.015628818000095634,
-          "total": 0.07826806900038719
+          "screening": 0.020535080999252386,
+          "total": 0.12213896199955343
         },
         "status": "finalized_known_system_regression",
         "supplied_rows": 4
@@ -675,20 +761,20 @@
         "rows_removed_by_prefilter": 6469,
         "rows_screened": 137,
         "seconds": {
-          "composition": 1.7497306109999045,
-          "enumeration": 5.8077043680000315,
-          "screening": 0.6570810790003634,
-          "total": 8.2145160580003
+          "composition": 2.348425614000007,
+          "enumeration": 7.63937075100057,
+          "screening": 0.8401791280002726,
+          "total": 10.82797549300085
         },
-        "speedup_if_external_enumeration_were_also_free": 6.153103707917656,
-        "speedup_over_full": 1.8028282895103773,
+        "speedup_if_external_enumeration_were_also_free": 6.282913480657062,
+        "speedup_over_full": 1.8501822183611605,
         "why_that_is_the_non_circular_bound": "an external generator cannot know which certified rows survive reduction without running the reduction, so it must emit at least the certified rows and this repository must screen and reduce them. The oracle ceiling is below this only because the oracle is handed the 31 final rows, which is circular at a new rank."
       },
       "ceiling": {
         "candidate_rows_avoided": 6575,
         "definition": "full_total / oracle_total; an upper bound on the speedup from replacing local candidate generation by any external generator whose rows are still certified locally",
         "determinant_certifications_still_required": 31,
-        "value": 15.88005722934652
+        "value": 16.314232876289047
       },
       "composition_supported": true,
       "cross_path_agreement": {
@@ -716,7 +802,7 @@
           "unoriented_orbits": 56,
           "unresolved_rows": 0
         },
-        "enumeration_share_of_total": 0.39216438857276903,
+        "enumeration_share_of_total": 0.3813254756445794,
         "known_system_regression": {
           "available": true,
           "expected_count": 31,
@@ -730,10 +816,10 @@
         "method": "orbit_native_canonical_augmentation",
         "proved_complete": true,
         "seconds": {
-          "composition": 2.015722955000001,
-          "enumeration": 5.8077043680000315,
-          "screening": 6.985929412000132,
-          "total": 14.809361934000208
+          "composition": 2.715838361000351,
+          "enumeration": 7.63937075100057,
+          "screening": 9.678511154000262,
+          "total": 20.03372771800059
         },
         "status": "finalized_known_system_regression"
       },
@@ -3027,10 +3113,10 @@
           }
         ],
         "seconds": {
-          "composition": 0.7858371799998167,
+          "composition": 1.04458607900051,
           "enumeration": 0.0,
-          "screening": 0.14673770299987154,
-          "total": 0.9325761059999422
+          "screening": 0.18340234300012526,
+          "total": 1.227990790000149
         },
         "status": "finalized_known_system_regression",
         "supplied_rows": 31
