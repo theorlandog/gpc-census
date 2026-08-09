@@ -484,6 +484,80 @@ theorem and its audit) live in the archive under their section names; the
 Levi identity rank_deficiency == stab - 1 (799/799) and the hard/soft
 plethysm criterion feed Problem 7 below.
 
+## Application probe: GPC geometry for quantum chemistry is a NO-GO (2026-08-09)
+
+A directed falsification test of the two proposed applications, certified
+active-space sufficiency and GPC-guided CI reduction, over 74 CASCI reference
+states and 281 model states. Verdict NO-GO; the diagnostic byproduct survives.
+[docs/chemistry_gpc_value_test.md; scripts/chemistry_gpc_value_test.py;
+results/data/chemistry_gpc_value_test.json;
+tests/test_chemistry_gpc_value_test.py; plots/]
+
+- ✅ THE PINNING SELECTION RULE NEEDS NONDEGENERACY, and that is the whole
+  story. Pinned implies `D(n) psi = 0` follows from stationarity of `D(lambda)`
+  plus first-order perturbation theory, which needs `lambda_i` simple.
+  🟦 Confirmed at 17 of 17 facets of (3,6), (3,7), (3,8), (4,8): minimizing a
+  facet slack lands at slack below 1e-15 with omitted weight below 1e-14.
+  ❗ And it FAILS on the census: the rule holds at only 49 of 643 attainers
+  passing the diagonality gate, and still fails at 421 of 643 after searching
+  every relabeling inside degenerate blocks. All 643 have degenerate spectra, so
+  the census cannot supply a nondegenerate test case. A CLOSED-SHELL state has
+  an exactly twofold degenerate spin-orbital spectrum, so chemistry's dominant
+  case sits exactly where the theorem does not apply.
+- 🟦 NO FACET ADMITS A ONE-SIDED OMITTED-WEIGHT BOUND, exhaustively. The exact
+  identity `D(lambda) = sum_I |c_I|^2 D(I)` bounds the weight outside the pinned
+  subspace only if every `D(I) >= 0`. Over the twelve known systems, (3,6)
+  through (7,10), **0 of 686 rows** qualify; every facet admits determinants with
+  `D(I) <= -1`. This is what kills the certification product, and it is a
+  computation, not an unclosed argument.
+- ❌ AND THE LOOPHOLE IS REALIZED. Minimizing `D` at prescribed omitted weight
+  reaches `D/W_out = 1.46e-6`, so any `W_out <= C D` needs `C > 6.9e5`; ten
+  recorded states carry over 10 percent of their weight outside the pinned
+  subspace at `D` as small as 6.3e-7. The mechanism is spectrum degeneracy: the
+  median minimum gap on the frontier is 9.8e-7. A physical counterexample too:
+  stretched H4 at Ms=1 has `D = 0.10` and `W_out = 1.00`.
+- ❗ THE BORLAND-DENNIS FLAGSHIP IS SCHMIDT'S THEOREM. With `n_alpha = 2`,
+  `n_beta = 1` in three spatial orbitals the state is a 3x3 bipartite pure state
+  of one alpha hole and one beta particle, so `lambda^alpha = 1 - lambda^beta`
+  and the slack is exactly `max(1 - 2 p_1, 0)` for the largest Schmidt
+  coefficient. Both verified to 8e-16 on 300 random sector states. Every
+  three-electron doublet ground state tested was exactly pinned, and the famous
+  three-determinant carrier is the Schmidt decomposition. The reduction is
+  attributable to fixed `N` and `Sz`, not to polytope geometry.
+- ❗ EXACT PINNING CAN REMOVE NOTHING. At (3,8) and (5,8) with Ms=1/2, a fifth to
+  a third of random sector states are exactly pinned, and in 100 percent of those
+  cases the selection rule keeps the ENTIRE symmetry sector. The rows involved
+  say only "the alpha occupations sum to n_alpha" once the alpha natural orbitals
+  land at the right sorted positions.
+- ❌ THE REDUCTION IS 3.33x, NOT 10x. After particle number, Sz and point group,
+  the extra cut from nontrivial GPC geometry has median 3.33x, p90 6.67x, max
+  18x over 355 records. On the correlated half of the chemistry set the median
+  energy error at that cut is 65.8 mEh against 0.53 mEh for a coefficient
+  selection of the same dimension. The `>= 10x` with `< 1 mEh` criterion is met
+  by 4 of 355 records, all weakly correlated.
+- 🟦 WHAT SURVIVES. The facet distance predicts equal-dimension selected-CI error
+  with log-log correlation 0.81 against 0.24 to 0.30 for the largest virtual
+  occupation, `sum n(1-n)` and the occupation entropy, so it is a good
+  multireference diagnostic. ⚠️ The target is evaluated at the GPC-chosen
+  dimension, so the comparison is favourable and not fully independent. Near
+  equilibrium the facet rule finds the ORACLE subspace (BeH2 CAS(4,4): 36
+  determinants to 3, 0.05 mEh, the same three the exact coefficients pick), which
+  is the regime where nobody needs help. The rigorous subspace bound
+  `E_S - E_0 <= w (E_max - E_0)/(1-w)`, proved by the vanishing cross term, is
+  respected on all 354 finite records and loose by a median factor 2.24.
+- 🔬 SPIN-ADAPTED POLYTOPES WOULD NOT RESCUE IT, measured rather than argued. The
+  exact fixed-`S=0` body of spatial occupations, mapped by 120-direction support
+  sampling, is strictly smaller than what the census implies through the doubling
+  map in 57 of 120 directions at (4,8) and 73 of 120 at (4,10), but with gap
+  medians 7.8e-8 and 3.4e-5 and maxima 4.2e-2 and 9.1e-2, against physical
+  quasipinning distances of 1e-2 to 9e-1. It would repair the nondegeneracy
+  hypothesis and nothing else that is binding. ⚠️ The gaps are upper bounds since
+  the fixed-`S` support comes from local maximization.
+- ⚠️ SCOPE. Chemistry records need PySCF, which is not a project dependency and
+  is installed separately, so those rows are not regenerable in CI; the
+  polytope-side sections and the guard test are. Active spaces are limited to
+  `d <= 10`, so nothing here is measured beyond CAS(n,5).
+
 ## Source documents in docs/
 
 - equivariant_khovanskii_sagbi.md: THE HIGHEST-WEIGHT SEMIGROUP DOES NOT
