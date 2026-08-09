@@ -2328,10 +2328,12 @@ which per row. Written by `scripts/profile_native_frontier.py`, guarded by
 `tests/test_profiles.py`, documented in `docs/profile_native_generation.md` and
 `docs/generator_frontier_refinement.md`. It enumerates the `S_d` orbits of
 admissible exterior-weight hyperplanes from their value profiles rather than by
-walking the closed-flat lattice, using two proved reductions: Theorem A, which
+walking the closed-flat lattice, using three proved reductions: Theorem A, which
 decides Ressayre admissibility in `R^r` from the occupancy patterns of zero
-value sum plus a mobility condition, and Lemma L, which names a profile by a
-multiplicity composition, an integer level set and one target.
+value sum plus a mobility condition; Lemma L, which names a profile by a
+multiplicity composition, an integer level set and one target; and Theorem S,
+which shows the pattern set determines the values and hence bounds the level
+spread at every rank.
 
 CALIBRATION. Ranks 6 to 10 reproduce every independently known population
 exactly, from routes sharing no code: unoriented orbits 8, 19, 56, 231, 1337 and
@@ -2345,9 +2347,14 @@ re-tested against the materialized weight affine rank on every profile at ranks
 misses any of these exits nonzero.
 
 CONDITIONALITY. The enumeration is complete only up to a bound on the level
-spread, and no such bound is proved. The saturation protocol plateaus at the
-known orbit count at ranks 6 to 10, with realized maxima 3, 4, 6, 10 and 14. It
-does NOT plateau at rank 11 by spread 20, so the rank 11, 12 and 13 rows are
+spread. Theorem S proves such a bound exists at every rank and gives it
+explicitly, `2 sqrt(r-1) (N sqrt 2)^(r-2)`; that quantity is about `2.8e6` at
+rank 11 against a realized maximum of 20, so it settles decidability and buys no
+completeness here. Every run below therefore stops at an affordable spread
+rather than a proved one, and the saturation protocol still carries the claim.
+It plateaus at the known orbit count at ranks 6 to 10, with realized maxima
+3, 4, 6, 10 and 14.
+It does NOT plateau at rank 11 by spread 20, so the rank 11, 12 and 13 rows are
 lower bounds on the candidate populations, not closed counts, and the
 `(3,11)` candidate universe is not closed by this artifact.
 
@@ -2357,8 +2364,8 @@ not a candidate-completeness rule. At rank 10 a one-hole budget reaches 838 of
 
 ## profile_spread_cost.json (the rank cost of a wide level set)
 
-EVIDENCE FOR AN UNRESOLVED CONJECTURE, and labelled as such in the artifact.
-Written by `scripts/profile_spread_cost.py`, guarded by
+EVIDENCE ABOUT A RATE, not about an existence, and labelled as such in the
+artifact. Written by `scripts/profile_spread_cost.py`, guarded by
 `tests/test_profile_spread_cost.py`, documented in
 `docs/profile_native_generation.md`. It measures `D(W)`, the least ambient rank
 carrying an admissible profile of level spread `W`, by minimising
@@ -2370,10 +2377,13 @@ searched.
 SCOPE, and its direction is the whole point. The minimum is taken over profiles
 with at most `max_classes` classes, seven by default. A profile with more
 classes could be cheaper, so the table is an UPPER bound on `D` and cannot prove
-a spread bound at any rank on its own. What it shows is the mechanism behind
-Conjecture S: cost climbs monotonically from 4 at `W = 1` to 13 at `W = 22`,
-over 21 spreads with no dip, so a wide level set does cost rank rather than
-being free. `W = 19` carries no primitive profile at all in that range.
+a spread bound at any rank on its own. It no longer needs to: Theorem S proves
+the spread is bounded at every rank by a route this table has no part in. What
+the table shows is the RATE, which is the half still open. Cost climbs
+monotonically from 4 at `W = 1` to 13 at `W = 22`, over 21 spreads with no dip,
+so a wide level set does cost rank rather than being free, and it costs roughly
+linearly where Theorem S guarantees only an exponential bound. `W = 19` carries
+no primitive profile at all in that range.
 
 CROSS-CHECK against `generator_frontier_refinement.json`, which records the
 exact realized maximum spread at ranks 6 to 10 as 3, 4, 6, 10 and 14. A profile
@@ -2381,5 +2391,8 @@ of spread `W` existing at rank `d` forces the true `D(W) <= d`, so the ceiling
 must never sit below a realized rank. Zero violations. The two computations
 share the Theorem A predicate and nothing else.
 
-NOT CLAIMED. This does not prove Conjecture S, and it says nothing about
-facets: a profile is a candidate orbit.
+NOT CLAIMED. This does not bound the spread, and must not be borrowed to stand
+in for the bound that Theorem S does prove: the rate here looks linear, the
+proved bound is exponential, and the gap between them is the open problem rather
+than something this table settles. It says nothing about facets either: a
+profile is a candidate orbit.

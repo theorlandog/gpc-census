@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
-"""Measure ``D(W)``, the rank cost of a wide level set, as evidence for Conjecture S.
+"""Measure ``D(W)``, the rank cost of a wide level set, and how fast it climbs.
 
 Writes ``results/data/profile_spread_cost.json``.
 
-WHY THIS EXISTS.  ``docs/profile_native_generation.md`` states Conjecture S: the
-least ambient rank ``D(W)`` carrying an admissible profile of level spread ``W``
-is unbounded, equivalently the admissible profiles at each rank have bounded
-spread.  That conjecture is the whole remaining gap between the profile
-enumerator and a candidate-coverage theorem, and the table supporting it was
-quoted in prose with nothing regenerating it.  This script is that generator.
+WHY THIS EXISTS.  ``D(W)`` is the least ambient rank carrying an admissible
+profile of level spread ``W``.  This table was quoted in prose with nothing
+regenerating it; this script is that generator.
+
+WHAT IT IS EVIDENCE FOR, which has changed.  It was written as evidence for
+Conjecture S, that the admissible profiles at each rank have bounded spread.
+Theorem S in ``docs/profile_native_generation.md`` now proves that outright, by
+a route this table has no part in: the pattern set determines the values, so
+finitely many level vectors survive per rank.  The surviving question is
+quantitative, whether the true maximum spread is polynomial in ``r``, because
+the bound Theorem S gives is exponential and about ``2.8e6`` at ``r = 11``
+against a realized maximum of 20.  This table measures the RATE, which is the
+open half, rather than the existence, which is closed.
 
 WHAT IS COMPUTED, and it is exact within its scope.  Theorem A says
 admissibility depends on the multiplicity vector only through
@@ -26,10 +33,11 @@ more classes could be cheaper, so the restricted minimum is an UPPER bound:
 
     D(W)  <=  D_{r <= max_classes}(W)
 
-So this table cannot prove a spread bound at any given rank on its own.  What it
-can do, and what Conjecture S needs, is exhibit the mechanism: that the cost of a
-wide level set climbs with the width rather than staying flat.  The artifact
-labels the column accordingly and the guard test pins the label.
+So this table cannot prove a spread bound at any given rank on its own, and it
+does not have to: Theorem S proves one.  What it can do is exhibit the rate, that
+the cost of a wide level set climbs with the width rather than staying flat, and
+climbs roughly linearly where Theorem S only guarantees exponential.  The
+artifact labels the column accordingly and the guard test pins the label.
 
 CROSS-CHECK.  ``results/data/generator_frontier_refinement.json`` records the
 realized maximum spread at ranks 6 to 10, from the complete enumerations, and
@@ -186,7 +194,8 @@ def main() -> int:
     rows = [best[spread] for spread in sorted(best)]
 
     # D restricted to a class bound is nondecreasing here; that is measured, not
-    # assumed, because a dip would weaken the conjecture rather than support it.
+    # assumed, because a dip would mean the cost of width does not climb, which
+    # is the rate claim this table exists to support.
     costs = [row["cost"] for row in rows]
     nondecreasing = all(
         left <= right for left, right in zip(costs, costs[1:], strict=False)
@@ -236,8 +245,10 @@ def main() -> int:
             "with more classes can only be cheaper",
             "cost_is_nondecreasing_in_spread": "EXACTLY VERIFIED ON FINITE "
             "POPULATION, within the class and spread bounds",
-            "conjecture_s": "UNRESOLVED; this table exhibits the mechanism and "
-            "does not prove the bound",
+            "spread_is_bounded_at_each_rank": "PROVED by Theorem S "
+            "(docs/profile_native_generation.md), independently of this table; "
+            "what stays open is whether the true bound is polynomial in r, and "
+            "this table measures the rate rather than the existence",
         },
         "rows": rows,
         "cost_is_nondecreasing": nondecreasing,
@@ -245,9 +256,10 @@ def main() -> int:
         "counters": stats,
         "seconds": round(time.time() - started, 1),
         "nonclaims": [
-            "This does not prove Conjecture S. The table is an upper bound on D "
+            "This does not bound the spread. The table is an upper bound on D "
             "restricted to a class bound, so it cannot exclude a cheap profile "
-            "with more classes.",
+            "with more classes. Theorem S bounds the spread; this table does "
+            "not and never could.",
             "It says nothing about facets. A profile is a candidate orbit.",
         ],
     }

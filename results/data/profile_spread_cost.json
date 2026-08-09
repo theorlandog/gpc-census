@@ -22,7 +22,7 @@
   "generated_by": "scripts/profile_spread_cost.py",
   "guarded_by": "tests/test_profile_spread_cost.py",
   "nonclaims": [
-    "This does not prove Conjecture S. The table is an upper bound on D restricted to a class bound, so it cannot exclude a cheap profile with more classes.",
+    "This does not bound the spread. The table is an upper bound on D restricted to a class bound, so it cannot exclude a cheap profile with more classes. Theorem S bounds the spread; this table does not and never could.",
     "It says nothing about facets. A profile is a candidate orbit."
   ],
   "parameters": {
@@ -32,12 +32,12 @@
     "particle_number": 3
   },
   "proof_labels": {
-    "conjecture_s": "UNRESOLVED; this table exhibits the mechanism and does not prove the bound",
     "cost_is_nondecreasing_in_spread": "EXACTLY VERIFIED ON FINITE POPULATION, within the class and spread bounds",
-    "restricted_cost_is_an_upper_bound_on_D": "PROVED, since a profile with more classes can only be cheaper"
+    "restricted_cost_is_an_upper_bound_on_D": "PROVED, since a profile with more classes can only be cheaper",
+    "spread_is_bounded_at_each_rank": "PROVED by Theorem S (docs/profile_native_generation.md), independently of this table; what stays open is whether the true bound is polynomial in r, and this table measures the rate rather than the existence"
   },
   "provenance": {
-    "commit": "6e85b4d09eb56ce3b65048911e54fbc2332707d2",
+    "commit": "643acf344f6493cab7f699e5106c7eb1f9eb73a6",
     "dirty": true,
     "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
     "python": "3.14.0rc2"
@@ -338,6 +338,6 @@
     }
   ],
   "schema_version": 1,
-  "seconds": 10.1,
+  "seconds": 9.9,
   "what": "D(W), the least ambient rank carrying an admissible profile of level spread W, minimised over profiles with at most max_classes classes."
 }
