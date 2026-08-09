@@ -159,10 +159,64 @@ disagreement about which small set it is.
 
 ## Scope
 
-Four systems, all at `d <= 8`, because those are the fermionic reference
-inequalities upstream ships. `(3,9)` is not covered: upstream has no shipped
-reference data for it, and generating it would mean running the full BDR
-pipeline rather than one filter. Nothing here is uniform in `d`.
+Nothing here is uniform in `d`.
+
+> **SCOPE CORRECTION (2026-08-09), one day later.** The first version of this
+> section said four systems at `d <= 8`, because `(3,9)` "would mean running the
+> full BDR pipeline rather than one filter". That is true and it is not an
+> obstacle: the full pipeline runs `(3,9)` in about 20 seconds. The gate is
+> being extended to every census system the upstream algorithm accepts, with
+> rows for the unshipped ones computed by running `moment_cone(V)` end to end.
+> The section below records the pipeline and the one system it declines; the
+> comparison tables above still cover only the four shipped systems until the
+> extended artifact lands.
+
+## Running the whole pipeline, and what it costs
+
+The upstream pipeline is seven stages in `MomentConeStep.apply`:
+`GeneralStabilizerDimensionCheck`, `TauCandidatesStep` (`find_1PS`),
+`SubModuleConditionStep`, `StabilizerConditionStep`,
+`InequalityCandidatesStep` (`List_Inv_Ws_Mod`), `TPiPreComputationStep`, then
+the chosen filters, then `ExportStep`. The filter list is a menu, not a fixed
+chain: `PiDominancy`, `LinearTriangular`, `BKRCondition`, `Birationality`,
+`Grobner`, defaulting to `PiDominancy` then `Birationality`. Note that
+`LinearTriangular`, the subject of this gate, is **off by default**, which is
+what an optional partial validator should be.
+
+At `(3,7)` the stage-by-stage attrition is 56 tau candidates, 33 after the
+submodule condition, 7 after the stabilizer condition, 27 inequality candidates,
+18 after `PiDominancy`, 4 after `Birationality`.
+
+Birationality is `Is_Ram_contracted` in `ramification.py`. It walks the strong
+Bruhat covering relations of `w`, builds each boundary divisor and then `R_0`,
+and asks for full column rank of a matrix sliced out of the `T_Pi` 3-tensor.
+Both `--ram_schub_method` and `--ram0_method` default to **probabilistic**,
+retrying `random_deep` times over `Q[i]` and breaking on full rank; `symbolic`
+and `symbolic_int` are available. The recorded runs here use a fixed seed so the
+computed systems are reproducible, and the set comparison against the published
+system is what actually checks them.
+
+Worth naming because it changes how the two methods compare: BDR's birationality
+test is a **rank** condition on a rectangular matrix, not a determinant of a
+square one. That is a different object from the square Ressayre tangent matrix
+this repository factorizes, which is part of why the two triangularity criteria
+came out incomparable above.
+
+## `(3,6)` is out of scope for the upstream algorithm
+
+Borland-Dennis is the one census system BDR declines, and it says so itself:
+
+```text
+ValueError: The general stabilizer of K in V is too big.
+Namely of dimension 2. The program does not work in this case.
+```
+
+That is `GeneralStabilizerDimensionCheck` enforcing BDR Condition C, generic
+isotropy of dimension one. It is a scope limit of their method, not a
+disagreement between the two pipelines, and it is recorded in the artifact under
+`out_of_scope_upstream` so the hole in the cross-validation is documented rather
+than silent. `(3,6)` is covered here by the exhaustive reference gate in
+`docs/stage1_ressayre_3_6.md`.
 
 ## Verification
 

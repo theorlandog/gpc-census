@@ -1,5 +1,5 @@
 {
- "canonical_sha256_without_this_field": "3a10393fd3ba290b383d253e2cca8556de476b386751085a2828f59ea030b600",
+ "canonical_sha256_without_this_field": "6a42a8b52e960d44b8de8ab30b9a2fef04772104a92e26976ead38ee71da3887",
  "criteria_agree": false,
  "dm_triangularity_is_necessary_for_bdr": false,
  "dm_triangularity_is_sufficient_for_bdr": false,
@@ -37,6 +37,7 @@
    "dm_fully_triangular_rows": 0,
    "external_only": [],
    "external_rows": 4,
+   "external_source": "shipped reference data",
    "joined_analysable_rows": 4,
    "orbitals": 7,
    "particle_number": 3,
@@ -158,6 +159,7 @@
     ]
    ],
    "external_rows": 32,
+   "external_source": "shipped reference data",
    "joined_analysable_rows": 31,
    "orbitals": 8,
    "particle_number": 3,
@@ -1048,6 +1050,7 @@
    "dm_fully_triangular_rows": 0,
    "external_only": [],
    "external_rows": 4,
+   "external_source": "shipped reference data",
    "joined_analysable_rows": 4,
    "orbitals": 7,
    "particle_number": 4,
@@ -1169,6 +1172,7 @@
     ]
    ],
    "external_rows": 16,
+   "external_source": "shipped reference data",
    "joined_analysable_rows": 15,
    "orbitals": 8,
    "particle_number": 4,
