@@ -172,6 +172,11 @@ Two stronger checks than counting run as well.
 - **Against the definition.** Every profile at `(3,6)` through `(3,9)` and at
   `(4,7)`, `(4,8)` is re-tested by materializing its weights and computing the
   affine rank. Theorem A and the definition disagree nowhere.
+- **End to end.** `enumerate_profile_survivor_taus` feeds the existing survivor
+  stage from profile orbits instead of lattice orbits, and the emitted tau SETS
+  are equal to `orbit_native.enumerate_orbit_survivor_taus` at `(3,6)`, `(3,7)`
+  and `(3,8)`, 64, 549 and 6,607 rows. The replacement is a replacement, not a
+  parallel count.
 
 `(4,7)` and `(4,8)` matter because they are a different particle number, so the
 reduction is not an `N = 3` accident.

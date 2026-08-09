@@ -439,3 +439,60 @@ def spread_saturation(
             }
         )
     return tuple(out)
+
+
+def enumerate_profile_survivor_taus(
+    n: int, d: int, max_spread: int, *, level_cache: dict | None = None
+):
+    """Emit exactly the taus that pass the Ressayre trace test, orbit natively.
+
+    This is ``orbit_native.enumerate_orbit_survivor_taus`` with its first stage
+    replaced: orbit representatives come from the profile enumeration rather
+    than from the closed-flat lattice.  Everything after that is the existing
+    machinery, imported rather than reimplemented, so the two routes can be
+    compared row for row.
+
+    Returns ``(taus, counts)``.  ``counts`` carries the conservation data:
+    survivors predicted by the Gaussian multinomial and survivors produced.  A
+    disagreement raises, because a generator emitting the right number of wrong
+    arrangements would silently replace the candidate list.
+
+    One profile is one ORIENTED orbit, so orientations are not re-derived here.
+    A self-paired orbit, meaning one whose normal multiset is closed under
+    negation, appears once in the profile list and is therefore emitted once,
+    which is the same accounting the lattice route does by hand.
+    """
+    from .bdr import primitive_tau
+    from .orbit_canonical import generate_trace_survivors, trace_survivor_count
+    from .ressayre import _level_sets
+
+    profiles = enumerate_admissible_profiles(n, d, max_spread, level_cache=level_cache)
+    weights = exterior_weights(n, d)
+    taus: list[tuple[int, ...]] = []
+    predicted = 0
+    for profile in profiles:
+        h, z = profile_normal(profile)
+        below = len(_level_sets(weights, h, z)[1])
+        expected = trace_survivor_count(h, below)
+        predicted += expected
+        produced = 0
+        for arrangement in generate_trace_survivors(h, below):
+            taus.append(primitive_tau(tuple(z - n * value for value in arrangement)))
+            produced += 1
+        if produced != expected:
+            raise AssertionError(
+                "generated survivor count disagrees with the Gaussian "
+                "multinomial, which means one of the two routes is wrong"
+            )
+    if len(set(taus)) != len(taus):
+        raise AssertionError(
+            "profile-native generation produced duplicate taus, which means an "
+            "orientation was counted twice"
+        )
+    counts = {
+        "oriented_orbits": len(profiles),
+        "predicted_survivors": predicted,
+        "produced_survivors": len(taus),
+        "max_spread": max_spread,
+    }
+    return tuple(taus), counts

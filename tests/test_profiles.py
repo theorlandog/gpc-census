@@ -339,3 +339,22 @@ def test_generator_frontier_refinement_records_the_rank_eleven_non_saturation():
     frontier = {row["rank"]: row for row in artifact["frontier"]}
     assert frontier[11]["max_spread"] == ladder[-1]["max_spread"]
     assert not frontier[11]["spread_bound_is_slack"]
+
+
+def test_profile_native_survivor_taus_match_the_lattice_route():
+    """The two orbit sources must feed the pipeline identical rows.
+
+    ``orbit_native`` walks the closed-flat lattice; ``profiles`` writes the
+    orbits down.  Everything downstream is shared, so equality of the emitted
+    tau SETS is the end-to-end check that the replacement is a replacement.
+    """
+    from gpc_census.generation.orbit_native import enumerate_orbit_survivor_taus
+    from gpc_census.generation.profiles import enumerate_profile_survivor_taus
+
+    for d, expected in ((6, 64), (7, 549), (8, 6607)):
+        lattice = enumerate_orbit_survivor_taus(3, d)
+        mine, counts = enumerate_profile_survivor_taus(3, d, SPREAD)
+        assert counts["predicted_survivors"] == counts["produced_survivors"]
+        assert len(mine) == expected
+        assert set(mine) == set(lattice.survivor_taus)
+        assert counts["oriented_orbits"] == ORIENTED_ORBITS[d]

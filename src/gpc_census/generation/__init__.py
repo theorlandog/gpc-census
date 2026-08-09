@@ -52,6 +52,7 @@ from .model import GeneratedSystem, IntegralConstraint, RessayreCertificate
 from .profiles import (
     ValueProfile,
     enumerate_admissible_profiles,
+    enumerate_profile_survivor_taus,
     orbit_normals,
     profile_is_admissible,
     profile_normal,
@@ -114,6 +115,7 @@ __all__ = [
     "enumerate_admissible_hyperplanes_by_flats",
     "enumerate_admissible_profiles",
     "enumerate_cocircuit_hyperplanes",
+    "enumerate_profile_survivor_taus",
     "full_dimension_certificate",
     "generate_3_6",
     "generate_fixed_n3_reference_rank",

@@ -30,9 +30,10 @@ Pulled `main` at `59ba1b5`. Full suite green as above. `numpy 2.4.1`,
 `scipy 1.18.0`, `sympy 1.14.0`, `pulp`, `ortools` per `uv.lock`, Python 3.14.0rc2.
 
 Counts were re-derived rather than inherited from prose. The reference
-closed-flat enumerator was re-run at `(3,6)`, `(3,7)`, `(3,8)`, `(4,7)`: 362,
-5,341, 166,420 hyperplanes in 0.2, 5.6 and 234 seconds, giving 8, 19 and 56
-unoriented orbits, matching `docs/orbit_canonical_flats.md`.
+closed-flat enumerator was re-run at `(3,6)`, `(3,7)` and `(3,8)`: 362, 5,341
+and 166,420 hyperplanes in 0.2, 5.6 and 234 seconds, giving 8, 19 and 56
+unoriented orbits, matching `docs/orbit_canonical_flats.md`. It was also run at
+`(4,7)`, which is not in that table, as the cross-particle-number reference.
 
 ## Priority 1 and 7: the orbit stage no longer needs the flat lattice
 
