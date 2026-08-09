@@ -507,7 +507,7 @@ tests/test_chemistry_gpc_value_test.py; plots/]
 - 🟦 NO FACET ADMITS A ONE-SIDED OMITTED-WEIGHT BOUND, exhaustively. The exact
   identity `D(lambda) = sum_I |c_I|^2 D(I)` bounds the weight outside the pinned
   subspace only if every `D(I) >= 0`. Over the twelve known systems, (3,6)
-  through (7,10), **0 of 686 rows** qualify; every facet admits determinants with
+  through (7,10), **0 of 786 rows** qualify; every facet admits determinants with
   `D(I) <= -1`. This is what kills the certification product, and it is a
   computation, not an unclosed argument.
 - ❌ AND THE LOOPHOLE IS REALIZED. Minimizing `D` at prescribed omitted weight

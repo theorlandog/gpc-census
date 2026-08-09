@@ -67,6 +67,8 @@ def test_no_known_facet_admits_a_one_sided_weight_bound(payload):
     fresh = cgvt.selection_subspace_census()
     stored = {row["system"]: row for row in payload["selection_subspace_scaling"]}
     assert len(fresh) == len(stored)
+    # the population size is quoted in the write-up, so pin it
+    assert sum(row["n_gpc_rows"] for row in fresh) == 786
     for row in fresh:
         ref = stored[row["system"]]
         assert row["rows_with_nonnegative_values"] == 0

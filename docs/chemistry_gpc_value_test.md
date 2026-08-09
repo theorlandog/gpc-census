@@ -53,7 +53,8 @@ is the variational argument: a pinned state minimizes `D(lambda)` over the unit
 sphere, first-order perturbation theory gives `d lambda_i = d gamma_ii` only if
 `lambda_i` is simple, and stationarity then forces `D(n) psi = mu psi` with
 `mu = D(lambda) = 0`. Measured: pushing a random state onto a facet by
-minimizing the slack lands at slack below 1e-15 with omitted weight below 1e-14,
+minimizing the slack lands at slack at most 1.5e-15 with omitted weight at most
+3.3e-15,
 at **17 of 17** facets tested across `(3,6)`, `(3,7)`, `(3,8)` and `(4,8)`, with
 minimum spectrum gaps from 8e-3 to 8e-2.
 
@@ -82,7 +83,7 @@ bounds the weight outside the pinned subspace **only if every `D(I)` is
 nonnegative**, in which case `W_out <= D / min_{I not in S} D(I)` is a proof.
 
 Checked exhaustively over the twelve systems the repository knows, `(3,6)`
-through `(7,10)`, **686 rows in total: not one has all `D(I)` nonnegative.**
+through `(7,10)`, **786 rows in total: not one has all `D(I)` nonnegative.**
 Every facet admits determinants with `D(I) <= -1`, so weight can sit outside the
 pinned subspace while pushing the slack *down*. There is no elementary bound to
 be had at any facet of any known system. (`selection_subspace_scaling` in the
@@ -256,7 +257,7 @@ inaccurate exactly where it is hard.
 | criterion | result |
 |---|---|
 | >= 10x additional reduction after ordinary symmetry with < 1 mEh error on genuinely correlated examples | **FAIL.** 4 of 355 records reach 10x with sub-mEh error and all four are weakly correlated (BeH2 near equilibrium, Li in a CAS(3,5)). On the correlated half the median reduction is 3.33x at 65.8 mEh. |
-| a rigorous GPC-derived omitted-weight or energy bound materially tighter than occupation truncation | **FAIL.** No facet of any known system admits a one-sided bound (0 of 686 rows), and the directed hunt produces strongly pinned states with large omitted weight. |
+| a rigorous GPC-derived omitted-weight or energy bound materially tighter than occupation truncation | **FAIL.** No facet of any known system admits a one-sided bound (0 of 786 rows), and the directed hunt produces strongly pinned states with large omitted weight. |
 | reliably identifies bad active spaces that simple diagnostics miss | **PARTIAL PASS, with a caveat.** The facet distance predicts the equal-dimension top-k CI error far better than standard occupation diagnostics (log-log correlation 0.81 against 0.24 to 0.30 for `lambda_{N+1}`, `sum n(1-n)` and the occupation entropy). The caveat is real: the target is evaluated at the GPC-chosen dimension, so the comparison is not fully independent, and `D` is mechanically tied to `W_out` through the exact identity. |
 | the reduction becomes more valuable as the active space grows | **MIXED.** The a-priori pinned-subspace fraction does fall with rank, from 0.375 at `(3,6)` to 0.056 at `(5,10)`, and the measured `C/F` rises to 8.67x at `(4,10)`. But the omitted weight rises with it, from 1e-16 at `(3,6)` to 0.17 at `(5,10)`, and the energy error from 0 to 58 to 70 mEh. What grows is the cut, not the accuracy. |
 
@@ -327,7 +328,7 @@ loose by a median factor of 2.24 (p90 3.44), which is tight enough to be useful.
 The bound is not the problem. The input is. Two failures compound:
 
 1. `w` is not obtainable from `D` (Experiment 3), and the elementary route is
-   closed at every facet of every known system (0 of 686 rows). Restricting to a
+   closed at every facet of every known system (0 of 786 rows). Restricting to a
    symmetry sector rescues it in **23 of 355** records, which is not a method.
 2. Even granting `w` exactly, the resulting certificate is far too loose to sell.
    Of 355 records, **46** have a true energy error below 1 mEh and **41** have a
