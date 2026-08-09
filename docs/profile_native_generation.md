@@ -181,6 +181,53 @@ Two stronger checks than counting run as well.
 `(4,7)` and `(4,8)` matter because they are a different particle number, so the
 reduction is not an `N = 3` accident.
 
+## Cost, against the two routes `docs/cocircuit_chow_decoder.md` measured
+
+That document benchmarked three enumerators reaching the same codimension-one
+objects at `(3,8)`, declined the direct cocircuit route, and named the open
+question:
+
+> The cheaper experiment, and the one that does not add a dependency, is to ask
+> whether the canonical-augmentation enumerator's known cost concentration, 78
+> percent of `(3,9)` time in the top level, can be attacked directly.
+
+This is that experiment, and the answer is that the concentration disappears
+rather than being attacked: an orbit is a sorted multiset, so the top level
+needs no canonicalization at all. Same machine as that table,
+`Linux-6.18.5-fc-v20-x86_64`, Python 3.14.0rc2:
+
+| Enumerator at `(3,8)` | Objects it must hold | Seconds |
+| --- | ---: | ---: |
+| direct cocircuit reverse search | 2,042,570 search nodes, 166,420 hyperplanes | 278.7 |
+| materialising closed-flat lattice | 1,369,357 flats | 140.3 |
+| orbit-canonical augmentation | 314 orbit representatives | 10.1 |
+| **profile enumeration** | **109 oriented orbits** | **2.4** |
+
+The first three rows are quoted from that document. The fourth is a cold run,
+no cross-rank cache.
+
+**The seconds column is the least interesting part of this table, and it should
+not be read as the finding.** That document's caveat cuts both ways: its
+cocircuit backend was a first implementation, and so is this one. The object
+column is what does not depend on optimization effort. The profile route holds
+the ANSWER and nothing else, where augmentation holds 314 representatives
+spread across every level of a lattice it must still traverse.
+
+That is why the gap widens rather than staying a constant factor. At `(3,9)`,
+11.2 seconds cold against 401. At `(3,10)`, 51.7 seconds cold against a 520
+second augmentation run that was restored from checkpoint rather than run
+straight through, so that pair is indicative rather than a clean comparison. At
+`(3,11)` augmentation does not finish, which is the rank the cocircuit document
+identifies as the first where a new backend would produce anything the
+repository does not already have.
+
+Two things this does NOT license. It is not a claim that the cocircuit work is
+superseded: that document's decoder and its two theorems are about a different
+object, and its cocircuit backend remains an independent low-rank cross-check
+of exactly the population enumerated here. And a faster orbit stage does not
+close `(3,11)`, because the spread bound below is unproved and the arrangement
+layer past it is untouched.
+
 ## A target-rank check that does not need the spread bound
 
 Whatever the spread bound turns out to be, rows the repository has already

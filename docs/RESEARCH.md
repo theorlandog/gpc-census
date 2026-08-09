@@ -1115,6 +1115,15 @@ tests/test_chemistry_gpc_value_test.py; plots/]
   screening_orbit_structure.md proves verdicts are not orbit invariants. Rank 13
   is reachable by the same script but is not in the shipped artifact, so its
   scratch numbers are not quoted as a result.
+  🟦 It also answers the open question cocircuit_chow_decoder.md left, whether
+  the augmentation enumerator's cost concentration (78 percent of (3,9) time in
+  the top level) can be attacked without a new dependency: it disappears, since
+  an orbit is a sorted multiset and the top level needs no canonicalization.
+  Same machine, (3,8): direct cocircuit 278.7 s holding 2,042,570 search nodes,
+  materialising lattice 140.3 s holding 1,369,357 flats, augmentation 10.1 s
+  holding 314 representatives, profile enumeration 2.4 s holding 109 oriented
+  orbits. Both cocircuit and profile backends are first implementations, so the
+  object column is the finding and the seconds column is not a fair race.
   [docs/profile_native_generation.md; docs/generator_frontier_refinement.md;
   src/gpc_census/generation/profiles.py; scripts/profile_native_frontier.py;
   results/data/generator_frontier_refinement.json; tests/test_profiles.py]

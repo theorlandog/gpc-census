@@ -46,6 +46,21 @@ because a sorted multiset is already canonical, so the rank-9 canonicalizer's
 841,328 leaves on the top level, which were 78 percent of that run, simply do
 not occur.
 
+`docs/cocircuit_chow_decoder.md`, which landed on `main` while this branch was
+open, asked exactly this question and left it open:
+
+> The cheaper experiment, and the one that does not add a dependency, is to ask
+> whether the canonical-augmentation enumerator's known cost concentration, 78
+> percent of `(3,9)` time in the top level, can be attacked directly.
+
+The concentration does not need attacking, it disappears. Extending that
+document's `(3,8)` cost table on the same machine: direct cocircuit reverse
+search 278.7 s holding 2,042,570 search nodes, materialising flat lattice
+140.3 s holding 1,369,357 flats, orbit-canonical augmentation 10.1 s holding 314
+representatives, profile enumeration **2.4 s holding 109 oriented orbits**. The
+object column is the finding; both cocircuit and profile backends are first
+implementations, so neither seconds column is a fair race.
+
 Calibrated against every population the repository already knew:
 
 | rank | unoriented | oriented | self-paired | trace-alive | trace survivors |
