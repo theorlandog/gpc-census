@@ -163,3 +163,100 @@ touch either binding failure. It does not create a one-sided bound (Experiment
 cannot move a boundary sitting 1e-2 away by an amount of order 1e-8 to 1e-2.
 And the correlated regime it would be sold for is exactly where spatial
 occupations cluster near 1 and the degeneracy returns.
+
+## Experiment 1: what the GPC subspace actually costs and buys
+
+74 chemistry reference states (CASCI in an active space, treated as the exact
+state of its `(N, d)` problem) and 281 model states. The chain is
+
+    A  full C(d,N)
+    B  + fixed Sz
+    C  + point group
+    D  + freezing of exactly saturated Pauli rows
+    E  + GPC equality selection rules
+    F  + the nearest nontrivial GPC facet's selection rule
+
+`D` never fires in chemistry (no active-space occupation is exactly 0 or 1) and
+`E` fires only at `(3,6)`, the one system whose polytope is not full dimensional.
+So in practice the chain is `A -> B -> C -> F`, and the number that matters is
+`C/F`: the reduction attributable to nontrivial GPC geometry after ordinary
+symmetry has been used.
+
+Chemistry only, medians per system (`csf` columns are spin-adapted dimensions):
+
+| (N,d) | n | A/B (Sz) | B/C (point group) | C/F (GPC) | csf C/F | W_out | dE (mEh) | dE top-k (mEh) |
+|---|---|---|---|---|---|---|---|---|
+| (3,6)  |  9 | 2.22 | 1.80 | 1.67 | 2.00 | 2e-16 | 0.00 | 0.00 |
+| (3,8)  |  5 | 2.33 | 2.00 | 1.00 | 1.00 | 1e-16 | 0.00 | 0.00 |
+| (3,10) |  5 | 2.40 | 1.92 | 2.00 | 2.67 | 2.8e-5 | 0.04 | 0.01 |
+| (4,8)  | 40 | 1.94 | 1.80 | 3.33 | 4.00 | 2.4e-2 | 23.95 | 0.18 |
+| (4,10) |  5 | 2.10 | 1.92 | 8.67 | 9.33 | 1.4e-1 | 69.58 | 6.07 |
+| (5,10) |  5 | 2.52 | 1.92 | 4.00 | 6.50 | 1.7e-1 | 56.44 | 7.38 |
+| (6,10) |  5 | 2.10 | 1.92 | 4.00 | 9.33 | 1.7e-1 | 58.07 | 9.01 |
+
+Over all 355 records the reduction beyond ordinary symmetry has median 3.33x,
+90th percentile 6.67x and maximum 18x. It never reaches 10x with an energy error
+inside chemical accuracy on a correlated system.
+
+## Experiment 2: GPC against generic sparsity at the same dimension
+
+Each GPC subspace of dimension `k` is compared with the best `k` determinants of
+the same symmetry sector chosen by: the exact CI coefficients (an oracle a user
+does not have), the independent-particle occupation ranking, excitation rank
+from the leading determinant, and 40 random symmetry-compatible subsets.
+
+Chemistry, energy error in mEh, 74 records:
+
+| selector | median | p90 | max |
+|---|---|---|---|
+| GPC facet | 10.67 | 133.6 | 608.3 |
+| top-k CI coefficients | 0.12 | 13.1 | 326.7 |
+| occupation ranking | 21.45 | 137.5 | 439.5 |
+| excitation rank | 23.94 | 178.7 | 439.5 |
+| random subset, median of 40 | 31.21 | 176.5 | 439.5 |
+| random subset, best of 40 | 3.06 | 90.8 | 287.9 |
+
+GPC beats the occupation ranking and beats a typical random subset (69 of 74).
+It does not beat the coefficient oracle (25 of 74, median error 5.05x larger),
+and it beats the *best* of 40 random subsets only 33 times out of 74, which is
+worse than a coin flip.
+
+The split by correlation strength is the finding. On the weakly correlated half
+GPC is superb: at BeH2/CAS(4,4) near equilibrium it cuts 36 determinants to 3
+with 0.05 mEh error and selects **exactly the same three determinants the
+coefficient oracle selects**, beating occupation ranking and random selection by
+40x to 70x. On the strongly correlated half (the half with larger `sum n(1-n)`,
+37 records) the reduction is still only 3.33x median and the GPC error is 65.8
+mEh median against 0.53 mEh for the oracle at the same dimension, with only 8 of
+37 inside chemical accuracy.
+
+GPC selection is therefore accurate exactly where the calculation is easy and
+inaccurate exactly where it is hard.
+
+## Experiment 5, part three: the attribution, stated plainly
+
+- reduction from particle number and Sz: about 2x (1.94 to 2.52);
+- further reduction from point group: about 1.8x to 2.0x where a point group
+  exists;
+- further reduction from Pauli saturation: 1.00x, it never fires;
+- further reduction from GPC equalities: 2.5x at `(3,6)` and 1.00x everywhere
+  else, because `(3,6)` is the only tabulated system with equalities;
+- **further reduction uniquely attributable to nontrivial GPC geometry: median
+  3.33x, and it costs 24 to 70 mEh on correlated systems.**
+
+## Success and failure criteria, scored
+
+| criterion | result |
+|---|---|
+| >= 10x additional reduction after ordinary symmetry with < 1 mEh error on genuinely correlated examples | **FAIL.** 4 of 355 records reach 10x with sub-mEh error and all four are weakly correlated (BeH2 near equilibrium, Li in a CAS(3,5)). On the correlated half the median reduction is 3.33x at 65.8 mEh. |
+| a rigorous GPC-derived omitted-weight or energy bound materially tighter than occupation truncation | **FAIL.** No facet of any known system admits a one-sided bound (0 of 686 rows), and the directed hunt produces strongly pinned states with large omitted weight. |
+| reliably identifies bad active spaces that simple diagnostics miss | **PARTIAL PASS, with a caveat.** The facet distance predicts the equal-dimension top-k CI error far better than standard occupation diagnostics (log-log correlation 0.81 against 0.24 to 0.30 for `lambda_{N+1}`, `sum n(1-n)` and the occupation entropy). The caveat is real: the target is evaluated at the GPC-chosen dimension, so the comparison is not fully independent, and `D` is mechanically tied to `W_out` through the exact identity. |
+| the reduction becomes more valuable as the active space grows | **MIXED.** The a-priori pinned-subspace fraction does fall with rank, from 0.375 at `(3,6)` to 0.056 at `(5,10)`, and the measured `C/F` rises to 8.67x at `(4,10)`. But the omitted weight rises with it, from 1e-16 at `(3,6)` to 0.17 at `(5,10)`, and the energy error from 0 to 58 to 70 mEh. What grows is the cut, not the accuracy. |
+
+| failure criterion | triggered? |
+|---|---|
+| GPC reduction mostly duplicates spin/symmetry | Partly. At `(3,6)` entirely; elsewhere the GPC step is a genuine extra 2x to 9x. |
+| GPC-selected spaces perform no better than generic equal-size truncations | Yes against the coefficient oracle and against best-of-40 random; no against a typical random subset or the occupation ranking. |
+| quasipinning poorly predicts omitted norm | Yes as a guarantee, no as a correlation. |
+| useful bounds too loose to matter | Yes. |
+| benefits disappear away from toy systems | Yes: they disappear as soon as correlation is strong. |
